@@ -1,0 +1,259 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:ns0="http://ws.wso2.org/dataservice" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://ws.wso2.org/dataservice">
+    <wsdl:documentation/>
+    <wsdl:types>
+        <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://ws.wso2.org/dataservice">
+            <xs:element name="DataServiceFault" type="xs:string"/>
+            <xs:element name="REQUEST_STATUS" type="xs:string"/>
+            <xs:element name="DATA_SERVICE_RESPONSE">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:any minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="CerrarAviso">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="NAVISO" nillable="true" type="xs:int"/>
+                        <xs:element name="IDMAT" nillable="true" type="xs:string"/>
+                        <xs:element name="TCIERRE" nillable="true" type="xs:string"/>
+                        <xs:element name="CNOTA" nillable="true" type="xs:string"/>
+                        <xs:element name="STATUSDEST" nillable="true" type="xs:int"/>
+                        <xs:element name="DEUDA" nillable="true" type="xs:int"/>
+                        <xs:element name="ADICIONAL" nillable="true" type="xs:int"/>
+                        <xs:element name="IDMANTEN" nillable="true" type="xs:int"/>
+                        <xs:element name="BRANCH" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ErrorCA" type="ns0:ErrorCA"/>
+            <xs:complexType name="ErrorCA">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="rowErrorCA" type="ns0:rowErrorCA"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="rowErrorCA">
+                <xs:sequence>
+                    <xs:element name="return_code" nillable="true" type="xs:integer"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="AplazarAviso">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="NAVISO" nillable="true" type="xs:int"/>
+                        <xs:element name="GBLIDUSR" nillable="true" type="xs:string"/>
+                        <xs:element name="IDAPLAZA" nillable="true" type="xs:string"/>
+                        <xs:element name="FHASTA" nillable="true" type="xs:string"/>
+                        <xs:element name="CNOTA" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ErrorAA" type="ns0:ErrorAA"/>
+            <xs:complexType name="ErrorAA">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="rowErrorAA" type="ns0:rowErrorAA"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="rowErrorAA">
+                <xs:sequence>
+                    <xs:element name="return_code" nillable="true" type="xs:integer"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="ReasignarAviso">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="NAVISO" nillable="true" type="xs:int"/>
+                        <xs:element name="IDEMPLEADO" nillable="true" type="xs:string"/>
+                        <xs:element name="GBLIDUSR" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ErrorRA" type="ns0:ErrorRA"/>
+            <xs:complexType name="ErrorRA">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="rowErrorRA" type="ns0:rowErrorRA"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="rowErrorRA">
+                <xs:sequence>
+                    <xs:element name="return_code" nillable="true" type="xs:integer"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="CerrarAvisoRequest">
+        <wsdl:part name="parameters" element="ns0:CerrarAviso"/>
+    </wsdl:message>
+    <wsdl:message name="CerrarAvisoResponse">
+        <wsdl:part name="parameters" element="ns0:ErrorCA"/>
+    </wsdl:message>
+    <wsdl:message name="DataServiceFault">
+        <wsdl:part name="parameters" element="ns0:DataServiceFault"/>
+    </wsdl:message>
+    <wsdl:message name="AplazarAvisoRequest">
+        <wsdl:part name="parameters" element="ns0:AplazarAviso"/>
+    </wsdl:message>
+    <wsdl:message name="AplazarAvisoResponse">
+        <wsdl:part name="parameters" element="ns0:ErrorAA"/>
+    </wsdl:message>
+    <wsdl:message name="ReasignarAvisoRequest">
+        <wsdl:part name="parameters" element="ns0:ReasignarAviso"/>
+    </wsdl:message>
+    <wsdl:message name="ReasignarAvisoResponse">
+        <wsdl:part name="parameters" element="ns0:ErrorRA"/>
+    </wsdl:message>
+    <wsdl:portType name="SP_AVISOS_OPERACIONESPortType">
+        <wsdl:operation name="CerrarAviso">
+            <wsdl:documentation>ES: Cerrar_Aviso</wsdl:documentation>
+            <wsdl:input message="ns0:CerrarAvisoRequest" wsaw:Action="urn:CerrarAviso"/>
+            <wsdl:output message="ns0:CerrarAvisoResponse" wsaw:Action="urn:CerrarAvisoResponse"/>
+            <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:CerrarAvisoDataServiceFault"/>
+        </wsdl:operation>
+        <wsdl:operation name="AplazarAviso">
+            <wsdl:documentation>ES: Aplazar_Aviso</wsdl:documentation>
+            <wsdl:input message="ns0:AplazarAvisoRequest" wsaw:Action="urn:AplazarAviso"/>
+            <wsdl:output message="ns0:AplazarAvisoResponse" wsaw:Action="urn:AplazarAvisoResponse"/>
+            <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:AplazarAvisoDataServiceFault"/>
+        </wsdl:operation>
+        <wsdl:operation name="ReasignarAviso">
+            <wsdl:documentation>ES: Reasignar_Aviso</wsdl:documentation>
+            <wsdl:input message="ns0:ReasignarAvisoRequest" wsaw:Action="urn:ReasignarAviso"/>
+            <wsdl:output message="ns0:ReasignarAvisoResponse" wsaw:Action="urn:ReasignarAvisoResponse"/>
+            <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:ReasignarAvisoDataServiceFault"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="SP_AVISOS_OPERACIONESSOAP11Binding" type="ns0:SP_AVISOS_OPERACIONESPortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="CerrarAviso">
+            <soap:operation soapAction="urn:CerrarAviso" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="AplazarAviso">
+            <soap:operation soapAction="urn:AplazarAviso" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="ReasignarAviso">
+            <soap:operation soapAction="urn:ReasignarAviso" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="SP_AVISOS_OPERACIONESSOAP12Binding" type="ns0:SP_AVISOS_OPERACIONESPortType">
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="CerrarAviso">
+            <soap12:operation soapAction="urn:CerrarAviso" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap12:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="AplazarAviso">
+            <soap12:operation soapAction="urn:AplazarAviso" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap12:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="ReasignarAviso">
+            <soap12:operation soapAction="urn:ReasignarAviso" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap12:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="SP_AVISOS_OPERACIONESHttpBinding" type="ns0:SP_AVISOS_OPERACIONESPortType">
+        <http:binding verb="POST"/>
+        <wsdl:operation name="CerrarAviso">
+            <http:operation location="CerrarAviso"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="AplazarAviso">
+            <http:operation location="AplazarAviso"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ReasignarAviso">
+            <http:operation location="ReasignarAviso"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="SP_AVISOS_OPERACIONES">
+        <wsdl:port name="SOAP11Endpoint" binding="ns0:SP_AVISOS_OPERACIONESSOAP11Binding">
+            <soap:address location="http://10.2.144.63:9763/services/SP_AVISOS_OPERACIONES.SOAP11Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="LOCALSOAP11Endpoint" binding="ns0:SP_AVISOS_OPERACIONESSOAP11Binding">
+            <soap:address location="local:///services/SP_AVISOS_OPERACIONES.LOCALSOAP11Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="SecureSOAP11Endpoint" binding="ns0:SP_AVISOS_OPERACIONESSOAP11Binding">
+            <soap:address location="https://10.2.144.63:9443/services/SP_AVISOS_OPERACIONES.SecureSOAP11Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="LOCALSOAP12Endpoint" binding="ns0:SP_AVISOS_OPERACIONESSOAP12Binding">
+            <soap12:address location="local:///services/SP_AVISOS_OPERACIONES.LOCALSOAP12Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="SecureSOAP12Endpoint" binding="ns0:SP_AVISOS_OPERACIONESSOAP12Binding">
+            <soap12:address location="https://10.2.144.63:9443/services/SP_AVISOS_OPERACIONES.SecureSOAP12Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="SOAP12Endpoint" binding="ns0:SP_AVISOS_OPERACIONESSOAP12Binding">
+            <soap12:address location="http://10.2.144.63:9763/services/SP_AVISOS_OPERACIONES.SOAP12Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="HTTPEndpoint" binding="ns0:SP_AVISOS_OPERACIONESHttpBinding">
+            <http:address location="http://10.2.144.63:9763/services/SP_AVISOS_OPERACIONES.HTTPEndpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="SecureHTTPEndpoint" binding="ns0:SP_AVISOS_OPERACIONESHttpBinding">
+            <http:address location="https://10.2.144.63:9443/services/SP_AVISOS_OPERACIONES.SecureHTTPEndpoint/"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

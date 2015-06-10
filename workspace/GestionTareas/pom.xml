@@ -27,6 +27,8 @@
 		<maven-celerio-plugin.outputDir>${project.basedir}</maven-celerio-plugin.outputDir>
 		<hibernate.version>4.2.6.Final</hibernate.version>
 		<spring.version>3.2.2.RELEASE</spring.version>
+		<slf4j.version></slf4j.version>
+		
 		<spring-security.version>3.1.4.RELEASE</spring-security.version>
 		<jsf-api.version>2.1.21</jsf-api.version>
 		<!-- ORIGINAL <primefaces.version>3.5</primefaces.version> -->
@@ -172,6 +174,21 @@
 			<version>${logback.version}</version>
 			<scope>runtime</scope>
 		</dependency>
+		
+				<!-- Logging with SLF4J & LogBack -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>${logback.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>

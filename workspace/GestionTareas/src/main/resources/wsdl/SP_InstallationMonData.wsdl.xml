@@ -1,0 +1,2620 @@
+<wsdl2:description xmlns:wsdl2="http://www.w3.org/ns/wsdl"
+	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wrpc="http://www.w3.org/ns/wsdl/rpc"
+	xmlns:tns="http://ws.wso2.org/dataservice" xmlns:wsoap="http://www.w3.org/ns/wsdl/soap"
+	xmlns:ns0="http://ws.wso2.org/dataservice" xmlns:wsdlx="http://www.w3.org/ns/wsdl-extensions"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:whttp="http://www.w3.org/ns/wsdl/http"
+	targetNamespace="http://ws.wso2.org/dataservice">
+	<wsdl2:documentation />
+	<wsdl2:types>
+		<xs:schema attributeFormDefault="unqualified"
+			elementFormDefault="qualified" targetNamespace="http://ws.wso2.org/dataservice">
+			<xs:element name="DataServiceFault" type="xs:string" />
+			<xs:element name="REQUEST_STATUS" type="xs:string" />
+			<xs:element name="DATA_SERVICE_RESPONSE">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:any minOccurs="0" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getDatosTransmision">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="numinst" nillable="true" type="xs:string" />
+						<xs:element name="country" nillable="true" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getDatosTransmisionResults" type="ns0:getDatosTransmisionResults" />
+			<xs:complexType name="getDatosTransmisionResults">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="getDatosTransmisionResult" type="ns0:getDatosTransmisionResult" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="getDatosTransmisionResult">
+				<xs:sequence>
+					<xs:element name="error" nillable="true" type="xs:integer" />
+					<xs:element name="version" nillable="true" type="xs:string" />
+					<xs:element name="panel" nillable="true" type="xs:string" />
+					<xs:element name="telefono1" nillable="true" type="xs:string" />
+					<xs:element name="tipoTelefono1" nillable="true" type="xs:string" />
+					<xs:element name="operador1" nillable="true" type="xs:string" />
+					<xs:element name="telefono2" nillable="true" type="xs:string" />
+					<xs:element name="tipoTelefono2" nillable="true" type="xs:string" />
+					<xs:element name="operador2" nillable="true" type="xs:string" />
+					<xs:element name="status" nillable="true" type="xs:string" />
+					<xs:element name="dtmf" nillable="true" type="xs:string" />
+					<xs:element name="correo" nillable="true" type="xs:string" />
+					<xs:element name="cidTransmisor" nillable="true" type="xs:string" />
+					<xs:element name="direccion" nillable="true" type="xs:string" />
+					<xs:element name="name" nillable="true" type="xs:string" />
+					<xs:element name="aka" nillable="true" type="xs:string" />
+					<xs:element name="panelType" nillable="true" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="getServiceRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="svrq" nillable="true" type="xs:int" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getServiceRequestResults" type="ns0:getServiceRequestResults" />
+			<xs:complexType name="getServiceRequestResults">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="getServiceRequestResult" type="ns0:getServiceRequestResult" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="getServiceRequestResult">
+				<xs:sequence>
+					<xs:element name="sins" nillable="true" type="xs:integer" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="inet_installation_upd">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="s_ins" nillable="true" type="xs:int" />
+						<xs:element name="stamp" nillable="true" type="xs:int" />
+						<xs:element name="ins_no" nillable="true" type="xs:string" />
+						<xs:element name="deal_id" nillable="true" type="xs:string" />
+						<xs:element name="sub_deal" nillable="true" type="xs:string" />
+						<xs:element name="alaid1" nillable="true" type="xs:string" />
+						<xs:element name="alaid2" nillable="true" type="xs:string" />
+						<xs:element name="alaid3" nillable="true" type="xs:string" />
+						<xs:element name="panel1" nillable="true" type="xs:string" />
+						<xs:element name="panel2" nillable="true" type="xs:string" />
+						<xs:element name="panel3" nillable="true" type="xs:string" />
+						<xs:element name="test_int1" nillable="true" type="xs:string" />
+						<xs:element name="test_int2" nillable="true" type="xs:string" />
+						<xs:element name="test_int3" nillable="true" type="xs:string" />
+						<xs:element name="id" nillable="true" type="xs:string" />
+						<xs:element name="code" nillable="true" type="xs:string" />
+						<xs:element name="perm" nillable="true" type="xs:string" />
+						<xs:element name="tmzonpr" nillable="true" type="xs:string" />
+						<xs:element name="subzone" nillable="true" type="xs:string" />
+						<xs:element name="passver" nillable="true" type="xs:string" />
+						<xs:element name="inst_id" nillable="true" type="xs:string" />
+						<xs:element name="ins_date" nillable="true" type="xs:string" />
+						<xs:element name="mon_stat" nillable="true" type="xs:string" />
+						<xs:element name="mon_stat_date" nillable="true" type="xs:string" />
+						<xs:element name="sub_tp" nillable="true" type="xs:string" />
+						<xs:element name="comment1" nillable="true" type="xs:string" />
+						<xs:element name="comment2" nillable="true" type="xs:string" />
+						<xs:element name="txtzonref" nillable="true" type="xs:string" />
+						<xs:element name="pho_area" nillable="true" type="xs:string" />
+						<xs:element name="sub_exptp" nillable="true" type="xs:string" />
+						<xs:element name="rep_flg" nillable="true" type="xs:string" />
+						<xs:element name="insu_id" nillable="true" type="xs:string" />
+						<xs:element name="name" nillable="true" type="xs:string" />
+						<xs:element name="fname" nillable="true" type="xs:string" />
+						<xs:element name="iname" nillable="true" type="xs:string" />
+						<xs:element name="tname" nillable="true" type="xs:string" />
+						<xs:element name="street1" nillable="true" type="xs:string" />
+						<xs:element name="street1no1" nillable="true" type="xs:string" />
+						<xs:element name="street1no2" nillable="true" type="xs:string" />
+						<xs:element name="street2" nillable="true" type="xs:string" />
+						<xs:element name="city" nillable="true" type="xs:string" />
+						<xs:element name="city2" nillable="true" type="xs:string" />
+						<xs:element name="state" nillable="true" type="xs:string" />
+						<xs:element name="zip" nillable="true" type="xs:string" />
+						<xs:element name="alias_name" nillable="true" type="xs:string" />
+						<xs:element name="phone1" nillable="true" type="xs:string" />
+						<xs:element name="phone2" nillable="true" type="xs:string" />
+						<xs:element name="phone3" nillable="true" type="xs:string" />
+						<xs:element name="phtxt1" nillable="true" type="xs:string" />
+						<xs:element name="phtxt2" nillable="true" type="xs:string" />
+						<xs:element name="fax" nillable="true" type="xs:string" />
+						<xs:element name="cross_street" nillable="true" type="xs:string" />
+						<xs:element name="map_grid" nillable="true" type="xs:string" />
+						<xs:element name="mgrp1" nillable="true" type="xs:string" />
+						<xs:element name="mgrp2" nillable="true" type="xs:string" />
+						<xs:element name="duress" nillable="true" type="xs:string" />
+						<xs:element name="telco_loc" nillable="true" type="xs:string" />
+						<xs:element name="panel_loc" nillable="true" type="xs:string" />
+						<xs:element name="br" nillable="true" type="xs:string" />
+						<xs:element name="rbr" nillable="true" type="xs:string" />
+						<xs:element name="sbr" nillable="true" type="xs:string" />
+						<xs:element name="mbr" nillable="true" type="xs:string" />
+						<xs:element name="pbr" nillable="true" type="xs:string" />
+						<xs:element name="sreg" nillable="true" type="xs:string" />
+						<xs:element name="preg" nillable="true" type="xs:string" />
+						<xs:element name="refcid" nillable="true" type="xs:string" />
+						<xs:element name="miscno1" nillable="true" type="xs:string" />
+						<xs:element name="miscno2" nillable="true" type="xs:string" />
+						<xs:element name="ro" nillable="true" type="xs:string" />
+						<xs:element name="skill" nillable="true" type="xs:string" />
+						<xs:element name="lang" nillable="true" type="xs:string" />
+						<xs:element name="dcc1" nillable="true" type="xs:string" />
+						<xs:element name="dcc2" nillable="true" type="xs:string" />
+						<xs:element name="backupver" nillable="true" type="xs:string" />
+						<xs:element name="ocexp" nillable="true" type="xs:string" />
+						<xs:element name="ocname" nillable="true" type="xs:string" />
+						<xs:element name="prtreq" nillable="true" type="xs:string" />
+						<xs:element name="maintype" nillable="true" type="xs:string" />
+						<xs:element name="mainfreq" nillable="true" type="xs:string" />
+						<xs:element name="mainexpdate" nillable="true" type="xs:string" />
+						<xs:element name="inst_1" nillable="true" type="xs:string" />
+						<xs:element name="inst_2" nillable="true" type="xs:string" />
+						<xs:element name="sales_1" nillable="true" type="xs:string" />
+						<xs:element name="sales_2" nillable="true" type="xs:string" />
+						<xs:element name="br_inst" nillable="true" type="xs:string" />
+						<xs:element name="br_sale" nillable="true" type="xs:string" />
+						<xs:element name="br_serv" nillable="true" type="xs:string" />
+						<xs:element name="miscdate1" nillable="true" type="xs:string" />
+						<xs:element name="miscdate2" nillable="true" type="xs:string" />
+						<xs:element name="miscdate3" nillable="true" type="xs:string" />
+						<xs:element name="miscdate4" nillable="true" type="xs:string" />
+						<xs:element name="miscdate5" nillable="true" type="xs:string" />
+						<xs:element name="miscdate6" nillable="true" type="xs:string" />
+						<xs:element name="misc1" nillable="true" type="xs:string" />
+						<xs:element name="misc2" nillable="true" type="xs:string" />
+						<xs:element name="misc3" nillable="true" type="xs:string" />
+						<xs:element name="misc4" nillable="true" type="xs:string" />
+						<xs:element name="misc5" nillable="true" type="xs:string" />
+						<xs:element name="misc6" nillable="true" type="xs:string" />
+						<xs:element name="misc7" nillable="true" type="xs:string" />
+						<xs:element name="misc8" nillable="true" type="xs:string" />
+						<xs:element name="misc9" nillable="true" type="xs:string" />
+						<xs:element name="misc10" nillable="true" type="xs:string" />
+						<xs:element name="misc20" nillable="true" type="xs:string" />
+						<xs:element name="misc21" nillable="true" type="xs:string" />
+						<xs:element name="misc22" nillable="true" type="xs:string" />
+						<xs:element name="misc23" nillable="true" type="xs:string" />
+						<xs:element name="misc24" nillable="true" type="xs:string" />
+						<xs:element name="misc25" nillable="true" type="xs:string" />
+						<xs:element name="misc26" nillable="true" type="xs:string" />
+						<xs:element name="misc27" nillable="true" type="xs:string" />
+						<xs:element name="misc28" nillable="true" type="xs:string" />
+						<xs:element name="misc29" nillable="true" type="xs:string" />
+						<xs:element name="misc30" nillable="true" type="xs:string" />
+						<xs:element name="misc31" nillable="true" type="xs:string" />
+						<xs:element name="misc32" nillable="true" type="xs:string" />
+						<xs:element name="misc33" nillable="true" type="xs:string" />
+						<xs:element name="misc34" nillable="true" type="xs:string" />
+						<xs:element name="misc35" nillable="true" type="xs:string" />
+						<xs:element name="misc36" nillable="true" type="xs:string" />
+						<xs:element name="misc37" nillable="true" type="xs:string" />
+						<xs:element name="misc38" nillable="true" type="xs:string" />
+						<xs:element name="misc39" nillable="true" type="xs:string" />
+						<xs:element name="misc40" nillable="true" type="xs:string" />
+						<xs:element name="misc41" nillable="true" type="xs:string" />
+						<xs:element name="misc42" nillable="true" type="xs:string" />
+						<xs:element name="misc43" nillable="true" type="xs:string" />
+						<xs:element name="misc44" nillable="true" type="xs:string" />
+						<xs:element name="misc45" nillable="true" type="xs:string" />
+						<xs:element name="misc46" nillable="true" type="xs:string" />
+						<xs:element name="misc47" nillable="true" type="xs:string" />
+						<xs:element name="misc48" nillable="true" type="xs:string" />
+						<xs:element name="misc49" nillable="true" type="xs:string" />
+						<xs:element name="misc50" nillable="true" type="xs:string" />
+						<xs:element name="user_id" nillable="true" type="xs:string" />
+						<xs:element name="prot_area" nillable="true" type="xs:string" />
+						<xs:element name="email1" nillable="true" type="xs:string" />
+						<xs:element name="email2" nillable="true" type="xs:string" />
+						<xs:element name="misc80" nillable="true" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="inetinstallationupdresults" type="ns0:inetinstallationupdresults" />
+			<xs:complexType name="inetinstallationupdresults">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="inetinstallationupdresult" type="ns0:inetinstallationupdresult" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="inetinstallationupdresult">
+				<xs:sequence>
+					<xs:element name="s_ins" nillable="true" type="xs:string" />
+					<xs:element name="stamp" nillable="true" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="getCustomerDataGuardSrv">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="sins" nillable="true" type="xs:int" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="customerdataguardresults" type="ns0:customerdataguardresults" />
+			<xs:complexType name="customerdataguardresults">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="customerdataguardresult" type="ns0:customerdataguardresult" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="customerdataguardresult">
+				<xs:sequence>
+					<xs:element name="numinst" nillable="true" type="xs:string" />
+					<xs:element name="sins" nillable="true" type="xs:string" />
+					<xs:element name="tipopanel" nillable="true" type="xs:string" />
+					<xs:element name="locpanel" nillable="true" type="xs:string" />
+					<xs:element name="locteclado" nillable="true" type="xs:string" />
+					<xs:element name="gsmpanel" nillable="true" type="xs:string" />
+					<xs:element name="nombre" nillable="true" type="xs:string" />
+					<xs:element name="apellidos" nillable="true" type="xs:string" />
+					<xs:element name="alias" nillable="true" type="xs:string" />
+					<xs:element name="tipovia" nillable="true" type="xs:string" />
+					<xs:element name="nombrevia" nillable="true" type="xs:string" />
+					<xs:element name="numvia" nillable="true" type="xs:string" />
+					<xs:element name="restodireccion" nillable="true" type="xs:string" />
+					<xs:element name="crossst" nillable="true" type="xs:string" />
+					<xs:element name="localidad" nillable="true" type="xs:string" />
+					<xs:element name="provincia" nillable="true" type="xs:string" />
+					<xs:element name="cp" nillable="true" type="xs:string" />
+					<xs:element name="geox" nillable="true" type="xs:string" />
+					<xs:element name="geoy" nillable="true" type="xs:string" />
+					<xs:element name="indicecoord" nillable="true" type="xs:string" />
+					<xs:element name="idsubtype" nillable="true" type="xs:string" />
+					<xs:element name="descsubtype" nillable="true" type="xs:string" />
+					<xs:element name="sub_exptp" nillable="true" type="xs:string" />
+					<xs:element name="comment" nillable="true" type="xs:string" />
+					<xs:element name="keys" nillable="true" type="xs:string" />
+					<xs:element name="email" nillable="true" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="getAlarmIdsBasicInfo">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="sins" nillable="true" type="xs:int" />
+						<xs:element name="cid" nillable="true" type="xs:int" />
+						<xs:element name="alaid" nillable="true" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getAlarmIdsBasicInfoResults" type="ns0:getAlarmIdsBasicInfoResults" />
+			<xs:complexType name="getAlarmIdsBasicInfoResults">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="getAlarmIdsBasicInfoResult" type="ns0:getAlarmIdsBasicInfoResult" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="getAlarmIdsBasicInfoResult">
+				<xs:sequence>
+					<xs:element name="alaid" nillable="true" type="xs:string" />
+					<xs:element name="ix" nillable="true" type="xs:string" />
+					<xs:element name="panel" nillable="true" type="xs:string" />
+					<xs:element name="test_int" nillable="true" type="xs:string" />
+					<xs:element name="revision" nillable="true" type="xs:string" />
+					<xs:element name="id" nillable="true" type="xs:string" />
+					<xs:element name="addr" nillable="true" type="xs:string" />
+					<xs:element name="usrname" nillable="true" type="xs:string" />
+					<xs:element name="passwrd" nillable="true" type="xs:string" />
+					<xs:element name="param" nillable="true" type="xs:string" />
+					<xs:element name="ctype" nillable="true" type="xs:string" />
+					<xs:element name="ext_test_int" nillable="true" type="xs:string" />
+					<xs:element name="pphone" nillable="true" type="xs:string" />
+					<xs:element name="callid_sup" nillable="true" type="xs:string" />
+					<xs:element name="prim" nillable="true" type="xs:string" />
+					<xs:element name="pphone2" nillable="true" type="xs:string" />
+					<xs:element name="pphone3" nillable="true" type="xs:string" />
+					<xs:element name="pphone4" nillable="true" type="xs:string" />
+					<xs:element name="mon_stat" nillable="true" type="xs:string" />
+					<xs:element name="mon_stat_date" nillable="true" type="xs:string" />
+					<xs:element name="line_type" nillable="true" type="xs:string" />
+					<xs:element name="line_comm" nillable="true" type="xs:string" />
+					<xs:element name="pan_loc" nillable="true" type="xs:string" />
+					<xs:element name="pan_comm" nillable="true" type="xs:string" />
+					<xs:element name="talaid" nillable="true" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="updateClass">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="sins" nillable="true" type="xs:int" />
+						<xs:element name="class" nillable="true" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="inet_ma_alarmids_upd">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="s_ins" nillable="true" type="xs:int" />
+						<xs:element name="ix" nillable="true" type="xs:int" />
+						<xs:element name="alaid" nillable="true" type="xs:string" />
+						<xs:element name="panel" nillable="true" type="xs:string" />
+						<xs:element name="testint" nillable="true" type="xs:string" />
+						<xs:element name="id" nillable="true" type="xs:string" />
+						<xs:element name="addr" nillable="true" type="xs:string" />
+						<xs:element name="usrname" nillable="true" type="xs:string" />
+						<xs:element name="passwrd" nillable="true" type="xs:string" />
+						<xs:element name="param" nillable="true" type="xs:string" />
+						<xs:element name="ctype" nillable="true" type="xs:string" />
+						<xs:element name="ext_testint" nillable="true" type="xs:string" />
+						<xs:element name="pphone" nillable="true" type="xs:string" />
+						<xs:element name="callid_sup" nillable="true" type="xs:string" />
+						<xs:element name="prim" nillable="true" type="xs:string" />
+						<xs:element name="rev" nillable="true" type="xs:string" />
+						<xs:element name="pphone2" nillable="true" type="xs:string" />
+						<xs:element name="pphone3" nillable="true" type="xs:string" />
+						<xs:element name="pphone4" nillable="true" type="xs:string" />
+						<xs:element name="mon_stat" nillable="true" type="xs:string" />
+						<xs:element name="mon_stat_date" nillable="true" type="xs:string" />
+						<xs:element name="line_type" nillable="true" type="xs:string" />
+						<xs:element name="line_comm" nillable="true" type="xs:string" />
+						<xs:element name="pan_loc" nillable="true" type="xs:string" />
+						<xs:element name="pan_comm" nillable="true" type="xs:string" />
+						<xs:element name="talaid" nillable="true" type="xs:string" />
+						<xs:element name="delall" nillable="true" type="xs:int" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="inetmaalarmidsupdresults" type="ns0:inetmaalarmidsupdresults" />
+			<xs:complexType name="inetmaalarmidsupdresults">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="inetmaalarmidsupdresult" type="ns0:inetmaalarmidsupdresult" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="inetmaalarmidsupdresult">
+				<xs:sequence>
+					<xs:element name="return_code" nillable="true" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="iic_serviceinfo_set">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="deal_id" nillable="true" type="xs:string" />
+						<xs:element name="insno" nillable="true" type="xs:string" />
+						<xs:element name="field" nillable="true" type="xs:string" />
+						<xs:element name="value" nillable="true" type="xs:string" />
+						<xs:element name="user" nillable="true" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="iicserviceinfosetresults" type="ns0:iicserviceinfosetresults" />
+			<xs:complexType name="iicserviceinfosetresults">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="iicserviceinfosetresult" type="ns0:iicserviceinfosetresult" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="iicserviceinfosetresult">
+				<xs:sequence>
+					<xs:element name="result" nillable="true" type="xs:string" />
+					<xs:element name="error" nillable="true" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="checkInstallationNumber">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="country" nillable="true" type="xs:string" />
+						<xs:element name="sins" nillable="true" type="xs:int" />
+						<xs:element name="ins_no" nillable="true" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="resultscheckInstallationNumber" type="ns0:resultscheckInstallationNumber" />
+			<xs:complexType name="resultscheckInstallationNumber">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="resultcheckInstallationNumber" type="ns0:resultcheckInstallationNumber" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="resultcheckInstallationNumber">
+				<xs:sequence>
+					<xs:element name="err" nillable="true" type="xs:integer" />
+					<xs:element name="descr" nillable="true" type="xs:string" />
+					<xs:element name="sins" nillable="true" type="xs:integer" />
+					<xs:element name="ins_no" nillable="true" type="xs:string" />
+					<xs:element name="dealer" nillable="true" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="getInstaller">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="sins" nillable="true" type="xs:int" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getInstallerResults" type="ns0:getInstallerResults" />
+			<xs:complexType name="getInstallerResults">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="getInstallerResult" type="ns0:getInstallerResult" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="getInstallerResult">
+				<xs:sequence>
+					<xs:element name="inst_id" nillable="true" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="inet_inst_extstat_upd">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="s_ins" nillable="true" type="xs:int" />
+						<xs:element name="extstat" nillable="true" type="xs:string" />
+						<xs:element name="mon_stat" nillable="true" type="xs:string" />
+						<xs:element name="user_id" nillable="true" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="inetinstextstatupdresults" type="ns0:inetinstextstatupdresults" />
+			<xs:complexType name="inetinstextstatupdresults">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="inetinstextstatupdresult" type="ns0:inetinstextstatupdresult" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="inetinstextstatupdresult">
+				<xs:sequence>
+					<xs:element name="return_code" nillable="true" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="getSkill">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="sins" nillable="true" type="xs:int" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getskillresults" type="ns0:getskillresults" />
+			<xs:complexType name="getskillresults">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="getskillresult" type="ns0:getskillresult" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="getskillresult">
+				<xs:sequence>
+					<xs:element name="skill" nillable="true" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="getVehicleData">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ins_no" nillable="true" type="xs:string" />
+						<xs:element name="dealer" nillable="true" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getVehicleDataResults" type="ns0:getVehicleDataResults" />
+			<xs:complexType name="getVehicleDataResults">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="getVehicleDataResult" type="ns0:getVehicleDataResult" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="getVehicleDataResult">
+				<xs:sequence>
+					<xs:element name="NumInst" nillable="true" type="xs:string" />
+					<xs:element name="Matricula" nillable="true" type="xs:string" />
+					<xs:element name="Marca" nillable="true" type="xs:string" />
+					<xs:element name="Modelo" nillable="true" type="xs:string" />
+					<xs:element name="Color" nillable="true" type="xs:string" />
+					<xs:element name="NBastidor" nillable="true" type="xs:string" />
+					<xs:element name="NPuertas" nillable="true" type="xs:string" />
+					<xs:element name="FechaMatricula" nillable="true" type="xs:string" />
+					<xs:element name="Combustible" nillable="true" type="xs:string" />
+					<xs:element name="PotenciaMotor" nillable="true" type="xs:string" />
+					<xs:element name="AliasVehiculo" nillable="true" type="xs:string" />
+					<xs:element name="Name" nillable="true" type="xs:string" />
+					<xs:element name="alias_name" nillable="true" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="getInternalNumberByAcn">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="acn" nillable="true" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getInternalNumberByAcnResults" type="ns0:getInternalNumberByAcnResults" />
+			<xs:complexType name="getInternalNumberByAcnResults">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="getInternalNumberByAcnResult" type="ns0:getInternalNumberByAcnResult" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="getInternalNumberByAcnResult">
+				<xs:sequence>
+					<xs:element name="sins" nillable="true" type="xs:integer" />
+					<xs:element name="sctr" nillable="true" type="xs:integer" />
+					<xs:element name="sacc" nillable="true" type="xs:integer" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="updVehicleData">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ins_no" nillable="true" type="xs:string" />
+						<xs:element name="dealer" nillable="true" type="xs:string" />
+						<xs:element name="Matricula" nillable="true" type="xs:string" />
+						<xs:element name="Marca" nillable="true" type="xs:string" />
+						<xs:element name="Modelo" nillable="true" type="xs:string" />
+						<xs:element name="Color" nillable="true" type="xs:string" />
+						<xs:element name="NBastidor" nillable="true" type="xs:string" />
+						<xs:element name="NPuertas" nillable="true" type="xs:string" />
+						<xs:element name="FechaMatricula" nillable="true" type="xs:string" />
+						<xs:element name="Combustible" nillable="true" type="xs:string" />
+						<xs:element name="PotenciaMotor" nillable="true" type="xs:string" />
+						<xs:element name="AliasVehiculo" nillable="true" type="xs:string" />
+						<xs:element name="user_id" nillable="true" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getMember">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="INSNO" nillable="true" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getMemberResults" type="ns0:getMemberResults" />
+			<xs:complexType name="getMemberResults">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="getMemberResult" type="ns0:getMemberResult" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="getMemberResult">
+				<xs:sequence>
+					<xs:element ref="ns0:installationMemberResults" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="installationMemberResults" type="ns0:installationMemberResults" />
+			<xs:complexType name="installationMemberResults">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="installationMember" type="ns0:installationMember" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="installationMember">
+				<xs:sequence>
+					<xs:element name="br" nillable="true" type="xs:string" />
+					<xs:element name="sub_tp" nillable="true" type="xs:string" />
+					<xs:element name="phone1" nillable="true" type="xs:string" />
+					<xs:element name="phone2" nillable="true" type="xs:string" />
+					<xs:element name="zip" nillable="true" type="xs:string" />
+					<xs:element name="member" nillable="true" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="updatePanelLocation">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="sins" nillable="true" type="xs:int" />
+						<xs:element name="location" nillable="true" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getMonitoringBranch">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="sins" nillable="true" type="xs:int" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getmonitoringbranchresults" type="ns0:getmonitoringbranchresults" />
+			<xs:complexType name="getmonitoringbranchresults">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="getmonitoringbranchresult" type="ns0:getmonitoringbranchresult" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="getmonitoringbranchresult">
+				<xs:sequence>
+					<xs:element name="br" nillable="true" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="getPanel">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="sins" nillable="true" type="xs:int" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getPanelResults" type="ns0:getPanelResults" />
+			<xs:complexType name="getPanelResults">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="getPanelResult" type="ns0:getPanelResult" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="getPanelResult">
+				<xs:sequence>
+					<xs:element name="panel" nillable="true" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="updateTestIntervalConfiguration">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="sins" nillable="true" type="xs:int" />
+						<xs:element name="cid" nillable="true" type="xs:string" />
+						<xs:element name="test_interval" nillable="true" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getMiscno1">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="deal_id" nillable="true" type="xs:string" />
+						<xs:element name="ins_no" nillable="true" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getmiscno1results" type="ns0:getmiscno1results" />
+			<xs:complexType name="getmiscno1results">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="getmiscno1result" type="ns0:getmiscno1result" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="getmiscno1result">
+				<xs:sequence>
+					<xs:element name="miscno1" nillable="true" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="updateTestInterval">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="sins" nillable="true" type="xs:int" />
+						<xs:element name="cid" nillable="true" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getPhone2">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="sins" nillable="true" type="xs:int" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getPhone2Results" type="ns0:getPhone2Results" />
+			<xs:complexType name="getPhone2Results">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="getPhone2Result" type="ns0:getPhone2Result" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="getPhone2Result">
+				<xs:sequence>
+					<xs:element name="phone2" nillable="true" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="inet_inst_branch_upd">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="s_ins" nillable="true" type="xs:int" />
+						<xs:element name="br" nillable="true" type="xs:string" />
+						<xs:element name="userid" nillable="true" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="branchupdResults" type="ns0:branchupdResults" />
+			<xs:complexType name="branchupdResults">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="branchupdResult" type="ns0:branchupdResult" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="branchupdResult">
+				<xs:sequence>
+					<xs:element name="return_code" nillable="true" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="getPhone1">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="sins" nillable="true" type="xs:int" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getPhone1Results" type="ns0:getPhone1Results" />
+			<xs:complexType name="getPhone1Results">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="getPhone1Result" type="ns0:getPhone1Result" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="getPhone1Result">
+				<xs:sequence>
+					<xs:element name="phone" nillable="true" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="getCodeDTMF">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="sins" nillable="true" type="xs:int" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getCodeDTMFResults" type="ns0:getCodeDTMFResults" />
+			<xs:complexType name="getCodeDTMFResults">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="getCodeDTMFResult" type="ns0:getCodeDTMFResult" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="getCodeDTMFResult">
+				<xs:sequence>
+					<xs:element name="ix" nillable="true" type="xs:integer" />
+					<xs:element name="code" nillable="true" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="ins_maintypes_upd">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="sins" nillable="true" type="xs:int" />
+						<xs:element name="ix" nillable="true" type="xs:int" />
+						<xs:element name="type" nillable="true" type="xs:string" />
+						<xs:element name="freq" nillable="true" type="xs:string" />
+						<xs:element name="date" nillable="true" type="xs:string" />
+						<xs:element name="stamp" nillable="true" type="xs:int" />
+						<xs:element name="freqm" nillable="true" type="xs:string" />
+						<xs:element name="freqbm" nillable="true" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getMonitoringStatus">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="sins" nillable="true" type="xs:int" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getMonitoringStatusResults" type="ns0:getMonitoringStatusResults" />
+			<xs:complexType name="getMonitoringStatusResults">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="getMonitoringStatusResult" type="ns0:getMonitoringStatusResult" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="getMonitoringStatusResult">
+				<xs:sequence>
+					<xs:element name="mon_stat" nillable="true" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="inet_installation_get">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="s_ins" nillable="true" type="xs:int" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="installationResults" type="ns0:installationResults" />
+			<xs:complexType name="installationResults">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="installation" type="ns0:installation" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="installation">
+				<xs:sequence>
+					<xs:element name="br" nillable="true" type="xs:string" />
+					<xs:element name="sub_tp" nillable="true" type="xs:string" />
+					<xs:element name="phone1" nillable="true" type="xs:string" />
+					<xs:element name="phone2" nillable="true" type="xs:string" />
+					<xs:element name="zip" nillable="true" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="inet_codeword_change">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="s_ins" nillable="true" type="xs:int" />
+						<xs:element name="ix" nillable="true" type="xs:int" />
+						<xs:element name="codeword" nillable="true" type="xs:string" />
+						<xs:element name="type" nillable="true" type="xs:string" />
+						<xs:element name="expdate" nillable="true" type="xs:string" />
+						<xs:element name="vtp" nillable="true" type="xs:int" />
+						<xs:element name="s_ctr" nillable="true" type="xs:int" />
+						<xs:element name="s_pc" nillable="true" type="xs:int" />
+						<xs:element name="s_cont" nillable="true" type="xs:int" />
+						<xs:element name="cix" nillable="true" type="xs:int" />
+						<xs:element name="misc1" nillable="true" type="xs:string" />
+						<xs:element name="misc2" nillable="true" type="xs:string" />
+						<xs:element name="cred" nillable="true" type="xs:int" />
+						<xs:element name="user_id" nillable="true" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="inetcodewordchangeresults" type="ns0:inetcodewordchangeresults" />
+			<xs:complexType name="inetcodewordchangeresults">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="inetcodewordchangeresult" type="ns0:inetcodewordchangeresult" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="inetcodewordchangeresult">
+				<xs:sequence>
+					<xs:element name="return_code" nillable="true" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="end_boxcar">
+				<xs:complexType>
+					<xs:sequence />
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getInstallationData">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ins_no" nillable="true" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="mainstallationdataresults" type="ns0:mainstallationdataresults" />
+			<xs:complexType name="mainstallationdataresults">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="mainstallationdataresult" type="ns0:mainstallationdataresult" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="mainstallationdataresult">
+				<xs:sequence>
+					<xs:element name="s_ins" nillable="true" type="xs:integer" />
+					<xs:element name="ins_no" nillable="true" type="xs:string" />
+					<xs:element name="alaid" nillable="true" type="xs:string" />
+					<xs:element name="panel" nillable="true" type="xs:string" />
+					<xs:element name="name" nillable="true" type="xs:string" />
+					<xs:element name="fname" nillable="true" type="xs:string" />
+					<xs:element name="iname" nillable="true" type="xs:string" />
+					<xs:element name="alias_name" nillable="true" type="xs:string" />
+					<xs:element name="street1" nillable="true" type="xs:string" />
+					<xs:element name="street1no1" nillable="true" type="xs:string" />
+					<xs:element name="street1no2" nillable="true" type="xs:string" />
+					<xs:element name="street2" nillable="true" type="xs:string" />
+					<xs:element name="state" nillable="true" type="xs:string" />
+					<xs:element name="zip" nillable="true" type="xs:string" />
+					<xs:element name="city" nillable="true" type="xs:string" />
+					<xs:element name="city2" nillable="true" type="xs:string" />
+					<xs:element name="mon_stat" nillable="true" type="xs:string" />
+					<xs:element name="sub_exptp" nillable="true" type="xs:string" />
+					<xs:element name="sub_tp" nillable="true" type="xs:string" />
+					<xs:element name="text" nillable="true" type="xs:string" />
+					<xs:element name="a_lat" nillable="true" type="xs:string" />
+					<xs:element name="a_lon" nillable="true" type="xs:string" />
+					<xs:element name="deal_id" nillable="true" type="xs:string" />
+					<xs:element name="phone" nillable="true" type="xs:string" />
+					<xs:element name="phone3" nillable="true" type="xs:string" />
+					<xs:element name="class2" nillable="true" type="xs:string" />
+					<xs:element name="CUC" nillable="true" type="xs:string" />
+					<xs:element name="idiomaServicio" nillable="true" type="xs:string" />
+					<xs:element name="telefonoServicio" nillable="true"
+						type="xs:string" />
+					<xs:element name="emailServicio" nillable="true" type="xs:string" />
+					<xs:element name="renunciaMyVerisure" nillable="true"
+						type="xs:string" />
+					<xs:element ref="ns0:installationcontactsresults" />
+					<xs:element ref="ns0:getCodeWordsResults" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="installationcontactsresults" type="ns0:installationcontactsresults" />
+			<xs:complexType name="installationcontactsresults">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="installationcontactsresult" type="ns0:installationcontactsresult" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="installationcontactsresult">
+				<xs:sequence>
+					<xs:element name="NAM" nillable="true" type="xs:string" />
+					<xs:element name="PH1" nillable="true" type="xs:string" />
+					<xs:element name="PH2" nillable="true" type="xs:string" />
+					<xs:element name="PH3" nillable="true" type="xs:string" />
+					<xs:element name="RELATION" nillable="true" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="getCodeWordsResults" type="ns0:getCodeWordsResults" />
+			<xs:complexType name="getCodeWordsResults">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="getCodeWordsResult" type="ns0:getCodeWordsResult" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="getCodeWordsResult">
+				<xs:sequence>
+					<xs:element name="ix" nillable="true" type="xs:integer" />
+					<xs:element name="code" nillable="true" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="abort_boxcar">
+				<xs:complexType>
+					<xs:sequence />
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getTestInterval">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="sins" nillable="true" type="xs:int" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getTestIntervalResults" type="ns0:getTestIntervalResults" />
+			<xs:complexType name="getTestIntervalResults">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="getTestIntervalResult" type="ns0:getTestIntervalResult" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="getTestIntervalResult">
+				<xs:sequence>
+					<xs:element name="test_int" nillable="true" type="xs:integer" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="inet_installation_upd_misc28">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="sins" nillable="true" type="xs:int" />
+						<xs:element name="userid" nillable="true" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="updMisc28Results" type="ns0:updMisc28Results" />
+			<xs:complexType name="updMisc28Results">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="updMisc28Result" type="ns0:updMisc28Result" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="updMisc28Result">
+				<xs:sequence>
+					<xs:element name="rc" nillable="true" type="xs:integer" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="inet_ma_alarmids_del">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="sins" nillable="true" type="xs:int" />
+						<xs:element name="ix" nillable="true" type="xs:int" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="inet_ma_alarmids_delResults" type="ns0:inet_ma_alarmids_delResults" />
+			<xs:complexType name="inet_ma_alarmids_delResults">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="inet_ma_alarmids_delResult" type="ns0:inet_ma_alarmids_delResult" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="inet_ma_alarmids_delResult">
+				<xs:sequence>
+					<xs:element name="return_code" nillable="true" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="begin_boxcar">
+				<xs:complexType>
+					<xs:sequence />
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="inet_installation_upd_sec_misc">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="s_ins" nillable="true" type="xs:int" />
+						<xs:element name="miscdate2" nillable="true" type="xs:string" />
+						<xs:element name="misc20" nillable="true" type="xs:string" />
+						<xs:element name="misc40" nillable="true" type="xs:string" />
+						<xs:element name="misc27" nillable="true" type="xs:string" />
+						<xs:element name="misc38" nillable="true" type="xs:string" />
+						<xs:element name="userid" nillable="true" type="xs:string" />
+						<xs:element name="panel_loc" nillable="true" type="xs:string" />
+						<xs:element name="comment1" nillable="true" type="xs:string" />
+						<xs:element name="comment2" nillable="true" type="xs:string" />
+						<xs:element name="misc50" nillable="true" type="xs:string" />
+						<xs:element name="misc21" nillable="true" type="xs:string" />
+						<xs:element name="misc46" nillable="true" type="xs:string" />
+						<xs:element name="miscno2" nillable="true" type="xs:string" />
+						<xs:element name="misc4" nillable="true" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="inet_instResults" type="ns0:inet_instResults" />
+			<xs:complexType name="inet_instResults">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="inet_instResult" type="ns0:inet_instResult" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="inet_instResult">
+				<xs:sequence>
+					<xs:element name="return_code" nillable="true" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="getClass">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="sins" nillable="true" type="xs:int" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getClassResults" type="ns0:getClassResults" />
+			<xs:complexType name="getClassResults">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="getClassResult" type="ns0:getClassResult" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="getClassResult">
+				<xs:sequence>
+					<xs:element name="sub_exptp" nillable="true" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="updatePhone1">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="sins" nillable="true" type="xs:int" />
+						<xs:element name="phone" nillable="true" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getInstallationContacts">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="s_ins" nillable="true" type="xs:int" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getInternalNumberByCid">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="cid" nillable="true" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getInternalNumberByCidResults" type="ns0:getInternalNumberByCidResults" />
+			<xs:complexType name="getInternalNumberByCidResults">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="getInternalNumberByCidResult" type="ns0:getInternalNumberByCidResult" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="getInternalNumberByCidResult">
+				<xs:sequence>
+					<xs:element name="sins" nillable="true" type="xs:integer" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="getPanelLocation">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="sins" nillable="true" type="xs:int" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getPanelLocationResults" type="ns0:getPanelLocationResults" />
+			<xs:complexType name="getPanelLocationResults">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="getPanelLocationResult" type="ns0:getPanelLocationResult" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="getPanelLocationResult">
+				<xs:sequence>
+					<xs:element name="panel_loc" nillable="true" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="inet_inst_rbranch_upd">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="s_ins" nillable="true" type="xs:int" />
+						<xs:element name="br" nillable="true" type="xs:string" />
+						<xs:element name="userid" nillable="true" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="rbranchupdResults" type="ns0:rbranchupdResults" />
+			<xs:complexType name="rbranchupdResults">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="rbranchupdResult" type="ns0:rbranchupdResult" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="rbranchupdResult">
+				<xs:sequence>
+					<xs:element name="return_code" nillable="true" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="inet_addr_geo_chg">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="sins" nillable="true" type="xs:int" />
+						<xs:element name="atp" nillable="true" type="xs:int" />
+						<xs:element name="street1" nillable="true" type="xs:string" />
+						<xs:element name="street1no1" nillable="true" type="xs:string" />
+						<xs:element name="street2" nillable="true" type="xs:string" />
+						<xs:element name="street1no2" nillable="true" type="xs:string" />
+						<xs:element name="city" nillable="true" type="xs:string" />
+						<xs:element name="city2" nillable="true" type="xs:string" />
+						<xs:element name="zip" nillable="true" type="xs:string" />
+						<xs:element name="dsstate" nillable="true" type="xs:string" />
+						<xs:element name="user_id" nillable="true" type="xs:string" />
+						<xs:element name="a_lat" nillable="true" type="xs:string" />
+						<xs:element name="a_lon" nillable="true" type="xs:string" />
+						<xs:element name="quality" nillable="true" type="xs:int" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="addrgeochangeresults" type="ns0:addrgeochangeresults" />
+			<xs:complexType name="addrgeochangeresults">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="addrgeochangeresult" type="ns0:addrgeochangeresult" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="addrgeochangeresult">
+				<xs:sequence>
+					<xs:element name="quality" nillable="true" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="createInstalledComponents">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="sins" nillable="true" type="xs:int" />
+						<xs:element name="ix" nillable="true" type="xs:int" />
+						<xs:element name="alaid" nillable="true" type="xs:string" />
+						<xs:element name="item_cd" nillable="true" type="xs:string" />
+						<xs:element name="sertp" nillable="true" type="xs:string" />
+						<xs:element name="serno" nillable="true" type="xs:string" />
+						<xs:element name="src" nillable="true" type="xs:string" />
+						<xs:element name="zix" nillable="true" type="xs:int" />
+						<xs:element name="item" nillable="true" type="xs:string" />
+						<xs:element name="warranty" nillable="true" type="xs:string" />
+						<xs:element name="cnt" nillable="true" type="xs:string" />
+						<xs:element name="ic_type" nillable="true" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getCodeWords">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="sins" nillable="true" type="xs:int" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="inet_get_installation_ids">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ins_no" nillable="true" type="xs:string" />
+						<xs:element name="deal_id" nillable="true" type="xs:string" />
+						<xs:element name="alaid" nillable="true" type="xs:string" />
+						<xs:element name="sins" nillable="true" type="xs:int" />
+						<xs:element name="opc" nillable="true" type="xs:int" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="installationids" type="ns0:installationids" />
+			<xs:complexType name="installationids">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="installationid" type="ns0:installationid" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="installationid">
+				<xs:sequence>
+					<xs:element name="sins" nillable="true" type="xs:string" />
+					<xs:element name="ins_no" nillable="true" type="xs:string" />
+					<xs:element name="deal_id" nillable="true" type="xs:string" />
+					<xs:element name="alaid" nillable="true" type="xs:string" />
+					<xs:element name="panel" nillable="true" type="xs:string" />
+					<xs:element name="rc" nillable="true" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="getAgenciesFromZip">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="zip" nillable="true" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="resultsgetAgenciesFromZip" type="ns0:resultsgetAgenciesFromZip" />
+			<xs:complexType name="resultsgetAgenciesFromZip">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="resultgetAgenciesFromZip" type="ns0:resultgetAgenciesFromZip" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="resultgetAgenciesFromZip">
+				<xs:sequence>
+					<xs:element name="agtype" nillable="true" type="xs:integer" />
+					<xs:element name="abbr" nillable="true" type="xs:string" />
+					<xs:element name="agency" nillable="true" type="xs:string" />
+					<xs:element name="text" nillable="true" type="xs:string" />
+					<xs:element name="phone" nillable="true" type="xs:string" />
+					<xs:element name="phone2" nillable="true" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="inet_get_installation_byids">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ins_no" nillable="true" type="xs:string" />
+						<xs:element name="deal_id" nillable="true" type="xs:string" />
+						<xs:element name="alaid" nillable="true" type="xs:string" />
+						<xs:element name="sins" nillable="true" type="xs:int" />
+						<xs:element name="opc" nillable="true" type="xs:int" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="installationinfos" type="ns0:installationinfos" />
+			<xs:complexType name="installationinfos">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="installationinfo" type="ns0:installationinfo" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="installationinfo">
+				<xs:sequence>
+					<xs:element name="sins" nillable="true" type="xs:string" />
+					<xs:element name="ins_no" nillable="true" type="xs:string" />
+					<xs:element name="deal_id" nillable="true" type="xs:string" />
+					<xs:element name="alaid" nillable="true" type="xs:string" />
+					<xs:element name="panel" nillable="true" type="xs:string" />
+					<xs:element name="sub_tp" nillable="true" type="xs:string" />
+					<xs:element name="skill" nillable="true" type="xs:string" />
+					<xs:element name="comment1" nillable="true" type="xs:string" />
+					<xs:element name="comment2" nillable="true" type="xs:string" />
+					<xs:element name="rc" nillable="true" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+		</xs:schema>
+	</wsdl2:types>
+	<wsdl2:interface name="ServiceInterface">
+		<wsdl2:fault name="DataServiceFault" element="ns0:DataServiceFault" />
+		<wsdl2:operation name="getAlarmIdsBasicInfo"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation />
+			<wsdl2:input element="ns0:getAlarmIdsBasicInfo"
+				wsaw:Action="urn:getAlarmIdsBasicInfo" />
+			<wsdl2:output element="ns0:getAlarmIdsBasicInfoResults"
+				wsaw:Action="urn:getAlarmIdsBasicInfoResponse" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:getAlarmIdsBasicInfoDataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="inet_addr_geo_chg"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation />
+			<wsdl2:input element="ns0:inet_addr_geo_chg" wsaw:Action="urn:inet_addr_geo_chg" />
+			<wsdl2:output element="ns0:addrgeochangeresults"
+				wsaw:Action="urn:inet_addr_geo_chgResponse" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:inet_addr_geo_chgDataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="checkInstallationNumber"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation />
+			<wsdl2:input element="ns0:checkInstallationNumber"
+				wsaw:Action="urn:checkInstallationNumber" />
+			<wsdl2:output element="ns0:resultscheckInstallationNumber"
+				wsaw:Action="urn:checkInstallationNumberResponse" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:checkInstallationNumberDataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="getPhone2"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation>Obtencion del campo PHONE2</wsdl2:documentation>
+			<wsdl2:input element="ns0:getPhone2" wsaw:Action="urn:getPhone2" />
+			<wsdl2:output element="ns0:getPhone2Results"
+				wsaw:Action="urn:getPhone2Response" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:getPhone2DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="updateTestInterval"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/robust-in-only">
+			<wsdl2:documentation>Actualizacion del campo TEST INTERVAL
+			</wsdl2:documentation>
+			<wsdl2:input element="ns0:updateTestInterval"
+				wsaw:Action="urn:updateTestInterval" />
+		</wsdl2:operation>
+		<wsdl2:operation name="getCustomerDataGuardSrv"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation />
+			<wsdl2:input element="ns0:getCustomerDataGuardSrv"
+				wsaw:Action="urn:getCustomerDataGuardSrv" />
+			<wsdl2:output element="ns0:customerdataguardresults"
+				wsaw:Action="urn:getCustomerDataGuardSrvResponse" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:getCustomerDataGuardSrvDataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="inet_inst_rbranch_upd"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation />
+			<wsdl2:input element="ns0:inet_inst_rbranch_upd"
+				wsaw:Action="urn:inet_inst_rbranch_upd" />
+			<wsdl2:output element="ns0:rbranchupdResults"
+				wsaw:Action="urn:inet_inst_rbranch_updResponse" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:inet_inst_rbranch_updDataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="updatePanelLocation"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/robust-in-only">
+			<wsdl2:documentation>Actualizacion del campo PANEL LOCATION
+			</wsdl2:documentation>
+			<wsdl2:input element="ns0:updatePanelLocation"
+				wsaw:Action="urn:updatePanelLocation" />
+		</wsdl2:operation>
+		<wsdl2:operation name="createInstalledComponents"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation />
+			<wsdl2:input element="ns0:createInstalledComponents"
+				wsaw:Action="urn:createInstalledComponents" />
+			<wsdl2:output element="ns0:REQUEST_STATUS"
+				wsaw:Action="urn:createInstalledComponentsResponse" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:createInstalledComponentsDataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="abort_boxcar"
+			style="http://www.w3.org/ns/wsdl/style/iri http://www.w3.org/ns/wsdl/style/multipart"
+			pattern="http://www.w3.org/ns/wsdl/robust-in-only">
+			<wsdl2:documentation>Control operation for aborting a boxcarring
+				session</wsdl2:documentation>
+			<wsdl2:input element="ns0:abort_boxcar" wsaw:Action="urn:abort_boxcar" />
+		</wsdl2:operation>
+		<wsdl2:operation name="getPhone1"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation>Obtencion del campo PHONE1</wsdl2:documentation>
+			<wsdl2:input element="ns0:getPhone1" wsaw:Action="urn:getPhone1" />
+			<wsdl2:output element="ns0:getPhone1Results"
+				wsaw:Action="urn:getPhone1Response" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:getPhone1DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="inet_installation_upd"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation />
+			<wsdl2:input element="ns0:inet_installation_upd"
+				wsaw:Action="urn:inet_installation_upd" />
+			<wsdl2:output element="ns0:inetinstallationupdresults"
+				wsaw:Action="urn:inet_installation_updResponse" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:inet_installation_updDataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="ins_maintypes_upd"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/robust-in-only">
+			<wsdl2:documentation />
+			<wsdl2:input element="ns0:ins_maintypes_upd" wsaw:Action="urn:ins_maintypes_upd" />
+		</wsdl2:operation>
+		<wsdl2:operation name="inet_ma_alarmids_upd"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation />
+			<wsdl2:input element="ns0:inet_ma_alarmids_upd"
+				wsaw:Action="urn:inet_ma_alarmids_upd" />
+			<wsdl2:output element="ns0:inetmaalarmidsupdresults"
+				wsaw:Action="urn:inet_ma_alarmids_updResponse" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:inet_ma_alarmids_updDataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="getInternalNumberByAcn"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation>Obtencion del numero interno por ACN
+			</wsdl2:documentation>
+			<wsdl2:input element="ns0:getInternalNumberByAcn"
+				wsaw:Action="urn:getInternalNumberByAcn" />
+			<wsdl2:output element="ns0:getInternalNumberByAcnResults"
+				wsaw:Action="urn:getInternalNumberByAcnResponse" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:getInternalNumberByAcnDataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="getInstallationContacts"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation />
+			<wsdl2:input element="ns0:getInstallationContacts"
+				wsaw:Action="urn:getInstallationContacts" />
+			<wsdl2:output element="ns0:installationcontactsresults"
+				wsaw:Action="urn:getInstallationContactsResponse" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:getInstallationContactsDataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="begin_boxcar"
+			style="http://www.w3.org/ns/wsdl/style/iri http://www.w3.org/ns/wsdl/style/multipart"
+			pattern="http://www.w3.org/ns/wsdl/robust-in-only">
+			<wsdl2:documentation>Control operation for beginning a boxcarring
+				session</wsdl2:documentation>
+			<wsdl2:input element="ns0:begin_boxcar" wsaw:Action="urn:begin_boxcar" />
+		</wsdl2:operation>
+		<wsdl2:operation name="inet_inst_branch_upd"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation />
+			<wsdl2:input element="ns0:inet_inst_branch_upd"
+				wsaw:Action="urn:inet_inst_branch_upd" />
+			<wsdl2:output element="ns0:branchupdResults"
+				wsaw:Action="urn:inet_inst_branch_updResponse" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:inet_inst_branch_updDataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="inet_installation_get"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation />
+			<wsdl2:input element="ns0:inet_installation_get"
+				wsaw:Action="urn:inet_installation_get" />
+			<wsdl2:output element="ns0:installationResults"
+				wsaw:Action="urn:inet_installation_getResponse" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:inet_installation_getDataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="getCodeWords"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation>Obtencion de CODEWORDS</wsdl2:documentation>
+			<wsdl2:input element="ns0:getCodeWords" wsaw:Action="urn:getCodeWords" />
+			<wsdl2:output element="ns0:getCodeWordsResults"
+				wsaw:Action="urn:getCodeWordsResponse" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:getCodeWordsDataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="inet_codeword_change"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation />
+			<wsdl2:input element="ns0:inet_codeword_change"
+				wsaw:Action="urn:inet_codeword_change" />
+			<wsdl2:output element="ns0:inetcodewordchangeresults"
+				wsaw:Action="urn:inet_codeword_changeResponse" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:inet_codeword_changeDataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="updVehicleData"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation />
+			<wsdl2:input element="ns0:updVehicleData" wsaw:Action="urn:updVehicleData" />
+			<wsdl2:output element="ns0:REQUEST_STATUS" wsaw:Action="urn:updVehicleDataResponse" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:updVehicleDataDataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="end_boxcar"
+			style="http://www.w3.org/ns/wsdl/style/iri http://www.w3.org/ns/wsdl/style/multipart"
+			pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation>Control operation for ending a boxcarring
+				session</wsdl2:documentation>
+			<wsdl2:input element="ns0:end_boxcar" wsaw:Action="urn:end_boxcar" />
+			<wsdl2:output element="ns0:DATA_SERVICE_RESPONSE"
+				wsaw:Action="urn:end_boxcarResponse" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:end_boxcarDataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="getCodeDTMF"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation>Obtencion del codigo DTMF</wsdl2:documentation>
+			<wsdl2:input element="ns0:getCodeDTMF" wsaw:Action="urn:getCodeDTMF" />
+			<wsdl2:output element="ns0:getCodeDTMFResults"
+				wsaw:Action="urn:getCodeDTMFResponse" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:getCodeDTMFDataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="getInternalNumberByCid"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation>Obtencion del numero interno por CID
+			</wsdl2:documentation>
+			<wsdl2:input element="ns0:getInternalNumberByCid"
+				wsaw:Action="urn:getInternalNumberByCid" />
+			<wsdl2:output element="ns0:getInternalNumberByCidResults"
+				wsaw:Action="urn:getInternalNumberByCidResponse" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:getInternalNumberByCidDataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="getSkill"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation />
+			<wsdl2:input element="ns0:getSkill" wsaw:Action="urn:getSkill" />
+			<wsdl2:output element="ns0:getskillresults" wsaw:Action="urn:getSkillResponse" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:getSkillDataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="updateClass"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/robust-in-only">
+			<wsdl2:documentation>Actualizacion del CLASS</wsdl2:documentation>
+			<wsdl2:input element="ns0:updateClass" wsaw:Action="urn:updateClass" />
+		</wsdl2:operation>
+		<wsdl2:operation name="getClass"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation>Obtencion del CLASS</wsdl2:documentation>
+			<wsdl2:input element="ns0:getClass" wsaw:Action="urn:getClass" />
+			<wsdl2:output element="ns0:getClassResults" wsaw:Action="urn:getClassResponse" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:getClassDataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="getAgenciesFromZip"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation />
+			<wsdl2:input element="ns0:getAgenciesFromZip"
+				wsaw:Action="urn:getAgenciesFromZip" />
+			<wsdl2:output element="ns0:resultsgetAgenciesFromZip"
+				wsaw:Action="urn:getAgenciesFromZipResponse" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:getAgenciesFromZipDataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="getTestInterval"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation>Obtencion del campo TEST INTERVAL
+			</wsdl2:documentation>
+			<wsdl2:input element="ns0:getTestInterval" wsaw:Action="urn:getTestInterval" />
+			<wsdl2:output element="ns0:getTestIntervalResults"
+				wsaw:Action="urn:getTestIntervalResponse" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:getTestIntervalDataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="getPanel"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation>Obtencion de campo PANEL</wsdl2:documentation>
+			<wsdl2:input element="ns0:getPanel" wsaw:Action="urn:getPanel" />
+			<wsdl2:output element="ns0:getPanelResults" wsaw:Action="urn:getPanelResponse" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:getPanelDataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="inet_get_installation_ids"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation />
+			<wsdl2:input element="ns0:inet_get_installation_ids"
+				wsaw:Action="urn:inet_get_installation_ids" />
+			<wsdl2:output element="ns0:installationids"
+				wsaw:Action="urn:inet_get_installation_idsResponse" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:inet_get_installation_idsDataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="getDatosTransmision"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation>Obtiene los datos de transmision
+			</wsdl2:documentation>
+			<wsdl2:input element="ns0:getDatosTransmision"
+				wsaw:Action="urn:getDatosTransmision" />
+			<wsdl2:output element="ns0:getDatosTransmisionResults"
+				wsaw:Action="urn:getDatosTransmisionResponse" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:getDatosTransmisionDataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="getPanelLocation"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation>Obtencion del campo PANEL LOCATION
+			</wsdl2:documentation>
+			<wsdl2:input element="ns0:getPanelLocation" wsaw:Action="urn:getPanelLocation" />
+			<wsdl2:output element="ns0:getPanelLocationResults"
+				wsaw:Action="urn:getPanelLocationResponse" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:getPanelLocationDataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="getMiscno1"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation />
+			<wsdl2:input element="ns0:getMiscno1" wsaw:Action="urn:getMiscno1" />
+			<wsdl2:output element="ns0:getmiscno1results"
+				wsaw:Action="urn:getMiscno1Response" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:getMiscno1DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="inet_get_installation_byids"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation />
+			<wsdl2:input element="ns0:inet_get_installation_byids"
+				wsaw:Action="urn:inet_get_installation_byids" />
+			<wsdl2:output element="ns0:installationinfos"
+				wsaw:Action="urn:inet_get_installation_byidsResponse" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:inet_get_installation_byidsDataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="getMember"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation>getMember&#xd; </wsdl2:documentation>
+			<wsdl2:input element="ns0:getMember" wsaw:Action="urn:getMember" />
+			<wsdl2:output element="ns0:getMemberResults"
+				wsaw:Action="urn:getMemberResponse" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:getMemberDataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="getInstaller"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation>Obtencion del campo INSTALLER
+			</wsdl2:documentation>
+			<wsdl2:input element="ns0:getInstaller" wsaw:Action="urn:getInstaller" />
+			<wsdl2:output element="ns0:getInstallerResults"
+				wsaw:Action="urn:getInstallerResponse" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:getInstallerDataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="inet_ma_alarmids_del"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation />
+			<wsdl2:input element="ns0:inet_ma_alarmids_del"
+				wsaw:Action="urn:inet_ma_alarmids_del" />
+			<wsdl2:output element="ns0:inet_ma_alarmids_delResults"
+				wsaw:Action="urn:inet_ma_alarmids_delResponse" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:inet_ma_alarmids_delDataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="getMonitoringBranch"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation />
+			<wsdl2:input element="ns0:getMonitoringBranch"
+				wsaw:Action="urn:getMonitoringBranch" />
+			<wsdl2:output element="ns0:getmonitoringbranchresults"
+				wsaw:Action="urn:getMonitoringBranchResponse" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:getMonitoringBranchDataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="iic_serviceinfo_set"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation />
+			<wsdl2:input element="ns0:iic_serviceinfo_set"
+				wsaw:Action="urn:iic_serviceinfo_set" />
+			<wsdl2:output element="ns0:iicserviceinfosetresults"
+				wsaw:Action="urn:iic_serviceinfo_setResponse" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:iic_serviceinfo_setDataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="updatePhone1"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/robust-in-only">
+			<wsdl2:documentation>Actualizacion del campo PHONE1
+			</wsdl2:documentation>
+			<wsdl2:input element="ns0:updatePhone1" wsaw:Action="urn:updatePhone1" />
+		</wsdl2:operation>
+		<wsdl2:operation name="getServiceRequest"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation>Obtencion de datos del SERVICE REQUEST
+			</wsdl2:documentation>
+			<wsdl2:input element="ns0:getServiceRequest" wsaw:Action="urn:getServiceRequest" />
+			<wsdl2:output element="ns0:getServiceRequestResults"
+				wsaw:Action="urn:getServiceRequestResponse" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:getServiceRequestDataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="getInstallationData"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation />
+			<wsdl2:input element="ns0:getInstallationData"
+				wsaw:Action="urn:getInstallationData" />
+			<wsdl2:output element="ns0:mainstallationdataresults"
+				wsaw:Action="urn:getInstallationDataResponse" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:getInstallationDataDataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="inet_installation_upd_misc28"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation>inet_installation_upd_misc28
+			</wsdl2:documentation>
+			<wsdl2:input element="ns0:inet_installation_upd_misc28"
+				wsaw:Action="urn:inet_installation_upd_misc28" />
+			<wsdl2:output element="ns0:updMisc28Results"
+				wsaw:Action="urn:inet_installation_upd_misc28Response" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:inet_installation_upd_misc28DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="getMonitoringStatus"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation>Obtencion del campo MONITORING STATUS
+			</wsdl2:documentation>
+			<wsdl2:input element="ns0:getMonitoringStatus"
+				wsaw:Action="urn:getMonitoringStatus" />
+			<wsdl2:output element="ns0:getMonitoringStatusResults"
+				wsaw:Action="urn:getMonitoringStatusResponse" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:getMonitoringStatusDataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="inet_inst_extstat_upd"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation />
+			<wsdl2:input element="ns0:inet_inst_extstat_upd"
+				wsaw:Action="urn:inet_inst_extstat_upd" />
+			<wsdl2:output element="ns0:inetinstextstatupdresults"
+				wsaw:Action="urn:inet_inst_extstat_updResponse" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:inet_inst_extstat_updDataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="getVehicleData"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation />
+			<wsdl2:input element="ns0:getVehicleData" wsaw:Action="urn:getVehicleData" />
+			<wsdl2:output element="ns0:getVehicleDataResults"
+				wsaw:Action="urn:getVehicleDataResponse" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:getVehicleDataDataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation name="updateTestIntervalConfiguration"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/robust-in-only">
+			<wsdl2:documentation>Actualizacion del campo TEST INTERVAL
+			</wsdl2:documentation>
+			<wsdl2:input element="ns0:updateTestIntervalConfiguration"
+				wsaw:Action="urn:updateTestIntervalConfiguration" />
+		</wsdl2:operation>
+		<wsdl2:operation name="inet_installation_upd_sec_misc"
+			style="http://www.w3.org/ns/wsdl/style/multipart" pattern="http://www.w3.org/ns/wsdl/in-out">
+			<wsdl2:documentation />
+			<wsdl2:input element="ns0:inet_installation_upd_sec_misc"
+				wsaw:Action="urn:inet_installation_upd_sec_misc" />
+			<wsdl2:output element="ns0:inet_instResults"
+				wsaw:Action="urn:inet_installation_upd_sec_miscResponse" />
+			<wsdl2:outfault ref="tns:DataServiceFault"
+				wsaw:Action="urn:inet_installation_upd_sec_miscDataServiceFault" />
+		</wsdl2:operation>
+	</wsdl2:interface>
+	<wsdl2:binding name="SP_InstallationMonDataSOAP11Binding"
+		interface="tns:ServiceInterface" type="http://www.w3.org/ns/wsdl/soap"
+		wsoap:version="1.1" wsoap:protocol="http://www.w3.org/2003/05/soap/bindings/HTTP">
+		<wsdl2:operation ref="tns:getAlarmIdsBasicInfo"
+			wsoap:action="urn:getAlarmIdsBasicInfo" whttp:location="getAlarmIdsBasicInfo">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:inet_addr_geo_chg"
+			wsoap:action="urn:inet_addr_geo_chg" whttp:location="inet_addr_geo_chg">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:checkInstallationNumber"
+			wsoap:action="urn:checkInstallationNumber" whttp:location="checkInstallationNumber">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getPhone2" wsoap:action="urn:getPhone2"
+			whttp:location="getPhone2">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:updateTestInterval"
+			wsoap:action="urn:updateTestInterval" whttp:location="updateTestInterval">
+			<wsdl2:output />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getCustomerDataGuardSrv"
+			wsoap:action="urn:getCustomerDataGuardSrv" whttp:location="getCustomerDataGuardSrv">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:inet_inst_rbranch_upd"
+			wsoap:action="urn:inet_inst_rbranch_upd" whttp:location="inet_inst_rbranch_upd">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:updatePanelLocation"
+			wsoap:action="urn:updatePanelLocation" whttp:location="updatePanelLocation">
+			<wsdl2:output />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:createInstalledComponents"
+			wsoap:action="urn:createInstalledComponents" whttp:location="createInstalledComponents">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:abort_boxcar" wsoap:action="urn:abort_boxcar"
+			whttp:location="abort_boxcar">
+			<wsdl2:output />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getPhone1" wsoap:action="urn:getPhone1"
+			whttp:location="getPhone1">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:inet_installation_upd"
+			wsoap:action="urn:inet_installation_upd" whttp:location="inet_installation_upd">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:ins_maintypes_upd"
+			wsoap:action="urn:ins_maintypes_upd" whttp:location="ins_maintypes_upd">
+			<wsdl2:output />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:inet_ma_alarmids_upd"
+			wsoap:action="urn:inet_ma_alarmids_upd" whttp:location="inet_ma_alarmids_upd">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getInternalNumberByAcn"
+			wsoap:action="urn:getInternalNumberByAcn" whttp:location="getInternalNumberByAcn">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getInstallationContacts"
+			wsoap:action="urn:getInstallationContacts" whttp:location="getInstallationContacts">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:begin_boxcar" wsoap:action="urn:begin_boxcar"
+			whttp:location="begin_boxcar">
+			<wsdl2:output />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:inet_inst_branch_upd"
+			wsoap:action="urn:inet_inst_branch_upd" whttp:location="inet_inst_branch_upd">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:inet_installation_get"
+			wsoap:action="urn:inet_installation_get" whttp:location="inet_installation_get">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getCodeWords" wsoap:action="urn:getCodeWords"
+			whttp:location="getCodeWords">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:inet_codeword_change"
+			wsoap:action="urn:inet_codeword_change" whttp:location="inet_codeword_change">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:updVehicleData"
+			wsoap:action="urn:updVehicleData" whttp:location="updVehicleData">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:end_boxcar" wsoap:action="urn:end_boxcar"
+			whttp:location="end_boxcar">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getCodeDTMF" wsoap:action="urn:getCodeDTMF"
+			whttp:location="getCodeDTMF">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getInternalNumberByCid"
+			wsoap:action="urn:getInternalNumberByCid" whttp:location="getInternalNumberByCid">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getSkill" wsoap:action="urn:getSkill"
+			whttp:location="getSkill">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:updateClass" wsoap:action="urn:updateClass"
+			whttp:location="updateClass">
+			<wsdl2:output />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getClass" wsoap:action="urn:getClass"
+			whttp:location="getClass">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getAgenciesFromZip"
+			wsoap:action="urn:getAgenciesFromZip" whttp:location="getAgenciesFromZip">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getTestInterval"
+			wsoap:action="urn:getTestInterval" whttp:location="getTestInterval">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getPanel" wsoap:action="urn:getPanel"
+			whttp:location="getPanel">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:inet_get_installation_ids"
+			wsoap:action="urn:inet_get_installation_ids" whttp:location="inet_get_installation_ids">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getDatosTransmision"
+			wsoap:action="urn:getDatosTransmision" whttp:location="getDatosTransmision">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getPanelLocation"
+			wsoap:action="urn:getPanelLocation" whttp:location="getPanelLocation">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getMiscno1" wsoap:action="urn:getMiscno1"
+			whttp:location="getMiscno1">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:inet_get_installation_byids"
+			wsoap:action="urn:inet_get_installation_byids" whttp:location="inet_get_installation_byids">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getMember" wsoap:action="urn:getMember"
+			whttp:location="getMember">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getInstaller" wsoap:action="urn:getInstaller"
+			whttp:location="getInstaller">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:inet_ma_alarmids_del"
+			wsoap:action="urn:inet_ma_alarmids_del" whttp:location="inet_ma_alarmids_del">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getMonitoringBranch"
+			wsoap:action="urn:getMonitoringBranch" whttp:location="getMonitoringBranch">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:iic_serviceinfo_set"
+			wsoap:action="urn:iic_serviceinfo_set" whttp:location="iic_serviceinfo_set">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:updatePhone1" wsoap:action="urn:updatePhone1"
+			whttp:location="updatePhone1">
+			<wsdl2:output />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getServiceRequest"
+			wsoap:action="urn:getServiceRequest" whttp:location="getServiceRequest">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getInstallationData"
+			wsoap:action="urn:getInstallationData" whttp:location="getInstallationData">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:inet_installation_upd_misc28"
+			wsoap:action="urn:inet_installation_upd_misc28" whttp:location="inet_installation_upd_misc28">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getMonitoringStatus"
+			wsoap:action="urn:getMonitoringStatus" whttp:location="getMonitoringStatus">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:inet_inst_extstat_upd"
+			wsoap:action="urn:inet_inst_extstat_upd" whttp:location="inet_inst_extstat_upd">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getVehicleData"
+			wsoap:action="urn:getVehicleData" whttp:location="getVehicleData">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:updateTestIntervalConfiguration"
+			wsoap:action="urn:updateTestIntervalConfiguration" whttp:location="updateTestIntervalConfiguration">
+			<wsdl2:output />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:inet_installation_upd_sec_misc"
+			wsoap:action="urn:inet_installation_upd_sec_misc" whttp:location="inet_installation_upd_sec_misc">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+	</wsdl2:binding>
+	<wsdl2:binding name="SP_InstallationMonDataHttpBinding"
+		interface="tns:ServiceInterface" type="http://www.w3.org/ns/wsdl/http">
+		<wsdl2:operation ref="tns:getAlarmIdsBasicInfo"
+			whttp:method="POST" whttp:location="getAlarmIdsBasicInfo">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:inet_addr_geo_chg"
+			whttp:method="POST" whttp:location="inet_addr_geo_chg">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:checkInstallationNumber"
+			whttp:method="POST" whttp:location="checkInstallationNumber">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getPhone2" whttp:method="POST"
+			whttp:location="getPhone2">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:updateTestInterval"
+			whttp:method="POST" whttp:location="updateTestInterval">
+			<wsdl2:output />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getCustomerDataGuardSrv"
+			whttp:method="POST" whttp:location="getCustomerDataGuardSrv">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:inet_inst_rbranch_upd"
+			whttp:method="POST" whttp:location="inet_inst_rbranch_upd">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:updatePanelLocation"
+			whttp:method="POST" whttp:location="updatePanelLocation">
+			<wsdl2:output />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:createInstalledComponents"
+			whttp:method="POST" whttp:location="createInstalledComponents">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:abort_boxcar" whttp:method="POST"
+			whttp:location="abort_boxcar">
+			<wsdl2:output />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getPhone1" whttp:method="POST"
+			whttp:location="getPhone1">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:inet_installation_upd"
+			whttp:method="POST" whttp:location="inet_installation_upd">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:ins_maintypes_upd"
+			whttp:method="POST" whttp:location="ins_maintypes_upd">
+			<wsdl2:output />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:inet_ma_alarmids_upd"
+			whttp:method="POST" whttp:location="inet_ma_alarmids_upd">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getInternalNumberByAcn"
+			whttp:method="POST" whttp:location="getInternalNumberByAcn">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getInstallationContacts"
+			whttp:method="POST" whttp:location="getInstallationContacts">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:begin_boxcar" whttp:method="POST"
+			whttp:location="begin_boxcar">
+			<wsdl2:output />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:inet_inst_branch_upd"
+			whttp:method="POST" whttp:location="inet_inst_branch_upd">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:inet_installation_get"
+			whttp:method="POST" whttp:location="inet_installation_get">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getCodeWords" whttp:method="POST"
+			whttp:location="getCodeWords">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:inet_codeword_change"
+			whttp:method="POST" whttp:location="inet_codeword_change">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:updVehicleData"
+			whttp:method="POST" whttp:location="updVehicleData">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:end_boxcar" whttp:method="POST"
+			whttp:location="end_boxcar">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getCodeDTMF" whttp:method="POST"
+			whttp:location="getCodeDTMF">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getInternalNumberByCid"
+			whttp:method="POST" whttp:location="getInternalNumberByCid">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getSkill" whttp:method="POST"
+			whttp:location="getSkill">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:updateClass" whttp:method="POST"
+			whttp:location="updateClass">
+			<wsdl2:output />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getClass" whttp:method="POST"
+			whttp:location="getClass">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getAgenciesFromZip"
+			whttp:method="POST" whttp:location="getAgenciesFromZip">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getTestInterval"
+			whttp:method="POST" whttp:location="getTestInterval">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getPanel" whttp:method="POST"
+			whttp:location="getPanel">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:inet_get_installation_ids"
+			whttp:method="POST" whttp:location="inet_get_installation_ids">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getDatosTransmision"
+			whttp:method="POST" whttp:location="getDatosTransmision">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getPanelLocation"
+			whttp:method="POST" whttp:location="getPanelLocation">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getMiscno1" whttp:method="POST"
+			whttp:location="getMiscno1">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:inet_get_installation_byids"
+			whttp:method="POST" whttp:location="inet_get_installation_byids">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getMember" whttp:method="POST"
+			whttp:location="getMember">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getInstaller" whttp:method="POST"
+			whttp:location="getInstaller">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:inet_ma_alarmids_del"
+			whttp:method="POST" whttp:location="inet_ma_alarmids_del">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getMonitoringBranch"
+			whttp:method="POST" whttp:location="getMonitoringBranch">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:iic_serviceinfo_set"
+			whttp:method="POST" whttp:location="iic_serviceinfo_set">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:updatePhone1" whttp:method="POST"
+			whttp:location="updatePhone1">
+			<wsdl2:output />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getServiceRequest"
+			whttp:method="POST" whttp:location="getServiceRequest">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getInstallationData"
+			whttp:method="POST" whttp:location="getInstallationData">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:inet_installation_upd_misc28"
+			whttp:method="POST" whttp:location="inet_installation_upd_misc28">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getMonitoringStatus"
+			whttp:method="POST" whttp:location="getMonitoringStatus">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:inet_inst_extstat_upd"
+			whttp:method="POST" whttp:location="inet_inst_extstat_upd">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getVehicleData"
+			whttp:method="POST" whttp:location="getVehicleData">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:updateTestIntervalConfiguration"
+			whttp:method="POST" whttp:location="updateTestIntervalConfiguration">
+			<wsdl2:output />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:inet_installation_upd_sec_misc"
+			whttp:method="POST" whttp:location="inet_installation_upd_sec_misc">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+	</wsdl2:binding>
+	<wsdl2:binding name="SP_InstallationMonDataSOAP12Binding"
+		interface="tns:ServiceInterface" type="http://www.w3.org/ns/wsdl/soap"
+		wsoap:version="1.2" wsoap:protocol="http://www.w3.org/2003/05/soap/bindings/HTTP">
+		<wsdl2:operation ref="tns:getAlarmIdsBasicInfo"
+			wsoap:action="urn:getAlarmIdsBasicInfo" whttp:location="getAlarmIdsBasicInfo">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:inet_addr_geo_chg"
+			wsoap:action="urn:inet_addr_geo_chg" whttp:location="inet_addr_geo_chg">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:checkInstallationNumber"
+			wsoap:action="urn:checkInstallationNumber" whttp:location="checkInstallationNumber">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getPhone2" wsoap:action="urn:getPhone2"
+			whttp:location="getPhone2">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:updateTestInterval"
+			wsoap:action="urn:updateTestInterval" whttp:location="updateTestInterval">
+			<wsdl2:output />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getCustomerDataGuardSrv"
+			wsoap:action="urn:getCustomerDataGuardSrv" whttp:location="getCustomerDataGuardSrv">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:inet_inst_rbranch_upd"
+			wsoap:action="urn:inet_inst_rbranch_upd" whttp:location="inet_inst_rbranch_upd">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:updatePanelLocation"
+			wsoap:action="urn:updatePanelLocation" whttp:location="updatePanelLocation">
+			<wsdl2:output />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:createInstalledComponents"
+			wsoap:action="urn:createInstalledComponents" whttp:location="createInstalledComponents">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:abort_boxcar" wsoap:action="urn:abort_boxcar"
+			whttp:location="abort_boxcar">
+			<wsdl2:output />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getPhone1" wsoap:action="urn:getPhone1"
+			whttp:location="getPhone1">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:inet_installation_upd"
+			wsoap:action="urn:inet_installation_upd" whttp:location="inet_installation_upd">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:ins_maintypes_upd"
+			wsoap:action="urn:ins_maintypes_upd" whttp:location="ins_maintypes_upd">
+			<wsdl2:output />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:inet_ma_alarmids_upd"
+			wsoap:action="urn:inet_ma_alarmids_upd" whttp:location="inet_ma_alarmids_upd">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getInternalNumberByAcn"
+			wsoap:action="urn:getInternalNumberByAcn" whttp:location="getInternalNumberByAcn">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getInstallationContacts"
+			wsoap:action="urn:getInstallationContacts" whttp:location="getInstallationContacts">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:begin_boxcar" wsoap:action="urn:begin_boxcar"
+			whttp:location="begin_boxcar">
+			<wsdl2:output />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:inet_inst_branch_upd"
+			wsoap:action="urn:inet_inst_branch_upd" whttp:location="inet_inst_branch_upd">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:inet_installation_get"
+			wsoap:action="urn:inet_installation_get" whttp:location="inet_installation_get">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getCodeWords" wsoap:action="urn:getCodeWords"
+			whttp:location="getCodeWords">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:inet_codeword_change"
+			wsoap:action="urn:inet_codeword_change" whttp:location="inet_codeword_change">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:updVehicleData"
+			wsoap:action="urn:updVehicleData" whttp:location="updVehicleData">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:end_boxcar" wsoap:action="urn:end_boxcar"
+			whttp:location="end_boxcar">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getCodeDTMF" wsoap:action="urn:getCodeDTMF"
+			whttp:location="getCodeDTMF">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getInternalNumberByCid"
+			wsoap:action="urn:getInternalNumberByCid" whttp:location="getInternalNumberByCid">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getSkill" wsoap:action="urn:getSkill"
+			whttp:location="getSkill">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:updateClass" wsoap:action="urn:updateClass"
+			whttp:location="updateClass">
+			<wsdl2:output />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getClass" wsoap:action="urn:getClass"
+			whttp:location="getClass">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getAgenciesFromZip"
+			wsoap:action="urn:getAgenciesFromZip" whttp:location="getAgenciesFromZip">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getTestInterval"
+			wsoap:action="urn:getTestInterval" whttp:location="getTestInterval">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getPanel" wsoap:action="urn:getPanel"
+			whttp:location="getPanel">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:inet_get_installation_ids"
+			wsoap:action="urn:inet_get_installation_ids" whttp:location="inet_get_installation_ids">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getDatosTransmision"
+			wsoap:action="urn:getDatosTransmision" whttp:location="getDatosTransmision">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getPanelLocation"
+			wsoap:action="urn:getPanelLocation" whttp:location="getPanelLocation">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getMiscno1" wsoap:action="urn:getMiscno1"
+			whttp:location="getMiscno1">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:inet_get_installation_byids"
+			wsoap:action="urn:inet_get_installation_byids" whttp:location="inet_get_installation_byids">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getMember" wsoap:action="urn:getMember"
+			whttp:location="getMember">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getInstaller" wsoap:action="urn:getInstaller"
+			whttp:location="getInstaller">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:inet_ma_alarmids_del"
+			wsoap:action="urn:inet_ma_alarmids_del" whttp:location="inet_ma_alarmids_del">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getMonitoringBranch"
+			wsoap:action="urn:getMonitoringBranch" whttp:location="getMonitoringBranch">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:iic_serviceinfo_set"
+			wsoap:action="urn:iic_serviceinfo_set" whttp:location="iic_serviceinfo_set">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:updatePhone1" wsoap:action="urn:updatePhone1"
+			whttp:location="updatePhone1">
+			<wsdl2:output />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getServiceRequest"
+			wsoap:action="urn:getServiceRequest" whttp:location="getServiceRequest">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getInstallationData"
+			wsoap:action="urn:getInstallationData" whttp:location="getInstallationData">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:inet_installation_upd_misc28"
+			wsoap:action="urn:inet_installation_upd_misc28" whttp:location="inet_installation_upd_misc28">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getMonitoringStatus"
+			wsoap:action="urn:getMonitoringStatus" whttp:location="getMonitoringStatus">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:inet_inst_extstat_upd"
+			wsoap:action="urn:inet_inst_extstat_upd" whttp:location="inet_inst_extstat_upd">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:getVehicleData"
+			wsoap:action="urn:getVehicleData" whttp:location="getVehicleData">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:updateTestIntervalConfiguration"
+			wsoap:action="urn:updateTestIntervalConfiguration" whttp:location="updateTestIntervalConfiguration">
+			<wsdl2:output />
+		</wsdl2:operation>
+		<wsdl2:operation ref="tns:inet_installation_upd_sec_misc"
+			wsoap:action="urn:inet_installation_upd_sec_misc" whttp:location="inet_installation_upd_sec_misc">
+			<wsdl2:output />
+			<wsdl2:output />
+			<wsdl2:outfault ref="tns:DataServiceFault" />
+		</wsdl2:operation>
+	</wsdl2:binding>
+	<wsdl2:service name="SP_InstallationMonData" interface="tns:ServiceInterface">
+		<wsdl2:endpoint name="LOCALSOAP12Endpoint"
+			binding="tns:SP_InstallationMonDataSOAP12Binding"
+			address="local:///services/SP_InstallationMonData.LOCALSOAP12Endpoint/" />
+		<wsdl2:endpoint name="HTTPEndpoint"
+			binding="tns:SP_InstallationMonDataHttpBinding"
+			address="http://10.2.144.63:9763/services/SP_InstallationMonData.HTTPEndpoint/" />
+		<wsdl2:endpoint name="SecureSOAP12Endpoint"
+			binding="tns:SP_InstallationMonDataSOAP12Binding"
+			address="https://10.2.144.63:9443/services/SP_InstallationMonData.SecureSOAP12Endpoint/" />
+		<wsdl2:endpoint name="SOAP11Endpoint"
+			binding="tns:SP_InstallationMonDataSOAP11Binding"
+			address="http://10.2.144.63:9763/services/SP_InstallationMonData.SOAP11Endpoint/" />
+		<wsdl2:endpoint name="SecureHTTPEndpoint"
+			binding="tns:SP_InstallationMonDataHttpBinding"
+			address="https://10.2.144.63:9443/services/SP_InstallationMonData.SecureHTTPEndpoint/" />
+		<wsdl2:endpoint name="LOCALSOAP11Endpoint"
+			binding="tns:SP_InstallationMonDataSOAP11Binding"
+			address="local:///services/SP_InstallationMonData.LOCALSOAP11Endpoint/" />
+		<wsdl2:endpoint name="SecureSOAP11Endpoint"
+			binding="tns:SP_InstallationMonDataSOAP11Binding"
+			address="https://10.2.144.63:9443/services/SP_InstallationMonData.SecureSOAP11Endpoint/" />
+		<wsdl2:endpoint name="SOAP12Endpoint"
+			binding="tns:SP_InstallationMonDataSOAP12Binding"
+			address="http://10.2.144.63:9763/services/SP_InstallationMonData.SOAP12Endpoint/" />
+	</wsdl2:service>
+</wsdl2:description>
