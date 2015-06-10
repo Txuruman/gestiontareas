@@ -1,7 +1,12 @@
 package com.securitasdirect.tareas.service;
 
+import javax.inject.Named;
+import javax.inject.Singleton;
+
 /**
- * Created by Javier Naval on 10/06/2015.
+ *
  */
+@Named(value = "instalacionService")
+@Singleton
 public class InstalacionService {
 }

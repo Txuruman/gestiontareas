@@ -43,6 +43,8 @@
 		<application.port>8888</application.port>
 		<application.contextpath>/CertificadosElectronicos</application.contextpath>
 		<log.level>DEBUG</log.level>
+		<slf4j.version>1.7.5</slf4j.version>
+		<logback.version>1.0.13</logback.version>
 
 	</properties>
 
