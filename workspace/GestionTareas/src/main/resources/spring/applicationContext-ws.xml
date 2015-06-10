@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans default-lazy-init="true" xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:task="http://www.springframework.org/schema/task" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
+			http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+			http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+			http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.2.xsd
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+			http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+    <description><![CDATA[
+		Configuracion de los Web Services
+	]]></description>
+
+
+    <!-- CXF -->
+    <import resource="classpath:META-INF/cxf/cxf.xml"/>
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
+
+
+    <!-- Web Services Cliente -->
+    <jaxws:client name="wsiColegio"
+        serviceClass="es.cgcom.wsicolegio.IColegio"
+        address="#wsi_colegio"
+        />
+
+    <jaxws:client name="wsiColegiado"
+                  serviceClass="es.cgcom.wsicolegiado.IColegiado"
+                  address="#wsi_colegiado"
+            />
+
+    <jaxws:client name="wsiPais"
+                  serviceClass="es.cgcom.wsipais.IPais"
+                  address="#wsi_pais"
+            />
+
+    <jaxws:client name="wsiProvincia"
+                  serviceClass="es.cgcom.wsiprovincia.IProvincia"
+                  address="#wsi_provincia"
+            />
+
+    <jaxws:client name="wsiTipoVia"
+                  serviceClass="es.cgcom.wsitipovia.ITipoVia"
+                  address="#wsi_tipovia"
+            />
+
+    <jaxws:client name="wsiEspecialidad"
+                  serviceClass="es.cgcom.wsiespecialidad.IEspecialidad"
+                  address="#wsi_especialidad"
+            />
+
+    <jaxws:client name="wsX509"
+                  serviceClass="es.cgcom.wsix509.IX509"
+                  address="#wsi_x509"
+            />
+
+    <jaxws:client name="wsGestorFirma"
+                  serviceClass="es.cgcom.wsgestorfirma.IGestorFirma"
+                  address="#wsi_gestorfirma">
+        <!-- Interceptor para la seguridad UsernameToken Cliente-->
+        <jaxws:outInterceptors>
+            <bean class="org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor">
+                <constructor-arg>
+                    <!-- http://ws.apache.org/wss4j/apidocs/org/apache/ws/security/handler/WSHandlerConstants.html -->
+                    <map>
+                        <entry key="action" value="UsernameToken"/>
+                        <!-- PasswordDigest debe recibir una hash, PasswordText la contraseña en plano -->
+                        <entry key="passwordType" value="PasswordDigest"/>
+                        <entry key="user" value-ref="wsi_gestorFirma_user"/>
+                        <entry key="passwordCallbackRef">
+                            <bean id="clientPasswordHandler" class="es.cgcom.security.UsernameTokenPasswordHandler">
+                                <property name="password" ref="wsi_gestorFirma_password"/>
+                            </bean>
+                        </entry>
+                    </map>
+                </constructor-arg>
+            </bean>
+        </jaxws:outInterceptors>
+    </jaxws:client>
+
+    <jaxws:client name="wsNotificacion"
+                  serviceClass="es.cgcom.wsnotificacion.INotificacion"
+                  address="#wsi_notificacion">
+        <!-- Interceptor para la seguridad UsernameToken Cliente-->
+        <jaxws:outInterceptors>
+            <bean class="org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor">
+                <constructor-arg>
+                    <!-- http://ws.apache.org/wss4j/apidocs/org/apache/ws/security/handler/WSHandlerConstants.html -->
+                    <map>
+                        <entry key="action" value="UsernameToken"/>
+                        <!-- PasswordDigest debe recibir una hash, PasswordText la contraseña en plano -->
+                        <entry key="passwordType" value="PasswordDigest"/>
+                        <entry key="user" value-ref="wsi_notificacion_user"/>
+                        <entry key="passwordCallbackRef">
+                            <bean id="clientPasswordHandler" class="es.cgcom.security.UsernameTokenPasswordHandler">
+                                <property name="password" ref="wsi_notificacion_password"/>
+                            </bean>
+                        </entry>
+                    </map>
+                </constructor-arg>
+            </bean>
+        </jaxws:outInterceptors>
+    </jaxws:client>
+
+
+
+
+    <!-- Web Services Servidor  -->
+    <jaxws:endpoint
+            id="gestorCertificadosMedicos"
+            implementor="es.cgcom.wscertificados.GestorCertificadosMedicosImpl"
+            address="/GestorCertificadosMedicos">
+        <!-- Si no se quiere seguridad en este WS eliminar este interceptor -->
+        <jaxws:inInterceptors>
+            <bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+                <constructor-arg>
+                    <map>
+                        <entry key="action" value="UsernameToken"/>
+                        <!-- PasswordDigest debe recibir una hash, PasswordText la contraseña en plano -->
+                        <entry key="passwordType" value="PasswordDigest"/>
+                        <entry key="passwordCallbackRef">
+                            <bean id="usernameTokenCallbackHandlerGestorFirma"
+                                class="es.cgcom.security.UsernameTokenCallbackHandler">
+                                <constructor-arg index="0" ref="wsi_certificadoselectronicos_medicos_user"/>
+                                <constructor-arg index="1" ref="wsi_certificadoselectronicos_medicos_password"/>
+                            </bean>
+                        </entry>
+                    </map>
+                </constructor-arg>
+            </bean>
+        </jaxws:inInterceptors>
+    </jaxws:endpoint>
+
+    <jaxws:endpoint
+            id="gestorCertificadosAdministrativos"
+            implementor="es.cgcom.wscertificados.GestorCertificadosAdministrativosImpl"
+            address="/GestorCertificadosAdministrativos">
+        <!-- Si no se quiere seguridad en este WS eliminar este interceptor -->
+        <jaxws:inInterceptors>
+            <bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+                <constructor-arg>
+                    <map>
+                        <entry key="action" value="UsernameToken"/>
+                        <!-- PasswordDigest debe recibir una hash, PasswordText la contraseña en plano -->
+                        <entry key="passwordType" value="PasswordDigest"/>
+                        <entry key="passwordCallbackRef">
+                            <bean id="usernameTokenCallbackHandlerGestorFirma"
+                                class="es.cgcom.security.UsernameTokenCallbackHandler">
+                                <constructor-arg index="0" ref="wsi_certificadoselectronicos_administrativos_user"/>
+                                <constructor-arg index="1" ref="wsi_certificadoselectronicos_administrativos_password"/>
+                            </bean>
+                        </entry>
+                    </map>
+                </constructor-arg>
+            </bean>
+        </jaxws:inInterceptors>
+    </jaxws:endpoint>
+
+    <!-- WS para recibir las notificaciones de GestorFirma -->
+    <jaxws:endpoint
+            id="avisoGestorFirma"
+            implementor="es.cgcom.wsgestorfirma.AvisoGestorFirmaImpl"
+            address="/AvisoGestorFirma"
+            />
+
+
+
+</beans>
