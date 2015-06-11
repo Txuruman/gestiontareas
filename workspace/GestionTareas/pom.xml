@@ -27,7 +27,6 @@
 		<maven-celerio-plugin.outputDir>${project.basedir}</maven-celerio-plugin.outputDir>
 		<hibernate.version>4.2.6.Final</hibernate.version>
 		<spring.version>3.2.2.RELEASE</spring.version>
-		<slf4j.version></slf4j.version>
 		
 		<spring-security.version>3.1.4.RELEASE</spring-security.version>
 		<jsf-api.version>2.1.21</jsf-api.version>
@@ -47,7 +46,7 @@
 		<log.level>DEBUG</log.level>
 		<slf4j.version>1.7.5</slf4j.version>
 		<logback.version>1.0.13</logback.version>
-<!--NUEVO -->
+
 	</properties>
 
 
@@ -232,7 +231,7 @@
 				<configuration>
 					<server>TomcatServer</server>
 					<url>http://localhost:8080/manager/text</url>
-					<path>/definitivo2</path>
+					<path>/gestiontareas</path>
 				</configuration>
 			</plugin>
 
