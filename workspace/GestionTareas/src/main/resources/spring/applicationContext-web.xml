@@ -40,8 +40,7 @@
 			<props>
 				<prop key="inicio.htm">inicio</prop>
 				<prop key="nav1.htm">nav1</prop>
-                                <prop key="visortarea.htm">visortarea</prop>
-                                
+                                <prop key="visortarea.htm">visortarea</prop>                                
 			</props>
 		</property>
 	</bean>
