@@ -19,20 +19,19 @@
 			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
 			http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <description><![CDATA[
-		Configuracion de los Web Services
+		Main entry point for spring configuration
 	]]></description>
 
 
-    <!-- CXF -->
-    <import resource="classpath:META-INF/cxf/cxf.xml"/>
-    <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
+    <!-- context -->
+    <context:component-scan base-package="es.securitasdirect">
+        <!-- exclude web beans as they live in the web application context -->
+        <!-- Note: this regexp does not work if you try to escape the '.' -->
+        <context:exclude-filter type="regex" expression="es.securitasdirect.tareas.web.*"/>
+    </context:component-scan>
+    <!--
+    <context:property-placeholder location="classpath*:database.properties,classpath*:hibernate.properties,classpath*:app-version.properties"/>
+-->
 
-
-    <!-- Web Services Cliente -->
-    <jaxws:client name="wsSPInstallationMonData"
-        serviceClass="org.wso2.ws.dataservice.SPInstallationMonDataPortType"
-        address="http://10.2.144.63:9763/services/SP_InstallationMonData?wsdl"
-        />
-    <!-- TODO Parametro por JNDI, fichero configuracion????? -->
 
 </beans>

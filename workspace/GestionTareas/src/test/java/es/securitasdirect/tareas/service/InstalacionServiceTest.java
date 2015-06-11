@@ -1,11 +1,11 @@
-package com.securitasdirect.tareas.client;
+package es.securitasdirect.tareas.service;
 
-import com.securitasdirect.tareas.service.InstalacionService;
+import es.securitasdirect.tareas.service.InstalacionService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.wso2.ws.dataservice.SPInstallationMonData;
+import org.wso2.ws.dataservice.DataServiceFault;
 
 import javax.inject.Inject;
 
@@ -20,10 +20,19 @@ import static org.hamcrest.core.IsNull.notNullValue;
 public class InstalacionServiceTest {
 
     @Inject
-    InstalacionService instalacionService;
+    protected InstalacionService instalacionService;
+
 
     @Test
-    public void hola() {
+    public void testInjection() {
+        assertThat (instalacionService,notNullValue());
+        assertThat (instalacionService.spInstallationMonData,notNullValue());
+    }
+
+
+    @Test
+    public void installationData() throws DataServiceFault {
+        instalacionService.get();
         assertThat (instalacionService,notNullValue());
     }
 }

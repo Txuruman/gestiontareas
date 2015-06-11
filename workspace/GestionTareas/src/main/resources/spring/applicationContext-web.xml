@@ -5,6 +5,10 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <description><![CDATA[
+		Configuracion de la Capa Web
+	]]></description>
+
 	<!-- Uncomment and add your base-package here: <context:component-scan base-package="org.springframework.samples.service"/> -->
 
 	<bean
@@ -12,12 +16,9 @@
 
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
-
 		<property name="basename">
 			<value>int</value>
 		</property>
-
-
 	</bean>
 
 	<bean class="navegacion.bloque1" id="nav1">
@@ -32,7 +33,6 @@
 	<bean class="pkts1.arranque" id="inicio" />
 
 
-	
 	<bean id="urlMapping"
 		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="mappings">
