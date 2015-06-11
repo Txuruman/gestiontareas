@@ -274,6 +274,10 @@
                                 <wsdlOption>
                                     <wsdl>${basedir}/src/main/resources/wsdl/SP_InstallationMonData.wsdl</wsdl>
                                 </wsdlOption>
+                                <!-- WS SP_AVISOS_OPERACIONES -->
+                                <wsdlOption>
+                                    <wsdl>${basedir}/src/main/resources/wsdl/SP_AVISOS_OPERACIONES.wsdl</wsdl>
+                                </wsdlOption>
                             </wsdlOptions>
                         </configuration>
                         <goals>

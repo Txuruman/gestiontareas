@@ -1,6 +1,5 @@
 package es.securitasdirect.tareas.service;
 
-import es.securitasdirect.tareas.service.InstalacionService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -17,22 +16,22 @@ import static org.hamcrest.core.IsNull.notNullValue;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath*:spring/applicationContext-*.xml" })
-public class InstalacionServiceTest {
+public class InstallationServiceTest {
 
     @Inject
-    protected InstalacionService instalacionService;
+    protected InstallationService installationService;
 
 
     @Test
     public void testInjection() {
-        assertThat (instalacionService,notNullValue());
-        assertThat (instalacionService.spInstallationMonData,notNullValue());
+        assertThat (installationService,notNullValue());
+        assertThat (installationService.spInstallationMonData,notNullValue());
     }
 
 
     @Test
     public void installationData() throws DataServiceFault {
-        instalacionService.get();
-        assertThat (instalacionService,notNullValue());
+        installationService.getInstallationData("111111");
+        assertThat (installationService,notNullValue());
     }
 }
