@@ -13,9 +13,8 @@ public class buscartarea implements Controller {
         String tecla2 = "inactive";
         String tecla3 = "inactive";
         mv.addObject("tecla1", tecla1);
-        mv.addObject("tecla2", tecla2);
+        mv.addObject("tecla2", tecla2); 
         mv.addObject("tecla3", tecla3);
-
         return mv;
 
     }

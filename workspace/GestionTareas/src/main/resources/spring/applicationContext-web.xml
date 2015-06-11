@@ -21,17 +21,10 @@
 		</property>
 	</bean>
 
-	<bean class="navegacion.bloque1" id="nav1">
-		<property name="methodNameResolver">
-			<bean
-				class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
-				<property name="paramName" value="l" />
-			</bean>
-		</property>
-	</bean>
 	
-	<bean class="pkts1.arranque" id="inicio" />
+	
         <bean class="vistasController.pestañas.visortarea" id="visortarea" />
+         <bean class="vistasController.pestañas.buscartarea" id="buscartarea" />
 
 
 	<bean id="urlMapping"
@@ -39,7 +32,7 @@
 		<property name="mappings">
 			<props>
 				<prop key="inicio.htm">inicio</prop>
-				<prop key="nav1.htm">nav1</prop>
+				<prop key="buscartarea.htm">buscartarea</prop>
                                 <prop key="visortarea.htm">visortarea</prop>                                
 			</props>
 		</property>
