@@ -19,6 +19,10 @@ public class visortarea implements Controller {
 
     public ModelAndView handleRequest(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
         ModelAndView mv = new ModelAndView("visortarea");
+        
+        System.out.println("polloman");
+        
+        
         return mv;
 
     }

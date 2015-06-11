@@ -31,7 +31,7 @@
 	</bean>
 	
 	<bean class="pkts1.arranque" id="inicio" />
-        <bean class="vistasController.pestañas" id="visortarea" />
+        <bean class="vistasController.pestañas.visortarea" id="visortarea" />
 
 
 	<bean id="urlMapping"
@@ -40,7 +40,7 @@
 			<props>
 				<prop key="inicio.htm">inicio</prop>
 				<prop key="nav1.htm">nav1</prop>
-                                <pro  key="visortarea.htm">visortarea</pro>
+                                <prop key="visortarea.htm">visortarea</prop>
                                 
 			</props>
 		</property>
