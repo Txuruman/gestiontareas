@@ -28,10 +28,6 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
     <!--
             - Servlet that dispatches request to registered handlers (Controller implementations).
     -->
-    <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:spring/application-config-web.xml</param-value>
-    </context-param>
     
     <servlet>
         <servlet-name>dispatcherServlet</servlet-name>

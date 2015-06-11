@@ -19,18 +19,4 @@
 	        <property name="prefix" value="/WEB-INF/view/"/>
 	        <property name="suffix" value=".jsp"/>
 	</bean>
-        
-                <bean class="vistasController.pestañas.visortarea" id="visortarea" />
-
-
-	<bean id="urlMapping"
-		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-		<property name="mappings">
-			<props>
-                                <prop key="visortarea.htm">visortarea</prop>
-                                
-			</props>
-		</property>
-	</bean>
-
 </beans>
