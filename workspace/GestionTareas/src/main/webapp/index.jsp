@@ -12,7 +12,10 @@
 
     Enlaces
 <ul>
-    <li></li>
+    <li>
+        <a href="visortarea.htm">pinchar aqui</a>
+        
+    </li>
 </ul>
 <%--<% response.sendRedirect("inicio.htm"); %>--%>
 
