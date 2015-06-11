@@ -27,7 +27,7 @@
 		<maven-celerio-plugin.outputDir>${project.basedir}</maven-celerio-plugin.outputDir>
 		<hibernate.version>4.2.6.Final</hibernate.version>
 		<spring.version>3.2.2.RELEASE</spring.version>
-		
+
 		<spring-security.version>3.1.4.RELEASE</spring-security.version>
 		<jsf-api.version>2.1.21</jsf-api.version>
 		<!-- ORIGINAL <primefaces.version>3.5</primefaces.version> -->
@@ -175,8 +175,8 @@
 			<version>${logback.version}</version>
 			<scope>runtime</scope>
 		</dependency>
-		
-				<!-- Logging with SLF4J & LogBack -->
+
+		<!-- Logging with SLF4J & LogBack -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -240,6 +240,14 @@
 					<server>TomcatServer</server>
 					<url>http://localhost:8080/manager/text</url>
 					<path>/gestiontareas</path>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>2.1.5</source>
+					<target>2.1.5</target>
 				</configuration>
 			</plugin>
 
