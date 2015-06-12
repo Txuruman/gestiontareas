@@ -24,7 +24,7 @@
 	
 	
         <bean class="vistasController.pestañas.visortarea" id="visortarea" />
-        <bean class="vistasController.pestañas.buscartarea" id="s" />
+        <bean class="vistasController.pestañas.buscartarea" id="buscartarea" />
 
         
 
@@ -35,7 +35,7 @@
 			<props>
 				
                                 <prop key="visortarea.htm">visortarea</prop>
-                                <prop key="s.htm">s</prop>                                
+                                <prop key="GestionTareas/buscartarea.htm">buscartarea</prop>                                
 			</props>
 		</property>
 	</bean>
