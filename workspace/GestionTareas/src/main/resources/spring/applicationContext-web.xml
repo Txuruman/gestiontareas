@@ -17,7 +17,7 @@
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basename">
-			<value>int</value>
+			<value>messages</value>
 		</property>
 	</bean>
 
@@ -25,6 +25,9 @@
 	
         <bean class="vistasController.pestañas.visortarea" id="visortarea" />
         <bean class="vistasController.pestañas.buscartarea" id="buscartarea" />
+
+    <bean class="vistasController.pestañas.visortarea" id="visortarea" />
+        <bean class="vistasController.pestañas.buscartarea" id="s" />
 
         
 
