@@ -27,6 +27,7 @@
 
     <bean class="es.securitasdirect.tareas.web.controller.VisorTareaController" id="VisorTareaController" />
     <bean class="es.securitasdirect.tareas.web.controller.BuscarTareaController" id="BuscarTareaController" />
+    <bean class="es.securitasdirect.tareas.web.controller.CrearTareaController" id="CrearTareaController" />
 
         
 
@@ -37,7 +38,8 @@
             <props>
 				
                 <prop key="visortarea.htm">VisorTareaController</prop>
-                <prop key="GestionTareas/buscartarea.htm">BuscarTareaController</prop>                                
+                <prop key="buscartarea.htm">BuscarTareaController</prop>
+                <prop key="creartarea.htm">CrearTareaController</prop>
             </props>
         </property>
     </bean>

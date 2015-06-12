@@ -2,6 +2,6 @@
 	<ul class="nav nav-tabs nav-justified">
 		<li class="${tecla1}"><a href="visortarea.htm">Tarea</a></li>
 		<li class="${tecla2}"><a href="GestionTareas/buscartarea.htm">Buscar</a></li>
-		<li class="${tecla3}"><a href="nav1.htm?l=crear">Crear</a></li>
+		<li class="${tecla3}"><a href="crear">Crear</a></li>
 	</ul>
 </div>

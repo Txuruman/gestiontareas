@@ -9,8 +9,8 @@ public class BuscarTareaController implements Controller {
 
     public ModelAndView handleRequest(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
         ModelAndView mv = new ModelAndView("buscartarea");
-        String tecla1 = "active";
-        String tecla2 = "inactive";
+        String tecla1 = "inactive";
+        String tecla2 = "active";
         String tecla3 = "inactive";
         mv.addObject("tecla1", tecla1);
         mv.addObject("tecla2", tecla2); 
