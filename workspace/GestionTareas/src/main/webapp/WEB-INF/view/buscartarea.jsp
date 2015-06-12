@@ -27,7 +27,7 @@
 
 		<div class="row">
 			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-				<h2>Tarea buscar</h2>
+				<h2><spring:message code="eti.buscartarea.h2.titulo.1"/> </h2>
 			</div>
 		</div>
 		<div class="row">
@@ -44,7 +44,7 @@
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<label for="ejemplo_email_3"
 						class="col-lg-3 col-md-3 col-sm-3 col-xs-2 control-label labelcent">
-						Filtro de búsqueda: </label>
+						<spring:message code="eti.buscartarea.form.label.1"/>: </label>
 					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
 						<input type="text" class="form-control" id="ejemplo_email_3"
 							placeholder="Buscar">

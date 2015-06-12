@@ -17,6 +17,6 @@ public class CrearTareaController implements Controller{
         mv.addObject("tecla1", tecla1);
         mv.addObject("tecla2", tecla2);
         mv.addObject("tecla3", tecla3);
-        return null;
+        return mv;
     }
 }
