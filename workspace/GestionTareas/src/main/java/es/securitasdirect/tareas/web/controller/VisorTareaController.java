@@ -4,8 +4,9 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import es.securitasdirect.tareas.model.IdAvisoModel;
+import es.securitasdirect.tareas.model.InstallationData;
 import es.securitasdirect.tareas.model.Tarea;
+import es.securitasdirect.tareas.service.InstallationService;
 import es.securitasdirect.tareas.service.TareaService;
 import es.securitasdirect.tareas.web.controller.params.ExternalParams;
 import org.slf4j.Logger;
@@ -33,6 +34,8 @@ public class VisorTareaController implements Controller {
 
     @Inject
     private TareaService tareaService;
+    @Inject
+    private InstallationService installationService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(VisorTareaController.class);
 
@@ -44,6 +47,10 @@ public class VisorTareaController implements Controller {
         String ins_no = hsr.getParameter(ExternalParams.NUMERO_INSTALACION);
         String t_tipo = hsr.getParameter(ExternalParams.TIPO_TAREA);
         String idAviso = hsr.getParameter(ExternalParams.ID_AVISO);
+
+        //Consultar Datos Instalacion
+        InstallationData installationData = installationService.getInstallationData(ins_no);
+
         //Consultar datos Tareas
         Tarea tarea = tareaService.getTareaByIdAviso(idAviso);
 

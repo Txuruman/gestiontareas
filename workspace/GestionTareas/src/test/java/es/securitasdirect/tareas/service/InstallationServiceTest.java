@@ -1,7 +1,10 @@
 package es.securitasdirect.tareas.service;
 
+import es.securitasdirect.tareas.model.InstallationData;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.wso2.ws.dataservice.DataServiceFault;
@@ -18,6 +21,8 @@ import static org.hamcrest.core.IsNull.notNullValue;
 @ContextConfiguration(locations = { "classpath*:spring/applicationContext-*.xml" })
 public class InstallationServiceTest {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(InstallationServiceTest.class);
+
     @Inject
     protected InstallationService installationService;
 
@@ -31,7 +36,8 @@ public class InstallationServiceTest {
 
     @Test
     public void installationData() throws DataServiceFault {
-        installationService.getInstallationData("111111");
-        assertThat (installationService,notNullValue());
+        InstallationData installationData = installationService.getInstallationData("111111");
+        LOGGER.info(installationData.toString());
+        assertThat (installationData,notNullValue());
     }
 }

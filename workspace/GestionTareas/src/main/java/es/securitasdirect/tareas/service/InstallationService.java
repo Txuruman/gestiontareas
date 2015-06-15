@@ -1,5 +1,6 @@
 package es.securitasdirect.tareas.service;
 
+import es.securitasdirect.tareas.model.InstallationData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wso2.ws.dataservice.DataServiceFault;
@@ -29,7 +30,7 @@ public class InstallationService {
      * @return
      * @throws DataServiceFault
      */
-    public Mainstallationdataresult getInstallationData(String installationNumber) throws DataServiceFault {
+    public InstallationData getInstallationData(String installationNumber) throws DataServiceFault {
         assert installationNumber!=null;
         Mainstallationdataresult result = null;
 
@@ -39,7 +40,22 @@ public class InstallationService {
             result = installationData.get(0);
         }
         LOGGER.debug("getInstallationData({}) : {}",installationNumber, result);
-        return result;
+        return createInstallationData(result);
     }
 
+
+    private InstallationData createInstallationData (Mainstallationdataresult mainstallationdataresult) {
+        if (mainstallationdataresult==null) {
+            return null;
+        } else {
+            InstallationData data = new InstallationData();
+            //TODO Mapeo de atributos
+            data.setPersonaContacto(mainstallationdataresult.getAliasName());
+            data.setNumeroInstalacion(mainstallationdataresult.getInsNo());
+            data.setPersonaContacto(mainstallationdataresult.getAliasName());
+            data.setTitular(mainstallationdataresult.getName());
+            data.setPanel(mainstallationdataresult.getPanel());
+            return data;
+        }
+    }
 }
