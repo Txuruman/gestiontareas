@@ -17,13 +17,19 @@ import org.springframework.web.servlet.mvc.Controller;
  * @author jel
  */
 
-@Controller
-public class VisorTareaController {
-    public String aviso = "componentes/tarea_avisos.jsp";
-    public String excel = "componentes/tareaexcel/excellistado.jsp";
-    public String mantenimiento = "componentes/tarea_mantenimiento.jsp";
+
+public class VisorTareaController implements Controller {
+    public String AVISO = "componentes/tarea_avisos.jsp";
+    public String EXCEL_LISTADO_ASSISTANT = "componentes/tareaexcel/listadoassistant.jsp";
+    public String EXCEL_ENCUESTAS_MANTENIMIENTOS = "componentes/tareaexcel/encuenstasmantenimientos.jsp";
+    public String EXCEL_ENCUESTAS_MARKETING = "componentes/tareaexcel/encuestasmarketing.jsp";
+    public String EXCEL_KEYBOX = "componentes/tareaexcel/keybox.jsp";
+    public String EXCEL_LIMPIEZA_DE_CUOTA = "componentes/tareaexcel/limpiezacuota.jsp";
+    public String EXCEL_OTRAS_CAMPANIAS = "componentes/tareaexcel/otrascampanias.jsp";
+
+    public String MANTENIMIENTO = "componentes/tarea_mantenimiento.jsp";
     public String SECUNDARIA = "secundaria";
-    public String TITULO = "secundaria";
+    public String TITULO = "titulo";
 
     @Inject
     private TareaService tareaService;
@@ -55,17 +61,42 @@ public class VisorTareaController {
              */
             if (t_tipo.equals("aviso")) {
                 String titulo = "eti.visortarea.h2.titulo.avisos";
-                mv.addObject(SECUNDARIA, aviso);
+                mv.addObject(SECUNDARIA, AVISO);
                 mv.addObject(TITULO, titulo);
-            } else if (t_tipo.equals("excel")) {
+            } else if (t_tipo.equals("listadoassistant")) {
                 String titulo = "eti.visortarea.h2.titulo.excel";
-                mv.addObject(SECUNDARIA, excel);
+                mv.addObject(SECUNDARIA, EXCEL_LISTADO_ASSISTANT);
+                mv.addObject(TITULO, titulo);
+            } else if (t_tipo.equals("encuestasmantenimientos")) {
+                String titulo = "eti.visortarea.h2.titulo.excel";
+                mv.addObject(SECUNDARIA, EXCEL_ENCUESTAS_MANTENIMIENTOS);
+                mv.addObject(TITULO, titulo);
+            }else if (t_tipo.equals("encuestasmarketing")) {
+                String titulo = "eti.visortarea.h2.titulo.excel";
+                mv.addObject(SECUNDARIA, EXCEL_ENCUESTAS_MARKETING);
+                mv.addObject(TITULO, titulo);
+            }else if (t_tipo.equals("keybox")) {
+                String titulo = "eti.visortarea.h2.titulo.excel";
+                mv.addObject(SECUNDARIA, EXCEL_KEYBOX);
+                mv.addObject(TITULO, titulo);
+            }else if (t_tipo.equals("limpiezacuota")) {
+                String titulo = "eti.visortarea.h2.titulo.excel";
+                mv.addObject(SECUNDARIA, EXCEL_LIMPIEZA_DE_CUOTA);
+                mv.addObject(TITULO, titulo);
+            }else if (t_tipo.equals("otrascampanias")) {
+                String titulo = "eti.visortarea.h2.titulo.excel";
+                mv.addObject(SECUNDARIA, EXCEL_OTRAS_CAMPANIAS);
                 mv.addObject(TITULO, titulo);
             }else if (t_tipo.equals("mantenimiento")) {
                 String titulo = "eti.visortarea.h2.titulo.mantenimiento";
-                mv.addObject(SECUNDARIA, mantenimiento);
+                mv.addObject(SECUNDARIA, MANTENIMIENTO);
                 mv.addObject(TITULO, titulo);
             }
+
+
+
+
+
 
         }
 

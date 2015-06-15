@@ -163,13 +163,16 @@
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8"></div>
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <div class="row text-right">
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                         <input type="submit" class="btn btn-default" value="Aplazar"/>
                     </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                         <input type="submit" class="btn btn-default" value="Descartar"/>
                     </div>
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                        <input type="submit" class="btn btn-default" value="LLamar"/>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                         <input type="submit" class="btn btn-primary" value="Finalizar"/>
                     </div>
 
