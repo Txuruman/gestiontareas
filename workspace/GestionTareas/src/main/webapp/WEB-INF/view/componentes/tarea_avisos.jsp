@@ -35,7 +35,7 @@
       <input type="text" class="form-control" id="tipo2"
              placeholder="<spring:message code="eti.visortarea.form.label.10"/>">
     </div>
-    <!-- voy por aqui -->
+
   </div>
   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
     <label for="ejemplo_email_3"

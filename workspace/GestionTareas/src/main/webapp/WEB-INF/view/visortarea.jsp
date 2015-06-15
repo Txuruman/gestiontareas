@@ -115,11 +115,11 @@
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                     <label for="requerido"
                            class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">
-                        <spring:message code="eti.visortarea.form.label.6"/>: </label>
+                        <spring:message code="eti.visortarea.form.label.7"/>: </label>
 
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
                         <input type="text" class="form-control" name="requerido" id="requerido"
-                               placeholder="<spring:message code="eti.visortarea.form.label.6"/>">
+                               placeholder="<spring:message code="eti.visortarea.form.label.7"/>">
                     </div>
                 </div>
 
@@ -142,7 +142,7 @@
                         <input type="text" class="form-control" name="horario2" id="horario2"
                                placeholder="<spring:message code="eti.visortarea.form.label.9.placeholder"/>">
                     </div>
-                </div>
+                </div> <!--TODO voy por aqui -->
             </div>
         </div>
         <!-- row -->
