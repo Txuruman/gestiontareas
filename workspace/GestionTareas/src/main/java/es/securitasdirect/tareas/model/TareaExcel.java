@@ -1,5 +1,8 @@
 package es.securitasdirect.tareas.model;
 
-public class TareaExcel {
+/**
+ * Información de las Tareas de tipo Excel
+ */
+public class TareaExcel extends Tarea {
 
 }
