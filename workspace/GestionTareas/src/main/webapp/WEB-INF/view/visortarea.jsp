@@ -147,7 +147,12 @@
 
         <!-- INCLUDES DE TAREAS -->
         <div class="spacer_t3"></div>
-        <jsp:include page="componentes/tarea_avisos.jsp"/>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <jsp:include page="componentes/tarea_avisos.jsp"/>
+            </div>
+        </div>
+
         <!-- INCLUDES DE TAREAS -->
 
         <div class="spacer_t2"></div>

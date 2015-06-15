@@ -15,7 +15,7 @@ Enlaces
     <li>
         Estando el agente disponible, le llega una interacción de tipo Tarea para gestionarla.
         <ul>
-            <li><a href="visortarea.htm?ins_no=111111">Tarea Tipo Aviso</a></li>
+            <li><a href="visortarea.htm?ins_no=111111&ttipo=aviso">Tarea Tipo Aviso</a></li>
             <li><a href="/VisorTareaController">Tarea Mantenimiento</a></li>
             <li>Tarea tipo Excel
                 <ul>
