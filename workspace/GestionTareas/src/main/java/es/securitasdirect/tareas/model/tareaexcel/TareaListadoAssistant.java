@@ -134,5 +134,244 @@ public class TareaListadoAssistant extends TareaExcel {
      */
     String boComentarios;
 
+    public String getNumeroInstalacion() {
+        return numeroInstalacion;
+    }
 
+    public void setNumeroInstalacion(String numeroInstalacion) {
+        this.numeroInstalacion = numeroInstalacion;
+    }
+
+    public Integer getNumeroMantenimiento() {
+        return numeroMantenimiento;
+    }
+
+    public void setNumeroMantenimiento(Integer numeroMantenimiento) {
+        this.numeroMantenimiento = numeroMantenimiento;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getTecnico() {
+        return tecnico;
+    }
+
+    public void setTecnico(String tecnico) {
+        this.tecnico = tecnico;
+    }
+
+    public String getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(String departamento) {
+        this.departamento = departamento;
+    }
+
+    public String getGrupoPanel() {
+        return grupoPanel;
+    }
+
+    public void setGrupoPanel(String grupoPanel) {
+        this.grupoPanel = grupoPanel;
+    }
+
+    public Float getTotalSinIVA() {
+        return totalSinIVA;
+    }
+
+    public void setTotalSinIVA(Float totalSinIVA) {
+        this.totalSinIVA = totalSinIVA;
+    }
+
+    public Float getTotalConIVA() {
+        return totalConIVA;
+    }
+
+    public void setTotalConIVA(Float totalConIVA) {
+        this.totalConIVA = totalConIVA;
+    }
+
+    public String getNumeroParte() {
+        return numeroParte;
+    }
+
+    public void setNumeroParte(String numeroParte) {
+        this.numeroParte = numeroParte;
+    }
+
+    public Date getFechaCierre() {
+        return fechaCierre;
+    }
+
+    public void setFechaCierre(Date fechaCierre) {
+        this.fechaCierre = fechaCierre;
+    }
+
+    public Date getFechaArchivo() {
+        return fechaArchivo;
+    }
+
+    public void setFechaArchivo(Date fechaArchivo) {
+        this.fechaArchivo = fechaArchivo;
+    }
+
+    public Date getFechaIncidencia() {
+        return fechaIncidencia;
+    }
+
+    public void setFechaIncidencia(Date fechaIncidencia) {
+        this.fechaIncidencia = fechaIncidencia;
+    }
+
+    public Date getFechaPago() {
+        return fechaPago;
+    }
+
+    public void setFechaPago(Date fechaPago) {
+        this.fechaPago = fechaPago;
+    }
+
+    public String getOperador() {
+        return operador;
+    }
+
+    public void setOperador(String operador) {
+        this.operador = operador;
+    }
+
+    public String getTipoIncicencia() {
+        return tipoIncicencia;
+    }
+
+    public void setTipoIncicencia(String tipoIncicencia) {
+        this.tipoIncicencia = tipoIncicencia;
+    }
+
+    public String getSubtipoIncidencia() {
+        return subtipoIncidencia;
+    }
+
+    public void setSubtipoIncidencia(String subtipoIncidencia) {
+        this.subtipoIncidencia = subtipoIncidencia;
+    }
+
+    public String getSolicitudCliente() {
+        return solicitudCliente;
+    }
+
+    public void setSolicitudCliente(String solicitudCliente) {
+        this.solicitudCliente = solicitudCliente;
+    }
+
+    public String getIncidencia() {
+        return incidencia;
+    }
+
+    public void setIncidencia(String incidencia) {
+        this.incidencia = incidencia;
+    }
+
+    public String getCambiosIncidencia() {
+        return cambiosIncidencia;
+    }
+
+    public void setCambiosIncidencia(String cambiosIncidencia) {
+        this.cambiosIncidencia = cambiosIncidencia;
+    }
+
+    public Date getBoFechaGestion() {
+        return boFechaGestion;
+    }
+
+    public void setBoFechaGestion(Date boFechaGestion) {
+        this.boFechaGestion = boFechaGestion;
+    }
+
+    public String getBoMatricula() {
+        return boMatricula;
+    }
+
+    public void setBoMatricula(String boMatricula) {
+        this.boMatricula = boMatricula;
+    }
+
+    public String getBoDatosRecuperados() {
+        return boDatosRecuperados;
+    }
+
+    public void setBoDatosRecuperados(String boDatosRecuperados) {
+        this.boDatosRecuperados = boDatosRecuperados;
+    }
+
+    public Date getBoFechaRecepcion() {
+        return boFechaRecepcion;
+    }
+
+    public void setBoFechaRecepcion(Date boFechaRecepcion) {
+        this.boFechaRecepcion = boFechaRecepcion;
+    }
+
+    public String getBoTipo() {
+        return boTipo;
+    }
+
+    public void setBoTipo(String boTipo) {
+        this.boTipo = boTipo;
+    }
+
+    public String getBoComentarios() {
+        return boComentarios;
+    }
+
+    public void setBoComentarios(String boComentarios) {
+        this.boComentarios = boComentarios;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("TareaListadoAssistant{");
+        sb.append("numeroInstalacion='").append(numeroInstalacion).append('\'');
+        sb.append(", numeroMantenimiento=").append(numeroMantenimiento);
+        sb.append(", nombre='").append(nombre).append('\'');
+        sb.append(", telefono='").append(telefono).append('\'');
+        sb.append(", tecnico='").append(tecnico).append('\'');
+        sb.append(", departamento='").append(departamento).append('\'');
+        sb.append(", grupoPanel='").append(grupoPanel).append('\'');
+        sb.append(", totalSinIVA=").append(totalSinIVA);
+        sb.append(", totalConIVA=").append(totalConIVA);
+        sb.append(", numeroParte='").append(numeroParte).append('\'');
+        sb.append(", fechaCierre=").append(fechaCierre);
+        sb.append(", fechaArchivo=").append(fechaArchivo);
+        sb.append(", fechaIncidencia=").append(fechaIncidencia);
+        sb.append(", fechaPago=").append(fechaPago);
+        sb.append(", operador='").append(operador).append('\'');
+        sb.append(", tipoIncicencia='").append(tipoIncicencia).append('\'');
+        sb.append(", subtipoIncidencia='").append(subtipoIncidencia).append('\'');
+        sb.append(", solicitudCliente='").append(solicitudCliente).append('\'');
+        sb.append(", incidencia='").append(incidencia).append('\'');
+        sb.append(", cambiosIncidencia='").append(cambiosIncidencia).append('\'');
+        sb.append(", boFechaGestion=").append(boFechaGestion);
+        sb.append(", boMatricula='").append(boMatricula).append('\'');
+        sb.append(", boDatosRecuperados='").append(boDatosRecuperados).append('\'');
+        sb.append(", boFechaRecepcion=").append(boFechaRecepcion);
+        sb.append(", boTipo='").append(boTipo).append('\'');
+        sb.append(", boComentarios='").append(boComentarios).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
 }
