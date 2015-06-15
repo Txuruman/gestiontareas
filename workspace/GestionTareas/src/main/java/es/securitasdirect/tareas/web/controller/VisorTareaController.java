@@ -1,9 +1,10 @@
- package es.securitasdirect.tareas.web.controller;
+package es.securitasdirect.tareas.web.controller;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import es.securitasdirect.tareas.model.IdAvisoModel;
 import es.securitasdirect.tareas.model.Tarea;
 import es.securitasdirect.tareas.service.TareaService;
 import es.securitasdirect.tareas.web.controller.params.ExternalParams;
@@ -15,9 +16,14 @@ import org.springframework.web.servlet.mvc.Controller;
 /**
  * @author jel
  */
-public class VisorTareaController implements Controller {
+
+@Controller
+public class VisorTareaController {
     public String aviso = "componentes/tarea_avisos.jsp";
     public String excel = "componentes/tareaexcel/excellistado.jsp";
+    public String mantenimiento = "componentes/tarea_mantenimiento.jsp";
+    public String SECUNDARIA = "secundaria";
+    public String TITULO = "secundaria";
 
     @Inject
     private TareaService tareaService;
@@ -35,7 +41,6 @@ public class VisorTareaController implements Controller {
         //Consultar datos Tareas
         Tarea tarea = tareaService.getTareaByIdAviso(idAviso);
 
-
         LOGGER.info("parameters: ins_no:{}, id_aviso:{} ", ins_no, idAviso);
 
         ModelAndView mv = null;
@@ -50,12 +55,16 @@ public class VisorTareaController implements Controller {
              */
             if (t_tipo.equals("aviso")) {
                 String titulo = "eti.visortarea.h2.titulo.avisos";
-                mv.addObject("secundaria", aviso);
-                mv.addObject("titulo", titulo);
+                mv.addObject(SECUNDARIA, aviso);
+                mv.addObject(TITULO, titulo);
             } else if (t_tipo.equals("excel")) {
                 String titulo = "eti.visortarea.h2.titulo.excel";
-                mv.addObject("secundaria", excel);
-                mv.addObject("titulo", titulo);
+                mv.addObject(SECUNDARIA, excel);
+                mv.addObject(TITULO, titulo);
+            }else if (t_tipo.equals("mantenimiento")) {
+                String titulo = "eti.visortarea.h2.titulo.mantenimiento";
+                mv.addObject(SECUNDARIA, mantenimiento);
+                mv.addObject(TITULO, titulo);
             }
 
         }
