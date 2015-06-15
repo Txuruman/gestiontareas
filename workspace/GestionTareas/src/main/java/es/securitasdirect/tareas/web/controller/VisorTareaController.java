@@ -21,7 +21,21 @@ public class VisorTareaController implements Controller {
     private static final Logger LOGGER = LoggerFactory.getLogger(VisorTareaController.class);
 
     public ModelAndView handleRequest(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
-        ModelAndView mv = new ModelAndView("visortarea");
+
+        String tipoTarea = null;
+
+        //Recoger parametros
+        String ins_no = hsr.getParameter(ExternalParams.NUMERO_INSTALACION);
+        LOGGER.info("parameters: ins_no:{}, ",ins_no);
+
+        ModelAndView mv = null;
+        if (ins_no==null) {
+            mv = new ModelAndView("visortarea");
+        } else {
+            mv = new ModelAndView("buscartarea");
+        }
+        mv.addObject("ins_no", ins_no);
+
 
         String tecla1 = "active";
         String tecla2 = "inactive";

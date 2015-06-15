@@ -39,3 +39,11 @@
 	padding-bottom: 6px;
 	border-radius: 7px;
 }
+
+.panel-result {
+	padding: 3px;
+}
+
+.panel-result-padre {
+	margin-bottom: 0;
+}
