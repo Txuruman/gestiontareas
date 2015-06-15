@@ -5,5 +5,5 @@ package es.securitasdirect.tareas.web.controller.params;
  */
 public interface ExternalParams {
     public static String NUMERO_INSTALACION="ins_no";
-    public static String TIPO_TAREA="ttipo";
+    public static String TIPO_TAREA="tipotarea";
 }

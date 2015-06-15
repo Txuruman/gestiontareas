@@ -54,8 +54,8 @@
 						<input type="submit" class="btn btn-primary" value="Buscar" />
 					</div>
 
-					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-						<div class="bordel text-left">
+					<div class="col-lg-3 col-md-3 col-sm-4 col-xs-4">
+						<div class="bordel text-center">
 							<label class="checkbox-inline"> <input type="radio"
 								id="checkboxEnLinea1" name="options" value="opcion_1">
 								Teléfono
@@ -87,6 +87,8 @@
 						<th>Teléfono</th>
 						<th>Estado</th>
 						<th>Fecha de reprogramación</th>
+						<th>Gestion</th>
+						<th>Aplazar</th>
 					</tr>
 
 
@@ -96,6 +98,8 @@
 						<td>681515458</td>
 						<td>Rellamada Personal</td>
 						<td>19/03/2014 12:20:00</td>
+						<td><input type="button" class="btn btn-default" value="Gestion"></td>
+						<td><a href="#">aplazar</a> </td>
 					</tr>
 
 					<tr>
@@ -104,6 +108,9 @@
 						<td>654896598</td>
 						<td>En memoria</td>
 						<td></td>
+						<td><input type="button" class="btn btn-default" value="Gestion"></td>
+						<td><a href="#">aplazar</a> </td>
+
 					</tr>
 
 					<tr>
@@ -112,6 +119,9 @@
 						<td>65245963</td>
 						<td>Abierto</td>
 						<td></td>
+						<td><input type="button" class="btn btn-default" value="Gestion"></td>
+						<td><a href="#">aplazar</a> </td>
+
 					</tr>
 
 

@@ -19,12 +19,14 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <h2><spring:message code="eti.visortarea.h2.titulo.1"/></h2>
+            <h2><spring:message code="${titulo}"/></h2>
         </div>
     </div>
-    <div class="row">
-        <jsp:include page="bloques/tabs1.jsp"/>
-    </div>
+
+    <%--<div class="row">--%>
+        <%--<jsp:include page="bloques/tabs1.jsp"/>--%>
+    <%--</div>--%>
+
     <div class="spacer_t2"></div>
 
 
@@ -149,7 +151,8 @@
         <div class="spacer_t3"></div>
         <div class="panel panel-default">
             <div class="panel-body">
-                <jsp:include page="componentes/tarea_avisos.jsp"/>
+
+                <jsp:include page="${secundaria}"/>
             </div>
         </div>
 

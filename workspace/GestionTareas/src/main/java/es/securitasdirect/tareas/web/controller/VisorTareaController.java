@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package es.securitasdirect.tareas.web.controller;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,14 +15,17 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
 /**
- *
  * @author jel
  */
 public class VisorTareaController implements Controller {
+    public String aviso = "componentes/tarea_avisos.jsp";
+    public String excel = "componentes/tareaexcel/excellistado.jsp";
 
     private static final Logger LOGGER = LoggerFactory.getLogger(VisorTareaController.class);
 
+
     public ModelAndView handleRequest(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
+
 
         String tipoTarea = null;
 
@@ -29,35 +33,37 @@ public class VisorTareaController implements Controller {
         String ins_no = hsr.getParameter(ExternalParams.NUMERO_INSTALACION);
         String t_tipo = hsr.getParameter(ExternalParams.TIPO_TAREA);
 
-        LOGGER.info("parameters: ins_no:{}, ",ins_no);
-
-
-        /**
-         * Condicionamos la entrada de datos con la vista, si
-         * no hay datos entra por la busqueda y si los hay entra por el visor
-         *
-         */
-
-        /**
-         * Condicional para saber que contenido secundario hay que cargar
-         */
-
+        LOGGER.info("parameters: ins_no:{}, ", ins_no);
 
         ModelAndView mv = null;
-        if (ins_no==null) {
+        if (ins_no == null) {
             mv = new ModelAndView("buscartarea");
+
         } else {
+
             mv = new ModelAndView("visortarea");
+            /**
+             * Condicional para saber que contenido secundario hay que cargar
+             */
+            if (t_tipo.equals("aviso")) {
+                String titulo = "eti.visortarea.h2.titulo.avisos";
+                mv.addObject("secundaria", aviso);
+                mv.addObject("titulo", titulo);
+            } else if (t_tipo.equals("excel")) {
+                String titulo = "eti.visortarea.h2.titulo.excel";
+                mv.addObject("secundaria", excel);
+                mv.addObject("titulo", titulo);
+            }
+
         }
 
-        if (t_tipo.equals("aviso")){
-            String secundaria = "componentes/tarea_avisos.jsp";
-            mv.addObject(secundaria);
-        }
 
         mv.addObject("ins_no", ins_no);
 
 
+        /**
+         * Variable del estilo de las tabs
+         */
         String tecla1 = "active";
         String tecla2 = "inactive";
         String tecla3 = "inactive";
