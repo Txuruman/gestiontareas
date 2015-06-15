@@ -11,6 +11,9 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
         - Location of the XML file that defines the root application context.
         - Applied by ContextLoaderListener.
     -->
+
+    <!-- Cargar Librerias JSTL -->
+
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>

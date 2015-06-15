@@ -13,7 +13,7 @@
 Enlaces
 <ul>
     <li>
-        <a href="visortarea.htm?loquesea= ">visortarea aqui</a>
+        <a href="visortarea.htm?ins_no=111111">visortarea aqui</a>
     </li>
     <li>
         <a href="buscartarea.htm">buscartarea aqui</a>

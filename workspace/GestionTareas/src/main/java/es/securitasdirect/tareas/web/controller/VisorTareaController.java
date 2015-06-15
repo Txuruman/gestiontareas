@@ -22,6 +22,22 @@ public class VisorTareaController implements Controller {
 
     public ModelAndView handleRequest(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
         ModelAndView mv = new ModelAndView("visortarea");
+        String ins_no = "void";
+
+        if (hsr.getParameter("ins_no") != null){
+        ins_no = hsr.getParameter("ins_no");}
+
+
+
+        mv.addObject("ins_no",ins_no);
+
+
+        LOGGER.info("recogida de numero de instalación ");
+
+
+
+
+
 
         String tecla1 = "active";
         String tecla2 = "inactive";
