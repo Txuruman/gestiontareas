@@ -1,5 +1,10 @@
 package es.securitasdirect.tareas.service;
 
+import es.securitasdirect.tareas.model.Tarea;
+import es.securitasdirect.tareas.model.TareaAviso;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.inject.Named;
 import javax.inject.Singleton;
 
@@ -9,4 +14,42 @@ import javax.inject.Singleton;
 @Named(value = "tareaService")
 @Singleton
 public class TareaService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(TareaService.class);
+
+    /* Aplazar: muestra un diálogo en modo modal para introducir la fecha y hora de la reprogramación, indicando también si es para el propio agente o para el grupo de la Campaña. Si confirma, se invocará un web service para marcar la Tarea como tratada (mark done) y se invocará un web service para actualizar el Aviso. */
+    public boolean aplazar(String idAviso) {
+        LOGGER.info("Aplazando idAviso:{}", idAviso);
+        return true;
+    }
+
+    /* Descartar: se invocará un web service para marcar la Tarea como tratada (mark done) y se invocará un web service para actualizar el Aviso. */
+    public boolean descartar(String idAviso) {
+        LOGGER.info("Descartar idAviso:{}", idAviso);
+        return true;
+    }
+
+    /* Finalizar: se validará que haya rellenado la información del Cierre, se invocará un web service para marcar la Tarea como tratada (mark done) y se invocará un web service para finalizar el Aviso. */
+    public boolean finalizar(String idAviso) {
+        LOGGER.info("Finalizando idAviso:{}", idAviso);
+        return true;
+    }
+
+    /* Llamar: realiza una llamada telefónica al número indicado en el campo de teléfono de contacto. Para ello, ejecutará un web service disponible en CCL. */
+    public boolean llamar(String idAviso) {
+        LOGGER.info("Llamando idAviso:{}", idAviso);
+        return true;
+    }
+
+    /**
+     * Obtiene una Tarea by?????
+     * @param idAviso
+     * @return
+     */
+    public Tarea getTareaByIdAviso(String idAviso) {
+        TareaAviso tarea = new TareaAviso();
+        tarea.setObservaciones("Las observaciones");
+        return tarea;
+    }
+
 }
