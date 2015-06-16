@@ -31,7 +31,7 @@ Enlaces
     <li>
         Estando el agente sin interacción en curso, decide crear una Tarea o buscar una existente.<br/>
         <a href="buscartarea.htm?AGENTELOGADO=7777&NUMEROTELEFONO=&INSTALACION=">Buscar Tareas</a><br/>
-        <a href="buscartarea.htm">Crear Tarea</a><br/>
+        <a href="creartarea.htm">Crear Tarea</a><br/>
     </li>
     <li>
         Estando el agente con una interacción en curso, decide crear una Tarea o buscar una existente.<br/>

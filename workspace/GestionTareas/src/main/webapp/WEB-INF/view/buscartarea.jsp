@@ -58,10 +58,10 @@
 						<div class="bordel text-center">
 							<label class="checkbox-inline"> <input type="radio"
 								id="checkboxEnLinea1" name="options" value="opcion_1">
-								Teléfono
+								<spring:message code="eti.buscartarea.form.radio.1"/>
 							</label> <label class="checkbox-inline"> <input type="radio"
 								id="checkboxEnLinea2" name="options" value="opcion_2">
-								Cliente
+							    <spring:message code="eti.buscartarea.form.radio.2"/>
 							</label>
 						</div>
 					</div>
@@ -98,8 +98,8 @@
 						<td>681515458</td>
 						<td>Rellamada Personal</td>
 						<td>19/03/2014 12:20:00</td>
-						<td><input type="button" class="btn btn-default" value="Gestion"></td>
-						<td><a href="#">aplazar</a> </td>
+						<td><a href="visortarea.htm?ins_no=111111&tipotarea=aviso" class="btn btn-default"><spring:message code="eti.buscartarea.btn.1"/></a></td>
+						<td><a href="#"><spring:message code="eti.buscartarea.btn.2"/></a> </td>
 					</tr>
 
 					<tr>
@@ -108,8 +108,8 @@
 						<td>654896598</td>
 						<td>En memoria</td>
 						<td></td>
-						<td><input type="button" class="btn btn-default" value="Gestion"></td>
-						<td><a href="#">aplazar</a> </td>
+						<td><a href="visortarea.htm?ins_no=111111&tipotarea=aviso" class="btn btn-default"><spring:message code="eti.buscartarea.btn.1"/></a></td>
+						<td><a href="#"><spring:message code="eti.buscartarea.btn.2"/></a> </td>
 
 					</tr>
 
@@ -119,8 +119,8 @@
 						<td>65245963</td>
 						<td>Abierto</td>
 						<td></td>
-						<td><input type="button" class="btn btn-default" value="Gestion"></td>
-						<td><a href="#">aplazar</a> </td>
+						<td><a href="visortarea.htm?ins_no=111111&tipotarea=aviso" class="btn btn-default"><spring:message code="eti.buscartarea.btn.1"/></a></td>
+						<td><a href="#"><spring:message code="eti.buscartarea.btn.2"/> </a> </td>
 
 					</tr>
 

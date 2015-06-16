@@ -11,6 +11,7 @@ import org.wso2.ws.dataservice.SPAVISOSOPERACIONESPortType;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -88,4 +89,20 @@ public class TareaService {
         return tarea;
     }
 
+    public List<Tarea> findByTelefono(String telefono){
+
+    }
+    public List<Tarea> findByInstalacion(String instalacion){
+
+    }
+    private List<Tarea> createDummy(){
+        List<Tarea> tareas = new ArrayList<Tarea>();
+        Tarea ejemploAviso = new TareaAviso();
+        ejemploAviso.setEstado("estado1");
+        tareas.add(ejemploAviso);
+
+        Tarea ejemploInstalacion = new TareaAviso();
+        ejemploInstalacion.setNumeroContrato("111111");
+        tareas.add(ejemploInstalacion);
+    }
 }
