@@ -14,6 +14,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
+import java.util.Iterator;
+import java.util.List;
+
 /**
  * @author jel
  */
@@ -102,6 +105,16 @@ public class VisorTareaController implements Controller {
 
 
 
+            List<Tarea> f = tareaService.findByTelefono("652696789");
+            String s="";
+
+            for( Iterator it = f.iterator(); it.hasNext();) {
+
+                s = (String)it.next();
+
+            }
+
+            mv.addObject("f",s);
 
 
 

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 
@@ -22,7 +23,6 @@
             <h2><spring:message code="${titulo}"/></h2>
         </div>
     </div>
-
     <%--<div class="row">--%>
         <%--<jsp:include page="bloques/tabs1.jsp"/>--%>
     <%--</div>--%>
@@ -65,8 +65,9 @@
                        class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">
                     <spring:message code="eti.visortarea.form.label.3"/>: </label>
 
+
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                    <input type="text" class="form-control" name="telefono" id="telefono"
+                    <input type="text" class="form-control" name="telefono" id="telefono" value="${f}"
                            placeholder="<spring:message code="eti.visortarea.form.label.3"/>">
                 </div>
             </div>
