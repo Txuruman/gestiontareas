@@ -7,6 +7,7 @@ import es.securitasdirect.tareas.model.tareaexcel.TareaEncuestaMarketing;
 import es.securitasdirect.tareas.model.tareaexcel.TareaListadoAssistant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.wso2.ws.dataservice.DataServiceFault;
 import org.wso2.ws.dataservice.RowErrorAA;
 import org.wso2.ws.dataservice.SPAVISOSOPERACIONESPortType;
@@ -93,19 +94,13 @@ public class TareaService {
         return tarea;
     }
 
-    public List<Tarea> findByTelefono(String telefono) {
+    public List<Tarea> findByTelefono() {
         List<Tarea> tareas = createDummy();
-        for (Tarea tarea : tareas) {
-            tarea.setTelefono(telefono);
-        }
         return tareas;
     }
 
     public List<Tarea> findByInstalacion(String instalacion) {
         List<Tarea> tareas = createDummy();
-        for (Tarea tarea : tareas) {
-            //tarea.setInstalacion(instalacion);
-        }
         return tareas;
     }
 
@@ -118,7 +113,7 @@ public class TareaService {
         ejemploAviso.setCallingList("CC_CA_IL_500");
         ejemploAviso.setNumeroContrato("526369");
         ejemploAviso.setCodigoCliente(500);
-        ejemploAviso.setFechaReprogramacion(new Date(13-9-2015));
+        ejemploAviso.setFechaReprogramacion(new Date());
         tareas.add(ejemploAviso);
 
 
@@ -128,7 +123,9 @@ public class TareaService {
         ejemploTareaMantenimiento.setCallingList("CC_CA_IL_502");
         ejemploTareaMantenimiento.setNumeroContrato("526370");
         ejemploTareaMantenimiento.setCodigoCliente(501);
-        ejemploTareaMantenimiento.setFechaReprogramacion(new Date(15-5-2016));
+
+
+        ejemploTareaMantenimiento.setFechaReprogramacion(new Date());
         tareas.add(ejemploTareaMantenimiento);
 
         Tarea ejemploTareaEncuestaMarketing = new TareaEncuestaMarketing();
@@ -137,7 +134,7 @@ public class TareaService {
         ejemploTareaEncuestaMarketing.setCallingList("CC_CA_IL_510");
         ejemploTareaEncuestaMarketing.setNumeroContrato("526371");
         ejemploTareaEncuestaMarketing.setCodigoCliente(502);
-        ejemploTareaEncuestaMarketing.setFechaReprogramacion(new Date(16-12-2015));
+        ejemploTareaEncuestaMarketing.setFechaReprogramacion(new Date());
         tareas.add(ejemploTareaEncuestaMarketing);
 
         Tarea ejemploTareaListadoAssistant = new TareaListadoAssistant();
@@ -146,7 +143,7 @@ public class TareaService {
         ejemploTareaListadoAssistant.setCallingList("CC_CA_IL_512");
         ejemploTareaListadoAssistant.setNumeroContrato("526372");
         ejemploTareaListadoAssistant.setCodigoCliente(503);
-        ejemploTareaListadoAssistant.setFechaReprogramacion(new Date(12-9-2015));
+        ejemploTareaListadoAssistant.setFechaReprogramacion(new Date());
         tareas.add(ejemploTareaListadoAssistant);
 
 return tareas;

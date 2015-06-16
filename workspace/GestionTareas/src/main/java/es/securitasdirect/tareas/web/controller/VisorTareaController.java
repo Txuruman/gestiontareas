@@ -23,6 +23,9 @@ import java.util.List;
 
 
 public class VisorTareaController implements Controller {
+    /**
+     * clases de avisos
+     */
     public String AVISO = "componentes/tarea_avisos.jsp";
     public String EXCEL_LISTADO_ASSISTANT = "componentes/tareaexcel/listadoassistant.jsp";
     public String EXCEL_ENCUESTAS_MANTENIMIENTOS = "componentes/tareaexcel/encuenstasmantenimientos.jsp";
@@ -102,22 +105,6 @@ public class VisorTareaController implements Controller {
                 mv.addObject(SECUNDARIA, MANTENIMIENTO);
                 mv.addObject(TITULO, titulo);
             }
-
-
-
-            List<Tarea> f = tareaService.findByTelefono("652696789");
-            String s="";
-
-            for( Iterator it = f.iterator(); it.hasNext();) {
-
-                s = (String)it.next();
-
-            }
-
-            mv.addObject("f",s);
-
-
-
         }
 
 
