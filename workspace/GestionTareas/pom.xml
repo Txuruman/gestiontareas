@@ -283,6 +283,10 @@
 								<wsdlOption>
 									<wsdl>${basedir}/src/main/resources/wsdl/SP_InstallationMonData.wsdl</wsdl>
 								</wsdlOption>
+                                <!-- WS SP_AIO_TAREAS2.wsdl -->
+                                <wsdlOption>
+                                    <wsdl>${basedir}/src/main/resources/wsdl/SP_AIO_TAREAS2.wsdl</wsdl>
+                                </wsdlOption>
 							</wsdlOptions>
 						</configuration>
 						<goals>
