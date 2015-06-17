@@ -24,7 +24,7 @@ public class BuscarTareaController implements Controller {
 
     public ModelAndView handleRequest(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
         ModelAndView mv = new ModelAndView("buscartarea");
-        List<Tarea> listaTareas = tareaService.findByTelefono();
+        List<Tarea> listaTareas = tareaService.findByTelefono("telefono");
 
 
 
