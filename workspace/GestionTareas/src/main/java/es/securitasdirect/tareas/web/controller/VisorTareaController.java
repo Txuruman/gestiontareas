@@ -48,11 +48,16 @@ public class VisorTareaController implements Controller {
 
     public ModelAndView handleRequest(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
         String tipoTarea = null;
+        String t_tipo = null;
+        String idAviso = null;
+        String ins_no = null;
+        String install_number = "";
 
         //Recoger parametros
-        String ins_no = hsr.getParameter(ExternalParams.NUMERO_INSTALACION);
-        String t_tipo = hsr.getParameter(ExternalParams.TIPO_TAREA);
-        String idAviso = hsr.getParameter(ExternalParams.ID_AVISO);
+        if (hsr.getParameter(ExternalParams.NUMERO_INSTALACION)!= null){
+         ins_no = hsr.getParameter(ExternalParams.NUMERO_INSTALACION);
+         t_tipo = hsr.getParameter(ExternalParams.TIPO_TAREA);
+         idAviso = hsr.getParameter(ExternalParams.ID_AVISO);}
 
         //Consultar Datos Instalacion
         InstallationData installationData = installationService.getInstallationData(ins_no);
@@ -61,9 +66,6 @@ public class VisorTareaController implements Controller {
         Tarea tarea = tareaService.getTareaByIdAviso(idAviso);
 
         LOGGER.info("parameters: ins_no:{}, id_aviso:{} ", ins_no, idAviso);
-
-        //Asignar instalacion
-        String install_number = installationData.getNumeroInstalacion();
 
 
         ModelAndView mv = null;
