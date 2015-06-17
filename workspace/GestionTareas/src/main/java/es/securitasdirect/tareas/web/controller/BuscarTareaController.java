@@ -28,7 +28,6 @@ public class BuscarTareaController implements Controller {
         int i = 0;
         ModelAndView mv = new ModelAndView("buscartarea");
         List<Tarea> listaTareas = tareaService.findByTelefono("652696869");
-        List<Tarea> listaTareas = tareaService.findByTelefono("telefono");
 
 
 
