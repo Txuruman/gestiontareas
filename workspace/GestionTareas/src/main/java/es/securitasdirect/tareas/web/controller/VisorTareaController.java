@@ -14,8 +14,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
-import java.util.Iterator;
-import java.util.List;
+
+import java.util.Map;
 
 /**
  * @author jel
@@ -43,6 +43,7 @@ public class VisorTareaController implements Controller {
     @Inject
     private InstallationService installationService;
 
+
     private static final Logger LOGGER = LoggerFactory.getLogger(VisorTareaController.class);
 
 
@@ -52,15 +53,24 @@ public class VisorTareaController implements Controller {
         String idAviso = null;
         String ins_no = null;
         String install_number = "";
+        Tarea tareamap = null;
+
 
         //Recoger parametros
-        if (hsr.getParameter(ExternalParams.NUMERO_INSTALACION)!= null){
-         ins_no = hsr.getParameter(ExternalParams.NUMERO_INSTALACION);
-         t_tipo = hsr.getParameter(ExternalParams.TIPO_TAREA);
-         idAviso = hsr.getParameter(ExternalParams.ID_AVISO);}
+        if (hsr.getParameter(ExternalParams.NUMERO_INSTALACION) != null) {
+            Map parametros = hsr.getParameterMap();
+            tareamap = tareaService.CreateMapParameters(parametros);
+
+            ins_no = hsr.getParameter(ExternalParams.NUMERO_INSTALACION);
+            t_tipo = hsr.getParameter(ExternalParams.TIPO_TAREA);
+            idAviso = hsr.getParameter(ExternalParams.ID_AVISO);
+        }
 
         //Consultar Datos Instalacion
         InstallationData installationData = installationService.getInstallationData(ins_no);
+        Map<Integer, String> desplegableKey1 = tareaService.getDesplegableKey1();
+        //Map<Integer, String> desplegableKey2 = tareaService.getDesplegableKey2();
+
 
         //Consultar datos Tareas
         Tarea tarea = tareaService.getTareaByIdAviso(idAviso);
@@ -89,31 +99,32 @@ public class VisorTareaController implements Controller {
                 String titulo = "eti.visortarea.h2.titulo.excel";
                 mv.addObject(SECUNDARIA, EXCEL_ENCUESTAS_MANTENIMIENTOS);
                 mv.addObject(TITULO, titulo);
-            }else if (t_tipo.equals("encuestasmarketing")) {
+            } else if (t_tipo.equals("encuestasmarketing")) {
                 String titulo = "eti.visortarea.h2.titulo.excel";
                 mv.addObject(SECUNDARIA, EXCEL_ENCUESTAS_MARKETING);
                 mv.addObject(TITULO, titulo);
-            }else if (t_tipo.equals("keybox")) {
+            } else if (t_tipo.equals("keybox")) {
                 String titulo = "eti.visortarea.h2.titulo.excel";
                 mv.addObject(SECUNDARIA, EXCEL_KEYBOX);
                 mv.addObject(TITULO, titulo);
-            }else if (t_tipo.equals("limpiezacuota")) {
+            } else if (t_tipo.equals("limpiezacuota")) {
                 String titulo = "eti.visortarea.h2.titulo.excel";
                 mv.addObject(SECUNDARIA, EXCEL_LIMPIEZA_DE_CUOTA);
                 mv.addObject(TITULO, titulo);
-            }else if (t_tipo.equals("otrascampanias")) {
+            } else if (t_tipo.equals("otrascampanias")) {
                 String titulo = "eti.visortarea.h2.titulo.excel";
                 mv.addObject(SECUNDARIA, EXCEL_OTRAS_CAMPANIAS);
                 mv.addObject(TITULO, titulo);
-            }else if (t_tipo.equals("mantenimiento")) {
+            } else if (t_tipo.equals("mantenimiento")) {
                 String titulo = "eti.visortarea.h2.titulo.mantenimiento";
                 mv.addObject(SECUNDARIA, MANTENIMIENTO);
                 mv.addObject(TITULO, titulo);
             }
         }
-
-
-        mv.addObject("installationData",installationData);
+        mv.addObject("tareamap",tareamap);
+        mv.addObject("desplegableKey1", desplegableKey1);
+        //mv.addObject("desplegableKey1",desplegableKey2);
+        mv.addObject("installationData", installationData);
         mv.addObject("ins_no", ins_no);
 
         /**

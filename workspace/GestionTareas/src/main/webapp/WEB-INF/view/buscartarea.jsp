@@ -100,7 +100,7 @@
                         <td><c:out value="${tarea.telefono}"/></td>
                         <td><c:out value="${tarea.estado}"/></td>
                         <td><fmt:formatDate pattern="HH:mm dd-MM-yyyy" value="${tarea.fechaReprogramacion}" /></td>
-                        <td><a href="visortarea.htm?ins_no=111111&tipotarea=aviso" class="btn btn-default"><spring:message code="eti.buscartarea.btn.1"/></a></td>
+                        <td><a href="visortarea.htm?ins_no=<c:out value="${tarea.callingList}"/>&tipotarea=aviso" class="btn btn-default"><spring:message code="eti.buscartarea.btn.1"/></a></td>
                         <td><a href="#"><spring:message code="eti.buscartarea.btn.2"/></a></td>
                     </tr>
 

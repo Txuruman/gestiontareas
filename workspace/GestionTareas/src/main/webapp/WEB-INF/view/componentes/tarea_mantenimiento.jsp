@@ -1,16 +1,42 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: jel
-  Date: 15/06/2015
-  Time: 13:16
-  To change this template use File | Settings | File Templates.
---%>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-Hola soy una tarea de mantenimiento
-</body>
-</html>
+
+
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <label for="key1Desplegable"
+               class="col-lg-4 col-md-4 col-sm-4 col-xs-4 control-label labelcent">
+            key1: </label>
+
+        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+            <select class="form-control" id="key1Desplegable" name="desplegableKey1">
+
+                <c:forEach items="${desplegableKey1}" var="desplegableKey1">
+                    <option value="<c:out value="${desplegableKey1.key}"/>"><c:out value="${desplegableKey1.value}"/></option>
+                </c:forEach>
+
+            </select>
+
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <label for="key1Desplegable"
+               class="col-lg-4 col-md-4 col-sm-4 col-xs-4 control-label labelcent">
+            key1: </label>
+
+        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+            <select class="form-control" id="key1Desplegable" name="desplegableKey1">
+
+                <c:forEach items="${desplegableKey1}" var="desplegableKey1">
+                    <option value="<c:out value="${desplegableKey1.key}"/>"><c:out value="${desplegableKey1.value}"/></option>
+                </c:forEach>
+
+            </select>
+
+        </div>
+    </div>
+
+</div>
+
+

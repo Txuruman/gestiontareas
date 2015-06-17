@@ -18,6 +18,7 @@
 <body>
 
 <div class="container">
+
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
             <h2><spring:message code="${titulo}"/></h2>
@@ -160,7 +161,7 @@
         <div class="spacer_t3"></div>
         <div class="panel panel-default">
             <div class="panel-body">
-
+                <%--TODO AQUI SE INCLUYE LA SECUNDARIA--%>
                 <jsp:include page="${secundaria}"/>
             </div>
         </div>

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 public class CrearTareaController implements Controller{
     public ModelAndView handleRequest(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
 
+
         ModelAndView mv = new ModelAndView("creartarea");
         String tecla1 = "inactive";
         String tecla2 = "inactive";

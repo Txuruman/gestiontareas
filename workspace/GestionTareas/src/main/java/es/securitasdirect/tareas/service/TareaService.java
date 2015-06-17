@@ -5,6 +5,7 @@ import es.securitasdirect.tareas.model.TareaAviso;
 import es.securitasdirect.tareas.model.TareaMantenimiento;
 import es.securitasdirect.tareas.model.tareaexcel.TareaEncuestaMarketing;
 import es.securitasdirect.tareas.model.tareaexcel.TareaListadoAssistant;
+import es.securitasdirect.tareas.web.controller.params.ExternalParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wso2.ws.dataservice.*;
@@ -143,9 +144,29 @@ public class TareaService {
         return tareas;
     }
 
+    public Tarea createDummyTareaAviso(){
+        Tarea ejemploAviso = new TareaAviso();
+        ejemploAviso.setEstado("estado1");
+        ejemploAviso.setTelefono("652696869");
+        ejemploAviso.setCallingList("CC_CA_IL_500");
+        ejemploAviso.setNumeroContrato("526369");
+        ejemploAviso.setCodigoCliente(500);
+        ejemploAviso.setFechaReprogramacion(new Date());
+        return ejemploAviso;
+    }
+
+
+    public Tarea CreateMapParameters(Map<String,String> mapa){
+       Tarea tarea =null;
+
+            if (mapa.get(ExternalParams.ID_AVISO)!=null){
+                tarea = createDummyTareaAviso();
+        }return tarea;
+    }
+
+
     private List<Tarea> createDummy() {
         List<Tarea> tareas = new ArrayList<Tarea>();
-
         Tarea ejemploAviso = new TareaAviso();
         ejemploAviso.setEstado("estado1");
         ejemploAviso.setTelefono("652696869");
