@@ -114,10 +114,7 @@ public class VisorTareaController implements Controller {
 
 
         mv.addObject("installationData",installationData);
-
         mv.addObject("ins_no", ins_no);
-
-
 
         /**
          * Variable del estilo de las tabs
