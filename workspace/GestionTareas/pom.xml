@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.securitasdirect</groupId>
+	<groupId>es.securitasdirect</groupId>
 	<artifactId>GestionTareas</artifactId>
 	<name>Gestion de Tareas</name>
 	<version>1.0-SNAPSHOT</version>
@@ -278,16 +278,20 @@
 										da error <extraarg>-p</extraarg> <extraarg>http://www.w3.org/2000/09/xmldsig#=es.cgcom.schemas.datos</extraarg> -->
 								</extraargs>
 							</defaultOptions>
-							<wsdlOptions>
-								<!-- WS InstallationMonData -->
-								<wsdlOption>
-									<wsdl>${basedir}/src/main/resources/wsdl/SP_InstallationMonData.wsdl</wsdl>
-								</wsdlOption>
-                                <!-- WS SP_AIO_TAREAS2.wsdl -->
-                                <wsdlOption>
-                                    <wsdl>${basedir}/src/main/resources/wsdl/SP_AIO_TAREAS2.wsdl</wsdl>
-                                </wsdlOption>
-							</wsdlOptions>
+                            <wsdlRoot>${basedir}/src/main/resources/wsdl</wsdlRoot>
+                            <includes>
+                                <include>*.wsdl</include>
+                            </includes>
+							<!--<wsdlOptions>-->
+								<!--&lt;!&ndash; WS InstallationMonData &ndash;&gt;-->
+								<!--<wsdlOption>-->
+									<!--<wsdl>${basedir}/src/main/resources/wsdl/SP_InstallationMonData.wsdl</wsdl>-->
+								<!--</wsdlOption>-->
+                                <!--&lt;!&ndash; WS SP_AIO_TAREAS2.wsdl-->
+                                <!--<wsdlOption>-->
+                                    <!--<wsdl>${basedir}/src/main/resources/wsdl/SP_AIO_TAREAS2.wsdl</wsdl>-->
+                                <!--</wsdlOption>&ndash;&gt;-->
+							<!--</wsdlOptions>-->
 						</configuration>
 						<goals>
 							<goal>wsdl2java</goal>

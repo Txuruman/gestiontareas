@@ -37,7 +37,7 @@ public class InstallationServiceTest {
     @Test
     public void installationData() throws DataServiceFault {
         InstallationData installationData = installationService.getInstallationData("111111");
-        LOGGER.info(installationData.toString());
         assertThat (installationData,notNullValue());
+        LOGGER.info(installationData.toString());
     }
 }

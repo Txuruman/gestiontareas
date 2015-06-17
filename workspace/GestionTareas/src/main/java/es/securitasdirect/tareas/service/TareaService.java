@@ -27,6 +27,7 @@ public class TareaService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TareaService.class);
 
+    //Web Services para hacer pruebas directamente
     @Inject
     protected SPAVISOSOPERACIONESPortType spAvisosOperaciones;
     @Inject
@@ -84,7 +85,7 @@ public class TareaService {
     }
 
     /**
-     * Obtiene una Tarea by?????
+     * Obtiene una Tarea by Id de Aviso
      *
      * @param idAviso
      * @return

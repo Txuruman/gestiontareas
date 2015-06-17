@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.wso2.ws.dataservice.DataServiceFault;
+import org.wso2.ws.dataservice.SPAIOTAREAS2PortType;
+import org.wso2.ws.dataservice.SPAVISOSOPERACIONESPortType;
 
 import javax.inject.Inject;
 import java.util.Map;
@@ -26,6 +28,12 @@ public class TareasServiceTest {
 
     @Inject
     protected TareaService tareaService;
+
+    //Web Services para hacer pruebas directamente
+    @Inject
+    protected SPAVISOSOPERACIONESPortType spAvisosOperaciones;
+    @Inject
+    protected SPAIOTAREAS2PortType spAioTareas2;
 
 
     @Test
