@@ -26,7 +26,7 @@ public class TareaAviso extends Tarea {
     /**
      * Identificativo Aviso-Tarea: conexión entre el Aviso y la Tarea (para poder seguir la trazabilidad entre ambos aplicativos)
      */
-    String identificativoAvisoTarea;
+    Integer identificativoAvisoTarea;
     /**
      * Identificativo Instalación: número de instalación/cliente
      */
@@ -47,6 +47,27 @@ public class TareaAviso extends Tarea {
     String estado;
     /*	Datos del cierre: motivo, fecha, responsable y datos adicionales  */
     String datosCierre;
+
+
+    private String horarioDesde;
+
+    private String horarioHasta;
+
+    public String getHorarioDesde() {
+        return horarioDesde;
+    }
+
+    public void setHorarioDesde(String horarioDesde) {
+        this.horarioDesde = horarioDesde;
+    }
+
+    public String getHorarioHasta() {
+        return horarioHasta;
+    }
+
+    public void setHorarioHasta(String horarioHasta) {
+        this.horarioHasta = horarioHasta;
+    }
 
     public String getTipoAviso1() {
         return tipoAviso1;
@@ -104,11 +125,11 @@ public class TareaAviso extends Tarea {
         this.observaciones = observaciones;
     }
 
-    public String getIdentificativoAvisoTarea() {
+    public Integer getIdentificativoAvisoTarea() {
         return identificativoAvisoTarea;
     }
 
-    public void setIdentificativoAvisoTarea(String identificativoAvisoTarea) {
+    public void setIdentificativoAvisoTarea(Integer identificativoAvisoTarea) {
         this.identificativoAvisoTarea = identificativoAvisoTarea;
     }
 
@@ -184,5 +205,31 @@ public class TareaAviso extends Tarea {
 
     public void setDatosCierre(String datosCierre) {
         this.datosCierre = datosCierre;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("TareaAviso{");
+        sb.append("tipoAviso1='").append(tipoAviso1).append('\'');
+        sb.append(", tipoAviso2='").append(tipoAviso2).append('\'');
+        sb.append(", tipoAviso3='").append(tipoAviso3).append('\'');
+        sb.append(", motivo1='").append(motivo1).append('\'');
+        sb.append(", motivo2='").append(motivo2).append('\'');
+        sb.append(", motivo3='").append(motivo3).append('\'');
+        sb.append(", observaciones='").append(observaciones).append('\'');
+        sb.append(", identificativoAvisoTarea=").append(identificativoAvisoTarea);
+        sb.append(", numeroInstalacion='").append(numeroInstalacion).append('\'');
+        sb.append(", titular='").append(titular).append('\'');
+        sb.append(", tipoPanel='").append(tipoPanel).append('\'');
+        sb.append(", versionPanel='").append(versionPanel).append('\'');
+        sb.append(", requeridoPor='").append(requeridoPor).append('\'');
+        sb.append(", datosContacto='").append(datosContacto).append('\'');
+        sb.append(", fechaCreacion=").append(fechaCreacion);
+        sb.append(", estado='").append(estado).append('\'');
+        sb.append(", datosCierre='").append(datosCierre).append('\'');
+        sb.append(", horarioDesde='").append(horarioDesde).append('\'');
+        sb.append(", horarioHasta='").append(horarioHasta).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }

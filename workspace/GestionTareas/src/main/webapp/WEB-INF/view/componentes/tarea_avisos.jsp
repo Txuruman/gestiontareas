@@ -1,6 +1,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="row">
+    TAREA AVISOS:${tarea}
+
   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
     <label for="ejemplo_email_3"
            class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">
@@ -9,7 +11,7 @@
 
     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
       <input type="text" class="form-control" name="tipo" id="ejemplo_email_3"
-             placeholder="<spring:message code="eti.visortarea.form.label.10"/>">
+             value="${tarea.tipoAviso1}">
     </div>
 
   </div>
@@ -21,7 +23,7 @@
 
     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
       <input type="text" class="form-control" name="motivo" id="ejemplo_email_3"
-             placeholder="<spring:message code="eti.visortarea.form.label.11"/>">
+             value="${tarea.motivo1}">
     </div>
   </div>
 
@@ -43,8 +45,8 @@
            class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent"></label>
 
     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-      <input type="text" class="form-control" id="ejemplo_email_3"
-             placeholder="Motivo">
+      <input type="text" class="form-control" id="motivo2"
+             value="${tarea.motivo2}">
     </div>
   </div>
 </div>

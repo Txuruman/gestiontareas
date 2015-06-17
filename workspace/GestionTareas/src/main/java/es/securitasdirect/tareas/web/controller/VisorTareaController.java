@@ -1,11 +1,10 @@
 package es.securitasdirect.tareas.web.controller;
 
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import es.securitasdirect.tareas.model.InstallationData;
 import es.securitasdirect.tareas.model.Tarea;
+import es.securitasdirect.tareas.model.TareaAviso;
+import es.securitasdirect.tareas.model.TareaMantenimiento;
+import es.securitasdirect.tareas.model.tareaexcel.*;
 import es.securitasdirect.tareas.service.InstallationService;
 import es.securitasdirect.tareas.service.TareaService;
 import es.securitasdirect.tareas.web.controller.params.ExternalParams;
@@ -14,7 +13,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
-
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -48,84 +50,78 @@ public class VisorTareaController implements Controller {
 
 
     public ModelAndView handleRequest(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
+        InstallationData installationData = null;
+        Tarea tarea = null;
+
+
         String tipoTarea = null;
         String t_tipo = null;
         String idAviso = null;
         String ins_no = null;
         String install_number = "";
-        Tarea tareamap = null;
 
-
-        //Recoger parametros
-        if (hsr.getParameter(ExternalParams.NUMERO_INSTALACION) != null) {
-            Map parametros = hsr.getParameterMap();
-            tareamap = tareaService.CreateMapParameters(parametros);
-
-            ins_no = hsr.getParameter(ExternalParams.NUMERO_INSTALACION);
-            t_tipo = hsr.getParameter(ExternalParams.TIPO_TAREA);
-            idAviso = hsr.getParameter(ExternalParams.ID_AVISO);
+        //Consultar Datos Instalacion, si vienen como parametro
+        ins_no = hsr.getParameter(ExternalParams.NUMERO_INSTALACION);
+        if (ins_no != null) {
+            installationData = installationService.getInstallationData(ins_no);
         }
 
-        //Consultar Datos Instalacion
-        InstallationData installationData = installationService.getInstallationData(ins_no);
-        Map<Integer, String> desplegableKey1 = tareaService.getDesplegableKey1();
-        //Map<Integer, String> desplegableKey2 = tareaService.getDesplegableKey2();
 
+        tarea = tareaService.loadTareaFromParameters(createParameterMap(hsr));
+        //Puede que tengamos tarea o no, si no hay parametros es tarea Nueva de tipo AVISO
+        if (tarea == null) {
+            //Inicializamos una tarea por defecto de tipo Aviso
+            tarea = new TareaAviso();
+        } else {
+            //Se ha cargado una tarea
 
-        //Consultar datos Tareas
-        Tarea tarea = tareaService.getTareaByIdAviso(idAviso);
-
-        LOGGER.info("parameters: ins_no:{}, id_aviso:{} ", ins_no, idAviso);
+        }
 
 
         ModelAndView mv = null;
-        if (ins_no == null) {
+        if (installationData == null) {
+            //Si no hay instalacion vamos a la pantalla de buscar
             mv = new ModelAndView("buscartarea");
         } else {
-
+            //Si hay instalacion
             mv = new ModelAndView("visortarea");
             /**
              * Condicional para saber que contenido secundario hay que cargar
              */
-            if (t_tipo.equals("aviso")) {
-                String titulo = "eti.visortarea.h2.titulo.avisos";
+            String titulo = null;
+            if (tarea instanceof TareaAviso) {
+                titulo = "eti.visortarea.h2.titulo.TareaAviso";
                 mv.addObject(SECUNDARIA, AVISO);
-                mv.addObject(TITULO, titulo);
-            } else if (t_tipo.equals("listadoassistant")) {
-                String titulo = "eti.visortarea.h2.titulo.excel";
+            } else if (tarea instanceof TareaListadoAssistant) {
+                titulo = "eti.visortarea.h2.titulo.TareaListadoAssistant";
                 mv.addObject(SECUNDARIA, EXCEL_LISTADO_ASSISTANT);
-                mv.addObject(TITULO, titulo);
-            } else if (t_tipo.equals("encuestasmantenimientos")) {
-                String titulo = "eti.visortarea.h2.titulo.excel";
+            } else if (tarea instanceof TareaEncuestaMantenimiento) {
+                titulo = "eti.visortarea.h2.titulo.TareaEncuestaMantenimiento";
                 mv.addObject(SECUNDARIA, EXCEL_ENCUESTAS_MANTENIMIENTOS);
-                mv.addObject(TITULO, titulo);
-            } else if (t_tipo.equals("encuestasmarketing")) {
-                String titulo = "eti.visortarea.h2.titulo.excel";
+            } else if (tarea instanceof TareaEncuestaMarketing) {
+                titulo = "eti.visortarea.h2.titulo.TareaEncuestaMarketing";
                 mv.addObject(SECUNDARIA, EXCEL_ENCUESTAS_MARKETING);
-                mv.addObject(TITULO, titulo);
-            } else if (t_tipo.equals("keybox")) {
-                String titulo = "eti.visortarea.h2.titulo.excel";
+            } else if (tarea instanceof TareaKeybox) {
+                titulo = "eti.visortarea.h2.titulo.TareaKeybox";
                 mv.addObject(SECUNDARIA, EXCEL_KEYBOX);
-                mv.addObject(TITULO, titulo);
-            } else if (t_tipo.equals("limpiezacuota")) {
-                String titulo = "eti.visortarea.h2.titulo.excel";
+            } else if (tarea instanceof TareaLimpiezaCuota) {
+                titulo = "eti.visortarea.h2.titulo.TareaLimpiezaCuota";
                 mv.addObject(SECUNDARIA, EXCEL_LIMPIEZA_DE_CUOTA);
-                mv.addObject(TITULO, titulo);
-            } else if (t_tipo.equals("otrascampanias")) {
-                String titulo = "eti.visortarea.h2.titulo.excel";
+            } else if (tarea instanceof TareaOtrasCampanas) {
+                titulo = "eti.visortarea.h2.titulo.TareaOtrasCampanas";
                 mv.addObject(SECUNDARIA, EXCEL_OTRAS_CAMPANIAS);
-                mv.addObject(TITULO, titulo);
-            } else if (t_tipo.equals("mantenimiento")) {
-                String titulo = "eti.visortarea.h2.titulo.mantenimiento";
+            } else if (tarea instanceof TareaMantenimiento) {
+                titulo = "eti.visortarea.h2.titulo.TareaMantenimiento";
                 mv.addObject(SECUNDARIA, MANTENIMIENTO);
-                mv.addObject(TITULO, titulo);
+                //Cargar combo de tarea de Mantenimiento, solo si es tarea de mantenimiento
+                Map<Integer, String> desplegableKey1 = tareaService.getDesplegableKey1();
+                mv.addObject("desplegableKey1", desplegableKey1);
             }
+            mv.addObject(TITULO, titulo);
+            mv.addObject("tarea", tarea);
+            mv.addObject("installationData", installationData);
+
         }
-        mv.addObject("tareamap",tareamap);
-        mv.addObject("desplegableKey1", desplegableKey1);
-        //mv.addObject("desplegableKey1",desplegableKey2);
-        mv.addObject("installationData", installationData);
-        mv.addObject("ins_no", ins_no);
 
         /**
          * Variable del estilo de las tabs
@@ -155,5 +151,14 @@ public class VisorTareaController implements Controller {
 
     public void finalizar() {
 
+    }
+
+    public Map<String, String> createParameterMap(HttpServletRequest hsr) {
+        Map<String, String> parameterValues = new HashMap<String, String>();
+
+        for (Object parameterName : hsr.getParameterMap().keySet()) {
+            parameterValues.put(parameterName.toString(), hsr.getParameter(parameterName.toString()));
+        }
+        return parameterValues;
     }
 }

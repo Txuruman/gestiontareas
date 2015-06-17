@@ -9,10 +9,6 @@ import es.securitasdirect.tareas.web.controller.params.ExternalParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wso2.ws.dataservice.*;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.wso2.ws.dataservice.DataServiceFault;
-import org.wso2.ws.dataservice.RowErrorAA;
-import org.wso2.ws.dataservice.SPAVISOSOPERACIONESPortType;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -91,22 +87,60 @@ public class TareaService {
      * @param idAviso
      * @return
      */
-    public Tarea getTareaByIdAviso(String idAviso) {
-        TareaAviso tarea = new TareaAviso();
-        tarea.setObservaciones("Las observaciones");
+    public Tarea getTareaByIdAviso(Integer idAviso) throws DataServiceFault {
+        TareaAviso tarea = null;
+        List<GetAvisobyIdResult> avisobyId = spAioTareas2.getAvisobyId(idAviso);
+        if (avisobyId != null && !avisobyId.isEmpty()) {
+            tarea = createFromWS(avisobyId.get(0)); //TODO Devuelve una lista aunque se supone que solo es uno, check
+        }
+        LOGGER.debug("Consultado TareaAviso ({}): {}", idAviso, tarea);
         return tarea;
     }
+
+
+    /**
+     * Crea un objeto de tipo TareaAviso consultando el WS
+     *
+     * @param avisobyIdResult
+     * @return
+     */
+    private TareaAviso createFromWS(GetAvisobyIdResult avisobyIdResult) {
+        TareaAviso tarea = new TareaAviso();
+        tarea.setIdentificativoAvisoTarea(avisobyIdResult.getIdaviso().intValue());
+        tarea.setObservaciones(avisobyIdResult.getObservaciones());
+        tarea.setEstado(avisobyIdResult.getEstado().toString()); //TODO
+        tarea.setTitular(avisobyIdResult.getTitular());
+        tarea.setFechaCreacion((avisobyIdResult.getFechaCreacion() == null ? null : avisobyIdResult.getFechaCreacion().toGregorianCalendar().getTime()));
+
+        // Tipos de Aviso: el primero es el utilizado, el segundo y el tercero son sólo informativos.
+        tarea.setTipoAviso1(avisobyIdResult.getTipo()); //TODO Pendiente sacar estos tipos
+        tarea.setTipoAviso2(null);
+        tarea.setTipoAviso3(null);
+
+        //Motivos: el primero es el utilizado, el segundo y el tercero son sólo informativos.
+        tarea.setMotivo1(avisobyIdResult.getMotivo()); //TODO Pendiente sacar estos motivos
+        tarea.setMotivo2(null);
+        tarea.setMotivo3(null);
+        tarea.setRequeridoPor(avisobyIdResult.getRequeridoPor());
+        tarea.setNumeroInstalacion(avisobyIdResult.getInsNo());
+        tarea.setHorarioDesde(avisobyIdResult.getDesde().toString());//TODO FORMATO
+        tarea.setHorarioHasta(avisobyIdResult.getHasta().toString());//TODO FORMATO
+        tarea.setDatosContacto(avisobyIdResult.getContacto() + "??" + avisobyIdResult.getFormaContacto());
+
+        return tarea;
+    }
+
 
     /**
      * Consulta de los valores para el combo Key1 de tareas de mantenimiento
      */
     public Map<Integer, String> getDesplegableKey1() throws DataServiceFault {
         LOGGER.debug("Consultando listado Desplegable KEY1");
-        Map<Integer, String> result=new HashMap<Integer, String>();
+        Map<Integer, String> result = new HashMap<Integer, String>();
         List<GetKey1DIYResult> listaKey1 = spAioTareas2.getKey1DIY();
-        if (listaKey1!=null) {
+        if (listaKey1 != null) {
             for (GetKey1DIYResult getKey1DIYResult : listaKey1) {
-                result.put(getKey1DIYResult.getSKey().intValue(),getKey1DIYResult.getText());
+                result.put(getKey1DIYResult.getSKey().intValue(), getKey1DIYResult.getText());
             }
         }
         return result;
@@ -115,12 +149,12 @@ public class TareaService {
     /**
      * Consulta de los valores para el combo Key2 de tareas de mantenimiento
      */
-    public Map<Integer,String>  getDesplegableKey2(Integer skey1) throws DataServiceFault {
+    public Map<Integer, String> getDesplegableKey2(Integer skey1) throws DataServiceFault {
         LOGGER.debug("Consultando listado Desplegable KEY2 {}", skey1);
-        assert skey1!=null:"skey1 es parametro requerido";
-        Map<Integer, String> result=new HashMap<Integer, String>();
+        assert skey1 != null : "skey1 es parametro requerido";
+        Map<Integer, String> result = new HashMap<Integer, String>();
         List<GetKey2DIYResult> listaKey2 = spAioTareas2.getKey2DIY(skey1);
-        if (listaKey2!=null) {
+        if (listaKey2 != null) {
             for (GetKey2DIYResult getKey2DIYResult : listaKey2) {
                 //Viene un sublistado de valores, parece que siempre viene solo uno, así que cogemos el primero
                 if (!getKey2DIYResult.getGetKeyDataResults().getGetKeyDataResult().isEmpty()) {
@@ -133,7 +167,6 @@ public class TareaService {
     }
 
 
-
     public List<Tarea> findByTelefono(String telefono) {
         List<Tarea> tareas = createDummy();
         return tareas;
@@ -144,7 +177,7 @@ public class TareaService {
         return tareas;
     }
 
-    public Tarea createDummyTareaAviso(){
+    public Tarea createDummyTareaAviso() {
         Tarea ejemploAviso = new TareaAviso();
         ejemploAviso.setEstado("estado1");
         ejemploAviso.setTelefono("652696869");
@@ -156,12 +189,17 @@ public class TareaService {
     }
 
 
-    public Tarea CreateMapParameters(Map<String,String> mapa){
-       Tarea tarea =null;
+    public Tarea loadTareaFromParameters(Map<String,String> mapa) throws DataServiceFault {
+        Tarea tarea = null;
 
-            if (mapa.get(ExternalParams.ID_AVISO)!=null){
-                tarea = createDummyTareaAviso();
-        }return tarea;
+        if (mapa.get(ExternalParams.ID_AVISO) != null) {
+            //TODO MEJORAR TRATAR INTERGER
+            tarea = getTareaByIdAviso(Integer.parseInt((String)mapa.get(ExternalParams.ID_AVISO)));
+        } else {
+            //TODO Distinguir entre las distintos tipos de Tareas depeniendo de los parametros
+        }
+
+        return tarea;
     }
 
 
@@ -203,7 +241,7 @@ public class TareaService {
         ejemploTareaListadoAssistant.setFechaReprogramacion(new Date());
         tareas.add(ejemploTareaListadoAssistant);
 
-return tareas;
+        return tareas;
 
     }
 }

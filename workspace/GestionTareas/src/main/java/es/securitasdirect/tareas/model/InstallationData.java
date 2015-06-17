@@ -13,13 +13,7 @@ public class InstallationData {
 
     private String version;
 
-    private String requerido;
-
     private String personaContacto;
-
-    private String horarioDesde;
-
-    private String horarioHasta;
 
     public String getNumeroInstalacion() {
         return numeroInstalacion;
@@ -53,14 +47,6 @@ public class InstallationData {
         this.version = version;
     }
 
-    public String getRequerido() {
-        return requerido;
-    }
-
-    public void setRequerido(String requerido) {
-        this.requerido = requerido;
-    }
-
     public String getPersonaContacto() {
         return personaContacto;
     }
@@ -69,21 +55,6 @@ public class InstallationData {
         this.personaContacto = personaContacto;
     }
 
-    public String getHorarioDesde() {
-        return horarioDesde;
-    }
-
-    public void setHorarioDesde(String horarioDesde) {
-        this.horarioDesde = horarioDesde;
-    }
-
-    public String getHorarioHasta() {
-        return horarioHasta;
-    }
-
-    public void setHorarioHasta(String horarioHasta) {
-        this.horarioHasta = horarioHasta;
-    }
 
     @Override
     public String toString() {
@@ -92,10 +63,7 @@ public class InstallationData {
         sb.append(", titular='").append(titular).append('\'');
         sb.append(", panel='").append(panel).append('\'');
         sb.append(", version='").append(version).append('\'');
-        sb.append(", requerido='").append(requerido).append('\'');
         sb.append(", personaContacto='").append(personaContacto).append('\'');
-        sb.append(", horarioDesde='").append(horarioDesde).append('\'');
-        sb.append(", horarioHasta='").append(horarioHasta).append('\'');
         sb.append('}');
         return sb.toString();
     }

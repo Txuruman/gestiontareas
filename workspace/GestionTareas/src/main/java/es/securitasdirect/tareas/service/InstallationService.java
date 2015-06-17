@@ -34,13 +34,15 @@ public class InstallationService {
         assert installationNumber!=null;
         Mainstallationdataresult result = null;
 
-        List<Mainstallationdataresult> installationData = spInstallationMonData.getInstallationData(installationNumber);
+        List<Mainstallationdataresult> installationDataWS = spInstallationMonData.getInstallationData(installationNumber);
 
-        if (installationData!=null && installationData.size()>0) {
-            result = installationData.get(0);
+        if (installationDataWS!=null && installationDataWS.size()>0) {
+            result = installationDataWS.get(0);
         }
-        LOGGER.debug("getInstallationData({}) : {}",installationNumber, result);
-        return createInstallationData(result);
+
+        InstallationData installationData = createInstallationData(result);
+        LOGGER.debug("getInstallationData({}) : {}",installationNumber, installationData);
+        return installationData;
     }
 
 
