@@ -41,7 +41,7 @@
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
 
                     <input type="text" class="form-control" name="titular" id="titular"
-                           value="${ins_no}" disabled/>
+                           value="${installationData.numeroInstalacion}" disabled/>
 
                 </div>
             </div>
@@ -52,6 +52,7 @@
 
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
                     <input type="text" class="form-control" name="titular" id="titular"
+                           value="${installationData.titular}" disabled
                            placeholder="<spring:message code="eti.visortarea.form.label.2"/>">
                 </div>
             </div>
@@ -67,7 +68,8 @@
 
 
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                    <input type="text" class="form-control" name="telefono" id="telefono" value="${f}"
+                    <input type="text" class="form-control" name="telefono" id="telefono"
+                           <%--value="${installationData.titular}" disabled--%>
                            placeholder="<spring:message code="eti.visortarea.form.label.3"/>">
                 </div>
             </div>
@@ -78,6 +80,7 @@
 
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
                     <input type="text" class="form-control" name="panel" id="panel"
+                           value="${installationData.panel}" disabled
                            placeholder="<spring:message code="eti.visortarea.form.label.4"/>">
                 </div>
             </div>
@@ -92,6 +95,7 @@
 
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
                     <input type="text" class="form-control" name="pcontacto" id="pcontacto"
+                           value="${personaContacto.titular}" disabled
                            placeholder="<spring:message code="eti.visortarea.form.label.5"/>">
                 </div>
             </div>
@@ -103,6 +107,7 @@
 
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
                     <input type="text" class="form-control" name="version" id="version"
+                           value="${personaContacto.version}" disabled
                            placeholder="<spring:message code="eti.visortarea.form.label.6"/>">
                 </div>
             </div>
@@ -120,6 +125,7 @@
 
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
                         <input type="text" class="form-control" name="requerido" id="requerido"
+                               value="${personaContacto.requerido}" disabled
                                placeholder="<spring:message code="eti.visortarea.form.label.7"/>">
                     </div>
                 </div>
@@ -131,6 +137,7 @@
 
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
                         <input type="text" class="form-control" name="horario1" id="horario1"
+                               value="${personaContacto.horarioHasta}" disabled
                                placeholder="<spring:message code="eti.visortarea.form.label.8.placeholder"/>">
                     </div>
                 </div>
@@ -141,6 +148,7 @@
 
                     <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
                         <input type="text" class="form-control" name="horario2" id="horario2"
+                               value="${personaContacto.horarioDesde}" disabled
                                placeholder="<spring:message code="eti.visortarea.form.label.9.placeholder"/>">
                     </div>
                 </div> <!--TODO voy por aqui -->

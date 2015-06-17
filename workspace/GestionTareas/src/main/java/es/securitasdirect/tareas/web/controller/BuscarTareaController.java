@@ -4,6 +4,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import es.securitasdirect.tareas.model.InstallationData;
 import es.securitasdirect.tareas.model.Tarea;
 import es.securitasdirect.tareas.service.InstallationService;
 import es.securitasdirect.tareas.service.TareaService;
@@ -23,7 +24,6 @@ public class BuscarTareaController implements Controller {
 
     public ModelAndView handleRequest(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
         ModelAndView mv = new ModelAndView("buscartarea");
-
         List<Tarea> listaTareas = tareaService.findByTelefono();
 
 
