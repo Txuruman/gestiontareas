@@ -30,8 +30,6 @@ public class BuscarTareaController implements Controller {
         List<Tarea> listaTareas = tareaService.findByTelefono("652696869");
 
 
-
-
         String tecla2 = "active";
         String tecla3 = "inactive";
         mv.addObject("listaTareas", listaTareas);
