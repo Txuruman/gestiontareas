@@ -1,0 +1,842 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:ns0="http://ws.wso2.org/dataservice" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://ws.wso2.org/dataservice">
+    <wsdl:documentation/>
+    <wsdl:types>
+        <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://ws.wso2.org/dataservice">
+            <xs:element name="DataServiceFault" type="xs:string"/>
+            <xs:element name="REQUEST_STATUS" type="xs:string"/>
+            <xs:element name="DATA_SERVICE_RESPONSE">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:any minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getKeyData">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="skey" nillable="true" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getKeyDataResults" type="ns0:getKeyDataResults"/>
+            <xs:complexType name="getKeyDataResults">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="getKeyDataResult" type="ns0:getKeyDataResult"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getKeyDataResult">
+                <xs:sequence>
+                    <xs:element name="s_key" nillable="true" type="xs:integer"/>
+                    <xs:element name="keyid" nillable="true" type="xs:string"/>
+                    <xs:element name="text" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="getKey2DIY">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="skey1" nillable="true" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getKey2DIYResults" type="ns0:getKey2DIYResults"/>
+            <xs:complexType name="getKey2DIYResults">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="getKey2DIYResult" type="ns0:getKey2DIYResult"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getKey2DIYResult">
+                <xs:sequence>
+                    <xs:element name="skey2" nillable="true" type="xs:integer"/>
+                    <xs:element ref="ns0:getKeyDataResults"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="setAvisoCargado">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="naviso" nillable="true" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="inet_check_ins_no">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ins_no" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="inet_check_ins_no_results" type="ns0:inet_check_ins_no_results"/>
+            <xs:complexType name="inet_check_ins_no_results">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="inet_check_ins_no_result" type="ns0:inet_check_ins_no_result"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="inet_check_ins_no_result">
+                <xs:sequence>
+                    <xs:element name="s_ins" nillable="true" type="xs:integer"/>
+                    <xs:element name="s_ctr" nillable="true" type="xs:integer"/>
+                    <xs:element name="s_acc" nillable="true" type="xs:integer"/>
+                    <xs:element ref="ns0:getInstallationDataResults"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="getInstallationDataResults" type="ns0:getInstallationDataResults"/>
+            <xs:complexType name="getInstallationDataResults">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="getInstallationDataResult" type="ns0:getInstallationDataResult"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getInstallationDataResult">
+                <xs:sequence>
+                    <xs:element name="ins_no" nillable="true" type="xs:string"/>
+                    <xs:element name="panel" nillable="true" type="xs:string"/>
+                    <xs:element name="version" nillable="true" type="xs:string"/>
+                    <xs:element name="fname" nillable="true" type="xs:string"/>
+                    <xs:element name="name" nillable="true" type="xs:string"/>
+                    <xs:element name="street1" nillable="true" type="xs:string"/>
+                    <xs:element name="street1no1" nillable="true" type="xs:string"/>
+                    <xs:element name="street1no2" nillable="true" type="xs:string"/>
+                    <xs:element name="street2" nillable="true" type="xs:string"/>
+                    <xs:element name="city" nillable="true" type="xs:string"/>
+                    <xs:element name="state" nillable="true" type="xs:string"/>
+                    <xs:element name="phone1" nillable="true" type="xs:string"/>
+                    <xs:element name="skill" nillable="true" type="xs:string"/>
+                    <xs:element ref="ns0:getContractNumberResponse"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="getContractNumberResponse" type="ns0:getContractNumberResponse"/>
+            <xs:complexType name="getContractNumberResponse">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="getContractNumberResponses" type="ns0:getContractNumberResponses"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getContractNumberResponses">
+                <xs:sequence>
+                    <xs:element name="ctr_no" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="getAvisobyId">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="naviso" nillable="true" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getAvisobyIdResults" type="ns0:getAvisobyIdResults"/>
+            <xs:complexType name="getAvisobyIdResults">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="getAvisobyIdResult" type="ns0:getAvisobyIdResult"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getAvisobyIdResult">
+                <xs:sequence>
+                    <xs:element name="idaviso" nillable="true" type="xs:integer"/>
+                    <xs:element name="estado" nillable="true" type="xs:integer"/>
+                    <xs:element name="tipo" nillable="true" type="xs:string"/>
+                    <xs:element name="motivo" nillable="true" type="xs:string"/>
+                    <xs:element name="fecha_creacion" nillable="true" type="xs:date"/>
+                    <xs:element name="observaciones" nillable="true" type="xs:string"/>
+                    <xs:element name="ins_no" nillable="true" type="xs:string"/>
+                    <xs:element name="requerido_por" nillable="true" type="xs:string"/>
+                    <xs:element name="titular" nillable="true" type="xs:string"/>
+                    <xs:element name="contacto" nillable="true" type="xs:string"/>
+                    <xs:element name="forma_contacto" nillable="true" type="xs:string"/>
+                    <xs:element name="desde" nillable="true" type="xs:integer"/>
+                    <xs:element name="hasta" nillable="true" type="xs:integer"/>
+                    <xs:element name="skill" nillable="true" type="xs:string"/>
+                    <xs:element ref="ns0:inet_check_ins_no_results"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="getInstallationData">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="s_ins" nillable="true" type="xs:int"/>
+                        <xs:element name="s_ctr" nillable="true" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getInsNoFromEmail">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="email" nillable="true" type="xs:string"/>
+                        <xs:element name="email1" nillable="true" type="xs:string"/>
+                        <xs:element name="email2" nillable="true" type="xs:string"/>
+                        <xs:element name="email3" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getInsNoFromEmailResultados" type="ns0:getInsNoFromEmailResultados"/>
+            <xs:complexType name="getInsNoFromEmailResultados">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="getInsNoFromEmailResultado" type="ns0:getInsNoFromEmailResultado"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getInsNoFromEmailResultado">
+                <xs:sequence>
+                    <xs:element name="ins_no" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="getContractNumber">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="s_ctr" nillable="true" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="closeIncBTNDIY">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ins_no" nillable="true" type="xs:string"/>
+                        <xs:element name="comment" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="inet_check_ctr_no">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ctr_no" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="inet_check_ctr_no_results" type="ns0:inet_check_ctr_no_results"/>
+            <xs:complexType name="inet_check_ctr_no_results">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="inet_check_ctr_no_result" type="ns0:inet_check_ctr_no_result"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="inet_check_ctr_no_result">
+                <xs:sequence>
+                    <xs:element name="s_ins" nillable="true" type="xs:integer"/>
+                    <xs:element name="s_ctr" nillable="true" type="xs:integer"/>
+                    <xs:element name="s_acc" nillable="true" type="xs:integer"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="setAvisoNoCargado">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="naviso" nillable="true" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getAvisosNoCargados">
+                <xs:complexType>
+                    <xs:sequence/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getAvisosNoCargadosResults" type="ns0:getAvisosNoCargadosResults"/>
+            <xs:complexType name="getAvisosNoCargadosResults">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="getAvisosNoCargadosResult" type="ns0:getAvisosNoCargadosResult"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getAvisosNoCargadosResult">
+                <xs:sequence>
+                    <xs:element name="idaviso" nillable="true" type="xs:integer"/>
+                    <xs:element name="ins_no" nillable="true" type="xs:string"/>
+                    <xs:element name="grupo" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="getKey1DIY">
+                <xs:complexType>
+                    <xs:sequence/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getKey1DIYResults" type="ns0:getKey1DIYResults"/>
+            <xs:complexType name="getKey1DIYResults">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="getKey1DIYResult" type="ns0:getKey1DIYResult"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getKey1DIYResult">
+                <xs:sequence>
+                    <xs:element name="s_key" nillable="true" type="xs:integer"/>
+                    <xs:element name="keyid" nillable="true" type="xs:string"/>
+                    <xs:element name="text" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="getKey1DIYRequest">
+        <wsdl:part name="parameters" element="ns0:getKey1DIY"/>
+    </wsdl:message>
+    <wsdl:message name="getKey1DIYResponse">
+        <wsdl:part name="parameters" element="ns0:getKey1DIYResults"/>
+    </wsdl:message>
+    <wsdl:message name="DataServiceFault">
+        <wsdl:part name="parameters" element="ns0:DataServiceFault"/>
+    </wsdl:message>
+    <wsdl:message name="getInsNoFromEmailRequest">
+        <wsdl:part name="parameters" element="ns0:getInsNoFromEmail"/>
+    </wsdl:message>
+    <wsdl:message name="getInsNoFromEmailResponse">
+        <wsdl:part name="parameters" element="ns0:getInsNoFromEmailResultados"/>
+    </wsdl:message>
+    <wsdl:message name="closeIncBTNDIYRequest">
+        <wsdl:part name="parameters" element="ns0:closeIncBTNDIY"/>
+    </wsdl:message>
+    <wsdl:message name="closeIncBTNDIYResponse">
+        <wsdl:part name="parameters" element="ns0:REQUEST_STATUS"/>
+    </wsdl:message>
+    <wsdl:message name="getAvisobyIdRequest">
+        <wsdl:part name="parameters" element="ns0:getAvisobyId"/>
+    </wsdl:message>
+    <wsdl:message name="getAvisobyIdResponse">
+        <wsdl:part name="parameters" element="ns0:getAvisobyIdResults"/>
+    </wsdl:message>
+    <wsdl:message name="getAvisosNoCargadosRequest">
+        <wsdl:part name="parameters" element="ns0:getAvisosNoCargados"/>
+    </wsdl:message>
+    <wsdl:message name="getAvisosNoCargadosResponse">
+        <wsdl:part name="parameters" element="ns0:getAvisosNoCargadosResults"/>
+    </wsdl:message>
+    <wsdl:message name="setAvisoCargadoRequest">
+        <wsdl:part name="parameters" element="ns0:setAvisoCargado"/>
+    </wsdl:message>
+    <wsdl:message name="getContractNumberRequest">
+        <wsdl:part name="parameters" element="ns0:getContractNumber"/>
+    </wsdl:message>
+    <wsdl:message name="getContractNumberResponse">
+        <wsdl:part name="parameters" element="ns0:getContractNumberResponse"/>
+    </wsdl:message>
+    <wsdl:message name="getKeyDataRequest">
+        <wsdl:part name="parameters" element="ns0:getKeyData"/>
+    </wsdl:message>
+    <wsdl:message name="getKeyDataResponse">
+        <wsdl:part name="parameters" element="ns0:getKeyDataResults"/>
+    </wsdl:message>
+    <wsdl:message name="getKey2DIYRequest">
+        <wsdl:part name="parameters" element="ns0:getKey2DIY"/>
+    </wsdl:message>
+    <wsdl:message name="getKey2DIYResponse">
+        <wsdl:part name="parameters" element="ns0:getKey2DIYResults"/>
+    </wsdl:message>
+    <wsdl:message name="inet_check_ins_noRequest">
+        <wsdl:part name="parameters" element="ns0:inet_check_ins_no"/>
+    </wsdl:message>
+    <wsdl:message name="inet_check_ins_noResponse">
+        <wsdl:part name="parameters" element="ns0:inet_check_ins_no_results"/>
+    </wsdl:message>
+    <wsdl:message name="setAvisoNoCargadoRequest">
+        <wsdl:part name="parameters" element="ns0:setAvisoNoCargado"/>
+    </wsdl:message>
+    <wsdl:message name="getInstallationDataRequest">
+        <wsdl:part name="parameters" element="ns0:getInstallationData"/>
+    </wsdl:message>
+    <wsdl:message name="getInstallationDataResponse">
+        <wsdl:part name="parameters" element="ns0:getInstallationDataResults"/>
+    </wsdl:message>
+    <wsdl:message name="inet_check_ctr_noRequest">
+        <wsdl:part name="parameters" element="ns0:inet_check_ctr_no"/>
+    </wsdl:message>
+    <wsdl:message name="inet_check_ctr_noResponse">
+        <wsdl:part name="parameters" element="ns0:inet_check_ctr_no_results"/>
+    </wsdl:message>
+    <wsdl:portType name="SP_AIO_TAREAS2PortType">
+        <wsdl:operation name="getKey1DIY">
+            <wsdl:documentation/>
+            <wsdl:input message="ns0:getKey1DIYRequest" wsaw:Action="urn:getKey1DIY"/>
+            <wsdl:output message="ns0:getKey1DIYResponse" wsaw:Action="urn:getKey1DIYResponse"/>
+            <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:getKey1DIYDataServiceFault"/>
+        </wsdl:operation>
+        <wsdl:operation name="getInsNoFromEmail">
+            <wsdl:documentation/>
+            <wsdl:input message="ns0:getInsNoFromEmailRequest" wsaw:Action="urn:getInsNoFromEmail"/>
+            <wsdl:output message="ns0:getInsNoFromEmailResponse" wsaw:Action="urn:getInsNoFromEmailResponse"/>
+            <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:getInsNoFromEmailDataServiceFault"/>
+        </wsdl:operation>
+        <wsdl:operation name="closeIncBTNDIY">
+            <wsdl:documentation/>
+            <wsdl:input message="ns0:closeIncBTNDIYRequest" wsaw:Action="urn:closeIncBTNDIY"/>
+            <wsdl:output message="ns0:closeIncBTNDIYResponse" wsaw:Action="urn:closeIncBTNDIYResponse"/>
+            <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:closeIncBTNDIYDataServiceFault"/>
+        </wsdl:operation>
+        <wsdl:operation name="getAvisobyId">
+            <wsdl:documentation/>
+            <wsdl:input message="ns0:getAvisobyIdRequest" wsaw:Action="urn:getAvisobyId"/>
+            <wsdl:output message="ns0:getAvisobyIdResponse" wsaw:Action="urn:getAvisobyIdResponse"/>
+            <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:getAvisobyIdDataServiceFault"/>
+        </wsdl:operation>
+        <wsdl:operation name="getAvisosNoCargados">
+            <wsdl:documentation/>
+            <wsdl:input message="ns0:getAvisosNoCargadosRequest" wsaw:Action="urn:getAvisosNoCargados"/>
+            <wsdl:output message="ns0:getAvisosNoCargadosResponse" wsaw:Action="urn:getAvisosNoCargadosResponse"/>
+            <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:getAvisosNoCargadosDataServiceFault"/>
+        </wsdl:operation>
+        <wsdl:operation name="setAvisoCargado">
+            <wsdl:documentation/>
+            <wsdl:input message="ns0:setAvisoCargadoRequest" wsaw:Action="urn:setAvisoCargado"/>
+        </wsdl:operation>
+        <wsdl:operation name="getContractNumber">
+            <wsdl:documentation/>
+            <wsdl:input message="ns0:getContractNumberRequest" wsaw:Action="urn:getContractNumber"/>
+            <wsdl:output message="ns0:getContractNumberResponse" wsaw:Action="urn:getContractNumberResponse"/>
+            <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:getContractNumberDataServiceFault"/>
+        </wsdl:operation>
+        <wsdl:operation name="getKeyData">
+            <wsdl:documentation/>
+            <wsdl:input message="ns0:getKeyDataRequest" wsaw:Action="urn:getKeyData"/>
+            <wsdl:output message="ns0:getKeyDataResponse" wsaw:Action="urn:getKeyDataResponse"/>
+            <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:getKeyDataDataServiceFault"/>
+        </wsdl:operation>
+        <wsdl:operation name="getKey2DIY">
+            <wsdl:documentation/>
+            <wsdl:input message="ns0:getKey2DIYRequest" wsaw:Action="urn:getKey2DIY"/>
+            <wsdl:output message="ns0:getKey2DIYResponse" wsaw:Action="urn:getKey2DIYResponse"/>
+            <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:getKey2DIYDataServiceFault"/>
+        </wsdl:operation>
+        <wsdl:operation name="inet_check_ins_no">
+            <wsdl:documentation/>
+            <wsdl:input message="ns0:inet_check_ins_noRequest" wsaw:Action="urn:inet_check_ins_no"/>
+            <wsdl:output message="ns0:inet_check_ins_noResponse" wsaw:Action="urn:inet_check_ins_noResponse"/>
+            <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:inet_check_ins_noDataServiceFault"/>
+        </wsdl:operation>
+        <wsdl:operation name="setAvisoNoCargado">
+            <wsdl:documentation/>
+            <wsdl:input message="ns0:setAvisoNoCargadoRequest" wsaw:Action="urn:setAvisoNoCargado"/>
+        </wsdl:operation>
+        <wsdl:operation name="getInstallationData">
+            <wsdl:documentation/>
+            <wsdl:input message="ns0:getInstallationDataRequest" wsaw:Action="urn:getInstallationData"/>
+            <wsdl:output message="ns0:getInstallationDataResponse" wsaw:Action="urn:getInstallationDataResponse"/>
+            <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:getInstallationDataDataServiceFault"/>
+        </wsdl:operation>
+        <wsdl:operation name="inet_check_ctr_no">
+            <wsdl:documentation/>
+            <wsdl:input message="ns0:inet_check_ctr_noRequest" wsaw:Action="urn:inet_check_ctr_no"/>
+            <wsdl:output message="ns0:inet_check_ctr_noResponse" wsaw:Action="urn:inet_check_ctr_noResponse"/>
+            <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:inet_check_ctr_noDataServiceFault"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="SP_AIO_TAREAS2SOAP11Binding" type="ns0:SP_AIO_TAREAS2PortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="getKey1DIY">
+            <soap:operation soapAction="urn:getKey1DIY" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="getInsNoFromEmail">
+            <soap:operation soapAction="urn:getInsNoFromEmail" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="closeIncBTNDIY">
+            <soap:operation soapAction="urn:closeIncBTNDIY" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="getAvisobyId">
+            <soap:operation soapAction="urn:getAvisobyId" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="getAvisosNoCargados">
+            <soap:operation soapAction="urn:getAvisosNoCargados" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="setAvisoCargado">
+            <soap:operation soapAction="urn:setAvisoCargado" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="getContractNumber">
+            <soap:operation soapAction="urn:getContractNumber" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="getKeyData">
+            <soap:operation soapAction="urn:getKeyData" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="getKey2DIY">
+            <soap:operation soapAction="urn:getKey2DIY" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="inet_check_ins_no">
+            <soap:operation soapAction="urn:inet_check_ins_no" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="setAvisoNoCargado">
+            <soap:operation soapAction="urn:setAvisoNoCargado" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="getInstallationData">
+            <soap:operation soapAction="urn:getInstallationData" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="inet_check_ctr_no">
+            <soap:operation soapAction="urn:inet_check_ctr_no" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="SP_AIO_TAREAS2SOAP12Binding" type="ns0:SP_AIO_TAREAS2PortType">
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="getKey1DIY">
+            <soap12:operation soapAction="urn:getKey1DIY" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap12:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="getInsNoFromEmail">
+            <soap12:operation soapAction="urn:getInsNoFromEmail" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap12:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="closeIncBTNDIY">
+            <soap12:operation soapAction="urn:closeIncBTNDIY" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap12:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="getAvisobyId">
+            <soap12:operation soapAction="urn:getAvisobyId" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap12:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="getAvisosNoCargados">
+            <soap12:operation soapAction="urn:getAvisosNoCargados" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap12:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="setAvisoCargado">
+            <soap12:operation soapAction="urn:setAvisoCargado" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="getContractNumber">
+            <soap12:operation soapAction="urn:getContractNumber" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap12:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="getKeyData">
+            <soap12:operation soapAction="urn:getKeyData" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap12:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="getKey2DIY">
+            <soap12:operation soapAction="urn:getKey2DIY" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap12:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="inet_check_ins_no">
+            <soap12:operation soapAction="urn:inet_check_ins_no" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap12:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="setAvisoNoCargado">
+            <soap12:operation soapAction="urn:setAvisoNoCargado" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="getInstallationData">
+            <soap12:operation soapAction="urn:getInstallationData" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap12:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="inet_check_ctr_no">
+            <soap12:operation soapAction="urn:inet_check_ctr_no" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap12:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="SP_AIO_TAREAS2HttpBinding" type="ns0:SP_AIO_TAREAS2PortType">
+        <http:binding verb="POST"/>
+        <wsdl:operation name="getKey1DIY">
+            <http:operation location="getKey1DIY"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getInsNoFromEmail">
+            <http:operation location="getInsNoFromEmail"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="closeIncBTNDIY">
+            <http:operation location="closeIncBTNDIY"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getAvisobyId">
+            <http:operation location="getAvisobyId"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getAvisosNoCargados">
+            <http:operation location="getAvisosNoCargados"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="setAvisoCargado">
+            <http:operation location="setAvisoCargado"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="getContractNumber">
+            <http:operation location="getContractNumber"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getKeyData">
+            <http:operation location="getKeyData"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getKey2DIY">
+            <http:operation location="getKey2DIY"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="inet_check_ins_no">
+            <http:operation location="inet_check_ins_no"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="setAvisoNoCargado">
+            <http:operation location="setAvisoNoCargado"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="getInstallationData">
+            <http:operation location="getInstallationData"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="inet_check_ctr_no">
+            <http:operation location="inet_check_ctr_no"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="SP_AIO_TAREAS2">
+        <wsdl:port name="SOAP11Endpoint" binding="ns0:SP_AIO_TAREAS2SOAP11Binding">
+            <soap:address location="http://10.2.144.63:9763/services/SP_AIO_TAREAS2.SOAP11Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="LOCALSOAP11Endpoint" binding="ns0:SP_AIO_TAREAS2SOAP11Binding">
+            <soap:address location="local:///services/SP_AIO_TAREAS2.LOCALSOAP11Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="SecureSOAP11Endpoint" binding="ns0:SP_AIO_TAREAS2SOAP11Binding">
+            <soap:address location="https://10.2.144.63:9443/services/SP_AIO_TAREAS2.SecureSOAP11Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="LOCALSOAP12Endpoint" binding="ns0:SP_AIO_TAREAS2SOAP12Binding">
+            <soap12:address location="local:///services/SP_AIO_TAREAS2.LOCALSOAP12Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="SecureSOAP12Endpoint" binding="ns0:SP_AIO_TAREAS2SOAP12Binding">
+            <soap12:address location="https://10.2.144.63:9443/services/SP_AIO_TAREAS2.SecureSOAP12Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="SOAP12Endpoint" binding="ns0:SP_AIO_TAREAS2SOAP12Binding">
+            <soap12:address location="http://10.2.144.63:9763/services/SP_AIO_TAREAS2.SOAP12Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="HTTPEndpoint" binding="ns0:SP_AIO_TAREAS2HttpBinding">
+            <http:address location="http://10.2.144.63:9763/services/SP_AIO_TAREAS2.HTTPEndpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="SecureHTTPEndpoint" binding="ns0:SP_AIO_TAREAS2HttpBinding">
+            <http:address location="https://10.2.144.63:9443/services/SP_AIO_TAREAS2.SecureHTTPEndpoint/"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
