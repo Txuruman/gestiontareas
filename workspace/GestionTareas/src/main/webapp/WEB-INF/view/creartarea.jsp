@@ -32,7 +32,7 @@
 		</div>
 		<div class="spacer_t2"></div>
 
-		<form class="form-horizontal" role="form">
+		<form class="form-horizontal" role="form" >
 
 			<div class="row">
 				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">

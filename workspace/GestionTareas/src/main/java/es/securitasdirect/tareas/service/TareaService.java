@@ -154,15 +154,12 @@ public class TareaService {
         ejemploAviso.setFechaReprogramacion(new Date());
         tareas.add(ejemploAviso);
 
-
         Tarea ejemploTareaMantenimiento = new TareaMantenimiento();
         ejemploTareaMantenimiento.setEstado("estado2");
         ejemploTareaMantenimiento.setTelefono("652696789");
         ejemploTareaMantenimiento.setCallingList("CC_CA_IL_502");
         ejemploTareaMantenimiento.setNumeroContrato("526370");
         ejemploTareaMantenimiento.setCodigoCliente(501);
-
-
         ejemploTareaMantenimiento.setFechaReprogramacion(new Date());
         tareas.add(ejemploTareaMantenimiento);
 

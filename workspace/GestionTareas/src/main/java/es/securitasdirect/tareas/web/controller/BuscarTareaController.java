@@ -11,6 +11,8 @@ import es.securitasdirect.tareas.service.TareaService;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class BuscarTareaController implements Controller {
@@ -23,7 +25,9 @@ public class BuscarTareaController implements Controller {
 
 
     public ModelAndView handleRequest(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
+        int i = 0;
         ModelAndView mv = new ModelAndView("buscartarea");
+        List<Tarea> listaTareas = tareaService.findByTelefono("652696869");
         List<Tarea> listaTareas = tareaService.findByTelefono("telefono");
 
 
