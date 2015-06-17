@@ -23,6 +23,9 @@ import java.util.List;
 
 
 public class VisorTareaController implements Controller {
+    /**
+     * clases de avisos
+     */
     public String AVISO = "componentes/tarea_avisos.jsp";
     public String EXCEL_LISTADO_ASSISTANT = "componentes/tareaexcel/listadoassistant.jsp";
     public String EXCEL_ENCUESTAS_MANTENIMIENTOS = "componentes/tareaexcel/encuenstasmantenimientos.jsp";
@@ -59,10 +62,13 @@ public class VisorTareaController implements Controller {
 
         LOGGER.info("parameters: ins_no:{}, id_aviso:{} ", ins_no, idAviso);
 
+        //Asignar instalacion
+        String install_number = installationData.getNumeroInstalacion();
+
+
         ModelAndView mv = null;
         if (ins_no == null) {
             mv = new ModelAndView("buscartarea");
-
         } else {
 
             mv = new ModelAndView("visortarea");
@@ -102,26 +108,13 @@ public class VisorTareaController implements Controller {
                 mv.addObject(SECUNDARIA, MANTENIMIENTO);
                 mv.addObject(TITULO, titulo);
             }
-
-
-
-            List<Tarea> f = tareaService.findByTelefono("652696789");
-            String s="";
-
-            for( Iterator it = f.iterator(); it.hasNext();) {
-
-                s = (String)it.next();
-
-            }
-
-            mv.addObject("f",s);
-
-
-
         }
 
 
+        mv.addObject("installationData",installationData);
+
         mv.addObject("ins_no", ins_no);
+
 
 
         /**

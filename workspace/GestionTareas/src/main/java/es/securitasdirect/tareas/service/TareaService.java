@@ -8,6 +8,10 @@ import es.securitasdirect.tareas.model.tareaexcel.TareaListadoAssistant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wso2.ws.dataservice.*;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.wso2.ws.dataservice.DataServiceFault;
+import org.wso2.ws.dataservice.RowErrorAA;
+import org.wso2.ws.dataservice.SPAVISOSOPERACIONESPortType;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -91,60 +95,13 @@ public class TareaService {
         return tarea;
     }
 
-    /**
-     * Consulta de los valores para el combo Key1 de tareas de mantenimiento
-     */
-    public Map<Integer, String> getDesplegableKey1() throws DataServiceFault {
-        LOGGER.debug("Consultando listado Desplegable KEY1");
-        Map<Integer, String> result=new HashMap<Integer, String>();
-        List<GetKey1DIYResult> listaKey1 = spAioTareas2.getKey1DIY();
-        if (listaKey1!=null) {
-            for (GetKey1DIYResult getKey1DIYResult : listaKey1) {
-                result.put(getKey1DIYResult.getSKey().intValue(),getKey1DIYResult.getText());
-            }
-        }
-        return result;
-    }
-
-    /**
-     * Consulta de los valores para el combo Key2 de tareas de mantenimiento
-     */
-    public Map<Integer,String>  getDesplegableKey2(Integer skey1) throws DataServiceFault {
-        LOGGER.debug("Consultando listado Desplegable KEY2 {}", skey1);
-        assert skey1!=null:"skey1 es parametro requerido";
-        Map<Integer, String> result=new HashMap<Integer, String>();
-        List<GetKey2DIYResult> listaKey2 = spAioTareas2.getKey2DIY(skey1);
-        if (listaKey2!=null) {
-            for (GetKey2DIYResult getKey2DIYResult : listaKey2) {
-                //Viene un sublistado de valores, parece que siempre viene solo uno, así que cogemos el primero
-                if (!getKey2DIYResult.getGetKeyDataResults().getGetKeyDataResult().isEmpty()) {
-                    result.put(getKey2DIYResult.getGetKeyDataResults().getGetKeyDataResult().get(0).getSKey().intValue(),
-                            getKey2DIYResult.getGetKeyDataResults().getGetKeyDataResult().get(0).getText());
-                }
-            }
-        }
-        return result;
-    }
-
-
-    /**
-     * Buscar lista de tareas por telefono
-     * @param telefono
-     * @return
-     */
     public List<Tarea> findByTelefono(String telefono) {
         List<Tarea> tareas = createDummy();
-        for (Tarea tarea : tareas) {
-            tarea.setTelefono(telefono);
-        }
         return tareas;
     }
 
     public List<Tarea> findByInstalacion(String instalacion) {
         List<Tarea> tareas = createDummy();
-        for (Tarea tarea : tareas) {
-            //tarea.setInstalacion(instalacion);
-        }
         return tareas;
     }
 
@@ -157,7 +114,7 @@ public class TareaService {
         ejemploAviso.setCallingList("CC_CA_IL_500");
         ejemploAviso.setNumeroContrato("526369");
         ejemploAviso.setCodigoCliente(500);
-        ejemploAviso.setFechaReprogramacion(new Date(13-9-2015));
+        ejemploAviso.setFechaReprogramacion(new Date());
         tareas.add(ejemploAviso);
 
 
@@ -167,7 +124,9 @@ public class TareaService {
         ejemploTareaMantenimiento.setCallingList("CC_CA_IL_502");
         ejemploTareaMantenimiento.setNumeroContrato("526370");
         ejemploTareaMantenimiento.setCodigoCliente(501);
-        ejemploTareaMantenimiento.setFechaReprogramacion(new Date(15-5-2016));
+
+
+        ejemploTareaMantenimiento.setFechaReprogramacion(new Date());
         tareas.add(ejemploTareaMantenimiento);
 
         Tarea ejemploTareaEncuestaMarketing = new TareaEncuestaMarketing();
@@ -176,7 +135,7 @@ public class TareaService {
         ejemploTareaEncuestaMarketing.setCallingList("CC_CA_IL_510");
         ejemploTareaEncuestaMarketing.setNumeroContrato("526371");
         ejemploTareaEncuestaMarketing.setCodigoCliente(502);
-        ejemploTareaEncuestaMarketing.setFechaReprogramacion(new Date(16-12-2015));
+        ejemploTareaEncuestaMarketing.setFechaReprogramacion(new Date());
         tareas.add(ejemploTareaEncuestaMarketing);
 
         Tarea ejemploTareaListadoAssistant = new TareaListadoAssistant();
@@ -185,7 +144,7 @@ public class TareaService {
         ejemploTareaListadoAssistant.setCallingList("CC_CA_IL_512");
         ejemploTareaListadoAssistant.setNumeroContrato("526372");
         ejemploTareaListadoAssistant.setCodigoCliente(503);
-        ejemploTareaListadoAssistant.setFechaReprogramacion(new Date(12-9-2015));
+        ejemploTareaListadoAssistant.setFechaReprogramacion(new Date());
         tareas.add(ejemploTareaListadoAssistant);
 
 return tareas;
