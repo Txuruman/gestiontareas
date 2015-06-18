@@ -194,7 +194,13 @@
             <artifactId>joda-time</artifactId>
             <version>2.0</version>
         </dependency>
-    </dependencies>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.0</version>
+		</dependency>
+
+	</dependencies>
 
 	<build>
 		<resources>
@@ -238,6 +244,8 @@
 					<path>/gestiontareas</path>
 				</configuration>
 			</plugin>
+
+
 
 
 			<plugin>
