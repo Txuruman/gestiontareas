@@ -2,7 +2,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 
 <html>
 <head>
@@ -44,7 +44,11 @@ Enlaces
 
     </li>
 </ul>
-<%--<% response.sendRedirect("inicio.htm"); %>--%>
+
+
+<p>
+    <my:poll question="Will you start using tag files?" />
+</p>
 
 </body>
 </html>
