@@ -2,6 +2,7 @@ package es.securitasdirect.tareas.service;
 
 import es.securitasdirect.tareas.model.Tarea;
 import es.securitasdirect.tareas.model.TareaAviso;
+import es.securitasdirect.tareas.model.TareaExcel;
 import es.securitasdirect.tareas.model.TareaMantenimiento;
 import es.securitasdirect.tareas.model.tareaexcel.TareaEncuestaMarketing;
 import es.securitasdirect.tareas.model.tareaexcel.TareaListadoAssistant;
@@ -91,7 +92,7 @@ public class TareaService {
         TareaAviso tarea = null;
         List<GetAvisobyIdResult> avisobyId = spAioTareas2.getAvisobyId(idAviso);
         if (avisobyId != null && !avisobyId.isEmpty()) {
-            tarea = createFromWS(avisobyId.get(0)); //TODO Devuelve una lista aunque se supone que solo es uno, check
+            tarea = mapTareaAvisoFromWS(avisobyId.get(0)); //TODO Devuelve una lista aunque se supone que solo es uno, check
         }
         LOGGER.debug("Consultado TareaAviso ({}): {}", idAviso, tarea);
         return tarea;
@@ -104,7 +105,7 @@ public class TareaService {
      * @param avisobyIdResult
      * @return
      */
-    private TareaAviso createFromWS(GetAvisobyIdResult avisobyIdResult) {
+    private TareaAviso mapTareaAvisoFromWS(GetAvisobyIdResult avisobyIdResult) {
         TareaAviso tarea = new TareaAviso();
         tarea.setIdentificativoAvisoTarea(avisobyIdResult.getIdaviso().intValue());
         tarea.setObservaciones(avisobyIdResult.getObservaciones());
@@ -189,19 +190,65 @@ public class TareaService {
     }
 
 
+    /**
+     * Carga las tareas dependiendo de los valores que se envian como parámetros.
+     * @param mapa
+     * @return
+     * @throws DataServiceFault
+     */
     public Tarea loadTareaFromParameters(Map<String,String> mapa) throws DataServiceFault {
         Tarea tarea = null;
 
         if (mapa.get(ExternalParams.ID_AVISO) != null) {
             //TODO MEJORAR TRATAR INTERGER
-            tarea = getTareaByIdAviso(Integer.parseInt((String)mapa.get(ExternalParams.ID_AVISO)));
+            tarea = getTareaByIdAviso(Integer.parseInt(mapa.get(ExternalParams.ID_AVISO)));
         } else {
             //TODO Distinguir entre las distintos tipos de Tareas depeniendo de los parametros
+            String tipoTarea = mapa.get(ExternalParams.TIPO_TAREA);
+            if ("TareaEncuestaMarketing".equalsIgnoreCase(tipoTarea)) {
+                return createTareaEncuestaMarketingFromParameters(mapa);
+            } //TODO JESUS
         }
 
         return tarea;
     }
 
+    private Tarea createTareaEncuestaMarketingFromParameters(Map<String, String> parameters) {
+        TareaEncuestaMarketing tarea = new TareaEncuestaMarketing();
+        loadTareaCommons(tarea, parameters);
+        loadTareaExcelCommons(tarea, parameters);
+        //TODO JESUS
+        tarea.setFecha(toDateFromParam(parameters.get(ExternalParams.ENCUESTAMARKETING_FECHA)));
+        tarea.setMotivo(parameters.get(ExternalParams.ENCUESTAMARKETING_MOTIVO));
+
+        return tarea;
+    }
+
+    /**
+     * Carga los datos comunes de Tarea pasados por parametro
+     * @return
+     */
+    private Tarea loadTareaCommons(Tarea tarea, Map<String,String> parameters) {
+        assert tarea!=null && parameters!=null;
+        tarea.setNumeroInstalacion(parameters.get(ExternalParams.NUMERO_INSTALACION));
+        //TODO JESUS
+        return tarea;
+    }
+
+    private Date toDateFromParam(String value) {
+        return new Date(); //TODO JAVIER
+    }
+
+    /**
+     * Carga los datos comunes de Tarea Excel pasados por parametro
+     * @return
+     */
+    private TareaExcel loadTareaExcelCommons(TareaExcel tarea, Map<String,String> parameters) {
+        assert tarea!=null && parameters!=null;
+        //TODO Pendiente saber formato lista tarea.setMotivosCierre(parameters.get(ExternalParams.MOTIVO_CIERRE));
+        tarea.setCompensacion(parameters.get(ExternalParams.COMPENSACION));
+        return tarea;
+    }
 
     private List<Tarea> createDummy() {
         List<Tarea> tareas = new ArrayList<Tarea>();

@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Información de las Tareas de tipo Excel
  */
-public class TareaExcel extends Tarea {
+public abstract class TareaExcel extends Tarea {
 
     /**
      * Motivo de Cierre, lista de valores
@@ -22,5 +22,13 @@ public class TareaExcel extends Tarea {
 
     public void setMotivosCierre(List<String> motivosCierre) {
         this.motivosCierre = motivosCierre;
+    }
+
+    public String getCompensacion() {
+        return compensacion;
+    }
+
+    public void setCompensacion(String compensacion) {
+        this.compensacion = compensacion;
     }
 }
