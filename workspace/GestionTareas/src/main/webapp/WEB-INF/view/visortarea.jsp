@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="jc" tagdir="/WEB-INF/tags" %>
 
 
 
@@ -41,18 +42,13 @@ Tarea : ${tarea}
 
 
         <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                <label
-                        class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">
-                    <spring:message code="eti.visortarea.form.label.1"/>:
-                </label>
 
-                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                    <input type="text" class="form-control" name="titular" id="titular"
-                           value="${installationData.numeroInstalacion}" disabled/>
 
-                </div>
-            </div>
+        <jc:input label="eti.visortarea.form.label.1" value="${installationData.numeroInstalacion}" cell="6" name-id=""/>
+
+
+
+
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <label for="titular"
                        class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">
