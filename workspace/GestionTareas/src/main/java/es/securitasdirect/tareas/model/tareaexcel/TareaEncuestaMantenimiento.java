@@ -2,20 +2,22 @@ package es.securitasdirect.tareas.model.tareaexcel;
 
 import es.securitasdirect.tareas.model.TareaExcel;
 
+import java.util.List;
+
 /**
  * Encuestas Mantenimientos.
  *
- * MANTENIMIENTO	int
- * TECNICO	varchar (10)
- * JE	varchar (10)
- * CC	varchar (5)
- * RAZON	varchar (500)
- * SOLUCION	varchar (500)
- * COMPROMISO	varchar(500)
- * DPTO_DESTINO	varchar (15)
- * INSTALACION	varchar (12)
- * NOMBRE	varchar (120)
- * TELEFONO	varchar (15)
+ *  MANTENIMIENTO		int	POST		SI
+ *  TECNICO		varchar (10)	POST		SI
+ *  JE		varchar (10)	POST		SI
+ *  CC		varchar (5)	POST		SI
+ *  RAZON		varchar (500)	POST		SI
+ *  SOLUCION		varchar (500)	POST		SI
+ *  COMPROMISO		varchar(500)	POST		SI
+ *  DPTO_DESTINO		varchar (15)	POST		SI
+ *  Motivo de cierre	?			Lista de valores		SI
+ *  Conpensación	?					SI
+ *
  *
  *
  * @author Team Vision
@@ -33,7 +35,7 @@ public class TareaEncuestaMantenimiento extends TareaExcel {
      */
     String tecnico;
     /**
-     * Responsable, alias JE?
+     * Responsable, alias JE.
      * varchar(10)
      */
     String responsable;
@@ -62,6 +64,7 @@ public class TareaEncuestaMantenimiento extends TareaExcel {
      * varchar (15)
      */
     String departamentoDestino;
+
 
     public Integer getNumeroMantenimiento() {
         return numeroMantenimiento;
@@ -127,6 +130,7 @@ public class TareaEncuestaMantenimiento extends TareaExcel {
         this.departamentoDestino = departamentoDestino;
     }
 
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("TareaEncuestaMantenimiento{");
@@ -138,7 +142,10 @@ public class TareaEncuestaMantenimiento extends TareaExcel {
         sb.append(", solucion='").append(solucion).append('\'');
         sb.append(", compromiso='").append(compromiso).append('\'');
         sb.append(", departamentoDestino='").append(departamentoDestino).append('\'');
+        sb.append(", motivosCierre=").append(motivosCierre);
+        sb.append(", compensacion='").append(compensacion).append('\'');
         sb.append('}');
         return sb.toString();
     }
+
 }

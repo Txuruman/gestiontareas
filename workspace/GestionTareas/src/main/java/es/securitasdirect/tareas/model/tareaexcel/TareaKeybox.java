@@ -33,15 +33,8 @@ public class TareaKeybox extends TareaExcel {
      * Contrato.
      */
     String contrato;
-    /**
-     * Motivo de Cierre, lista de valores
-     */
-    List<String> motivosCierre;
 
-    /**
-     * Compensacion.
-     */
-    String compensacion;
+
     public String getNumeroFactura() {
         return numeroFactura;
     }
@@ -82,21 +75,6 @@ public class TareaKeybox extends TareaExcel {
         this.contrato = contrato;
     }
 
-    public List<String> getMotivosCierre() {
-        return motivosCierre;
-    }
-
-    public void setMotivosCierre(List<String> motivosCierre) {
-        this.motivosCierre = motivosCierre;
-    }
-
-    public String getCompensacion() {
-        return compensacion;
-    }
-
-    public void setCompensacion(String compensacion) {
-        this.compensacion = compensacion;
-    }
 
     @Override
     public String toString() {
