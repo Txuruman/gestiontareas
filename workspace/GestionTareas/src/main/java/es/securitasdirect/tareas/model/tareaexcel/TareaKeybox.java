@@ -11,10 +11,7 @@ import java.util.Date;
  */
 public class TareaKeybox extends TareaExcel {
 
-    /**
-     * Número de Instalación
-     */
-    String numeroInstalacion;
+
     /**
      * Número de Factura
      */
@@ -26,7 +23,7 @@ public class TareaKeybox extends TareaExcel {
     /**
      * Importe de la Línea
      */
-    Double importeLinea;
+    Integer importeLinea;
 
     /**
      * Identificador de ítem
@@ -36,15 +33,24 @@ public class TareaKeybox extends TareaExcel {
      * Tipo de Panel.
      */
     String tipoPanel;
+    /**
+     * Item.
+     */
+    String item;
+    /**
+     * Contrato.
+     */
+    String contrato;
 
-    public String getNumeroInstalacion() {
-        return numeroInstalacion;
-    }
+    /**
+     * Motivo de Cierre, lista de valores
+     */
+    String motivoCierre;
 
-    public void setNumeroInstalacion(String numeroInstalacion) {
-        this.numeroInstalacion = numeroInstalacion;
-    }
-
+    /**
+     * Compensacion.
+     */
+    String compensacion;
     public String getNumeroFactura() {
         return numeroFactura;
     }
@@ -61,11 +67,11 @@ public class TareaKeybox extends TareaExcel {
         this.fechaFactura = fechaFactura;
     }
 
-    public Double getImporteLinea() {
+    public Integer getImporteLinea() {
         return importeLinea;
     }
 
-    public void setImporteLinea(Double importeLinea) {
+    public void setImporteLinea(Integer importeLinea) {
         this.importeLinea = importeLinea;
     }
 
@@ -88,7 +94,6 @@ public class TareaKeybox extends TareaExcel {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("TareaKeybox{");
-        sb.append("numeroInstalacion='").append(numeroInstalacion).append('\'');
         sb.append(", numeroFactura='").append(numeroFactura).append('\'');
         sb.append(", fechaFactura=").append(fechaFactura);
         sb.append(", importeLinea=").append(importeLinea);

@@ -10,6 +10,11 @@ import java.util.Date;
 public class Tarea {
 
     /**
+     * Número de Instalación
+     */
+    String numeroInstalacion;
+
+    /**
      * Estado de la Tarea (record_status): ready, retrieved, …
      */
     String estado;
@@ -36,6 +41,14 @@ public class Tarea {
         TODO PENDIENTE: REVISAR QUÉ OTROS CAMPOS DE GENESYS HAY QUE TENER EN CUENTA
         (CONTRASTARLOS CON LOS DEL DOCUMENTO DPB140808_ENT_DISEÑO TÉCNICO CALLBACK ATC V1.4.DOCX)
      */
+
+    public String getNumeroInstalacion() {
+        return numeroInstalacion;
+    }
+
+    public void setNumeroInstalacion(String numeroInstalacion) {
+        this.numeroInstalacion = numeroInstalacion;
+    }
 
     public String getEstado() {
         return estado;
