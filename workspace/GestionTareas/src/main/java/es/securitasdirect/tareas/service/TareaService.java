@@ -4,6 +4,7 @@ import es.securitasdirect.tareas.model.Tarea;
 import es.securitasdirect.tareas.model.TareaAviso;
 import es.securitasdirect.tareas.model.TareaExcel;
 import es.securitasdirect.tareas.model.TareaMantenimiento;
+import es.securitasdirect.tareas.model.tareaexcel.TareaEncuestaMantenimiento;
 import es.securitasdirect.tareas.model.tareaexcel.TareaEncuestaMarketing;
 import es.securitasdirect.tareas.model.tareaexcel.TareaListadoAssistant;
 import es.securitasdirect.tareas.web.controller.params.ExternalParams;
@@ -207,7 +208,11 @@ public class TareaService {
             String tipoTarea = mapa.get(ExternalParams.TIPO_TAREA);
             if ("TareaEncuestaMarketing".equalsIgnoreCase(tipoTarea)) {
                 return createTareaEncuestaMarketingFromParameters(mapa);
-            } //TODO JESUS
+            } else if ("TareaListadoAssistant"){
+                return createTareaListadoAssistantFromParameters(mapa);
+            }
+
+            //TODO JESUS
         }
 
         return tarea;
@@ -220,9 +225,58 @@ public class TareaService {
         //TODO JESUS
         tarea.setFecha(toDateFromParam(parameters.get(ExternalParams.ENCUESTAMARKETING_FECHA)));
         tarea.setMotivo(parameters.get(ExternalParams.ENCUESTAMARKETING_MOTIVO));
+        return tarea;
+    }
+
+    private Tarea createTareaListadoAssistantFromParameters(Map<String,String> parameters){
+        TareaListadoAssistant tarea = new TareaListadoAssistant();
+        loadTareaCommons(tarea,parameters);
+        loadTareaExcelCommons(tarea, parameters);
+        tarea.setNumeroInstalacion(parameters.get(ExternalParams.ASSISTANT_INSTALACION));
+        tarea.setNumeroMantenimiento(toIntegerFromParam(parameters.get(ExternalParams.ASSISTANT_MANTENIMIENTO)));
+        tarea.setTecnico(parameters.get(ExternalParams.ASSISTANT_TECNICO));
+        tarea.setDepartamento(parameters.get(ExternalParams.ASSISTANT_DEPARTAMENTO));
+        tarea.setGrupoPanel(parameters.get(ExternalParams.ASSISTANT_GRUPOPANEL));
+        tarea.setTotalSinIVA(toFloatFromParam(parameters.get(ExternalParams.ASSISTANT_TOTALSINIVA)));
+        tarea.setTotalConIVA(toFloatFromParam(parameters.get(ExternalParams.ASSISTANT_TOTALCONIVA)));
+        tarea.setNumeroParte(parameters.get(ExternalParams.ASSISTANT_NPARTE));
+        tarea.setFechaArchivo(toDateFromParam(parameters.get(ExternalParams.ASSISTANT_ARCHIVO_FECHA)));
+        tarea.setSubtipoIncidencia(parameters.get(ExternalParams.ASSISTANT_SUBIDA_INC_FECHA));
+        tarea.setFechaPago(toDateFromParam(parameters.get(ExternalParams.ASSISTANT_PAGO_FECHA)));
+        tarea.setIncidencia(parameters.get(ExternalParams.ASSISTANT_INCIDENCIA));
+        tarea.setSubtipoIncidencia(parameters.get(ExternalParams.ASSISTANT_SUBINCIDENCIA));
+        tarea.setSolicitudCliente(parameters.get(ExternalParams.ASSISTANT_SOLICITUD));
+        tarea.setCambiosIncidencia(parameters.get(ExternalParams.ASSISTANT_CAMBIOS));
+        tarea.setBoFechaGestion(toDateFromParam(parameters.get(ExternalParams.ASSISTANT_BO_GESTION_FECHA)));
+        tarea.setBoMatricula(parameters.get(ExternalParams.ASSISTANT_BO_MATRICULA));
+        tarea.setBoFechaRecepcion(toDateFromParam(parameters.get(ExternalParams.ASSISTANT_BO_RECEPCION_FECHA)));
+        tarea.setBoTipo(parameters.get(ExternalParams.ASSISTANT_BO_EMPRESA_PARTICULAR));
+        tarea.setBoComentarios(parameters.get(ExternalParams.ASSISTANT_BO_COMENTARIOS));
+        tarea.setTelefono(parameters.get(ExternalParams.ASSISTANT_CONTACTO_TELEFONO));
+        tarea.setMotivosCierre(toListFromParam(parameters.get(ExternalParams.ASSISTANT_MOTIVO_CIERRE)));
+        tarea.setCompensacion(parameters.get(ExternalParams.ASSISTANT_COMPENSACION));
+        return tarea;
+    }
+
+    private Tarea createTareaEncuestaMantenimientoFromParameters(Map<String, String> parameters) {
+        TareaEncuestaMantenimiento tarea = new TareaEncuestaMantenimiento();
+        loadTareaCommons(tarea, parameters);
+        loadTareaExcelCommons(tarea, parameters);
+
+        tarea.setNumeroMantenimiento(toIntegerFromParam(parameters.get(ExternalParams.ENCUESTAMNTOS_MANTENIMIENTO)));
+        tarea.setTecnico(parameters.get(ExternalParams.ENCUESTAMNTOS_TECNICO));
+        tarea.setResponsable(parameters.get(ExternalParams.ENCUESTAMNTOS_RESPONSABLE));
+        tarea.setCentroCoste(parameters.get(ExternalParams.ENCUESTAMNTOS_CENTROCOSTE));
+        tarea.setRazonClaveValoracion(parameters.get(ExternalParams.ENCUESTAMNTOS_RAZON));
+        tarea.setSolucion(parameters.get(ExternalParams.ENCUESTAMNTOS_SOLUCION));
+        tarea.setCompromiso(parameters.get(ExternalParams.ENCUESTAMNTOS_COMPROMISO));
+        tarea.setDepartamentoDestino(parameters.get(ExternalParams.ENCUESTAMNTOS_DPTO_DESTINO));
+        tarea.setMotivosCierre(toListFromParam(parameters.get(ExternalParams.ENCUESTAMNTOS_MOTIVO_CIERRE)));
+        tarea.setCompensacion(parameters.get(ExternalParams.ENCUESTAMNTOS_COMPENSACION));
 
         return tarea;
     }
+
 
     /**
      * Carga los datos comunes de Tarea pasados por parametro
@@ -235,9 +289,25 @@ public class TareaService {
         return tarea;
     }
 
+
+    /**
+     * Conversores , indicar parametro (String)
+     * @param value
+     * @return
+     */
     private Date toDateFromParam(String value) {
         return new Date(); //TODO JAVIER
     }
+    private Integer toIntegerFromParam(String value) {
+        return new Integer(); //TODO JAVIER
+    }
+    private Float toFloatFromParam(String value){
+        return new Float();
+    }
+    private List toListFromParam(String value){
+        return new ArrayList();
+    }
+
 
     /**
      * Carga los datos comunes de Tarea Excel pasados por parametro

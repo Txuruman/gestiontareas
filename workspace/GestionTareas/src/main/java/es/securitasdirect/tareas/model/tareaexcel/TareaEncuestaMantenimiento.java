@@ -40,7 +40,7 @@ public class TareaEncuestaMantenimiento extends TareaExcel {
      */
     String responsable;
     /**
-     * Centro de Coste.
+     * Centro de Coste, alias (CC).
      * varchar(5)
      */
     String centroCoste;

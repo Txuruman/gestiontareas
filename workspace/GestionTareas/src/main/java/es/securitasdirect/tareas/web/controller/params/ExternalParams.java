@@ -34,5 +34,43 @@ public interface ExternalParams {
     public static String ENCUESTAMARKETING_MOTIVO = "motivo";
     public static String ENCUESTAMARKETING_FECHA = "fecha";
 
+    public static String ASSISTANT_INSTALACION = "instalacion";
+    public static String ASSISTANT_MANTENIMIENTO = "";
+    public static String ASSISTANT_TECNICO = "instalacion";
+    public static String ASSISTANT_DEPARTAMENTO = "instalacion";
+    public static String ASSISTANT_GRUPOPANEL = "instalacion";
+    public static String ASSISTANT_TOTALSINIVA = "instalacion";
+    public static String ASSISTANT_TOTALCONIVA = "instalacion";
+    public static String ASSISTANT_NPARTE = "instalacion";
+    public static String ASSISTANT_CIERRE_FECHA = "instalacion";
+    public static String ASSISTANT_ARCHIVO_FECHA = "instalacion";
+    public static String ASSISTANT_SUBIDA_INC_FECHA = "instalacion";
+    public static String ASSISTANT_PAGO_FECHA = "instalacion";
+    public static String ASSISTANT_INCIDENCIA = "instalacion";
+    public static String ASSISTANT_SUBINCIDENCIA = "instalacion";
+    public static String ASSISTANT_SOLICITUD = "instalacion";
+    public static String ASSISTANT_CAMBIOS = "instalacion";
+    public static String ASSISTANT_BO_GESTION_FECHA = "instalacion";
+    public static String ASSISTANT_BO_MATRICULA = "instalacion";
+    public static String ASSISTANT_BO_RECEPCION_FECHA = "instalacion";
+    public static String ASSISTANT_BO_EMPRESA_PARTICULAR = "instalacion";
+    public static String ASSISTANT_BO_COMENTARIOS = "instalacion";
+    public static String ASSISTANT_TITULAR = "titular";
+    public static String ASSISTANT_CONTACTO_TELEFONO = "instalacion";
+    public static String ASSISTANT_MOTIVO_CIERRE = "instalacion";
+    public static String ASSISTANT_COMPENSACION = "instalacion";
+
+    public static String ENCUESTAMNTOS_MANTENIMIENTO = "mantenimiento";
+    public static String ENCUESTAMNTOS_TECNICO = "mantenimiento";
+    public static String ENCUESTAMNTOS_RESPONSABLE = "mantenimiento";
+    public static String ENCUESTAMNTOS_CENTROCOSTE = "mantenimiento";
+    public static String ENCUESTAMNTOS_RAZON = "mantenimiento";
+    public static String ENCUESTAMNTOS_SOLUCION = "mantenimiento";
+    public static String ENCUESTAMNTOS_COMPROMISO = "mantenimiento";
+    public static String ENCUESTAMNTOS_DPTO_DESTINO = "mantenimiento";
+    public static String ENCUESTAMNTOS_MOTIVO_CIERRE = "mantenimiento";
+    public static String ENCUESTAMNTOS_COMPENSACION = "mantenimiento";
+
+
 
 }
