@@ -25,14 +25,7 @@ public class TareaLimpiezaCuota extends TareaExcel {
      *  varchar (50)
      */
     String descripcionIncidencia;
-    /**
-     * Motivo de Cierre, lista de valores
-     */
-    List<String> motivosCierre;
-    /**
-     * Compensación.
-     */
-    String compensacion;
+
 
     public String getDepartamentoAsignado() {
         return departamentoAsignado;
@@ -58,21 +51,7 @@ public class TareaLimpiezaCuota extends TareaExcel {
         this.contrato = contrato;
     }
 
-    public List<String> getMotivosCierre() {
-        return motivosCierre;
-    }
 
-    public void setMotivosCierre(List<String> motivosCierre) {
-        this.motivosCierre = motivosCierre;
-    }
-
-    public String getCompensacion() {
-        return compensacion;
-    }
-
-    public void setCompensacion(String compensacion) {
-        this.compensacion = compensacion;
-    }
 
     @Override
     public String toString() {

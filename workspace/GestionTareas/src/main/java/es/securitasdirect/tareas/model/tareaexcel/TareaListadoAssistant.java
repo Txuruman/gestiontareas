@@ -3,6 +3,7 @@ package es.securitasdirect.tareas.model.tareaexcel;
 import es.securitasdirect.tareas.model.TareaExcel;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Team Vision
@@ -133,6 +134,7 @@ public class TareaListadoAssistant extends TareaExcel {
      * varchar (500)
      */
     String boComentarios;
+
 
     public String getNumeroInstalacion() {
         return numeroInstalacion;
@@ -371,6 +373,8 @@ public class TareaListadoAssistant extends TareaExcel {
         sb.append(", boFechaRecepcion=").append(boFechaRecepcion);
         sb.append(", boTipo='").append(boTipo).append('\'');
         sb.append(", boComentarios='").append(boComentarios).append('\'');
+        sb.append(", motivosCierre=").append(motivosCierre);
+        sb.append(", compensacion='").append(compensacion).append('\'');
         sb.append('}');
         return sb.toString();
     }

@@ -1,12 +1,17 @@
 package es.securitasdirect.tareas.model;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Tareas de tipo Aviso
  */
 public class TareaAviso extends Tarea {
 
+    /**
+     * Identificador de Aviso
+     */
+    Integer idAviso;
     /**
      * Tipos de Aviso: el primero es el utilizado, el segundo y el tercero son sólo informativos.
      */
@@ -45,13 +50,31 @@ public class TareaAviso extends Tarea {
     Date fechaCreacion;
     /*	Estado  */
     String estado;
-    /*	Datos del cierre: motivo, fecha, responsable y datos adicionales  */
-    String datosCierre;
-
-
+    /** Horario desde */
     private String horarioDesde;
-
+    /** Horario hasta */
     private String horarioHasta;
+    /**
+     * Motivo de Cierre, lista de valores
+     */
+    List<String> motivosCierre;
+
+    /**
+     * Datos adicionales del cierre
+     */
+    List<String> datosAdicionalesCierre;
+    /**
+     * Fecha de Cierre
+     */
+    Date fechaCierre;
+    /**
+     * Nota
+     */
+    String nota;
+    /**
+     * Responsable del cierre
+     */
+    String responsableCierre;
 
     public String getHorarioDesde() {
         return horarioDesde;
@@ -199,18 +222,60 @@ public class TareaAviso extends Tarea {
         this.estado = estado;
     }
 
-    public String getDatosCierre() {
-        return datosCierre;
+
+    public Integer getIdAviso() {
+        return idAviso;
     }
 
-    public void setDatosCierre(String datosCierre) {
-        this.datosCierre = datosCierre;
+    public void setIdAviso(Integer idAviso) {
+        this.idAviso = idAviso;
+    }
+
+    public List<String> getMotivosCierre() {
+        return motivosCierre;
+    }
+
+    public void setMotivosCierre(List<String> motivosCierre) {
+        this.motivosCierre = motivosCierre;
+    }
+
+    public List<String> getDatosAdicionalesCierre() {
+        return datosAdicionalesCierre;
+    }
+
+    public void setDatosAdicionalesCierre(List<String> datosAdicionalesCierre) {
+        this.datosAdicionalesCierre = datosAdicionalesCierre;
+    }
+
+    public Date getFechaCierre() {
+        return fechaCierre;
+    }
+
+    public void setFechaCierre(Date fechaCierre) {
+        this.fechaCierre = fechaCierre;
+    }
+
+    public String getNota() {
+        return nota;
+    }
+
+    public void setNota(String nota) {
+        this.nota = nota;
+    }
+
+    public String getResponsableCierre() {
+        return responsableCierre;
+    }
+
+    public void setResponsableCierre(String responsableCierre) {
+        this.responsableCierre = responsableCierre;
     }
 
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("TareaAviso{");
-        sb.append("tipoAviso1='").append(tipoAviso1).append('\'');
+        sb.append("idAviso=").append(idAviso);
+        sb.append(", tipoAviso1='").append(tipoAviso1).append('\'');
         sb.append(", tipoAviso2='").append(tipoAviso2).append('\'');
         sb.append(", tipoAviso3='").append(tipoAviso3).append('\'');
         sb.append(", motivo1='").append(motivo1).append('\'');
@@ -226,9 +291,13 @@ public class TareaAviso extends Tarea {
         sb.append(", datosContacto='").append(datosContacto).append('\'');
         sb.append(", fechaCreacion=").append(fechaCreacion);
         sb.append(", estado='").append(estado).append('\'');
-        sb.append(", datosCierre='").append(datosCierre).append('\'');
         sb.append(", horarioDesde='").append(horarioDesde).append('\'');
         sb.append(", horarioHasta='").append(horarioHasta).append('\'');
+        sb.append(", motivosCierre=").append(motivosCierre);
+        sb.append(", datosAdicionalesCierre=").append(datosAdicionalesCierre);
+        sb.append(", fechaCierre=").append(fechaCierre);
+        sb.append(", nota='").append(nota).append('\'');
+        sb.append(", responsableCierre='").append(responsableCierre).append('\'');
         sb.append('}');
         return sb.toString();
     }

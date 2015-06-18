@@ -12,30 +12,30 @@ public class Tarea {
     /**
      * Número de Instalación
      */
-    String numeroInstalacion;
+    protected String numeroInstalacion;
 
     /**
      * Estado de la Tarea (record_status): ready, retrieved, …
      */
-    String estado;
+    protected String estado;
 
     /**
      * ctr_no = número de contrato
      * varchar(12)
      */
-    String numeroContrato;
+    protected String numeroContrato;
 
     /** */
-    String callingList;
+    protected String callingList;
 
     /** */
-    String telefono;
+    protected String telefono;
 
     /** */
-    Date fechaReprogramacion;
+    protected Date fechaReprogramacion;
 
     /** */
-    Integer codigoCliente;
+    protected Integer codigoCliente;
 
     /*
         TODO PENDIENTE: REVISAR QUÉ OTROS CAMPOS DE GENESYS HAY QUE TENER EN CUENTA
