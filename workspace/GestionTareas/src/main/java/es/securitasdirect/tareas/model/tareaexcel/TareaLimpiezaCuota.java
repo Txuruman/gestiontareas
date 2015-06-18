@@ -2,6 +2,8 @@ package es.securitasdirect.tareas.model.tareaexcel;
 
 import es.securitasdirect.tareas.model.TareaExcel;
 
+import java.util.List;
+
 /**
  * Limpieza de Cuota
  *
@@ -10,10 +12,9 @@ import es.securitasdirect.tareas.model.TareaExcel;
 public class TareaLimpiezaCuota extends TareaExcel {
 
     /**
-     * Instalacion.
-     * varchar(12)
+     * Contrato.
      */
-    String instalacion;
+    String contrato;
     /**
      * Departamento asignado.
      * varchar (30)
@@ -25,23 +26,13 @@ public class TareaLimpiezaCuota extends TareaExcel {
      */
     String descripcionIncidencia;
     /**
-     * Nombre.
-     * varchar (120)
+     * Motivo de Cierre, lista de valores
      */
-    String nombre;
+    List<String> motivosCierre;
     /**
-     * Telefono.
-     * varchar(15)
+     * Compensación.
      */
-    String telefono;
-
-    public String getInstalacion() {
-        return instalacion;
-    }
-
-    public void setInstalacion(String instalacion) {
-        this.instalacion = instalacion;
-    }
+    String compensacion;
 
     public String getDepartamentoAsignado() {
         return departamentoAsignado;
@@ -59,30 +50,38 @@ public class TareaLimpiezaCuota extends TareaExcel {
         this.descripcionIncidencia = descripcionIncidencia;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getContrato() {
+        return contrato;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setContrato(String contrato) {
+        this.contrato = contrato;
     }
 
-    public String getTelefono() {
-        return telefono;
+    public List<String> getMotivosCierre() {
+        return motivosCierre;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setMotivosCierre(List<String> motivosCierre) {
+        this.motivosCierre = motivosCierre;
+    }
+
+    public String getCompensacion() {
+        return compensacion;
+    }
+
+    public void setCompensacion(String compensacion) {
+        this.compensacion = compensacion;
     }
 
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("TareaLimpiezaCuota{");
-        sb.append("instalacion='").append(instalacion).append('\'');
+        sb.append("contrato='").append(contrato).append('\'');
         sb.append(", departamentoAsignado='").append(departamentoAsignado).append('\'');
         sb.append(", descripcionIncidencia='").append(descripcionIncidencia).append('\'');
-        sb.append(", nombre='").append(nombre).append('\'');
-        sb.append(", telefono='").append(telefono).append('\'');
+        sb.append(", motivosCierre=").append(motivosCierre);
+        sb.append(", compensacion='").append(compensacion).append('\'');
         sb.append('}');
         return sb.toString();
     }

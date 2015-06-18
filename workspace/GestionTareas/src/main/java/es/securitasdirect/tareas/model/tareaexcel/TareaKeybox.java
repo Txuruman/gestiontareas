@@ -3,6 +3,7 @@ package es.securitasdirect.tareas.model.tareaexcel;
 import es.securitasdirect.tareas.model.TareaExcel;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Tarea Keybox
@@ -10,7 +11,6 @@ import java.util.Date;
  * @author Team Vision
  */
 public class TareaKeybox extends TareaExcel {
-
 
     /**
      * Número de Factura
@@ -30,22 +30,13 @@ public class TareaKeybox extends TareaExcel {
      */
     String identificadorItem;
     /**
-     * Tipo de Panel.
-     */
-    String tipoPanel;
-    /**
-     * Item.
-     */
-    String item;
-    /**
      * Contrato.
      */
     String contrato;
-
     /**
      * Motivo de Cierre, lista de valores
      */
-    String motivoCierre;
+    List<String> motivosCierre;
 
     /**
      * Compensacion.
@@ -83,22 +74,40 @@ public class TareaKeybox extends TareaExcel {
         this.identificadorItem = identificadorItem;
     }
 
-    public String getTipoPanel() {
-        return tipoPanel;
+    public String getContrato() {
+        return contrato;
     }
 
-    public void setTipoPanel(String tipoPanel) {
-        this.tipoPanel = tipoPanel;
+    public void setContrato(String contrato) {
+        this.contrato = contrato;
+    }
+
+    public List<String> getMotivosCierre() {
+        return motivosCierre;
+    }
+
+    public void setMotivosCierre(List<String> motivosCierre) {
+        this.motivosCierre = motivosCierre;
+    }
+
+    public String getCompensacion() {
+        return compensacion;
+    }
+
+    public void setCompensacion(String compensacion) {
+        this.compensacion = compensacion;
     }
 
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("TareaKeybox{");
-        sb.append(", numeroFactura='").append(numeroFactura).append('\'');
+        sb.append("numeroFactura='").append(numeroFactura).append('\'');
         sb.append(", fechaFactura=").append(fechaFactura);
         sb.append(", importeLinea=").append(importeLinea);
         sb.append(", identificadorItem='").append(identificadorItem).append('\'');
-        sb.append(", tipoPanel='").append(tipoPanel).append('\'');
+        sb.append(", contrato='").append(contrato).append('\'');
+        sb.append(", motivosCierre=").append(motivosCierre);
+        sb.append(", compensacion='").append(compensacion).append('\'');
         sb.append('}');
         return sb.toString();
     }
