@@ -25,7 +25,7 @@
 
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-            <h2><spring:message code="eti.buscartarea.h2.titulo.1"/></h2>
+            <h2><spring:message code="eti.buscartarea.h2.titulo.tbuscar"/></h2>
         </div>
     </div>
     <div class="row">
@@ -42,7 +42,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <label for="ejemplo_email_3"
                        class="col-lg-3 col-md-3 col-sm-3 col-xs-2 control-label labelcent">
-                    <spring:message code="eti.buscartarea.form.label.1"/>: </label>
+                    <spring:message code="eti.buscartarea.form.label.filtro"/>: </label>
 
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
                     <input type="text" class="form-control" id="ejemplo_email_3"
@@ -57,11 +57,11 @@
                     <div class="bordel text-center">
                         <label class="checkbox-inline"> <input type="radio"
                                                                id="checkboxEnLinea1" name="options" value="opcion_1">
-                            <spring:message code="eti.buscartarea.form.radio.1"/>
+                            <spring:message code="eti.buscartarea.form.radio.telefono1"/>
                         </label> <label class="checkbox-inline"> <input type="radio"
                                                                         id="checkboxEnLinea2" name="options"
                                                                         value="opcion_2">
-                        <spring:message code="eti.buscartarea.form.radio.2"/>
+                        <spring:message code="eti.buscartarea.form.radio.cliente"/>
                     </label>
                     </div>
                 </div>
@@ -100,8 +100,8 @@
                         <td><c:out value="${tarea.telefono}"/></td>
                         <td><c:out value="${tarea.estado}"/></td>
                         <td><fmt:formatDate pattern="HH:mm dd-MM-yyyy" value="${tarea.fechaReprogramacion}" /></td>
-                        <td><a href="visortarea.htm?ins_no=<c:out value="${tarea.callingList}"/>&tipotarea=aviso" class="btn btn-default"><spring:message code="eti.buscartarea.btn.1"/></a></td>
-                        <td><a href="#"><spring:message code="eti.buscartarea.btn.2"/></a></td>
+                        <td><a href="visortarea.htm?ins_no=<c:out value="${tarea.callingList}"/>&tipotarea=aviso" class="btn btn-default"><spring:message code="eti.buscartarea.btn.gestion"/></a></td>
+                        <td><a href="#"><spring:message code="eti.buscartarea.btn.aplazar"/></a></td>
                     </tr>
 
                 </c:forEach>

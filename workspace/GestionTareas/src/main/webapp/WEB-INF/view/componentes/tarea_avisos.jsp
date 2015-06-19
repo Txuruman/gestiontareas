@@ -4,9 +4,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <div class="row">
-    <app:input id="tipoAviso1" label="eti.visortarea.form.label.10" value="${tarea.tipoAviso1}" cells="6" readonly="true"/>
+    <app:input id="tipoAviso1" label="eti.visortarea.form.label.tipo" value="${tarea.tipoAviso1}" cells="6" readonly="true"/>
 
-    <app:input id="motivo1" label="eti.visortarea.form.label.11" value="${tarea.motivo1}" cells="6" readonly="true"/>
+    <app:input id="motivo1" label="eti.visortarea.form.label.motivo" value="${tarea.motivo1}" cells="6" readonly="true"/>
 </div>
 
 <div class="spacer_t1"></div>
