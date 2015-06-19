@@ -3,11 +3,8 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="app" tagdir="/WEB-INF/tags" %>
 
-
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
-
 <html>
 <head>
     <title>Welcome</title>
@@ -16,8 +13,6 @@
           href="${pageContext.request.contextPath}/static/css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css"
           href="${pageContext.request.contextPath}/static/css/custom.css"/>
-
-
 </head>
 <body>
 
@@ -35,34 +30,30 @@
 
     <div class="spacer_t2"></div>
 
-
     <form class="form-horizontal" role="form">
-
-
         <div class="row">
 
 
-            <app:input id="titulo" label="eti.visortarea.form.label.1" value="${installationData.numeroInstalacion}" cells="6" readonly="true"  />
+            <app:input id="ninstalacion" label="eti.visortarea.form.label.ninstalacion" value="${installationData.numeroInstalacion}" cells="6" readonly="true"/>
 
-            <app:input id="titular" label="eti.visortarea.form.label.2" value="${installationData.titular}" cells="6" readonly="true"  />
+            <app:input id="titular" label="eti.visortarea.form.label.titular" value="${installationData.titular}" cells="6" readonly="true"/>
 
         </div>
-
 
         <div class="spacer_t1"></div>
         <div class="row">
             <%--<app:input id="telefono" label="eti.visortarea.form.label.3" value="${installationData.telefono}" cells="6" readonly="true"  />--%>
 
-            <app:input id="telefono" label="eti.visortarea.form.label.4" value="${installationData.panel}" cells="6" readonly="true"  />
+            <app:input id="personaContacto" label="eti.visortarea.form.label.personacontacto" value="${installationData.personaContacto}" cells="6" readonly="true"/>
+
         </div>
 
         <div class="spacer_t1"></div>
         <div class="row">
-            <app:input id="titular" label="eti.visortarea.form.label.5" value="${installationData.titular}" cells="6" readonly="true"  />
+            <app:input id="panel" label="eti.visortarea.form.label.panel" value="${installationData.panel}" cells="6" readonly="true"/>
 
-            <app:input id="version" label="eti.visortarea.form.label.6" value="${installationData.version}" cells="6" readonly="true"  />
+            <app:input id="version" label="eti.visortarea.form.label.version" value="${installationData.version}" cells="6" readonly="true"/>
         </div>
-
 
         <!-- INCLUDES DE TAREAS -->
         <div class="spacer_t3"></div>

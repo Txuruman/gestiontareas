@@ -1,0 +1,16 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="app" tagdir="/WEB-INF/tags" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<div class="row">
+
+  <app:input id="motivosCierre" label="eti.visortarea.form.label.motivosCierre" value="${tarea.motivosCierre}" cells="6" readonly="true"/>
+  <app:input id="compensacion" label="eti.visortarea.form.label.compensacion" value="${tarea.compensacion}" cells="6" readonly="true"/>
+
+</div>
+
+<!--
+motivosCierre=null,
+compensacion='null'
+-->

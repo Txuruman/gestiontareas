@@ -20,10 +20,10 @@ Enlaces
             <li><a href="visortarea.htm?ins_no=111111&tipotarea=mantenimiento">Tarea Mantenimiento</a></li>
             <li>Tarea tipo Excel
                 <ul>
-                    <li><a href="visortarea.htm?ins_no=111111&tipotarea=listadoassistant">Tarea Tipo Excel Listado Assistant</a></li>
-                    <li><a href="visortarea.htm?ins_no=111111&tipotarea=encuestasmantenimientos">Tarea Tipo Excel Encuestas Mantenimientos</a></li>
-                    <li><a href="visortarea.htm?ins_no=111111&tipotarea=encuestasmarketing">Tarea Tipo Excel Encuestas Marketing</a></li>
-                    <li><a href="visortarea.htm?ins_no=111111&tipotarea=keybox">Tarea Tipo Excel Keybox</a></li>
+                    <li><a href="visortarea.htm?ins_no=111111&tipotarea=TareaListadoAssistant">Tarea Tipo Excel Listado Assistant</a></li>
+                    <li><a href="visortarea.htm?ins_no=111111&tipotarea=TareaEncuestaMantenimiento">Tarea Tipo Excel Encuestas Mantenimientos</a></li>
+                    <li><a href="visortarea.htm?ins_no=111111&tipotarea=TareaEncuestaMantenimiento">Tarea Tipo Excel Encuestas Marketing</a></li>
+                    <li><a href="visortarea.htm?ins_no=111111&tipotarea=TareaKeybox&KEYBOX_NUMERO_FACTURA=565656">Tarea Tipo Excel Keybox</a></li>
                     <li><a href="visortarea.htm?ins_no=111111&tipotarea=limpiezacuota">Tarea Tipo Excel Limpieza de cuota</a></li>
                     <li><a href="visortarea.htm?ins_no=111111&tipotarea=otrascampanias">Tarea Tipo Excel Otras campañas</a></li>
                 </ul>

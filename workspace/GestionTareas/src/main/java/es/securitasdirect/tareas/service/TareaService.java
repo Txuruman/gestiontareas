@@ -4,9 +4,7 @@ import es.securitasdirect.tareas.model.Tarea;
 import es.securitasdirect.tareas.model.TareaAviso;
 import es.securitasdirect.tareas.model.TareaExcel;
 import es.securitasdirect.tareas.model.TareaMantenimiento;
-import es.securitasdirect.tareas.model.tareaexcel.TareaEncuestaMantenimiento;
-import es.securitasdirect.tareas.model.tareaexcel.TareaEncuestaMarketing;
-import es.securitasdirect.tareas.model.tareaexcel.TareaListadoAssistant;
+import es.securitasdirect.tareas.model.tareaexcel.*;
 import es.securitasdirect.tareas.web.controller.params.ExternalParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,8 +39,7 @@ public class TareaService {
     public boolean aplazar(Integer idAviso) {
         LOGGER.info("Aplazando idAviso:{}", idAviso);
 
-        //TODO Marcar la Tarea como realizada (para descartar la Tarea, después de aplazar el Aviso, después de finalizar el Aviso, para aplazar una Tarea de otro tipo, para cerrar una Tarea de otro tipo)
-
+        //TODO se invocará un web service para marcar la Tarea como tratada (mark done) y
 
         // Invocará un web service para actualizar el Aviso.
         Integer naviso = idAviso;
@@ -65,67 +62,15 @@ public class TareaService {
         return true;
     }
 
-    /**
-     *  Descartar: se invocará un web service para marcar la Tarea como tratada (mark done) y se invocará un web service para actualizar el Aviso.
-     */
-    public boolean descartar(Integer idAviso) {
-
-        //TODO Marcar la Tarea como realizada (para descartar la Tarea, después de aplazar el Aviso, después de finalizar el Aviso, para aplazar una Tarea de otro tipo, para cerrar una Tarea de otro tipo)
-
-
+    /* Descartar: se invocará un web service para marcar la Tarea como tratada (mark done) y se invocará un web service para actualizar el Aviso. */
+    public boolean descartar(String idAviso) {
         LOGGER.info("Descartar idAviso:{}", idAviso);
-        try {
-            Integer naviso = idAviso;
-            String idmat = null; //TODO Pendiente parametros
-            String tcierre = null; //TODO Pendiente parametros
-            String cnota = null; //TODO Pendiente parametros
-            Integer statusdest = null; //TODO Pendiente parametros
-            Integer deuda = null; //TODO Pendiente parametros
-            Integer adicional = null; //TODO Pendiente parametros
-            Integer idmanten = null; //TODO Pendiente parametros
-            String branch = null; //TODO Pendiente parametros
-
-            List<RowErrorCA> rowErrorAAs = spAvisosOperaciones.cerrarAviso(naviso, idmat, tcierre, cnota, statusdest, deuda, adicional, idmanten, branch);
-            //TODO Debug para ver que devuelve y controlar si hay errores devolver
-            if (rowErrorAAs != null && !rowErrorAAs.isEmpty()) {
-                LOGGER.error("Error descartando aviso {}", idAviso);
-                return false;
-            }
-        } catch (DataServiceFault e) {
-            LOGGER.error("Error descartando aviso", e);
-            return false;
-        }
         return true;
     }
 
     /* Finalizar: se validará que haya rellenado la información del Cierre, se invocará un web service para marcar la Tarea como tratada (mark done) y se invocará un web service para finalizar el Aviso. */
-    public boolean finalizar(Integer idAviso) {
+    public boolean finalizar(String idAviso) {
         LOGGER.info("Finalizando idAviso:{}", idAviso);
-
-        //TODO Marcar la Tarea como realizada (para descartar la Tarea, después de aplazar el Aviso, después de finalizar el Aviso, para aplazar una Tarea de otro tipo, para cerrar una Tarea de otro tipo)
-
-
-        try {
-            Integer naviso = idAviso;
-            String idmat = null; //TODO Pendiente parametros
-            String tcierre = null; //TODO Pendiente parametros
-            String cnota = null; //TODO Pendiente parametros
-            Integer statusdest = null; //TODO Pendiente parametros
-            Integer deuda = null; //TODO Pendiente parametros
-            Integer adicional = null; //TODO Pendiente parametros
-            Integer idmanten = null; //TODO Pendiente parametros
-            String branch = null; //TODO Pendiente parametros
-
-            List<RowErrorCA> rowErrorAAs = spAvisosOperaciones.cerrarAviso(naviso, idmat, tcierre, cnota, statusdest, deuda, adicional, idmanten, branch);
-            //TODO Debug para ver que devuelve y controlar si hay errores devolver
-            if (rowErrorAAs != null && !rowErrorAAs.isEmpty()) {
-                LOGGER.error("Error finalizando aviso {}", idAviso);
-                return false;
-            }
-        } catch (DataServiceFault e) {
-            LOGGER.error("Error finalizando aviso", e);
-            return false;
-        }
         return true;
     }
 
@@ -246,11 +191,12 @@ public class TareaService {
 
     /**
      * Carga las tareas dependiendo de los valores que se envian como parámetros.
+     *
      * @param mapa
      * @return
      * @throws DataServiceFault
      */
-    public Tarea loadTareaFromParameters(Map<String,String> mapa) throws DataServiceFault {
+    public Tarea loadTareaFromParameters(Map<String, String> mapa) throws DataServiceFault {
         Tarea tarea = null;
 
         if (mapa.get(ExternalParams.ID_AVISO) != null) {
@@ -259,10 +205,24 @@ public class TareaService {
         } else {
             //TODO Distinguir entre las distintos tipos de Tareas depeniendo de los parametros
             String tipoTarea = mapa.get(ExternalParams.TIPO_TAREA);
+
             if ("TareaEncuestaMarketing".equalsIgnoreCase(tipoTarea)) {
                 return createTareaEncuestaMarketingFromParameters(mapa);
-            } else if ("TareaListadoAssistant".equalsIgnoreCase(tipoTarea)){
+
+            } else if ("TareaListadoAssistant".equalsIgnoreCase(tipoTarea)) {
                 return createTareaListadoAssistantFromParameters(mapa);
+
+            } else if ("TareaEncuestaMantenimiento".equalsIgnoreCase(tipoTarea)) {
+                return createTareaEncuestaMantenimientoFromParameters(mapa);
+
+            } else if ("TareaKeybox".equalsIgnoreCase(tipoTarea)) {
+                return createTareaKeyboxFromParameters(mapa);
+
+            } else if ("TareaOtrasCampanas".equalsIgnoreCase(tipoTarea)) {
+                return createTareaOtrasCampanasFromParameters(mapa);
+
+            }else if ("TareaLimpiezaCuota".equalsIgnoreCase(tipoTarea)) {
+                return createTareaLimpiezaCuotaFromParameters(mapa);
             }
 
             //TODO JESUS
@@ -271,20 +231,11 @@ public class TareaService {
         return tarea;
     }
 
-    private Tarea createTareaEncuestaMarketingFromParameters(Map<String, String> parameters) {
-        TareaEncuestaMarketing tarea = new TareaEncuestaMarketing();
+    private Tarea createTareaListadoAssistantFromParameters(Map<String, String> parameters) {
+        TareaListadoAssistant tarea = new TareaListadoAssistant();
         loadTareaCommons(tarea, parameters);
         loadTareaExcelCommons(tarea, parameters);
-        //TODO JESUS
-        tarea.setFecha(toDateFromParam(parameters.get(ExternalParams.ENCUESTAMARKETING_FECHA)));
-        tarea.setMotivo(parameters.get(ExternalParams.ENCUESTAMARKETING_MOTIVO));
-        return tarea;
-    }
 
-    private Tarea createTareaListadoAssistantFromParameters(Map<String,String> parameters){
-        TareaListadoAssistant tarea = new TareaListadoAssistant();
-        loadTareaCommons(tarea,parameters);
-        loadTareaExcelCommons(tarea, parameters);
         tarea.setNumeroInstalacion(parameters.get(ExternalParams.ASSISTANT_INSTALACION));
         tarea.setNumeroMantenimiento(toIntegerFromParam(parameters.get(ExternalParams.ASSISTANT_MANTENIMIENTO)));
         tarea.setTecnico(parameters.get(ExternalParams.ASSISTANT_TECNICO));
@@ -306,8 +257,6 @@ public class TareaService {
         tarea.setBoTipo(parameters.get(ExternalParams.ASSISTANT_BO_EMPRESA_PARTICULAR));
         tarea.setBoComentarios(parameters.get(ExternalParams.ASSISTANT_BO_COMENTARIOS));
         tarea.setTelefono(parameters.get(ExternalParams.ASSISTANT_CONTACTO_TELEFONO));
-        tarea.setMotivosCierre(toListFromParam(parameters.get(ExternalParams.ASSISTANT_MOTIVO_CIERRE)));
-        tarea.setCompensacion(parameters.get(ExternalParams.ASSISTANT_COMPENSACION));
         return tarea;
     }
 
@@ -324,50 +273,100 @@ public class TareaService {
         tarea.setSolucion(parameters.get(ExternalParams.ENCUESTAMNTOS_SOLUCION));
         tarea.setCompromiso(parameters.get(ExternalParams.ENCUESTAMNTOS_COMPROMISO));
         tarea.setDepartamentoDestino(parameters.get(ExternalParams.ENCUESTAMNTOS_DPTO_DESTINO));
-        tarea.setMotivosCierre(toListFromParam(parameters.get(ExternalParams.ENCUESTAMNTOS_MOTIVO_CIERRE)));
-        tarea.setCompensacion(parameters.get(ExternalParams.ENCUESTAMNTOS_COMPENSACION));
+        return tarea;
+    }
+
+    private Tarea createTareaEncuestaMarketingFromParameters(Map<String, String> parameters) {
+        TareaEncuestaMarketing tarea = new TareaEncuestaMarketing();
+        loadTareaCommons(tarea, parameters);
+        loadTareaExcelCommons(tarea, parameters);
+
+        tarea.setFecha(toDateFromParam(parameters.get(ExternalParams.ENCUESTASMKT_FECHA)));
+        tarea.setMotivo(parameters.get(ExternalParams.ENCUESTASMKT_MOTIVO));
+        return tarea;
+    }
+
+    private Tarea createTareaKeyboxFromParameters(Map<String, String> parameters) {
+        TareaKeybox tarea = new TareaKeybox();
+        loadTareaCommons(tarea, parameters);
+        loadTareaExcelCommons(tarea, parameters);
+
+        tarea.setContrato(parameters.get(ExternalParams.KEYBOX_CONTRATO));
+        tarea.setFechaFactura(toDateFromParam(parameters.get(ExternalParams.KEYBOX_FECHA_FACTURA)));
+        tarea.setNumeroFactura(parameters.get(ExternalParams.KEYBOX_NUMERO_FACTURA));
+        tarea.setImporteLinea(toIntegerFromParam(parameters.get(ExternalParams.KEYBOX_IMPORTE_LINEA)));
+        tarea.setIdentificadorItem(parameters.get(ExternalParams.KEYBOX_ID_ITEM));
+        return tarea;
+    }
+
+    private Tarea createTareaOtrasCampanasFromParameters(Map<String, String> parameters) {
+        TareaOtrasCampanas tarea = new TareaOtrasCampanas();
+        loadTareaCommons(tarea, parameters);
+        loadTareaExcelCommons(tarea, parameters);
+
+        tarea.setCampo1(parameters.get(ExternalParams.OTRASCAMPANAS_CAMPO1));
+        tarea.setCampo2(parameters.get(ExternalParams.OTRASCAMPANAS_CAMPO2));
+        tarea.setCampo3(parameters.get(ExternalParams.OTRASCAMPANAS_CAMPO3));
+        tarea.setComentario(parameters.get(ExternalParams.OTRASCAMPANAS_CAMPO3));
+        tarea.setTipoCampana(parameters.get(ExternalParams.OTRASCAMPANAS_TIPOTAREA));
 
         return tarea;
     }
 
+    private Tarea createTareaLimpiezaCuotaFromParameters(Map<String, String> parameters) {
+        TareaLimpiezaCuota tarea = new TareaLimpiezaCuota();
+        loadTareaCommons(tarea, parameters);
+        loadTareaExcelCommons(tarea, parameters);
 
-    /**
-     * Carga los datos comunes de Tarea pasados por parametro
-     * @return
-     */
-    private Tarea loadTareaCommons(Tarea tarea, Map<String,String> parameters) {
-        assert tarea!=null && parameters!=null;
-        tarea.setNumeroInstalacion(parameters.get(ExternalParams.NUMERO_INSTALACION));
-        //TODO JESUS
+        tarea.setContrato(parameters.get(ExternalParams.LIMPIEZA_CUOTA_CONTRATO));
+        tarea.setDepartamentoAsignado(parameters.get(ExternalParams.LIMPIEZA_CUOTA_DPT_ASIGNADO));
+        tarea.setDescripcionIncidencia(parameters.get(ExternalParams.LIMPIEZA_CUOTA_DESCRIPTCION));
+
         return tarea;
+
     }
+
+    //TODO FINAL METHODS createXXXXFromParameters
+
+
 
 
     /**
      * Conversores , indicar parametro (String)
-     * @param value
-     * @return
      */
     private Date toDateFromParam(String value) {
         return new Date(); //TODO JAVIER
     }
+
     private Integer toIntegerFromParam(String value) {
         return new Integer(0); //TODO JAVIER
     }
-    private Float toFloatFromParam(String value){
-        return new Float(0);//TODO JAVIER
-    }
-    private List toListFromParam(String value){
-        return new ArrayList();//TODO JAVIER
+
+    private Float toFloatFromParam(String value) {
+        return new Float(0);
     }
 
+    private List toListFromParam(String value) {
+        return new ArrayList();
+    }
 
     /**
+     * Carga los datos comunes de Tarea pasados por parametro
+     *
+     */
+    private Tarea loadTareaCommons(Tarea tarea, Map<String, String> parameters) {
+        assert tarea != null && parameters != null;
+        tarea.setNumeroInstalacion(parameters.get(ExternalParams.NUMERO_INSTALACION));
+        //TODO JESUS
+        return tarea;
+    }
+    /**
      * Carga los datos comunes de Tarea Excel pasados por parametro
+     *
      * @return
      */
-    private TareaExcel loadTareaExcelCommons(TareaExcel tarea, Map<String,String> parameters) {
-        assert tarea!=null && parameters!=null;
+    private TareaExcel loadTareaExcelCommons(TareaExcel tarea, Map<String, String> parameters) {
+        assert tarea != null && parameters != null;
         //TODO Pendiente saber formato lista tarea.setMotivosCierre(parameters.get(ExternalParams.MOTIVO_CIERRE));
         tarea.setCompensacion(parameters.get(ExternalParams.COMPENSACION));
         return tarea;

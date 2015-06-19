@@ -55,10 +55,9 @@ public interface ExternalParams {
     public static String ASSISTANT_BO_RECEPCION_FECHA = "instalacion";
     public static String ASSISTANT_BO_EMPRESA_PARTICULAR = "instalacion";
     public static String ASSISTANT_BO_COMENTARIOS = "instalacion";
-    public static String ASSISTANT_TITULAR = "titular";
+
     public static String ASSISTANT_CONTACTO_TELEFONO = "instalacion";
-    public static String ASSISTANT_MOTIVO_CIERRE = "instalacion";
-    public static String ASSISTANT_COMPENSACION = "instalacion";
+
 
     public static String ENCUESTAMNTOS_MANTENIMIENTO = "mantenimiento";
     public static String ENCUESTAMNTOS_TECNICO = "mantenimiento";
@@ -68,8 +67,30 @@ public interface ExternalParams {
     public static String ENCUESTAMNTOS_SOLUCION = "mantenimiento";
     public static String ENCUESTAMNTOS_COMPROMISO = "mantenimiento";
     public static String ENCUESTAMNTOS_DPTO_DESTINO = "mantenimiento";
-    public static String ENCUESTAMNTOS_MOTIVO_CIERRE = "mantenimiento";
-    public static String ENCUESTAMNTOS_COMPENSACION = "mantenimiento";
+
+
+
+    public static String ENCUESTASMKT_FECHA = "mantenimiento";
+    public static String ENCUESTASMKT_MOTIVO = "mantenimiento";
+
+    public static String KEYBOX_CONTRATO = "KEYBOX_CONTRATO";
+    public static String KEYBOX_FECHA_FACTURA = "KEYBOX_FECHA_FACTURA";
+    public static String KEYBOX_NUMERO_FACTURA = "KEYBOX_NUMERO_FACTURA";
+    public static String KEYBOX_IMPORTE_LINEA = "KEYBOX_IMPORTE_LINEA";
+    public static String KEYBOX_ID_ITEM = "KEYBOX_ID_ITEM";
+
+    public  static String OTRASCAMPANAS_CAMPO1 = "campo";
+    public  static String OTRASCAMPANAS_CAMPO2 = "campo";
+    public  static String OTRASCAMPANAS_CAMPO3 = "campo";
+    public  static String OTRASCAMPANAS_COMENTARIO = "campo";
+    public  static String OTRASCAMPANAS_TIPOTAREA = "campo";
+
+    public  static String LIMPIEZA_CUOTA_CONTRATO = "campo";
+    public static  String LIMPIEZA_CUOTA_DPT_ASIGNADO = "campo";
+    public static  String LIMPIEZA_CUOTA_DESCRIPTCION = "campo";
+
+
+
 
 
 

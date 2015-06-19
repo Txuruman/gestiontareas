@@ -73,8 +73,7 @@ public class VisorTareaController implements Controller {
             //Inicializamos una tarea por defecto de tipo Aviso
             tarea = new TareaAviso();
         } else {
-            //Se ha cargado una tarea
-
+            // pa por si tenemos que hacer algo con las tareas
         }
 
 
