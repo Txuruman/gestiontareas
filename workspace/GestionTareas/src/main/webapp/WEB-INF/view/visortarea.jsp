@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="jc" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="app" tagdir="/WEB-INF/tags" %>
 
 
 
@@ -37,88 +37,31 @@
 
 
     <form class="form-horizontal" role="form">
-InstallationData : ${installationData}
-Tarea : ${tarea}
 
 
         <div class="row">
 
 
-        <jc:input label="eti.visortarea.form.label.1" value="${installationData.numeroInstalacion}" cell="6" name-id=""/>
+            <app:input id="titulo" label="eti.visortarea.form.label.1" value="${installationData.numeroInstalacion}" cells="6" readonly="true"  />
+
+            <app:input id="titular" label="eti.visortarea.form.label.2" value="${installationData.titular}" cells="6" readonly="true"  />
+
+        </div>
 
 
+        <div class="spacer_t1"></div>
+        <div class="row">
+            <%--<app:input id="telefono" label="eti.visortarea.form.label.3" value="${installationData.telefono}" cells="6" readonly="true"  />--%>
 
-
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                <label for="titular"
-                       class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">
-                    <spring:message code="eti.visortarea.form.label.2"/>
-                </label>
-
-                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                    <input type="text" class="form-control" name="titular" id="titular"
-                           value="${installationData.titular}" disabled
-                           placeholder="<spring:message code="eti.visortarea.form.label.2"/>">
-                </div>
-            </div>
-
+            <app:input id="telefono" label="eti.visortarea.form.label.4" value="${installationData.panel}" cells="6" readonly="true"  />
         </div>
 
         <div class="spacer_t1"></div>
         <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                <label for="telefono"
-                       class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">
-                    <spring:message code="eti.visortarea.form.label.3"/>: </label>
+            <app:input id="titular" label="eti.visortarea.form.label.5" value="${installationData.titular}" cells="6" readonly="true"  />
 
-
-                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                    <input type="text" class="form-control" name="telefono" id="telefono"
-                    <%--value="${installationData.titular}" disabled--%>
-                           placeholder="<spring:message code="eti.visortarea.form.label.3"/>">
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                <label for="panel"
-                       class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">
-                    <spring:message code="eti.visortarea.form.label.4"/>: </label>
-
-                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                    <input type="text" class="form-control" name="panel" id="panel"
-                           value="${installationData.panel}" disabled
-                           placeholder="<spring:message code="eti.visortarea.form.label.4"/>">
-                </div>
-            </div>
-
+            <app:input id="version" label="eti.visortarea.form.label.6" value="${installationData.version}" cells="6" readonly="true"  />
         </div>
-        <div class="spacer_t1"></div>
-        <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                <label for="pcontacto"
-                       class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">
-                    <spring:message code="eti.visortarea.form.label.5"/>: </label>
-
-                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                    <input type="text" class="form-control" name="pcontacto" id="pcontacto"
-                           value="${installationData.titular}" disabled
-                           placeholder="<spring:message code="eti.visortarea.form.label.5"/>">
-                </div>
-            </div>
-
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                <label for="version"
-                       class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">
-                    <spring:message code="eti.visortarea.form.label.6"/> : </label>
-
-                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                    <input type="text" class="form-control" name="version" id="version"
-                           value="${installationData.version}" disabled
-                           placeholder="<spring:message code="eti.visortarea.form.label.6"/>">
-                </div>
-            </div>
-        </div>
-        <!-- row -->
-
 
 
         <!-- INCLUDES DE TAREAS -->
@@ -130,7 +73,7 @@ Tarea : ${tarea}
             </div>
         </div>
 
-        <!-- INCLUDES DE TAREAS -->
+        <!-- Botones -->
         <div class="spacer_t2"></div>
         <div class="row">
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8"></div>
@@ -160,6 +103,8 @@ Tarea : ${tarea}
 
 </div>
 <!-- Container -->
+InstallationData : ${installationData}<br/>
+Tarea : ${tarea}
 
 </body>
 </html>

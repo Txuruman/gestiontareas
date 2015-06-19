@@ -41,7 +41,8 @@ public class TareaService {
     public boolean aplazar(Integer idAviso) {
         LOGGER.info("Aplazando idAviso:{}", idAviso);
 
-        //TODO se invocará un web service para marcar la Tarea como tratada (mark done) y
+        //TODO Marcar la Tarea como realizada (para descartar la Tarea, después de aplazar el Aviso, después de finalizar el Aviso, para aplazar una Tarea de otro tipo, para cerrar una Tarea de otro tipo)
+
 
         // Invocará un web service para actualizar el Aviso.
         Integer naviso = idAviso;
@@ -64,15 +65,67 @@ public class TareaService {
         return true;
     }
 
-    /* Descartar: se invocará un web service para marcar la Tarea como tratada (mark done) y se invocará un web service para actualizar el Aviso. */
-    public boolean descartar(String idAviso) {
+    /**
+     *  Descartar: se invocará un web service para marcar la Tarea como tratada (mark done) y se invocará un web service para actualizar el Aviso.
+     */
+    public boolean descartar(Integer idAviso) {
+
+        //TODO Marcar la Tarea como realizada (para descartar la Tarea, después de aplazar el Aviso, después de finalizar el Aviso, para aplazar una Tarea de otro tipo, para cerrar una Tarea de otro tipo)
+
+
         LOGGER.info("Descartar idAviso:{}", idAviso);
+        try {
+            Integer naviso = idAviso;
+            String idmat = null; //TODO Pendiente parametros
+            String tcierre = null; //TODO Pendiente parametros
+            String cnota = null; //TODO Pendiente parametros
+            Integer statusdest = null; //TODO Pendiente parametros
+            Integer deuda = null; //TODO Pendiente parametros
+            Integer adicional = null; //TODO Pendiente parametros
+            Integer idmanten = null; //TODO Pendiente parametros
+            String branch = null; //TODO Pendiente parametros
+
+            List<RowErrorCA> rowErrorAAs = spAvisosOperaciones.cerrarAviso(naviso, idmat, tcierre, cnota, statusdest, deuda, adicional, idmanten, branch);
+            //TODO Debug para ver que devuelve y controlar si hay errores devolver
+            if (rowErrorAAs != null && !rowErrorAAs.isEmpty()) {
+                LOGGER.error("Error descartando aviso {}", idAviso);
+                return false;
+            }
+        } catch (DataServiceFault e) {
+            LOGGER.error("Error descartando aviso", e);
+            return false;
+        }
         return true;
     }
 
     /* Finalizar: se validará que haya rellenado la información del Cierre, se invocará un web service para marcar la Tarea como tratada (mark done) y se invocará un web service para finalizar el Aviso. */
-    public boolean finalizar(String idAviso) {
+    public boolean finalizar(Integer idAviso) {
         LOGGER.info("Finalizando idAviso:{}", idAviso);
+
+        //TODO Marcar la Tarea como realizada (para descartar la Tarea, después de aplazar el Aviso, después de finalizar el Aviso, para aplazar una Tarea de otro tipo, para cerrar una Tarea de otro tipo)
+
+
+        try {
+            Integer naviso = idAviso;
+            String idmat = null; //TODO Pendiente parametros
+            String tcierre = null; //TODO Pendiente parametros
+            String cnota = null; //TODO Pendiente parametros
+            Integer statusdest = null; //TODO Pendiente parametros
+            Integer deuda = null; //TODO Pendiente parametros
+            Integer adicional = null; //TODO Pendiente parametros
+            Integer idmanten = null; //TODO Pendiente parametros
+            String branch = null; //TODO Pendiente parametros
+
+            List<RowErrorCA> rowErrorAAs = spAvisosOperaciones.cerrarAviso(naviso, idmat, tcierre, cnota, statusdest, deuda, adicional, idmanten, branch);
+            //TODO Debug para ver que devuelve y controlar si hay errores devolver
+            if (rowErrorAAs != null && !rowErrorAAs.isEmpty()) {
+                LOGGER.error("Error finalizando aviso {}", idAviso);
+                return false;
+            }
+        } catch (DataServiceFault e) {
+            LOGGER.error("Error finalizando aviso", e);
+            return false;
+        }
         return true;
     }
 
@@ -208,7 +261,7 @@ public class TareaService {
             String tipoTarea = mapa.get(ExternalParams.TIPO_TAREA);
             if ("TareaEncuestaMarketing".equalsIgnoreCase(tipoTarea)) {
                 return createTareaEncuestaMarketingFromParameters(mapa);
-            } else if ("TareaListadoAssistant"){
+            } else if ("TareaListadoAssistant".equalsIgnoreCase(tipoTarea)){
                 return createTareaListadoAssistantFromParameters(mapa);
             }
 
@@ -299,13 +352,13 @@ public class TareaService {
         return new Date(); //TODO JAVIER
     }
     private Integer toIntegerFromParam(String value) {
-        return new Integer(); //TODO JAVIER
+        return new Integer(0); //TODO JAVIER
     }
     private Float toFloatFromParam(String value){
-        return new Float();
+        return new Float(0);//TODO JAVIER
     }
     private List toListFromParam(String value){
-        return new ArrayList();
+        return new ArrayList();//TODO JAVIER
     }
 
 

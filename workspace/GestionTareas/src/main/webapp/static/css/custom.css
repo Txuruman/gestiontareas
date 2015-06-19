@@ -47,3 +47,8 @@
 .panel-result-padre {
 	margin-bottom: 0;
 }
+
+/* LABEL REQUIRED */
+label.required {
+    font-weight: bold;
+}

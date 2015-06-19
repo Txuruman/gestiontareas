@@ -10,7 +10,7 @@
     <title>Welcome</title>
 </head>
 <body>
-<my:input question="hola" dsfsd=""/>
+
 Enlaces
 <ul>
     <li>
@@ -46,9 +46,6 @@ Enlaces
 </ul>
 
 
-<p>
-    <my:input question="Will you start using tag files?" />
-</p>
 
 </body>
 </html>

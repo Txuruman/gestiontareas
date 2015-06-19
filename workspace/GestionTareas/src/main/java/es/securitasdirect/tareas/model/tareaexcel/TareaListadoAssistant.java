@@ -125,7 +125,7 @@ public class TareaListadoAssistant extends TareaExcel {
      */
     Date boFechaRecepcion;
     /**
-     * Tipo.
+     * Tipo. mpresa o Particular?
      * varchar (20)
      */
     String boTipo;
