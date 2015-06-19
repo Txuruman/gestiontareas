@@ -11,3 +11,18 @@
 Tarea Tipo Excel Otras campañas
 </body>
 </html>
+
+<!-- InstallationData : InstallationData{
+numeroInstalacion=111111,
+titular='ARATHERMIK S.L.',
+panel='SD 2000C', version='null',
+personaContacto='JOSE RAMON ARAGON ARRONTES'
+}
+Tarea : TareaOtrasCampanas{tipoCampana='null',
+comentario='null',
+campo1='null',
+campo2='null',
+campo3='null',
+
+motivosCierre=null,
+compensacion='null'} -->
