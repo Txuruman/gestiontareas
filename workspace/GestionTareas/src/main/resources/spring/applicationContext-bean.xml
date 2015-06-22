@@ -39,10 +39,15 @@
         <entry key="2" value="Dato Adicional Cierre 2"/>
     </util:map>
 
+    <util:map id="datosAdicionalesCierreTareaExcel" map-class="java.util.HashMap" key-type="java.lang.Integer" value-type="java.lang.String">
+        <entry key="1"  value="Dato Adicional Cierre 1"/>
+        <entry key="2" value="Dato Adicional Cierre 2"/>
+    </util:map>
+
     <!-- TODO COMENTAR
     La clave del primer mapa es el tipo de la tarea de Aviso
     -->
-    <util:map id="datosCierreTareaAviso" map-class="java.util.HashMap" key-type="java.lang.Integer" value-type="java.util.Map">
+    <util:map id="datosCierreTareaAviso" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.util.Map">
         <entry key="111"  >
             <util:map  map-class="java.util.HashMap" key-type="java.lang.Integer" value-type="java.lang.String">
                 <entry key="1"  value="Dato  Cierre 1 tipo 111"/>
@@ -56,5 +61,6 @@
             </util:map>
         </entry>
     </util:map>
+
 
 </beans>

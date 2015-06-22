@@ -30,8 +30,14 @@ public class TareaService {
     protected SPAVISOSOPERACIONESPortType spAvisosOperaciones;
     @Inject
     protected SPAIOTAREAS2PortType spAioTareas2;
+
     @Resource(name="datosAdicionalesCierreTareaAviso")
     protected Map<Integer,String> datosAdicionalesCierreTareaAviso;
+    @Resource(name="datosAdicionalesCierreTareaExcel")
+    protected Map<Integer,String> datosCierreTareaExcel;
+
+    @Resource(name="datosCierreTareaAviso")
+    protected Map<String,Map<Integer, String>> datosCierreTareaAviso;
 
     /**
      * Aplazar: muestra un diálogo en modo modal para introducir la fecha y hora de la reprogramación,
@@ -448,5 +454,28 @@ public class TareaService {
         return datosAdicionalesCierreTareaAviso;
     }
 
+    public Map<Integer, String> getDatosCierreTareaExcel() {
+        return datosCierreTareaExcel;
+    }
+
+    public void setDatosCierreTareaExcel(Map<Integer, String> datosCierreTareaExcel) {
+        this.datosCierreTareaExcel = datosCierreTareaExcel;
+    }
+
+    public Map<Integer,String> getDatosCierreTareaAviso(TareaAviso tareaAviso){
+        if (tareaAviso == null){
+            return null;
+        }else{
+            if (tareaAviso.getTipoAviso1()==null) {
+                return null;
+            } else {
+                Map cierrePorTipo = datosCierreTareaAviso.get(tareaAviso.getTipoAviso1());
+                if (cierrePorTipo==null) {
+                    LOGGER.error("No se ha encontrado tipos de cierre para una Tarea Aviso con tipo {}", tareaAviso.getTipoAviso1());
+                }
+                return cierrePorTipo;
+            }
+        }
+    }
 
 }
