@@ -12,11 +12,11 @@
 
 
 <div class="col-lg-${cells} col-md-${cells} col-sm-${cells} col-xs-${cells}">
-    <label class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent ${required=='true'? 'label.required' : ''}">
+    <label class="col-lg-4 col-md-4 col-sm-4 col-xs-4 control-label labelcent ${required=='true'? 'label.required' : ''}">
         <c:if test="${label!=null && !label.isEmpty()}"> <spring:message code='${label}'/> ${required=='true'? '*' : ''}:</c:if>
     </label>
 
-    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
         <input type="text" class="form-control" name="${id}" id="${id}"
                value="${value}"
                maxlength="${maxlength}"
