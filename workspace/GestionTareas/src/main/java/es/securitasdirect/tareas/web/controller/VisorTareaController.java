@@ -92,6 +92,8 @@ public class VisorTareaController implements Controller {
             if (tarea instanceof TareaAviso) {
                 titulo = "eti.visortarea.h2.titulo.TareaAviso";
                 mv.addObject(SECUNDARIA, AVISO);
+                //Cargar combos
+                Map<Integer, String> datosAdicionalesCierreTareaAviso = tareaService.getDatosAdicionalesCierreTareaAviso();
             } else if (tarea instanceof TareaListadoAssistant) {
                 titulo = "eti.visortarea.h2.titulo.TareaListadoAssistant";
                 mv.addObject(SECUNDARIA, EXCEL_LISTADO_ASSISTANT);

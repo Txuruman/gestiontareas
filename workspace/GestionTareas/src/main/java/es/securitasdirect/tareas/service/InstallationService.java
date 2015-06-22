@@ -3,9 +3,7 @@ package es.securitasdirect.tareas.service;
 import es.securitasdirect.tareas.model.InstallationData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.wso2.ws.dataservice.DataServiceFault;
-import org.wso2.ws.dataservice.Mainstallationdataresult;
-import org.wso2.ws.dataservice.SPInstallationMonDataPortType;
+import org.wso2.ws.dataservice.*;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -23,6 +21,8 @@ public class InstallationService {
 
     @Inject
     protected SPInstallationMonDataPortType spInstallationMonData;
+    @Inject
+    protected SPAIOTAREAS2PortType spAioTareas2;
 
     /**
      * Obtiene los datos de una instalación por número de instalación, si no se encuentra devuelve null.
@@ -32,21 +32,27 @@ public class InstallationService {
      */
     public InstallationData getInstallationData(String installationNumber) throws DataServiceFault {
         assert installationNumber!=null;
-        Mainstallationdataresult result = null;
+        Mainstallationdataresult installationData1 = null;
+        GetInstallationDataResult installationData2 = null;
 
         List<Mainstallationdataresult> installationDataWS = spInstallationMonData.getInstallationData(installationNumber);
-
         if (installationDataWS!=null && installationDataWS.size()>0) {
-            result = installationDataWS.get(0);
+            installationData1 = installationDataWS.get(0);
+            //TODO PENDIENTE
+            //Obtener la versión del panel
+//            List<GetInstallationDataResult> installationDataWS2 = spAioTareas2.getInstallationData(installationData1.getSIns().intValue(), 0);
+//            if (installationDataWS2!=null && !installationDataWS2.isEmpty()) {
+//                 installationData2 = installationDataWS2.get(0);
+//            }
         }
 
-        InstallationData installationData = createInstallationData(result);
+        InstallationData installationData = createInstallationData(installationData1,installationData2);
         LOGGER.debug("getInstallationData({}) : {}",installationNumber, installationData);
         return installationData;
     }
 
 
-    private InstallationData createInstallationData (Mainstallationdataresult mainstallationdataresult) {
+    private InstallationData createInstallationData (Mainstallationdataresult mainstallationdataresult,GetInstallationDataResult installationData2) {
         if (mainstallationdataresult==null) {
             return null;
         } else {
@@ -57,6 +63,9 @@ public class InstallationService {
             data.setPersonaContacto(mainstallationdataresult.getAliasName());
             data.setTitular(mainstallationdataresult.getName());
             data.setPanel(mainstallationdataresult.getPanel());
+            if (installationData2!=null) {
+                data.setVersion(installationData2.getVersion());
+            }
             return data;
         }
     }

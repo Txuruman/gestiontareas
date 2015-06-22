@@ -38,10 +38,6 @@ public class TareaAviso extends Tarea {
     String numeroInstalacion;
     /*	Titular: nombre del cliente, a modo informativo  */
     String titular;
-    /*	Panel: tipo de panel de la instalación  */
-    String tipoPanel;
-    /*	Versión: versión del panel  */
-    String versionPanel;
     /*	Requerido por: importante para el reporting y para algunos departamentos  */
     String requeridoPor;
     /*	Datos de Contacto: cliente que inició la incidencia, forma de contacto, horarios de contacto  */
@@ -172,22 +168,6 @@ public class TareaAviso extends Tarea {
         this.titular = titular;
     }
 
-    public String getTipoPanel() {
-        return tipoPanel;
-    }
-
-    public void setTipoPanel(String tipoPanel) {
-        this.tipoPanel = tipoPanel;
-    }
-
-    public String getVersionPanel() {
-        return versionPanel;
-    }
-
-    public void setVersionPanel(String versionPanel) {
-        this.versionPanel = versionPanel;
-    }
-
     public String getRequeridoPor() {
         return requeridoPor;
     }
@@ -285,8 +265,6 @@ public class TareaAviso extends Tarea {
         sb.append(", identificativoAvisoTarea=").append(identificativoAvisoTarea);
         sb.append(", numeroInstalacion='").append(numeroInstalacion).append('\'');
         sb.append(", titular='").append(titular).append('\'');
-        sb.append(", tipoPanel='").append(tipoPanel).append('\'');
-        sb.append(", versionPanel='").append(versionPanel).append('\'');
         sb.append(", requeridoPor='").append(requeridoPor).append('\'');
         sb.append(", datosContacto='").append(datosContacto).append('\'');
         sb.append(", fechaCreacion=").append(fechaCreacion);
@@ -302,3 +280,6 @@ public class TareaAviso extends Tarea {
         return sb.toString();
     }
 }
+
+
+

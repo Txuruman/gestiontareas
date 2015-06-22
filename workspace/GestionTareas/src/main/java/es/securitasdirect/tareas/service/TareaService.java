@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wso2.ws.dataservice.*;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -29,6 +30,8 @@ public class TareaService {
     protected SPAVISOSOPERACIONESPortType spAvisosOperaciones;
     @Inject
     protected SPAIOTAREAS2PortType spAioTareas2;
+    @Resource(name="datosAdicionalesCierreTareaAviso")
+    protected Map<Integer,String> datosAdicionalesCierreTareaAviso;
 
     /**
      * Aplazar: muestra un diálogo en modo modal para introducir la fecha y hora de la reprogramación,
@@ -125,7 +128,7 @@ public class TareaService {
         tarea.setNumeroInstalacion(avisobyIdResult.getInsNo());
         tarea.setHorarioDesde(avisobyIdResult.getDesde().toString());//TODO FORMATO
         tarea.setHorarioHasta(avisobyIdResult.getHasta().toString());//TODO FORMATO
-        tarea.setDatosContacto(avisobyIdResult.getContacto() + "??" + avisobyIdResult.getFormaContacto());
+        tarea.setDatosContacto(avisobyIdResult.getContacto());
 
         return tarea;
     }
@@ -434,4 +437,16 @@ public class TareaService {
         return tareas;
 
     }
+
+
+    public void setDatosAdicionalesCierreTareaAviso(Map<Integer, String> datosAdicionalesCierreTareaAviso) {
+        this.datosAdicionalesCierreTareaAviso = datosAdicionalesCierreTareaAviso;
+    }
+
+    public Map<Integer, String> getDatosAdicionalesCierreTareaAviso() {
+        assert datosAdicionalesCierreTareaAviso!=null;
+        return datosAdicionalesCierreTareaAviso;
+    }
+
+
 }
