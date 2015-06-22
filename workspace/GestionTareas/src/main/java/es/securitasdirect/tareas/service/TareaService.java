@@ -223,10 +223,31 @@ public class TareaService {
 
             }else if ("TareaLimpiezaCuota".equalsIgnoreCase(tipoTarea)) {
                 return createTareaLimpiezaCuotaFromParameters(mapa);
+
+            }else if ("TareaMantenimiento".equalsIgnoreCase(tipoTarea)) {
+                return createTareaMantenimientoFromParameters(mapa);
             }
 
             //TODO JESUS
         }
+
+        return tarea;
+    }
+
+    private Tarea createTareaMantenimientoFromParameters(Map<String, String> parameters){
+        TareaMantenimiento tarea = new TareaMantenimiento();
+        loadTareaCommons(tarea,parameters);
+
+        tarea.setContrato(parameters.get(ExternalParams.TAREA_MANTENIMIENTO_CONTRATO));
+        tarea.setDireccion(parameters.get(ExternalParams.TAREA_MANTENIMIENTO_DIRECCION));
+        tarea.setCiudad(parameters.get(ExternalParams.TAREA_MANTENIMIENTO_CIUDAD));
+        tarea.setFechaEvento(toDateFromParam(parameters.get(ExternalParams.TAREA_MANTENIMIENTO_FECHAEVENTO)));
+        tarea.setTipificacion(parameters.get(ExternalParams.TAREA_MANTENIMIENTO_TIPIFICACION));
+        tarea.setAgenteAsignado(parameters.get(ExternalParams.TAREA_MANTENIMIENTO_AGENTEASIGNADO));
+        tarea.setAgenteCierre(parameters.get(ExternalParams.TAREA_MANTENIMIENTO_AGENTECIERRE));
+        tarea.setOpcionTipificacion(toIntegerFromParam(parameters.get(ExternalParams.TAREA_MANTENIMIENTO_OPCIONTIPIFICACION)));
+        tarea.setKey1(toIntegerFromParam(parameters.get(ExternalParams.TAREA_MANTENIMIENTO_KEY1)));
+        tarea.setKey2(toIntegerFromParam(parameters.get(ExternalParams.TAREA_MANTENIMIENTO_KEY2)));
 
         return tarea;
     }

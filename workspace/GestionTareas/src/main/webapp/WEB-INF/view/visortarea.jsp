@@ -55,6 +55,7 @@
             <app:input id="version" label="eti.visortarea.form.label.version" value="${installationData.version}" cells="6" readonly="true"/>
         </div>
 
+
         <!-- INCLUDES DE TAREAS -->
         <div class="spacer_t3"></div>
         <div class="panel panel-default">

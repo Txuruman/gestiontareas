@@ -17,7 +17,7 @@ Enlaces
         Estando el agente disponible, le llega una interacción de tipo Tarea para gestionarla.
         <ul>
             <li><a href="visortarea.htm?ins_no=111111&idaviso=10267236">Tarea Tipo Aviso (aviso:10267236)</a></li>
-            <li><a href="visortarea.htm?ins_no=111111&tipoTarea=mantenimiento">Tarea Mantenimiento</a></li>
+            <li><a href="visortarea.htm?ins_no=111111&tipotarea=TareaMantenimiento">Tarea Mantenimiento</a></li>
             <li>Tarea tipo Excel
                 <ul>
                     <li><a href="visortarea.htm?ins_no=111111&tipotarea=TareaListadoAssistant">Tarea Tipo Excel Listado Assistant</a></li>
@@ -37,7 +37,7 @@ Enlaces
     <li>
         Estando el agente con una interacción en curso, decide crear una Tarea o buscar una existente.<br/>
         <ul>
-            <li><a href="/creartarea.htm?AGENTELOGADO=7777&NUMEROTELEFONO=69696969&INSTALACION=111111">Crear Tarea</a></li>
+            <li><a href="creartarea.htm?AGENTELOGADO=7777&NUMEROTELEFONO=69696969&INSTALACION=111111">Crear Tarea</a></li>
             <li><a href="buscartarea.htm?AGENTELOGADO=7777&NUMEROTELEFONO=69696969&INSTALACION=111111">Buscar Tareas (Instalación con Tareas)</a></li>
             <li><a href="buscartarea.htm?AGENTELOGADO=7777&NUMEROTELEFONO=69696969&INSTALACION=222222">Buscar Tareas (Instalación sin Tareas)</a></li>
         </ul>
