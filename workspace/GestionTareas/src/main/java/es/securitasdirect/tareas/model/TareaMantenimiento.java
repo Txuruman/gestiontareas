@@ -9,6 +9,8 @@ import java.util.Date;
 
 public class TareaMantenimiento extends Tarea {
 
+
+
     public String getContrato() {
         return contrato;
     }
@@ -133,3 +135,4 @@ public class TareaMantenimiento extends Tarea {
 
     
 }
+
