@@ -31,43 +31,46 @@
 <div class="row">
 
     <app:textArea id="observaciones" label="eti.visortarea.form.label.observaciones" value="${tarea.observaciones}" cells="6"/>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <div class="row">
+            <label for="ejemplo_email_3"
+                   class="col-lg-4 col-md-4 col-sm-4 col-xs-4 control-label labelcent">Cierre</label>
 
-</div>
-<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-    <div class="row">
-        <label for="ejemplo_email_3"
-               class="col-lg-4 col-md-4 col-sm-4 col-xs-4 control-label labelcent">Cierre</label>
-
-        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
-            <select class="form-control">
-                <option>option1</option>
-                <option>option2</option>
-                <option>option3</option>
-                <option>option4</option>
-                <option>option5</option>
-            </select>
+            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                <select class="form-control">
+                    <option>option1</option>
+                    <option>option2</option>
+                    <option>option3</option>
+                    <option>option4</option>
+                    <option>option5</option>
+                </select>
+            </div>
         </div>
-    </div>
-    <!-- subrow -->
-    <div class="spacer_t1"></div>
-    <div class="row">
-        <label for="ejemplo_email_3"
-               class="col-lg-4 col-md-4 col-sm-4 col-xs-4 control-label labelcent">Datos
-            adicionales de cierre</label>
+        <!-- subrow -->
+        <div class="spacer_t1"></div>
+        <div class="row">
+            <label for="ejemplo_email_3"
+                   class="col-lg-4 col-md-4 col-sm-4 col-xs-4 control-label labelcent">Datos
+                adicionales de cierre</label>
 
-        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
-            <select class="form-control">
-                <option>option1</option>
-                <option>option2</option>
-                <option>option3</option>
-                <option>option4</option>
-                <option>option5</option>
-            </select>
+            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+                <select class="form-control">
+                    <option>option1</option>
+                    <option>option2</option>
+                    <option>option3</option>
+                    <option>option4</option>
+                    <option>option5</option>
+                </select>
+            </div>
         </div>
+        <!-- subrow -->
+        <div class="spacer_t2"></div>
+        <div class="spacer_t2"></div>
+
     </div>
-    <!-- subrow -->
-    <div class="spacer_t2"></div>
-    <div class="spacer_t2"></div>
-
-
 </div>
+<div class="spacer_t2"></div>
+
+
+
+

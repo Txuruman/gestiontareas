@@ -8,7 +8,7 @@
          pageEncoding="UTF-8" %>
 <html>
 <head>
-    <title>Welcome</title>
+    <title><spring:message code="${titulo}"/></title>
 
     <link rel="stylesheet" type="text/css"
           href="${pageContext.request.contextPath}/static/css/bootstrap.css"/>

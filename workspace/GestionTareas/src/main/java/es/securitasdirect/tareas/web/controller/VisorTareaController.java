@@ -90,30 +90,30 @@ public class VisorTareaController implements Controller {
              */
             String titulo = null;
             if (tarea instanceof TareaAviso) {
-                titulo = "eti.visortarea.h2.titulo.TareaAviso";
+                titulo = "titulo.TareaAviso";
                 mv.addObject(SECUNDARIA, AVISO);
                 //Cargar combos
                 Map<Integer, String> datosAdicionalesCierreTareaAviso = tareaService.getDatosAdicionalesCierreTareaAviso();
             } else if (tarea instanceof TareaListadoAssistant) {
-                titulo = "eti.visortarea.h2.titulo.TareaListadoAssistant";
+                titulo = "titulo.TareaListadoAssistant";
                 mv.addObject(SECUNDARIA, EXCEL_LISTADO_ASSISTANT);
             } else if (tarea instanceof TareaEncuestaMantenimiento) {
-                titulo = "eti.visortarea.h2.titulo.TareaEncuestaMantenimiento";
+                titulo = "titulo.TareaEncuestaMantenimiento";
                 mv.addObject(SECUNDARIA, EXCEL_ENCUESTAS_MANTENIMIENTOS);
             } else if (tarea instanceof TareaEncuestaMarketing) {
-                titulo = "eti.visortarea.h2.titulo.TareaEncuestaMarketing";
+                titulo = "titulo.TareaEncuestaMarketing";
                 mv.addObject(SECUNDARIA, EXCEL_ENCUESTAS_MARKETING);
             } else if (tarea instanceof TareaKeybox) {
-                titulo = "eti.visortarea.h2.titulo.TareaKeybox";
+                titulo = "titulo.TareaKeybox";
                 mv.addObject(SECUNDARIA, EXCEL_KEYBOX);
             } else if (tarea instanceof TareaLimpiezaCuota) {
-                titulo = "eti.visortarea.h2.titulo.TareaLimpiezaCuota";
+                titulo = "titulo.TareaLimpiezaCuota";
                 mv.addObject(SECUNDARIA, EXCEL_LIMPIEZA_DE_CUOTA);
             } else if (tarea instanceof TareaOtrasCampanas) {
-                titulo = "eti.visortarea.h2.titulo.TareaOtrasCampanas";
+                titulo = "titulo.TareaOtrasCampanas";
                 mv.addObject(SECUNDARIA, EXCEL_OTRAS_CAMPANIAS);
             } else if (tarea instanceof TareaMantenimiento) {
-                titulo = "eti.visortarea.h2.titulo.TareaMantenimiento";
+                titulo = "titulo.TareaMantenimiento";
                 mv.addObject(SECUNDARIA, MANTENIMIENTO);
                 //Cargar combo de tarea de Mantenimiento, solo si es tarea de mantenimiento
                 Map<Integer, String> desplegableKey1 = tareaService.getDesplegableKey1();
