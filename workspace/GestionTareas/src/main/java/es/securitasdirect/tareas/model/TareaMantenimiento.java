@@ -9,6 +9,48 @@ import java.util.Date;
 
 public class TareaMantenimiento extends Tarea {
 
+    /**
+
+     * Contrato
+     */
+    String contrato;
+    /**
+     * Dirección
+     */
+    String direccion;
+    /**
+     * Ciudad
+     */
+    String ciudad;
+    /**
+     * Fecha y hora del Evento
+     */
+    Date fechaEvento;
+    /**
+     * Tipificacion
+     */
+    String tipificacion;
+    /**
+     * Agente Asignado
+     */
+    String agenteAsignado;
+    /**
+     * Agente de Cierre
+     */
+    String agenteCierre;
+    /**
+     * Opcion de tipificación
+     */
+    Integer opcionTipificacion;
+    /**
+     * Key1
+     */
+    Integer key1;
+    /**
+     * Key2
+     */
+    Integer key2;
+
 
 
     public String getContrato() {
@@ -91,48 +133,20 @@ public class TareaMantenimiento extends Tarea {
         this.key2 = key2;
     }
 
-    /**
 
-     * Contrato
-     */
-    String contrato;
-    /**
-     * Dirección
-     */
-    String direccion;
-    /**
-     * Ciudad
-     */
-    String ciudad;
-    /**
-     * Fecha y hora del Evento
-     */
-    Date fechaEvento;
-    /**
-     * Tipificacion
-     */
-    String tipificacion;
-    /**
-     * Agente Asignado
-     */
-    String agenteAsignado;
-    /**
-     * Agente de Cierre
-     */
-    String agenteCierre;
-    /**
-     * Opcion de tipificación
-     */
-    Integer opcionTipificacion;
-    /**
-     * Key1
-     */
-    Integer key1;
-    /**
-     * Key2
-     */
-    Integer key2;
-
-    
+    @Override
+    public String toString() {
+        return "TareaMantenimiento{" +
+                "contrato='" + contrato + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", ciudad='" + ciudad + '\'' +
+                ", fechaEvento=" + fechaEvento +
+                ", tipificacion='" + tipificacion + '\'' +
+                ", agenteAsignado='" + agenteAsignado + '\'' +
+                ", agenteCierre='" + agenteCierre + '\'' +
+                ", opcionTipificacion=" + opcionTipificacion +
+                ", key1=" + key1 +
+                ", key2=" + key2 +
+                '}';
+    }
 }
-
