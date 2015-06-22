@@ -115,6 +115,7 @@ public class VisorTareaController implements Controller {
                 mv.addObject(SECUNDARIA, MANTENIMIENTO);
                 //Cargar combo de tarea de Mantenimiento, solo si es tarea de mantenimiento
                 Map<Integer, String> desplegableKey1 = tareaService.getDesplegableKey1();
+                Map<Integer, String> desplegableKey2 = tareaService.getDesplegableKey2(null);
                 mv.addObject("desplegableKey1", desplegableKey1);
             }
             mv.addObject(TITULO, titulo);

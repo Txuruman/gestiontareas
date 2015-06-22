@@ -151,31 +151,33 @@ public class TareaService {
      */
     public Map<Integer, String> getDesplegableKey2(Integer skey1) throws DataServiceFault {
         LOGGER.debug("Consultando listado Desplegable KEY2 {}", skey1);
-        assert skey1 != null : "skey1 es parametro requerido";
+
         Map<Integer, String> result = new HashMap<Integer, String>();
-        List<GetKey2DIYResult> listaKey2 = spAioTareas2.getKey2DIY(skey1);
-        if (listaKey2 != null) {
-            for (GetKey2DIYResult getKey2DIYResult : listaKey2) {
-                //Viene un sublistado de valores, parece que siempre viene solo uno, así que cogemos el primero
-                if (!getKey2DIYResult.getGetKeyDataResults().getGetKeyDataResult().isEmpty()) {
-                    result.put(getKey2DIYResult.getGetKeyDataResults().getGetKeyDataResult().get(0).getSKey().intValue(),
-                            getKey2DIYResult.getGetKeyDataResults().getGetKeyDataResult().get(0).getText());
+        if (skey1 != null) {
+            List<GetKey2DIYResult> listaKey2 = spAioTareas2.getKey2DIY(skey1);
+            if (listaKey2 != null) {
+                for (GetKey2DIYResult getKey2DIYResult : listaKey2) {
+                    //Viene un sublistado de valores, parece que siempre viene solo uno, así que cogemos el primero
+                    if (!getKey2DIYResult.getGetKeyDataResults().getGetKeyDataResult().isEmpty()) {
+                        result.put(getKey2DIYResult.getGetKeyDataResults().getGetKeyDataResult().get(0).getSKey().intValue(),
+                                getKey2DIYResult.getGetKeyDataResults().getGetKeyDataResult().get(0).getText());
+                    }
                 }
             }
+
         }
         return result;
     }
 
+        public List<Tarea> findByTelefono (String telefono){
+            List<Tarea> tareas = createDummy();
+            return tareas;
+        }
 
-    public List<Tarea> findByTelefono(String telefono) {
-        List<Tarea> tareas = createDummy();
-        return tareas;
-    }
-
-    public List<Tarea> findByInstalacion(String instalacion) {
-        List<Tarea> tareas = createDummy();
-        return tareas;
-    }
+        public List<Tarea> findByInstalacion (String instalacion){
+            List<Tarea> tareas = createDummy();
+            return tareas;
+        }
 
     public Tarea createDummyTareaAviso() {
         Tarea ejemploAviso = new TareaAviso();
@@ -221,10 +223,10 @@ public class TareaService {
             } else if ("TareaOtrasCampanas".equalsIgnoreCase(tipoTarea)) {
                 return createTareaOtrasCampanasFromParameters(mapa);
 
-            }else if ("TareaLimpiezaCuota".equalsIgnoreCase(tipoTarea)) {
+            } else if ("TareaLimpiezaCuota".equalsIgnoreCase(tipoTarea)) {
                 return createTareaLimpiezaCuotaFromParameters(mapa);
 
-            }else if ("TareaMantenimiento".equalsIgnoreCase(tipoTarea)) {
+            } else if ("TareaMantenimiento".equalsIgnoreCase(tipoTarea)) {
                 return createTareaMantenimientoFromParameters(mapa);
             }
 
@@ -234,9 +236,9 @@ public class TareaService {
         return tarea;
     }
 
-    private Tarea createTareaMantenimientoFromParameters(Map<String, String> parameters){
+    private Tarea createTareaMantenimientoFromParameters(Map<String, String> parameters) {
         TareaMantenimiento tarea = new TareaMantenimiento();
-        loadTareaCommons(tarea,parameters);
+        loadTareaCommons(tarea, parameters);
 
         tarea.setContrato(parameters.get(ExternalParams.TAREA_MANTENIMIENTO_CONTRATO));
         tarea.setDireccion(parameters.get(ExternalParams.TAREA_MANTENIMIENTO_DIRECCION));
@@ -350,8 +352,6 @@ public class TareaService {
     //TODO FINAL METHODS createXXXXFromParameters
 
 
-
-
     /**
      * Conversores , indicar parametro (String)
      */
@@ -373,7 +373,6 @@ public class TareaService {
 
     /**
      * Carga los datos comunes de Tarea pasados por parametro
-     *
      */
     private Tarea loadTareaCommons(Tarea tarea, Map<String, String> parameters) {
         assert tarea != null && parameters != null;
@@ -381,6 +380,7 @@ public class TareaService {
         //TODO JESUS
         return tarea;
     }
+
     /**
      * Carga los datos comunes de Tarea Excel pasados por parametro
      *

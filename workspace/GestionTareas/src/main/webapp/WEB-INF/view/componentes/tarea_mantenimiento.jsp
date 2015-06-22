@@ -7,25 +7,27 @@
 
 <div class="row">
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-        <form:select id="desplegableKey1" path="tarea.key1" items="${desplegableKey1}" class="form-control" />
-    </div>
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-        <label for="key1Desplegable"
-               class="col-lg-4 col-md-4 col-sm-4 col-xs-4 control-label labelcent">
-            key1: </label>
-
+        <form:label path="tarea" cssClass="col-lg-4 col-md-4 col-sm-4 col-xs-4 control-label labelcent">
+            <spring:message code="eti.visortarea.mantenimiento.form.label.key1"/>
+        </form:label>
         <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
-            <select class="form-control" id="key1Desplegable" name="desplegableKey1">
-
-                <c:forEach items="${desplegableKey1}" var="desplegableKey1">
-                    <option value="<c:out value="${desplegableKey1.key}"/>"><c:out value="${desplegableKey1.value}"/></option>
-                </c:forEach>
-
-            </select>
-
+            <form:select id="desplegableKey1" path="tarea.key1" items="${desplegableKey1}" cssClass="form-control"/>
         </div>
     </div>
 
+
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <form:label path="tarea" cssClass="col-lg-4 col-md-4 col-sm-4 col-xs-4 control-label labelcent">
+            <spring:message code="eti.visortarea.mantenimiento.form.label.key2"/>
+        </form:label>
+        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+            <form:select id="desplegableKey2" path="tarea.key1" items="${desplegableKey2}" cssClass="form-control"/>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <app:input id="" value=""
 </div>
 
 
