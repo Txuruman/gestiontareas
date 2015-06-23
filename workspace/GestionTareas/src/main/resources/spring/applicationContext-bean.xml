@@ -34,6 +34,8 @@
 -->
 
     <!-- TODO COMENTAR -->
+    <!-- Valores para el campo DESPLEGABLE DE CIERRE , que se rellenarán en función del tipo de aviso    -->
+
     <util:map id="datosAdicionalesCierreTareaAviso" map-class="java.util.HashMap" key-type="java.lang.Integer" value-type="java.lang.String">
         <entry key="1"  value="Dato Adicional Cierre 1"/>
         <entry key="2" value="Dato Adicional Cierre 2"/>
