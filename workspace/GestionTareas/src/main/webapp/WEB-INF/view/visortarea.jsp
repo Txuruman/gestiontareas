@@ -98,7 +98,8 @@
 </div>
 <!-- Container -->
 InstallationData : ${installationData}<br/>
-Tarea : ${tarea}
+Tarea : ${tarea}<br/>
+Parametros: ${todosparametros}
 
 </body>
 </html>

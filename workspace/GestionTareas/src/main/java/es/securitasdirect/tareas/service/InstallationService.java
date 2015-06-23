@@ -38,8 +38,7 @@ public class InstallationService {
         List<Mainstallationdataresult> installationDataWS = spInstallationMonData.getInstallationData(installationNumber);
         if (installationDataWS!=null && installationDataWS.size()>0) {
             installationData1 = installationDataWS.get(0);
-            //TODO PENDIENTE
-            //Obtener la versión del panel
+            //TODO Obtener la versión del panel
 //            List<GetInstallationDataResult> installationDataWS2 = spAioTareas2.getInstallationData(installationData1.getSIns().intValue(), 0);
 //            if (installationDataWS2!=null && !installationDataWS2.isEmpty()) {
 //                 installationData2 = installationDataWS2.get(0);

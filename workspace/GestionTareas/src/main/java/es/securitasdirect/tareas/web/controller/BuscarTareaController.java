@@ -8,6 +8,7 @@ import es.securitasdirect.tareas.model.InstallationData;
 import es.securitasdirect.tareas.model.Tarea;
 import es.securitasdirect.tareas.service.InstallationService;
 import es.securitasdirect.tareas.service.TareaService;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
@@ -15,7 +16,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class BuscarTareaController implements Controller {
+@org.springframework.stereotype.Controller
+@RequestMapping("/buscartarea")
+public class BuscarTareaController  {
 
     @Inject
     private TareaService tareaService;
@@ -23,7 +26,7 @@ public class BuscarTareaController implements Controller {
     private InstallationService installationService;
 
 
-
+    @RequestMapping
     public ModelAndView handleRequest(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
         int i = 0;
         ModelAndView mv = new ModelAndView("buscartarea");

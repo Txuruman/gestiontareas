@@ -10,6 +10,7 @@ import es.securitasdirect.tareas.service.TareaService;
 import es.securitasdirect.tareas.web.controller.params.ExternalParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.Controller;
 
@@ -49,7 +50,7 @@ public class VisorTareaController implements Controller {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(VisorTareaController.class);
 
-
+    @RequestMapping
     public ModelAndView handleRequest(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
         InstallationData installationData = null;
         Tarea tarea = null;
@@ -66,6 +67,7 @@ public class VisorTareaController implements Controller {
         if (ins_no != null) {
             installationData = installationService.getInstallationData(ins_no);
         }
+
 
 
         tarea = tareaService.loadTareaFromParameters(createParameterMap(hsr));
@@ -123,6 +125,9 @@ public class VisorTareaController implements Controller {
             mv.addObject(TITULO, titulo);
             mv.addObject("tarea", tarea);
             mv.addObject("installationData", installationData);
+
+            //TODO Borrar, temporal para ver los parámetros enviados a la página
+            mv.addObject("todosparametros",createParameterMap(hsr));
 
         }
 

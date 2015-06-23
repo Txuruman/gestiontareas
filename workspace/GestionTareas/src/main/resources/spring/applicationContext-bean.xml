@@ -22,13 +22,15 @@
 		Main entry point for spring configuration
 	]]></description>
 
+    <context:component-scan
+            base-package="es.securitasdirect.tareas"/>
 
-    <!-- context -->
-    <context:component-scan base-package="es.securitasdirect">
-        <!-- exclude web beans as they live in the web application context -->
-        <!-- Note: this regexp does not work if you try to escape the '.' -->
-        <context:exclude-filter type="regex" expression="es.securitasdirect.tareas.web.*"/>
-    </context:component-scan>
+    <!--&lt;!&ndash; context &ndash;&gt;-->
+    <!--<context:component-scan base-package="es.securitasdirect">-->
+        <!--&lt;!&ndash; exclude web beans as they live in the web application context &ndash;&gt;-->
+        <!--&lt;!&ndash; Note: this regexp does not work if you try to escape the '.' &ndash;&gt;-->
+        <!--<context:exclude-filter type="regex" expression="es.securitasdirect.tareas.web.*"/>-->
+    <!--</context:component-scan>-->
     <!--
     <context:property-placeholder location="classpath*:database.properties,classpath*:hibernate.properties,classpath*:app-version.properties"/>
 -->
