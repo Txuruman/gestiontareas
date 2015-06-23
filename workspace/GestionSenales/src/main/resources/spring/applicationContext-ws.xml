@@ -23,22 +23,22 @@
 	]]></description>
 
 
-    <!-- CXF -->
-    <import resource="classpath:META-INF/cxf/cxf.xml"/>
-    <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
+    <!--&lt;!&ndash; CXF &ndash;&gt;-->
+    <!--<import resource="classpath:META-INF/cxf/cxf.xml"/>-->
+    <!--<import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>-->
 
 
-    <!-- Web Services Cliente -->
-    <jaxws:client name="wsSPInstallationMonData"
-        serviceClass="org.wso2.ws.dataservice.SPInstallationMonDataPortType"
-        address="http://10.2.144.63:9763/services/SP_InstallationMonData?wsdl"
-        />
-    <!-- TODO Parametro por JNDI, fichero configuracion????? -->
+    <!--&lt;!&ndash; Web Services Cliente &ndash;&gt;-->
+    <!--<jaxws:client name="wsSPInstallationMonData"-->
+        <!--serviceClass="org.wso2.ws.dataservice.SPInstallationMonDataPortType"-->
+        <!--address="http://10.2.144.63:9763/services/SP_InstallationMonData?wsdl"-->
+        <!--/>-->
+    <!--&lt;!&ndash; TODO Parametro por JNDI, fichero configuracion????? &ndash;&gt;-->
 
-    <jaxws:client name="wsSpAvisosOperaciones"
-                  serviceClass="org.wso2.ws.dataservice.SPAVISOSOPERACIONESPortType"
-                  address="http://10.2.144.63:9763/services/SP_AVISOS_OPERACIONES?wsdl"
-            />
+    <!--<jaxws:client name="wsSpAvisosOperaciones"-->
+                  <!--serviceClass="org.wso2.ws.dataservice.SPAVISOSOPERACIONESPortType"-->
+                  <!--address="http://10.2.144.63:9763/services/SP_AVISOS_OPERACIONES?wsdl"-->
+            <!--/>-->
     <!-- TODO Parametro por JNDI, fichero configuracion????? -->
 
 <!--

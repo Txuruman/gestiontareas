@@ -10,9 +10,9 @@ import es.securitasdirect.tareas.service.TareaService;
 import es.securitasdirect.tareas.web.controller.params.ExternalParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.Controller;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -24,8 +24,9 @@ import java.util.Map;
  * @author jel
  */
 
-
-public class VisorTareaController implements Controller {
+@Controller
+@RequestMapping("/visortarea.htm")
+public class VisorTareaController {
     /**
      * clases de avisos
      */

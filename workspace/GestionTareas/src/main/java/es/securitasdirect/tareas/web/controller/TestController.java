@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/test")
+@RequestMapping("/test.htm")
 public class TestController {
 
     @PostConstruct

@@ -17,7 +17,7 @@ import java.util.Collections;
 import java.util.List;
 
 @org.springframework.stereotype.Controller
-@RequestMapping("/buscartarea")
+@RequestMapping("/buscartarea.htm")
 public class BuscarTareaController  {
 
     @Inject

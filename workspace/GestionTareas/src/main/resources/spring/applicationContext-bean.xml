@@ -22,8 +22,7 @@
 		Main entry point for spring configuration
 	]]></description>
 
-    <context:component-scan
-            base-package="es.securitasdirect.tareas"/>
+
 
     <!--&lt;!&ndash; context &ndash;&gt;-->
     <!--<context:component-scan base-package="es.securitasdirect">-->

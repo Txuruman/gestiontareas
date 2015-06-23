@@ -8,7 +8,8 @@
 
 
 
-
+    <context:component-scan
+            base-package="es.securitasdirect.tareas"/>
 
     <mvc:annotation-driven/>
     <mvc:resources mapping="/static/**" location="/static/"/>

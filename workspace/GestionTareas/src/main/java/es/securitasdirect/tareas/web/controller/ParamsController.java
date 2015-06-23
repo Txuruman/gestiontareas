@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@RequestMapping("params")
+@RequestMapping("params.htm")
 public class ParamsController  {
 
     @RequestMapping
