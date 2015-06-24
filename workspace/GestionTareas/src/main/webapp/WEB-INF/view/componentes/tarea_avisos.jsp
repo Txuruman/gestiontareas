@@ -6,7 +6,8 @@
 <div class="row">
     <app:input id="tipoAviso1" label="eti.visortarea.form.label.tipo" value="${tarea.tipoAviso1}" cells="6" readonly="true"/>
 
-    <app:input id="motivo1" label="eti.visortarea.form.label.motivo" value="${tarea.motivo1}" cells="6" readonly="true"/>
+    <app:input id="motivo1" label="eti.visortarea.form.label.motivo" value="${tarea.motivo1}" cells="6" readonly="false"/>
+
 </div>
 
 <div class="spacer_t1"></div>
@@ -14,7 +15,7 @@
 
     <app:input id="tipoAviso2" value="${tarea.tipoAviso2}" cells="6" readonly="true"/>
 
-    <app:input id="motivo2" value="${tarea.motivo2}" cells="6" readonly="true"/>
+    <app:input id="motivo2" value="${tarea.motivo2}" cells="6" readonly="false"/>
 
 </div>
 
@@ -23,7 +24,7 @@
 
     <app:input id="tipoAviso3" value="${tarea.tipoAviso3}" cells="6" readonly="true"/>
 
-    <app:input id="motivo3" value="${tarea.motivo3}" cells="6" readonly="true"/>
+    <app:input id="motivo3" value="${tarea.motivo3}" cells="6" readonly="false"/>
 
 </div>
 <!-- row -->

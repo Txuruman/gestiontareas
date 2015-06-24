@@ -16,26 +16,11 @@ import java.util.Map;
 @RequestMapping("/test.htm")
 public class TestController {
 
-    @PostConstruct
-    public void postConstruct() {
-        System.out.printf("hola");
-    }
-
-    @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView initForm(ModelMap model){
-        ModelAndView mv = new ModelAndView("test");
-
-        //TODO Borrar, temporal para ver los parámetros enviados a la página
-        mv.addObject("todosparametros");
-
-        return mv;
-    }
-
+    @RequestMapping
     public ModelAndView handleRequest(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
-        ModelAndView mv = new ModelAndView("buscartarea");
 
-        //TODO Borrar, temporal para ver los parámetros enviados a la página
-        mv.addObject("todosparametros", createParameterMap(hsr));
+
+        ModelAndView mv = new ModelAndView("test");
 
         return mv;
     }

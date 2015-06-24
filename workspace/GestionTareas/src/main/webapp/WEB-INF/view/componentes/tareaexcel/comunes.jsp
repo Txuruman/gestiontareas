@@ -5,8 +5,8 @@
 
 <div class="row">
 
-  <app:input id="motivosCierre" label="eti.visortarea.form.label.motivosCierre" value="${tarea.motivosCierre}" cells="6" readonly="true"/>
-  <app:input id="compensacion" label="eti.visortarea.form.label.compensacion" value="${tarea.compensacion}" cells="6" readonly="true"/>
+  <app:input id="motivosCierre" label="eti.visortarea.form.label.motivosCierre" value="${tarea.motivosCierre}" cells="6" readonly="false"/>
+  <app:input id="compensacion" label="eti.visortarea.form.label.compensacion" value="${tarea.compensacion}" cells="6" readonly="false"/>
 
 </div>
 

@@ -5,7 +5,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 
-<html>
+<html ng-app>
 <head>
 
     <title>Welcome</title>
@@ -46,6 +46,7 @@ Enlaces
     </li>
 </ul>
 
+<h2><a href="test.htm">test</a></h2>
 
 
 </body>

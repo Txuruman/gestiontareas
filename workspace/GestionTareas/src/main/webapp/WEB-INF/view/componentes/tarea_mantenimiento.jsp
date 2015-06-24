@@ -37,13 +37,13 @@
 </div>
 <div class="spacer_t1"></div>
 <div class="row">
-    <app:input id="tipificacion" label="eti.visortarea.mantenimiento.form.label.tipificacion" value="${tarea.tipificacion}" cells="6" readonly="true"/>
+    <app:input id="tipificacion" label="eti.visortarea.mantenimiento.form.label.tipificacion" value="${tarea.tipificacion}" cells="6" readonly="false"/>
     <app:input id="agenteAsignado" label="eti.visortarea.mantenimiento.form.label.agenteAsignado" value="${tarea.agenteAsignado}" cells="6" readonly="true"/>
 </div>
 <div class="spacer_t1"></div>
 <div class="row">
     <app:input id="agenteCierre" label="eti.visortarea.mantenimiento.form.label.agenteCierre" value="${tarea.agenteCierre}" cells="6" readonly="true"/>
-    <app:input id="opcionTipificacion" label="eti.visortarea.mantenimiento.form.label.opcionTipificacion" value="${tarea.opcionTipificacion}" cells="6" readonly="true"/>
+    <app:input id="opcionTipificacion" label="eti.visortarea.mantenimiento.form.label.opcionTipificacion" value="${tarea.opcionTipificacion}" cells="6" readonly="false"/>
 </div>
 
 <!--
