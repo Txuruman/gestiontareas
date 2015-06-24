@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/"
+                  xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+                  xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsTicketsv2/"
+                  xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+                  xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://wsTicketsv2/"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:types>
+        <s:schema elementFormDefault="qualified" targetNamespace="http://wsTicketsv2/">
+            <s:element name="Create">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="Info" type="s:string"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="CreateResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="CreateResult" type="s:string"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="CreateXml">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="XmlInfo">
+                            <s:complexType mixed="true">
+                                <s:sequence>
+                                    <s:any/>
+                                </s:sequence>
+                            </s:complexType>
+                        </s:element>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="CreateXmlResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="CreateXmlResult">
+                            <s:complexType mixed="true">
+                                <s:sequence>
+                                    <s:any/>
+                                </s:sequence>
+                            </s:complexType>
+                        </s:element>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="UpdateTicket">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="Info" type="s:string"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="UpdateTicketResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="UpdateTicketResult" type="s:string"/>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="string" nillable="true" type="s:string"/>
+        </s:schema>
+    </wsdl:types>
+    <wsdl:message name="CreateSoapIn">
+        <wsdl:part name="parameters" element="tns:Create"/>
+    </wsdl:message>
+    <wsdl:message name="CreateSoapOut">
+        <wsdl:part name="parameters" element="tns:CreateResponse"/>
+    </wsdl:message>
+    <wsdl:message name="CreateXmlSoapIn">
+        <wsdl:part name="parameters" element="tns:CreateXml"/>
+    </wsdl:message>
+    <wsdl:message name="CreateXmlSoapOut">
+        <wsdl:part name="parameters" element="tns:CreateXmlResponse"/>
+    </wsdl:message>
+    <wsdl:message name="UpdateTicketSoapIn">
+        <wsdl:part name="parameters" element="tns:UpdateTicket"/>
+    </wsdl:message>
+    <wsdl:message name="UpdateTicketSoapOut">
+        <wsdl:part name="parameters" element="tns:UpdateTicketResponse"/>
+    </wsdl:message>
+    <wsdl:message name="CreateHttpGetIn">
+        <wsdl:part name="Info" type="s:string"/>
+    </wsdl:message>
+    <wsdl:message name="CreateHttpGetOut">
+        <wsdl:part name="Body" element="tns:string"/>
+    </wsdl:message>
+    <wsdl:message name="UpdateTicketHttpGetIn">
+        <wsdl:part name="Info" type="s:string"/>
+    </wsdl:message>
+    <wsdl:message name="UpdateTicketHttpGetOut">
+        <wsdl:part name="Body" element="tns:string"/>
+    </wsdl:message>
+    <wsdl:message name="CreateHttpPostIn">
+        <wsdl:part name="Info" type="s:string"/>
+    </wsdl:message>
+    <wsdl:message name="CreateHttpPostOut">
+        <wsdl:part name="Body" element="tns:string"/>
+    </wsdl:message>
+    <wsdl:message name="UpdateTicketHttpPostIn">
+        <wsdl:part name="Info" type="s:string"/>
+    </wsdl:message>
+    <wsdl:message name="UpdateTicketHttpPostOut">
+        <wsdl:part name="Body" element="tns:string"/>
+    </wsdl:message>
+    <wsdl:portType name="wsTicketsSoap">
+        <wsdl:operation name="Create">
+            <wsdl:input message="tns:CreateSoapIn"/>
+            <wsdl:output message="tns:CreateSoapOut"/>
+        </wsdl:operation>
+        <wsdl:operation name="CreateXml">
+            <wsdl:input message="tns:CreateXmlSoapIn"/>
+            <wsdl:output message="tns:CreateXmlSoapOut"/>
+        </wsdl:operation>
+        <wsdl:operation name="UpdateTicket">
+            <wsdl:input message="tns:UpdateTicketSoapIn"/>
+            <wsdl:output message="tns:UpdateTicketSoapOut"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:portType name="wsTicketsHttpGet">
+        <wsdl:operation name="Create">
+            <wsdl:input message="tns:CreateHttpGetIn"/>
+            <wsdl:output message="tns:CreateHttpGetOut"/>
+        </wsdl:operation>
+        <wsdl:operation name="UpdateTicket">
+            <wsdl:input message="tns:UpdateTicketHttpGetIn"/>
+            <wsdl:output message="tns:UpdateTicketHttpGetOut"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:portType name="wsTicketsHttpPost">
+        <wsdl:operation name="Create">
+            <wsdl:input message="tns:CreateHttpPostIn"/>
+            <wsdl:output message="tns:CreateHttpPostOut"/>
+        </wsdl:operation>
+        <wsdl:operation name="UpdateTicket">
+            <wsdl:input message="tns:UpdateTicketHttpPostIn"/>
+            <wsdl:output message="tns:UpdateTicketHttpPostOut"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="wsTicketsSoap" type="tns:wsTicketsSoap">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="Create">
+            <soap:operation soapAction="http://wsTicketsv2/Create" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="CreateXml">
+            <soap:operation soapAction="http://wsTicketsv2/CreateXml" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="UpdateTicket">
+            <soap:operation soapAction="http://wsTicketsv2/UpdateTicket" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="wsTicketsSoap12" type="tns:wsTicketsSoap">
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="Create">
+            <soap12:operation soapAction="http://wsTicketsv2/Create" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="CreateXml">
+            <soap12:operation soapAction="http://wsTicketsv2/CreateXml" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="UpdateTicket">
+            <soap12:operation soapAction="http://wsTicketsv2/UpdateTicket" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="wsTicketsHttpGet" type="tns:wsTicketsHttpGet">
+        <http:binding verb="GET"/>
+        <wsdl:operation name="Create">
+            <http:operation location="/Create"/>
+            <wsdl:input>
+                <http:urlEncoded/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:mimeXml part="Body"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="UpdateTicket">
+            <http:operation location="/UpdateTicket"/>
+            <wsdl:input>
+                <http:urlEncoded/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:mimeXml part="Body"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="wsTicketsHttpPost" type="tns:wsTicketsHttpPost">
+        <http:binding verb="POST"/>
+        <wsdl:operation name="Create">
+            <http:operation location="/Create"/>
+            <wsdl:input>
+                <mime:content type="application/x-www-form-urlencoded"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:mimeXml part="Body"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="UpdateTicket">
+            <http:operation location="/UpdateTicket"/>
+            <wsdl:input>
+                <mime:content type="application/x-www-form-urlencoded"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:mimeXml part="Body"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="wsTickets">
+        <wsdl:port name="wsTicketsSoap" binding="tns:wsTicketsSoap">
+            <soap:address location="http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx"/>
+        </wsdl:port>
+        <wsdl:port name="wsTicketsSoap12" binding="tns:wsTicketsSoap12">
+            <soap12:address location="http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx"/>
+        </wsdl:port>
+        <wsdl:port name="wsTicketsHttpGet" binding="tns:wsTicketsHttpGet">
+            <http:address location="http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx"/>
+        </wsdl:port>
+        <wsdl:port name="wsTicketsHttpPost" binding="tns:wsTicketsHttpPost">
+            <http:address location="http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
