@@ -35,12 +35,12 @@
     <!-- Valores para el campo DESPLEGABLE DE CIERRE , que se rellenarán en función del tipo de aviso    -->
 
     <util:map id="datosAdicionalesCierreTareaAviso" map-class="java.util.HashMap" key-type="java.lang.Integer" value-type="java.lang.String">
-        <entry key="1"  value="Dato Adicional Cierre 1"/>
+        <entry key="1" value="Dato Adicional Cierre 1"/>
         <entry key="2" value="Dato Adicional Cierre 2"/>
     </util:map>
 
     <util:map id="datosAdicionalesCierreTareaExcel" map-class="java.util.HashMap" key-type="java.lang.Integer" value-type="java.lang.String">
-        <entry key="1"  value="Dato Adicional Cierre 1"/>
+        <entry key="1" value="Dato Adicional Cierre 1"/>
         <entry key="2" value="Dato Adicional Cierre 2"/>
     </util:map>
 
@@ -48,16 +48,16 @@
     La clave del primer mapa es el tipo de la tarea de Aviso
     -->
     <util:map id="datosCierreTareaAviso" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.util.Map">
-        <entry key="111"  >
-            <util:map  map-class="java.util.HashMap" key-type="java.lang.Integer" value-type="java.lang.String">
-                <entry key="1"  value="Dato  Cierre 1 tipo 111"/>
-                <entry key="2"  value="Dato  Cierre 2 tipo 111"/>
+        <entry key="111">
+            <util:map map-class="java.util.HashMap" key-type="java.lang.Integer" value-type="java.lang.String">
+                <entry key="1" value="Dato  Cierre 1 tipo 111"/>
+                <entry key="2" value="Dato  Cierre 2 tipo 111"/>
             </util:map>
         </entry>
-        <entry key="222"  >
-            <util:map  map-class="java.util.HashMap" key-type="java.lang.Integer" value-type="java.lang.String">
-                <entry key="1"  value="Dato  Cierre 1 tipo 222"/>
-                <entry key="2"  value="Dato  Cierre 2 tipo 222"/>
+        <entry key="222">
+            <util:map map-class="java.util.HashMap" key-type="java.lang.Integer" value-type="java.lang.String">
+                <entry key="1" value="Dato  Cierre 1 tipo 222"/>
+                <entry key="2" value="Dato  Cierre 2 tipo 222"/>
             </util:map>
         </entry>
     </util:map>

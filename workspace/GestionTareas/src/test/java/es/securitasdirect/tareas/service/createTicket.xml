@@ -1,0 +1,16 @@
+<DATA>
+    <USER idUser='A13003' idCountry='01' idLanguage='ES' t='NOSESSION'/>
+    <TICKET numInst='731483' observ="Texto Aviso" codZIP="28033" closeTicket="1" dataAditional="" noteClose="" morDebt="0" typePanel="SDMF">
+        <REQ idReq="GPD" reqName="" reqLname1="" reqLname2="" reqCif="" reqEmpl="A13003"/>
+        <ASGTO idAsg="GPD" idUser=""/>
+        <COMM name="" lName1="" lName2="" inChannel="AUTO" value="" coment="" outChannel="" from="0" to="0"/>
+        <OPCOD codKey1="200" codKey2="210"/>
+        <CLCOD codKey3="" codKey4="MANTEN"/>
+    </TICKET>
+    <SVRQ makeSVRQ="1" idTec="CUSTVER" insBoli="1">
+        <ITEMS>
+            <item idType="200" idProblem="210" count="1" idItemIBS=""/>
+            <item idType="200" idProblem="212" count="1" idItemIBS=""/>
+        </ITEMS>
+    </SVRQ>
+</DATA>

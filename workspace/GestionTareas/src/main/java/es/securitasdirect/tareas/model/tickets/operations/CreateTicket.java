@@ -1,6 +1,8 @@
 package es.securitasdirect.tareas.model.tickets.operations;
 
+import es.securitasdirect.tareas.model.tickets.Svrq;
 import es.securitasdirect.tareas.model.tickets.Ticket;
+import es.securitasdirect.tareas.model.tickets.User;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -17,6 +19,23 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class CreateTicket {
 
 
+    /*
+     * USER
+     */
+    @XmlElement(name = "USER")
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    /*
+     * TICKET
+     */
     @XmlElement(name = "TICKET")
     private Ticket ticket;
 
@@ -27,4 +46,19 @@ public class CreateTicket {
     public void setTicket(Ticket ticket) {
         this.ticket = ticket;
     }
+
+    /*
+     * SVRQ
+     */
+    @XmlElement(name = "SVRQ")
+    private Svrq svrq;
+
+    public Svrq getSvrq() {
+        return svrq;
+    }
+
+    public void setSvrq(Svrq svrq) {
+        this.svrq = svrq;
+    }
+
 }
