@@ -9,14 +9,28 @@
 	]]></description>
 
 
+
     <!-- context -->
     <context:component-scan base-package="es.securitasdirect.senales">
         <!-- exclude web beans as they live in the web application context -->
         <!-- Note: this regexp does not work if you try to escape the '.' -->
+        <context:exclude-filter type="regex" expression="es.securitasdirect.senales.web.*"/>
     </context:component-scan>
+    <!--<context:property-placeholder location="classpath*:database.properties,classpath*:hibernate.properties,classpath*:app-version.properties"/>-->
+
     <!--
     <context:property-placeholder location="classpath*:database.properties,classpath*:hibernate.properties,classpath*:app-version.properties"/>
     -->
 
+    <!-- Configuration of the different JMSReader over different queues -->
+    <bean id="jmsReaderPozuelo" class="es.securitasdirect.senales.jms.JMSReader" lazy-init="false">
+
+    </bean>
+    <bean id="jmsReaderYecora" class="es.securitasdirect.senales.jms.JMSReader" lazy-init="false">
+
+    </bean>
+    <bean id="jmsReaderErrores" class="es.securitasdirect.senales.jms.JMSReader" lazy-init="false">
+
+    </bean>
 
 </beans>
