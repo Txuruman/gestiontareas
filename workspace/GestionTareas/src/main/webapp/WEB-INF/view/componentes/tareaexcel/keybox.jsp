@@ -5,7 +5,7 @@
 
 <div class="spacer_t1"></div>
 <jsp:include page="comunes.jsp"/>
-<div class="spacer_t2"></div>
+<div class="spacer_t1"></div>
 <div class="row">
 
     <app:input id="numeroFactura" label="eti.visortarea.form.label.numeroFactura" value="${tarea.numeroFactura}" cells="6" readonly="true"/>
@@ -19,7 +19,7 @@
     <app:input id="identificadorItem" label="eti.visortarea.form.label.identificadorItem" value="${tarea.identificadorItem}" cells="6" readonly="true"/>
 
 </div>
-<div class="spacer_t2"></div>
+<div class="spacer_t1"></div>
 <div class="row">
 
     <app:input id="contrato" label="eti.visortarea.form.label.contrato" value="${tarea.contrato}" cells="6" readonly="true"/>

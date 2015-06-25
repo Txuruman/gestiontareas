@@ -37,7 +37,7 @@
             <label for="ejemplo_email_3"
                    class="col-lg-4 col-md-4 col-sm-4 col-xs-4 control-label labelcent">Cierre</label>
 
-            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                 <select class="form-control">
                     <option>option1</option>
                     <option>option2</option>
@@ -54,7 +54,7 @@
                    class="col-lg-4 col-md-4 col-sm-4 col-xs-4 control-label labelcent">Datos
                 adicionales de cierre</label>
 
-            <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                 <select class="form-control">
                     <option>option1</option>
                     <option>option2</option>
