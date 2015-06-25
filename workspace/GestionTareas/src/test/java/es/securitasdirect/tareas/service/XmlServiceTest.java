@@ -55,7 +55,6 @@ public class XmlServiceTest {
         List create_list_item = new ArrayList();
 
 
-
         createTicket.setTicket(new Ticket());
         createTicket.setUser(new User());
         createTicket.setSvrq(new Svrq());
