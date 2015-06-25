@@ -9,6 +9,7 @@
   <app:input id="compensacion" label="eti.visortarea.form.label.compensacion" value="${tarea.compensacion}" cells="6" readonly="false"/>
 
 </div>
+<div class="spacer_t2"></div>
 
 <!--
 motivosCierre=null,
