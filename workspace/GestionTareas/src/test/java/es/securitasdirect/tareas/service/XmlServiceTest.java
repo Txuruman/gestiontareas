@@ -12,6 +12,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.inject.Inject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsNull.notNullValue;
 
@@ -47,9 +50,16 @@ public class XmlServiceTest {
         Comm createComm = new Comm();
         Opcod createOpcod = new Opcod();
         Clcod createClcod = new Clcod();
+        Item createItem = new Item();
+        Item createItem2 = new Item();
+        List create_list_item = new ArrayList();
+
+
+
         createTicket.setTicket(new Ticket());
         createTicket.setUser(new User());
         createTicket.setSvrq(new Svrq());
+        //TODO VOY POR AQUI Y FALTA LA LISTA DE ITEMS
 
 
 
@@ -86,8 +96,19 @@ public class XmlServiceTest {
         createClcod.setCodKey3("");
         createClcod.setCodKey4("MANTEN");
 
+        /*<ITEM></ITEM>*/
 
+        createItem.setIdType("200");
+        createItem.setIdProblem("210");
+        createItem.setCount("1");
+        createItem.setIdItemIBS("");
+        create_list_item.add(createItem);
 
+        createItem2.setIdType("300");
+        createItem2.setIdProblem("500");
+        createItem2.setCount("1");
+        createItem2.setIdItemIBS("");
+        create_list_item.add(createItem2);
 
         /*
          * <USER></USER>
@@ -118,9 +139,6 @@ public class XmlServiceTest {
         createTicket.getTicket().setOpcod(createOpcod);
         createTicket.getTicket().setClcod(createClcod);
 
-
-
-
         /*
          * <SVRQ></SVRQ>
          */
@@ -128,6 +146,17 @@ public class XmlServiceTest {
         createTicket.getSvrq().setMakeSVRQ("1");
         createTicket.getSvrq().setIdTec("CUSTVER");
         createTicket.getSvrq().setInsBoli("1");
+
+        createTicket.getSvrq().setItems(new ArrayList<Item>());
+        createTicket.getSvrq().setItems(create_list_item);
+
+
+
+
+        /* <ITEMS</ITEMS*/
+
+
+
 
 
         String xmlCreateTicket = xmlMarshaller.marshalObject(createTicket);

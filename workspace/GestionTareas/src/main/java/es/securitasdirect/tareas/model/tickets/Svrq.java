@@ -1,19 +1,31 @@
 package es.securitasdirect.tareas.model.tickets;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
+import java.util.List;
 
 @XmlRootElement(name = "SVRQ")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Svrq {
+
+    @XmlElementWrapper( name="LISTADE" )
+    @XmlElement(name = "item")
+    List<Item> items;
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
     @XmlAttribute
     String makeSVRQ;
     @XmlAttribute
     String idTec;
     @XmlAttribute
     String insBoli;
+
 
     public String getMakeSVRQ() {
         return makeSVRQ;
