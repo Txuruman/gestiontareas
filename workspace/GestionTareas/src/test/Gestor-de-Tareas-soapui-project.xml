@@ -12250,7 +12250,7 @@
          <country>?</country>
       </web:checkAgentStatus>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/checkAgentStatusRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="checkCallingListContact" bindingOperationName="checkCallingListContact" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/checkAgentStatusRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="" name="checkCallingListContact" bindingOperationName="checkCallingListContact" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
    <soapenv:Header/>
    <soapenv:Body>
       <web:checkCallingListContact>
@@ -12549,20 +12549,20 @@
          <country>?</country>
       </web:dialNumberExtensionSITE>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/dialNumberExtensionSITERequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="getCallingListANDCampaign" bindingOperationName="getCallingListANDCampaign" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/dialNumberExtensionSITERequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="getCallingListANDCampaign" bindingOperationName="getCallingListANDCampaign" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
    <soapenv:Header/>
    <soapenv:Body>
       <web:getCallingListANDCampaign>
          <!--Optional:-->
-         <ccIdentifier>?</ccIdentifier>
+         <ccIdentifier>9</ccIdentifier>
          <!--Optional:-->
-         <applicationUser>?</applicationUser>
+         <applicationUser>9</applicationUser>
          <!--Optional:-->
-         <ccUserId>?</ccUserId>
+         <ccUserId>9</ccUserId>
          <!--Optional:-->
-         <identifier>?</identifier>
+         <identifier>9</identifier>
          <!--Optional:-->
-         <country>?</country>
+         <country>SPAIN</country>
       </web:getCallingListANDCampaign>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/getCallingListANDCampaignRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="" name="getCallStatus" bindingOperationName="getCallStatus" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
@@ -13091,7 +13091,7 @@
          <country>?</country>
       </web:sendEmail>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/sendEmailRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="sendSMS" bindingOperationName="sendSMS" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/sendEmailRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="sendSMS" bindingOperationName="sendSMS" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
    <soapenv:Header/>
    <soapenv:Body>
       <web:sendSMS>
@@ -13111,7 +13111,7 @@
          <country>?</country>
       </web:sendSMS>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/sendSMSRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="startCampaign" bindingOperationName="startCampaign" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/sendSMSRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="" name="startCampaign" bindingOperationName="startCampaign" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
    <soapenv:Header/>
    <soapenv:Body>
       <web:startCampaign>
@@ -13398,4 +13398,312 @@
          <country>?</country>
       </web:userLogout>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/userLogoutRequest"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/userLogoutRequest"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="wsTicketsSoap12" type="wsdl" bindingName="{http://wsTicketsv2/}wsTicketsSoap12" soapVersion="1_2" anonymous="optional" definition="http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx?WSDL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache/><con:endpoints><con:endpoint>http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx</con:endpoint></con:endpoints><con:operation isOneWay="false" action="http://wsTicketsv2/Create" name="Create" bindingOperationName="Create" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:wst="http://wsTicketsv2/">
+   <soap:Header/>
+   <soap:Body>
+      <wst:Create>
+         <!--Optional:-->
+         <wst:Info>?</wst:Info>
+      </wst:Create>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://wsTicketsv2/wsTicketsSoap/CreateRequest"/></con:call></con:operation><con:operation isOneWay="false" action="http://wsTicketsv2/CreateXml" name="CreateXml" bindingOperationName="CreateXml" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:wst="http://wsTicketsv2/">
+   <soap:Header/>
+   <soap:Body>
+      <wst:CreateXml>
+         <!--Optional:-->
+         <wst:XmlInfo>
+            e
+            <!--You may enter ANY elements at this point-->
+            gero
+         </wst:XmlInfo>
+      </wst:CreateXml>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://wsTicketsv2/wsTicketsSoap/CreateXmlRequest"/></con:call></con:operation><con:operation isOneWay="false" action="http://wsTicketsv2/UpdateTicket" name="UpdateTicket" bindingOperationName="UpdateTicket" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:wst="http://wsTicketsv2/">
+   <soap:Header/>
+   <soap:Body>
+      <wst:UpdateTicket>
+         <!--Optional:-->
+         <wst:Info>?</wst:Info>
+      </wst:UpdateTicket>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://wsTicketsv2/wsTicketsSoap/UpdateTicketRequest"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="wsTicketsSoap" type="wsdl" bindingName="{http://wsTicketsv2/}wsTicketsSoap" soapVersion="1_1" anonymous="optional" definition="http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx?WSDL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx?WSDL"><con:part><con:url>http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx?WSDL</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://wsTicketsv2/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://wsTicketsv2/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://wsTicketsv2/">
+      <s:element name="Create">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Info" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateResult" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateXml">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="XmlInfo">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any/>
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateXmlResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateXmlResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any/>
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateTicket">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Info" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateTicketResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateTicketResult" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string"/>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="CreateSoapIn">
+    <wsdl:part name="parameters" element="tns:Create"/>
+  </wsdl:message>
+  <wsdl:message name="CreateSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateResponse"/>
+  </wsdl:message>
+  <wsdl:message name="CreateXmlSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateXml"/>
+  </wsdl:message>
+  <wsdl:message name="CreateXmlSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateXmlResponse"/>
+  </wsdl:message>
+  <wsdl:message name="UpdateTicketSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateTicket"/>
+  </wsdl:message>
+  <wsdl:message name="UpdateTicketSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateTicketResponse"/>
+  </wsdl:message>
+  <wsdl:message name="CreateHttpGetIn">
+    <wsdl:part name="Info" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="CreateHttpGetOut">
+    <wsdl:part name="Body" element="tns:string"/>
+  </wsdl:message>
+  <wsdl:message name="UpdateTicketHttpGetIn">
+    <wsdl:part name="Info" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="UpdateTicketHttpGetOut">
+    <wsdl:part name="Body" element="tns:string"/>
+  </wsdl:message>
+  <wsdl:message name="CreateHttpPostIn">
+    <wsdl:part name="Info" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="CreateHttpPostOut">
+    <wsdl:part name="Body" element="tns:string"/>
+  </wsdl:message>
+  <wsdl:message name="UpdateTicketHttpPostIn">
+    <wsdl:part name="Info" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="UpdateTicketHttpPostOut">
+    <wsdl:part name="Body" element="tns:string"/>
+  </wsdl:message>
+  <wsdl:portType name="wsTicketsSoap">
+    <wsdl:operation name="Create">
+      <wsdl:input message="tns:CreateSoapIn"/>
+      <wsdl:output message="tns:CreateSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="CreateXml">
+      <wsdl:input message="tns:CreateXmlSoapIn"/>
+      <wsdl:output message="tns:CreateXmlSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTicket">
+      <wsdl:input message="tns:UpdateTicketSoapIn"/>
+      <wsdl:output message="tns:UpdateTicketSoapOut"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="wsTicketsHttpGet">
+    <wsdl:operation name="Create">
+      <wsdl:input message="tns:CreateHttpGetIn"/>
+      <wsdl:output message="tns:CreateHttpGetOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTicket">
+      <wsdl:input message="tns:UpdateTicketHttpGetIn"/>
+      <wsdl:output message="tns:UpdateTicketHttpGetOut"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="wsTicketsHttpPost">
+    <wsdl:operation name="Create">
+      <wsdl:input message="tns:CreateHttpPostIn"/>
+      <wsdl:output message="tns:CreateHttpPostOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTicket">
+      <wsdl:input message="tns:UpdateTicketHttpPostIn"/>
+      <wsdl:output message="tns:UpdateTicketHttpPostOut"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="wsTicketsSoap" type="tns:wsTicketsSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="Create">
+      <soap:operation soapAction="http://wsTicketsv2/Create" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateXml">
+      <soap:operation soapAction="http://wsTicketsv2/CreateXml" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTicket">
+      <soap:operation soapAction="http://wsTicketsv2/UpdateTicket" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="wsTicketsSoap12" type="tns:wsTicketsSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="Create">
+      <soap12:operation soapAction="http://wsTicketsv2/Create" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateXml">
+      <soap12:operation soapAction="http://wsTicketsv2/CreateXml" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTicket">
+      <soap12:operation soapAction="http://wsTicketsv2/UpdateTicket" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="wsTicketsHttpGet" type="tns:wsTicketsHttpGet">
+    <http:binding verb="GET"/>
+    <wsdl:operation name="Create">
+      <http:operation location="/Create"/>
+      <wsdl:input>
+        <http:urlEncoded/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTicket">
+      <http:operation location="/UpdateTicket"/>
+      <wsdl:input>
+        <http:urlEncoded/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="wsTicketsHttpPost" type="tns:wsTicketsHttpPost">
+    <http:binding verb="POST"/>
+    <wsdl:operation name="Create">
+      <http:operation location="/Create"/>
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTicket">
+      <http:operation location="/UpdateTicket"/>
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="wsTickets">
+    <wsdl:port name="wsTicketsSoap" binding="tns:wsTicketsSoap">
+      <soap:address location="http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx"/>
+    </wsdl:port>
+    <wsdl:port name="wsTicketsSoap12" binding="tns:wsTicketsSoap12">
+      <soap12:address location="http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx"/>
+    </wsdl:port>
+    <wsdl:port name="wsTicketsHttpGet" binding="tns:wsTicketsHttpGet">
+      <http:address location="http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx"/>
+    </wsdl:port>
+    <wsdl:port name="wsTicketsHttpPost" binding="tns:wsTicketsHttpPost">
+      <http:address location="http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx</con:endpoint></con:endpoints><con:operation isOneWay="false" action="http://wsTicketsv2/Create" name="Create" bindingOperationName="Create" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wst="http://wsTicketsv2/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <wst:Create>
+         <!--Optional:-->
+         <wst:Info>?</wst:Info>
+      </wst:Create>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://wsTicketsv2/Create"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://wsTicketsv2/CreateXml" name="CreateXml" bindingOperationName="CreateXml" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wst="http://wsTicketsv2/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <wst:CreateXml>
+         <!--Optional:-->
+         <wst:XmlInfo>
+            e
+            
+            gero
+         </wst:XmlInfo>
+      </wst:CreateXml>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://wsTicketsv2/CreateXml"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://wsTicketsv2/UpdateTicket" name="UpdateTicket" bindingOperationName="UpdateTicket" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wst="http://wsTicketsv2/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <wst:UpdateTicket>
+         <!--Optional:-->
+         <wst:Info>?</wst:Info>
+      </wst:UpdateTicket>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://wsTicketsv2/UpdateTicket"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:sensitiveInformation/></con:soapui-project>

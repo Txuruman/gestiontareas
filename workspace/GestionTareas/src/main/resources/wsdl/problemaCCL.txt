@@ -1,0 +1,9 @@
+[ERROR] Failed to execute goal org.apache.cxf:cxf-codegen-plugin:2.7.3:wsdl2java (generate-sources-clients) on project GestionTareas: Execution generate-sources-clients of goal org.apache.cxf:cxf-codegen-plugin:2.7.3:wsdl2java failed: org.apache.cxf.wsdl11.WSDLRuntimeException: Fail to create wsdl definition from : file:/C:/AGS/TeamVision/GestionTareas/workspace/GestionTareas/src/main/resources/wsdl/CCLIntegrationService.wsdl
+[ERROR] Caused by : WSDLException (at /definitions/types/xsd:schema[1]): faultCode=PARSER_ERROR: Problem parsing 'http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService?xsd=1'.: java.net.NoRouteToHostException: No route to host: connect
+[ERROR] -> [Help 1]
+[ERROR]
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR]
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/PluginExecutionException
