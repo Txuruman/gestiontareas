@@ -20,12 +20,13 @@
 
 <div class="row">
     <app:input id="razonClaveValoracion" label="eti.visortarea.form.label.razonClaveValoracion" value="${tarea.razonClaveValoracion}" cells="6" readonly="true"/>
+    <app:input id="compromiso" label="eti.visortarea.form.label.compromiso" value="${tarea.compromiso}" cells="6" readonly="true"/>
 </div>
 <div class="spacer_t1"></div>
 
 <div class="row">
     <app:input id="solucion" label="eti.visortarea.form.label.solucion" value="${tarea.solucion}" cells="6" readonly="true"/>
-    <app:input id="compromiso" label="eti.visortarea.form.label.compromiso" value="${tarea.compromiso}" cells="6" readonly="true"/>
+
 </div>
 <div class="spacer_t1"></div>
 
