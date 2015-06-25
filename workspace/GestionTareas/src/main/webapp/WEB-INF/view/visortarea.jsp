@@ -36,7 +36,7 @@
         <div class="row">
 
 
-            <app:input id="ninstalacion" label="eti.visortarea.form.label.ninstalacion" value="${installationData.numeroInstalacion}" cells="6" readonly="true"/>
+            <app:input id="ninstalacion" label="eti.visortarea.form.label.ninstalacion" value="${installationData.numeroInstalacion}" cells="6" cell_label="9" cell_input="6" readonly="true"/>
 
             <app:input id="titular" label="eti.visortarea.form.label.titular" value="${installationData.titular}" cells="6" readonly="true"/>
 
@@ -74,16 +74,16 @@
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <div class="row text-right">
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                        <input type="submit" class="btn btn-default" value="Aplazar"/>
+                        <input type="submit" class="btn btn-default" value="<spring:message code="VisorTarea.boton.Aplazar" />"/>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                        <input type="submit" class="btn btn-default" value="Descartar"/>
+                        <input type="submit" class="btn btn-default" value="<spring:message code="VisorTarea.boton.Descartar"/>"/>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                        <input type="submit" class="btn btn-default" value="LLamar"/>
+                        <input type="submit" class="btn btn-default" value="<spring:message code="VisorTarea.boton.Llamar"/>"/>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                        <input type="submit" class="btn btn-primary" value="Finalizar"/>
+                        <input type="submit" class="btn btn-primary" value="<spring:message code="VisorTarea.boton.Finalizar"/>"/>
                     </div>
 
                 </div>
@@ -97,9 +97,9 @@
 
 </div>
 <!-- Container -->
-InstallationData : ${installationData}<br/>
-Tarea : ${tarea}<br/>
-Parametros: ${todosparametros}
+<%--InstallationData : ${installationData}<br/>--%>
+<%--Tarea : ${tarea}<br/>--%>
+<%--Parametros: ${todosparametros}--%>
 
 </body>
 </html>

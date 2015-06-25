@@ -9,15 +9,30 @@
 <%@ attribute name="required" required="false" description="If the field is required true/false" %>
 <%@ attribute name="readonly" required="false" description="If the field is readonly true/false" %>
 <%@ attribute name="maxlength" required="false" description="The maximum number of characters allowed in the <input> element" %>
+<%@ attribute name="cell_label" required="false"  description="The maximun cells label in parent space" type="java.lang.Integer" %>
+<%@ attribute name="cell_input" required="false"  description="The maximun cells label in parent space" %>
 
+<c:if test="${cell_label == null}">
+    <c:set var="cell_label" value="4"/>
+</c:if>
+
+<c:if test="${cell_input == null}">
+    <c:set var="cell_input" value="8"/>
+</c:if>
+
+<c:if test="${cell_label + cell_input > 12}">
+    <c:set var="cell_label" value="4"/>
+    <c:set var="cell_input" value="8"/>
+    <% System.out.println("Por favor introducir valores que sumen entre el label y el input un total de maximpo 12");%>
+</c:if>
 
 <div class="col-lg-${cells} col-md-${cells} col-sm-${cells} col-xs-${cells}">
-    <label class="col-lg-4 col-md-4 col-sm-4 col-xs-4 control-label labelcent ${required=='true'? 'label.required' : ''}">
+    <label class="col-lg-${cell_label} col-md-${cell_label} col-sm-${cell_label} col-xs-${cell_label} control-label labelcent ${required=='true'? 'label.required' : ''}">
         <c:if test="${label!=null && !label.isEmpty()}"> <spring:message code='${label}'/> ${required=='true'? '*' : ''}:</c:if>
     </label>
 
-    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-        <input type="text" class="form-control" name="${id}" id="${id}"
+    <div class="col-lg-${cell_input} col-md-${cell_input} col-sm-${cell_input} col-xs-${cell_input}">
+        <input type="text" class="form-control input-custom-global" name="${id}" id="${id}"
                value="${value}"
                maxlength="${maxlength}"
         ${readonly=='true'? 'disabled' : ''}

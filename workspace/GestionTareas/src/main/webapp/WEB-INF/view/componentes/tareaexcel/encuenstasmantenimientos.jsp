@@ -7,32 +7,28 @@
 <jsp:include page="comunes.jsp"/>
 <div class="spacer_t1"></div>
 <div class="row">
-
     <app:input id="numeroMantenimiento" label="eti.visortarea.form.label.numeroMantenimiento" value="${tarea.numeroMantenimiento}" cells="6" readonly="true"/>
     <app:input id="tecnico" label="eti.visortarea.form.label.tecnico" value="${tarea.tecnico}" cells="6" readonly="true"/>
-
 </div>
+<div class="spacer_t1"></div>
 
 <div class="row">
-
     <app:input id="responsable" label="eti.visortarea.form.label.responsable" value="${tarea.responsable}" cells="6" readonly="true"/>
     <app:input id="centroCoste" label="eti.visortarea.form.label.centroCoste" value="${tarea.centroCoste}" cells="6" readonly="true"/>
-
 </div>
 <div class="spacer_t1"></div>
-<div class="row">
 
+<div class="row">
     <app:input id="razonClaveValoracion" label="eti.visortarea.form.label.razonClaveValoracion" value="${tarea.razonClaveValoracion}" cells="6" readonly="true"/>
-
 </div>
 <div class="spacer_t1"></div>
-<div class="row">
 
+<div class="row">
     <app:input id="solucion" label="eti.visortarea.form.label.solucion" value="${tarea.solucion}" cells="6" readonly="true"/>
     <app:input id="compromiso" label="eti.visortarea.form.label.compromiso" value="${tarea.compromiso}" cells="6" readonly="true"/>
-
 </div>
 <div class="spacer_t1"></div>
+
 <div class="row">
     <app:input id="departamentoDestino" label="eti.visortarea.form.label.departamentoDestino" value="${tarea.departamentoDestino}" cells="6" readonly="true"/>
 </div>
