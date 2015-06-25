@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Req {
 
-    
+
     @XmlAttribute
     public String idReq;
     @XmlAttribute
