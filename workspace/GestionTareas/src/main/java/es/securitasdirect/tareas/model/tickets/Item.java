@@ -9,6 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "ITEMS")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Item {
+
     @XmlAttribute
     String idType;
     @XmlAttribute
