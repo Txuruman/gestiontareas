@@ -5,7 +5,7 @@
     <artifactId>GestionSenales</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>Gestión de Señales</name>
+    <name>Gestion de Senales</name>
 
     <properties>
         <currentVersion>${project.groupId}/${project.artifactId}/${project.version}</currentVersion>
@@ -53,8 +53,8 @@
         <!-- JMS         -->
         <!-- ~~~~~~~~~~~~~~~~ -->
         <!--<dependency>-->
-        <!--<groupId>javax.jms</groupId>-->
-        <!--<artifactId>jms-api</artifactId>-->
+        <!--<groupId>javax.reader</groupId>-->
+        <!--<artifactId>reader-api</artifactId>-->
         <!--<version>1.1-rev-1</version>-->
         <!--</dependency>-->
 
@@ -70,6 +70,31 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>13.0.1</version>
+        </dependency>
+
+        <!-- ~~~~~~~~~~~~~~~~ -->
+        <!-- CXF Web Services -->
+        <!-- ~~~~~~~~~~~~~~~~ -->
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxws</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-transports-http</artifactId>
+            <version>${cxf.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-ws-security</artifactId>
+            <version>${cxf.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>ehcache-core</artifactId>
+                    <groupId>net.sf.ehcache</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- ~~~~ -->
@@ -113,8 +138,6 @@
             <version>${logback.version}</version>
             <scope>runtime</scope>
         </dependency>
-
-
 
 
         <!-- ~~~~~~ -->
@@ -175,6 +198,11 @@
             <artifactId>spring-webmvc</artifactId>
             <version>${spring.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-oxm</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
 
         <!-- JSTL -->
         <dependency>
@@ -205,5 +233,65 @@
                 <filtering>true</filtering>
             </testResource>
         </testResources>
+
+        <plugins>
+            <!-- WSDL2Java of CXF http://nrg-edge-code.blogspot.com.es/2012/07/fixing-collisions-in-cxf-wsdl2java.html -->
+            <plugin>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-codegen-plugin</artifactId>
+                <version>${cxf.version}</version>
+                <executions>
+                    <execution>
+                        <id>generate-sources-clients</id>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <defaultOptions>
+                                <extraargs>
+
+                                    <!-- El parametro -p y su valor van en distintos parametros, sino
+                                        da error <extraarg>-p</extraarg> <extraarg>http://www.w3.org/2000/09/xmldsig#=es.cgcom.schemas.datos</extraarg> -->
+                                </extraargs>
+                            </defaultOptions>
+                            <wsdlRoot>${basedir}/src/main/resources/wsdl</wsdlRoot>
+                            <includes>
+                                <include>*.wsdl</include>
+                            </includes>
+                            <!--<wsdlOptions>-->
+                            <!--&lt;!&ndash; WS InstallationMonData &ndash;&gt;-->
+                            <!--<wsdlOption>-->
+                            <!--<wsdl>${basedir}/src/main/resources/wsdl/SP_InstallationMonData.wsdl</wsdl>-->
+                            <!--</wsdlOption>-->
+                            <!--&lt;!&ndash; WS SP_AIO_TAREAS2.wsdl-->
+                            <!--<wsdlOption>-->
+                            <!--<wsdl>${basedir}/src/main/resources/wsdl/SP_AIO_TAREAS2.wsdl</wsdl>-->
+                            <!--</wsdlOption>&ndash;&gt;-->
+                            <!--</wsdlOptions>-->
+                        </configuration>
+                        <goals>
+                            <goal>wsdl2java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.cxf.xjcplugins</groupId>
+                        <artifactId>cxf-xjc-ts</artifactId>
+                        <version>2.6.1</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.sun.xml.bind</groupId>
+                        <artifactId>jaxb-xjc</artifactId>
+                        <version>2.2.6</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.sun.xml.bind</groupId>
+                        <artifactId>jaxb-impl</artifactId>
+                        <!--<version>2.2.12</version> -->
+                        <version>2.2.6</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+
     </build>
 </project>

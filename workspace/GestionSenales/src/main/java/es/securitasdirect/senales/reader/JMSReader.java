@@ -1,4 +1,4 @@
-package es.securitasdirect.senales.jms;
+package es.securitasdirect.senales.reader;
 
 import es.securitasdirect.senales.model.Message;
 import es.securitasdirect.senales.service.GestionSenalesService;
@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
+import java.util.Date;
 
 /**
  * Lector de mensajes de bus JMS.
@@ -23,8 +24,8 @@ public class JMSReader {
 
     // Set up all the default values
     private static final String DEFAULT_MESSAGE = "Hello, World!";
-    private static final String DEFAULT_CONNECTION_FACTORY = "jms/RemoteConnectionFactory";
-    private static final String DEFAULT_DESTINATION = "jms/queue/test";
+    private static final String DEFAULT_CONNECTION_FACTORY = "reader/RemoteConnectionFactory";
+    private static final String DEFAULT_DESTINATION = "reader/queue/test";
     private static final String DEFAULT_MESSAGE_COUNT = "1";
     private static final String DEFAULT_USERNAME = "admin";
     private static final String DEFAULT_PASSWORD = "admin!";
@@ -42,7 +43,13 @@ public class JMSReader {
         assert gestionSenalesService!=null;
         LOGGER.debug("JMS Reader starting"); //TODO Imprimir config
 
-        gestionSenalesService.onMessage(new Message("HOLA1"));
+//        for (int i=0;i<10;i++) {
+//            gestionSenalesService.onMessage(new Message(new Date().toString()));
+//            try {
+//                Thread.sleep(2000);
+//            } catch (InterruptedException e) {
+//            }
+//        }
 
 //        LOGGER.debug("Starting JMS Reader");
 //        ConnectionFactory connectionFactory = null;
