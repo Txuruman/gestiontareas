@@ -3,11 +3,29 @@
 <%@ taglib prefix="app" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-Tarea Tipo Excel Encuestas Marketing
-</body>
-</html>
+<div class="spacer_t1"></div>
+<jsp:include page="comunes.jsp"/>
+<div class="spacer_t1"></div>
+<div class="row">
+
+    <app:input id="fecha" label="eti.visortarea.form.label.fecha" value="${tarea.fecha}" cells="6" readonly="true"/>
+    <app:input id="motivo" label="eti.visortarea.form.label.motivo" value="${tarea.motivo}" cells="6" readonly="true"/>
+
+</div>
+
+<!-- InstallationData : InstallationData{
+numeroInstalacion=111111,
+titular='ARATHERMIK S.L.',
+panel='SD 2000C',
+version='null',
+personaContacto='JOSE RAMON ARAGON ARRONTES'
+}
+Tarea : TareaEncuestaMarketing{
+fecha=Fri Jun 26 10:51:51 CEST 2015,
+motivo='null',
+motivosCierre=null,
+compensacion='null'
+}
+Parametros: {ins_no=111111,
+tipotarea=TareaEncuestaMarketing
+} -->

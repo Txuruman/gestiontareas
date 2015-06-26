@@ -23,7 +23,7 @@
 <c:if test="${cell_label + cell_input > 12}">
     <c:set var="cell_label" value="4"/>
     <c:set var="cell_input" value="8"/>
-    <% System.out.println("Por favor introducir valores que sumen entre el label y el input un total de maximpo 12");%>
+   <c:out value="Por favor introducir valores que sumen entre el label y el input un total de maximpo 12 "/>
 </c:if>
 
 <div class="col-lg-${cells} col-md-${cells} col-sm-${cells} col-xs-${cells}">

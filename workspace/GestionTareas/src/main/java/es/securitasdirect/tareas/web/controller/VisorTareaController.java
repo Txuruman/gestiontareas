@@ -25,7 +25,7 @@ import java.util.Map;
  */
 
 @Controller
-@RequestMapping("/visortarea.htm")
+@RequestMapping("/visortarea")
 public class VisorTareaController {
     /**
      * clases de avisos
@@ -141,6 +141,18 @@ public class VisorTareaController {
         mv.addObject("tecla1", tecla1);
         mv.addObject("tecla2", tecla2);
         mv.addObject("tecla3", tecla3);
+
+        return mv;
+    }
+
+
+    //MV DSE RESPUESTA PARA CREARTAREA EL MAPEO ESTA DENTRO DEL VISOR Y SE LLAMA ASÍ:
+    // visortarea/creartarea.htm <---- FIJARSE NO PONER LA BARRA (/) AL PRINCIPIO PARA EVITAR LLAMAR A LA RAIZ DEL SITIO Y NO DE LA APLICACION.
+
+    @RequestMapping("/creartarea.htm")
+    public ModelAndView HrCrearTarea(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception{
+       ModelAndView mv = new ModelAndView("creartarea");
+
 
         return mv;
     }

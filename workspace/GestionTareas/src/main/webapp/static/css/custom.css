@@ -52,7 +52,8 @@ label.required {
 /*	OVERWRITE TITULOS H2*/
 
 h2{
-	color: #4756ff !important;
+	/*color: #4756ff !important; color securitas direct*/
+	color: #337ab6 !important; /* color plantilla nuestra*/
 	font-style: italic;
 }
 /* OVERWRITE INPUTS */
@@ -69,7 +70,8 @@ h2{
 	padding-top: 0px !important;
 	font-size: 12px !important;
 	font-style: italic;
-	color: #04229a !important;
+	/*color: #04229a !important; color securitas direct*/
+	color: #337ab6 !important; /*color plantilla nuestra*/
 	padding-left: 5px;
 	padding-right: 5px;
 }
