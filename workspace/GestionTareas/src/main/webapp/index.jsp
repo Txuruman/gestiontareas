@@ -23,7 +23,7 @@ Enlaces
                 <ul>
                     <li><a href="visortarea.htm?ins_no=111111&tipotarea=TareaListadoAssistant">Tarea Tipo Excel Listado Assistant</a></li>
                     <li><a href="visortarea.htm?ins_no=111111&tipotarea=TareaEncuestaMantenimiento">Tarea Tipo Excel Encuestas Mantenimientos</a></li>
-                    <li><a href="visortarea.htm?ins_no=111111&tipotarea=TareaEncuestaMantenimiento">Tarea Tipo Excel Encuestas Marketing</a></li>
+                    <li><a href="visortarea.htm?ins_no=111111&tipotarea=TareaEncuestaMarketing">Tarea Tipo Excel Encuestas Marketing</a></li>
                     <li><a href="visortarea.htm?ins_no=111111&tipotarea=TareaKeybox&KEYBOX_NUMERO_FACTURA=565656">Tarea Tipo Excel Keybox</a></li>
                     <li><a href="visortarea.htm?ins_no=111111&tipotarea=TareaLimpiezaCuota">Tarea Tipo Excel Limpieza de cuota</a></li>
                     <li><a href="visortarea.htm?ins_no=111111&tipotarea=TareaOtrasCampanas">Tarea Tipo Excel Otras campañas</a></li>
@@ -38,7 +38,7 @@ Enlaces
     <li>
         Estando el agente con una interacción en curso, decide crear una Tarea o buscar una existente.<br/>
         <ul>
-            <li><a href="creartarea.htm?AGENTELOGADO=7777&NUMEROTELEFONO=69696969&INSTALACION=111111">Crear Tarea</a></li>
+            <li><a href="visortarea/creartarea.htm?AGENTELOGADO=7777&NUMEROTELEFONO=69696969&INSTALACION=111111">Crear Tarea</a></li>
             <li><a href="buscartarea.htm?AGENTELOGADO=7777&NUMEROTELEFONO=69696969&INSTALACION=111111">Buscar Tareas (Instalación con Tareas)</a></li>
             <li><a href="buscartarea.htm?AGENTELOGADO=7777&NUMEROTELEFONO=69696969&INSTALACION=222222">Buscar Tareas (Instalación sin Tareas)</a></li>
         </ul>

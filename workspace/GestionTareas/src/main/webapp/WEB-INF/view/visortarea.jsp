@@ -36,7 +36,7 @@
         <div class="row">
 
 
-            <app:input id="ninstalacion" label="eti.visortarea.form.label.ninstalacion" value="${installationData.numeroInstalacion}" cells="6" cell_label="9" cell_input="6" readonly="true"/>
+            <app:input id="ninstalacion" label="eti.visortarea.form.label.ninstalacion" value="${installationData.numeroInstalacion}" cells="6" cell_label="4" cell_input="8" readonly="true"/>
 
             <app:input id="titular" label="eti.visortarea.form.label.titular" value="${installationData.titular}" cells="6" readonly="true"/>
 
