@@ -8005,10 +8005,10 @@
 </soap:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:getInsNoFromEmail"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="urn:getInstallationData" name="getInstallationData" bindingOperationName="getInstallationData" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.2.144.63:9763/services/SP_AIO_TAREAS2.SOAP12Endpoint/</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dat="http://ws.wso2.org/dataservice">
    <soap:Header/>
    <soap:Body>
-      <dat:getInstallationData>
-         <dat:s_ins>70509</dat:s_ins>
-         <dat:s_ctr>1</dat:s_ctr>
-      </dat:getInstallationData>
+      <dat:getInstallationData2>
+         <s_ins>70509</s_ins>
+         <s_ctr>0</s_ctr>
+      </dat:getInstallationData2>
    </soap:Body>
 </soap:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:getInstallationData"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="urn:getKey1DIY" name="getKey1DIY" bindingOperationName="getKey1DIY" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.2.144.63:9763/services/SP_AIO_TAREAS2.SOAP12Endpoint/</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:dat="http://ws.wso2.org/dataservice">
    <soap:Header/>
@@ -12554,15 +12554,15 @@
    <soapenv:Body>
       <web:getCallingListANDCampaign>
          <!--Optional:-->
-         <ccIdentifier>9</ccIdentifier>
+         <ccIdentifier></ccIdentifier>
          <!--Optional:-->
-         <applicationUser>9</applicationUser>
+         <applicationUser></applicationUser>
          <!--Optional:-->
          <ccUserId>9</ccUserId>
          <!--Optional:-->
-         <identifier>9</identifier>
+         <identifier></identifier>
          <!--Optional:-->
-         <country>SPAIN</country>
+         <country></country>
       </web:getCallingListANDCampaign>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/getCallingListANDCampaignRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="" name="getCallStatus" bindingOperationName="getCallStatus" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
@@ -12809,7 +12809,7 @@
          <isEquals>?</isEquals>
       </web:insertCallingListContact>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/insertCallingListContactRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="insertCallingListContactNumber" bindingOperationName="insertCallingListContactNumber" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/insertCallingListContactRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="" name="insertCallingListContactNumber" bindingOperationName="insertCallingListContactNumber" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
    <soapenv:Header/>
    <soapenv:Body>
       <web:insertCallingListContactNumber>
@@ -13096,19 +13096,19 @@
    <soapenv:Body>
       <web:sendSMS>
          <!--Optional:-->
-         <ccIdentifier>?</ccIdentifier>
+         <ccIdentifier></ccIdentifier>
          <!--Optional:-->
-         <applicationUser>?</applicationUser>
+         <applicationUser></applicationUser>
          <!--Optional:-->
-         <ccUserId>?</ccUserId>
+         <ccUserId></ccUserId>
          <!--Optional:-->
-         <destination>?</destination>
+         <destination>696252991</destination>
          <!--Optional:-->
-         <text>?</text>
+         <text>develpment</text>
          <!--Optional:-->
-         <account>?</account>
+         <account></account>
          <!--Optional:-->
-         <country>?</country>
+         <country></country>
       </web:sendSMS>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/sendSMSRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="" name="startCampaign" bindingOperationName="startCampaign" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">

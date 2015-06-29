@@ -1,5 +1,6 @@
 package es.securitasdirect.tareas.service;
 
+import com.webservice.CCLIntegration;
 import es.securitasdirect.tareas.model.InstallationData;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,6 +30,8 @@ public class InstallationServiceTest {
     protected InstallationService installationService;
     @Inject
     protected SPAIOTAREAS2PortType spAioTareas2;
+    @Inject
+    CCLIntegration cclIntegration;
 
 
     @Test
@@ -62,4 +65,6 @@ public class InstallationServiceTest {
         assertThat (installationData,notNullValue());
         LOGGER.info(installationData.toString());
     }
+
+
 }

@@ -38,7 +38,7 @@ public class InstallationService {
         List<Mainstallationdataresult> installationDataWS = spInstallationMonData.getInstallationData(installationNumber);
         if (installationDataWS!=null && installationDataWS.size()>0) {
             installationData1 = installationDataWS.get(0);
-            //TODO Obtener la versión del panel
+            // Obtener la versión del panel , TODO ESTO FALLA
 //            List<GetInstallationDataResult> installationDataWS2 = spAioTareas2.getInstallationData(installationData1.getSIns().intValue(), 0);
 //            if (installationDataWS2!=null && !installationDataWS2.isEmpty()) {
 //                 installationData2 = installationDataWS2.get(0);
@@ -62,10 +62,13 @@ public class InstallationService {
             data.setPersonaContacto(mainstallationdataresult.getAliasName());
             data.setTitular(mainstallationdataresult.getName());
             data.setPanel(mainstallationdataresult.getPanel());
+            data.setTelefono(mainstallationdataresult.getPhone());
             if (installationData2!=null) {
                 data.setVersion(installationData2.getVersion());
             }
             return data;
         }
     }
+
+
 }

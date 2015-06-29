@@ -15,6 +15,8 @@ public class InstallationData {
 
     private String personaContacto;
 
+    private String telefono;
+
     public String getNumeroInstalacion() {
         return numeroInstalacion;
     }
@@ -55,6 +57,13 @@ public class InstallationData {
         this.personaContacto = personaContacto;
     }
 
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
 
     @Override
     public String toString() {
@@ -64,6 +73,7 @@ public class InstallationData {
         sb.append(", panel='").append(panel).append('\'');
         sb.append(", version='").append(version).append('\'');
         sb.append(", personaContacto='").append(personaContacto).append('\'');
+        sb.append(", telefono='").append(telefono).append('\'');
         sb.append('}');
         return sb.toString();
     }

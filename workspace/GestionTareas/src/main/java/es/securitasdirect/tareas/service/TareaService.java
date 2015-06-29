@@ -219,7 +219,6 @@ public class TareaService {
 
             if ("TareaEncuestaMarketing".equalsIgnoreCase(tipoTarea)) {
                 return createTareaEncuestaMarketingFromParameters(mapa);
-
             } else if ("TareaListadoAssistant".equalsIgnoreCase(tipoTarea)) {
                 return createTareaListadoAssistantFromParameters(mapa);
 

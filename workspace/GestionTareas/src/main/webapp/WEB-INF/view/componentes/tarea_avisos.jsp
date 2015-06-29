@@ -4,7 +4,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <div class="row">
-    <app:input id="tipoAviso1" label="eti.visortarea.form.label.tipo" value="${tarea.tipoAviso1}" cells="6" readonly="true"/>
+    <app:input id="tipoAviso1" label="eti.visortarea.form.label.tipo" value="${tarea.tipoAviso1}" cells="6" readonly="false"/>
 
     <app:input id="motivo1" label="eti.visortarea.form.label.motivo" value="${tarea.motivo1}" cells="6" readonly="false"/>
 
@@ -13,7 +13,7 @@
 <div class="spacer_t1"></div>
 <div class="row">
 
-    <app:input id="tipoAviso2" value="${tarea.tipoAviso2}" cells="6" readonly="true"/>
+    <app:input id="tipoAviso2" value="${tarea.tipoAviso2}" cells="6" readonly="false"/>
 
     <app:input id="motivo2" value="${tarea.motivo2}" cells="6" readonly="false"/>
 
@@ -22,7 +22,7 @@
 <div class="spacer_t1"></div>
 <div class="row">
 
-    <app:input id="tipoAviso3" value="${tarea.tipoAviso3}" cells="6" readonly="true"/>
+    <app:input id="tipoAviso3" value="${tarea.tipoAviso3}" cells="6" readonly="false"/>
 
     <app:input id="motivo3" value="${tarea.motivo3}" cells="6" readonly="false"/>
 
@@ -51,8 +51,7 @@
         <div class="spacer_t1"></div>
         <div class="row">
             <label for="ejemplo_email_3"
-                   class="col-lg-4 col-md-4 col-sm-4 col-xs-4 control-label labelcent">Datos
-                adicionales de cierre</label>
+                   class="col-lg-4 col-md-4 col-sm-4 col-xs-4 control-label labelcent">Datos adicionales de cierre</label>
 
             <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
                 <select class="form-control">

@@ -19,7 +19,7 @@ public class Jaxb2MarshallerConfiguration {
         XmlMarshaller xmlMarshaller = new XmlMarshaller();
 
         xmlMarshaller.setCheckForXmlRootElement(true);
-        xmlMarshaller.setPackagesToScan(new String[]{"es.securitasdirect.tareas.model"});
+        xmlMarshaller.setPackagesToScan("es.securitasdirect.tareas.model");
 
 
         Map<String,Object> marshallerProperties = new HashMap<String,Object>();
