@@ -62,27 +62,36 @@
 
         <!-- Botones -->
         <div class="spacer_t2"></div>
-        <div class="row">
-            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8"></div>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                <div class="row text-right">
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                        <input type="submit" class="btn btn-default" value="<spring:message code="VisorTarea.boton.Aplazar" />"/>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                        <input type="submit" class="btn btn-default" value="<spring:message code="VisorTarea.boton.Descartar"/>"/>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                        <input type="submit" class="btn btn-default" value="<spring:message code="VisorTarea.boton.Llamar"/>"/>
-                    </div>
-                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                        <input type="submit" class="btn btn-primary" value="<spring:message code="VisorTarea.boton.Finalizar"/>"/>
-                    </div>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row" align="right">
+                    <div class="container-fluid">
+                        <!-- Botones modificación-->
+                        <%
+                            if(false){
+                        %>
+                        <input type="submit" class="btn btn-default" value="<spring:message code="boton.Aplazar" />"/>
+                        <%
+                            }
+                        %>
 
+                        <%
+                            if(true){
+                        %>
+                        <input type="submit" class="btn btn-default" value="<spring:message code="boton.Descartar" />"/>
+                        <%
+                            }
+                        %>
+                        <!-- Botones -->
+                        <input type="submit" class="btn btn-default" value="<spring:message code="boton.Aplazar" />"/>
+                        <input type="submit" class="btn btn-default" value="<spring:message code="boton.Descartar"/>"/>
+                        <input type="submit" class="btn btn-default" value="<spring:message code="boton.Llamar"/>"/>
+                        <input type="submit" class="btn btn-primary" value="<spring:message code="boton.Finalizar"/>"/>
+                    </div>
                 </div>
-
             </div>
         </div>
+        <!-- Fin Botones -->
         <!-- row -->
 
 
