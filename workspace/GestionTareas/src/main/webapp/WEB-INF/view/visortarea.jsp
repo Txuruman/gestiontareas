@@ -34,26 +34,19 @@
 
     <form class="form-horizontal" role="form">
         <div class="row">
-
-
             <app:input id="ninstalacion" label="eti.visortarea.form.label.ninstalacion" value="${installationData.numeroInstalacion}" cells="6" cell_label="4" cell_input="8" readonly="true"/>
-
             <app:input id="titular" label="eti.visortarea.form.label.titular" value="${installationData.titular}" cells="6" readonly="true"/>
-
         </div>
 
         <div class="spacer_t1"></div>
         <div class="row">
-            <%--<app:input id="telefono" label="eti.visortarea.form.label.3" value="${installationData.telefono}" cells="6" readonly="true"  />--%>
-
             <app:input id="personaContacto" label="eti.visortarea.form.label.personacontacto" value="${installationData.personaContacto}" cells="6" readonly="true"/>
-
+            <app:input id="panel" label="eti.visortarea.form.label.panel" value="${installationData.panel}" cells="6" readonly="true"/>
         </div>
 
         <div class="spacer_t1"></div>
         <div class="row">
-            <app:input id="panel" label="eti.visortarea.form.label.panel" value="${installationData.panel}" cells="6" readonly="true"/>
-
+            <app:input id="telefono" label="eti.visortarea.form.label.telefono" value="${installationData.telefono}" cells="6" readonly="true"  />
             <app:input id="version" label="eti.visortarea.form.label.version" value="${installationData.version}" cells="6" readonly="true"/>
         </div>
 
