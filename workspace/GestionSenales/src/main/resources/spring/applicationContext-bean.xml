@@ -3,11 +3,11 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
-			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+       xmlns:task="http://www.springframework.org/schema/task" xmlns:util="http://www.springframework.org/schema/util">
     <description><![CDATA[
 		Main entry point for spring configuration
 	]]></description>
-
 
 
     <!-- context -->
@@ -23,14 +23,81 @@
     -->
 
     <!-- Configuration of the different JMSReader over different queues -->
-    <bean id="jmsReaderPozuelo" class="es.securitasdirect.senales.jms.JMSReader" lazy-init="false">
+    <bean id="jmsReaderPozuelo" class="es.securitasdirect.senales.reader.JMSReader" lazy-init="false">
 
     </bean>
-    <bean id="jmsReaderYecora" class="es.securitasdirect.senales.jms.JMSReader" lazy-init="false">
+    <bean id="jmsReaderYecora" class="es.securitasdirect.senales.reader.JMSReader" lazy-init="false">
 
     </bean>
-    <bean id="jmsReaderErrores" class="es.securitasdirect.senales.jms.JMSReader" lazy-init="false">
+    <bean id="jmsReaderErrores" class="es.securitasdirect.senales.reader.JMSReader" lazy-init="false">
 
+    </bean>
+
+    <!-- Configuration of the File Reader and Writer of for the error messages -->
+    <bean id="errorFileReader" class="es.securitasdirect.senales.reader.FileReader">
+    </bean>
+
+    <!-- Task scheduler -->
+    <task:annotation-driven executor="myExecutor" scheduler="myScheduler"/>
+    <task:executor id="myExecutor" pool-size="1"/>
+    <task:scheduler id="myScheduler" pool-size="1"/>
+
+    <!-- Planning of the reprocesing of error messages from the directory. Fixed -->
+    <task:scheduled-tasks scheduler="myScheduler">
+        <task:scheduled ref="errorFileReader" method="processErrorMessages" fixed-delay="15000"/>
+    </task:scheduled-tasks>
+
+    <!-- Service to read and save message files on errors -->
+    <bean id="fileService" class="es.securitasdirect.senales.support.FileService">
+        <property name="fileTail" value=".xml"/>
+        <property name="fileHeader" value="message"/>
+        <property name="folderPath" value="c:/tmp/errorSD/"/>
+    </bean>
+
+
+    <!--
+     La forma en la que se implementa el control de señales permitidas mediante parámetros en el fichero de configuración de CCL (CCLconfig.properties) es la siguiente:
+        1)	Un parámetro ALLOWED_QSIGNALS que indicará una lista de los códigos de señal permitidos, separados por “;”.
+        2)	Para cada señal permitida:
+        2.1)  Un parámetro con el identificador para luego invocar el método de obtención de  calling list y campaña (XXX_SIGNAL_CL_ID).
+        2.2)  Otro parámetro para indicar el status permitido para la señal  (XXX_SIGNAL_STATUS).Donde XXX es el código de señal.
+    -->
+
+    <util:map id="allowedQSignals" map-class="java.util.HashMap" key-type="java.lang.String" value-type="es.securitasdirect.senales.model.SignalMetadata">
+        <entry key="ILS">
+            <bean class="es.securitasdirect.senales.model.SignalMetadata">
+                <property name="clId" value="DIY_TAREAS_BTN"/>
+                <property name="status" value="1"/>
+            </bean>
+        </entry>
+        <entry key="UCB">
+            <bean class="es.securitasdirect.senales.model.SignalMetadata">
+                <property name="clId" value="DIY_TAREAS_BTN"/>
+                <property name="status" value="2"/>
+            </bean>
+        </entry>
+    </util:map>
+
+    <!-- Work hours definitions, when outside the work hour the SMS will be sent -->
+
+    <!-- Eight o'clok in the morning -->
+    <bean id="startWorkHour" class="java.lang.Integer">
+        <constructor-arg value="8"/>
+    </bean>
+    <bean id="startWorkMinute" class="java.lang.Integer">
+        <constructor-arg value="0"/>
+    </bean>
+    <!-- Six thirty pm -->
+    <bean id="endWorkHour" class="java.lang.Integer">
+        <constructor-arg value="18"/>
+    </bean>
+    <bean id="endWorkMinute" class="java.lang.Integer">
+        <constructor-arg value="30"/>
+    </bean>
+
+    <!-- Days to discard messages that had been delayed in the process. Any message older than this will not be processed -->
+    <bean id="daysToDiscardOldMessages" class="java.lang.Integer">
+        <constructor-arg value="4"/>
     </bean>
 
 </beans>
