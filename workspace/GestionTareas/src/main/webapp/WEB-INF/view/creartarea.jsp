@@ -23,241 +23,249 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-				<h2>Tarea crear</h2>
-			</div>
-		</div>
-		<div class="row">
 			<jsp:include page="bloques/tabs1.jsp" />
 		</div>
 		<div class="spacer_t2"></div>
 
 		<form class="form-horizontal" role="form" >
+            <div class="panel panel-default">
+                <div class="panel-body">
 
-			<div class="row">
-				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-					<label for="ejemplo_email_3"
-						class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">
-						Nº instalación: </label>
-					<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-						<input type="text" class="form-control" id="ejemplo_email_3"
-							placeholder="Instalación">
-					</div>
-				</div>
-				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-					<label for="ejemplo_email_3"
-						class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">
-						Titular: </label>
-					<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-						<input type="text" class="form-control" id="ejemplo_email_3"
-							placeholder="Titular">
-					</div>
-				</div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <label for="ejemplo_email_3"
+                                class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">
+                                Nº instalación: </label>
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                <input type="text" class="form-control" id="ejemplo_email_1"
+                                    placeholder="Instalación">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <label for="ejemplo_email_3"
+                                class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">
+                                Titular: </label>
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                <input type="text" class="form-control" id="ejemplo_email2" readonly="true"
+                                    placeholder="Titular">
+                            </div>
+                        </div>
 
-			</div>
+                    </div>
 
-			<div class="spacer_t1"></div>
-			<div class="row">
-				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-					<label for="ejemplo_email_3"
-						class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">
-						Teléfono: </label>
-					<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-						<input type="text" class="form-control" id="ejemplo_email_3"
-							placeholder="Teléfono">
-					</div>
-				</div>
-				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-					<label for="ejemplo_email_3"
-						class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">
-						Panel: </label>
-					<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-						<input type="text" class="form-control" id="ejemplo_email_3"
-							placeholder="Panel">
-					</div>
-				</div>
+                    <div class="spacer_t1"></div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <label for="telefono"
+                                       class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">
+                                    Teléfono: </label>
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                <select class="form-control" id="telefono">
+                                    <option>option1</option>
+                                    <option>option2</option>
+                                    <option>option3</option>
+                                    <option>option4</option>
+                                    <option>option5</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <label for="ejemplo_email_3"
+                                   class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">
+                                Panel: </label>
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                <input type="text" class="form-control" id="ejemplo_email_3" readonly="true"
+                                       placeholder="Panel">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="spacer_t1"></div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <label for="ejemplo_email_3"
+                                class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">
+                                Persona de contacto: </label>
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                <input type="text" class="form-control" id="ejemplo_email_4"
+                                    placeholder="Persona de contacto">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <label for="ejemplo_email_3"
+                                class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">
+                                Versión: </label>
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                <input type="text" class="form-control" id="ejemplo_email_5" readonly="true"
+                                    placeholder="Versión">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- row -->
 
-			</div>
-			<div class="spacer_t1"></div>
-			<div class="row">
-				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-					<label for="ejemplo_email_3"
-						class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">
-						Persona de contacto: </label>
-					<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-						<input type="text" class="form-control" id="ejemplo_email_3"
-							placeholder="Persona de contacto">
-					</div>
-				</div>
-				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-					<label for="ejemplo_email_3"
-						class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">
-						Versión: </label>
-					<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-						<input type="text" class="form-control" id="ejemplo_email_3"
-							placeholder="Versión">
-					</div>
-				</div>
-			</div>
+
+                    <div class="spacer_t1"></div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <label for="ejemplo_email_3"
+                                   class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">
+                                Requerido por: </label>
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                <input type="text" class="form-control" id="ejemplo_email_6"
+                                       placeholder="Requerido">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <div class="row text-center">
+                                <label for="ejemplo_email_3"
+                                       class="labelcent">
+                                    Horario </label>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <label for="ejemplo_email_3"
+                                           class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">
+                                        Desde: </label>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                        <input type="text" class="form-control" id="ejemplo_email_7"
+                                               placeholder="Desde">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                    <label for="ejemplo_email_3"
+                                           class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">
+                                        Hasta: </label>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                        <input type="text" class="form-control" id="ejemplo_email_8"
+                                               placeholder="Hasta">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- row -->
+
+
+
+                    <div class="spacer_t3"></div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <label for="ejemplo_email_3"
+                                class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">Tipo</label>
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                <select class="form-control">
+                                    <option>option1</option>
+                                    <option>option2</option>
+                                    <option>option3</option>
+                                    <option>option4</option>
+                                    <option>option5</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <label for="ejemplo_email_3"
+                                class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">Motivo</label>
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                <select class="form-control">
+                                    <option>option1</option>
+                                    <option>option2</option>
+                                    <option>option3</option>
+                                    <option>option4</option>
+                                    <option>option5</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- row -->
+                    <div class="spacer_t1"></div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <label for="ejemplo_email_3"
+                                class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent"></label>
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                <select class="form-control">
+                                    <option>option1</option>
+                                    <option>option2</option>
+                                    <option>option3</option>
+                                    <option>option4</option>
+                                    <option>option5</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <label for="ejemplo_email_3"
+                                class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent"></label>
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                <select class="form-control">
+                                    <option>option1</option>
+                                    <option>option2</option>
+                                    <option>option3</option>
+                                    <option>option4</option>
+                                    <option>option5</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- row -->
+                    <div class="spacer_t1"></div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <label for="ejemplo_email_3"
+                                class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent"></label>
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                <select class="form-control">
+                                    <option>option1</option>
+                                    <option>option2</option>
+                                    <option>option3</option>
+                                    <option>option4</option>
+                                    <option>option5</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <label for="ejemplo_email_3"
+                                class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent"></label>
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                <select class="form-control">
+                                    <option>option1</option>
+                                    <option>option2</option>
+                                    <option>option3</option>
+                                    <option>option4</option>
+                                    <option>option5</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- row -->
+                    <div class="spacer_t2"></div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <label for="ejemplo_email_3"
+                                class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">Observaciones</label>
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+                                <textarea class="form-control custom-area" id="ejemplo_email_9"
+                                    placeholder="Observaciones" rows="5" cols="20"></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
 			<!-- row -->
-
-
-			<div class="spacer_t1"></div>
-			<div class="row">
-				<div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 customtriple">
-					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-						<label for="ejemplo_email_3"
-							class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">
-							Requerido: </label>
-						<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-							<input type="text" class="form-control" id="ejemplo_email_3"
-								placeholder="Requerido">
-						</div>
-					</div>
-					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-						<label for="ejemplo_email_3"
-							class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">
-							Horario desde: </label>
-						<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-							<input type="text" class="form-control" id="ejemplo_email_3"
-								placeholder="Desde">
-						</div>
-					</div>
-					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-						<label for="ejemplo_email_3"
-							class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">
-							Hasta: </label>
-						<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-							<input type="text" class="form-control" id="ejemplo_email_3"
-								placeholder="Hasta">
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- row -->
-
-
-
-			<div class="spacer_t3"></div>
-			<div class="row">
-				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-					<label for="ejemplo_email_3"
-						class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">Tipo</label>
-					<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-						<select class="form-control">
-							<option>option1</option>
-							<option>option2</option>
-							<option>option3</option>
-							<option>option4</option>
-							<option>option5</option>
-						</select>
-					</div>
-				</div>
-				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-					<label for="ejemplo_email_3"
-						class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">Motivo</label>
-					<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-						<select class="form-control">
-							<option>option1</option>
-							<option>option2</option>
-							<option>option3</option>
-							<option>option4</option>
-							<option>option5</option>
-						</select>
-					</div>
-				</div>
-
-			</div>
-			<!-- row -->
-			<div class="spacer_t1"></div>
-			<div class="row">
-				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-					<label for="ejemplo_email_3"
-						class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent"></label>
-					<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-						<select class="form-control">
-							<option>option1</option>
-							<option>option2</option>
-							<option>option3</option>
-							<option>option4</option>
-							<option>option5</option>
-						</select>
-					</div>
-				</div>
-				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-					<label for="ejemplo_email_3"
-						class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent"></label>
-					<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-						<select class="form-control">
-							<option>option1</option>
-							<option>option2</option>
-							<option>option3</option>
-							<option>option4</option>
-							<option>option5</option>
-						</select>
-					</div>
-				</div>
-			</div>
-			<!-- row -->
-			<div class="spacer_t1"></div>
-			<div class="row">
-				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-					<label for="ejemplo_email_3"
-						class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent"></label>
-					<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-						<select class="form-control">
-							<option>option1</option>
-							<option>option2</option>
-							<option>option3</option>
-							<option>option4</option>
-							<option>option5</option>
-						</select>
-					</div>
-				</div>
-				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-					<label for="ejemplo_email_3"
-						class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent"></label>
-					<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-						<select class="form-control">
-							<option>option1</option>
-							<option>option2</option>
-							<option>option3</option>
-							<option>option4</option>
-							<option>option5</option>
-						</select>
-					</div>
-				</div>
-			</div>
-			<!-- row -->
-			<div class="spacer_t2"></div>
-			<div class="row">
-				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-					<label for="ejemplo_email_3"
-						class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">Observaciones</label>
-					<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-						<textarea class="form-control custom-area" id="ejemplo_email_3"
-							placeholder="Observaciones" rows="5" cols="20"></textarea>
-					</div>
-				</div>
-				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-					<div class="row">
-						<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4"></div>
-						<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-							<input type="submit" class="btn btn-default"
-								value="Crear mantenimiento" />
-						</div>
-						<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-							<input type="submit" class="btn btn-primary" value="Finalizar" />
-						</div>
-
-					</div>
-
-				</div>
-			</div>
-			<!-- row -->
-
-
-
+            <div class="spacer_t2"></div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row" align="right">
+                        <div class="container-fluid">
+                            <input type="submit" class="btn btn-default"
+                                   value="Buscar Instalación" />
+                            <input type="submit" class="btn btn-default"
+                                   value="Crear mantenimiento" />
+                            <input type="submit" class="btn btn-primary" value="Finalizar" />
+                        </div>
+                    </div>
+                </div>
+            </div>
 		</form>
 
 	</div>
