@@ -123,6 +123,17 @@
         </entry>
     </util:map>
 
+    <util:list id="tareaAvisoItems" list-class="java.util.ArrayList" value-type="java.lang.String">
+        <value>foo2@bar.com</value>
+        <value>foo3@bar.com</value>
+    </util:list>
+
+    <!--<util:map id="callingListToModel2" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.util.ArrayList">-->
+        <!--<entry key="TareaAviso" value-ref="tareaAvisoItems" />-->
+    <!--</util:map>-->
+
+
+
     <!-- Work hours definitions, when outside the work hour the SMS will be sent -->
 
     <!-- Eight o'clok in the morning -->

@@ -62,5 +62,74 @@
         </entry>
     </util:map>
 
+    <util:map id="callingListToModel" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.util.List" >
+        <entry key="TareaAviso">
+            <util:list list-class="java.util.ArrayList" value-type="java.lang.String">
+                <value>CL_CCT_Averia_Test</value>
+                <value>CL_CCT_ATT_Averia_Test</value>
+                <value>CL_CCT_ATC_CRA</value>
+                <value>CL_CCT_ATC_Recla</value>
+                <value>CL_CCT_ATT_Averia_Cam</value>
+                <value>CL_CCT_ATT_Averia_FastI</value>
+                <value>CL_CCT_ATT_Averia_FastII</value>
+                <value>CL_CCT_ATT_Averia_Iridium</value>
+                <value>CL_CCT_ATT_Averia_Oldclass</value>
+                <value>CL_CCT_ATT_Averia_SDM</value>
+                <value>CL_CCT_ATT_Camaras</value>
+                <value>CL_CCT_BO</value>
+                <value>CL_CCT_BO_Recla</value>
+                <value>CL_CCT_GI_Robo1</value>
+                <value>CL_CCT_GI_Robo2</value>
+                <value>CL_CCT_Ingles_ATC</value>
+                <value>CL_CCT_Ingles_ATT</value>
+                <value>CL_CCT_ODC</value>
+            </util:list>
+        </entry>
+        <entry key="TareaEncuestaMantenimiento">
+            <util:list list-class="java.util.ArrayList" value-type="java.lang.String">
+                <value>CL_CCT_XLS_ENCUESTAS_MTOS</value>
+            </util:list>
+        </entry>
+        <entry key="TareaEncuestaMarketing">
+            <util:list list-class="java.util.ArrayList" value-type="java.lang.String">
+                <value>CL_CCT_XLS_ENCUESTAS_MKT</value>
+            </util:list>
+        </entry>
+        <entry key="TareaKeybox">
+            <util:list list-class="java.util.ArrayList" value-type="java.lang.String">
+                <value>CL_CCT_XLS_KEYBOX</value>
+            </util:list>
+        </entry>
+        <entry key="TareaLimpiezaCuota">
+            <util:list list-class="java.util.ArrayList" value-type="java.lang.String">
+                <value>CL_CCT_XLS_LIMPIEZA_CUOTA</value>
+            </util:list>
+        </entry>
+        <!--<entry key="TareaListadoAssistant">
+            <util:list list-class="java.util.ArrayList" value-type="java.lang.String">
+                <value>???</value>
+            </util:list>
+        </entry>-->
+        <!--<entry key="TareaOtrasCampanas">
+            <util:list list-class="java.util.ArrayList" value-type="java.lang.String">
+                <value>???</value>
+            </util:list>
+        </entry>-->
+        <!--
+        CL_CCT_XLX,
+          CL_CCT_XLS_ATC,
+           CL_CCT_XLS_ATT,
+           CL_CCT_XLS_BO,
+           CL_CCT_XLS_GGCC,
+           CL_CCT_XLS_GI,
+           CL_CCT_XLS_HL,
+           CL_CCT_XLS_ODC-->
+        <entry key="TareaMantenimiento">
+            <util:list list-class="java.util.ArrayList" value-type="java.lang.String">
+                <value>CL_TAREAS_DIY</value>
+            </util:list>
+        </entry>
+    </util:map>
+
 
 </beans>

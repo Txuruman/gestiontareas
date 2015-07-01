@@ -26,6 +26,7 @@ public interface ExternalParams {
     public static String TIPO_TAREA = "tipotarea";
 
     public static String ID_AVISO = "idaviso";
+    public static String ID_AVISO_UP = "ID_AVISO";
     public static String MOTIVO_CIERRE= "motivocierre";
 
 
