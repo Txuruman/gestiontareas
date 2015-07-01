@@ -5,6 +5,7 @@ import com.google.common.cache.CacheBuilder;
 import com.webservice.CCLIntegration;
 import es.securitasdirect.senales.model.Message;
 import es.securitasdirect.senales.model.SignalMetadata;
+import es.securitasdirect.senales.model.SmsMessageLocation;
 import es.securitasdirect.senales.support.FileService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,11 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.wso2.ws.dataservice.DataServiceFault;
 import org.wso2.ws.dataservice.GetInstallationDataResult;
 import org.wso2.ws.dataservice.SPAIOTAREAS2PortType;
-import org.wso2.ws.dataservice.SPInstallationMonDataPortType;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import java.util.*;
@@ -101,6 +100,8 @@ public class GestionSenalesService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GestionSenalesService.class);
 
+    public static final String EMPTY = "";
+
     @Autowired
     protected SPAIOTAREAS2PortType spAioTareas2;
     @Autowired
@@ -136,6 +137,12 @@ public class GestionSenalesService {
     @Resource(name = "allowedQSignals")
     private Map<String, SignalMetadata> allowedQSignals;
 
+    /**
+     * Map of sms messages locations
+     */
+    @Resource(name="smsLocation")
+    private Map<String, SmsMessageLocation> smsMessageLocationMap;
+
     @Autowired
     private FileService fileService;
 
@@ -163,11 +170,7 @@ public class GestionSenalesService {
         } else {
             LOGGER.debug("Processing Message {}", message);
             try {
-
-
-                if (isExpired(message)) {
-                    discardExpiredMessage(message);
-                } else {
+                if(isAllowedType(message) && !discardExpiredMessage(message)){
                     if (!isWorkingHours()) {
                         processMessageOutOfWorkingHours(message);
                     } else {
@@ -175,14 +178,12 @@ public class GestionSenalesService {
                         processMessageInWorkingHours(message);
                     }
                 }
-
                 processedOk = true;
             } catch (Exception e) {
                 LOGGER.error("Error processing message {}", message);//TODO Añadir excepcion
                 onError(message);
                 processedOk = false;
             }
-
             if (processedOk) {
                 markProcessed(message);
             } //TODO Marcamos los errores como procesados? creo que no mejor que se controle por el scheduler cuando entran
@@ -220,16 +221,36 @@ public class GestionSenalesService {
      * @param message
      */
     private void processMessageOutOfWorkingHours(Message message) throws DataServiceFault {
-        //TODO Enviar SMS y Calcelar
+        //TODO Enviar SMS y Cancelar
 
         // Procesar el mensaje
         // El campo a utilizar para obtener el resto de información antes de insertar el registro en Tareas será InsNumber_e.
         Integer insNumberE = message.getParamsType().getCIBB().getEVENTS().getInsNumberE();
         GetInstallationDataResult installationData = getInstallationData(insNumberE);
+        String messageLanguageLocationKey = message.getLanguageLocationKey();
+        SmsMessageLocation smsMessageLocation = null;
+        if(messageLanguageLocationKey!=null && EMPTY.equals(messageLanguageLocationKey)){
+            smsMessageLocation = smsMessageLocationMap.get(messageLanguageLocationKey);
+        }
+        //If smsMessageLocation is null, for not found message language location key in message location map or for not
+        if(smsMessageLocation==null){
+            smsMessageLocation = smsMessageLocationMap.get(SmsMessageLocation.DEFAULT);
+        }
+
+        //TODO De donde obtener la localización del usuario.
+        //TODO Controlar que no tengamos tras obtener default sin definir los mensajes.
+
+        String outOfWorkingHours = smsMessageLocation.getOutOfWorkingHours();
+
+        LOGGER.error("SMS sending not implemented, message to send: '{}'", outOfWorkingHours);
     }
 
-    private void discardExpiredMessage(Message message) {
-        LOGGER.info("Discarting message because of expired date. {}" , message);
+    private boolean discardExpiredMessage(Message message) {
+        boolean discard = isExpired(message);
+        if(this.isExpired(message)){
+            LOGGER.info("Discarding message because of expired date. {}" , message);
+        }
+        return discard;
         //TODO Hay que cancelar cosas, mirar el documento
     }
 
@@ -243,6 +264,23 @@ public class GestionSenalesService {
         assert message != null && message.getId() != null : "The message Id must not be null";
         return processed.getIfPresent(message.getId()) != null;
     }
+
+    private boolean isAllowedType(Message message){
+        String messageType = message.getType();
+        if(messageType!=null){
+            return allowedQSignals.keySet().contains(message.getType());
+        }else{
+            LOGGER.warn("Cannot get the message type");
+            return false;
+        }
+    }
+
+    /**
+     * Check if a message has been processed
+     *
+     * @param message
+     * @return
+     */
 
     private void markProcessed(Message message) {
         processed.put(message.getId(), message.getId());//TODO Guardar algo más interesante

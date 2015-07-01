@@ -44,7 +44,7 @@
 
     <!-- Planning of the reprocesing of error messages from the directory. Fixed -->
     <task:scheduled-tasks scheduler="myScheduler">
-        <task:scheduled ref="errorFileReader" method="processErrorMessages" fixed-delay="15000"/>
+        <task:scheduled ref="errorFileReader" method="processErrorMessages" fixed-delay="5000"/>
     </task:scheduled-tasks>
 
     <!-- Service to read and save message files on errors -->
@@ -74,6 +74,51 @@
             <bean class="es.securitasdirect.senales.model.SignalMetadata">
                 <property name="clId" value="DIY_TAREAS_BTN"/>
                 <property name="status" value="2"/>
+            </bean>
+        </entry>
+    </util:map>
+
+
+    <!-- Example of definition of same message for different languages-->
+    <bean id="anotherENG" class="java.lang.String">
+        <constructor-arg value="Not specified messsage"/>
+    </bean>
+    <bean id="outOfWorkingHoursENG" class="java.lang.String">
+        <constructor-arg value="Received message out of working hours, it will be pending to process"/>
+    </bean>
+
+    <util:map id="smsLocation" map-class="java.util.HashMap" key-type="java.lang.String" value-type="es.securitasdirect.senales.model.SmsMessageLocation">
+        <!-- Default language location values -->
+        <entry key="DEF">
+            <bean class="es.securitasdirect.senales.model.SmsMessageLocation">
+                <property name="another" value="Not specified message" />
+                <property name="outOfWorkingHours" value="Received message out of working hours, it will be pending to process" />
+            </bean>
+        </entry>
+
+        <entry key="ESP">
+            <bean class="es.securitasdirect.senales.model.SmsMessageLocation">
+                <property name="another" value="Mensaje no especificado" />
+                <property name="outOfWorkingHours" value="Mensaje recibido fuera del horario de trabajo, quedará pendiente de procesar" />
+            </bean>
+        </entry>
+        <entry key="ENG">
+            <bean class="es.securitasdirect.senales.model.SmsMessageLocation">
+                <property name="another" value="Not specified messsage" />
+                <property name="outOfWorkingHours" value="Received message out of working hours, it will be pending to process" />
+            </bean>
+        </entry>
+        <!-- Example of definition of same message for different languages or countries-->
+        <entry key="US_ENG">
+            <bean class="es.securitasdirect.senales.model.SmsMessageLocation">
+                <property name="another" value="anotherENG" />
+                <property name="outOfWorkingHours" ref="outOfWorkingHoursENG" />
+            </bean>
+        </entry>
+        <entry key="GB_ENG">
+            <bean class="es.securitasdirect.senales.model.SmsMessageLocation">
+                <property name="another" ref="anotherENG" />
+                <property name="outOfWorkingHours" ref="outOfWorkingHoursENG" />
             </bean>
         </entry>
     </util:map>

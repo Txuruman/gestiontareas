@@ -31,12 +31,36 @@ public class Message {
         } else {
             return null;
         }
-
     }
 
 	public PARAMSType getParamsType() {
 		return paramsType;
 	}
+
+
+    /**
+     * Returns the message type.
+     * @return
+     */
+    public String getType(){
+        if (paramsType!=null && paramsType.getCIBB()!=null && paramsType.getCIBB().getEVENTS()!=null&& paramsType.getCIBB().getEVENTS().getEVENT()!=null) {
+            return paramsType.getCIBB().getEVENTS().getEVENT().getId();
+        }else{
+            return null;
+        }
+    }
+
+    /**
+     * Returns the language location key
+     */
+    public String getLanguageLocationKey(){
+        if(paramsType.getCIBB()!=null && paramsType.getCIBB().getPROPS()!=null){
+            return paramsType.getCIBB().getPROPS().getPais();
+        }else{
+            return null;
+        }
+    }
+
 
 	public void setParamsType(PARAMSType paramsType) {
 		this.paramsType = paramsType;
