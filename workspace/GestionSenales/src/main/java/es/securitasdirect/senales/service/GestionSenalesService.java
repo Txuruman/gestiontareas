@@ -5,6 +5,7 @@ import com.google.common.cache.CacheBuilder;
 import com.webservice.CCLIntegration;
 import es.securitasdirect.senales.model.Message;
 import es.securitasdirect.senales.model.SignalMetadata;
+import es.securitasdirect.senales.model.SmsMessageLocation;
 import es.securitasdirect.senales.support.FileService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -260,7 +261,7 @@ public class GestionSenalesService {
                 destination,
                 text,
                 account,
-                country );
+                country);
     }
 
     private boolean discardExpiredMessage(Message message) {
