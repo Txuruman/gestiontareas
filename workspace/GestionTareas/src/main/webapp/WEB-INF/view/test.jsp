@@ -1,43 +1,52 @@
 <!DOCTYPE html>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="app" tagdir="/WEB-INF/tags" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
-<html ng-app ">
-<head>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <title>AngularJS Drop Down Spring MVC JSON</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+    <script type="text/javascript">
 
-    <link rel="stylesheet" type="text/css"
-          href="${pageContext.request.contextPath}/static/css/bootstrap.css"/>
-    <link rel="stylesheet" type="text/css"
-          href="${pageContext.request.contextPath}/static/css/custom.css"/>
+        var app = angular.module('myApp', []);
+        app.controller('MyController', function ($scope, $http) {
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
+            $scope.getPersonDataFromServer = function () {
+
+                $http({method: 'GET', url: 'populatePersonDataFromServer.web'}).
+                        success(function (data, status, headers, config) {
+                            $scope.personDatas = data;
+                        }).
+                        error(function (data, status, headers, config) {
+                            // called asynchronously if an error occurs
+                            // or server returns response with an error status.
+                        });
+            };
+        });
+
+    </script>
 </head>
-<body>
 
-<div class="spacer_t3"></div>
-<div class="container">
-    <div class="spacer_t3"></div>
-    <form action="test.htm" method="get">
-        ¿Cómo te llamas? <input type="text" name="elnombre"  ng-init="nombre='${elnombre}'">
+<body data-ng-controller="MyController">
+<h3>Spring MVC AngularJS JSON Drop Down sample JNA aaa </h3>
 
-        <select name="despletest" class="">
+<h3>Spring MVC AngularJS JSON Drop Down sample JNA aaa </h3>
 
-            <option value="">valor1</option>
+<table style="margin: 0px auto;" align="left">
+    <tr>
+        <td>
+            <div data-ng-init="getPersonDataFromServer()">
+                <b>Person Data:</b> <select id="personData">
+                <option value="">-- Select Persons --</option>
+                <option data-ng-repeat="personData in personDatas" value="{{personData.personId}}">{{personData.personName}}</option>
+            </select><br>
+            </div>
+        </td>
+    </tr>
+</table>
 
-        </select>
-
-        <input type="submit" class="bt- btn-default" value="click"/>
-    </form>
-
-
-    <h1>Hola {{${elnombre}}}</h1>
-
-</div>
-
-${todosparametros}
 </body>
+
 </html>

@@ -1,8 +1,15 @@
 package es.securitasdirect.tareas.model;
 
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+
+import javax.xml.bind.annotation.XmlRootElement;
+
+
 /**
  * Created by jel on 24/06/2015.
  */
+@XmlRootElement
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class TestModel1 {
     String nombre;
     String apellido;

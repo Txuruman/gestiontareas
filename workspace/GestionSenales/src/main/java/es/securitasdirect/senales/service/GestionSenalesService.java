@@ -5,7 +5,6 @@ import com.google.common.cache.CacheBuilder;
 import com.webservice.CCLIntegration;
 import es.securitasdirect.senales.model.Message;
 import es.securitasdirect.senales.model.SignalMetadata;
-import es.securitasdirect.senales.model.SmsMessageLocation;
 import es.securitasdirect.senales.support.FileService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,9 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.wso2.ws.dataservice.DataServiceFault;
 import org.wso2.ws.dataservice.GetInstallationDataResult;
 import org.wso2.ws.dataservice.SPAIOTAREAS2PortType;
+import org.wso2.ws.dataservice.SPInstallationMonDataPortType;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import java.util.*;
@@ -243,6 +244,23 @@ public class GestionSenalesService {
         String outOfWorkingHours = smsMessageLocation.getOutOfWorkingHours();
 
         LOGGER.error("SMS sending not implemented, message to send: '{}'", outOfWorkingHours);
+
+        //TODO Parametros
+        String ccIdentifier=null;
+        String applicationUser=null;
+        String ccUserId=null;
+        String destination=null;
+        String text = ""; //TODO Sacarlo de configuracion por PAIS
+        String account= null;
+        String country = message.getParamsType().getCIBB().getPROPS().getPais();
+
+        cclIntegration.sendSMS(ccIdentifier,
+                applicationUser,
+                ccUserId,
+                destination,
+                text,
+                account,
+                country );
     }
 
     private boolean discardExpiredMessage(Message message) {
@@ -276,7 +294,7 @@ public class GestionSenalesService {
     }
 
     /**
-     * Check if a message has been processed
+     * Marks a message has been processed
      *
      * @param message
      * @return

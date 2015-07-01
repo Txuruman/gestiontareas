@@ -4,16 +4,50 @@
 <%@ taglib prefix="app" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<html>
+<html data-ng-app="myApp">
 <head>
-<head>
-    <title>Welcome</title>
-    <link rel="stylesheet" type="text/css"
-          href="${pageContext.request.contextPath}/static/css/bootstrap.css"/>
-    <link rel="stylesheet" type="text/css"
-          href="${pageContext.request.contextPath}/static/css/custom.css"/>
+    <title><spring:message code="titulo.BuscarTarea" /> </title>
+    <link rel="stylesheet" type="text/css"    href="${pageContext.request.contextPath}/resources/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css"   href="${pageContext.request.contextPath}/resources/css/custom.css"/>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+    <script type="text/javascript">
+
+        var app = angular.module('myApp', []);
+        app.controller('MyController', function ($scope, $http) {
+
+            $scope.getPersonDataFromServer = function () {
+
+                $http({method: 'GET', url: 'populatePersonDataFromServer.web'}).
+                        success(function (data, status, headers, config) {
+                            $scope.personDatas = data;
+                        }).
+                        error(function (data, status, headers, config) {
+                            // called asynchronously if an error occurs
+                            // or server returns response with an error status.
+                        });
+            };
+        });
+
+    </script>
+
 </head>
-<body>
+<body data-ng-controller="MyController">
+
+<table style="margin: 0px auto;" align="left">
+    <tr>
+        <td>
+            <div data-ng-init="getPersonDataFromServer()">
+                <b>Person Data:</b> <select id="personData">
+                <option value="">-- Select Persons --</option>
+                <option data-ng-repeat="personData in personDatas" value="{{personData.personId}}">{{personData.personName}}</option>
+            </select><br>
+            </div>
+        </td>
+    </tr>
+</table>
+
+
+
 <div class="container">
     <div class="row">
         <jsp:include page="bloques/tabs1.jsp"/>
@@ -84,11 +118,13 @@
         </div>
     </form>
 </div>
+
+
+<%--<script type="text/javascript" data-main="/resources/js/run-calories-tracker"--%>
+        <%--src="/resources/bower_components/requirejs/require.js"></script>--%>
+
+<script src="js/buscartarea-app.js"></script>
+
 </body>
 </html>
 
-
-<!-- <div class="row">
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
-</div>
-</div>-->

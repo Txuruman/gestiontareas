@@ -12,7 +12,7 @@
             base-package="es.securitasdirect.tareas.web"/>
 
     <mvc:annotation-driven/>
-    <mvc:resources mapping="/static/**" location="/static/"/>
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
 
     <bean id="messageSource"
           class="org.springframework.context.support.ResourceBundleMessageSource">
