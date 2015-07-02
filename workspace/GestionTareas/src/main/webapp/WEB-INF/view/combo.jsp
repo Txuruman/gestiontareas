@@ -10,9 +10,9 @@
 <head>
 
     <link rel="stylesheet" type="text/css"
-          href="${pageContext.request.contextPath}/static/css/bootstrap.css"/>
+          href="${pageContext.request.contextPath}/resources/css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css"
-          href="${pageContext.request.contextPath}/static/css/custom.css"/>
+          href="${pageContext.request.contextPath}/resources/css/custom.css"/>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
 

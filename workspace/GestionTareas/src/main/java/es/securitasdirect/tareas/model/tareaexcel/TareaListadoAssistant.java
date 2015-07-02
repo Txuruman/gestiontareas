@@ -20,7 +20,7 @@ public class TareaListadoAssistant extends TareaExcel {
      */
     Integer numeroMantenimiento;
     /**
-     * Nombre
+     * Nombre. Parece ser el nombre de contacto, no se muestra en el detalle sino que debe sobreescribir el dato de Instalacion.
      * varchar(120)
      */
     String nombre;

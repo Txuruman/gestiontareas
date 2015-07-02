@@ -4,21 +4,29 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <div class="row">
+    <app:input id="aviso" label="tareaAviso.identificativoAvisoTarea" value="${tarea.identificativoAvisoTarea}" cells="6" readonly="false"/>
 
-
-    <app:inputCombo id="tipoAviso1" label="eti.visortarea.form.label.tipo" value="${tarea.tipoAviso1}" cells="6" readonly="false"/>
-
-    <app:inputCombo id="motivo1" label="eti.visortarea.form.label.motivo" value="${tarea.motivo1}" cells="6" readonly="false"/>
-
+    <app:input id="fechaCreacion" label="tareaAviso.fechaCreacion" value="${tarea.fechaCreacion}" cells="6" readonly="false"/>
 </div>
-
 <div class="spacer_t1"></div>
+
 <div class="row">
+    <app:input id="requeridoPor" label="tareaAviso.requeridoPor" value="${tarea.requeridoPor}" cells="6" readonly="false"/>
 
+    <app:input id="horarioDesde" label="tareaAviso.horarioDesde" value="${tarea.horarioDesde}" cells="3" readonly="false"/>
+    <app:input id="horarioHasta" label="tareaAviso.horarioHasta" value="${tarea.horarioHasta}" cells="3" readonly="false"/>
+</div>
+<div class="spacer_t1"></div>
+
+<div class="row">
+    <app:inputCombo id="tipoAviso1" label="eti.visortarea.form.label.tipo" value="${tarea.tipoAviso1}" cells="6" readonly="false"/>
+    <app:inputCombo id="motivo1" label="eti.visortarea.form.label.motivo" value="${tarea.motivo1}" cells="6" readonly="false"/>
+</div>
+<div class="spacer_t1"></div>
+
+<div class="row">
     <app:inputCombo id="tipoAviso2" value="${tarea.tipoAviso2}" cells="6" readonly="false"/>
-
     <app:inputCombo id="motivo2" value="${tarea.motivo2}" cells="6" readonly="false"/>
-
 </div>
 
 <div class="spacer_t1"></div>

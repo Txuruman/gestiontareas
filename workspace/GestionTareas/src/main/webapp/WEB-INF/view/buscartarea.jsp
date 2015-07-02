@@ -6,47 +6,17 @@
 
 <html data-ng-app="myApp">
 <head>
-    <title><spring:message code="titulo.BuscarTarea" /> </title>
-    <link rel="stylesheet" type="text/css"    href="${pageContext.request.contextPath}/resources/css/bootstrap.css"/>
-    <link rel="stylesheet" type="text/css"   href="${pageContext.request.contextPath}/resources/css/custom.css"/>
+    <title><spring:message code="titulo.BuscarTarea"/></title>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/custom.css"/>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
     <script type="text/javascript">
 
-        var app = angular.module('myApp', []);
-        app.controller('MyController', function ($scope, $http) {
-
-            $scope.getPersonDataFromServer = function () {
-
-                $http({method: 'GET', url: 'populatePersonDataFromServer.web'}).
-                        success(function (data, status, headers, config) {
-                            $scope.personDatas = data;
-                        }).
-                        error(function (data, status, headers, config) {
-                            // called asynchronously if an error occurs
-                            // or server returns response with an error status.
-                        });
-            };
-        });
 
     </script>
 
 </head>
 <body data-ng-controller="MyController">
-
-<table style="margin: 0px auto;" align="left">
-    <tr>
-        <td>
-            <div data-ng-init="getPersonDataFromServer()">
-                <b>Person Data:</b> <select id="personData">
-                <option value="">-- Select Persons --</option>
-                <option data-ng-repeat="personData in personDatas" value="{{personData.personId}}">{{personData.personName}}</option>
-            </select><br>
-            </div>
-        </td>
-    </tr>
-</table>
-
-
 
 <div class="container">
     <div class="row">
@@ -58,59 +28,67 @@
             <div class="panel-body">
                 <div class="row text-center">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <!-- Caja de busqueda -->
+                        <label for="searchText" class="col-lg-3 col-md-3 col-sm-3 col-xs-2 control-label labelcent">
+                            <spring:message code="eti.buscartarea.form.label.filtro"/>:
+                        </label>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                            <input type="text" class="form-control" id="searchText" ng-model="searchText"  required ng-minlength="6">
+                        </div>
+                        <div class="error-messages" ng-show="isMessagesVisible('searchText')" ng-messages="form.searchText.$error" ng-cloak>
+                            <div ng-message="required">The username is mandatory</div>
+                            <div ng-message="minlength">must have minimum 6 characters</div>
+                        </div>
+
+
+                        <!-- Boton Busqueda -->
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-left">
+                            <input type="submit" ng-click="searchTareaFromServer()" class="btn btn-primary" value="<spring:message code="boton.search" />"/>
+                        </div>
+
+
+                        <!-- Opciones busqueda -->
                         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4">
                             <div class="bordel text-center">
-                                <label class="checkbox-inline"> <input type="radio"
-                                                                       id="checkboxEnLinea1" name="options" value="opcion_1">
+                                <label class="checkbox-inline">
+                                    <input type="radio"  name="options" ng-model="searchOption" value="phone">
                                     <spring:message code="eti.buscartarea.form.radio.telefono1"/>
                                 </label>
-                                <label class="checkbox-inline"> <input type="radio"
-                                                                                id="checkboxEnLinea2" name="options"
-                                                                                value="opcion_2">
+                                <label class="checkbox-inline">
+                                    <input type="radio" name="options" ng-model="searchOption" value="customer">
                                     <spring:message code="eti.buscartarea.form.radio.cliente"/>
                                 </label>
                             </div>
                         </div>
-                        <label for="ejemplo_email_3"
-                               class="col-lg-3 col-md-3 col-sm-3 col-xs-2 control-label labelcent">
-                            <spring:message code="eti.buscartarea.form.label.filtro"/>:
-                        </label>
-                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                            <input type="text" class="form-control" id="ejemplo_email_3"
-                                   placeholder="Buscar">
-                        </div>
-                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-left">
-                            <input type="submit" class="btn btn-primary" value="Buscar"/>
-                        </div>
                     </div>
                 </div>
-                <!-- row -->
+
+
                 <div class="spacer_t3"></div>
                 <div class="spacer_t2"></div>
+
+                <!-- Tabla de Tareas -->
                 <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
                         <table class="table table-bordered">
                             <tr class="cabecillas">
-                                <th>Cliente</th>
-                                <th>Calling List</th>
-                                <th>Teléfono</th>
-                                <th>Estado</th>
-                                <th>Fecha de reprogramación</th>
+                                <th><spring:message code="searchTarea.table.customer"/></th>
+                                <th><spring:message code="searchTarea.table.callinglist"/></th>
+                                <th><spring:message code="searchTarea.table.phone"/></th>
+                                <th><spring:message code="searchTarea.table.status"/></th>
+                                <th><spring:message code="searchTarea.table.reprogramationDate"/></th>
                                 <th>Gestion</th>
                                 <th>Aplazar</th>
                             </tr>
-                            <%--Bucle de la tabla --%>
-                            <c:forEach items="${listaTareas}" var="tarea">
-                                <tr>
-                                    <td><c:out value="${tarea.codigoCliente}"/></td>
-                                    <td><c:out value="${tarea.callingList}"/></td>
-                                    <td><c:out value="${tarea.telefono}"/></td>
-                                    <td><c:out value="${tarea.estado}"/></td>
-                                    <td><fmt:formatDate pattern="HH:mm dd-MM-yyyy" value="${tarea.fechaReprogramacion}" /></td>
-                                    <td><a href="visortarea.htm?ins_no=<c:out value="${tarea.callingList}"/>&tipotarea=aviso" class="btn btn-default"><spring:message code="eti.buscartarea.btn.gestion"/></a></td>
-                                    <td><a href="#" class="btn btn-default"><spring:message code="eti.buscartarea.btn.aplazar"/></a></td>
-                                </tr>
-                            </c:forEach>
+                            <tr ng-repeat="t in tareas | orderBy : 'codigoCliente'">
+                                <td>{{ t.codigoCliente }}</td>
+                                <td>{{ t.callingList }}</td>
+                                <td>{{ t.telefono }}</td>
+                                <td>{{ t.estado }}</td>
+                                <td>{{ t.fechaReprogramacion | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                <td><a href="visortarea.htm?ins_no=<c:out value="${tarea.callingList}"/>&tipotarea=aviso" class="btn btn-default"><spring:message code="eti.buscartarea.btn.gestion"/></a></td>
+                                <td><a href="#" class="btn btn-default"><spring:message code="eti.buscartarea.btn.aplazar"/></a></td>
+                            </tr>
                         </table>
                     </div>
                 </div>
@@ -119,12 +97,14 @@
     </form>
 </div>
 
+<script src="${pageContext.request.contextPath}/resources/app/buscartarea-app.js"></script>
+<script src="${pageContext.request.contextPath}/resources/app/common.js"></script>
 
-<%--<script type="text/javascript" data-main="/resources/js/run-calories-tracker"--%>
-        <%--src="/resources/bower_components/requirejs/require.js"></script>--%>
 
-<script src="js/buscartarea-app.js"></script>
-
+<div data-ng-init="searchTareaFromServer()">
+    Tareas
+    {{tareas}}
+</div>
 </body>
 </html>
 

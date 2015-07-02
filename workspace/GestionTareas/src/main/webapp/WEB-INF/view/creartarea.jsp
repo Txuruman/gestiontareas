@@ -8,15 +8,15 @@
 <title>Welcome</title>
 
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/static/css/bootstrap.css" />
+	href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/static/css/custom.css" />
+	href="${pageContext.request.contextPath}/resources/css/custom.css" />
 	
 		<!--ECLIPSE  -->
 	<link rel="stylesheet" type="text/css"
-	href="../../static/css/bootstrap.css" />
+	href="../../resources/css/bootstrap.css" />
 <link rel="stylesheet" type="text/css"
-	href="../../static/css/custom.css" />
+	href="../../resources/css/custom.css" />
 	<!--ECLIPSE  -->
 </head>
 <body>

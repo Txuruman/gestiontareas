@@ -12,9 +12,9 @@
     <title>Welcome</title>
 
     <link rel="stylesheet" type="text/css"
-          href="${pageContext.request.contextPath}/static/css/bootstrap.css"/>
+          href="${pageContext.request.contextPath}/resources/css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css"
-          href="${pageContext.request.contextPath}/static/css/custom.css"/>
+          href="${pageContext.request.contextPath}/resources/css/custom.css"/>
 
 
 </head>

@@ -32,15 +32,15 @@ Enlaces
         </ul>
     <li>
         Estando el agente sin interacción en curso, decide crear una Tarea o buscar una existente.<br/>
-        <a href="buscartarea.htm?AGENTELOGADO=7777&NUMEROTELEFONO=&INSTALACION=">Buscar Tareas</a><br/>
+        <a href="searchtarea.htm?AGENTELOGADO=7777&NUMEROTELEFONO=&INSTALACION=">Buscar Tareas</a><br/>
         <a href="creartarea.htm">Crear Tarea</a><br/>
     </li>
     <li>
         Estando el agente con una interacción en curso, decide crear una Tarea o buscar una existente.<br/>
         <ul>
             <li><a href="visortarea/creartarea.htm?AGENTELOGADO=7777&NUMEROTELEFONO=69696969&INSTALACION=111111">Crear Tarea</a></li>
-            <li><a href="buscartarea.htm?AGENTELOGADO=7777&NUMEROTELEFONO=69696969&INSTALACION=111111">Buscar Tareas (Instalación con Tareas)</a></li>
-            <li><a href="buscartarea.htm?AGENTELOGADO=7777&NUMEROTELEFONO=69696969&INSTALACION=222222">Buscar Tareas (Instalación sin Tareas)</a></li>
+            <li><a href="searchtarea.htm?AGENTELOGADO=7777&NUMEROTELEFONO=69696969&INSTALACION=111111">Buscar Tareas (Instalación con Tareas)</a></li>
+            <li><a href="searchtarea.htm?AGENTELOGADO=7777&NUMEROTELEFONO=69696969&INSTALACION=222222">Buscar Tareas (Instalación sin Tareas)</a></li>
         </ul>
 
     </li>
