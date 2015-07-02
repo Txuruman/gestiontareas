@@ -23,7 +23,7 @@
         <jsp:include page="bloques/tabs1.jsp"/>
     </div>
     <div class="spacer_t2"></div>
-    <form class="form-horizontal" role="form">
+    <form class="form-horizontal" role="form"   >
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="row text-center">
@@ -33,11 +33,7 @@
                             <spring:message code="eti.buscartarea.form.label.filtro"/>:
                         </label>
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                            <input type="text" class="form-control" id="searchText" ng-model="searchText"  required ng-minlength="6">
-                        </div>
-                        <div class="error-messages" ng-show="isMessagesVisible('searchText')" ng-messages="form.searchText.$error" ng-cloak>
-                            <div ng-message="required">The username is mandatory</div>
-                            <div ng-message="minlength">must have minimum 6 characters</div>
+                            <input type="text" class="form-control" id="searchText" ng-model="searchText" required  ng-minlength="6">
                         </div>
 
 
@@ -51,7 +47,7 @@
                         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4">
                             <div class="bordel text-center">
                                 <label class="checkbox-inline">
-                                    <input type="radio"  name="options" ng-model="searchOption" value="phone">
+                                    <input type="radio"  name="options" ng-model="searchOption" value="phone" ng-checked="true">
                                     <spring:message code="eti.buscartarea.form.radio.telefono1"/>
                                 </label>
                                 <label class="checkbox-inline">
@@ -101,10 +97,10 @@
 <script src="${pageContext.request.contextPath}/resources/app/common.js"></script>
 
 
-<div data-ng-init="searchTareaFromServer()">
-    Tareas
-    {{tareas}}
-</div>
+<%--<div data-ng-init="searchTareaFromServer()">--%>
+    <%--Tareas--%>
+    <%--{{tareas}}--%>
+<%--</div>--%>
 </body>
 </html>
 

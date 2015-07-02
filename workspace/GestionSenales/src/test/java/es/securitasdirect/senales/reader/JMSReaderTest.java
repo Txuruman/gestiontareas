@@ -1,5 +1,6 @@
 package es.securitasdirect.senales.reader;
 
+import es.securitasdirect.senales.support.FileService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -21,6 +22,7 @@ public class JMSReaderTest {
 
     @Inject
     JMSReader jmsReader;
+
 
     @Test
     public void inject() throws NamingException, JMSException {

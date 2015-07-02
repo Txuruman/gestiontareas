@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<message>
+    <entryDate>2015-06-26T13:11:07.579+02:00</entryDate>
+    <paramsType>
+        <CIBB>
+            <EVENTS MMV="20401" Modelo="Modelo Desconocido" Counter="00B" Ack="1" InsNumber="0" InsNumber_e="1555667" DataTime="1502091042" TypeProtocol="E">
+                <EVENT id="UCB">
+                    <type>2</type>
+                    <ArmType value="Panel disarm"/>
+                    <ArmForced value="Panel is not forced armed"/>
+                    <Zone value="There is not  any  zone open"/>
+                    <CancelPending value="There is not  any  cancel situation in panel"/>
+                    <PanelInFault value="Panel is in Fault"/>
+                    <EventType value="Informative events"/>
+                    <DevIdentification value="Central:Central"/>
+                    <EventStatus value="Event status does not apply for this event."/>
+                    <ArmTime>67511</ArmTime>
+                    <DevManufacturer>0KYMGB</DevManufacturer>
+                </EVENT>
+            </EVENTS>
+            <PROPS tfno="0" texto="SDES04702040100B1000000000001502091042E1555667#XDN067511NNSICE0KYMGBNUCB2!C517" pais="ESP" host="es1recveri04v" op="MOVS" centro="" Numero="comfort" tipo="SDI2" user="1555667" err="" transId="es1recveri04v_rx_GPRS_es_mov7587_20150209104235556" TimeIn="1423474955000" RecepName="rx_GPRS_es_mov7587" Medio="GPRS" TansmisionType="EVENT" SeviceType="comfort" ProtocolType="POSESA" InOrOut="INPUT" DestinoType="MACHINE" OrigenType="PANEL" ModeloId="" origen="panel" Ok="true" ServiceType="COM"/>
+        </CIBB>
+    </paramsType>
+</message>

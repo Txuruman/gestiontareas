@@ -13,11 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.wso2.ws.dataservice.DataServiceFault;
 import org.wso2.ws.dataservice.GetInstallationDataResult;
 import org.wso2.ws.dataservice.SPAIOTAREAS2PortType;
-import org.wso2.ws.dataservice.SPInstallationMonDataPortType;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import java.util.*;
@@ -142,7 +140,7 @@ public class GestionSenalesService {
     /**
      * Map of sms messages locations
      */
-    @Resource(name="smsLocation")
+    @Resource(name = "smsLocation")
     private Map<String, SmsMessageLocation> smsMessageLocationMap;
 
     @Autowired
@@ -168,17 +166,22 @@ public class GestionSenalesService {
     private void processMessage(Message message) {
         boolean processedOk = false;
         if (isDuplicated(message)) {
-            LOGGER.debug("Discarting duplicated message {}", message);
+            LOGGER.debug("Discarting duplicated  {}", message);
+        } else if (!isAllowedType(message)) {
+            LOGGER.error("Not allowed type  {}", message);
+        } else if (isExpired(message)) {
+            LOGGER.warn("Expired  {}", message);
         } else {
-            LOGGER.debug("Processing Message {}", message);
+
             try {
-                if(isAllowedType(message) && !discardExpiredMessage(message)){
-                    if (!isWorkingHours()) {
-                        processMessageOutOfWorkingHours(message);
-                    } else {
-                        //Si la señal ha llegado fuera del horario de atención establecido
-                        processMessageInWorkingHours(message);
-                    }
+                if (!isWorkingHours()) {
+                    //Si la señal ha llegado fuera del horario de atención establecido
+                    LOGGER.debug("Processing Out of working hours {}", message);
+                    processMessageOutOfWorkingHours(message);
+                } else {
+                    //Si la señal ha llegado dentro del horario de atencion
+                    LOGGER.debug("Processing  {}", message);
+                    processMessageInWorkingHours(message);
                 }
                 processedOk = true;
             } catch (Exception e) {
@@ -231,11 +234,11 @@ public class GestionSenalesService {
         GetInstallationDataResult installationData = getInstallationData(insNumberE);
         String messageLanguageLocationKey = message.getLanguageLocationKey();
         SmsMessageLocation smsMessageLocation = null;
-        if(messageLanguageLocationKey!=null && EMPTY.equals(messageLanguageLocationKey)){
+        if (messageLanguageLocationKey != null && !messageLanguageLocationKey.isEmpty()) {
             smsMessageLocation = smsMessageLocationMap.get(messageLanguageLocationKey);
         }
         //If smsMessageLocation is null, for not found message language location key in message location map or for not
-        if(smsMessageLocation==null){
+        if (smsMessageLocation == null) {
             smsMessageLocation = smsMessageLocationMap.get(SmsMessageLocation.DEFAULT);
         }
 
@@ -247,12 +250,12 @@ public class GestionSenalesService {
         LOGGER.error("SMS sending not implemented, message to send: '{}'", outOfWorkingHours);
 
         //TODO Parametros
-        String ccIdentifier=null;
-        String applicationUser=null;
-        String ccUserId=null;
-        String destination=null;
+        String ccIdentifier = null;
+        String applicationUser = null;
+        String ccUserId = null;
+        String destination = null;
         String text = ""; //TODO Sacarlo de configuracion por PAIS
-        String account= null;
+        String account = null;
         String country = message.getParamsType().getCIBB().getPROPS().getPais();
 
         cclIntegration.sendSMS(ccIdentifier,
@@ -262,15 +265,6 @@ public class GestionSenalesService {
                 text,
                 account,
                 country);
-    }
-
-    private boolean discardExpiredMessage(Message message) {
-        boolean discard = isExpired(message);
-        if(this.isExpired(message)){
-            LOGGER.info("Discarding message because of expired date. {}" , message);
-        }
-        return discard;
-        //TODO Hay que cancelar cosas, mirar el documento
     }
 
     /**
@@ -284,12 +278,12 @@ public class GestionSenalesService {
         return processed.getIfPresent(message.getId()) != null;
     }
 
-    private boolean isAllowedType(Message message){
+    private boolean isAllowedType(Message message) {
         String messageType = message.getType();
-        if(messageType!=null){
+        if (messageType != null) {
             return allowedQSignals.keySet().contains(message.getType());
-        }else{
-            LOGGER.warn("Cannot get the message type");
+        } else {
+            LOGGER.warn("Cannot get the message type of {}", message);
             return false;
         }
     }
@@ -386,7 +380,7 @@ public class GestionSenalesService {
      * Check if the message is old enought to be discarted
      */
     protected boolean isExpired(final Message message) {
-        if (daysToDiscardOldMessages!=null && daysToDiscardOldMessages!=0) {
+        if (daysToDiscardOldMessages != null && daysToDiscardOldMessages != 0) {
             Calendar calendar = Calendar.getInstance(); // this would default to now
             calendar.add(Calendar.DAY_OF_MONTH, -daysToDiscardOldMessages);
             Date discardDate = calendar.getTime();

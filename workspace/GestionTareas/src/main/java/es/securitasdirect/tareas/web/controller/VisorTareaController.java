@@ -58,7 +58,6 @@ public class VisorTareaController {
         InstallationData installationData = null;
         Tarea tarea = null;
 
-
         String tipoTarea = null;
         String t_tipo = null;
         String idAviso = null;
