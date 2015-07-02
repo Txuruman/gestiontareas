@@ -8,16 +8,17 @@
 <div class="spacer_t1"></div>
 <div class="row">
     <app:input id="tipoCampana" label="eti.visortarea.form.label.otras.tipoCampana" value="${tarea.tipoCampana}" cells="6" readonly="true"/>
+    <app:input id="campo1" label="" value="${tarea.campo1}" cells="6" readonly="true"/>
+</div>
+<div class="spacer_t1"></div>
+<div class="row">
     <app:input id="comentario" label="eti.visortarea.form.label.otras.comentario" value="${tarea.comentario}" cells="6" readonly="true"/>
+    <app:input id="campo2" label="" value="${tarea.campo2}" cells="6" readonly="true"/>
 </div>
 <div class="spacer_t1"></div>
 <div class="row">
-    <app:input id="campo1" label="eti.visortarea.form.label.otras.campo1" value="${tarea.campo1}" cells="6" readonly="true"/>
-    <app:input id="campo2" label="eti.visortarea.form.label.otras.campo2" value="${tarea.campo2}" cells="6" readonly="true"/>
-</div>
-<div class="spacer_t1"></div>
-<div class="row">
-    <app:input id="campo3" label="eti.visortarea.form.label.otras.campo3" value="${tarea.campo3}" cells="6" readonly="true"/>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"></div>
+    <app:input id="campo3" label="" value="${tarea.campo3}" cells="6" readonly="true"/>
 </div>
 
 

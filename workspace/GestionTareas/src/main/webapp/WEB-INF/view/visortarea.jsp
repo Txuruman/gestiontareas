@@ -36,21 +36,21 @@
 
         <!-- Datos de la Instalacion  -  Start -->
         <div class="row">
-            <app:input id="ninstalacion" label="eti.visortarea.form.label.ninstalacion" value="${installationData.numeroInstalacion}" cells="6" cell_label="4" cell_input="8" readonly="true"/>
-            <app:input id="titular" label="eti.visortarea.form.label.titular" value="${installationData.titular}" cells="6" readonly="true"/>
+            <app:input id="ninstalacion" label="visortarea.ninstalacion" value="${installationData.numeroInstalacion}" cells="6" cell_label="4" cell_input="8" readonly="true"/>
+            <app:input id="titular" label="visortarea.titular" value="${installationData.titular}" cells="6" readonly="true"/>
         </div>
 
         <div class="spacer_t1"></div>
         <div class="row">
-            <app:input id="personaContacto" label="eti.visortarea.form.label.personacontacto" value="${installationData.personaContacto}" cells="6" readonly="true"/>
-            <app:input id="panel" label="eti.visortarea.form.label.panel" value="${installationData.panel}" cells="6" readonly="true"/>
+            <app:input id="personaContacto" label="visortarea.personacontacto" value="${installationData.personaContacto}" cells="6" readonly="true"/>
+            <app:input id="panel" label="visortarea.panel" value="${installationData.panel}" cells="6" readonly="true"/>
         </div>
 
         <div class="spacer_t1"></div>
 
         <div class="row">
-            <app:input id="telefono" label="eti.visortarea.form.label.telefono" value="${installationData.telefono}" cells="6" readonly="true"/>
-            <app:input id="version" label="eti.visortarea.form.label.version" value="${installationData.version}" cells="6" readonly="true"/>
+            <app:input id="telefono" label="visortarea.telefono" value="${installationData.telefono}" cells="6" readonly="true"/>
+            <app:input id="version" label="visortarea.version" value="${installationData.version}" cells="6" readonly="true"/>
         </div>
         <!-- Datos de la Instalacion  - End -->
 
@@ -81,7 +81,8 @@
                             <input type="submit" class="btn btn-default" value="<spring:message code="boton.CrearMantenimiento" />"/>
                         </c:if>
                         <c:if test="${secundaria eq 'componentes/tareaexcel/encuenstasmantenimientos.jsp'}">
-                            <input type="submit" class="btn btn-default" value="<spring:message code="boton.CrearMantenimiento" />"/>
+                            <input type="submit" class="btn btn-default" value="<spring:message code="boton.Aplazar" />"/>
+                            <input type="submit" class="btn btn-default" value="<spring:message code="boton.Descartar"/>"/>
                         </c:if>
                         <c:if test="${secundaria eq 'componentes/tareaexcel/encuestasmarketing.jsp'}">
                             <input type="submit" class="btn btn-default" value="<spring:message code="boton.Aplazar" />"/>

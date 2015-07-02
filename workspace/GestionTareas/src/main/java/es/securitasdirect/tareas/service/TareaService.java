@@ -98,7 +98,9 @@ public class TareaService {
      */
     public Tarea getTareaByIdAviso(Integer idAviso) throws DataServiceFault {
         TareaAviso tarea = null;
-        List<GetAvisobyIdResult> avisobyId = spAioTareas2.getAvisobyId(idAviso);
+        //TODO Comentado porque no funcionaba el WS en ese momento
+        List<GetAvisobyIdResult> avisobyId = null;
+        //List<GetAvisobyIdResult> avisobyId = spAioTareas2.getAvisobyId(idAviso);
         if (avisobyId != null && !avisobyId.isEmpty()) {
             tarea = mapTareaAvisoFromWS(avisobyId.get(0)); //TODO Devuelve una lista aunque se supone que solo es uno, check
         }

@@ -33,12 +33,11 @@
 
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            <label for="ejemplo_email_3"
-                                class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">
-                                Nº instalación: </label>
-                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                                <input type="text" class="form-control" id="ejemplo_email_1"
-                                    placeholder="Instalación">
+                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 development">
+                                <app:input id="ninstalacion" label="creartarea.ninstalacion" value="${creartarea.ninstalacion}" readonly="false" />
+                            </div>
+                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                                <input type="button" class="btn btn-xs" value="<spring:message code="creartarea.boton.buscarinstalacion"/>"/>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -258,10 +257,8 @@
                     <div class="row" align="right">
                         <div class="container-fluid">
                             <input type="submit" class="btn btn-default"
-                                   value="Buscar Instalación" />
-                            <input type="submit" class="btn btn-default"
                                    value="Crear mantenimiento" />
-                            <input type="submit" class="btn btn-primary" value="Finalizar" />
+                            <input type="submit" class="btn btn-primary" value="Crear" />
                         </div>
                     </div>
                 </div>

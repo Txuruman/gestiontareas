@@ -4,7 +4,7 @@ package es.securitasdirect.tareas.web.controller.params;
  * Constantes de los parametros que nos pasan desde el IWS.
  * Al documento Integracion_IWS_Web_DiseñoTecnico_v2.5 contiene un listado y explicaciones.
  */
-public interface ExternalParams {
+public interface ServiceParams {
 
     /*  	Identificador del agente  */
     public static String identificadorAgente = "bp_agent";
@@ -21,20 +21,14 @@ public interface ExternalParams {
     /*  	Firma de la conexión  */
     public static String firmaConexion = "bp_auth_signature";
 
-
     public static String NUMERO_INSTALACION = "ins_no";
-    public static String TIPO_TAREA = "tipotarea";
-
-    public static String ID_AVISO = "idaviso";
-    public static String ID_AVISO_UP = "ID_AVISO";
-    public static String MOTIVO_CIERRE= "motivocierre";
-
-
     public static String COMPENSACION = "compensacion";
 
-    public static String ENCUESTAMARKETING_MOTIVO = "motivo";
-    public static String ENCUESTAMARKETING_FECHA = "fecha";
 
+
+    /*
+     * Tarea de tipo Listado Assistant
+     */
     public static String ASSISTANT_INSTALACION = "instalacion";
     public static String ASSISTANT_MANTENIMIENTO = "";
     public static String ASSISTANT_TECNICO = "instalacion";
@@ -43,12 +37,10 @@ public interface ExternalParams {
     public static String ASSISTANT_TOTALSINIVA = "instalacion";
     public static String ASSISTANT_TOTALCONIVA = "instalacion";
     public static String ASSISTANT_NPARTE = "instalacion";
-    public static String ASSISTANT_CIERRE_FECHA = "instalacion";
     public static String ASSISTANT_ARCHIVO_FECHA = "instalacion";
     public static String ASSISTANT_SUBIDA_INC_FECHA = "instalacion";
     public static String ASSISTANT_PAGO_FECHA = "instalacion";
     public static String ASSISTANT_INCIDENCIA = "instalacion";
-
     public static String ASSISTANT_SUBINCIDENCIA = "instalacion";
     public static String ASSISTANT_SOLICITUD = "instalacion";
     public static String ASSISTANT_CAMBIOS = "instalacion";
@@ -57,10 +49,12 @@ public interface ExternalParams {
     public static String ASSISTANT_BO_RECEPCION_FECHA = "instalacion";
     public static String ASSISTANT_BO_EMPRESA_PARTICULAR = "instalacion";
     public static String ASSISTANT_BO_COMENTARIOS = "instalacion";
-
     public static String ASSISTANT_CONTACTO_TELEFONO = "instalacion";
 
 
+    /**
+     * Tarea de tipo Encuesta mantenimientos
+     */
     public static String ENCUESTAMNTOS_MANTENIMIENTO = "mantenimiento";
     public static String ENCUESTAMNTOS_TECNICO = "mantenimiento";
     public static String ENCUESTAMNTOS_RESPONSABLE = "mantenimiento";
@@ -71,7 +65,9 @@ public interface ExternalParams {
     public static String ENCUESTAMNTOS_DPTO_DESTINO = "mantenimiento";
 
 
-
+    /**
+     * Tarea de tipo Encuesta mercados
+     */
     public static String ENCUESTASMKT_FECHA = "mantenimiento";
     public static String ENCUESTASMKT_MOTIVO = "mantenimiento";
 
@@ -84,7 +80,6 @@ public interface ExternalParams {
     public  static String OTRASCAMPANAS_CAMPO1 = "campo";
     public  static String OTRASCAMPANAS_CAMPO2 = "campo";
     public  static String OTRASCAMPANAS_CAMPO3 = "campo";
-    public  static String OTRASCAMPANAS_COMENTARIO = "campo";
     public  static String OTRASCAMPANAS_TIPOTAREA = "campo";
 
     public  static String LIMPIEZA_CUOTA_CONTRATO = "campo";
@@ -104,9 +99,11 @@ public interface ExternalParams {
     public static String TAREA_MANTENIMIENTO_KEY1= "TAREA_MANTENIMIENTO_KEY1";
     public static String TAREA_MANTENIMIENTO_KEY2= "TAREA_MANTENIMIENTO_KEY2";
 
-
-
-
+    /**
+     * CALLING_LIST_RESPONSE_TIPO_TAREA
+     */
+    public static String CALLING_LIST_RESPONSE_TIPO_TAREA="CALLING_LIST";
+    public static String CALLING_LIST_RESPONSE_ID_AVISO = "ID_AVISO";
 
 
 }

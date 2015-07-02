@@ -34,6 +34,18 @@ public class TareaKeybox extends TareaExcel {
      */
     String contrato;
 
+    /**
+     * Panel
+     */
+    String panel;
+
+    public String getPanel() {
+        return panel;
+    }
+
+    public void setPanel(String panel) {
+        this.panel = panel;
+    }
 
     public String getNumeroFactura() {
         return numeroFactura;

@@ -3,9 +3,7 @@
 <%@ taglib prefix="app" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<div class="spacer_t1"></div>
 <jsp:include page="comunes.jsp"/>
-<div class="spacer_t1"></div>
 <div class="row">
 
     <app:input id="fecha" label="eti.visortarea.form.label.fecha" value="${tarea.fecha}" cells="6" readonly="true"/>
