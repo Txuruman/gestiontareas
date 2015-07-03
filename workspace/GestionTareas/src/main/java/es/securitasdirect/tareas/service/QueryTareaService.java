@@ -2,7 +2,6 @@ package es.securitasdirect.tareas.service;
 
 import com.webservice.CCLIntegration;
 import com.webservice.CclResponse;
-import com.webservice.Fila;
 import com.webservice.Item;
 import es.securitasdirect.tareas.model.Tarea;
 import es.securitasdirect.tareas.model.TareaAviso;
@@ -189,13 +188,13 @@ public class QueryTareaService {
 
 
     private Tarea createTareaEncuestaMantenimientoFromParameters(Map<String, String> parameters) {
-        TareaEncuestaMantenimiento tarea = new TareaEncuestaMantenimiento();
+        MaintenanceSurveyTask tarea = new MaintenanceSurveyTask();
         loadTareaCommons(tarea, parameters);
         loadTareaExcelCommons(tarea, parameters);
 
-        tarea.setNumeroMantenimiento(toIntegerFromMap(parameters.get(ServiceParams.ENCUESTAMNTOS_MANTENIMIENTO)));
-        tarea.setTecnico(parameters.get(ServiceParams.ENCUESTAMNTOS_TECNICO));
-        tarea.setResponsable(parameters.get(ServiceParams.ENCUESTAMNTOS_RESPONSABLE));
+        tarea.setMaintenanceNumber(toIntegerFromMap(parameters.get(ServiceParams.ENCUESTAMNTOS_MANTENIMIENTO)));
+        tarea.setTechnician(parameters.get(ServiceParams.ENCUESTAMNTOS_TECNICO));
+        tarea.setManager(parameters.get(ServiceParams.ENCUESTAMNTOS_RESPONSABLE));
         tarea.setCentroCoste(parameters.get(ServiceParams.ENCUESTAMNTOS_CENTROCOSTE));
         tarea.setRazonClaveValoracion(parameters.get(ServiceParams.ENCUESTAMNTOS_RAZON));
         tarea.setSolucion(parameters.get(ServiceParams.ENCUESTAMNTOS_SOLUCION));

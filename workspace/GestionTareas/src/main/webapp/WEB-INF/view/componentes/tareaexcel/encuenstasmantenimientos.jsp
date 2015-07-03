@@ -5,13 +5,13 @@
 
 <jsp:include page="comunes.jsp"/>
 <div class="row">
-    <app:input id="numeroMantenimiento" label="eti.visortarea.form.label.numeroMantenimiento" value="${tarea.numeroMantenimiento}" cells="6" readonly="true"/>
-    <app:input id="tecnico" label="eti.visortarea.form.label.tecnico" value="${tarea.tecnico}" cells="6" readonly="true"/>
+    <app:input id="maintenanceNumber" label="eti.visortarea.form.label.maintenanceNumber" value="${tarea.maintenanceNumber}" cells="6" readonly="true"/>
+    <app:input id="technician" label="eti.visortarea.form.label.technician" value="${tarea.technician}" cells="6" readonly="true"/>
 </div>
 <div class="spacer_t1"></div>
 
 <div class="row">
-    <app:input id="responsable" label="eti.visortarea.form.label.responsable" value="${tarea.responsable}" cells="6" readonly="true"/>
+    <app:input id="manager" label="eti.visortarea.form.label.manager" value="${tarea.manager}" cells="6" readonly="true"/>
     <app:input id="centroCoste" label="eti.visortarea.form.label.centroCoste" value="${tarea.centroCoste}" cells="6" readonly="true"/>
 </div>
 <div class="spacer_t1"></div>
@@ -42,9 +42,9 @@ panel='SD 2000C', version='null',
 personaContacto='JOSE RAMON ARAGON ARRONTES'
 }
 Tarea : TareaEncuestaMantenimiento{
-numeroMantenimiento=0,
-tecnico='null',
-responsable='null',
+maintenanceNumber=0,
+technician='null',
+manager='null',
 centroCoste='null',
 razonClaveValoracion='null',
 solucion='null',

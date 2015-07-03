@@ -105,7 +105,7 @@ public class VisorTareaController {
             } else if (tarea instanceof TareaListadoAssistant) {
                 titulo = "titulo.TareaListadoAssistant";
                 mv.addObject(SECUNDARIA, EXCEL_LISTADO_ASSISTANT);
-            } else if (tarea instanceof TareaEncuestaMantenimiento) {
+            } else if (tarea instanceof MaintenanceSurveyTask) {
                 titulo = "titulo.TareaEncuestaMantenimiento";
                 mv.addObject(SECUNDARIA, EXCEL_ENCUESTAS_MANTENIMIENTOS);
             } else if (tarea instanceof TareaEncuestaMarketing) {

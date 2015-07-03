@@ -5,8 +5,8 @@
 
 <jsp:include page="comunes.jsp"/>
 <div class="row">
-    <app:input id="numeroMantenimiento" label="eti.visortarea.form.label.assistant.numeroMantenimiento" value="${tarea.numeroMantenimiento}" cells="4"  cell_label="6" cell_input="6" readonly="true"/>
-    <app:input id="tecnico" label="eti.visortarea.form.label.assistant.tecnico" value="${tarea.tecnico}" cells="4" cell_label="6" cell_input="6" readonly="true"/>
+    <app:input id="maintenanceNumber" label="eti.visortarea.form.label.assistant.maintenanceNumber" value="${tarea.maintenanceNumber}" cells="4"  cell_label="6" cell_input="6" readonly="true"/>
+    <app:input id="technician" label="eti.visortarea.form.label.assistant.technician" value="${tarea.technician}" cells="4" cell_label="6" cell_input="6" readonly="true"/>
     <app:input id="departamento" label="eti.visortarea.form.label.assistant.departamento" value="${tarea.departamento}" cells="4" cell_label="6" cell_input="6" readonly="true"/>
 </div>
 <div class="spacer_t1"></div>
@@ -60,11 +60,11 @@ personaContacto='JOSE RAMON ARAGON ARRONTES'
 }
 Tarea : TareaListadoAssistant{
 numeroInstalacion='null',
-numeroMantenimiento=0,
+maintenanceNumber=0,
 nombre='null',
 
 telefono='null',
-tecnico='null',
+technician='null',
 departamento='null',
 
 grupoPanel='null',

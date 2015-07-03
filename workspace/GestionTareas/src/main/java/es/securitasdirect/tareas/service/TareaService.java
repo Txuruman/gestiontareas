@@ -245,13 +245,13 @@ public class TareaService {
     }
 
     private Tarea createTareaEncuestaMantenimientoFromParameters(Map<String, String> parameters) {
-        TareaEncuestaMantenimiento tarea = new TareaEncuestaMantenimiento();
+        MaintenanceSurveyTask tarea = new MaintenanceSurveyTask();
         loadTareaCommons(tarea, parameters);
         loadTareaExcelCommons(tarea, parameters);
 
-        tarea.setNumeroMantenimiento(toIntegerFromParam(parameters.get(ExternalParams.ENCUESTAMNTOS_MANTENIMIENTO)));
-        tarea.setTecnico(parameters.get(ExternalParams.ENCUESTAMNTOS_TECNICO));
-        tarea.setResponsable(parameters.get(ExternalParams.ENCUESTAMNTOS_RESPONSABLE));
+        tarea.setMaintenanceNumber(toIntegerFromParam(parameters.get(ExternalParams.ENCUESTAMNTOS_MANTENIMIENTO)));
+        tarea.setTechnician(parameters.get(ExternalParams.ENCUESTAMNTOS_TECNICO));
+        tarea.setManager(parameters.get(ExternalParams.ENCUESTAMNTOS_RESPONSABLE));
         tarea.setCentroCoste(parameters.get(ExternalParams.ENCUESTAMNTOS_CENTROCOSTE));
         tarea.setRazonClaveValoracion(parameters.get(ExternalParams.ENCUESTAMNTOS_RAZON));
         tarea.setSolucion(parameters.get(ExternalParams.ENCUESTAMNTOS_SOLUCION));

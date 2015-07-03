@@ -348,10 +348,10 @@ public class TareaListadoAssistant extends TareaExcel {
     public String toString() {
         final StringBuilder sb = new StringBuilder("TareaListadoAssistant{");
         sb.append("numeroInstalacion='").append(numeroInstalacion).append('\'');
-        sb.append(", numeroMantenimiento=").append(numeroMantenimiento);
+        sb.append(", maintenanceNumber=").append(numeroMantenimiento);
         sb.append(", nombre='").append(nombre).append('\'');
         sb.append(", telefono='").append(telefono).append('\'');
-        sb.append(", tecnico='").append(tecnico).append('\'');
+        sb.append(", technician='").append(tecnico).append('\'');
         sb.append(", departamento='").append(departamento).append('\'');
         sb.append(", grupoPanel='").append(grupoPanel).append('\'');
         sb.append(", totalSinIVA=").append(totalSinIVA);

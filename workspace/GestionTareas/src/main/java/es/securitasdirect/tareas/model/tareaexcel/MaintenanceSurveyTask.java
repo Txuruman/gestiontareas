@@ -2,8 +2,6 @@ package es.securitasdirect.tareas.model.tareaexcel;
 
 import es.securitasdirect.tareas.model.TareaExcel;
 
-import java.util.List;
-
 /**
  * Encuestas Mantenimientos.
  *
@@ -22,23 +20,23 @@ import java.util.List;
  *
  * @author Team Vision
  */
-public class TareaEncuestaMantenimiento extends TareaExcel {
+public class MaintenanceSurveyTask extends TareaExcel {
 
 
     /**
-     * Número de Mantenimiento
+     * Maintenance Number - Número de Mantenimiento
      */
-    Integer numeroMantenimiento;
+    Integer maintenanceNumber;
     /**
-     * Técnico.
+     * Technician - Técnico.
      * varchar (10)
      */
-    String tecnico;
+    String technician;
     /**
-     * Responsable, alias JE.
+     * Manager - Responsable, alias JE.
      * varchar(10)
      */
-    String responsable;
+    String manager;
     /**
      * Centro de Coste, alias (CC).
      * varchar(5)
@@ -66,28 +64,28 @@ public class TareaEncuestaMantenimiento extends TareaExcel {
     String departamentoDestino;
 
 
-    public Integer getNumeroMantenimiento() {
-        return numeroMantenimiento;
+    public Integer getMaintenanceNumber() {
+        return maintenanceNumber;
     }
 
-    public void setNumeroMantenimiento(Integer numeroMantenimiento) {
-        this.numeroMantenimiento = numeroMantenimiento;
+    public void setMaintenanceNumber(Integer maintenanceNumber) {
+        this.maintenanceNumber = maintenanceNumber;
     }
 
-    public String getTecnico() {
-        return tecnico;
+    public String getTechnician() {
+        return technician;
     }
 
-    public void setTecnico(String tecnico) {
-        this.tecnico = tecnico;
+    public void setTechnician(String technician) {
+        this.technician = technician;
     }
 
-    public String getResponsable() {
-        return responsable;
+    public String getManager() {
+        return manager;
     }
 
-    public void setResponsable(String responsable) {
-        this.responsable = responsable;
+    public void setManager(String manager) {
+        this.manager = manager;
     }
 
     public String getCentroCoste() {
@@ -134,9 +132,9 @@ public class TareaEncuestaMantenimiento extends TareaExcel {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("TareaEncuestaMantenimiento{");
-        sb.append("numeroMantenimiento=").append(numeroMantenimiento);
-        sb.append(", tecnico='").append(tecnico).append('\'');
-        sb.append(", responsable='").append(responsable).append('\'');
+        sb.append("maintenanceNumber=").append(maintenanceNumber);
+        sb.append(", technician='").append(technician).append('\'');
+        sb.append(", manager='").append(manager).append('\'');
         sb.append(", centroCoste='").append(centroCoste).append('\'');
         sb.append(", razonClaveValoracion='").append(razonClaveValoracion).append('\'');
         sb.append(", solucion='").append(solucion).append('\'');
