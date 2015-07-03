@@ -9,12 +9,12 @@
     <div class="row development">
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 development">
             <div class="row development">
-                <app:inputText id="contrato" label="tareamantenimiento.contrato" value="${tareamantenimiento.contrato}" readonly="true"/>
+                <app:inputText id="contrato" label="tareamantenimiento.contrato" value="${tarea.contrato}" readonly="true"/>
             </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 development">
             <div class="row development">
-                <app:inputText id="tipificacion" label="tareamantenimiento.tipificacion" value="${tareamantenimiento.tipificacion}" readonly="true"/>
+                <app:inputText id="tipificacion" label="tareamantenimiento.tipificacion" value="${tarea.tipificacion}" readonly="true"/>
             </div>
         </div>
     </div>
@@ -22,25 +22,12 @@
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 development">
             <div class="row">
-                <app:inputText id="direccion" label="tareamantenimiento.direccion" value="${tareamantenimiento.direccion}" readonly="true"/>
+                <app:inputText id="direccion" label="tareamantenimiento.direccion" value="${tarea.direccion}" readonly="true"/>
             </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 development">
             <div class="row">
-                <app:inputText id="fechaEvento" label="tareamantenimiento.fechaEvento" value="${tareamantenimiento.fechaEvento}" readonly="true"/>
-            </div>
-        </div>
-    </div>
-    <div class="spacer_t1"></div>
-    <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 development">
-            <div class="row">
-                <app:inputText id="ciudad" label="tareamantenimiento.ciudad" value="${tareamantenimiento.ciudad}" readonly="true"/>
-            </div>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 development">
-            <div class="row">
-                <app:inputText id="agenteAsignado" label="tareamantenimiento.agenteAsignado" value="${tareamantenimiento.agenteAsignado}" readonly="true"/>
+                <app:inputText id="fechaEvento" label="tareamantenimiento.fechaEvento" value="${tarea.fechaEvento}" readonly="true"/>
             </div>
         </div>
     </div>
@@ -48,14 +35,27 @@
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 development">
             <div class="row">
-                <app:inputCombo id="opcionTipificacion" label="tareamantenimiento.opcionTipificacion" value="${tareamantenimiento.opcionTipificacion}" readonly="false"/>
+                <app:inputText id="ciudad" label="tareamantenimiento.ciudad" value="${tarea.ciudad}" readonly="true"/>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 development">
+            <div class="row">
+                <app:inputText id="agenteAsignado" label="tareamantenimiento.agenteAsignado" value="${tarea.agenteAsignado}" readonly="true"/>
+            </div>
+        </div>
+    </div>
+    <div class="spacer_t1"></div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 development">
+            <div class="row">
+                <app:inputCombo id="opcionTipificacion" label="tareamantenimiento.opcionTipificacion" value="${tarea.opcionTipificacion}" readonly="false"/>
             </div>
             <div class="spacer_t1"></div>
             <div class="row">
                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 development">
                 </div>
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 development">
-                    <app:inputText id="telefono1" label="tareamantenimiento.telefono1" value="${tareamantenimiento.telefono1}" readonly="false"/>
+                    <app:inputText id="telefono1" label="tareamantenimiento.telefono1" value="PENDIENTE" readonly="false"/>
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                     <input type="button" class="btn btn-xs" value="<spring:message code="tareamantenimiento.llamartelefono1"/>"/>
@@ -66,7 +66,7 @@
                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 development">
                 </div>
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 development">
-                    <app:inputText id="telefono2" label="tareamantenimiento.telefono2" value="${tareamantenimiento.telefono2}" readonly="false"/>
+                    <app:inputText id="telefono2" label="tareamantenimiento.telefono2" value="PENDIENTE" readonly="false"/>
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                     <input type="button" class="btn btn-xs" value="<spring:message code="tareamantenimiento.llamartelefono2"/>"/>
@@ -77,7 +77,7 @@
                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 development">
                 </div>
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 development">
-                    <app:inputText id="telefono3" label="tareamantenimiento.telefono3" value="${tareamantenimiento.telefono3}" readonly="false"/>
+                    <app:inputText id="telefono3" label="tareamantenimiento.telefono3" value="PENDIENTE" readonly="false"/>
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                     <input type="button" class="btn btn-xs" value="<spring:message code="tareamantenimiento.llamartelefono3"/>"/>
@@ -89,7 +89,7 @@
                 <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 development">
                 </div>
                 <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 development">
-                    <app:textArea id="decripcion" label="tareamantenimiento.descripcion" value="${tareamantenimiento.descripcion}"/>
+                    <app:textArea id="decripcion" label="tareamantenimiento.descripcion" value="PENDIENTE"/>
                 </div>
             </div>
         </div>
@@ -99,19 +99,21 @@
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
             <div class="row">
 
-                <app:input id="hola" label="tareamantenimiento.key1">
-                    <select data-ng-init="getDesplegableKey1()" ng-model="key1value" class="form-control"><!-- ng-model="model.id" convert-to-number -->
+                <app:input id="desplegableKey1" label="tareamantenimiento.key1">
+                    <select data-ng-init="getDesplegableKey1()" ng-model="key1value" ng-value="${tarea.key1}" class="form-control"><!-- ng-model="model.id" convert-to-number -->
                         <option data-ng-repeat="k in key1" value="{{k.id}}">{{k.value}}</option>
                     </select>
+                    VALOR NG:{{key1value}}<br/>
+                    VALOR SERV:${tarea.key1}
                 </app:input>
 
 
-                <%--<app:inputCombo id="desplegableKey1" label="tareamantenimiento.key1" value="${tareamantenimiento.key1}" readonly="false"/>--%>
+                <%--<app:inputCombo id="desplegableKey1" label="tareamantenimiento.key1" value="${tarea.key1}" readonly="false"/>--%>
             </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
             <div class="row">
-                <app:inputCombo id="desplegableKey2" label="tareamantenimiento.key2" value="${tareamantenimiento.key2}" readonly="false"/>
+                <app:inputCombo id="desplegableKey2" label="tareamantenimiento.key2" value="${tarea.key2}" readonly="false"/>
             </div>
         </div>
     </div>
