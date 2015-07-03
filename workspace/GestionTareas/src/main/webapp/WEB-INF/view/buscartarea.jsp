@@ -10,13 +10,10 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/custom.css"/>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
-    <script type="text/javascript">
-
-
-    </script>
-
+    <script src="${pageContext.request.contextPath}/resources/app/gestiontarea-app.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/app/maincontrollers/taskSearch-ctrl.js"></script>
 </head>
-<body data-ng-controller="buscarTarea">
+<body data-ng-controller="taskSearch">
 
 <div class="container">
     <div class="row">
@@ -94,8 +91,6 @@
 </div>
 
 <!-- Angular JS Scripts -->
-<script src="${pageContext.request.contextPath}/resources/app/gestiontarea-app.js"></script>
-<script src="${pageContext.request.contextPath}/resources/app/buscartarea-ctrl.js"></script>
 
 
 </body>
