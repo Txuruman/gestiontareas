@@ -5,19 +5,10 @@
 
 <html>
 <head>
-<title>Welcome</title>
-
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/custom.css" />
-	
-		<!--ECLIPSE  -->
-	<link rel="stylesheet" type="text/css"
-	href="../../resources/css/bootstrap.css" />
-<link rel="stylesheet" type="text/css"
-	href="../../resources/css/custom.css" />
-	<!--ECLIPSE  -->
+    <title><spring:message code="creartarea.titulo"/></title>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/custom.css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
 </head>
 <body>
 
