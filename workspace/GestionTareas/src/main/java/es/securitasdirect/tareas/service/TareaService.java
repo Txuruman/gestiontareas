@@ -261,24 +261,24 @@ public class TareaService {
     }
 
     private Tarea createTareaEncuestaMarketingFromParameters(Map<String, String> parameters) {
-        TareaEncuestaMarketing tarea = new TareaEncuestaMarketing();
+        MarketingSurveyTask tarea = new MarketingSurveyTask();
         loadTareaCommons(tarea, parameters);
         loadTareaExcelCommons(tarea, parameters);
 
         tarea.setDate(toDateFromParam(parameters.get(ExternalParams.ENCUESTASMKT_FECHA)));
-        tarea.setMotivo(parameters.get(ExternalParams.ENCUESTASMKT_MOTIVO));
+        tarea.setReason(parameters.get(ExternalParams.ENCUESTASMKT_MOTIVO));
         return tarea;
     }
 
     private Tarea createTareaKeyboxFromParameters(Map<String, String> parameters) {
-        TareaKeybox tarea = new TareaKeybox();
+        KeyboxTask tarea = new KeyboxTask();
         loadTareaCommons(tarea, parameters);
         loadTareaExcelCommons(tarea, parameters);
 
         tarea.setContrato(parameters.get(ExternalParams.KEYBOX_CONTRATO));
-        tarea.setFechaFactura(toDateFromParam(parameters.get(ExternalParams.KEYBOX_FECHA_FACTURA)));
-        tarea.setNumeroFactura(parameters.get(ExternalParams.KEYBOX_NUMERO_FACTURA));
-        tarea.setImporteLinea(toIntegerFromParam(parameters.get(ExternalParams.KEYBOX_IMPORTE_LINEA)));
+        tarea.setInvoiceDate(toDateFromParam(parameters.get(ExternalParams.KEYBOX_FECHA_FACTURA)));
+        tarea.setInvoiceNumber(parameters.get(ExternalParams.KEYBOX_NUMERO_FACTURA));
+        tarea.setLineValue(toIntegerFromParam(parameters.get(ExternalParams.KEYBOX_IMPORTE_LINEA)));
         tarea.setIdentificadorItem(parameters.get(ExternalParams.KEYBOX_ID_ITEM));
         return tarea;
     }

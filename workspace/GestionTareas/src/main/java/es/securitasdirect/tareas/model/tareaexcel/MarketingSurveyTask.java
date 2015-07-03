@@ -8,18 +8,18 @@ import java.util.Date;
  * Encuestas Marketing
  * @author Team Vision.
  */
-public class TareaEncuestaMarketing extends TareaExcel {
+public class MarketingSurveyTask extends TareaExcel {
 
 
     /**
-     * Fecha
+     * Date - Fecha
      */
     Date date;
     /**
-     * Motivo.
+     * Reason - Motivo.
      * varchar (500)
      */
-    String motivo;
+    String reason;
 
 
 
@@ -31,12 +31,12 @@ public class TareaEncuestaMarketing extends TareaExcel {
         this.date = date;
     }
 
-    public String getMotivo() {
-        return motivo;
+    public String getReason() {
+        return reason;
     }
 
-    public void setMotivo(String motivo) {
-        this.motivo = motivo;
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 
 
@@ -45,7 +45,7 @@ public class TareaEncuestaMarketing extends TareaExcel {
     public String toString() {
         final StringBuilder sb = new StringBuilder("TareaEncuestaMarketing{");
         sb.append("date=").append(date);
-        sb.append(", motivo='").append(motivo).append('\'');
+        sb.append(", reason='").append(reason).append('\'');
         sb.append(", closingReason=").append(closingReason);
         sb.append(", compensation='").append(compensation).append('\'');
         sb.append('}');

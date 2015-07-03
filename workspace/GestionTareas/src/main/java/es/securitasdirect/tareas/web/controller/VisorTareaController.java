@@ -20,7 +20,6 @@ import org.wso2.ws.dataservice.DataServiceFault;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -110,10 +109,10 @@ public class VisorTareaController {
             } else if (tarea instanceof MaintenanceSurveyTask) {
                 titulo = "titulo.TareaEncuestaMantenimiento";
                 mv.addObject(SECUNDARIA, EXCEL_ENCUESTAS_MANTENIMIENTOS);
-            } else if (tarea instanceof TareaEncuestaMarketing) {
+            } else if (tarea instanceof MarketingSurveyTask) {
                 titulo = "titulo.TareaEncuestaMarketing";
                 mv.addObject(SECUNDARIA, EXCEL_ENCUESTAS_MARKETING);
-            } else if (tarea instanceof TareaKeybox) {
+            } else if (tarea instanceof KeyboxTask) {
                 titulo = "titulo.TareaKeybox";
                 mv.addObject(SECUNDARIA, EXCEL_KEYBOX);
             } else if (tarea instanceof TareaLimpiezaCuota) {

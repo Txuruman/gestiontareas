@@ -3,7 +3,7 @@ package es.securitasdirect.tareas.service;
 import es.securitasdirect.tareas.model.Tarea;
 import es.securitasdirect.tareas.model.TareaAviso;
 import es.securitasdirect.tareas.model.TareaMantenimiento;
-import es.securitasdirect.tareas.model.tareaexcel.TareaEncuestaMarketing;
+import es.securitasdirect.tareas.model.tareaexcel.MarketingSurveyTask;
 import es.securitasdirect.tareas.model.tareaexcel.TareaListadoAssistant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,7 +56,7 @@ public class SearchTareaService {
         ejemploTareaMantenimiento.setFechaReprogramacion(new Date());
         tareas.add(ejemploTareaMantenimiento);
 
-        Tarea ejemploTareaEncuestaMarketing = new TareaEncuestaMarketing();
+        Tarea ejemploTareaEncuestaMarketing = new MarketingSurveyTask();
         ejemploTareaEncuestaMarketing.setEstado("estado3");
         ejemploTareaEncuestaMarketing.setTelefono("652696478");
         ejemploTareaEncuestaMarketing.setCallingList("CC_CA_IL_510");

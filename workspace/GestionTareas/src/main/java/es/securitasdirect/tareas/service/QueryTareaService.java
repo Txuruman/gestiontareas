@@ -204,24 +204,24 @@ public class QueryTareaService {
     }
 
     private Tarea createTareaEncuestaMarketingFromParameters(Map<String, String> parameters) {
-        TareaEncuestaMarketing tarea = new TareaEncuestaMarketing();
+        MarketingSurveyTask tarea = new MarketingSurveyTask();
         loadTareaCommons(tarea, parameters);
         loadTareaExcelCommons(tarea, parameters);
 
         tarea.setDate(toDateFromMap(parameters.get(ServiceParams.ENCUESTASMKT_FECHA)));
-        tarea.setMotivo(parameters.get(ServiceParams.ENCUESTASMKT_MOTIVO));
+        tarea.setReason(parameters.get(ServiceParams.ENCUESTASMKT_MOTIVO));
         return tarea;
     }
 
     private Tarea createTareaKeyboxFromParameters(Map<String, String> parameters) {
-        TareaKeybox tarea = new TareaKeybox();
+        KeyboxTask tarea = new KeyboxTask();
         loadTareaCommons(tarea, parameters);
         loadTareaExcelCommons(tarea, parameters);
 
         tarea.setContrato(parameters.get(ServiceParams.KEYBOX_CONTRATO));
-        tarea.setFechaFactura(toDateFromMap(parameters.get(ServiceParams.KEYBOX_FECHA_FACTURA)));
-        tarea.setNumeroFactura(parameters.get(ServiceParams.KEYBOX_NUMERO_FACTURA));
-        tarea.setImporteLinea(toIntegerFromMap(parameters.get(ServiceParams.KEYBOX_IMPORTE_LINEA)));
+        tarea.setInvoiceDate(toDateFromMap(parameters.get(ServiceParams.KEYBOX_FECHA_FACTURA)));
+        tarea.setInvoiceNumber(parameters.get(ServiceParams.KEYBOX_NUMERO_FACTURA));
+        tarea.setLineValue(toIntegerFromMap(parameters.get(ServiceParams.KEYBOX_IMPORTE_LINEA)));
         tarea.setIdentificadorItem(parameters.get(ServiceParams.KEYBOX_ID_ITEM));
         return tarea;
     }

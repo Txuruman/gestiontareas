@@ -9,20 +9,20 @@ import java.util.Date;
  *
  * @author Team Vision
  */
-public class TareaKeybox extends TareaExcel {
+public class KeyboxTask extends TareaExcel {
 
     /**
-     * Número de Factura
+     * Invoce number - Número de Factura
      */
-    String numeroFactura;
+    String invoiceNumber;
     /**
-     * Fecha de la Factura
+     * Invoice date - Fecha de la Factura
      */
-    Date fechaFactura;
+    Date invoiceDate;
     /**
      * Importe de la Línea
      */
-    Integer importeLinea;
+    Integer lineValue;
 
     /**
      * Identificador de ítem
@@ -46,28 +46,28 @@ public class TareaKeybox extends TareaExcel {
         this.panel = panel;
     }
 
-    public String getNumeroFactura() {
-        return numeroFactura;
+    public String getInvoiceNumber() {
+        return invoiceNumber;
     }
 
-    public void setNumeroFactura(String numeroFactura) {
-        this.numeroFactura = numeroFactura;
+    public void setInvoiceNumber(String invoiceNumber) {
+        this.invoiceNumber = invoiceNumber;
     }
 
-    public Date getFechaFactura() {
-        return fechaFactura;
+    public Date getInvoiceDate() {
+        return invoiceDate;
     }
 
-    public void setFechaFactura(Date fechaFactura) {
-        this.fechaFactura = fechaFactura;
+    public void setInvoiceDate(Date invoiceDate) {
+        this.invoiceDate = invoiceDate;
     }
 
-    public Integer getImporteLinea() {
-        return importeLinea;
+    public Integer getLineValue() {
+        return lineValue;
     }
 
-    public void setImporteLinea(Integer importeLinea) {
-        this.importeLinea = importeLinea;
+    public void setLineValue(Integer lineValue) {
+        this.lineValue = lineValue;
     }
 
     public String getIdentificadorItem() {
@@ -90,9 +90,9 @@ public class TareaKeybox extends TareaExcel {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("TareaKeybox{");
-        sb.append("numeroFactura='").append(numeroFactura).append('\'');
-        sb.append(", fechaFactura=").append(fechaFactura);
-        sb.append(", importeLinea=").append(importeLinea);
+        sb.append("invoiceNumber='").append(invoiceNumber).append('\'');
+        sb.append(", invoiceDate=").append(invoiceDate);
+        sb.append(", lineValue=").append(lineValue);
         sb.append(", identificadorItem='").append(identificadorItem).append('\'');
         sb.append(", contrato='").append(contrato).append('\'');
         sb.append(", closingReason=").append(closingReason);

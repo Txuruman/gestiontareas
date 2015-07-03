@@ -11,7 +11,7 @@ import es.securitasdirect.tareas.model.TareaExcel;
 public class TareaOtrasCampanas extends TareaExcel {
 
     /**
-     * Tipo de Campaña (origen y motivo)
+     * Tipo de Campaña (origen y reason)
      * varchar (10)
      */
     String tipoCampana;

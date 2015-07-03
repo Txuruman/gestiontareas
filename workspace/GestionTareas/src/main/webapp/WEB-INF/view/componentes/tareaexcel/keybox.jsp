@@ -6,14 +6,14 @@
 <jsp:include page="comunes.jsp"/>
 <div class="row">
 
-    <app:input id="numeroFactura" label="keybox.numerofactura" value="${tarea.numeroFactura}" cells="6" readonly="true"/>
-    <app:input id="fechaFactura" label="keybox.fechafactura" value="${tarea.fechaFactura}" cells="6" readonly="true"/>
+    <app:input id="invoiceNumber" label="keybox.invoicenumber" value="${tarea.invoiceNumber}" cells="6" readonly="true"/>
+    <app:input id="invoiceDate" label="keybox.invoicedate" value="${tarea.invoiceDate}" cells="6" readonly="true"/>
 
 </div>
 <div class="spacer_t1"></div>
 <div class="row">
 
-    <app:input id="importeLinea" label="keybox.importelinea" value="${tarea.importeLinea}" cells="6" readonly="true"/>
+    <app:input id="lineValue" label="keybox.linevalue" value="${tarea.lineValue}" cells="6" readonly="true"/>
     <app:input id="identificadorItem" label="keybox.identificadoritem" value="${tarea.identificadorItem}" cells="6" readonly="true"/>
 
 </div>
