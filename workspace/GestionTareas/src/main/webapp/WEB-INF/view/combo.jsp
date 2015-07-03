@@ -3,11 +3,12 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="app" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
+<!-- Pagina de pruebas -->
 <html data-ng-app="myApp">
 <head>
+
 
     <link rel="stylesheet" type="text/css"
           href="${pageContext.request.contextPath}/resources/css/bootstrap.css"/>
