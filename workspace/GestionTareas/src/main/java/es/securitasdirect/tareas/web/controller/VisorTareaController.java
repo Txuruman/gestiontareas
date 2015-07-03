@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.wso2.ws.dataservice.DataServiceFault;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -186,5 +187,10 @@ public class VisorTareaController {
         return parameterValues;
     }
 
+    @RequestMapping(value = "/getDesplegableKey1", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+    public   @ResponseBody Map getDesplegableKey1 () throws DataServiceFault {
+        Map<Integer, String> desplegableKey1 = externalDataService.getDesplegableKey1();
+        return desplegableKey1;
+    }
 
 }
