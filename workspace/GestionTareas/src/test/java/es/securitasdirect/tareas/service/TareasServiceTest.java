@@ -1,6 +1,7 @@
 package es.securitasdirect.tareas.service;
 
 import es.securitasdirect.tareas.model.TareaAviso;
+import es.securitasdirect.tareas.model.external.Pair;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -41,17 +42,17 @@ public class TareasServiceTest {
 
     @Test
     public void keys() throws DataServiceFault {
-        Map<Integer, String> listakey1 = externalDataService.getDesplegableKey1();
+        List<Pair> listakey1 = externalDataService.getDesplegableKey1();
         assertThat(listakey1, notNullValue());
         assertThat(listakey1.isEmpty(), is(false));
-        for (Integer id : listakey1.keySet()) {
-            LOGGER.info("KEY1 id:{}  text:{}", id, listakey1.get(id));
+        for (Pair pair : listakey1) {
+            LOGGER.info("KEY1 id:{}  text:{}", pair.getId(), listakey1.get(pair.getId()));
 
-            Map<Integer, String> listaKey2 = externalDataService.getDesplegableKey2(id);
+            List<Pair> listaKey2 = externalDataService.getDesplegableKey2(pair.getId());
             assertThat(listaKey2, notNullValue());
             assertThat(listaKey2.isEmpty(), is(false));
-            for (Integer id2 : listaKey2.keySet()) {
-                LOGGER.info("\t\tKEY2 id:{}  Text:{}", id2, listaKey2.get(id2));
+            for (Pair pair2 : listaKey2) {
+                LOGGER.info("\t\tKEY2 id:{}  Text:{}", pair2.getId(), listaKey2.get(pair2.getId()));
             }
         }
     }

@@ -1,6 +1,7 @@
 package es.securitasdirect.tareas.web.controller;
 
 import es.securitasdirect.tareas.model.*;
+import es.securitasdirect.tareas.model.external.Pair;
 import es.securitasdirect.tareas.model.tareaexcel.*;
 import es.securitasdirect.tareas.service.ExternalDataService;
 import es.securitasdirect.tareas.service.InstallationService;
@@ -125,8 +126,8 @@ public class VisorTareaController {
                 titulo = "titulo.TareaMantenimiento";
                 mv.addObject(SECUNDARIA, MANTENIMIENTO);
                 //Cargar combo de tarea de Mantenimiento, solo si es tarea de mantenimiento
-                Map<Integer, String> desplegableKey1 = externalDataService.getDesplegableKey1();
-                Map<Integer, String> desplegableKey2 = externalDataService.getDesplegableKey2(null);
+                List<Pair> desplegableKey1 = externalDataService.getDesplegableKey1();
+                List<Pair> desplegableKey2 = externalDataService.getDesplegableKey2(null);
                 mv.addObject("desplegableKey1", desplegableKey1);
             }
             mv.addObject(TITULO, titulo);
@@ -188,8 +189,8 @@ public class VisorTareaController {
     }
 
     @RequestMapping(value = "/getDesplegableKey1", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
-    public   @ResponseBody Map getDesplegableKey1 () throws DataServiceFault {
-        Map<Integer, String> desplegableKey1 = externalDataService.getDesplegableKey1();
+    public   @ResponseBody List<Pair> getDesplegableKey1 () throws DataServiceFault {
+        List<Pair> desplegableKey1 = externalDataService.getDesplegableKey1();
         return desplegableKey1;
     }
 

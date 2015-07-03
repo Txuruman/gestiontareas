@@ -7,6 +7,7 @@ import es.securitasdirect.tareas.model.Tarea;
 import es.securitasdirect.tareas.model.TareaAviso;
 import es.securitasdirect.tareas.model.TareaExcel;
 import es.securitasdirect.tareas.model.TareaMantenimiento;
+import es.securitasdirect.tareas.model.external.Pair;
 import es.securitasdirect.tareas.model.tareaexcel.*;
 import es.securitasdirect.tareas.web.controller.params.ExternalParams;
 import org.slf4j.Logger;
@@ -38,13 +39,13 @@ public class ExternalDataService {
     /**
      * Consulta de los valores para el combo Key1 de tareas de mantenimiento
      */
-    public Map<Integer, String> getDesplegableKey1() throws DataServiceFault {
+    public List<Pair> getDesplegableKey1() throws DataServiceFault {
         LOGGER.debug("Consultando listado Desplegable KEY1");
-        Map<Integer, String> result = new HashMap<Integer, String>();
+        List<Pair> result = new ArrayList<Pair>();
         List<GetKey1DIYResult> listaKey1 = spAioTareas2.getKey1DIY();
         if (listaKey1 != null) {
             for (GetKey1DIYResult getKey1DIYResult : listaKey1) {
-                result.put(getKey1DIYResult.getSKey().intValue(), getKey1DIYResult.getText());
+                result.add(new Pair(getKey1DIYResult.getSKey().intValue(), getKey1DIYResult.getText()));
             }
         }
         return result;
@@ -53,22 +54,21 @@ public class ExternalDataService {
     /**
      * Consulta de los valores para el combo Key2 de tareas de mantenimiento
      */
-    public Map<Integer, String> getDesplegableKey2(Integer skey1) throws DataServiceFault {
+    public List<Pair> getDesplegableKey2(Integer skey1) throws DataServiceFault {
         LOGGER.debug("Consultando listado Desplegable KEY2 {}", skey1);
 
-        Map<Integer, String> result = new HashMap<Integer, String>();
+        List<Pair> result = new ArrayList<Pair>();
         if (skey1 != null) {
             List<GetKey2DIYResult> listaKey2 = spAioTareas2.getKey2DIY(skey1);
             if (listaKey2 != null) {
                 for (GetKey2DIYResult getKey2DIYResult : listaKey2) {
                     //Viene un sublistado de valores, parece que siempre viene solo uno, así que cogemos el primero
                     if (!getKey2DIYResult.getGetKeyDataResults().getGetKeyDataResult().isEmpty()) {
-                        result.put(getKey2DIYResult.getGetKeyDataResults().getGetKeyDataResult().get(0).getSKey().intValue(),
-                                getKey2DIYResult.getGetKeyDataResults().getGetKeyDataResult().get(0).getText());
+                        result.add(new Pair(getKey2DIYResult.getGetKeyDataResults().getGetKeyDataResult().get(0).getSKey().intValue(),
+                                getKey2DIYResult.getGetKeyDataResults().getGetKeyDataResult().get(0).getText()));
                     }
                 }
             }
-
         }
         return result;
     }
