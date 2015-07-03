@@ -31,10 +31,7 @@ public class TareaService {
     @Inject
     protected SPAIOTAREAS2PortType spAioTareas2;
 
-    @Resource(name="datosAdicionalesCierreTareaAviso")
-    protected Map<Integer,String> datosAdicionalesCierreTareaAviso;
-    @Resource(name="datosAdicionalesCierreTareaExcel")
-    protected Map<Integer,String> datosCierreTareaExcel;
+
 
     @Resource(name="datosCierreTareaAviso")
     protected Map<String,Map<Integer, String>> datosCierreTareaAviso;
@@ -98,9 +95,8 @@ public class TareaService {
      */
     public Tarea getTareaByIdAviso(Integer idAviso) throws DataServiceFault {
         TareaAviso tarea = null;
-        //TODO Comentado porque no funcionaba el WS en ese momento
         List<GetAvisobyIdResult> avisobyId = null;
-        //List<GetAvisobyIdResult> avisobyId = spAioTareas2.getAvisobyId(idAviso);
+        avisobyId = spAioTareas2.getAvisobyId(idAviso);
         if (avisobyId != null && !avisobyId.isEmpty()) {
             tarea = mapTareaAvisoFromWS(avisobyId.get(0)); //TODO Devuelve una lista aunque se supone que solo es uno, check
         }
@@ -111,7 +107,7 @@ public class TareaService {
 
     /**
      * Crea un objeto de tipo TareaAviso consultando el WS
-     *
+     * TODO BORRAR ESTA FUNCION
      * @param avisobyIdResult
      * @return
      */
@@ -121,7 +117,6 @@ public class TareaService {
         tarea.setObservaciones(avisobyIdResult.getObservaciones());
         tarea.setEstado(avisobyIdResult.getEstado().toString()); //TODO
         tarea.setTitular(avisobyIdResult.getTitular());
-        tarea.setFechaCreacion((avisobyIdResult.getFechaCreacion() == null ? null : avisobyIdResult.getFechaCreacion().toGregorianCalendar().getTime()));
 
         // Tipos de Aviso: el primero es el utilizado, el segundo y el tercero son sólo informativos.
         tarea.setTipoAviso1(avisobyIdResult.getTipo()); //TODO Pendiente sacar estos tipos
@@ -142,53 +137,9 @@ public class TareaService {
     }
 
 
-    /**
-     * Consulta de los valores para el combo Key1 de tareas de mantenimiento
-     */
-    public Map<Integer, String> getDesplegableKey1() throws DataServiceFault {
-        LOGGER.debug("Consultando listado Desplegable KEY1");
-        Map<Integer, String> result = new HashMap<Integer, String>();
-        List<GetKey1DIYResult> listaKey1 = spAioTareas2.getKey1DIY();
-        if (listaKey1 != null) {
-            for (GetKey1DIYResult getKey1DIYResult : listaKey1) {
-                result.put(getKey1DIYResult.getSKey().intValue(), getKey1DIYResult.getText());
-            }
-        }
-        return result;
-    }
 
-    /**
-     * Consulta de los valores para el combo Key2 de tareas de mantenimiento
-     */
-    public Map<Integer, String> getDesplegableKey2(Integer skey1) throws DataServiceFault {
-        LOGGER.debug("Consultando listado Desplegable KEY2 {}", skey1);
 
-        Map<Integer, String> result = new HashMap<Integer, String>();
-        if (skey1 != null) {
-            List<GetKey2DIYResult> listaKey2 = spAioTareas2.getKey2DIY(skey1);
-            if (listaKey2 != null) {
-                for (GetKey2DIYResult getKey2DIYResult : listaKey2) {
-                    //Viene un sublistado de valores, parece que siempre viene solo uno, así que cogemos el primero
-                    if (!getKey2DIYResult.getGetKeyDataResults().getGetKeyDataResult().isEmpty()) {
-                        result.put(getKey2DIYResult.getGetKeyDataResults().getGetKeyDataResult().get(0).getSKey().intValue(),
-                                getKey2DIYResult.getGetKeyDataResults().getGetKeyDataResult().get(0).getText());
-                    }
-                }
-            }
 
-        }
-        return result;
-    }
-
-        public List<Tarea> findByTelefono (String telefono){
-            List<Tarea> tareas = createDummy();
-            return tareas;
-        }
-
-        public List<Tarea> findByInstalacion (String instalacion){
-            List<Tarea> tareas = createDummy();
-            return tareas;
-        }
 
     public Tarea createDummyTareaAviso() {
         Tarea ejemploAviso = new TareaAviso();
@@ -403,65 +354,7 @@ public class TareaService {
         return tarea;
     }
 
-    private List<Tarea> createDummy() {
-        List<Tarea> tareas = new ArrayList<Tarea>();
-        Tarea ejemploAviso = new TareaAviso();
-        ejemploAviso.setEstado("estado1");
-        ejemploAviso.setTelefono("652696869");
-        ejemploAviso.setCallingList("CC_CA_IL_500");
-        ejemploAviso.setNumeroContrato("526369");
-        ejemploAviso.setCodigoCliente(500);
-        ejemploAviso.setFechaReprogramacion(new Date());
-        tareas.add(ejemploAviso);
 
-        Tarea ejemploTareaMantenimiento = new TareaMantenimiento();
-        ejemploTareaMantenimiento.setEstado("estado2");
-        ejemploTareaMantenimiento.setTelefono("652696789");
-        ejemploTareaMantenimiento.setCallingList("CC_CA_IL_502");
-        ejemploTareaMantenimiento.setNumeroContrato("526370");
-        ejemploTareaMantenimiento.setCodigoCliente(501);
-        ejemploTareaMantenimiento.setFechaReprogramacion(new Date());
-        tareas.add(ejemploTareaMantenimiento);
-
-        Tarea ejemploTareaEncuestaMarketing = new TareaEncuestaMarketing();
-        ejemploTareaEncuestaMarketing.setEstado("estado3");
-        ejemploTareaEncuestaMarketing.setTelefono("652696478");
-        ejemploTareaEncuestaMarketing.setCallingList("CC_CA_IL_510");
-        ejemploTareaEncuestaMarketing.setNumeroContrato("526371");
-        ejemploTareaEncuestaMarketing.setCodigoCliente(502);
-        ejemploTareaEncuestaMarketing.setFechaReprogramacion(new Date());
-        tareas.add(ejemploTareaEncuestaMarketing);
-
-        Tarea ejemploTareaListadoAssistant = new TareaListadoAssistant();
-        ejemploTareaListadoAssistant.setEstado("estado4");
-        ejemploTareaListadoAssistant.setTelefono("652696785");
-        ejemploTareaListadoAssistant.setCallingList("CC_CA_IL_512");
-        ejemploTareaListadoAssistant.setNumeroContrato("526372");
-        ejemploTareaListadoAssistant.setCodigoCliente(503);
-        ejemploTareaListadoAssistant.setFechaReprogramacion(new Date());
-        tareas.add(ejemploTareaListadoAssistant);
-
-        return tareas;
-
-    }
-
-
-    public void setDatosAdicionalesCierreTareaAviso(Map<Integer, String> datosAdicionalesCierreTareaAviso) {
-        this.datosAdicionalesCierreTareaAviso = datosAdicionalesCierreTareaAviso;
-    }
-
-    public Map<Integer, String> getDatosAdicionalesCierreTareaAviso() {
-        assert datosAdicionalesCierreTareaAviso!=null;
-        return datosAdicionalesCierreTareaAviso;
-    }
-
-    public Map<Integer, String> getDatosCierreTareaExcel() {
-        return datosCierreTareaExcel;
-    }
-
-    public void setDatosCierreTareaExcel(Map<Integer, String> datosCierreTareaExcel) {
-        this.datosCierreTareaExcel = datosCierreTareaExcel;
-    }
 
 
     public Map<Integer,String> getDatosCierreTareaAviso(TareaAviso tareaAviso){

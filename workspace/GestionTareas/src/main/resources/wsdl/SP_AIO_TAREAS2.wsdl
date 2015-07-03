@@ -1,6 +1,5 @@
-<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
-                  xmlns:ns0="http://ws.wso2.org/dataservice" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-                  xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://ws.wso2.org/dataservice">
+
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:ns0="http://ws.wso2.org/dataservice" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://ws.wso2.org/dataservice">
     <wsdl:documentation/>
     <wsdl:types>
         <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://ws.wso2.org/dataservice">
@@ -134,7 +133,7 @@
                     <xs:element name="estado" nillable="true" type="xs:integer"/>
                     <xs:element name="tipo" nillable="true" type="xs:string"/>
                     <xs:element name="motivo" nillable="true" type="xs:string"/>
-                    <xs:element name="fecha_creacion" nillable="true" type="xs:date"/>
+                    <xs:element name="fecha_creacion" nillable="true" type="xs:string"/>
                     <xs:element name="observaciones" nillable="true" type="xs:string"/>
                     <xs:element name="ins_no" nillable="true" type="xs:string"/>
                     <xs:element name="requerido_por" nillable="true" type="xs:string"/>
@@ -144,6 +143,7 @@
                     <xs:element name="desde" nillable="true" type="xs:integer"/>
                     <xs:element name="hasta" nillable="true" type="xs:integer"/>
                     <xs:element name="skill" nillable="true" type="xs:string"/>
+                    <xs:element name="valor_forma_contacto" nillable="true" type="xs:string"/>
                     <xs:element ref="ns0:inet_check_ins_no_results"/>
                 </xs:sequence>
             </xs:complexType>
@@ -158,10 +158,10 @@
             <xs:element name="getInsNoFromEmail">
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element name="email" nillable="true" type="xs:string"/>
                         <xs:element name="email1" nillable="true" type="xs:string"/>
                         <xs:element name="email2" nillable="true" type="xs:string"/>
                         <xs:element name="email3" nillable="true" type="xs:string"/>
+                        <xs:element name="email4" nillable="true" type="xs:string"/>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
