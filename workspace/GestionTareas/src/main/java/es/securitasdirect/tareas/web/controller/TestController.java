@@ -1,6 +1,8 @@
 package es.securitasdirect.tareas.web.controller;
 
 import es.securitasdirect.tareas.model.TestModel1;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -20,6 +22,8 @@ import java.util.Map;
 @Controller
 @RequestMapping("/test")
 public class TestController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(TestController.class);
 
     @RequestMapping
     public ModelAndView handleRequest(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
@@ -49,6 +53,37 @@ public class TestController {
         list.add(m1);
         list.add(m2);
         return list;
+    }
+
+
+    @RequestMapping(value = "/dropDown.web", method = RequestMethod.GET)
+    public String printWelcome(ModelMap model) {
+        LOGGER.info("Redirigiendo a dropdown");
+        return "dropDown";
+    }
+
+    @RequestMapping(value = "/populatePersonDataFromServer.web", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+    public @ResponseBody
+    List<PersonData> populateActivePSwapBasket() {
+        LOGGER.info("Cargando datos Bascket");
+        PersonData personData = new PersonData();
+        personData.setPersonId(10);
+        personData.setPersonName("Java Honk");
+
+        List<PersonData> personDatas = new ArrayList<PersonData>();
+        personDatas.add(personData);
+
+        personData = new PersonData();
+        personData.setPersonId(11);
+        personData.setPersonName("AngularJS combo box");
+        personDatas.add(personData);
+
+        personData = new PersonData();
+        personData.setPersonId(11);
+        personData.setPersonName("Select box list");
+        personDatas.add(personData);
+
+        return personDatas;
     }
 
 }

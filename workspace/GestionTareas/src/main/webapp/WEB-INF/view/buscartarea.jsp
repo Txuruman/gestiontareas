@@ -90,14 +90,11 @@
     </form>
 </div>
 
-<script src="${pageContext.request.contextPath}/resources/app/buscartarea-app.js"></script>
-<script src="${pageContext.request.contextPath}/resources/app/common.js"></script>
+<!-- Angular JS Scripts -->
+<script src="${pageContext.request.contextPath}/resources/app/gestiontarea-app.js"></script>
+<script src="${pageContext.request.contextPath}/resources/app/buscartarea-ctrl.js"></script>
 
 
-<%--<div data-ng-init="searchTareaFromServer()">--%>
-    <%--Tareas--%>
-    <%--{{tareas}}--%>
-<%--</div>--%>
 </body>
 </html>
 

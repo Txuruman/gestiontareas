@@ -34,18 +34,9 @@ public class SearchTareaController {
 
     @RequestMapping
     public ModelAndView handleRequest(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
-        int i = 0;
+        ///Redirect to buscartarea.html
         ModelAndView mv = new ModelAndView("buscartarea");
-        List<Tarea> listaTareas = searchTareaService.findByfindByPhone("652696869");
-
-
-        String tecla2 = "active";
-        String tecla3 = "inactive";
-        mv.addObject("listaTareas", listaTareas);
-        mv.addObject("tecla2", tecla2);
-        mv.addObject("tecla3", tecla3);
         return mv;
-
     }
 
 

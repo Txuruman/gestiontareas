@@ -1,13 +1,16 @@
-<!DOCTYPE html>
-<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="app" tagdir="/WEB-INF/tags" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<html>
-<head lang="en">
-    <meta charset="utf-8">
-    <title>AngularJS Drop Down Spring MVC JSON</title>
+<html data-ng-app="myApp">
+<head>
+    <title><spring:message code="titulo.BuscarTarea"/></title>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/custom.css"/>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+
     <script type="text/javascript">
 
         var app = angular.module('myApp', []);
@@ -27,11 +30,12 @@
         });
 
     </script>
+
+
 </head>
 
-<body data-ng-controller="MyController">
-<h3>Spring MVC AngularJS JSON Drop Down sample JNA aaa </h3>
 
+<body data-ng-controller="MyController">
 <h3>Spring MVC AngularJS JSON Drop Down sample JNA aaa </h3>
 
 <table style="margin: 0px auto;" align="left">
