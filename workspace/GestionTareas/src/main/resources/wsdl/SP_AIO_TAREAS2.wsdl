@@ -147,7 +147,7 @@
                     <xs:element ref="ns0:inet_check_ins_no_results"/>
                 </xs:sequence>
             </xs:complexType>
-            <xs:element name="getInstallationData">
+            <xs:element name="getInstallationDataInput">
                 <xs:complexType>
                     <xs:sequence>
                         <xs:element name="s_ins" nillable="true" type="xs:int"/>
@@ -320,7 +320,7 @@
         <wsdl:part name="parameters" element="ns0:setAvisoNoCargado"/>
     </wsdl:message>
     <wsdl:message name="getInstallationDataRequest">
-        <wsdl:part name="parameters" element="ns0:getInstallationData"/>
+        <wsdl:part name="parameters" element="ns0:getInstallationDataInput"/>
     </wsdl:message>
     <wsdl:message name="getInstallationDataResponse">
         <wsdl:part name="parameters" element="ns0:getInstallationDataResults"/>
@@ -396,7 +396,7 @@
         </wsdl:operation>
         <wsdl:operation name="getInstallationData">
             <wsdl:documentation/>
-            <wsdl:input message="ns0:getInstallationDataRequest" wsaw:Action="urn:getInstallationData"/>
+            <wsdl:input message="ns0:getInstallationDataRequest" wsaw:Action="urn:getInstallationDataInput"/>
             <wsdl:output message="ns0:getInstallationDataResponse" wsaw:Action="urn:getInstallationDataResponse"/>
             <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:getInstallationDataDataServiceFault"/>
         </wsdl:operation>

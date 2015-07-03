@@ -1,5 +1,6 @@
 package es.securitasdirect.tareas.service;
 
+import es.securitasdirect.tareas.model.DummyGenerator;
 import es.securitasdirect.tareas.model.InstallationData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,27 +32,32 @@ public class InstallationService {
      * @throws DataServiceFault
      */
     public InstallationData getInstallationData(String installationNumber) throws DataServiceFault {
-        assert installationNumber!=null;
-        Mainstallationdataresult installationData1 = null;
-        GetInstallationDataResult installationData2 = null;
+        try {
+            assert installationNumber != null;
+            Mainstallationdataresult installationDataWS1 = null;
+            GetInstallationDataResults installationDataWS2 = null;
 
-        List<Mainstallationdataresult> installationDataWS = spInstallationMonData.getInstallationData(installationNumber);
-        if (installationDataWS!=null && installationDataWS.size()>0) {
-            installationData1 = installationDataWS.get(0);
-            // Obtener la versión del panel , TODO ESTO FALLA
-//            List<GetInstallationDataResult> installationDataWS2 = spAioTareas2.getInstallationData(installationData1.getSIns().intValue(), 0);
-//            if (installationDataWS2!=null && !installationDataWS2.isEmpty()) {
-//                 installationData2 = installationDataWS2.get(0);
-//            }
+            List<Mainstallationdataresult> installationDataWS1List = spInstallationMonData.getInstallationData(installationNumber);
+            if (installationDataWS1List != null && !installationDataWS1List.isEmpty()) {
+                installationDataWS1 = installationDataWS1List.get(0);
+                // Obtener la versión del panel
+                GetInstallationDataInput getInstallationDataInput = new GetInstallationDataInput();
+                getInstallationDataInput.setSIns(installationDataWS1.getSIns().intValue());
+                getInstallationDataInput.setSCtr(1); //TODO Numero contrato? no sirve para nada
+                installationDataWS2 = spAioTareas2.getInstallationData(getInstallationDataInput);
+            }
+
+            InstallationData installationData = createInstallationData(installationDataWS1, installationDataWS2);
+            LOGGER.debug("getInstallationData({}) : {}", installationNumber, installationData);
+            return installationData;
+        } catch (Exception e) {
+            //TODO DUMMY
+            return DummyGenerator.getInstallationData();
         }
-
-        InstallationData installationData = createInstallationData(installationData1,installationData2);
-        LOGGER.debug("getInstallationData({}) : {}",installationNumber, installationData);
-        return installationData;
     }
 
 
-    private InstallationData createInstallationData (Mainstallationdataresult mainstallationdataresult,GetInstallationDataResult installationData2) {
+    private InstallationData createInstallationData (Mainstallationdataresult mainstallationdataresult,GetInstallationDataResults installationData2) {
         if (mainstallationdataresult==null) {
             return null;
         } else {
@@ -63,8 +69,8 @@ public class InstallationService {
             data.setTitular(mainstallationdataresult.getName());
             data.setPanel(mainstallationdataresult.getPanel());
             data.setTelefono(mainstallationdataresult.getPhone());
-            if (installationData2!=null) {
-                data.setVersion(installationData2.getVersion());
+            if (installationData2!=null && !installationData2.getGetInstallationDataResult().isEmpty()) {
+                data.setVersion(installationData2.getGetInstallationDataResult().get(0).getVersion());
             }
             return data;
         }

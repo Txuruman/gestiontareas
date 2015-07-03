@@ -197,6 +197,7 @@ public class TareaService {
         return tarea;
     }
 
+    //TODO BORRAR
     private Tarea createTareaMantenimientoFromParameters(Map<String, String> parameters) {
         TareaMantenimiento tarea = new TareaMantenimiento();
         loadTareaCommons(tarea, parameters);
@@ -212,9 +213,11 @@ public class TareaService {
         tarea.setKey1(toIntegerFromParam(parameters.get(ExternalParams.TAREA_MANTENIMIENTO_KEY1)));
         tarea.setKey2(toIntegerFromParam(parameters.get(ExternalParams.TAREA_MANTENIMIENTO_KEY2)));
 
+        tarea.setKey1(4570);
         return tarea;
     }
 
+    //TODO BORRAR
     private Tarea createTareaListadoAssistantFromParameters(Map<String, String> parameters) {
         TareaListadoAssistant tarea = new TareaListadoAssistant();
         loadTareaCommons(tarea, parameters);
@@ -244,6 +247,7 @@ public class TareaService {
         return tarea;
     }
 
+    //TODO BORRAR
     private Tarea createTareaEncuestaMantenimientoFromParameters(Map<String, String> parameters) {
         MaintenanceSurveyTask tarea = new MaintenanceSurveyTask();
         loadTareaCommons(tarea, parameters);
@@ -260,6 +264,7 @@ public class TareaService {
         return tarea;
     }
 
+    //TODO BORRAR
     private Tarea createTareaEncuestaMarketingFromParameters(Map<String, String> parameters) {
         MarketingSurveyTask tarea = new MarketingSurveyTask();
         loadTareaCommons(tarea, parameters);
@@ -270,6 +275,7 @@ public class TareaService {
         return tarea;
     }
 
+    //TODO BORRAR
     private Tarea createTareaKeyboxFromParameters(Map<String, String> parameters) {
         KeyboxTask tarea = new KeyboxTask();
         loadTareaCommons(tarea, parameters);

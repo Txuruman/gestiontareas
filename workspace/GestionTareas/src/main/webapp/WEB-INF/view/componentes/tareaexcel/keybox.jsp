@@ -19,8 +19,8 @@
 </div>
 <div class="spacer_t1"></div>
 <div class="row">
-    <app:input id="contrato" label="keybox.contrato" value="${tarea.contrato}" cells="6" readonly="true"/>
-    <app:input id="panel" label="keybox.panel" value="${tarea.panel}" cells="6" readonly="true"/>
+    <app:inputText id="contrato" label="keybox.contrato" value="${tarea.contrato}" cells="6" readonly="true"/>
+    <app:inputText id="panel" label="keybox.panel" value="${tarea.panel}" cells="6" readonly="true"/>
 </div>
 
 

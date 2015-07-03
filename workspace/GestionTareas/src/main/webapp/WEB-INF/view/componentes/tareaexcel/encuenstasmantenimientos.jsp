@@ -5,31 +5,31 @@
 
 <jsp:include page="comunes.jsp"/>
 <div class="row">
-    <app:input id="maintenanceNumber" label="eti.visortarea.form.label.maintenanceNumber" value="${tarea.maintenanceNumber}" cells="6" readonly="true"/>
-    <app:input id="technician" label="eti.visortarea.form.label.technician" value="${tarea.technician}" cells="6" readonly="true"/>
+    <app:inputText id="maintenanceNumber" label="eti.visortarea.form.label.maintenanceNumber" value="${tarea.maintenanceNumber}" cells="6" readonly="true"/>
+    <app:inputText id="technician" label="eti.visortarea.form.label.technician" value="${tarea.technician}" cells="6" readonly="true"/>
 </div>
 <div class="spacer_t1"></div>
 
 <div class="row">
-    <app:input id="manager" label="eti.visortarea.form.label.manager" value="${tarea.manager}" cells="6" readonly="true"/>
-    <app:input id="costCenter" label="eti.visortarea.form.label.costCenter" value="${tarea.costCenter}" cells="6" readonly="true"/>
+    <app:inputText id="manager" label="eti.visortarea.form.label.manager" value="${tarea.manager}" cells="6" readonly="true"/>
+    <app:inputText id="costCenter" label="eti.visortarea.form.label.costCenter" value="${tarea.costCenter}" cells="6" readonly="true"/>
 </div>
 <div class="spacer_t1"></div>
 
 <div class="row">
-    <app:input id="valuationKeyReason" label="eti.visortarea.form.label.valuationKeyReason" value="${tarea.valuationKeyReason}" cells="6" readonly="true"/>
-    <app:input id="agreement" label="eti.visortarea.form.label.agreement" value="${tarea.agreement}" cells="6" readonly="true"/>
+    <app:inputText id="valuationKeyReason" label="eti.visortarea.form.label.valuationKeyReason" value="${tarea.valuationKeyReason}" cells="6" readonly="true"/>
+    <app:inputText id="agreement" label="eti.visortarea.form.label.agreement" value="${tarea.agreement}" cells="6" readonly="true"/>
 </div>
 <div class="spacer_t1"></div>
 
 <div class="row">
-    <app:input id="solution" label="eti.visortarea.form.label.solution" value="${tarea.solution}" cells="6" readonly="true"/>
+    <app:inputText id="solution" label="eti.visortarea.form.label.solution" value="${tarea.solution}" cells="6" readonly="true"/>
 
 </div>
 <div class="spacer_t1"></div>
 
 <div class="row">
-    <app:input id="destinationDepartment" label="eti.visortarea.form.label.destinationDepartment" value="${tarea.destinationDepartment}" cells="6" readonly="true"/>
+    <app:inputText id="destinationDepartment" label="eti.visortarea.form.label.destinationDepartment" value="${tarea.destinationDepartment}" cells="6" readonly="true"/>
 </div>
 <div class="spacer_t1"></div>
 

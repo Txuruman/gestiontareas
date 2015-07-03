@@ -5,12 +5,12 @@
 
 <jsp:include page="comunes.jsp"/>
 <div class="row">
-    <app:input id="contrato" label="limpiezacuota.contrato" value="${tarea.contrato}" cells="6" readonly="true"/>
-    <app:input id="departamentoAsignado" label="limpiezacuota.departamentoasignado" value="${tarea.departamentoAsignado}" cells="6" readonly="true"/>
+    <app:inputText id="contrato" label="limpiezacuota.contrato" value="${tarea.contrato}" cells="6" readonly="true"/>
+    <app:inputText id="departamentoAsignado" label="limpiezacuota.departamentoasignado" value="${tarea.departamentoAsignado}" cells="6" readonly="true"/>
 </div>
 <div class="spacer_t1"></div>
 <div class="row">
-    <app:input id="descripcionIncidencia" label="limpiezacuota.descripcionincidencia" value="${tarea.descripcionIncidencia}" cells="6" readonly="true"/>
+    <app:inputText id="descripcionIncidencia" label="limpiezacuota.descripcionincidencia" value="${tarea.descripcionIncidencia}" cells="6" readonly="true"/>
 </div>
 
 
