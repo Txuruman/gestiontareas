@@ -7,19 +7,30 @@ package es.securitasdirect.tareas.web.controller.params;
 public interface ExternalParams {
 
     /*  	Identificador del agente  */
-    public static String identificadorAgente = "bp_agent";
+    public static final String identificadorAgente = "bp_agent";
     /*  	Código IBS definido en el objeto Person  */
-    public static String codigoIBS = "bp_agentIBS";
+    public static final String codigoIBS = "bp_agentIBS";
     /*  	Código UserSD definido en el objeto Person  */
-    public static String codigoUserSD = "bp_agentUserSD";
+    public static final String codigoUserSD = "bp_agentUserSD";
     /*  	Fecha en la que se realiza la petición en formato YYYYMMDDHHMM  */
-    public static String fechaPeticion = "bp_auth_requestDate";
+    public static final String fechaPeticion = "bp_auth_requestDate";
     /*  	Identificador de la interacción. Si no hay interacción este valor será 0  */
-    public static String identificadorInteraccion = "bp_auth_connid";
+    public static final String identificadorInteraccion = "bp_auth_connid";
     /*  	Dirección IP desde la que se ejecuta IWS  */
-    public static String direccionIPIWS = "bp_auth_ipAddress";
+    public static final String direccionIPIWS = "bp_auth_ipAddress";
     /*  	Firma de la conexión  */
-    public static String firmaConexion = "bp_auth_signature";
+    public static final String firmaConexion = "bp_auth_signature";
+
+    /*  	Calling List  */
+    public static String CALLING_LIST = "callingList";
+
+
+
+
+
+
+
+
 
 
     public static String NUMERO_INSTALACION = "ins_no";

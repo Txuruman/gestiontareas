@@ -4,7 +4,9 @@
 <%@ taglib prefix="app" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<div ng-app="myApp" ng-controller="maintenanceTask">
+
+<div ng-controller="maintenanceTask" ng-init="getTarea()">
+
 
     <div class="row development">
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 development">
@@ -100,15 +102,11 @@
             <div class="row">
 
                 <app:input id="desplegableKey1" label="tareamantenimiento.key1">
-                    <select data-ng-init="getDesplegableKey1()" ng-model="key1value" ng-value="${tarea.key1}" class="form-control"><!-- ng-model="model.id" convert-to-number -->
-                        <option data-ng-repeat="k in key1" value="{{k.id}}">{{k.value}}</option>
+                    <select data-ng-init="getDesplegableKey1()" ng-model="tarea.key1" convert-to-number class="form-control"><!-- ng-model="model.id" convert-to-number -->
+                        <option data-ng-repeat="k in key1" value="{{k.id}}" ng-selected="k.id==tarea.key1" >{{k.value}}</option>
                     </select>
-                    VALOR NG:{{key1value}}<br/>
-                    VALOR SERV:${tarea.key1}
                 </app:input>
 
-
-                <%--<app:inputCombo id="desplegableKey1" label="tareamantenimiento.key1" value="${tarea.key1}" readonly="false"/>--%>
             </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -118,7 +116,12 @@
         </div>
     </div>
 
+    <div class="row debug">
+        Tarea:{{tarea}}
+    </div>
+
 </div>
+<!-- End div angular -->
 
 
 <script src="${pageContext.request.contextPath}/resources/app/component/maintenanceTask-ctrl.js"></script>

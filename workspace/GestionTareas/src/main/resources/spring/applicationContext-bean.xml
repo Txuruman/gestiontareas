@@ -76,6 +76,16 @@
         </entry>
     </util:map>
 
+    <!--
+    TAREA_AVISO="TareaAviso"; -
+    TAREA_LISTADOASSISTANT="TareaListadoAssistant"; -
+    TAREA_ENCUESTAMANTENIMIENTO="TareaEncuestaMantenimiento";
+    TAREA_ENCUESTAMARKETING="TareaEncuestaMarketing";
+    TAREA_KEYBOX="TareaKeybox";
+    TAREA_LIMPIEZACUOTA="TareaLimpiezaCuota";
+    TAREA_OTRASCAMPANAS="TareaOtrasCampanas";
+    TAREA_MANTENIMIENTO="TareaMantenimiento";
+    -->
     <util:map id="callingListToModel" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.util.List" >
         <entry key="TareaAviso">
             <util:list list-class="java.util.ArrayList" value-type="java.lang.String">
@@ -99,6 +109,11 @@
                 <value>CL_CCT_ODC</value>
             </util:list>
         </entry>
+        <entry key="TareaMantenimiento">
+            <util:list list-class="java.util.ArrayList" value-type="java.lang.String">
+                <value>CL_TAREAS_DIY</value>
+            </util:list>
+        </entry>
         <entry key="TareaEncuestaMantenimiento">
             <util:list list-class="java.util.ArrayList" value-type="java.lang.String">
                 <value>CL_CCT_XLS_ENCUESTAS_MTOS</value>
@@ -119,30 +134,18 @@
                 <value>CL_CCT_XLS_LIMPIEZA_CUOTA</value>
             </util:list>
         </entry>
-        <!--<entry key="TareaListadoAssistant">
+        <entry key="TareaListadoAssistant">
             <util:list list-class="java.util.ArrayList" value-type="java.lang.String">
-                <value>???</value>
-            </util:list>
-        </entry>-->
-        <!--<entry key="TareaOtrasCampanas">
-            <util:list list-class="java.util.ArrayList" value-type="java.lang.String">
-                <value>???</value>
-            </util:list>
-        </entry>-->
-        <!--
-        CL_CCT_XLX,
-          CL_CCT_XLS_ATC,
-           CL_CCT_XLS_ATT,
-           CL_CCT_XLS_BO,
-           CL_CCT_XLS_GGCC,
-           CL_CCT_XLS_GI,
-           CL_CCT_XLS_HL,
-           CL_CCT_XLS_ODC-->
-        <entry key="TareaMantenimiento">
-            <util:list list-class="java.util.ArrayList" value-type="java.lang.String">
-                <value>CL_TAREAS_DIY</value>
+                <value>CL_CCT_XLS_LISTADO_ASSISTANT</value>
             </util:list>
         </entry>
+        <entry key="TareaOtrasCampanas">
+            <util:list list-class="java.util.ArrayList" value-type="java.lang.String">
+                <value>CL_CCT_XLS_OTRAS_CAM</value>
+            </util:list>
+        </entry>
+
+
     </util:map>
 
 

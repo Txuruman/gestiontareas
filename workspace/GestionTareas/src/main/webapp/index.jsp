@@ -17,16 +17,16 @@ Enlaces
     <li>
         Estando el agente disponible, le llega una interacción de tipo Tarea para gestionarla.
         <ul>
-            <li><a href="visortarea.htm?ins_no=111111&idaviso=10267236">Tarea Tipo Aviso (aviso:10267236)</a></li>
-            <li><a href="visortarea.htm?ins_no=111111&tipotarea=TareaMantenimiento">Tarea Mantenimiento</a></li>
+            <li><a href="visortarea.htm?ins_no=111111&callingList=CL_CCT_Averia_Test">Tarea Tipo Aviso (aviso:10267236)</a></li>
+            <li><a href="visortarea.htm?ins_no=111111&callingList=CL_TAREAS_DIY">Tarea Mantenimiento</a></li>
             <li>Tarea tipo Excel
                 <ul>
-                    <li><a href="visortarea.htm?ins_no=111111&tipotarea=TareaListadoAssistant">Tarea Tipo Excel Listado Assistant</a></li>
-                    <li><a href="visortarea.htm?ins_no=111111&tipotarea=TareaEncuestaMantenimiento">Tarea Tipo Excel Encuestas Mantenimientos</a></li>
-                    <li><a href="visortarea.htm?ins_no=111111&tipotarea=TareaEncuestaMarketing">Tarea Tipo Excel Encuestas Marketing</a></li>
-                    <li><a href="visortarea.htm?ins_no=111111&tipotarea=TareaKeybox&KEYBOX_NUMERO_FACTURA=565656">Tarea Tipo Excel Keybox</a></li>
-                    <li><a href="visortarea.htm?ins_no=111111&tipotarea=TareaLimpiezaCuota">Tarea Tipo Excel Limpieza de cuota</a></li>
-                    <li><a href="visortarea.htm?ins_no=111111&tipotarea=TareaOtrasCampanas">Tarea Tipo Excel Otras campañas</a></li>
+                    <li><a href="visortarea.htm?ins_no=111111&callingList=CL_CCT_XLS_LISTADO_ASSISTANT">Tarea Tipo Excel Listado Assistant</a></li>
+                    <li><a href="visortarea.htm?ins_no=111111&callingList=CL_CCT_XLS_ENCUESTAS_MTOS">Tarea Tipo Excel Encuestas Mantenimientos</a></li>
+                    <li><a href="visortarea.htm?ins_no=111111&callingList=CL_CCT_XLS_ENCUESTAS_MKT">Tarea Tipo Excel Encuestas Marketing</a></li>
+                    <li><a href="visortarea.htm?ins_no=111111&callingList=CL_CCT_XLS_KEYBOX">Tarea Tipo Excel Keybox</a></li>
+                    <li><a href="visortarea.htm?ins_no=111111&callingList=CL_CCT_XLS_LIMPIEZA_CUOTA">Tarea Tipo Excel Limpieza de cuota</a></li>
+                    <li><a href="visortarea.htm?ins_no=111111&callingList=CL_CCT_XLS_OTRAS_CAM">Tarea Tipo Excel Otras campañas</a></li>
                 </ul>
             </li>
         </ul>

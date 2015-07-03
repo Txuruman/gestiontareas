@@ -3,10 +3,7 @@ package es.securitasdirect.tareas.service;
 import com.webservice.CCLIntegration;
 import com.webservice.CclResponse;
 import com.webservice.Item;
-import es.securitasdirect.tareas.model.Tarea;
-import es.securitasdirect.tareas.model.TareaAviso;
-import es.securitasdirect.tareas.model.TareaExcel;
-import es.securitasdirect.tareas.model.TareaMantenimiento;
+import es.securitasdirect.tareas.model.*;
 import es.securitasdirect.tareas.model.tareaexcel.*;
 import es.securitasdirect.tareas.web.controller.params.ServiceParams;
 import org.slf4j.Logger;
@@ -60,24 +57,24 @@ public class QueryTareaService {
                 country);
 
         if (responseMap != null) {
-            String tipoTarea = loadTipoTarea(responseMap);
+            String tipoTarea = getTaskTypeFromMap(responseMap);
             Tarea tarea = null;
             if (tipoTarea != null) {
-                if (tipoTarea.equals("TareaAviso")) {
+                if (tipoTarea.equals(Constants.TAREA_AVISO)) {
                     tarea = createTareaAvisoFromParameters(responseMap);
-                } else if (tipoTarea.equals("TareaListadoAssistant")) {
+                } else if (tipoTarea.equals(Constants.TAREA_LISTADOASSISTANT)) {
                     tarea = createTareaListadoAssistantFromParameters(responseMap);
-                } else if (tipoTarea.equals("TareaEncuestaMantenimiento")) {
+                } else if (tipoTarea.equals(Constants.TAREA_ENCUESTAMANTENIMIENTO)) {
                     tarea = createTareaEncuestaMantenimientoFromParameters(responseMap);
-                } else if (tipoTarea.equals("TareaEncuestaMarketing")) {
+                } else if (tipoTarea.equals(Constants.TAREA_ENCUESTAMARKETING)) {
                     tarea = createTareaEncuestaMarketingFromParameters(responseMap);
-                } else if (tipoTarea.equals("TareaKeybox")) {
+                } else if (tipoTarea.equals(Constants.TAREA_KEYBOX)) {
                     tarea = createTareaKeyboxFromParameters(responseMap);
-                } else if (tipoTarea.equals("TareaLimpiezaCuota")) {
+                } else if (tipoTarea.equals(Constants.TAREA_LIMPIEZACUOTA)) {
                     tarea = createTareaLimpiezaCuotaFromParameters(responseMap);
-                } else if (tipoTarea.equals("TareaOtrasCampanas")) {
+                } else if (tipoTarea.equals(Constants.TAREA_OTRASCAMPANAS)) {
                     tarea = createTareaOtrasCampanasFromParameters(responseMap);
-                } else if (tipoTarea.equals("TareaMantenimiento")) {
+                } else if (tipoTarea.equals(Constants.TAREA_MANTENIMIENTO)) {
                     tarea = createTareaMantenimientoFromParameters(responseMap);
                 }
                 return tarea;
@@ -94,8 +91,17 @@ public class QueryTareaService {
     /**
      * Returns the specific Tarea type from the response, mapping with a map configured in Spring
      */
-    private String loadTipoTarea(Map<String, String> responseMap) {
+    private String getTaskTypeFromMap(Map<String, String> responseMap) {
         String callingList = responseMap.get(TASK_TYPE);
+        return getTaskTypeFromCallingList(callingList);
+    }
+
+    /**
+     * Returns the specific Tarea type from the calling list, mapping with a map configured in Spring
+     * @param callingList
+     * @return
+     */
+    public String getTaskTypeFromCallingList(String callingList) {
         for (String tipoTarea : callingListToModel.keySet()) {
             if (callingListToModel.get(tipoTarea) != null && callingListToModel.get(tipoTarea).contains(callingList)) {
                 return tipoTarea;
