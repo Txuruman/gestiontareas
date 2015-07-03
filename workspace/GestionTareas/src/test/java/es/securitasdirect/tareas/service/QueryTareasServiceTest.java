@@ -37,17 +37,17 @@ public class QueryTareasServiceTest {
     /**
      * <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
      <soapenv:Header/>
-         <soapenv:Body>
-         <web:checkCallingListContact>
-             <ccIdentifier>ATC_SPN</ccIdentifier>
-             <applicationUser>Tareas</applicationUser>
-             <ccUserId>12187</ccUserId>
-             <filter>chain_id=1</filter>
-             <returnData></returnData>
-             <callingList>CL_CCT_ATT_Averia_Test</callingList>
-             <country>SPAIN</country>
-         </web:checkCallingListContact>
-         </soapenv:Body>
+     <soapenv:Body>
+     <web:checkCallingListContact>
+     <ccIdentifier>ATC_SPN</ccIdentifier>
+     <applicationUser>Tareas</applicationUser>
+     <ccUserId>12187</ccUserId>
+     <filter>chain_id=1</filter>
+     <returnData></returnData>
+     <callingList>CL_CCT_ATT_Averia_Test</callingList>
+     <country>SPAIN</country>
+     </web:checkCallingListContact>
+     </soapenv:Body>
      </soapenv:Envelope>
      */
     @Test

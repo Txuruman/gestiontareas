@@ -6,13 +6,16 @@
 
 <html data-ng-app="myApp">
 <head>
-    <title><spring:message code="buscartareas.titulo"/></title>
+    <title><spring:message code="titulo.BuscarTarea"/></title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/custom.css"/>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+    <script type="text/javascript">
+
+
+    </script>
+
 </head>
-
-
 <body data-ng-controller="MyController">
 
 <div class="container">
@@ -20,7 +23,7 @@
         <jsp:include page="bloques/tabs1.jsp"/>
     </div>
     <div class="spacer_t2"></div>
-    <form class="form-horizontal" role="form"   >
+    <form class="form-horizontal" role="form">
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="row text-center">
