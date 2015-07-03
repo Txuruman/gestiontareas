@@ -10,8 +10,7 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/custom.css"/>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/app/gestiontarea-app.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/app/maincontrollers/taskSearch-ctrl.js"></script>
+
 </head>
 <body data-ng-controller="taskSearch">
 
@@ -91,7 +90,8 @@
 </div>
 
 <!-- Angular JS Scripts -->
-
+<script src="${pageContext.request.contextPath}/resources/app/gestiontarea-app.js"></script>
+<script src="${pageContext.request.contextPath}/resources/app/maincontrollers/taskSearch-ctrl.js"></script>
 
 </body>
 </html>
