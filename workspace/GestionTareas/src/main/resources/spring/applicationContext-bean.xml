@@ -34,15 +34,29 @@
     <!-- TODO COMENTAR -->
     <!-- Valores para el campo DESPLEGABLE DE CIERRE , que se rellenarán en función del tipo de aviso    -->
 
-    <util:map id="datosAdicionalesCierreTareaAviso" map-class="java.util.HashMap" key-type="java.lang.Integer" value-type="java.lang.String">
-        <entry key="1" value="Dato Adicional Cierre 1"/>
-        <entry key="2" value="Dato Adicional Cierre 2"/>
-    </util:map>
 
-    <util:map id="datosAdicionalesCierreTareaExcel" map-class="java.util.HashMap" key-type="java.lang.Integer" value-type="java.lang.String">
-        <entry key="1" value="Dato Adicional Cierre 1"/>
-        <entry key="2" value="Dato Adicional Cierre 2"/>
-    </util:map>
+
+    <util:list id="datosAdicionalesCierreTareaAviso" value-type="es.securitasdirect.tareas.model.external.Pair" list-class="java.util.ArrayList">
+        <bean class="es.securitasdirect.tareas.model.external.Pair">
+            <property name="id" value="1" />
+            <property name="value" value="Dato Adicional Cierre 1" />
+        </bean>
+        <bean class="es.securitasdirect.tareas.model.external.Pair">
+            <property name="id" value="2" />
+            <property name="value" value="Dato Adicional Cierre 2" />
+        </bean>
+    </util:list>
+
+    <util:list id="datosAdicionalesCierreTareaExcel" value-type="es.securitasdirect.tareas.model.external.Pair" list-class="java.util.ArrayList">
+        <bean class="es.securitasdirect.tareas.model.external.Pair">
+            <property name="id" value="1" />
+            <property name="value" value="Dato Adicional Cierre Excel 1" />
+        </bean>
+        <bean class="es.securitasdirect.tareas.model.external.Pair">
+            <property name="id" value="2" />
+            <property name="value" value="Dato Adicional Cierre Excel 2" />
+        </bean>
+    </util:list>
 
     <!-- TODO COMENTAR
     La clave del primer mapa es el tipo de la tarea de Aviso

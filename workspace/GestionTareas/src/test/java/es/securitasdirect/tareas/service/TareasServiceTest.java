@@ -59,7 +59,7 @@ public class TareasServiceTest {
 
     @Test
     public void datosAdicionalesCierreTareaAviso() {
-        Map<Integer, String> datosAdicionalesCierreTareaAviso = externalDataService.getDatosAdicionalesCierreTareaAviso();
+        List<Pair> datosAdicionalesCierreTareaAviso = externalDataService.getDatosAdicionalesCierreTareaAviso();
         LOGGER.info("datosAdicionalesCierreTareaAviso {}", datosAdicionalesCierreTareaAviso);
         assertThat(datosAdicionalesCierreTareaAviso, notNullValue());
     }
@@ -67,7 +67,7 @@ public class TareasServiceTest {
 
     @Test
     public void datosCierreTareaExcel() {
-        Map<Integer, String> datosCierreTareaExcel = externalDataService.getDatosCierreTareaExcel();
+        List<Pair> datosCierreTareaExcel = externalDataService.getDatosCierreTareaExcel();
         LOGGER.info("datosCierreTareaExcel {}", datosCierreTareaExcel);
         assertThat(datosCierreTareaExcel, notNullValue());
     }

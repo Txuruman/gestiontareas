@@ -8,6 +8,9 @@ public class Pair {
     private Integer id;
     private String value;
 
+    public Pair(){
+
+    }
     public Pair(Integer id, String value){
         this.id = id;
         this.value = value;

@@ -32,9 +32,9 @@ public class ExternalDataService {
     @Inject
     protected SPAIOTAREAS2PortType spAioTareas2;
     @Resource(name="datosAdicionalesCierreTareaAviso")
-    protected Map<Integer,String> datosAdicionalesCierreTareaAviso;
+    protected List<Pair> datosAdicionalesCierreTareaAviso;
     @Resource(name="datosAdicionalesCierreTareaExcel")
-    protected Map<Integer,String> datosCierreTareaExcel;
+    protected List<Pair> datosCierreTareaExcel;
 
     /**
      * Consulta de los valores para el combo Key1 de tareas de mantenimiento
@@ -74,15 +74,13 @@ public class ExternalDataService {
     }
 
 
-    public Map<Integer, String> getDatosAdicionalesCierreTareaAviso() {
+    public List<Pair> getDatosAdicionalesCierreTareaAviso() {
         assert datosAdicionalesCierreTareaAviso!=null;
         return datosAdicionalesCierreTareaAviso;
     }
 
-    public Map<Integer, String> getDatosCierreTareaExcel() {
+    public List<Pair> getDatosCierreTareaExcel() {
         return datosCierreTareaExcel;
     }
-
-
 
 }

@@ -103,7 +103,7 @@ public class VisorTareaController {
                 titulo = "titulo.TareaAviso";
                 mv.addObject(SECUNDARIA, AVISO);
                 //Cargar combos específicos de TareaAviso
-                Map<Integer, String> datosAdicionalesCierreTareaAviso = externalDataService.getDatosAdicionalesCierreTareaAviso();
+                List<Pair> datosAdicionalesCierreTareaAviso = externalDataService.getDatosAdicionalesCierreTareaAviso();
             } else if (tarea instanceof TareaListadoAssistant) {
                 titulo = "titulo.TareaListadoAssistant";
                 mv.addObject(SECUNDARIA, EXCEL_LISTADO_ASSISTANT);
