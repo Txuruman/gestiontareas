@@ -45,7 +45,7 @@ public class TestController {
     }
 
 
-    @RequestMapping(value = "/desplegableKey1", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+
     public @ResponseBody  List<TestModel1> getDesplegableKey1() {
         List<TestModel1> list = new ArrayList<TestModel1>();
         TestModel1 m1 = new TestModel1(); m1.setNombre("nom1");m1.setApellido("ape1");
