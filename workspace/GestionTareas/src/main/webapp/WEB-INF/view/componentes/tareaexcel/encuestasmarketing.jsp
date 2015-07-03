@@ -6,8 +6,8 @@
 <jsp:include page="comunes.jsp"/>
 <div class="row">
 
-    <app:input id="date" label="marketingsurvey.date" value="${tarea.date}" cells="6" readonly="true"/>
-    <app:input id="motivo" label="eti.visortarea.form.label.motivo" value="${tarea.motivo}" cells="6" readonly="true"/>
+    <app:inputText id="date" label="marketingsurvey.date" value="${tarea.date}" cells="6" readonly="true"/>
+    <app:inputText id="motivo" label="eti.visortarea.form.label.motivo" value="${tarea.motivo}" cells="6" readonly="true"/>
 
 </div>
 

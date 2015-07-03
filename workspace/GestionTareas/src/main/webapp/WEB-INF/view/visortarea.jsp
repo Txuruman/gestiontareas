@@ -14,9 +14,12 @@
 <body>
 
 
-
 <body>
 <div class="container">
+
+    <!-- Angular JS Scripts -->
+    <script src="${pageContext.request.contextPath}/resources/app/gestiontarea-app.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/app/maincontrollers/taskViewer-ctrl.js"></script>
 
 
     <div class="row">
@@ -34,21 +37,21 @@
 
         <!-- Datos de la Instalacion  -  Start -->
         <div class="row">
-            <app:input id="ninstalacion" label="visortarea.ninstalacion" value="${installationData.numeroInstalacion}" cells="6" cell_label="4" cell_input="8" readonly="true"/>
-            <app:input id="titular" label="visortarea.titular" value="${installationData.titular}" cells="6" readonly="true"/>
+            <app:inputText id="ninstalacion" label="visortarea.ninstalacion" value="${installationData.numeroInstalacion}" cells="6" cell_label="4" cell_input="8" readonly="true"/>
+            <app:inputText id="titular" label="visortarea.titular" value="${installationData.titular}" cells="6" readonly="true"/>
         </div>
 
         <div class="spacer_t1"></div>
         <div class="row">
-            <app:input id="personaContacto" label="visortarea.personacontacto" value="${installationData.personaContacto}" cells="6" readonly="true"/>
-            <app:input id="panel" label="visortarea.panel" value="${installationData.panel}" cells="6" readonly="true"/>
+            <app:inputText id="personaContacto" label="visortarea.personacontacto" value="${installationData.personaContacto}" cells="6" readonly="true"/>
+            <app:inputText id="panel" label="visortarea.panel" value="${installationData.panel}" cells="6" readonly="true"/>
         </div>
 
         <div class="spacer_t1"></div>
 
         <div class="row">
-            <app:input id="telefono" label="visortarea.telefono" value="${installationData.telefono}" cells="6" readonly="true"/>
-            <app:input id="version" label="visortarea.version" value="${installationData.version}" cells="6" readonly="true"/>
+            <app:inputText id="telefono" label="visortarea.telefono" value="${installationData.telefono}" cells="6" readonly="true"/>
+            <app:inputText id="version" label="visortarea.version" value="${installationData.version}" cells="6" readonly="true"/>
         </div>
         <!-- Datos de la Instalacion  - End -->
 
@@ -116,10 +119,9 @@
     </form>
 
 </div>
-<!-- Container -->
-<%--InstallationData : ${installationData}<br/>--%>
-<%--Tarea : ${tarea}<br/>--%>
-<%--Parametros: ${todosparametros}--%>
+
+
+
 
 </body>
 </html>

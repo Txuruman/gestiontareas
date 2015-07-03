@@ -6,21 +6,21 @@
 <jsp:include page="comunes.jsp"/>
 <div class="row">
 
-    <app:input id="numeroFactura" label="keybox.numerofactura" value="${tarea.numeroFactura}" cells="6" readonly="true"/>
-    <app:input id="fechaFactura" label="keybox.fechafactura" value="${tarea.fechaFactura}" cells="6" readonly="true"/>
+    <app:inputText id="numeroFactura" label="keybox.numerofactura" value="${tarea.numeroFactura}" cells="6" readonly="true"/>
+    <app:inputText id="fechaFactura" label="keybox.fechafactura" value="${tarea.fechaFactura}" cells="6" readonly="true"/>
 
 </div>
 <div class="spacer_t1"></div>
 <div class="row">
 
-    <app:input id="importeLinea" label="keybox.importelinea" value="${tarea.importeLinea}" cells="6" readonly="true"/>
-    <app:input id="identificadorItem" label="keybox.identificadoritem" value="${tarea.identificadorItem}" cells="6" readonly="true"/>
+    <app:inputText id="importeLinea" label="keybox.importelinea" value="${tarea.importeLinea}" cells="6" readonly="true"/>
+    <app:inputText id="identificadorItem" label="keybox.identificadoritem" value="${tarea.identificadorItem}" cells="6" readonly="true"/>
 
 </div>
 <div class="spacer_t1"></div>
 <div class="row">
-    <app:input id="contrato" label="keybox.contrato" value="${tarea.contrato}" cells="6" readonly="true"/>
-    <app:input id="panel" label="keybox.panel" value="${tarea.panel}" cells="6" readonly="true"/>
+    <app:inputText id="contrato" label="keybox.contrato" value="${tarea.contrato}" cells="6" readonly="true"/>
+    <app:inputText id="panel" label="keybox.panel" value="${tarea.panel}" cells="6" readonly="true"/>
 </div>
 
 

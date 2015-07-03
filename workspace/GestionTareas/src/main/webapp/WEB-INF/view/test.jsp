@@ -69,7 +69,7 @@ getDesplegableKey1:{{key1}}
 <br/>
 <div data-ng-init="getDesplegableKey1()">
     <select  ng-model="key1value"><!-- ng-model="model.id" convert-to-number -->
-        <option data-ng-repeat="k in key1" value="{{k}}">{{k}}</option>
+        <option data-ng-repeat="k in key1" value="{{k.id}}">{{k.value}}</option>
     </select>
 </div>
 <br/>

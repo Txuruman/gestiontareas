@@ -21,7 +21,7 @@ import static org.hamcrest.core.IsNull.notNullValue;
  * Test del Servicio de InstallationMonDataService
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath*:spring/applicationContext-*.xml" })
+@ContextConfiguration(locations = {"classpath*:spring/applicationContext-*.xml"})
 public class InstallationServiceTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(InstallationServiceTest.class);
@@ -31,19 +31,33 @@ public class InstallationServiceTest {
     @Inject
     protected SPAIOTAREAS2PortType spAioTareas2;
     @Inject
-    CCLIntegration cclIntegration;
+    protected CCLIntegration cclIntegration;
 
 
     @Test
     public void testInjection() {
-        assertThat (installationService,notNullValue());
-        assertThat (installationService.spInstallationMonData,notNullValue());
+        assertThat(installationService, notNullValue());
+        assertThat(installationService.spInstallationMonData, notNullValue());
     }
 
+    ///PROPIOS
+    @Test
+    public void installationData() throws DataServiceFault {
+        InstallationData installationData = installationService.getInstallationData("111112");
+        assertThat(installationData, notNullValue());
+        LOGGER.info(installationData.toString());
+    }
+
+
+    //DIRECTO WS
     @Test
     public void testGetInstallationWSAioTareas2() throws DataServiceFault {
-        List<GetInstallationDataResult> installationDataWS2 = spAioTareas2.getInstallationData(70578, 7);
-        assertThat(installationDataWS2, notNullValue());
+        GetInstallationDataInput getInstallationDataInput = new GetInstallationDataInput();
+        getInstallationDataInput.setSIns(70578);
+        getInstallationDataInput.setSCtr(7);
+        GetInstallationDataResults installationData = spAioTareas2.getInstallationData(getInstallationDataInput);
+        assertThat(installationData, notNullValue());
+        LOGGER.info(installationData.toString());
     }
 
 
@@ -59,12 +73,6 @@ public class InstallationServiceTest {
         assertThat(key2DIY, notNullValue());
     }
 
-    @Test
-    public void installationData() throws DataServiceFault {
-        InstallationData installationData = installationService.getInstallationData("111111");
-        assertThat (installationData,notNullValue());
-        LOGGER.info(installationData.toString());
-    }
 
 
 }

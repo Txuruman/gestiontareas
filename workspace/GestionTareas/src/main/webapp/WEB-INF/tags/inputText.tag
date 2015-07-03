@@ -1,9 +1,10 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- http://www.onjava.com/pub/a/onjava/2004/05/12/jsp2part4.html -->
-<%@ tag  %>
+<%@ tag body-content="empty" %>
 <%@ attribute name="id" required="true" %>
 <%@ attribute name="label" required="false" type="java.lang.String" %>
+<%@ attribute name="value" required="true" %>
 <%@ attribute name="cells" required="false" description="Number of cells used from the 12 available" %>
 <%@ attribute name="required" required="false" description="If the field is required true/false" %>
 <%@ attribute name="readonly" required="false" description="If the field is readonly true/false" %>
@@ -31,7 +32,11 @@
     </label>
 
     <div class="col-lg-${cell_input} col-md-${cell_input} col-sm-${cell_input} col-xs-${cell_input}">
-        <jsp:doBody/>
+        <input type="text" class="form-control input-custom-global" name="${id}" id="${id}"
+               value="${value}"
+               maxlength="${maxlength}"
+        ${readonly=='true'? 'disabled' : ''}
+                />
     </div>
 
 </div>

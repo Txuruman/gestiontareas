@@ -4,17 +4,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <div class="row">
-    <app:input id="aviso" label="tareaAviso.identificativoAvisoTarea" value="${tarea.identificativoAvisoTarea}" cells="6" readonly="false"/>
+    <app:inputText id="aviso" label="tareaAviso.identificativoAvisoTarea" value="${tarea.identificativoAvisoTarea}" cells="6" readonly="false"/>
 
-    <app:input id="fechaCreacion" label="tareaAviso.fechaCreacion" value="${tarea.fechaCreacion}" cells="6" readonly="false"/>
+    <app:inputText id="fechaCreacion" label="tareaAviso.fechaCreacion" value="${tarea.fechaCreacion}" cells="6" readonly="false"/>
 </div>
 <div class="spacer_t1"></div>
 
 <div class="row">
-    <app:input id="requeridoPor" label="tareaAviso.requeridoPor" value="${tarea.requeridoPor}" cells="6" readonly="false"/>
+    <app:inputText id="requeridoPor" label="tareaAviso.requeridoPor" value="${tarea.requeridoPor}" cells="6" readonly="false"/>
 
-    <app:input id="horarioDesde" label="tareaAviso.horarioDesde" value="${tarea.horarioDesde}" cells="3" readonly="false"/>
-    <app:input id="horarioHasta" label="tareaAviso.horarioHasta" value="${tarea.horarioHasta}" cells="3" readonly="false"/>
+    <app:inputText id="horarioDesde" label="tareaAviso.horarioDesde" value="${tarea.horarioDesde}" cells="3" readonly="false"/>
+    <app:inputText id="horarioHasta" label="tareaAviso.horarioHasta" value="${tarea.horarioHasta}" cells="3" readonly="false"/>
 </div>
 <div class="spacer_t1"></div>
 

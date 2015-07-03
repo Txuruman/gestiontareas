@@ -33,16 +33,16 @@ public class InstallationService {
     public InstallationData getInstallationData(String installationNumber) throws DataServiceFault {
         assert installationNumber!=null;
         Mainstallationdataresult installationData1 = null;
-        GetInstallationDataResult installationData2 = null;
+        GetInstallationDataResults installationData2 = null;
 
         List<Mainstallationdataresult> installationDataWS = spInstallationMonData.getInstallationData(installationNumber);
         if (installationDataWS!=null && installationDataWS.size()>0) {
             installationData1 = installationDataWS.get(0);
-            // Obtener la versión del panel , TODO ESTO FALLA
-//            List<GetInstallationDataResult> installationDataWS2 = spAioTareas2.getInstallationData(installationData1.getSIns().intValue(), 0);
-//            if (installationDataWS2!=null && !installationDataWS2.isEmpty()) {
-//                 installationData2 = installationDataWS2.get(0);
-//            }
+            // Obtener la versión del panel
+            GetInstallationDataInput getInstallationDataInput = new GetInstallationDataInput();
+            getInstallationDataInput.setSIns(70578);
+            getInstallationDataInput.setSCtr(7);
+            installationData2 = spAioTareas2.getInstallationData(getInstallationDataInput);
         }
 
         InstallationData installationData = createInstallationData(installationData1,installationData2);
@@ -51,7 +51,7 @@ public class InstallationService {
     }
 
 
-    private InstallationData createInstallationData (Mainstallationdataresult mainstallationdataresult,GetInstallationDataResult installationData2) {
+    private InstallationData createInstallationData (Mainstallationdataresult mainstallationdataresult,GetInstallationDataResults installationData2) {
         if (mainstallationdataresult==null) {
             return null;
         } else {
@@ -63,8 +63,8 @@ public class InstallationService {
             data.setTitular(mainstallationdataresult.getName());
             data.setPanel(mainstallationdataresult.getPanel());
             data.setTelefono(mainstallationdataresult.getPhone());
-            if (installationData2!=null) {
-                data.setVersion(installationData2.getVersion());
+            if (installationData2!=null && !installationData2.getGetInstallationDataResult().isEmpty()) {
+                data.setVersion(installationData2.getGetInstallationDataResult().get(0).getVersion());
             }
             return data;
         }
