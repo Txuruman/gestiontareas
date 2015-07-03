@@ -350,8 +350,8 @@ public class QueryTareaService {
         loadTareaExcelCommons(tarea, parameters);
 
         tarea.setNumeroInstalacion(parameters.get(ServiceParams.ASSISTANT_INSTALACION));
-        tarea.setNumeroMantenimiento(toIntegerFromMap(parameters.get(ServiceParams.ASSISTANT_MANTENIMIENTO)));
-        tarea.setTecnico(parameters.get(ServiceParams.ASSISTANT_TECNICO));
+        tarea.setMaintenanceNumber(toIntegerFromMap(parameters.get(ServiceParams.ASSISTANT_MANTENIMIENTO)));
+        tarea.setTechnician(parameters.get(ServiceParams.ASSISTANT_TECNICO));
         tarea.setDepartamento(parameters.get(ServiceParams.ASSISTANT_DEPARTAMENTO));
         tarea.setGrupoPanel(parameters.get(ServiceParams.ASSISTANT_GRUPOPANEL));
         tarea.setTotalSinIVA(toFloatFromMap(parameters.get(ServiceParams.ASSISTANT_TOTALSINIVA)));

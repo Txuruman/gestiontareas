@@ -3,7 +3,6 @@ package es.securitasdirect.tareas.model.tareaexcel;
 import es.securitasdirect.tareas.model.TareaExcel;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author Team Vision
@@ -18,7 +17,8 @@ public class TareaListadoAssistant extends TareaExcel {
     /**
      * Número de Mantenimiento
      */
-    Integer numeroMantenimiento;
+    Integer maintenanceNumber;
+
     /**
      * Nombre. Parece ser el nombre de contacto, no se muestra en el detalle sino que debe sobreescribir el dato de Instalacion.
      * varchar(120)
@@ -33,7 +33,7 @@ public class TareaListadoAssistant extends TareaExcel {
      * Técnico.
      * varchar (10)
      */
-    String tecnico;
+    String technician;
     /**
      * Departamento.
      * varchar (50)
@@ -144,12 +144,12 @@ public class TareaListadoAssistant extends TareaExcel {
         this.numeroInstalacion = numeroInstalacion;
     }
 
-    public Integer getNumeroMantenimiento() {
-        return numeroMantenimiento;
+    public Integer getMaintenanceNumber() {
+        return maintenanceNumber;
     }
 
-    public void setNumeroMantenimiento(Integer numeroMantenimiento) {
-        this.numeroMantenimiento = numeroMantenimiento;
+    public void setMaintenanceNumber(Integer maintenanceNumber) {
+        this.maintenanceNumber = maintenanceNumber;
     }
 
     public String getNombre() {
@@ -168,12 +168,12 @@ public class TareaListadoAssistant extends TareaExcel {
         this.telefono = telefono;
     }
 
-    public String getTecnico() {
-        return tecnico;
+    public String getTechnician() {
+        return technician;
     }
 
-    public void setTecnico(String tecnico) {
-        this.tecnico = tecnico;
+    public void setTechnician(String technician) {
+        this.technician = technician;
     }
 
     public String getDepartamento() {
@@ -348,10 +348,10 @@ public class TareaListadoAssistant extends TareaExcel {
     public String toString() {
         final StringBuilder sb = new StringBuilder("TareaListadoAssistant{");
         sb.append("numeroInstalacion='").append(numeroInstalacion).append('\'');
-        sb.append(", maintenanceNumber=").append(numeroMantenimiento);
+        sb.append(", maintenanceNumber=").append(maintenanceNumber);
         sb.append(", nombre='").append(nombre).append('\'');
         sb.append(", telefono='").append(telefono).append('\'');
-        sb.append(", technician='").append(tecnico).append('\'');
+        sb.append(", technician='").append(technician).append('\'');
         sb.append(", departamento='").append(departamento).append('\'');
         sb.append(", grupoPanel='").append(grupoPanel).append('\'');
         sb.append(", totalSinIVA=").append(totalSinIVA);

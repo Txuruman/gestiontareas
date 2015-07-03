@@ -221,8 +221,8 @@ public class TareaService {
         loadTareaExcelCommons(tarea, parameters);
 
         tarea.setNumeroInstalacion(parameters.get(ExternalParams.ASSISTANT_INSTALACION));
-        tarea.setNumeroMantenimiento(toIntegerFromParam(parameters.get(ExternalParams.ASSISTANT_MANTENIMIENTO)));
-        tarea.setTecnico(parameters.get(ExternalParams.ASSISTANT_TECNICO));
+        tarea.setMaintenanceNumber(toIntegerFromParam(parameters.get(ExternalParams.ASSISTANT_MANTENIMIENTO)));
+        tarea.setTechnician(parameters.get(ExternalParams.ASSISTANT_TECNICO));
         tarea.setDepartamento(parameters.get(ExternalParams.ASSISTANT_DEPARTAMENTO));
         tarea.setGrupoPanel(parameters.get(ExternalParams.ASSISTANT_GRUPOPANEL));
         tarea.setTotalSinIVA(toFloatFromParam(parameters.get(ExternalParams.ASSISTANT_TOTALSINIVA)));
