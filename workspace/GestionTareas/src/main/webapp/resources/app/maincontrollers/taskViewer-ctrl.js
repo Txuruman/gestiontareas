@@ -1,5 +1,6 @@
-app.controller('buscarTarea', function ($scope, $http) {
+app.controller('taskViewers', function ($scope, $http) {
 
+    /*
     $scope.searchTareaFromServer = function () {
         console.log('search Tareas ' + $scope.searchText +  ' ' + $scope.searchOption);
         $http({
@@ -14,5 +15,5 @@ app.controller('buscarTarea', function ($scope, $http) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
-    };
+    };*/
 });
