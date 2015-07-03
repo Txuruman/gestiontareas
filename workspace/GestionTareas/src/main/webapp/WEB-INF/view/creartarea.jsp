@@ -5,7 +5,7 @@
 
 <html>
 <head>
-    <title><spring:message code="creartarea.titulo"/></title>
+    <title><spring:message code="titulo.creartarea"/></title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/custom.css" />
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
