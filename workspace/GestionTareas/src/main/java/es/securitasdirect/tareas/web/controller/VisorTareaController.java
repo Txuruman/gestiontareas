@@ -2,6 +2,7 @@ package es.securitasdirect.tareas.web.controller;
 
 import es.securitasdirect.tareas.model.*;
 import es.securitasdirect.tareas.model.tareaexcel.*;
+import es.securitasdirect.tareas.service.ExternalDataService;
 import es.securitasdirect.tareas.service.InstallationService;
 import es.securitasdirect.tareas.service.TareaService;
 import es.securitasdirect.tareas.web.controller.params.ExternalParams;
@@ -49,6 +50,8 @@ public class VisorTareaController {
     private TareaService tareaService;
     @Inject
     private InstallationService installationService;
+    @Inject
+    private ExternalDataService externalDataService;
 
 
     private static final Logger LOGGER = LoggerFactory.getLogger(VisorTareaController.class);
@@ -68,8 +71,9 @@ public class VisorTareaController {
         ins_no = hsr.getParameter(ExternalParams.NUMERO_INSTALACION);
         if (ins_no != null) {
             installationData = installationService.getInstallationData(ins_no);
+        } else {
+            throw new Exception("Installation number parameter not received");
         }
-
 
 
         tarea = tareaService.loadTareaFromParameters(createParameterMap(hsr));
@@ -96,8 +100,8 @@ public class VisorTareaController {
             if (tarea instanceof TareaAviso) {
                 titulo = "titulo.TareaAviso";
                 mv.addObject(SECUNDARIA, AVISO);
-                //Cargar combos
-                Map<Integer, String> datosAdicionalesCierreTareaAviso = tareaService.getDatosAdicionalesCierreTareaAviso();
+                //Cargar combos específicos de TareaAviso
+                Map<Integer, String> datosAdicionalesCierreTareaAviso = externalDataService.getDatosAdicionalesCierreTareaAviso();
             } else if (tarea instanceof TareaListadoAssistant) {
                 titulo = "titulo.TareaListadoAssistant";
                 mv.addObject(SECUNDARIA, EXCEL_LISTADO_ASSISTANT);
@@ -120,8 +124,8 @@ public class VisorTareaController {
                 titulo = "titulo.TareaMantenimiento";
                 mv.addObject(SECUNDARIA, MANTENIMIENTO);
                 //Cargar combo de tarea de Mantenimiento, solo si es tarea de mantenimiento
-                Map<Integer, String> desplegableKey1 = tareaService.getDesplegableKey1();
-                Map<Integer, String> desplegableKey2 = tareaService.getDesplegableKey2(null);
+                Map<Integer, String> desplegableKey1 = externalDataService.getDesplegableKey1();
+                Map<Integer, String> desplegableKey2 = externalDataService.getDesplegableKey2(null);
                 mv.addObject("desplegableKey1", desplegableKey1);
             }
             mv.addObject(TITULO, titulo);
@@ -129,7 +133,7 @@ public class VisorTareaController {
             mv.addObject("installationData", installationData);
 
             //TODO Borrar, temporal para ver los parámetros enviados a la página
-            mv.addObject("todosparametros",createParameterMap(hsr));
+            mv.addObject("todosparametros", createParameterMap(hsr));
 
         }
 
@@ -151,10 +155,8 @@ public class VisorTareaController {
     // visortarea/creartarea.htm <---- FIJARSE NO PONER LA BARRA (/) AL PRINCIPIO PARA EVITAR LLAMAR A LA RAIZ DEL SITIO Y NO DE LA APLICACION.
 
     @RequestMapping("/creartarea.htm")
-    public ModelAndView HrCrearTarea(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception{
-       ModelAndView mv = new ModelAndView("creartarea");
-
-
+    public ModelAndView HrCrearTarea(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
+        ModelAndView mv = new ModelAndView("creartarea");
         return mv;
     }
 
@@ -183,8 +185,6 @@ public class VisorTareaController {
         }
         return parameterValues;
     }
-
-
 
 
 }

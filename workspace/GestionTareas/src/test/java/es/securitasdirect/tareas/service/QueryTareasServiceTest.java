@@ -52,8 +52,6 @@ public class QueryTareasServiceTest {
      */
     @Test
     public void QueryTareaAviso(){
-
-
         String ccIdentifier         = "ATC_SPN";
         String applicationUser      = "Tareas";
         String ccUserId             = "12187";
@@ -70,5 +68,12 @@ public class QueryTareasServiceTest {
         LOGGER.info("Tarea: {}", tarea);
         assertThat(tarea, notNullValue());
     }
+
+    @Test
+    public void queryTareaAvisoDirecto() throws DataServiceFault {
+        TareaAviso tareaByIdAviso = queryTareaService.getTareaByIdAviso(10267236);
+        assertThat(tareaByIdAviso, notNullValue());
+    }
+
 
 }

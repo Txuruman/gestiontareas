@@ -30,7 +30,7 @@ public class TareasServiceTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(TareasServiceTest.class);
 
     @Inject
-    protected TareaService tareaService;
+    protected ExternalDataService externalDataService;
 
     //Web Services para hacer pruebas directamente
     @Inject
@@ -41,13 +41,13 @@ public class TareasServiceTest {
 
     @Test
     public void keys() throws DataServiceFault {
-        Map<Integer, String> listakey1 = tareaService.getDesplegableKey1();
+        Map<Integer, String> listakey1 = externalDataService.getDesplegableKey1();
         assertThat(listakey1, notNullValue());
         assertThat(listakey1.isEmpty(), is(false));
         for (Integer id : listakey1.keySet()) {
             LOGGER.info("KEY1 id:{}  text:{}", id, listakey1.get(id));
 
-            Map<Integer, String> listaKey2 = tareaService.getDesplegableKey2(id);
+            Map<Integer, String> listaKey2 = externalDataService.getDesplegableKey2(id);
             assertThat(listaKey2, notNullValue());
             assertThat(listaKey2.isEmpty(), is(false));
             for (Integer id2 : listaKey2.keySet()) {
@@ -57,41 +57,27 @@ public class TareasServiceTest {
     }
 
     @Test
+    public void datosAdicionalesCierreTareaAviso() {
+        Map<Integer, String> datosAdicionalesCierreTareaAviso = externalDataService.getDatosAdicionalesCierreTareaAviso();
+        LOGGER.info("datosAdicionalesCierreTareaAviso {}", datosAdicionalesCierreTareaAviso);
+        assertThat(datosAdicionalesCierreTareaAviso, notNullValue());
+    }
+
+
+    @Test
+    public void datosCierreTareaExcel() {
+        Map<Integer, String> datosCierreTareaExcel = externalDataService.getDatosCierreTareaExcel();
+        LOGGER.info("datosCierreTareaExcel {}", datosCierreTareaExcel);
+        assertThat(datosCierreTareaExcel, notNullValue());
+    }
+
+    @Test
     public void directoWsgetAvisoById() throws DataServiceFault {
         List<GetAvisobyIdResult> avisobyId = spAioTareas2.getAvisobyId(10267236);
         assertThat(avisobyId, notNullValue());
     }
 
-    /**
-     * Crea un objeto de tipo TareaAviso consultando el WS
-     * @param avisobyIdResult
-     * @return
-     */
-    private TareaAviso createFromWS(GetAvisobyIdResult avisobyIdResult) {
-        TareaAviso tarea = new TareaAviso();
-        tarea.setIdentificativoAvisoTarea(avisobyIdResult.getIdaviso().intValue());
-        tarea.setObservaciones(avisobyIdResult.getObservaciones());
-        tarea.setEstado(avisobyIdResult.getEstado().toString()); //TODO
-        tarea.setTitular(avisobyIdResult.getTitular());
-        tarea.setFechaCreacion((avisobyIdResult.getFechaCreacion() == null ? null : avisobyIdResult.getFechaCreacion().toGregorianCalendar().getTime()));
 
-        // Tipos de Aviso: el primero es el utilizado, el segundo y el tercero son sólo informativos.
-        tarea.setTipoAviso1(avisobyIdResult.getTipo()); //TODO Pendiente sacar estos tipos
-        tarea.setTipoAviso2(null);
-        tarea.setTipoAviso3(null);
-
-        //Motivos: el primero es el utilizado, el segundo y el tercero son sólo informativos.
-        tarea.setMotivo1(avisobyIdResult.getMotivo()); //TODO Pendiente sacar estos motivos
-        tarea.setMotivo2(null);
-        tarea.setMotivo3(null);
-        tarea.setRequeridoPor(avisobyIdResult.getRequeridoPor());
-        tarea.setNumeroInstalacion(avisobyIdResult.getInsNo());
-        tarea.setHorarioDesde(avisobyIdResult.getDesde().toString());//TODO FORMATO
-        tarea.setHorarioHasta(avisobyIdResult.getHasta().toString());//TODO FORMATO
-        tarea.setDatosContacto(avisobyIdResult.getContacto() + "??" + avisobyIdResult.getFormaContacto());
-
-        return tarea;
-    }
 
 
 }

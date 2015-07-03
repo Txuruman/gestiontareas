@@ -51,9 +51,9 @@ public class TareaAviso extends Tarea {
     /** Horario hasta */
     private String horarioHasta;
     /**
-     * Motivo de Cierre, lista de valores
+     * Motivo de Cierre
      */
-    List<String> motivosCierre;
+    String motivoCierre;
 
     /**
      * Datos adicionales del cierre
@@ -211,12 +211,12 @@ public class TareaAviso extends Tarea {
         this.idAviso = idAviso;
     }
 
-    public List<String> getMotivosCierre() {
-        return motivosCierre;
+    public String getMotivoCierre() {
+        return motivoCierre;
     }
 
-    public void setMotivosCierre(List<String> motivosCierre) {
-        this.motivosCierre = motivosCierre;
+    public void setMotivoCierre(String motivoCierre) {
+        this.motivoCierre = motivoCierre;
     }
 
     public List<String> getDatosAdicionalesCierre() {
@@ -253,7 +253,7 @@ public class TareaAviso extends Tarea {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("TareaAviso{");
+        final StringBuffer sb = new StringBuffer("TareaAviso{");
         sb.append("idAviso=").append(idAviso);
         sb.append(", tipoAviso1='").append(tipoAviso1).append('\'');
         sb.append(", tipoAviso2='").append(tipoAviso2).append('\'');
@@ -271,7 +271,7 @@ public class TareaAviso extends Tarea {
         sb.append(", estado='").append(estado).append('\'');
         sb.append(", horarioDesde='").append(horarioDesde).append('\'');
         sb.append(", horarioHasta='").append(horarioHasta).append('\'');
-        sb.append(", motivosCierre=").append(motivosCierre);
+        sb.append(", motivoCierre=").append(motivoCierre);
         sb.append(", datosAdicionalesCierre=").append(datosAdicionalesCierre);
         sb.append(", fechaCierre=").append(fechaCierre);
         sb.append(", nota='").append(nota).append('\'');

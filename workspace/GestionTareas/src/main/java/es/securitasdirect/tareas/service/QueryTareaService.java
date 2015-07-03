@@ -30,7 +30,7 @@ public class QueryTareaService {
     private static final Logger LOGGER = LoggerFactory.getLogger(QueryTareaService.class);
 
     @Inject
-    private CCLIntegration cclIntegration;
+    protected CCLIntegration cclIntegration;
     @Inject
     protected SPAIOTAREAS2PortType spAioTareas2;
 
@@ -147,7 +147,7 @@ public class QueryTareaService {
         tarea.setObservaciones(avisobyIdResult.getObservaciones());
         tarea.setEstado(avisobyIdResult.getEstado().toString()); //TODO
         tarea.setTitular(avisobyIdResult.getTitular());
-        tarea.setFechaCreacion((avisobyIdResult.getFechaCreacion() == null ? null : avisobyIdResult.getFechaCreacion().toGregorianCalendar().getTime()));
+        tarea.setFechaCreacion(toDateFromMap(avisobyIdResult.getFechaCreacion())); //TODO OJO PUEDE SER DISTINTO
 
         // Tipos de Aviso: el primero es el utilizado, el segundo y el tercero son sólo informativos.
         tarea.setTipoAviso1(avisobyIdResult.getTipo()); //TODO Pendiente sacar estos tipos
@@ -168,13 +168,6 @@ public class QueryTareaService {
     }
 
 
-    /**
-     * Consulta de los valores para el combo Key1 de tareas de mantenimiento
-     */
-    public Map<Integer, String> getDesplegableKey1() throws DataServiceFault {
-
-        return null;
-    }
 
     private Tarea createTareaMantenimientoFromParameters(Map<String, String> parameters) {
         TareaMantenimiento tarea = new TareaMantenimiento();
@@ -408,7 +401,7 @@ public class QueryTareaService {
      * @param idAviso
      * @return
      */
-    public TareaAviso getTareaByIdAviso(Integer idAviso) throws DataServiceFault {
+    protected TareaAviso getTareaByIdAviso(Integer idAviso) throws DataServiceFault {
         TareaAviso tarea = null;
         if (idAviso != null && !idAviso.equals(0)) {
             List<GetAvisobyIdResult> avisobyId = spAioTareas2.getAvisobyId(idAviso);
@@ -423,7 +416,8 @@ public class QueryTareaService {
     }
 
     /**
-     * Conversores , indicar parametro (String)
+     * Conversores , indicar parametro (String).
+     * Ejemplo de lo que devuelve Aviso Service: 2014-08-22T10:08:26.000+02:00
      */
     private Date toDateFromMap(String value) {
         return new Date(); //TODO JAVIER
@@ -438,10 +432,15 @@ public class QueryTareaService {
     }
 
     private Float toFloatFromMap(String value) {
-        return new Float(0);
+        if (value == null || value.isEmpty()) {
+            return null;
+        } else {
+            return Float.valueOf(value);
+        }
     }
 
     private List toListFromMap(String value) {
+        if (true) throw new RuntimeException("No implementado");
         return new ArrayList();
     }
 
