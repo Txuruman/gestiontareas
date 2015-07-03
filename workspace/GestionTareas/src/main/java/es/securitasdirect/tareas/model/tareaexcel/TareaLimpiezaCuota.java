@@ -2,8 +2,6 @@ package es.securitasdirect.tareas.model.tareaexcel;
 
 import es.securitasdirect.tareas.model.TareaExcel;
 
-import java.util.List;
-
 /**
  * Limpieza de Cuota
  *
@@ -59,8 +57,8 @@ public class TareaLimpiezaCuota extends TareaExcel {
         sb.append("contrato='").append(contrato).append('\'');
         sb.append(", departamentoAsignado='").append(departamentoAsignado).append('\'');
         sb.append(", descripcionIncidencia='").append(descripcionIncidencia).append('\'');
-        sb.append(", motivosCierre=").append(motivosCierre);
-        sb.append(", compensacion='").append(compensacion).append('\'');
+        sb.append(", closingReason=").append(closingReason);
+        sb.append(", compensation='").append(compensation).append('\'');
         sb.append('}');
         return sb.toString();
     }

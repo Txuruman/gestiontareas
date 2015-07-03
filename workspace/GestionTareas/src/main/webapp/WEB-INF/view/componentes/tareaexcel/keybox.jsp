@@ -41,8 +41,8 @@ fechaFactura=Fri Jun 19 13:15:56 CEST 2015,
 importeLinea=0,
 identificadorItem='null',
 contrato='null',
-motivosCierre=null,
-compensacion='null'
+closingReason=null,
+compensation='null'
 }
 
 -->

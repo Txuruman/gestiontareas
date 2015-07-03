@@ -6,7 +6,7 @@
 <jsp:include page="comunes.jsp"/>
 <div class="row">
 
-    <app:input id="fecha" label="eti.visortarea.form.label.fecha" value="${tarea.fecha}" cells="6" readonly="true"/>
+    <app:input id="date" label="marketingsurvey.date" value="${tarea.date}" cells="6" readonly="true"/>
     <app:input id="motivo" label="eti.visortarea.form.label.motivo" value="${tarea.motivo}" cells="6" readonly="true"/>
 
 </div>
@@ -21,8 +21,8 @@ personaContacto='JOSE RAMON ARAGON ARRONTES'
 Tarea : TareaEncuestaMarketing{
 fecha=Fri Jun 26 10:51:51 CEST 2015,
 motivo='null',
-motivosCierre=null,
-compensacion='null'
+closingReason=null,
+compensation='null'
 }
 Parametros: {ins_no=111111,
 tipotarea=TareaEncuestaMarketing

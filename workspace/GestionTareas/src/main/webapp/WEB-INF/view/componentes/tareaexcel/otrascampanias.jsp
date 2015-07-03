@@ -36,5 +36,5 @@ campo1='null',
 campo2='null',
 campo3='null',
 
-motivosCierre=null,
-compensacion='null'} -->
+closingReason=null,
+compensation='null'} -->

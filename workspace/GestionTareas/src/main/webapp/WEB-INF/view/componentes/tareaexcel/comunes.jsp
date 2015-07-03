@@ -5,13 +5,13 @@
 
 <div class="row">
 
-  <app:inputCombo id="motivosCierre" label="eti.visortarea.form.label.motivosCierre" value="${tarea.motivosCierre}" cells="6" readonly="false"/>
-  <app:input id="compensacion" label="eti.visortarea.form.label.compensacion" value="${tarea.compensacion}" cells="6" readonly="false"/>
+  <app:inputCombo id="closingReason" label="eti.visortarea.form.label.closingReason" value="${tarea.closingReason}" cells="6" readonly="false"/>
+  <app:input id="compensation" label="eti.visortarea.form.label.compensation" value="${tarea.compensation}" cells="6" readonly="false"/>
 
 </div>
 <div class="spacer_t1"></div>
 
 <!--
-motivosCierre=null,
-compensacion='null'
+closingReason=null,
+compensation='null'
 -->

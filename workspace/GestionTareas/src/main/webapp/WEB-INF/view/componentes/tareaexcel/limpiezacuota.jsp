@@ -27,7 +27,7 @@ contrato='null',
 departamentoAsignado='null',
 descripcionIncidencia='null',
 
-motivosCierre=null,
-compensacion='null'
+closingReason=null,
+compensation='null'
 }
 -->

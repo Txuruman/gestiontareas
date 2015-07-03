@@ -8,27 +8,27 @@ import java.util.List;
 public abstract class TareaExcel extends Tarea {
 
     /**
-     * Motivo de Cierre, lista de valores
+     * Closing reason - Motivo de Cierre, lista de valores
      */
-    protected List<String> motivosCierre;
+    protected List<String> closingReason;
     /**
-     * Compensación.
+     * Compensation - Compensación.
      */
-    protected String compensacion;
+    protected String compensation;
 
-    public List<String> getMotivosCierre() {
-        return motivosCierre;
+    public List<String> getClosingReason() {
+        return closingReason;
     }
 
-    public void setMotivosCierre(List<String> motivosCierre) {
-        this.motivosCierre = motivosCierre;
+    public void setClosingReason(List<String> closingReason) {
+        this.closingReason = closingReason;
     }
 
-    public String getCompensacion() {
-        return compensacion;
+    public String getCompensation() {
+        return compensation;
     }
 
-    public void setCompensacion(String compensacion) {
-        this.compensacion = compensacion;
+    public void setCompensation(String compensation) {
+        this.compensation = compensation;
     }
 }

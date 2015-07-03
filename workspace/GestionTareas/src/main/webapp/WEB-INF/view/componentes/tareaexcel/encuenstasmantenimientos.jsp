@@ -12,24 +12,24 @@
 
 <div class="row">
     <app:input id="manager" label="eti.visortarea.form.label.manager" value="${tarea.manager}" cells="6" readonly="true"/>
-    <app:input id="centroCoste" label="eti.visortarea.form.label.centroCoste" value="${tarea.centroCoste}" cells="6" readonly="true"/>
+    <app:input id="costCenter" label="eti.visortarea.form.label.costCenter" value="${tarea.costCenter}" cells="6" readonly="true"/>
 </div>
 <div class="spacer_t1"></div>
 
 <div class="row">
-    <app:input id="razonClaveValoracion" label="eti.visortarea.form.label.razonClaveValoracion" value="${tarea.razonClaveValoracion}" cells="6" readonly="true"/>
-    <app:input id="compromiso" label="eti.visortarea.form.label.compromiso" value="${tarea.compromiso}" cells="6" readonly="true"/>
+    <app:input id="valuationKeyReason" label="eti.visortarea.form.label.valuationKeyReason" value="${tarea.valuationKeyReason}" cells="6" readonly="true"/>
+    <app:input id="agreement" label="eti.visortarea.form.label.agreement" value="${tarea.agreement}" cells="6" readonly="true"/>
 </div>
 <div class="spacer_t1"></div>
 
 <div class="row">
-    <app:input id="solucion" label="eti.visortarea.form.label.solucion" value="${tarea.solucion}" cells="6" readonly="true"/>
+    <app:input id="solution" label="eti.visortarea.form.label.solution" value="${tarea.solution}" cells="6" readonly="true"/>
 
 </div>
 <div class="spacer_t1"></div>
 
 <div class="row">
-    <app:input id="departamentoDestino" label="eti.visortarea.form.label.departamentoDestino" value="${tarea.departamentoDestino}" cells="6" readonly="true"/>
+    <app:input id="destinationDepartment" label="eti.visortarea.form.label.destinationDepartment" value="${tarea.destinationDepartment}" cells="6" readonly="true"/>
 </div>
 <div class="spacer_t1"></div>
 
@@ -45,13 +45,13 @@ Tarea : TareaEncuestaMantenimiento{
 maintenanceNumber=0,
 technician='null',
 manager='null',
-centroCoste='null',
-razonClaveValoracion='null',
-solucion='null',
-compromiso='null',
-departamentoDestino='null',
-motivosCierre=null,
-compensacion='null'
+costCenter='null',
+valuationKeyReason='null',
+solution='null',
+agreement='null',
+destinationDepartment='null',
+closingReason=null,
+compensation='null'
 }
 
 -->

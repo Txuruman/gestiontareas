@@ -22,7 +22,7 @@ public interface ServiceParams {
     public static String firmaConexion = "bp_auth_signature";
 
     public static String NUMERO_INSTALACION = "ins_no";
-    public static String COMPENSACION = "compensacion";
+    public static String COMPENSACION = "compensation";
 
 
 

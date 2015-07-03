@@ -93,9 +93,9 @@ boFechaRecepcion=Fri Jun 19 14:17:43 CEST 2015,
 
 boTipo='null',
 boComentarios='null',
-motivosCierre=null,
+closingReason=null,
 
-compensacion='null'
+compensation='null'
 
 }
 

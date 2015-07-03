@@ -252,11 +252,11 @@ public class TareaService {
         tarea.setMaintenanceNumber(toIntegerFromParam(parameters.get(ExternalParams.ENCUESTAMNTOS_MANTENIMIENTO)));
         tarea.setTechnician(parameters.get(ExternalParams.ENCUESTAMNTOS_TECNICO));
         tarea.setManager(parameters.get(ExternalParams.ENCUESTAMNTOS_RESPONSABLE));
-        tarea.setCentroCoste(parameters.get(ExternalParams.ENCUESTAMNTOS_CENTROCOSTE));
-        tarea.setRazonClaveValoracion(parameters.get(ExternalParams.ENCUESTAMNTOS_RAZON));
-        tarea.setSolucion(parameters.get(ExternalParams.ENCUESTAMNTOS_SOLUCION));
-        tarea.setCompromiso(parameters.get(ExternalParams.ENCUESTAMNTOS_COMPROMISO));
-        tarea.setDepartamentoDestino(parameters.get(ExternalParams.ENCUESTAMNTOS_DPTO_DESTINO));
+        tarea.setCostCenter(parameters.get(ExternalParams.ENCUESTAMNTOS_CENTROCOSTE));
+        tarea.setValuationKeyReason(parameters.get(ExternalParams.ENCUESTAMNTOS_RAZON));
+        tarea.setSolution(parameters.get(ExternalParams.ENCUESTAMNTOS_SOLUCION));
+        tarea.setAgreement(parameters.get(ExternalParams.ENCUESTAMNTOS_COMPROMISO));
+        tarea.setDestinationDepartment(parameters.get(ExternalParams.ENCUESTAMNTOS_DPTO_DESTINO));
         return tarea;
     }
 
@@ -265,7 +265,7 @@ public class TareaService {
         loadTareaCommons(tarea, parameters);
         loadTareaExcelCommons(tarea, parameters);
 
-        tarea.setFecha(toDateFromParam(parameters.get(ExternalParams.ENCUESTASMKT_FECHA)));
+        tarea.setDate(toDateFromParam(parameters.get(ExternalParams.ENCUESTASMKT_FECHA)));
         tarea.setMotivo(parameters.get(ExternalParams.ENCUESTASMKT_MOTIVO));
         return tarea;
     }
@@ -349,8 +349,8 @@ public class TareaService {
      */
     private TareaExcel loadTareaExcelCommons(TareaExcel tarea, Map<String, String> parameters) {
         assert tarea != null && parameters != null;
-        //TODO Pendiente saber formato lista tarea.setMotivosCierre(parameters.get(ExternalParams.MOTIVO_CIERRE));
-        tarea.setCompensacion(parameters.get(ExternalParams.COMPENSACION));
+        //TODO Pendiente saber formato lista tarea.setClosingReason(parameters.get(ExternalParams.MOTIVO_CIERRE));
+        tarea.setCompensation(parameters.get(ExternalParams.COMPENSACION));
         return tarea;
     }
 

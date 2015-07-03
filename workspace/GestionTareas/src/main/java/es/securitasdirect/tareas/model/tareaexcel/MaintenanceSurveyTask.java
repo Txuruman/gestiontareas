@@ -38,30 +38,30 @@ public class MaintenanceSurveyTask extends TareaExcel {
      */
     String manager;
     /**
-     * Centro de Coste, alias (CC).
+     * Cost Center - Centro de Coste, alias (CC).
      * varchar(5)
      */
-    String centroCoste;
+    String costCenter;
     /**
-     * Razón clave de la valoración.
+     * ValuationKeyResaon - Razón clave de la valoración.
      * varchar (500)
      */
-    String razonClaveValoracion;
+    String valuationKeyReason;
     /**
-     * Solución.
+     * Solution - Solución.
      * varchar (500)
      */
-    String solucion;
+    String solution;
     /**
-     * Compromiso.
+     * Agreement - Compromiso.
      * varchar(500)
      */
-    String compromiso;
+    String agreement;
     /**
-     * Departamento destino.
+     * Destination department - Departamento destino.
      * varchar (15)
      */
-    String departamentoDestino;
+    String destinationDepartment;
 
 
     public Integer getMaintenanceNumber() {
@@ -88,44 +88,44 @@ public class MaintenanceSurveyTask extends TareaExcel {
         this.manager = manager;
     }
 
-    public String getCentroCoste() {
-        return centroCoste;
+    public String getCostCenter() {
+        return costCenter;
     }
 
-    public void setCentroCoste(String centroCoste) {
-        this.centroCoste = centroCoste;
+    public void setCostCenter(String costCenter) {
+        this.costCenter = costCenter;
     }
 
-    public String getRazonClaveValoracion() {
-        return razonClaveValoracion;
+    public String getValuationKeyReason() {
+        return valuationKeyReason;
     }
 
-    public void setRazonClaveValoracion(String razonClaveValoracion) {
-        this.razonClaveValoracion = razonClaveValoracion;
+    public void setValuationKeyReason(String valuationKeyReason) {
+        this.valuationKeyReason = valuationKeyReason;
     }
 
-    public String getSolucion() {
-        return solucion;
+    public String getSolution() {
+        return solution;
     }
 
-    public void setSolucion(String solucion) {
-        this.solucion = solucion;
+    public void setSolution(String solution) {
+        this.solution = solution;
     }
 
-    public String getCompromiso() {
-        return compromiso;
+    public String getAgreement() {
+        return agreement;
     }
 
-    public void setCompromiso(String compromiso) {
-        this.compromiso = compromiso;
+    public void setAgreement(String agreement) {
+        this.agreement = agreement;
     }
 
-    public String getDepartamentoDestino() {
-        return departamentoDestino;
+    public String getDestinationDepartment() {
+        return destinationDepartment;
     }
 
-    public void setDepartamentoDestino(String departamentoDestino) {
-        this.departamentoDestino = departamentoDestino;
+    public void setDestinationDepartment(String destinationDepartment) {
+        this.destinationDepartment = destinationDepartment;
     }
 
 
@@ -135,13 +135,13 @@ public class MaintenanceSurveyTask extends TareaExcel {
         sb.append("maintenanceNumber=").append(maintenanceNumber);
         sb.append(", technician='").append(technician).append('\'');
         sb.append(", manager='").append(manager).append('\'');
-        sb.append(", centroCoste='").append(centroCoste).append('\'');
-        sb.append(", razonClaveValoracion='").append(razonClaveValoracion).append('\'');
-        sb.append(", solucion='").append(solucion).append('\'');
-        sb.append(", compromiso='").append(compromiso).append('\'');
-        sb.append(", departamentoDestino='").append(departamentoDestino).append('\'');
-        sb.append(", motivosCierre=").append(motivosCierre);
-        sb.append(", compensacion='").append(compensacion).append('\'');
+        sb.append(", costCenter='").append(costCenter).append('\'');
+        sb.append(", valuationKeyReason='").append(valuationKeyReason).append('\'');
+        sb.append(", solution='").append(solution).append('\'');
+        sb.append(", agreement='").append(agreement).append('\'');
+        sb.append(", destinationDepartment='").append(destinationDepartment).append('\'');
+        sb.append(", closingReason=").append(closingReason);
+        sb.append(", compensation='").append(compensation).append('\'');
         sb.append('}');
         return sb.toString();
     }

@@ -2,8 +2,6 @@ package es.securitasdirect.tareas.model.tareaexcel;
 
 import es.securitasdirect.tareas.model.TareaExcel;
 
-import java.util.List;
-
 /**
  * Tarea Otras Campañas.
  * En este caso, en función del grupo origen (Tipo de Campaña)  se asigna una Calling List determinada.
@@ -86,8 +84,8 @@ public class TareaOtrasCampanas extends TareaExcel {
         sb.append(", campo1='").append(campo1).append('\'');
         sb.append(", campo2='").append(campo2).append('\'');
         sb.append(", campo3='").append(campo3).append('\'');
-        sb.append(", motivosCierre=").append(motivosCierre);
-        sb.append(", compensacion='").append(compensacion).append('\'');
+        sb.append(", closingReason=").append(closingReason);
+        sb.append(", compensation='").append(compensation).append('\'');
         sb.append('}');
         return sb.toString();
     }

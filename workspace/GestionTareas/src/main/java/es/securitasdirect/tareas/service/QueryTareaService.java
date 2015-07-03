@@ -195,11 +195,11 @@ public class QueryTareaService {
         tarea.setMaintenanceNumber(toIntegerFromMap(parameters.get(ServiceParams.ENCUESTAMNTOS_MANTENIMIENTO)));
         tarea.setTechnician(parameters.get(ServiceParams.ENCUESTAMNTOS_TECNICO));
         tarea.setManager(parameters.get(ServiceParams.ENCUESTAMNTOS_RESPONSABLE));
-        tarea.setCentroCoste(parameters.get(ServiceParams.ENCUESTAMNTOS_CENTROCOSTE));
-        tarea.setRazonClaveValoracion(parameters.get(ServiceParams.ENCUESTAMNTOS_RAZON));
-        tarea.setSolucion(parameters.get(ServiceParams.ENCUESTAMNTOS_SOLUCION));
-        tarea.setCompromiso(parameters.get(ServiceParams.ENCUESTAMNTOS_COMPROMISO));
-        tarea.setDepartamentoDestino(parameters.get(ServiceParams.ENCUESTAMNTOS_DPTO_DESTINO));
+        tarea.setCostCenter(parameters.get(ServiceParams.ENCUESTAMNTOS_CENTROCOSTE));
+        tarea.setValuationKeyReason(parameters.get(ServiceParams.ENCUESTAMNTOS_RAZON));
+        tarea.setSolution(parameters.get(ServiceParams.ENCUESTAMNTOS_SOLUCION));
+        tarea.setAgreement(parameters.get(ServiceParams.ENCUESTAMNTOS_COMPROMISO));
+        tarea.setDestinationDepartment(parameters.get(ServiceParams.ENCUESTAMNTOS_DPTO_DESTINO));
         return tarea;
     }
 
@@ -208,7 +208,7 @@ public class QueryTareaService {
         loadTareaCommons(tarea, parameters);
         loadTareaExcelCommons(tarea, parameters);
 
-        tarea.setFecha(toDateFromMap(parameters.get(ServiceParams.ENCUESTASMKT_FECHA)));
+        tarea.setDate(toDateFromMap(parameters.get(ServiceParams.ENCUESTASMKT_FECHA)));
         tarea.setMotivo(parameters.get(ServiceParams.ENCUESTASMKT_MOTIVO));
         return tarea;
     }
@@ -339,8 +339,8 @@ public class QueryTareaService {
      */
     private TareaExcel loadTareaExcelCommons(TareaExcel tarea, Map<String, String> parameters) {
         assert tarea != null && parameters != null;
-        //TODO Pendiente saber formato lista tarea.setMotivosCierre(parameters.get(ServiceParams.MOTIVO_CIERRE));
-        tarea.setCompensacion(parameters.get(ServiceParams.COMPENSACION));
+        //TODO Pendiente saber formato lista tarea.setClosingReason(parameters.get(ServiceParams.MOTIVO_CIERRE));
+        tarea.setCompensation(parameters.get(ServiceParams.COMPENSACION));
         return tarea;
     }
 

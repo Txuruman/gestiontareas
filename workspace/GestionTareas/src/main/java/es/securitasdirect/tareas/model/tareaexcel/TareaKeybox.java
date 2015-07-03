@@ -3,7 +3,6 @@ package es.securitasdirect.tareas.model.tareaexcel;
 import es.securitasdirect.tareas.model.TareaExcel;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * Tarea Keybox
@@ -96,8 +95,8 @@ public class TareaKeybox extends TareaExcel {
         sb.append(", importeLinea=").append(importeLinea);
         sb.append(", identificadorItem='").append(identificadorItem).append('\'');
         sb.append(", contrato='").append(contrato).append('\'');
-        sb.append(", motivosCierre=").append(motivosCierre);
-        sb.append(", compensacion='").append(compensacion).append('\'');
+        sb.append(", closingReason=").append(closingReason);
+        sb.append(", compensation='").append(compensation).append('\'');
         sb.append('}');
         return sb.toString();
     }

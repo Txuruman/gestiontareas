@@ -30,7 +30,7 @@ public interface ExternalParams {
     public static String MOTIVO_CIERRE= "motivocierre";
 
 
-    public static String COMPENSACION = "compensacion";
+    public static String COMPENSACION = "compensation";
 
     public static String ENCUESTAMARKETING_MOTIVO = "motivo";
     public static String ENCUESTAMARKETING_FECHA = "fecha";

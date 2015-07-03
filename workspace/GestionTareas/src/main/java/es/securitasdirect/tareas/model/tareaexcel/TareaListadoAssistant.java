@@ -373,8 +373,8 @@ public class TareaListadoAssistant extends TareaExcel {
         sb.append(", boFechaRecepcion=").append(boFechaRecepcion);
         sb.append(", boTipo='").append(boTipo).append('\'');
         sb.append(", boComentarios='").append(boComentarios).append('\'');
-        sb.append(", motivosCierre=").append(motivosCierre);
-        sb.append(", compensacion='").append(compensacion).append('\'');
+        sb.append(", closingReason=").append(closingReason);
+        sb.append(", compensation='").append(compensation).append('\'');
         sb.append('}');
         return sb.toString();
     }

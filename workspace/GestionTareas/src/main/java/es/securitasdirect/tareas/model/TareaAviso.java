@@ -53,7 +53,7 @@ public class TareaAviso extends Tarea {
     /**
      * Motivo de Cierre
      */
-    String motivoCierre;
+    String closingReason;
 
     /**
      * Datos adicionales del cierre
@@ -211,12 +211,12 @@ public class TareaAviso extends Tarea {
         this.idAviso = idAviso;
     }
 
-    public String getMotivoCierre() {
-        return motivoCierre;
+    public String getClosingReason() {
+        return closingReason;
     }
 
-    public void setMotivoCierre(String motivoCierre) {
-        this.motivoCierre = motivoCierre;
+    public void setClosingReason(String closingReason) {
+        this.closingReason = closingReason;
     }
 
     public List<String> getDatosAdicionalesCierre() {
@@ -271,7 +271,7 @@ public class TareaAviso extends Tarea {
         sb.append(", estado='").append(estado).append('\'');
         sb.append(", horarioDesde='").append(horarioDesde).append('\'');
         sb.append(", horarioHasta='").append(horarioHasta).append('\'');
-        sb.append(", motivoCierre=").append(motivoCierre);
+        sb.append(", closingReason=").append(closingReason);
         sb.append(", datosAdicionalesCierre=").append(datosAdicionalesCierre);
         sb.append(", fechaCierre=").append(fechaCierre);
         sb.append(", nota='").append(nota).append('\'');

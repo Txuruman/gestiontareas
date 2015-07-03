@@ -3,7 +3,6 @@ package es.securitasdirect.tareas.model.tareaexcel;
 import es.securitasdirect.tareas.model.TareaExcel;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * Encuestas Marketing
@@ -15,7 +14,7 @@ public class TareaEncuestaMarketing extends TareaExcel {
     /**
      * Fecha
      */
-    Date fecha;
+    Date date;
     /**
      * Motivo.
      * varchar (500)
@@ -24,12 +23,12 @@ public class TareaEncuestaMarketing extends TareaExcel {
 
 
 
-    public Date getFecha() {
-        return fecha;
+    public Date getDate() {
+        return date;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public String getMotivo() {
@@ -45,10 +44,10 @@ public class TareaEncuestaMarketing extends TareaExcel {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("TareaEncuestaMarketing{");
-        sb.append("fecha=").append(fecha);
+        sb.append("date=").append(date);
         sb.append(", motivo='").append(motivo).append('\'');
-        sb.append(", motivosCierre=").append(motivosCierre);
-        sb.append(", compensacion='").append(compensacion).append('\'');
+        sb.append(", closingReason=").append(closingReason);
+        sb.append(", compensation='").append(compensation).append('\'');
         sb.append('}');
         return sb.toString();
     }
