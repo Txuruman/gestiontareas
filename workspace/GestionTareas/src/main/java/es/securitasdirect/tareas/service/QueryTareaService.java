@@ -9,7 +9,7 @@ import es.securitasdirect.tareas.model.TareaAviso;
 import es.securitasdirect.tareas.model.TareaExcel;
 import es.securitasdirect.tareas.model.TareaMantenimiento;
 import es.securitasdirect.tareas.model.tareaexcel.*;
-import es.securitasdirect.tareas.web.controller.params.ExternalParams;
+import es.securitasdirect.tareas.web.controller.params.ServiceParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wso2.ws.dataservice.*;
@@ -180,16 +180,16 @@ public class QueryTareaService {
         TareaMantenimiento tarea = new TareaMantenimiento();
         loadTareaCommons(tarea, parameters);
 
-        tarea.setContrato(parameters.get(ExternalParams.TAREA_MANTENIMIENTO_CONTRATO));
-        tarea.setDireccion(parameters.get(ExternalParams.TAREA_MANTENIMIENTO_DIRECCION));
-        tarea.setCiudad(parameters.get(ExternalParams.TAREA_MANTENIMIENTO_CIUDAD));
-        tarea.setFechaEvento(toDateFromMap(parameters.get(ExternalParams.TAREA_MANTENIMIENTO_FECHAEVENTO)));
-        tarea.setTipificacion(parameters.get(ExternalParams.TAREA_MANTENIMIENTO_TIPIFICACION));
-        tarea.setAgenteAsignado(parameters.get(ExternalParams.TAREA_MANTENIMIENTO_AGENTEASIGNADO));
-        tarea.setAgenteCierre(parameters.get(ExternalParams.TAREA_MANTENIMIENTO_AGENTECIERRE));
-        tarea.setOpcionTipificacion(toIntegerFromMap(parameters.get(ExternalParams.TAREA_MANTENIMIENTO_OPCIONTIPIFICACION)));
-        tarea.setKey1(toIntegerFromMap(parameters.get(ExternalParams.TAREA_MANTENIMIENTO_KEY1)));
-        tarea.setKey2(toIntegerFromMap(parameters.get(ExternalParams.TAREA_MANTENIMIENTO_KEY2)));
+        tarea.setContrato(parameters.get(ServiceParams.TAREA_MANTENIMIENTO_CONTRATO));
+        tarea.setDireccion(parameters.get(ServiceParams.TAREA_MANTENIMIENTO_DIRECCION));
+        tarea.setCiudad(parameters.get(ServiceParams.TAREA_MANTENIMIENTO_CIUDAD));
+        tarea.setFechaEvento(toDateFromMap(parameters.get(ServiceParams.TAREA_MANTENIMIENTO_FECHAEVENTO)));
+        tarea.setTipificacion(parameters.get(ServiceParams.TAREA_MANTENIMIENTO_TIPIFICACION));
+        tarea.setAgenteAsignado(parameters.get(ServiceParams.TAREA_MANTENIMIENTO_AGENTEASIGNADO));
+        tarea.setAgenteCierre(parameters.get(ServiceParams.TAREA_MANTENIMIENTO_AGENTECIERRE));
+        tarea.setOpcionTipificacion(toIntegerFromMap(parameters.get(ServiceParams.TAREA_MANTENIMIENTO_OPCIONTIPIFICACION)));
+        tarea.setKey1(toIntegerFromMap(parameters.get(ServiceParams.TAREA_MANTENIMIENTO_KEY1)));
+        tarea.setKey2(toIntegerFromMap(parameters.get(ServiceParams.TAREA_MANTENIMIENTO_KEY2)));
 
         return tarea;
     }
@@ -200,14 +200,14 @@ public class QueryTareaService {
         loadTareaCommons(tarea, parameters);
         loadTareaExcelCommons(tarea, parameters);
 
-        tarea.setNumeroMantenimiento(toIntegerFromMap(parameters.get(ExternalParams.ENCUESTAMNTOS_MANTENIMIENTO)));
-        tarea.setTecnico(parameters.get(ExternalParams.ENCUESTAMNTOS_TECNICO));
-        tarea.setResponsable(parameters.get(ExternalParams.ENCUESTAMNTOS_RESPONSABLE));
-        tarea.setCentroCoste(parameters.get(ExternalParams.ENCUESTAMNTOS_CENTROCOSTE));
-        tarea.setRazonClaveValoracion(parameters.get(ExternalParams.ENCUESTAMNTOS_RAZON));
-        tarea.setSolucion(parameters.get(ExternalParams.ENCUESTAMNTOS_SOLUCION));
-        tarea.setCompromiso(parameters.get(ExternalParams.ENCUESTAMNTOS_COMPROMISO));
-        tarea.setDepartamentoDestino(parameters.get(ExternalParams.ENCUESTAMNTOS_DPTO_DESTINO));
+        tarea.setNumeroMantenimiento(toIntegerFromMap(parameters.get(ServiceParams.ENCUESTAMNTOS_MANTENIMIENTO)));
+        tarea.setTecnico(parameters.get(ServiceParams.ENCUESTAMNTOS_TECNICO));
+        tarea.setResponsable(parameters.get(ServiceParams.ENCUESTAMNTOS_RESPONSABLE));
+        tarea.setCentroCoste(parameters.get(ServiceParams.ENCUESTAMNTOS_CENTROCOSTE));
+        tarea.setRazonClaveValoracion(parameters.get(ServiceParams.ENCUESTAMNTOS_RAZON));
+        tarea.setSolucion(parameters.get(ServiceParams.ENCUESTAMNTOS_SOLUCION));
+        tarea.setCompromiso(parameters.get(ServiceParams.ENCUESTAMNTOS_COMPROMISO));
+        tarea.setDepartamentoDestino(parameters.get(ServiceParams.ENCUESTAMNTOS_DPTO_DESTINO));
         return tarea;
     }
 
@@ -216,8 +216,8 @@ public class QueryTareaService {
         loadTareaCommons(tarea, parameters);
         loadTareaExcelCommons(tarea, parameters);
 
-        tarea.setFecha(toDateFromMap(parameters.get(ExternalParams.ENCUESTASMKT_FECHA)));
-        tarea.setMotivo(parameters.get(ExternalParams.ENCUESTASMKT_MOTIVO));
+        tarea.setFecha(toDateFromMap(parameters.get(ServiceParams.ENCUESTASMKT_FECHA)));
+        tarea.setMotivo(parameters.get(ServiceParams.ENCUESTASMKT_MOTIVO));
         return tarea;
     }
 
@@ -226,11 +226,11 @@ public class QueryTareaService {
         loadTareaCommons(tarea, parameters);
         loadTareaExcelCommons(tarea, parameters);
 
-        tarea.setContrato(parameters.get(ExternalParams.KEYBOX_CONTRATO));
-        tarea.setFechaFactura(toDateFromMap(parameters.get(ExternalParams.KEYBOX_FECHA_FACTURA)));
-        tarea.setNumeroFactura(parameters.get(ExternalParams.KEYBOX_NUMERO_FACTURA));
-        tarea.setImporteLinea(toIntegerFromMap(parameters.get(ExternalParams.KEYBOX_IMPORTE_LINEA)));
-        tarea.setIdentificadorItem(parameters.get(ExternalParams.KEYBOX_ID_ITEM));
+        tarea.setContrato(parameters.get(ServiceParams.KEYBOX_CONTRATO));
+        tarea.setFechaFactura(toDateFromMap(parameters.get(ServiceParams.KEYBOX_FECHA_FACTURA)));
+        tarea.setNumeroFactura(parameters.get(ServiceParams.KEYBOX_NUMERO_FACTURA));
+        tarea.setImporteLinea(toIntegerFromMap(parameters.get(ServiceParams.KEYBOX_IMPORTE_LINEA)));
+        tarea.setIdentificadorItem(parameters.get(ServiceParams.KEYBOX_ID_ITEM));
         return tarea;
     }
 
@@ -239,11 +239,11 @@ public class QueryTareaService {
         loadTareaCommons(tarea, parameters);
         loadTareaExcelCommons(tarea, parameters);
 
-        tarea.setCampo1(parameters.get(ExternalParams.OTRASCAMPANAS_CAMPO1));
-        tarea.setCampo2(parameters.get(ExternalParams.OTRASCAMPANAS_CAMPO2));
-        tarea.setCampo3(parameters.get(ExternalParams.OTRASCAMPANAS_CAMPO3));
-        tarea.setComentario(parameters.get(ExternalParams.OTRASCAMPANAS_CAMPO3));
-        tarea.setTipoCampana(parameters.get(ExternalParams.OTRASCAMPANAS_TIPOTAREA));
+        tarea.setCampo1(parameters.get(ServiceParams.OTRASCAMPANAS_CAMPO1));
+        tarea.setCampo2(parameters.get(ServiceParams.OTRASCAMPANAS_CAMPO2));
+        tarea.setCampo3(parameters.get(ServiceParams.OTRASCAMPANAS_CAMPO3));
+        tarea.setComentario(parameters.get(ServiceParams.OTRASCAMPANAS_CAMPO3));
+        tarea.setTipoCampana(parameters.get(ServiceParams.OTRASCAMPANAS_TIPOTAREA));
 
         return tarea;
     }
@@ -253,9 +253,9 @@ public class QueryTareaService {
         loadTareaCommons(tarea, parameters);
         loadTareaExcelCommons(tarea, parameters);
 
-        tarea.setContrato(parameters.get(ExternalParams.LIMPIEZA_CUOTA_CONTRATO));
-        tarea.setDepartamentoAsignado(parameters.get(ExternalParams.LIMPIEZA_CUOTA_DPT_ASIGNADO));
-        tarea.setDescripcionIncidencia(parameters.get(ExternalParams.LIMPIEZA_CUOTA_DESCRIPTCION));
+        tarea.setContrato(parameters.get(ServiceParams.LIMPIEZA_CUOTA_CONTRATO));
+        tarea.setDepartamentoAsignado(parameters.get(ServiceParams.LIMPIEZA_CUOTA_DPT_ASIGNADO));
+        tarea.setDescripcionIncidencia(parameters.get(ServiceParams.LIMPIEZA_CUOTA_DESCRIPTCION));
 
         return tarea;
     }
@@ -335,7 +335,7 @@ public class QueryTareaService {
      */
     private Tarea loadTareaCommons(Tarea tarea, Map<String, String> parameters) {
         assert tarea != null && parameters != null;
-        tarea.setNumeroInstalacion(parameters.get(ExternalParams.NUMERO_INSTALACION));
+        tarea.setNumeroInstalacion(parameters.get(ServiceParams.NUMERO_INSTALACION));
         //TODO JESUS
         return tarea;
     }
@@ -347,8 +347,8 @@ public class QueryTareaService {
      */
     private TareaExcel loadTareaExcelCommons(TareaExcel tarea, Map<String, String> parameters) {
         assert tarea != null && parameters != null;
-        //TODO Pendiente saber formato lista tarea.setMotivosCierre(parameters.get(ExternalParams.MOTIVO_CIERRE));
-        tarea.setCompensacion(parameters.get(ExternalParams.COMPENSACION));
+        //TODO Pendiente saber formato lista tarea.setMotivosCierre(parameters.get(ServiceParams.MOTIVO_CIERRE));
+        tarea.setCompensacion(parameters.get(ServiceParams.COMPENSACION));
         return tarea;
     }
 
@@ -357,27 +357,27 @@ public class QueryTareaService {
         loadTareaCommons(tarea, parameters);
         loadTareaExcelCommons(tarea, parameters);
 
-        tarea.setNumeroInstalacion(parameters.get(ExternalParams.ASSISTANT_INSTALACION));
-        tarea.setNumeroMantenimiento(toIntegerFromMap(parameters.get(ExternalParams.ASSISTANT_MANTENIMIENTO)));
-        tarea.setTecnico(parameters.get(ExternalParams.ASSISTANT_TECNICO));
-        tarea.setDepartamento(parameters.get(ExternalParams.ASSISTANT_DEPARTAMENTO));
-        tarea.setGrupoPanel(parameters.get(ExternalParams.ASSISTANT_GRUPOPANEL));
-        tarea.setTotalSinIVA(toFloatFromMap(parameters.get(ExternalParams.ASSISTANT_TOTALSINIVA)));
-        tarea.setTotalConIVA(toFloatFromMap(parameters.get(ExternalParams.ASSISTANT_TOTALCONIVA)));
-        tarea.setNumeroParte(parameters.get(ExternalParams.ASSISTANT_NPARTE));
-        tarea.setFechaArchivo(toDateFromMap(parameters.get(ExternalParams.ASSISTANT_ARCHIVO_FECHA)));
-        tarea.setSubtipoIncidencia(parameters.get(ExternalParams.ASSISTANT_SUBIDA_INC_FECHA));
-        tarea.setFechaPago(toDateFromMap(parameters.get(ExternalParams.ASSISTANT_PAGO_FECHA)));
-        tarea.setIncidencia(parameters.get(ExternalParams.ASSISTANT_INCIDENCIA));
-        tarea.setSubtipoIncidencia(parameters.get(ExternalParams.ASSISTANT_SUBINCIDENCIA));
-        tarea.setSolicitudCliente(parameters.get(ExternalParams.ASSISTANT_SOLICITUD));
-        tarea.setCambiosIncidencia(parameters.get(ExternalParams.ASSISTANT_CAMBIOS));
-        tarea.setBoFechaGestion(toDateFromMap(parameters.get(ExternalParams.ASSISTANT_BO_GESTION_FECHA)));
-        tarea.setBoMatricula(parameters.get(ExternalParams.ASSISTANT_BO_MATRICULA));
-        tarea.setBoFechaRecepcion(toDateFromMap(parameters.get(ExternalParams.ASSISTANT_BO_RECEPCION_FECHA)));
-        tarea.setBoTipo(parameters.get(ExternalParams.ASSISTANT_BO_EMPRESA_PARTICULAR));
-        tarea.setBoComentarios(parameters.get(ExternalParams.ASSISTANT_BO_COMENTARIOS));
-        tarea.setTelefono(parameters.get(ExternalParams.ASSISTANT_CONTACTO_TELEFONO));
+        tarea.setNumeroInstalacion(parameters.get(ServiceParams.ASSISTANT_INSTALACION));
+        tarea.setNumeroMantenimiento(toIntegerFromMap(parameters.get(ServiceParams.ASSISTANT_MANTENIMIENTO)));
+        tarea.setTecnico(parameters.get(ServiceParams.ASSISTANT_TECNICO));
+        tarea.setDepartamento(parameters.get(ServiceParams.ASSISTANT_DEPARTAMENTO));
+        tarea.setGrupoPanel(parameters.get(ServiceParams.ASSISTANT_GRUPOPANEL));
+        tarea.setTotalSinIVA(toFloatFromMap(parameters.get(ServiceParams.ASSISTANT_TOTALSINIVA)));
+        tarea.setTotalConIVA(toFloatFromMap(parameters.get(ServiceParams.ASSISTANT_TOTALCONIVA)));
+        tarea.setNumeroParte(parameters.get(ServiceParams.ASSISTANT_NPARTE));
+        tarea.setFechaArchivo(toDateFromMap(parameters.get(ServiceParams.ASSISTANT_ARCHIVO_FECHA)));
+        tarea.setSubtipoIncidencia(parameters.get(ServiceParams.ASSISTANT_SUBIDA_INC_FECHA));
+        tarea.setFechaPago(toDateFromMap(parameters.get(ServiceParams.ASSISTANT_PAGO_FECHA)));
+        tarea.setIncidencia(parameters.get(ServiceParams.ASSISTANT_INCIDENCIA));
+        tarea.setSubtipoIncidencia(parameters.get(ServiceParams.ASSISTANT_SUBINCIDENCIA));
+        tarea.setSolicitudCliente(parameters.get(ServiceParams.ASSISTANT_SOLICITUD));
+        tarea.setCambiosIncidencia(parameters.get(ServiceParams.ASSISTANT_CAMBIOS));
+        tarea.setBoFechaGestion(toDateFromMap(parameters.get(ServiceParams.ASSISTANT_BO_GESTION_FECHA)));
+        tarea.setBoMatricula(parameters.get(ServiceParams.ASSISTANT_BO_MATRICULA));
+        tarea.setBoFechaRecepcion(toDateFromMap(parameters.get(ServiceParams.ASSISTANT_BO_RECEPCION_FECHA)));
+        tarea.setBoTipo(parameters.get(ServiceParams.ASSISTANT_BO_EMPRESA_PARTICULAR));
+        tarea.setBoComentarios(parameters.get(ServiceParams.ASSISTANT_BO_COMENTARIOS));
+        tarea.setTelefono(parameters.get(ServiceParams.ASSISTANT_CONTACTO_TELEFONO));
         return tarea;
     }
 
@@ -388,7 +388,7 @@ public class QueryTareaService {
      */
     private TareaAviso createTareaAvisoFromParameters(Map<String, String> responseMap) {
         TareaAviso tarea = null;
-        Integer idAviso = toIntegerFromMap(responseMap.get(ExternalParams.ID_AVISO_UP));
+        Integer idAviso = toIntegerFromMap(responseMap.get(ServiceParams.CALLING_LIST_RESPONSE_ID_AVISO));
         if (idAviso != null && idAviso != 0) {
             try {
                 tarea = getTareaByIdAviso(idAviso);
