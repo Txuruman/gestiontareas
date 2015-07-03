@@ -16,7 +16,7 @@
     </script>
 
 </head>
-<body data-ng-controller="MyController">
+<body data-ng-controller="buscarTarea">
 
 <div class="container">
     <div class="row">

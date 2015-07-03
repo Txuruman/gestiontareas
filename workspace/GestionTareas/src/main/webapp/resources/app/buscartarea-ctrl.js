@@ -1,4 +1,4 @@
-app.controller('MyController', function ($scope, $http) {
+app.controller('buscarTarea', function ($scope, $http) {
 
     $scope.searchTareaFromServer = function () {
         console.log('search Tareas ' + $scope.searchText +  ' ' + $scope.searchOption);
