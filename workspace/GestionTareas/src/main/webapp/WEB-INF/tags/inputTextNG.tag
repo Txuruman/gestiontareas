@@ -31,15 +31,15 @@
         <c:if test="${label!=null && !label.isEmpty()}"> <spring:message code='${label}'/> ${required=='true'? '*' : ''}:</c:if>
     </label>
 
-
+    
     <div class="col-lg-${cell_input} col-md-${cell_input} col-sm-${cell_input} col-xs-${cell_input}">
         <input type="text"
                id="${id}"
                name="${id}"
                class="form-control input-custom-global"
-               value="${value}"
+               ng-model="${value}"
                maxlength="${maxlength}"
-        ${readonly=='true'? 'disabled' : ''}
+                ${readonly=='true'? 'disabled' : ''}
                 />
     </div>
 
