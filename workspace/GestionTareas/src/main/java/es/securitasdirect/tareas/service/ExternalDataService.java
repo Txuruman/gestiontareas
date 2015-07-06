@@ -40,7 +40,7 @@ public class ExternalDataService {
      * Consulta de los valores para el combo Key1 de tareas de mantenimiento
      */
     public List<Pair> getDesplegableKey1() throws DataServiceFault {
-        LOGGER.debug("Consultando listado Desplegable KEY1");
+        LOGGER.debug("Calling for KEY1 query (for pull down combo)");
         List<Pair> result = new ArrayList<Pair>();
         List<GetKey1DIYResult> listaKey1 = spAioTareas2.getKey1DIY();
         if (listaKey1 != null) {
@@ -50,6 +50,30 @@ public class ExternalDataService {
         }
         return result;
     }
+
+    /**
+     * Call for closing reason query
+     */
+    public List<Pair> getClosingReason() throws DataServiceFault{
+        LOGGER.debug("Calling for closing reason query (for pull down combo)");
+        List<Pair> result = dummyPairList();
+        return result;
+    }
+
+    /**
+     * Creation of pair dummy list for unknown services
+     * @return
+     */
+    private List<Pair> dummyPairList(){
+        LOGGER.warn("Creating dummy list for mock a unknown service");
+        List<Pair> dummyPairList = new ArrayList<Pair>();
+        dummyPairList.add(new Pair(1, "dummy1"));
+        dummyPairList.add(new Pair(2, "dummy2"));
+        dummyPairList.add(new Pair(3, "dummy3"));
+        dummyPairList.add(new Pair(4, "dummy4"));
+        return dummyPairList;
+    }
+
 
     /**
      * Consulta de los valores para el combo Key2 de tareas de mantenimiento

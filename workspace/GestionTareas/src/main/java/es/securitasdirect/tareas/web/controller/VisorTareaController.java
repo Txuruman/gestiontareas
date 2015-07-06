@@ -193,4 +193,10 @@ public class VisorTareaController {
         return desplegableKey1;
     }
 
+    @RequestMapping(value = "/getClosingReason", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+    public   @ResponseBody List<Pair> getClosingReason () throws DataServiceFault {
+        List<Pair> closingReasonList = externalDataService.getClosingReason();
+        return closingReasonList;
+    }
+
 }

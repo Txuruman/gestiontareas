@@ -101,7 +101,13 @@
 
                 <app:input id="desplegableKey1" label="tareamantenimiento.key1">
                     <select data-ng-init="getDesplegableKey1()" ng-model="key1value" ng-value="${tarea.key1}" class="form-control"><!-- ng-model="model.id" convert-to-number -->
-                        <option data-ng-repeat="k in key1" value="{{k.id}}">{{k.value}}</option>
+                        <!--<option data-ng-repeat="item in key1List" value="{{item.id}}">{{item.value}}</option>
+                        <!-- data-ng-repeat.... realiza una iteración de key1List donde item es el valor en cada iteración
+                          -- item in key1List define la iteración y el campo donde almacenar el ítem de cada iteración
+                          -- value="{{item.id}}" obtiene del campo obtenido en la iteración el valor de id, poniéndolo en el value de un combo
+                          -- ...{{item.value}}...  almacena en la <option/> el valor a mostrar.
+                        -->
+                        <option data-ng-repeat="item in key1List" value="{{item.id}}">{{item.value}}</option>
                     </select>
                     VALOR NG:{{key1value}}<br/>
                     VALOR SERV:${tarea.key1}

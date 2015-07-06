@@ -4,7 +4,7 @@ app.controller('maintenanceTask', function ($scope, $http) {
 
         $http({method: 'GET', url: 'visortarea/getDesplegableKey1'}).
             success(function (data, status, headers, config) {
-                $scope.key1 = data;
+                $scope.key1List = data;
             }).
             error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
