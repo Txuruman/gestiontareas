@@ -44,8 +44,7 @@
 
         <app:textArea id="observaciones" label="eti.visortarea.tareaavisos.form.label.observaciones" value="${tarea.motivo3}" cells="6"/>
 
-        <app:inputCombo id="cierre" label="tareaaviso.cierre" cells="6" value="${tarea.motivo3}" readonly="false"/>
-        <app:input id="closing" label="excelcommonfields.closing"  cells="6" readonly="false" >
+        <app:input id="closing" label="notificationtask.closing"  cells="6" readonly="false" >
             <select data-ng-init="getClosing()" ng-model="closing" ng-value="${tarea.closing}" class="form-control" ><!-- ng-model="model.id" convert-to-number -->
                 <!--<option data-ng-repeat="item in key1List" value="{{item.id}}">{{item.value}}</option>
                 <!-- data-ng-repeat.... realiza una iteración de key1List donde item es el valor en cada iteración

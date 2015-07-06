@@ -60,6 +60,17 @@ public class ExternalDataService {
         return result;
     }
 
+
+
+    /**
+     * Call for closing reason query
+     */
+    public List<Pair> getClosing() throws DataServiceFault{
+        LOGGER.debug("Calling for closing query (for pull down combo)");
+        List<Pair> result = dummyPairList();
+        return result;
+    }
+
     /**
      * Creation of pair dummy list for unknown services
      * @return

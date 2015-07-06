@@ -1,11 +1,11 @@
 app.controller('notificationTask', function ($scope, $http) {
 
 
-    $scope.getClosingReason = function () {
+    $scope.getClosing = function () {
 
-        $http({method: 'GET', url: 'visortarea/getClosingReason'}).
+        $http({method: 'GET', url: 'visortarea/notificationttask/getClosing'}).
             success(function (data, status, headers, config) {
-                $scope.closingReasonList = data;
+                $scope.closingList = data;
             }).
             error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs

@@ -199,4 +199,10 @@ public class VisorTareaController {
         return closingReasonList;
     }
 
+    @RequestMapping(value = "/notificationtask/getClosing", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
+    public @ResponseBody List<Pair> getClosing() throws DataServiceFault {
+        List<Pair> closingList = externalDataService.getClosing();
+        return closingList;
+    }
+
 }
