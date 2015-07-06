@@ -12250,7 +12250,7 @@
          <country>?</country>
       </web:checkAgentStatus>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/checkAgentStatusRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="" name="checkCallingListContact" bindingOperationName="checkCallingListContact" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="21fdb33b-884d-4a0d-a1f3-35268619f4e6"><con:settings/><con:call name="Request 1" id="94572d16-14d5-4cde-8292-df811c31b57d"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/checkAgentStatusRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="" name="checkCallingListContact" bindingOperationName="checkCallingListContact" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="21fdb33b-884d-4a0d-a1f3-35268619f4e6"><con:settings/><con:call name="Request  Aviso" id="94572d16-14d5-4cde-8292-df811c31b57d"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
  <soapenv:Header/>
    <soapenv:Body>
       <web:checkCallingListContact>
@@ -12266,6 +12266,27 @@
          <returnData></returnData>         
          <!--Zero or more repetitions:-->
          <callingList>CL_CCT_ATT_Averia_Test</callingList>
+         <!--Optional:-->
+         <country>SPAIN</country>
+      </web:checkCallingListContact>
+   </soapenv:Body>
+</soapenv:Envelope>
+]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/checkCallingListContactRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="Request  XLS Encuestas"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
+ <soapenv:Header/>
+   <soapenv:Body>
+      <web:checkCallingListContact>
+         <!--Optional:-->
+         <ccIdentifier>ATC_SPN</ccIdentifier>
+         <!--Optional:-->
+         <applicationUser>Tareas</applicationUser>
+         <!--Optional:-->
+         <ccUserId>12187</ccUserId>
+         <!--Optional:-->
+         <filter>chain_id=1</filter>
+         <!--Zero or more repetitions:-->
+         <returnData></returnData>         
+         <!--Zero or more repetitions:-->
+         <callingList>CL_CCT_XLS_ENCUESTAS_MTOS</callingList>
          <!--Optional:-->
          <country>SPAIN</country>
       </web:checkCallingListContact>
