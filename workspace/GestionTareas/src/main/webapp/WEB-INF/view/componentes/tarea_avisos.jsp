@@ -3,9 +3,8 @@
 <%@ taglib prefix="app" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<div ng-controller="notificationTask">
-    <div class="row">
-        <app:inputText id="aviso" label="tareaAviso.identificativoAvisoTarea" value="${tarea.identificativoAvisoTarea}" cells="6" readonly="false"/>
+<div class="row">
+    <app:inputText id="aviso" label="tareaAviso.identificativoAvisoTarea" value="${tarea.identificativoAvisoTarea}" cells="6" readonly="false"/>
 
         <app:inputText id="fechaCreacion" label="tareaAviso.fechaCreacion" value="${tarea.fechaCreacion}" cells="6" readonly="false"/>
     </div>

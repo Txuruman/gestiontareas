@@ -4,7 +4,9 @@
 <%@ taglib prefix="app" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<div ng-app="myApp" ng-controller="maintenanceTask">
+
+<div ng-controller="maintenanceTask" ng-init="getTarea()">
+
 
     <div class="row development">
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 development">
@@ -109,8 +111,6 @@
                         -->
                         <option data-ng-repeat="item in key1List" value="{{item.id}}">{{item.value}}</option>
                     </select>
-                    VALOR NG:{{key1value}}<br/>
-                    VALOR SERV:${tarea.key1}
                 </app:input>
 
 
@@ -124,7 +124,12 @@
         </div>
     </div>
 
+    <div class="row debug">
+        Tarea:{{tarea}}
+    </div>
+
 </div>
+<!-- End div angular -->
 
 
 <script src="${pageContext.request.contextPath}/resources/app/component/maintenanceTask-ctrl.js"></script>
