@@ -1,4 +1,18 @@
-app.controller('listAssitant', function ($scope, $http) {
+//Controlador List Assistant - Start
+    app.controller('listAssistant-ctrl', function ($scope, $http) {
+
+    $scope.getTarea = function () {
+        console.log("Cargando tarea listAssistant...")
+        $http({method: 'GET', url: 'visortarea/getTareaListadoAssistant'}).
+            success(function (data, status, headers, config) {
+                $scope.tarea = data;
+            }).
+            error(function (data, status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+        console.log("Cargada tarea listAssistant...")
+    };
 
     /* EJEMPLO
     $scope.searchTareaFromServer = function () {
@@ -17,3 +31,4 @@ app.controller('listAssitant', function ($scope, $http) {
             });
     };*/
 });
+//Controlador List Assistant - End

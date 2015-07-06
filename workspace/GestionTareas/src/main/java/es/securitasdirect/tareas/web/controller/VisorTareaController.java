@@ -268,6 +268,18 @@ public class VisorTareaController {
         return t;
     }
 
+
+
+    @RequestMapping(value = "/getTareaListadoAssistant", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public
+    @ResponseBody
+    TareaListadoAssistant getTareaListadoAssistant() throws DataServiceFault {
+        TareaListadoAssistant t = new TareaListadoAssistant();
+        t.setBoComentarios("bo com");
+        t.setBoTipo("bo tipoi");
+        return t;
+    }
+
     @RequestMapping(value = "/getClosingReason", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
     public   @ResponseBody List<Pair> getClosingReason () throws DataServiceFault {
         List<Pair> closingReasonList = externalDataService.getClosingReason();
