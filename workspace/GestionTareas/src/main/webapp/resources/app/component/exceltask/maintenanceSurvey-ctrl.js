@@ -1,19 +1,28 @@
-app.controller('maintenanceSurvey', function ($scope, $http) {
+//Angular Maintenance Survey Controller start
+app.controller('maintenancesurvey-ctrl', function ($scope, $http) {
 
-    /* EJEMPLO
-    $scope.searchTareaFromServer = function () {
-        console.log('search Tareas ' + $scope.searchText +  ' ' + $scope.searchOption);
-        $http({
-                method: 'GET',
-                url: 'searchtarea/query',
-                params: {searchText: $scope.searchText, searchOption: $scope.searchOption}
-            })
-            .success(function (data, status, headers, config) {
-                $scope.tareas = data;
-            })
-            .error(function (data, status, headers, config) {
+    $scope.getTarea = function () {
+        console.log("Loading Maintenance Survey Task...")
+        $http({method: 'GET', url: 'visortarea/maintenancesurveytask/getMaintenanceSurveyTask'}).
+            success(function (data, status, headers, config) {
+                $scope.tarea = data;
+            }).
+            error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
-    };*/
+        console.log("Loaded Maintenance Survey Task");
+
+        console.log("Loading Excel Task Commons: Closing reason");
+        $http({method: 'GET', url: 'visortarea/exceltaskcommon/getClosingReason'}).
+            success(function (data, status, headers, config) {
+                $scope.closingReasonList = data;
+            }).
+            error(function (data, status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+        console.log("Loaded Excel Task Commons: Closing reason")
+    };
 });
+//Angular Maintenance Survey Controller end

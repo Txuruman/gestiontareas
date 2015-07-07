@@ -21,9 +21,7 @@ import org.wso2.ws.dataservice.DataServiceFault;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author jel
@@ -257,15 +255,21 @@ public class VisorTareaController {
         return desplegableKey1;
     }
 
+    @RequestMapping(value = "/getCancelationType", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public
+    @ResponseBody
+    List<Pair> getCancelationType() throws DataServiceFault {
+        List<Pair> cancelationTypeList = externalDataService.getCancelationType();
+        return cancelationTypeList;
+    }
+
+
 
     @RequestMapping(value = "/getTareaMantenimiento", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
     TareaMantenimiento getTareaMantenimiento() throws DataServiceFault {
-        TareaMantenimiento t = new TareaMantenimiento();
-        t.setKey1(4588);
-        t.setContrato("texto contrato");
-        return t;
+        return DummyGenerator.dummyMaintenanceTask();
     }
 
 
@@ -274,15 +278,20 @@ public class VisorTareaController {
     public
     @ResponseBody
     TareaListadoAssistant getTareaListadoAssistant() throws DataServiceFault {
-        TareaListadoAssistant t = new TareaListadoAssistant();
-        t.setBoComentarios("bo com");
-        t.setBoTipo("bo tipoi");
-        return t;
+        return DummyGenerator.dummyListAssistantTask();
     }
 
     @RequestMapping(value = "/getClosingReason", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
-    public   @ResponseBody List<Pair> getClosingReason () throws DataServiceFault {
+    public   @ResponseBody List<Pair> getClosingReason2 () throws DataServiceFault {
         List<Pair> closingReasonList = externalDataService.getClosingReason();
+        return closingReasonList;
+    }
+
+    @RequestMapping(value = "/exceltaskcommon/getClosingReason", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+    public   @ResponseBody List<Pair> getClosingReason () throws DataServiceFault {
+        LOGGER.debug("Calling external data service: getClosingReason");
+        List<Pair> closingReasonList = externalDataService.getClosingReason();
+        LOGGER.debug("Closing reason list: {}", closingReasonList);
         return closingReasonList;
     }
 
@@ -290,6 +299,61 @@ public class VisorTareaController {
     public @ResponseBody List<Pair> getClosing() throws DataServiceFault {
         List<Pair> closingList = externalDataService.getClosing();
         return closingList;
+    }
+
+    @RequestMapping(value = "/maintenancesurveytask/getMaintenanceSurveyTask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public @ResponseBody MaintenanceSurveyTask  getMaintenanceSurveyTask() throws DataServiceFault{
+        LOGGER.debug("Creating dummy MaintenanceSurveyTask");
+        MaintenanceSurveyTask mst = DummyGenerator.dummyMaintenanceSurveyTask();
+        LOGGER.debug("Created dummy MaintenanceSurveyTask: {}", mst);
+        return mst;
+    }
+
+    @RequestMapping(value = "/marketingsurveytask/getMarketingSurveyTask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public @ResponseBody MarketingSurveyTask  getMarketingSurveyTask() throws DataServiceFault{
+        LOGGER.debug("Creating dummy MarketingSurveyTask");
+        return DummyGenerator.dummyMarketingSurveyTask();
+    }
+
+
+    @RequestMapping(value = "/keybox/getkeyboxtask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public @ResponseBody KeyboxTask  getKeyboxTask() throws DataServiceFault{
+        return DummyGenerator.dummyKeyboxTask();
+    }
+
+    @RequestMapping(value = "anothercampaignstask/getanothercampaginstask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public @ResponseBody TareaOtrasCampanas  getAnotherCampaignsTask() throws DataServiceFault{
+        return DummyGenerator.dummyAnotherCampaingnsTask();
+    }
+
+
+
+    @RequestMapping(value = "feecleaningtask/getfeecleaningtask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public @ResponseBody TareaLimpiezaCuota  getFeeCleaningTask() throws DataServiceFault{
+        LOGGER.debug("Creating dummy FeeCleaningTask");
+        return DummyGenerator.dummyFeeCleaningTask();
+    }
+
+    @RequestMapping(value = "notificationtask/getnotificationtask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public @ResponseBody TareaAviso  getNotificationTask() throws DataServiceFault{
+        return DummyGenerator.dummyNotificationTask();
+    }
+
+    @RequestMapping(value = "/tarealimpiezacuota/gettarealimpiezacuota", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public @ResponseBody TareaLimpiezaCuota  getTareaLimpiezCuota() throws DataServiceFault{
+        LOGGER.debug("Creating dummy TareaLimpiezaCuota");
+        return DummyGenerator.dummyFeeCleaningTask();
+    }
+
+
+    @RequestMapping(value = "/getInstallationData", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public @ResponseBody InstallationData  getInstallationData() throws DataServiceFault{
+       return DummyGenerator.dummyInstallationData();
+    }
+
+    @RequestMapping(value="/listassitanttask/getListAssistantTask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public @ResponseBody TareaListadoAssistant getListAssitantTask() throws DataServiceFault{
+        return DummyGenerator.dummyListAssistantTask();
     }
 
 }

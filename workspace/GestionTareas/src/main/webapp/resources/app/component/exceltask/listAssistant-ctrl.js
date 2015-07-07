@@ -1,9 +1,9 @@
 //Controlador List Assistant - Start
-    app.controller('listAssistant-ctrl', function ($scope, $http) {
+app.controller('listAssistant-ctrl', function ($scope, $http) {
 
     $scope.getTarea = function () {
-        console.log("Cargando tarea listAssistant...")
-        $http({method: 'GET', url: 'visortarea/getTareaListadoAssistant'}).
+        console.log("Loading List Assistant Task...")
+        $http({method: 'GET', url: 'visortarea/listassitanttask/getListAssistantTask'}).
             success(function (data, status, headers, config) {
                 $scope.tarea = data;
             }).
@@ -11,24 +11,18 @@
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
-        console.log("Cargada tarea listAssistant...")
-    };
+        console.log("Loaded List Assitant Task...")
 
-    /* EJEMPLO
-    $scope.searchTareaFromServer = function () {
-        console.log('search Tareas ' + $scope.searchText +  ' ' + $scope.searchOption);
-        $http({
-                method: 'GET',
-                url: 'searchtarea/query',
-                params: {searchText: $scope.searchText, searchOption: $scope.searchOption}
-            })
-            .success(function (data, status, headers, config) {
-                $scope.tareas = data;
-            })
-            .error(function (data, status, headers, config) {
+        console.log("Loading Excel Task Commons: Closing reason");
+        $http({method: 'GET', url: 'visortarea/exceltaskcommon/getClosingReason'}).
+            success(function (data, status, headers, config) {
+                $scope.closingReasonList = data;
+            }).
+            error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
-    };*/
+        console.log("Loaded Excel Task Commons: Closing reason");
+    };
 });
 //Controlador List Assistant - End

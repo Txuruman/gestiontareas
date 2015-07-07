@@ -51,7 +51,58 @@ public class TareaMantenimiento extends Tarea {
      */
     Integer key2;
 
+    /**
+     * Add based in screen interface
+     * @return
+     */
+    String telephone1;
+    /**
+     * Add based in screen interface
+     * @return
+     */
+    String telephone2;
+    /**
+     * Add based in screen interface
+     * @return
+     */
+    String telephone3;
 
+    /**
+     * Add based in screen interface
+     */
+    String cancelationText;
+
+    public String getCancelationText() {
+        return cancelationText;
+    }
+
+    public void setCancelationText(String cancelationText) {
+        this.cancelationText = cancelationText;
+    }
+
+    public String getTelephone1() {
+        return telephone1;
+    }
+
+    public void setTelephone1(String telephone1) {
+        this.telephone1 = telephone1;
+    }
+
+    public String getTelephone2() {
+        return telephone2;
+    }
+
+    public void setTelephone2(String telephone2) {
+        this.telephone2 = telephone2;
+    }
+
+    public String getTelephone3() {
+        return telephone3;
+    }
+
+    public void setTelephone3(String telephone3) {
+        this.telephone3 = telephone3;
+    }
 
     public String getContrato() {
         return contrato;
@@ -147,6 +198,10 @@ public class TareaMantenimiento extends Tarea {
                 ", opcionTipificacion=" + opcionTipificacion +
                 ", key1=" + key1 +
                 ", key2=" + key2 +
+                ", telephone1='" + telephone1 + '\'' +
+                ", telephone2='" + telephone2 + '\'' +
+                ", telephone3='" + telephone3 + '\'' +
+                ", cancelationText='" + cancelationText + '\'' +
                 '}';
     }
 }

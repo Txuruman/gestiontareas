@@ -56,7 +56,7 @@ public class ExternalDataService {
      */
     public List<Pair> getClosingReason() throws DataServiceFault{
         LOGGER.debug("Calling for closing reason query (for pull down combo)");
-        List<Pair> result = dummyPairList();
+        List<Pair> result = dummyPairListFor("Closing Reason");
         return result;
     }
 
@@ -82,6 +82,16 @@ public class ExternalDataService {
         dummyPairList.add(new Pair(2, "dummy2"));
         dummyPairList.add(new Pair(3, "dummy3"));
         dummyPairList.add(new Pair(4, "dummy4"));
+        return dummyPairList;
+    }
+
+    private List<Pair> dummyPairListFor(String forDesc){
+        LOGGER.warn("Creating dummy list for mock a unknown service with name: {}", forDesc );
+        List<Pair> dummyPairList = new ArrayList<Pair>();
+        dummyPairList.add(new Pair(1, "Dummy " + forDesc + " 1"));
+        dummyPairList.add(new Pair(2, "Dummy " + forDesc + " 2"));
+        dummyPairList.add(new Pair(3, "Dummy " + forDesc + " 3"));
+        dummyPairList.add(new Pair(4, "Dummy " + forDesc + " 4"));
         return dummyPairList;
     }
 
@@ -118,4 +128,8 @@ public class ExternalDataService {
         return datosCierreTareaExcel;
     }
 
+    public List<Pair> getCancelationType() {
+        LOGGER.debug("Calling for cancelation type (for pull down combo)");
+        return dummyPairList();
+    }
 }

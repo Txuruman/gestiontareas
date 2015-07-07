@@ -3,38 +3,25 @@
 <%@ taglib prefix="app" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<div class="spacer_t1"></div>
+<div ng-controller="anotherCampaigns" ng-init="getTarea()">
+    <div class="spacer_t1"></div>
     <jsp:include page="comunes.jsp"/>
-<div class="spacer_t1"></div>
-<div class="row">
-    <app:inputText id="tipoCampana" label="eti.visortarea.form.label.otras.tipoCampana" value="${tarea.tipoCampana}" cells="6" readonly="true"/>
-    <app:inputText id="campo1" label="" value="${tarea.campo1}" cells="6" readonly="true"/>
+    <div class="spacer_t1"></div>
+    <div class="row">
+        <app:inputTextNG id="tipoCampana" label="eti.visortarea.form.label.otras.tipoCampana" value="tarea.tipoCampana"
+                       cells="6" readonly="true"/>
+        <app:inputTextNG id="campo1" label="" value="tarea.campo1" cells="6" readonly="true"/>
+    </div>
+    <div class="spacer_t1"></div>
+    <div class="row">
+        <app:inputTextNG id="comentario" label="eti.visortarea.form.label.otras.comentario" value="tarea.comentario"
+                       cells="6" readonly="true"/>
+        <app:inputTextNG id="campo2" label="" value="tarea.campo2" cells="6" readonly="true"/>
+    </div>
+    <div class="spacer_t1"></div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"></div>
+        <app:inputTextNG id="campo3" label="" value="tarea.campo3" cells="6" readonly="true"/>
+    </div>
 </div>
-<div class="spacer_t1"></div>
-<div class="row">
-    <app:inputText id="comentario" label="eti.visortarea.form.label.otras.comentario" value="${tarea.comentario}" cells="6" readonly="true"/>
-    <app:inputText id="campo2" label="" value="${tarea.campo2}" cells="6" readonly="true"/>
-</div>
-<div class="spacer_t1"></div>
-<div class="row">
-    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"></div>
-    <app:inputText id="campo3" label="" value="${tarea.campo3}" cells="6" readonly="true"/>
-</div>
-
-
-
-<!-- InstallationData : InstallationData{
-numeroInstalacion=111111,
-titular='ARATHERMIK S.L.',
-panel='SD 2000C', version='null',
-personaContacto='JOSE RAMON ARAGON ARRONTES'
-}
-Tarea : TareaOtrasCampanas{
-tipoCampana='null',
-comentario='null',
-campo1='null',
-campo2='null',
-campo3='null',
-
-closingReason=null,
-compensation='null'} -->
+<script src="${pageContext.request.contextPath}/resources/app/component/exceltask/anotherCampaigns-ctrl.js"></script>

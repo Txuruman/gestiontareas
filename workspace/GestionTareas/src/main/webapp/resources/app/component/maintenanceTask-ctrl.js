@@ -1,4 +1,4 @@
-app.controller('maintenanceTask', function ($scope, $http) {
+app.controller('maintenancetask-ctrl', function ($scope, $http) {
 
     $scope.getDesplegableKey1 = function () {
         $http({method: 'GET', url: 'visortarea/getDesplegableKey1'}).
@@ -12,8 +12,20 @@ app.controller('maintenanceTask', function ($scope, $http) {
     };
 
 
+    $scope.getCancelationType = function () {
+        $http({method: 'GET', url: 'visortarea/getCancelationType'}).
+            success(function (data, status, headers, config) {
+                $scope.cancelationTypeList = data;
+            }).
+            error(function (data, status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+    };
+
+
     $scope.getTarea = function () {
-        console.log("Cargando tarea mantenimiento...")
+        console.log("Loading MaintenanceTask...")
         $http({method: 'GET', url: 'visortarea/getTareaMantenimiento'}).
             success(function (data, status, headers, config) {
                 $scope.tarea = data;
@@ -22,7 +34,7 @@ app.controller('maintenanceTask', function ($scope, $http) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
-        console.log("Cargada tarea mantenimiento...")
+        console.log("MaintenanceTask loaded...")
     };
     //
     //$scope.employee = [];

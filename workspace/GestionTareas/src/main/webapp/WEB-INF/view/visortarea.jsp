@@ -11,15 +11,16 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/custom.css"/>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
 </head>
-<body>
 
 
 <body>
-<div class="container">
 
-    <!-- Angular JS Scripts -->
-    <script src="${pageContext.request.contextPath}/resources/app/gestiontarea-app.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/app/maincontrollers/taskViewer-ctrl.js"></script>
+
+<!-- Angular JS Scripts -->
+<script src="${pageContext.request.contextPath}/resources/app/gestiontarea-app.js"></script>
+<script src="${pageContext.request.contextPath}/resources/app/maincontrollers/taskViewer-ctrl.js"></script>
+
+<div class="container" ng-controller="taskviewer-ctrl" ng-init="getInstallationData()">
 
 
     <div class="row">
@@ -37,21 +38,28 @@
 
         <!-- Datos de la Instalacion  -  Start -->
         <div class="row">
-            <app:inputText id="ninstalacion" label="visortarea.ninstalacion" value="${installationData.numeroInstalacion}" cells="6" cell_label="4" cell_input="8" readonly="true"/>
-            <app:inputText id="titular" label="visortarea.titular" value="${installationData.titular}" cells="6" readonly="true"/>
+            <app:inputTextNG id="ninstalacion" label="visortarea.ninstalacion"
+                           value="installationData.numeroInstalacion" cells="6" cell_label="4" cell_input="8"
+                           readonly="true"/>
+            <app:inputTextNG id="titular" label="visortarea.titular" value="installationData.titular" cells="6"
+                           readonly="true"/>
         </div>
 
         <div class="spacer_t1"></div>
         <div class="row">
-            <app:inputText id="personaContacto" label="visortarea.personacontacto" value="${installationData.personaContacto}" cells="6" readonly="true"/>
-            <app:inputText id="panel" label="visortarea.panel" value="${installationData.panel}" cells="6" readonly="true"/>
+            <app:inputTextNG id="personaContacto" label="visortarea.personacontacto"
+                           value="installationData.personaContacto" cells="6" readonly="true"/>
+            <app:inputTextNG id="panel" label="visortarea.panel" value="installationData.panel" cells="6"
+                           readonly="true"/>
         </div>
 
         <div class="spacer_t1"></div>
 
         <div class="row">
-            <app:inputText id="telefono" label="visortarea.telefono" value="${installationData.telefono}" cells="6" readonly="true"/>
-            <app:inputText id="version" label="visortarea.version" value="${installationData.version}" cells="6" readonly="true"/>
+            <app:inputTextNG id="telefono" label="visortarea.telefono" value="installationData.telefono" cells="6"
+                           readonly="true"/>
+            <app:inputTextNG id="version" label="visortarea.version" value="installationData.version" cells="6"
+                           readonly="true"/>
         </div>
         <!-- Datos de la Instalacion  - End -->
 
@@ -71,39 +79,57 @@
                 <div class="row" align="right">
                     <div class="container-fluid">
                         <c:if test="${secundaria eq 'componentes/tarea_avisos.jsp'}">
-                            <input type="button" class="btn btn-default[disabled]" value="<spring:message code="boton.Atras" />"/>
-                            <input type="button" class="btn btn-default[disabled]" value="<spring:message code="boton.Modificar" />"/>
-                            <input type="submit" class="btn btn-default" value="<spring:message code="boton.CrearMantenimiento" />"/>
-                            <input type="submit" class="btn btn-default" value="<spring:message code="boton.Aplazar" />"/>
-                            <input type="submit" class="btn btn-default" value="<spring:message code="boton.Descartar" />"/>
+                            <input type="button" class="btn btn-default[disabled]"
+                                   value="<spring:message code="boton.Atras" />"/>
+                            <input type="button" class="btn btn-default[disabled]"
+                                   value="<spring:message code="boton.Modificar" />"/>
+                            <input type="submit" class="btn btn-default"
+                                   value="<spring:message code="boton.CrearMantenimiento" />"/>
+                            <input type="submit" class="btn btn-default"
+                                   value="<spring:message code="boton.Aplazar" />"/>
+                            <input type="submit" class="btn btn-default"
+                                   value="<spring:message code="boton.Descartar" />"/>
                         </c:if>
                         <!-- Botones -->
                         <c:if test="${secundaria eq 'componentes/tarea_mantenimiento.jsp'}">
-                            <input type="submit" class="btn btn-default" value="<spring:message code="boton.CrearMantenimiento" />"/>
+                            <input type="submit" class="btn btn-default"
+                                   value="<spring:message code="boton.CrearMantenimiento" />"/>
                         </c:if>
                         <c:if test="${secundaria eq 'componentes/tareaexcel/encuenstasmantenimientos.jsp'}">
-                            <input type="submit" class="btn btn-default" value="<spring:message code="boton.Aplazar" />"/>
-                            <input type="submit" class="btn btn-default" value="<spring:message code="boton.Descartar"/>"/>
+                            <input type="submit" class="btn btn-default"
+                                   value="<spring:message code="boton.Aplazar" />"/>
+                            <input type="submit" class="btn btn-default"
+                                   value="<spring:message code="boton.Descartar"/>"/>
                         </c:if>
                         <c:if test="${secundaria eq 'componentes/tareaexcel/encuestasmarketing.jsp'}">
-                            <input type="submit" class="btn btn-default" value="<spring:message code="boton.Aplazar" />"/>
-                            <input type="submit" class="btn btn-default" value="<spring:message code="boton.Descartar"/>"/>
+                            <input type="submit" class="btn btn-default"
+                                   value="<spring:message code="boton.Aplazar" />"/>
+                            <input type="submit" class="btn btn-default"
+                                   value="<spring:message code="boton.Descartar"/>"/>
                         </c:if>
                         <c:if test="${secundaria eq 'componentes/tareaexcel/keybox.jsp'}">
-                            <input type="submit" class="btn btn-default" value="<spring:message code="boton.Aplazar" />"/>
-                            <input type="submit" class="btn btn-default" value="<spring:message code="boton.Descartar"/>"/>
+                            <input type="submit" class="btn btn-default"
+                                   value="<spring:message code="boton.Aplazar" />"/>
+                            <input type="submit" class="btn btn-default"
+                                   value="<spring:message code="boton.Descartar"/>"/>
                         </c:if>
                         <c:if test="${secundaria eq 'componentes/tareaexcel/limpiezacuota.jsp'}">
-                            <input type="submit" class="btn btn-default" value="<spring:message code="boton.Aplazar" />"/>
-                            <input type="submit" class="btn btn-default" value="<spring:message code="boton.Descartar"/>"/>
+                            <input type="submit" class="btn btn-default"
+                                   value="<spring:message code="boton.Aplazar" />"/>
+                            <input type="submit" class="btn btn-default"
+                                   value="<spring:message code="boton.Descartar"/>"/>
                         </c:if>
                         <c:if test="${secundaria eq 'componentes/tareaexcel/listadoassistant.jsp'}">
-                            <input type="submit" class="btn btn-default" value="<spring:message code="boton.Aplazar" />"/>
-                            <input type="submit" class="btn btn-default" value="<spring:message code="boton.Descartar"/>"/>
+                            <input type="submit" class="btn btn-default"
+                                   value="<spring:message code="boton.Aplazar" />"/>
+                            <input type="submit" class="btn btn-default"
+                                   value="<spring:message code="boton.Descartar"/>"/>
                         </c:if>
                         <c:if test="${secundaria eq 'componentes/tareaexcel/otrascampanias.jsp'}">
-                            <input type="submit" class="btn btn-default" value="<spring:message code="boton.Aplazar" />"/>
-                            <input type="submit" class="btn btn-default" value="<spring:message code="boton.Descartar"/>"/>
+                            <input type="submit" class="btn btn-default"
+                                   value="<spring:message code="boton.Aplazar" />"/>
+                            <input type="submit" class="btn btn-default"
+                                   value="<spring:message code="boton.Descartar"/>"/>
                         </c:if>
 
 
@@ -115,13 +141,7 @@
         <!-- Fin Botones -->
         <!-- row -->
 
-
     </form>
-
-</div>
-
-
-
-
+</div><!-- END ANGULARJS CONTROLLER DIV-->
 </body>
 </html>

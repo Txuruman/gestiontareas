@@ -1,7 +1,9 @@
 package es.securitasdirect.tareas.model.tareaexcel;
 
+import es.securitasdirect.tareas.model.Tarea;
 import es.securitasdirect.tareas.model.TareaExcel;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -38,6 +40,7 @@ public class MarketingSurveyTask extends TareaExcel {
     public void setReason(String reason) {
         this.reason = reason;
     }
+
 
 
 

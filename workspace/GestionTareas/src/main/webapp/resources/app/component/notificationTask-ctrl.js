@@ -1,9 +1,26 @@
-app.controller('notificationTask', function ($scope, $http) {
+app.controller('notificationtask', function ($scope, $http) {
 
+    $scope.logTarea = function () {
+        console.log("Tarea: " + $scope.tarea);
+    };
+
+
+    $scope.getTarea = function () {
+        console.log("Loading NotificationTask...")
+        $http({method: 'GET', url: 'visortarea/notificationtask/getnotificationtask'}).
+            success(function (data, status, headers, config) {
+                $scope.tarea = data;
+            }).
+            error(function (data, status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+        console.log("NotificationTask loaded...")
+    };
 
     $scope.getClosing = function () {
-
-        $http({method: 'GET', url: 'visortarea/notificationttask/getClosing'}).
+        console.log('Notification task - getClosing');
+        $http({method: 'GET', url: 'visortarea/notificationtask/getClosing'}).
             success(function (data, status, headers, config) {
                 $scope.closingList = data;
             }).

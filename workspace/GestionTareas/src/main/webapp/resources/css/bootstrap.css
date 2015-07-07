@@ -6584,4 +6584,7 @@ button.close {
 /*# sourceMappingURL=bootstrap.css.map */
 /** PARA DESARROLLO */
 .development{
+    width: 100%;
+    text-align: justify;
+    white-space: wrap;
 }
