@@ -30,20 +30,21 @@ app.controller('notificationtask', function ($scope, $http) {
             });
     };
 
-    /* EJEMPLO
-    $scope.searchTareaFromServer = function () {
-        console.log('search Tareas ' + $scope.searchText +  ' ' + $scope.searchOption);
+
+    $scope.aplazar = function () {
+        console.log('Aplazar Tareaa ' + $scope.tarea );
         $http({
-                method: 'GET',
-                url: 'searchtarea/query',
-                params: {searchText: $scope.searchText, searchOption: $scope.searchOption}
-            })
+            method: 'PUT',
+            url: 'visortarea/aplazar',
+            data: $scope.tarea
+        })
             .success(function (data, status, headers, config) {
-                $scope.tareas = data;
+                console.log('Aplazada Tareaa ' + $scope.tarea );
             })
             .error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
-    };*/
+    };
+
 });

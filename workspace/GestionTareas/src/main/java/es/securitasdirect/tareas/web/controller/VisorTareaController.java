@@ -12,9 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.wso2.ws.dataservice.DataServiceFault;
 
@@ -172,12 +170,11 @@ public class VisorTareaController {
     }
 
 
-
     /**
      * Mapea el tipo de tarea a sus págin as
      */
     private ModelAndView loadModelAndViewForTarea(String tareaType) {
-        assert tareaType!=null;
+        assert tareaType != null;
 
         ModelAndView mv = new ModelAndView("visortarea");
         String titulo = null;
@@ -207,7 +204,7 @@ public class VisorTareaController {
             titulo = "titulo.TareaMantenimiento";
             mv.addObject(SECUNDARIA, MANTENIMIENTO);
         }
-        mv.addObject("titulo",titulo);
+        mv.addObject("titulo", titulo);
         return mv;
 
     }
@@ -264,14 +261,12 @@ public class VisorTareaController {
     }
 
 
-
     @RequestMapping(value = "/getTareaMantenimiento", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
     TareaMantenimiento getTareaMantenimiento() throws DataServiceFault {
         return DummyGenerator.dummyMaintenanceTask();
     }
-
 
 
     @RequestMapping(value = "/getTareaListadoAssistant", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -281,28 +276,36 @@ public class VisorTareaController {
         return DummyGenerator.dummyListAssistantTask();
     }
 
-    @RequestMapping(value = "/getClosingReason", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
-    public   @ResponseBody List<Pair> getClosingReason2 () throws DataServiceFault {
+    @RequestMapping(value = "/getClosingReason", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public
+    @ResponseBody
+    List<Pair> getClosingReason2() throws DataServiceFault {
         List<Pair> closingReasonList = externalDataService.getClosingReason();
         return closingReasonList;
     }
 
-    @RequestMapping(value = "/exceltaskcommon/getClosingReason", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
-    public   @ResponseBody List<Pair> getClosingReason () throws DataServiceFault {
+    @RequestMapping(value = "/exceltaskcommon/getClosingReason", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public
+    @ResponseBody
+    List<Pair> getClosingReason() throws DataServiceFault {
         LOGGER.debug("Calling external data service: getClosingReason");
         List<Pair> closingReasonList = externalDataService.getClosingReason();
         LOGGER.debug("Closing reason list: {}", closingReasonList);
         return closingReasonList;
     }
 
-    @RequestMapping(value = "/notificationtask/getClosing", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody List<Pair> getClosing() throws DataServiceFault {
+    @RequestMapping(value = "/notificationtask/getClosing", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public
+    @ResponseBody
+    List<Pair> getClosing() throws DataServiceFault {
         List<Pair> closingList = externalDataService.getClosing();
         return closingList;
     }
 
     @RequestMapping(value = "/maintenancesurveytask/getMaintenanceSurveyTask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody MaintenanceSurveyTask  getMaintenanceSurveyTask() throws DataServiceFault{
+    public
+    @ResponseBody
+    MaintenanceSurveyTask getMaintenanceSurveyTask() throws DataServiceFault {
         LOGGER.debug("Creating dummy MaintenanceSurveyTask");
         MaintenanceSurveyTask mst = DummyGenerator.dummyMaintenanceSurveyTask();
         LOGGER.debug("Created dummy MaintenanceSurveyTask: {}", mst);
@@ -310,50 +313,74 @@ public class VisorTareaController {
     }
 
     @RequestMapping(value = "/marketingsurveytask/getMarketingSurveyTask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody MarketingSurveyTask  getMarketingSurveyTask() throws DataServiceFault{
+    public
+    @ResponseBody
+    MarketingSurveyTask getMarketingSurveyTask() throws DataServiceFault {
         LOGGER.debug("Creating dummy MarketingSurveyTask");
         return DummyGenerator.dummyMarketingSurveyTask();
     }
 
 
     @RequestMapping(value = "/keybox/getkeyboxtask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody KeyboxTask  getKeyboxTask() throws DataServiceFault{
+    public
+    @ResponseBody
+    KeyboxTask getKeyboxTask() throws DataServiceFault {
         return DummyGenerator.dummyKeyboxTask();
     }
 
     @RequestMapping(value = "anothercampaignstask/getanothercampaginstask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody TareaOtrasCampanas  getAnotherCampaignsTask() throws DataServiceFault{
+    public
+    @ResponseBody
+    TareaOtrasCampanas getAnotherCampaignsTask() throws DataServiceFault {
         return DummyGenerator.dummyAnotherCampaingnsTask();
     }
 
 
-
     @RequestMapping(value = "feecleaningtask/getfeecleaningtask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody TareaLimpiezaCuota  getFeeCleaningTask() throws DataServiceFault{
+    public
+    @ResponseBody
+    TareaLimpiezaCuota getFeeCleaningTask() throws DataServiceFault {
         LOGGER.debug("Creating dummy FeeCleaningTask");
         return DummyGenerator.dummyFeeCleaningTask();
     }
 
     @RequestMapping(value = "notificationtask/getnotificationtask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody TareaAviso  getNotificationTask() throws DataServiceFault{
+    public
+    @ResponseBody
+    TareaAviso getNotificationTask() throws DataServiceFault {
         return DummyGenerator.dummyNotificationTask();
     }
 
     @RequestMapping(value = "/tarealimpiezacuota/gettarealimpiezacuota", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody TareaLimpiezaCuota  getTareaLimpiezCuota() throws DataServiceFault{
+    public
+    @ResponseBody
+    TareaLimpiezaCuota getTareaLimpiezCuota() throws DataServiceFault {
         LOGGER.debug("Creating dummy TareaLimpiezaCuota");
         return DummyGenerator.dummyFeeCleaningTask();
     }
 
 
     @RequestMapping(value = "/getInstallationData", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody InstallationData  getInstallationData() throws DataServiceFault{
-       return DummyGenerator.dummyInstallationData();
+    public
+    @ResponseBody
+    InstallationData getInstallationData() throws DataServiceFault {
+        return DummyGenerator.dummyInstallationData();
     }
 
-    @RequestMapping(value="/listassitanttask/getListAssistantTask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody TareaListadoAssistant getListAssitantTask() throws DataServiceFault{
+    @RequestMapping(value = "/listassitanttask/getListAssistantTask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public
+    @ResponseBody
+    TareaListadoAssistant getListAssitantTask() throws DataServiceFault {
         return DummyGenerator.dummyListAssistantTask();
+    }
+
+
+    @RequestMapping(value = "/aplazar", method ={RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public
+    @ResponseBody
+    Tarea aplazar( @RequestBody TareaAviso tarea) {
+        LOGGER.debug("Aplazando tarea {}", tarea);
+        return tarea;
     }
 
 }

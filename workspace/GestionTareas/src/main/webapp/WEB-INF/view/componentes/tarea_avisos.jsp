@@ -5,20 +5,15 @@
 
 <div ng-controller="notificationtask" ng-init="getTarea()">
     <div class="row">
-        <app:inputTextNG id="aviso" label="tareaAviso.identificativoAvisoTarea" value="tarea.idAviso"
-                         cells="6" readonly="false"/>
-        <app:inputTextNG id="fechaCreacion" label="tareaAviso.fechaCreacion" value="tarea.fechaCreacion" cells="6"
-                         readonly="false"/>
+        <app:inputTextNG id="aviso" label="tareaAviso.identificativoAvisoTarea" value="tarea.idAviso" cells="6" readonly="false"/>
+        <app:inputTextNG id="fechaCreacion" label="tareaAviso.fechaCreacion" value="tarea.fechaCreacion" cells="6" readonly="false"/>
     </div>
     <div class="spacer_t1"></div>
     <div class="row">
-        <app:inputTextNG id="requeridoPor" label="tareaAviso.requeridoPor" value="tarea.requeridoPor" cells="6"
-                         readonly="false"/>
+        <app:inputTextNG id="requeridoPor" label="tareaAviso.requeridoPor" value="tarea.requeridoPor" cells="6" readonly="false"/>
 
-        <app:inputTextNG id="horarioDesde" label="tareaAviso.horarioDesde" value="tarea.horarioDesde" cells="3"
-                         readonly="false"/>
-        <app:inputTextNG id="horarioHasta" label="tareaAviso.horarioHasta" value="tarea.horarioHasta" cells="3"
-                         readonly="false"/>
+        <app:inputTextNG id="horarioDesde" label="tareaAviso.horarioDesde" value="tarea.horarioDesde" cells="3" readonly="false"/>
+        <app:inputTextNG id="horarioHasta" label="tareaAviso.horarioHasta" value="tarea.horarioHasta" cells="3" readonly="false"/>
     </div>
     <div class="spacer_t1"></div>
     <div class="row">
@@ -60,8 +55,15 @@
                         value="${tarea.motivo3}" cells="6" readonly="false"/>
         <!-- subrow -->
         <div class="spacer_t1"></div>
+
+
+        <!-- Boton Busqueda -->
+        <input type="submit" ng-click="aplazar()" class="btn btn-primary" value="<spring:message code="boton.Aplazar" />"/>
+
+
     </div>
     <div class="spacer_t2"></div>
     <script src="${pageContext.request.contextPath}/resources/app/component/notificationTask-ctrl.js"></script>
-</div><!-- ANGULARJS NOTIFICATION TASK CONTROLLER END -->
+</div>
+<!-- ANGULARJS NOTIFICATION TASK CONTROLLER END -->
 
