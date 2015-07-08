@@ -1,0 +1,21 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <web:checkCallingListContact>
+            <!--Optional:-->
+            <ccIdentifier>ATC_SPN</ccIdentifier>
+            <!--Optional:-->
+            <applicationUser>Tareas</applicationUser>
+            <!--Optional:-->
+            <ccUserId>12187</ccUserId>
+            <!--Optional:-->
+            <filter>chain_id=1</filter>
+            <!--Zero or more repetitions:-->
+            <returnData></returnData>
+            <!--Zero or more repetitions:-->
+            <callingList>CL_TAREAS_DIY</callingList>
+            <!--Optional:-->
+            <country>SPAIN</country>
+        </web:checkCallingListContact>
+    </soapenv:Body>
+</soapenv:Envelope>

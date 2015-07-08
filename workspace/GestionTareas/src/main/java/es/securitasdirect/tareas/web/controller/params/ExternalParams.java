@@ -22,7 +22,9 @@ public interface ExternalParams {
     public static final String firmaConexion = "bp_auth_signature";
 
     /*  	Calling List  */
-    public static String CALLING_LIST = "callingList";
+    public static String CALLING_LIST = "bp_out_clname";
+
+    //TODO ROBERTO bp_out_chain_id
 
 
 
