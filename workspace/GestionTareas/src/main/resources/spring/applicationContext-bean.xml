@@ -141,7 +141,7 @@
         </entry>
         <entry key="TareaOtrasCampanas">
             <util:list list-class="java.util.ArrayList" value-type="java.lang.String">
-                <value>CL_CCT_XLS_OTRAS_CAM</value>
+                <value>CL_CCT_XLS_ATC</value>
             </util:list>
         </entry>
 
