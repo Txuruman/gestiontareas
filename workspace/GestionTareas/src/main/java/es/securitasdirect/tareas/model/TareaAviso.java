@@ -1,5 +1,7 @@
 package es.securitasdirect.tareas.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 import java.util.List;
 
@@ -43,6 +45,7 @@ public class TareaAviso extends Tarea {
     /*	Datos de Contacto: cliente que inició la incidencia, forma de contacto, horarios de contacto  */
     String datosContacto;
     /*	Fecha de creación: información para trazabilidad y para la gestión de días de vencimiento  */
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "CET")
     Date fechaCreacion;
     /*	Estado  */
     String estado;

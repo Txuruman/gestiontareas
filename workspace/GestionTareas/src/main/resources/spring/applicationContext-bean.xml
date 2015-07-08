@@ -136,7 +136,7 @@
         </entry>
         <entry key="TareaListadoAssistant">
             <util:list list-class="java.util.ArrayList" value-type="java.lang.String">
-                <value>CL_CCT_XLS_LISTADO_ASSISTANT</value>
+                <value>CL_CCT_XLS_ASSISTANT</value>
             </util:list>
         </entry>
         <entry key="TareaOtrasCampanas">

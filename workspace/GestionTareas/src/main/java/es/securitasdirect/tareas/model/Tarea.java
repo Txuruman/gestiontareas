@@ -1,5 +1,7 @@
 package es.securitasdirect.tareas.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 /**
@@ -32,6 +34,7 @@ public class Tarea {
     protected String telefono;
 
     /** */
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "CET")
     protected Date fechaReprogramacion;
 
     /** */
