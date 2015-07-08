@@ -72,69 +72,49 @@
                 <jsp:include page="${secundaria}"/>
             </div>
         </div>
-
         <!-- Botones -->
         <div class="spacer_t2"></div>
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="row" align="right">
+                    <!-- Panel de botones - Seleccion de controlador -->
                     <div class="container-fluid">
                         <c:if test="${secundaria eq 'componentes/tarea_avisos.jsp'}">
-                            <input type="button" class="btn btn-default[disabled]"
-                                   value="<spring:message code="boton.Atras" />"/>
-                            <input type="button" class="btn btn-default[disabled]"
-                                   value="<spring:message code="boton.Modificar" />"/>
-                            <input type="submit" class="btn btn-default"
-                                   value="<spring:message code="boton.CrearMantenimiento" />"/>
-                            <input type="submit" class="btn btn-default"
-                                   value="<spring:message code="boton.Aplazar" />"/>
-                            <input type="submit" class="btn btn-default"
-                                   value="<spring:message code="boton.Descartar" />"/>
+                            <app:inputButtonNG value="boton.Atras" button_type="default_disabled" ng_click="tareaAvisosAtras()" />
+                            <app:inputButtonNG value="boton.Modificar" button_type="default_disabled" ng_click="tareaAvisosModificar()" />
+                            <app:inputButtonNG value="boton.CrearMantenimiento" button_type="default" ng_click="tareaAvisosCrearMantenimiento()" />
+                            <app:inputButtonNG value="boton.Aplazar" button_type="default" ng_click="tareaAvisosAplazar()" />
+                            <app:inputButtonNG value="boton.Descartar" button_type="default" ng_click="tareaAvisosDescartar()" />
                         </c:if>
                         <!-- Botones -->
                         <c:if test="${secundaria eq 'componentes/tarea_mantenimiento.jsp'}">
-                            <input type="submit" class="btn btn-default"
-                                   value="<spring:message code="boton.CrearMantenimiento" />"/>
+                            <app:inputButtonNG value="boton.CrearMantenimiento" button_type="default" ng_click="tareaMantenimientoCrearMantenimiento()" />
                         </c:if>
                         <c:if test="${secundaria eq 'componentes/tareaexcel/encuenstasmantenimientos.jsp'}">
-                            <input type="submit" class="btn btn-default"
-                                   value="<spring:message code="boton.Aplazar" />"/>
-                            <input type="submit" class="btn btn-default"
-                                   value="<spring:message code="boton.Descartar"/>"/>
+                            <app:inputButtonNG value="boton.Aplazar" button_type="default" ng_click="encuestasMantenimientosAplazar()" />
+                            <app:inputButtonNG value="boton.Descartar" button_type="default" ng_click="encuestasMantenimientosDescartar()" />
                         </c:if>
                         <c:if test="${secundaria eq 'componentes/tareaexcel/encuestasmarketing.jsp'}">
-                            <input type="submit" class="btn btn-default"
-                                   value="<spring:message code="boton.Aplazar" />"/>
-                            <input type="submit" class="btn btn-default"
-                                   value="<spring:message code="boton.Descartar"/>"/>
+                            <app:inputButtonNG value="boton.Aplazar" button_type="default" ng_click="encuestasMarketingAplazar()" />
+                            <app:inputButtonNG value="boton.Descartar" button_type="default" ng_click="encuestasMarketingDescartar()" />
                         </c:if>
                         <c:if test="${secundaria eq 'componentes/tareaexcel/keybox.jsp'}">
-                            <input type="submit" class="btn btn-default"
-                                   value="<spring:message code="boton.Aplazar" />"/>
-                            <input type="submit" class="btn btn-default"
-                                   value="<spring:message code="boton.Descartar"/>"/>
+                            <app:inputButtonNG value="boton.Aplazar" button_type="default" ng_click="keyboxAplazar()" />
+                            <app:inputButtonNG value="boton.Descartar" button_type="default" ng_click="keyboxDescartar()" />
                         </c:if>
                         <c:if test="${secundaria eq 'componentes/tareaexcel/limpiezacuota.jsp'}">
-                            <input type="submit" class="btn btn-default"
-                                   value="<spring:message code="boton.Aplazar" />"/>
-                            <input type="submit" class="btn btn-default"
-                                   value="<spring:message code="boton.Descartar"/>"/>
+                            <app:inputButtonNG value="boton.Aplazar" button_type="default" ng_click="limpiezaCuotaAplazar()" />
+                            <app:inputButtonNG value="boton.Descartar" button_type="default" ng_click="limpiezaCuotaDescartar()" />
                         </c:if>
                         <c:if test="${secundaria eq 'componentes/tareaexcel/listadoassistant.jsp'}">
-                            <input type="submit" class="btn btn-default"
-                                   value="<spring:message code="boton.Aplazar" />"/>
-                            <input type="submit" class="btn btn-default"
-                                   value="<spring:message code="boton.Descartar"/>"/>
+                            <app:inputButtonNG value="boton.Aplazar" button_type="default" ng_click="listadoAssistantAplazar()" />
+                            <app:inputButtonNG value="boton.Descartar" button_type="default" ng_click="listadoAssistantDescartar()" />
                         </c:if>
                         <c:if test="${secundaria eq 'componentes/tareaexcel/otrascampanias.jsp'}">
-                            <input type="submit" class="btn btn-default"
-                                   value="<spring:message code="boton.Aplazar" />"/>
-                            <input type="submit" class="btn btn-default"
-                                   value="<spring:message code="boton.Descartar"/>"/>
+                            <app:inputButtonNG value="boton.Aplazar" button_type="default" ng_click="otrasCampaniasAplazar()" />
+                            <app:inputButtonNG value="boton.Descartar" button_type="default" ng_click="otrasCampaniasDescartar()" />
                         </c:if>
-
-
-                        <input type="submit" class="btn btn-primary" value="<spring:message code="boton.Finalizar"/>"/>
+                        <app:inputButtonNG value="boton.Finalizar" button_type="primary" ng_click="otrasCampaniasDescartar()" />
                     </div>
                 </div>
             </div>
@@ -144,5 +124,7 @@
 
     </form>
 </div><!-- END ANGULARJS CONTROLLER DIV-->
+<!-- Scripts de angularjs -->
+
 </body>
 </html>

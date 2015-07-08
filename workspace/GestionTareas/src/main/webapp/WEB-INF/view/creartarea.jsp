@@ -21,235 +21,62 @@
 		<form class="form-horizontal" role="form" >
             <div class="panel panel-default">
                 <div class="panel-body">
-
                     <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 development">
-                                <app:inputText id="ninstalacion" label="creartarea.ninstalacion" value="${creartarea.ninstalacion}" readonly="false" />
-                            </div>
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                                <input type="button" class="btn btn-xs" value="<spring:message code="creartarea.boton.buscarinstalacion"/>"/>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            <label for="ejemplo_email_3"
-                                class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">
-                                Titular: </label>
-                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                                <input type="text" class="form-control" id="ejemplo_email2" readonly="true"
-                                    placeholder="Titular">
-                            </div>
-                        </div>
-
+                        <app:wrapping cells="6">
+                            <app:inputTextNG id="installationnumber" label="createtask.installationnumber" value="createTaskModel.installationNumber" readonly="false" cells="9" />
+                            <app:inputButtonNG button_type="xs" value="createtask.button.searchinstallation" ng_click="createTaskSearchInstallation()" cells="3" />
+                        </app:wrapping>
+                        <app:inputTextNG id="holder" label="createtask.holder" value="createTaskModel.holder" readonly="false" cells="6"/>
                     </div>
 
                     <div class="spacer_t1"></div>
                     <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            <label for="telefono"
-                                       class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">
-                                    Teléfono: </label>
-                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                                <select class="form-control" id="telefono">
-                                    <option>option1</option>
-                                    <option>option2</option>
-                                    <option>option3</option>
-                                    <option>option4</option>
-                                    <option>option5</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            <label for="ejemplo_email_3"
-                                   class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">
-                                Panel: </label>
-                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                                <input type="text" class="form-control" id="ejemplo_email_3" readonly="true"
-                                       placeholder="Panel">
-                            </div>
-                        </div>
+                        <app:inputCombo id="telephone" value="createTaskModel.telephone" label="createtask.telephone" cells="6" />
+                        <app:inputTextNG id="panel" value="createTaskModel.panel" label="createtask.panel" cells="6" />
                     </div>
                     <div class="spacer_t1"></div>
                     <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            <label for="ejemplo_email_3"
-                                class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">
-                                Persona de contacto: </label>
-                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                                <input type="text" class="form-control" id="ejemplo_email_4"
-                                    placeholder="Persona de contacto">
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            <label for="ejemplo_email_3"
-                                class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">
-                                Versión: </label>
-                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                                <input type="text" class="form-control" id="ejemplo_email_5" readonly="true"
-                                    placeholder="Versión">
-                            </div>
-                        </div>
-                    </div>
-                    <!-- row -->
-
-
-                    <div class="spacer_t1"></div>
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            <label for="ejemplo_email_3"
-                                   class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">
-                                Requerido por: </label>
-                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                                <input type="text" class="form-control" id="ejemplo_email_6"
-                                       placeholder="Requerido">
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            <div class="row text-center">
-                                <label for="ejemplo_email_3"
-                                       class="labelcent">
-                                    Horario </label>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                    <label for="ejemplo_email_3"
-                                           class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">
-                                        Desde: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                                        <input type="text" class="form-control" id="ejemplo_email_7"
-                                               placeholder="Desde">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                    <label for="ejemplo_email_3"
-                                           class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">
-                                        Hasta: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                                        <input type="text" class="form-control" id="ejemplo_email_8"
-                                               placeholder="Hasta">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- row -->
-
-
-
-                    <div class="spacer_t3"></div>
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            <label for="ejemplo_email_3"
-                                class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">Tipo</label>
-                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                                <select class="form-control">
-                                    <option>option1</option>
-                                    <option>option2</option>
-                                    <option>option3</option>
-                                    <option>option4</option>
-                                    <option>option5</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            <label for="ejemplo_email_3"
-                                class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">Motivo</label>
-                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                                <select class="form-control">
-                                    <option>option1</option>
-                                    <option>option2</option>
-                                    <option>option3</option>
-                                    <option>option4</option>
-                                    <option>option5</option>
-                                </select>
-                            </div>
-                        </div>
-
+                        <app:inputTextNG id="contact" value="createTaskModel.contact" label="createtask.contact" cells="6" />
+                        <app:inputTextNG id="contact" value="createTaskModel.version" label="createtask.version" cells="6" />
                     </div>
                     <!-- row -->
                     <div class="spacer_t1"></div>
                     <div class="row">
+                        <app:inputTextNG id="requiredBy" value="createTaskModel.requiredBy" label="createtask.requiredby" cells="6" />
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            <label for="ejemplo_email_3"
-                                class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent"></label>
-                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                                <select class="form-control">
-                                    <option>option1</option>
-                                    <option>option2</option>
-                                    <option>option3</option>
-                                    <option>option4</option>
-                                    <option>option5</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            <label for="ejemplo_email_3"
-                                class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent"></label>
-                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                                <select class="form-control">
-                                    <option>option1</option>
-                                    <option>option2</option>
-                                    <option>option3</option>
-                                    <option>option4</option>
-                                    <option>option5</option>
-                                </select>
-                            </div>
+                            <app:inputTextNG id="hourfrom" value="createTaskModel.hourFrom" cells="6" label="createtask.hour.from" />
+                            <app:inputTextNG id="hourfrom" value="createTaskModel.hourTo" cells="6" label="createtask.hour.to" />
                         </div>
                     </div>
                     <!-- row -->
                     <div class="spacer_t1"></div>
                     <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            <label for="ejemplo_email_3"
-                                class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent"></label>
-                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                                <select class="form-control">
-                                    <option>option1</option>
-                                    <option>option2</option>
-                                    <option>option3</option>
-                                    <option>option4</option>
-                                    <option>option5</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            <label for="ejemplo_email_3"
-                                class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent"></label>
-                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                                <select class="form-control">
-                                    <option>option1</option>
-                                    <option>option2</option>
-                                    <option>option3</option>
-                                    <option>option4</option>
-                                    <option>option5</option>
-                                </select>
-                            </div>
-                        </div>
+                        <app:inputCombo id="type1" value="createTaskModel.type1" label="createtask.type" cells="6" />
+                        <app:inputCombo id="reason1" value="createTaskModel.reason1" label="createtask.reason" cells="6" />
                     </div>
-                    <!-- row -->
-                    <div class="spacer_t2"></div>
+                    <div class="spacer_t1"></div>
                     <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                            <label for="ejemplo_email_3"
-                                class="col-lg-3 col-md-3 col-sm-3 col-xs-3 control-label labelcent">Observaciones</label>
-                            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
-                                <textarea class="form-control custom-area" id="ejemplo_email_9"
-                                    placeholder="Observaciones" rows="5" cols="20"></textarea>
-                            </div>
-                        </div>
-
+                        <app:inputCombo id="type2" value="createTaskModel.type2"  cells="6" />
+                        <app:inputCombo id="reason2" value="createTaskModel.reason2" cells="6" />
                     </div>
+                    <div class="spacer_t1"></div>
+                    <div class="row">
+                        <app:inputCombo id="type3" value="createTaskModel.type3"  cells="6" />
+                        <app:inputCombo id="reason3" value="createTaskModel.reason3" cells="6" />
+                    </div>
+                    <div class="spacer_t1"></div>
+                    <!-- row -->
+                    <app:textAreaNG id="comment" value="createTaskModel.comment" label="createtask.comment" cell_label="2" cell_input="10"/>
                 </div>
             </div>
 			<!-- row -->
-            <div class="spacer_t2"></div>
+            <div class="spacer_t1"></div>
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="row" align="right">
                         <div class="container-fluid">
-                            <input type="submit" class="btn btn-default"
-                                   value="Crear mantenimiento" />
-                            <input type="submit" class="btn btn-primary" value="Crear" />
+                            <app:inputButtonNG value="boton.CrearMantenimiento" button_type="default" ng_click="crearTareaCrearMantenimiento()" />
+                            <app:inputButtonNG button_type="primary" value="boton.Crear" ng_click="crearTareaCrear()" />
                         </div>
                     </div>
                 </div>

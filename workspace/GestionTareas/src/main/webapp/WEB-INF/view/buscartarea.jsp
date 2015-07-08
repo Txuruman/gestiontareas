@@ -35,7 +35,7 @@
 
                         <!-- Boton Busqueda -->
                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-left">
-                            <input type="submit" ng-click="searchTareaFromServer()" class="btn btn-primary" value="<spring:message code="boton.search" />"/>
+                            <app:inputButtonNG button_type="primary" value="boton.search" ng_click="searchTareaFromServer()" />
                         </div>
 
 

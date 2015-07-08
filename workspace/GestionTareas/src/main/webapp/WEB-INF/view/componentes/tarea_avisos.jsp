@@ -65,12 +65,6 @@
                         value="${tarea.motivo3}" cells="6" readonly="false"/>
         <!-- subrow -->
         <div class="spacer_t1"></div>
-
-
-        <!-- Boton Busqueda -->
-        <input type="submit" ng-click="aplazar()" class="btn btn-primary" value="<spring:message code="boton.Aplazar" />"/>
-
-
     </div>
     <div class="spacer_t2"></div>
     <script src="${pageContext.request.contextPath}/resources/app/component/notificationTask-ctrl.js"></script>
