@@ -51,7 +51,7 @@
     <bean id="fileService" class="es.securitasdirect.senales.support.FileService">
         <property name="fileTail" value=".xml"/>
         <property name="fileHeader" value="message"/>
-        <property name="folderPath" value="c:/tmp/errorSD/"/>
+        <property name="folderPath" value="/tmp/teamvision/gestionsenales/errorSD/"/>
     </bean>
 
 

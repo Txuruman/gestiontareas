@@ -1,0 +1,52 @@
+        <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+    <soapenv:Body>
+        <getAvisobyIdResults xmlns="http://ws.wso2.org/dataservice">
+            <getAvisobyIdResult>
+                <idaviso>10267236</idaviso>
+                <estado>0</estado>
+                <tipo>8100</tipo>
+                <motivo>8105</motivo>
+                <fecha_creacion>2014-08-22T10:08:26.000+02:00</fecha_creacion>
+                <observaciones>reclama regalo de 7 noches de hotel por contratar alarma .gracias  15/10 - se envia mail a socios</observaciones>
+                <ins_no>1722692</ins_no>
+                <requerido_por>ATC - P16132</requerido_por>
+                <titular>LOPEZ GALLART JOSE</titular>
+                <contacto>JOSE</contacto>
+                <forma_contacto>TELF</forma_contacto>
+                <desde>0</desde>
+                <hasta>0</hasta>
+                <skill>E</skill>
+                <valor_forma_contacto>659675576</valor_forma_contacto>
+                <inet_check_ins_no_results>
+                    <inet_check_ins_no_result>
+                        <s_ins>12435961</s_ins>
+                        <s_ctr>30696689</s_ctr>
+                        <s_acc>30687221</s_acc>
+                        <getInstallationDataResults>
+                            <getInstallationDataResult>
+                                <ins_no>1722692</ins_no>
+                                <panel>SDVFAST</panel>
+                                <version>UI VF2 A.08.11_06/H.07</version>
+                                <fname>JOSE</fname>
+                                <name>LOPEZ GALLART</name>
+                                <street1>PANIOL</street1>
+                                <street1no1>8</street1no1>
+                                <street1no2>PASEO</street1no2>
+                                <street2>URB. CASTEIL DE MONTORNES</street2>
+                                <city>LA POBLA DE MONTORNES</city>
+                                <state>T</state>
+                                <phone1>659675576</phone1>
+                                <skill>E</skill>
+                                <getContractNumberResponse>
+                                    <getContractNumberResponses>
+                                        <ctr_no>1722692</ctr_no>
+                                    </getContractNumberResponses>
+                                </getContractNumberResponse>
+                            </getInstallationDataResult>
+                        </getInstallationDataResults>
+                    </inet_check_ins_no_result>
+                </inet_check_ins_no_results>
+            </getAvisobyIdResult>
+        </getAvisobyIdResults>
+    </soapenv:Body>
+</soapenv:Envelope>

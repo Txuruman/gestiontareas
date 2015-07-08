@@ -23,9 +23,15 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 @Controller
 @RequestMapping("/customer.htm")
 public class CustomerController {
+
+    //LOG UTIL private static final java.util.logging.Logger LOGGER = Logger.getLogger(CustomerController.class.getName());
+
+    final static Logger LOGGER = Logger.getLogger(CustomerController.class);
 
     @Inject
     GestionSenalesService gestionSenalesService;
@@ -56,7 +62,8 @@ public class CustomerController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String initForm(ModelMap model) {
-
+        LOGGER.info("initForm");
+        System.out.println("initform out");
         Customer cust = new Customer();
         //Make "Spring MVC" as default checked value
         cust.setFavFramework(new String[]{"Spring MVC"});
@@ -80,9 +87,12 @@ public class CustomerController {
 
     @ModelAttribute("webFrameworkList")
     public List<String> populateWebFrameworkList() {
-
+        LOGGER.error("webFrameworkList");
+        LOGGER.info("webFrameworkList");
+        System.out.println("webFramework out");
         //Data referencing for web framework checkboxes
         List<String> webFrameworkList = new ArrayList<String>();
+        webFrameworkList.add("Log4j1");
         webFrameworkList.add("Spring MVC");
         webFrameworkList.add("Struts 1");
         webFrameworkList.add("Struts 2");
@@ -102,7 +112,8 @@ public class CustomerController {
 
     @ModelAttribute("numberList")
     public List<String> populateNumberList() {
-
+        LOGGER.info("numberList");
+        LOGGER.error("numberList");
         //Data referencing for number radiobuttons
         List<String> numberList = new ArrayList<String>();
         numberList.add("Number 1");
@@ -116,7 +127,7 @@ public class CustomerController {
 
     @ModelAttribute("javaSkillsList")
     public Map<String, String> populateJavaSkillList() {
-
+        LOGGER.info("javaSkillsList");
         //Data referencing for java skills list box
         Map<String, String> javaSkill = new LinkedHashMap<String, String>();
         javaSkill.put("Hibernate", "Hibernate");

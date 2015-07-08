@@ -7,6 +7,13 @@
     <div class="row">
         <app:inputTextNG id="aviso" label="tareaAviso.identificativoAvisoTarea" value="tarea.idAviso" cells="6" readonly="false"/>
         <app:inputTextNG id="fechaCreacion" label="tareaAviso.fechaCreacion" value="tarea.fechaCreacion" cells="6" readonly="false"/>
+
+        <%--<input type="date" id="exampleInput" name="input" ng-model="tarea.fechaCreacion"--%>
+               <%--placeholder="yyyy/MM/dd" required /> <!--  min="2013-01-01" max="2013-12-31" -->--%>
+    asdfasdfs    {{tarea.fechaCreacion}}
+
+        <input type="date" data-ng-model="tarea.fechaCreacion" json-date/>
+
     </div>
     <div class="spacer_t1"></div>
     <div class="row">
@@ -14,6 +21,9 @@
 
         <app:inputTextNG id="horarioDesde" label="tareaAviso.horarioDesde" value="tarea.horarioDesde" cells="3" readonly="false"/>
         <app:inputTextNG id="horarioHasta" label="tareaAviso.horarioHasta" value="tarea.horarioHasta" cells="3" readonly="false"/>
+
+
+
     </div>
     <div class="spacer_t1"></div>
     <div class="row">

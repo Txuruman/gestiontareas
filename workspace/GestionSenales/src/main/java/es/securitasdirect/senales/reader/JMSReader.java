@@ -7,30 +7,38 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
+import javax.jms.*;
+import javax.naming.InitialContext;
 import java.util.Date;
+import java.util.Hashtable;
 
 /**
  * Lector de mensajes de bus JMS.
- *
+ * <p/>
  * Created by Team Vision
  */
 public class JMSReader {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JMSReader.class);
 
-
     private static final String QCF_NAME = "sd.prd.es1prdxacfout";
     private static final String QUEUE_NAME = "sd.prd.es1allinoneout";
+    private static final String BUS = "es1preosbprd01v-vip";
+    private static final String PORT = "8011";
 
-    // Set up all the default values
-    private static final String DEFAULT_MESSAGE = "Hello, World!";
-    private static final String DEFAULT_CONNECTION_FACTORY = "reader/RemoteConnectionFactory";
-    private static final String DEFAULT_DESTINATION = "reader/queue/test";
-    private static final String DEFAULT_MESSAGE_COUNT = "1";
-    private static final String DEFAULT_USERNAME = "admin";
-    private static final String DEFAULT_PASSWORD = "admin!";
-    private static final String INITIAL_CONTEXT_FACTORY = "org.jboss.naming.remote.client.InitialContextFactory";
-    private static final String PROVIDER_URL = "remote://localhost:4447";
+
+//    private static final String QCF_NAME = "sd.prd.es1prdxacfout";
+//    private static final String QUEUE_NAME = "sd.prd.es1allinoneout";
+//
+//    // Set up all the default values
+//    private static final String DEFAULT_MESSAGE = "Hello, World!";
+//    private static final String DEFAULT_CONNECTION_FACTORY = "reader/RemoteConnectionFactory";
+//    private static final String DEFAULT_DESTINATION = "reader/queue/test";
+//    private static final String DEFAULT_MESSAGE_COUNT = "1";
+//    private static final String DEFAULT_USERNAME = "admin";
+//    private static final String DEFAULT_PASSWORD = "admin!";
+//    private static final String INITIAL_CONTEXT_FACTORY = "org.jboss.naming.remote.client.InitialContextFactory";
+//    private static final String PROVIDER_URL = "remote://localhost:4447";
 
     @Autowired
     protected GestionSenalesService gestionSenalesService;
@@ -40,9 +48,42 @@ public class JMSReader {
 
     @PostConstruct
     public void connect() {
-        assert gestionSenalesService!=null;
-        LOGGER.debug("JMS Reader starting"); //TODO Imprimir config
+        assert gestionSenalesService != null;
+        LOGGER.info("JMS Reader connecting..."); //TODO Imprimir config
 
+        try {
+            Hashtable<String, String> env = new Hashtable<String, String>();
+            env.put(javax.naming.Context.INITIAL_CONTEXT_FACTORY, "weblogic.jndi.WLInitialContextFactory");
+            env.put(javax.naming.Context.PROVIDER_URL, "t3://" + BUS + ":" + PORT);
+
+            LOGGER.info("javax.naming.Context ctx = new InitialContext(env);");
+            javax.naming.Context ctx = new InitialContext(env);
+
+            LOGGER.info("QueueConnectionFactory qcf = (QueueConnectionFactory) ctx.lookup(QCF_NAME);");
+            QueueConnectionFactory qcf = (QueueConnectionFactory) ctx.lookup(QCF_NAME);
+
+            LOGGER.info("QueueConnection qc = qcf.createQueueConnection();");
+            QueueConnection qc = qcf.createQueueConnection();
+
+            LOGGER.info("QueueSession qsess = qc.createQueueSession(false, Session.CLIENT_ACKNOWLEDGE);");
+            QueueSession qsess = qc.createQueueSession(false, Session.CLIENT_ACKNOWLEDGE);
+
+            LOGGER.info("Destination dest = (Destination) ctx.lookup(QUEUE_NAME);");
+            Destination dest = (Destination) ctx.lookup(QUEUE_NAME);
+
+            LOGGER.info("MessageConsumer consumer = qsess.createConsumer(dest);");
+            MessageConsumer consumer = qsess.createConsumer(dest);
+
+            consumer.setMessageListener(new MessageListener() {
+                public void onMessage(javax.jms.Message message) {
+                    LOGGER.info("onMessage" + message.toString());
+                }
+            });
+
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
+        }
 //        for (int i=0;i<10;i++) {
 //            gestionSenalesService.onMessage(new Message(new Date().toString()));
 //            try {
@@ -130,7 +171,7 @@ public class JMSReader {
 //    public void connectExampleWebLOGGERic() throws JMSException, NamingException {
 //        Hashtable<String, String> env = new Hashtable<String, String>();
 //        env.put(javax.naming.Context.INITIAL_CONTEXT_FACTORY,
-//                "webLOGGERic.jndi.WLInitialContextFactory");
+//                "weblogic.jndi.WLInitialContextFactory");
 //        env.put( javax.naming.Context.PROVIDER_URL,  "t3://10.2.145.103:8011");
 //
 //        javax.naming.Context ctx = new InitialContext(env);
