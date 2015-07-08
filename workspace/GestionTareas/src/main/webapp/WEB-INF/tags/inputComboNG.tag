@@ -12,8 +12,6 @@
 <%@ attribute name="cell_label" required="false"  description="The maximun cells label in parent space" type="java.lang.Integer" %>
 <%@ attribute name="cell_input" required="false"  description="The maximun cells label in parent space" %>
 
-
-
 <c:if test="${cell_label == null}">
     <c:set var="cell_label" value="4"/>
 </c:if>
@@ -25,24 +23,35 @@
 <c:if test="${cell_label + cell_input > 12}">
     <c:set var="cell_label" value="4"/>
     <c:set var="cell_input" value="8"/>
-    <c:out value="Por favor introducir valores que sumen entre el label y el input un total de maximpo 12 "/>
+   <c:out value="Por favor introducir valores que sumen entre el label y el input un total de maximpo 12 "/>
 </c:if>
 
-
-
 <div class="col-lg-${cells} col-md-${cells} col-sm-${cells} col-xs-${cells}">
-    <div class="col-lg-${cells} col-md-${cells} col-sm-${cells} col-xs-${cells}">
-        <label class="col-lg-${cell_label} col-md-${cell_label} col-sm-${cell_label} col-xs-${cell_label} control-label labelcent ${required=='true'? 'label.required' : ''}">
-            <c:if test="${label!=null && !label.isEmpty()}"> <spring:message code='${label}'/> ${required=='true'? '*' : ''}:</c:if>
-        </label>
-    </div>
+    <label class="col-lg-${cell_label} col-md-${cell_label} col-sm-${cell_label} col-xs-${cell_label} control-label labelcent ${required=='true'? 'label.required' : ''}">
+        <c:if test="${label!=null && !label.isEmpty()}"> <spring:message code='${label}'/> ${required=='true'? '*' : ''}:</c:if>
+    </label>
 
     <div class="col-lg-${cell_input} col-md-${cell_input} col-sm-${cell_input} col-xs-${cell_input}">
-        <textarea type="text" class="form-control custom-area" name="${id}" id="${id}"
-                  maxlength="${maxlength}" rows="5"
-        ${readonly=='true'? 'disabled' : ''} ng-model="${value}">
+        <%--<input type="text" class="form-control input-custom-global" name="${id}" id="${id}"--%>
+               <%--value="${value}"--%>
+               <%--maxlength="${maxlength}"--%>
+        <%--${readonly=='true'? 'disabled' : ''}--%>
+                <%--/>--%>
 
-        </textarea>
+        <select class="form-control">
+            <option>option1</option>
+            <option>option2</option>
+            <option>option3</option>
+            <option>option4</option>
+            <option>option5</option>
+        </select>
+
+        <select data-ng-init="getClosing()" ng-model="tarea.closing" convert-to-number class="form-control">
+            <!-- ng-model="model.id" convert-to-number -->
+            <option data-ng-repeat="k in closingList" value="{{k.id}}" ng-selected="k.id==tarea.closing">
+                {{k.value}}
+            </option>
+        </select>
     </div>
 
 </div>
