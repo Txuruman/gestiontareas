@@ -55,15 +55,14 @@ public interface ServiceParams {
     /**
      * Tarea de tipo Encuesta mantenimientos
      */
-    public static String ENCUESTAMNTOS_MANTENIMIENTO = "mantenimiento";
-    public static String ENCUESTAMNTOS_TECNICO = "mantenimiento";
-    public static String ENCUESTAMNTOS_RESPONSABLE = "mantenimiento";
-    public static String ENCUESTAMNTOS_CENTROCOSTE = "mantenimiento";
-    public static String ENCUESTAMNTOS_RAZON = "mantenimiento";
-    public static String ENCUESTAMNTOS_SOLUCION = "mantenimiento";
-    public static String ENCUESTAMNTOS_COMPROMISO = "mantenimiento";
-    public static String ENCUESTAMNTOS_DPTO_DESTINO = "mantenimiento";
-
+    public static String ENCUESTAMNTOS_MANTENIMIENTO = "MANTENIMIENTO";
+    public static String ENCUESTAMNTOS_TECNICO = "TECNICO";
+    public static String ENCUESTAMNTOS_RESPONSABLE = "JE";
+    public static String ENCUESTAMNTOS_CENTROCOSTE = "CC";
+    public static String ENCUESTAMNTOS_RAZON = "RAZON";
+    public static String ENCUESTAMNTOS_SOLUCION = "SOLUCION";
+    public static String ENCUESTAMNTOS_COMPROMISO = "COMPROMISO";
+    public static String ENCUESTAMNTOS_DPTO_DESTINO = "DPTO_DESTINO";
 
     /**
      * Tarea de tipo Encuesta mercados

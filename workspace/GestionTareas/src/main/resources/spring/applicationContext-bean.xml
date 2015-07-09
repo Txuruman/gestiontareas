@@ -34,6 +34,10 @@
     <!-- TODO COMENTAR -->
     <!-- Valores para el campo DESPLEGABLE DE CIERRE , que se rellenarán en función del tipo de aviso    -->
 
+    <!-- Usuario de aplicación definido para las llamadas a servicios utilizadas en el aplicativo -->
+    <bean id="applicationUser" class="java.lang.String">
+        <constructor-arg value="Tareas"/>
+    </bean>
 
 
     <util:list id="datosAdicionalesCierreTareaAviso" value-type="es.securitasdirect.tareas.model.external.Pair" list-class="java.util.ArrayList">

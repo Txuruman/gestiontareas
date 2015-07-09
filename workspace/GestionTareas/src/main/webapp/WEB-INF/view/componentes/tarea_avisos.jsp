@@ -68,6 +68,18 @@
     </div>
     <div class="spacer_t2"></div>
     <script src="${pageContext.request.contextPath}/resources/app/component/notificationTask-ctrl.js"></script>
+    TAREA: {{tarea}}<br/>
+    PRUEBA1: {{prueba}}<br/>
+    SCRIPT_SET_PRUEBA2: <script>
+        $scope.variableToScope(prueba2, $callingList);
+    </script><br/>
+    PRUEBA2: {{prueba2}}<br/>
+    SCOPE_SET1_PRUEBA3: {{$scope.prueba3 = '${callingList}'}}<br/>
+    PRUEBA3: {{prueba3}}<br/>
+    SCOPE_SET2_PRUEBA4: {{$scope.variableToScope(prueba4, ${callingList})}}<br/>
+    PRUEBA4: {{prueba4}}<br/>
+    NG:{{prueba2}}<br/>
+    TAREA:{{tarea}}<br/>
 </div>
 <!-- ANGULARJS NOTIFICATION TASK CONTROLLER END -->
 

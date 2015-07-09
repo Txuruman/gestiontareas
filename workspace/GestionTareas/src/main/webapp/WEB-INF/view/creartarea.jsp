@@ -75,8 +75,8 @@
                 <div class="panel-body">
                     <div class="row" align="right">
                         <div class="container-fluid">
-                            <app:inputButtonNG value="boton.CrearMantenimiento" button_type="default" ng_click="crearTareaCrearMantenimiento()" />
-                            <app:inputButtonNG button_type="primary" value="boton.Crear" ng_click="crearTareaCrear()" />
+                            <app:inputButtonNG value="boton.CrearMantenimiento" button_type="default" ng_click="crearTareaCrearMantenimiento()" fluid_wrapper="true" />
+                            <app:inputButtonNG button_type="primary" value="boton.Crear" ng_click="crearTareaCrear()" fluid_wrapper="true"  />
                         </div>
                     </div>
                 </div>

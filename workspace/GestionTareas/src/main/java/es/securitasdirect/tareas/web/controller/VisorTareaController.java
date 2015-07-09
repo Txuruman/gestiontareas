@@ -68,6 +68,9 @@ public class VisorTareaController {
     public ModelAndView handleRequest(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
         //Crear un mapa con los parámetros
         Map<String, String> parametersMap = createParameterMap(hsr);
+        LOGGER.debug("Parameter map from resquest:\n{}", parametersMap);
+
+        //TODO Validador y sino lanzar excepcion
 
         //Redirigir a la página adecuada con el calling list que nos viene
         String callingList = parametersMap.get(ExternalParams.CALLING_LIST);
@@ -75,7 +78,7 @@ public class VisorTareaController {
             String tareaType = queryTareaService.getTaskTypeFromCallingList(callingList);
             if (tareaType != null) {
                 //Redirect to the appropiate page
-                return loadModelAndViewForTarea(tareaType);
+                return loadModelAndViewForTarea(tareaType, parametersMap);
             } else {
                 LOGGER.error("The calling list " + callingList + " is not configured in the application.");
                 throw new Exception("The calling list " + callingList + " is not configured in the application.");
@@ -173,7 +176,7 @@ public class VisorTareaController {
     /**
      * Mapea el tipo de tarea a sus págin as
      */
-    private ModelAndView loadModelAndViewForTarea(String tareaType) {
+    private ModelAndView loadModelAndViewForTarea(String tareaType,  Map<String, String> parametersMap ) {
         assert tareaType != null;
 
         ModelAndView mv = new ModelAndView("visortarea");
@@ -205,6 +208,10 @@ public class VisorTareaController {
             mv.addObject(SECUNDARIA, MANTENIMIENTO);
         }
         mv.addObject("titulo", titulo);
+        mv.addObject("installation", "111111");
+        mv.addObject("callingList", parametersMap.get(ExternalParams.CALLING_LIST));
+        mv.addObject("idTarea", parametersMap.get(ExternalParams.ID_TAREA));
+        mv.addObject("ccUserId", parametersMap.get(ExternalParams.identificadorAgente));
         return mv;
 
     }

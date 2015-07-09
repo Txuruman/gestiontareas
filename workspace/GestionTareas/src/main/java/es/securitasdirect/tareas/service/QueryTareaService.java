@@ -36,17 +36,23 @@ public class QueryTareaService {
     @Resource(name = "callingListToModel")
     private Map<String, List<String>> callingListToModel;
 
+    @Resource(name = "applicationUser")
+    private String applicationUser;
+
 
     //checkCallingListContact fields
     public static final String TASK_TYPE = "CALLING_LIST"; // Calling List Name
 
 
-    public Tarea queryTarea(String ccIdentifier,
-                            String applicationUser,
-                            String ccUserId,
-                            String filter,
+    public Tarea queryTarea(String ccUserId,
                             String callingList,
-                            String country) {
+                            String id) {
+
+        //
+        String ccIdentifier         = "ATC_SPN";
+        String country              = "SPAIN";
+        String filter              = "chain_id=" + id;
+
         LOGGER.debug("Calling to service CallingList with values: ccIdentifier: {} applicationUser: {} ccUserId: {} filter: {} callingList: {} country: {}", ccIdentifier, applicationUser, ccUserId, filter, callingList, country);
 
         Map<String, String> responseMap = checkCallingListContact(ccIdentifier,
@@ -65,7 +71,7 @@ public class QueryTareaService {
                 } else if (tipoTarea.equals(Constants.TAREA_LISTADOASSISTANT)) {
                     tarea = createTareaListadoAssistantFromParameters(responseMap);
                 } else if (tipoTarea.equals(Constants.TAREA_ENCUESTAMANTENIMIENTO)) {
-                    tarea = createTareaEncuestaMantenimientoFromParameters(responseMap);
+                    tarea = createMaintenanceSurveyTaskFromParameters(responseMap);
                 } else if (tipoTarea.equals(Constants.TAREA_ENCUESTAMARKETING)) {
                     tarea = createTareaEncuestaMarketingFromParameters(responseMap);
                 } else if (tipoTarea.equals(Constants.TAREA_KEYBOX)) {
@@ -193,20 +199,20 @@ public class QueryTareaService {
     }
 
 
-    private Tarea createTareaEncuestaMantenimientoFromParameters(Map<String, String> parameters) {
-        MaintenanceSurveyTask tarea = new MaintenanceSurveyTask();
-        loadTareaCommons(tarea, parameters);
-        loadTareaExcelCommons(tarea, parameters);
+    private Tarea createMaintenanceSurveyTaskFromParameters(Map<String, String> parameters) {
+        MaintenanceSurveyTask task = new MaintenanceSurveyTask();
+        loadTareaCommons(task, parameters);
+        loadTareaExcelCommons(task, parameters);
 
-        tarea.setMaintenanceNumber(toIntegerFromMap(parameters.get(ServiceParams.ENCUESTAMNTOS_MANTENIMIENTO)));
-        tarea.setTechnician(parameters.get(ServiceParams.ENCUESTAMNTOS_TECNICO));
-        tarea.setManager(parameters.get(ServiceParams.ENCUESTAMNTOS_RESPONSABLE));
-        tarea.setCostCenter(parameters.get(ServiceParams.ENCUESTAMNTOS_CENTROCOSTE));
-        tarea.setValuationKeyReason(parameters.get(ServiceParams.ENCUESTAMNTOS_RAZON));
-        tarea.setSolution(parameters.get(ServiceParams.ENCUESTAMNTOS_SOLUCION));
-        tarea.setAgreement(parameters.get(ServiceParams.ENCUESTAMNTOS_COMPROMISO));
-        tarea.setDestinationDepartment(parameters.get(ServiceParams.ENCUESTAMNTOS_DPTO_DESTINO));
-        return tarea;
+        task.setMaintenanceNumber(toIntegerFromMap(parameters.get(ServiceParams.ENCUESTAMNTOS_MANTENIMIENTO)));
+        task.setTechnician(parameters.get(ServiceParams.ENCUESTAMNTOS_TECNICO));
+        task.setManager(parameters.get(ServiceParams.ENCUESTAMNTOS_RESPONSABLE));
+        task.setCostCenter(parameters.get(ServiceParams.ENCUESTAMNTOS_CENTROCOSTE));
+        task.setValuationKeyReason(parameters.get(ServiceParams.ENCUESTAMNTOS_RAZON));
+        task.setSolution(parameters.get(ServiceParams.ENCUESTAMNTOS_SOLUCION));
+        task.setAgreement(parameters.get(ServiceParams.ENCUESTAMNTOS_COMPROMISO));
+        task.setDestinationDepartment(parameters.get(ServiceParams.ENCUESTAMNTOS_DPTO_DESTINO));
+        return task;
     }
 
     private Tarea createTareaEncuestaMarketingFromParameters(Map<String, String> parameters) {

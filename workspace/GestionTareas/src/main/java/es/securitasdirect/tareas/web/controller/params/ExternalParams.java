@@ -24,18 +24,20 @@ public interface ExternalParams {
     /*  	Calling List  */
     public static String CALLING_LIST = "bp_out_clname";
 
-    //TODO ROBERTO bp_out_chain_id
-
-
-
-
-
-
-
-
-
+    public static String ID_TAREA = "bp_out_chain_id";
 
     public static String NUMERO_INSTALACION = "ins_no";
+
+
+
+
+
+
+
+
+
+
+
     public static String TIPO_TAREA = "tipotarea";
 
     public static String ID_AVISO = "idaviso";
