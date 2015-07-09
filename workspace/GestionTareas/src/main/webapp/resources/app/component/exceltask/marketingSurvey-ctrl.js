@@ -2,7 +2,14 @@ app.controller('marketingsurveytask-ctrl', function ($scope, $http) {
     //Angular Maintenance Survey Controller start
     $scope.getTarea = function () {
         console.log("Loading Marketing Survey Task...")
-        $http({method: 'GET', url: 'visortarea/marketingsurveytask/getMarketingSurveyTask'}).
+        console.log("Params: "
+        + " ccUserId: " + $scope.ccUserId
+        + " callingList: " + $scope.callingList
+        + " taskId: " + $scope.tareaId);
+        $http({method: 'GET',
+            url: 'visortarea/marketingsurveytask/getMarketingSurveyTask',
+            params: {ccUserId: $scope.ccUserId, callingList: $scope.callingList, tareaId: $scope.tareaId}
+        }).
             success(function (data, status, headers, config) {
                 $scope.tarea = data;
             }).

@@ -208,9 +208,9 @@ public class VisorTareaController {
             mv.addObject(SECUNDARIA, MANTENIMIENTO);
         }
         mv.addObject("titulo", titulo);
-        mv.addObject("installation", "111111");
+        mv.addObject("installationId", parametersMap.get(ExternalParams.NUMERO_INSTALACION));
         mv.addObject("callingList", parametersMap.get(ExternalParams.CALLING_LIST));
-        mv.addObject("idTarea", parametersMap.get(ExternalParams.ID_TAREA));
+        mv.addObject("tareaId", parametersMap.get(ExternalParams.ID_TAREA));
         mv.addObject("ccUserId", parametersMap.get(ExternalParams.identificadorAgente));
         return mv;
 
@@ -271,16 +271,33 @@ public class VisorTareaController {
     @RequestMapping(value = "/getTareaMantenimiento", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    TareaMantenimiento getTareaMantenimiento() throws DataServiceFault {
-        return DummyGenerator.dummyMaintenanceTask();
+    TareaMantenimiento getTareaMantenimiento(@RequestParam(value = "ccUserId", required = true) String ccUserId,
+                                             @RequestParam(value = "callingList", required = true) String callingList,
+                                             @RequestParam(value = "tareaId", required = true) String tareaId
+        ) throws DataServiceFault {
+        LOGGER.debug("Get maintenance task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}",ccUserId, callingList, tareaId);
+        TareaMantenimiento tareaMantenimiento = (TareaMantenimiento)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
+        LOGGER.debug("Maintenance task obtained from service: \n{}", tareaMantenimiento);
+        return tareaMantenimiento;
     }
 
-
+    /**
+     *
+     * @return
+     * @throws DataServiceFault
+     */
     @RequestMapping(value = "/getTareaListadoAssistant", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    TareaListadoAssistant getTareaListadoAssistant() throws DataServiceFault {
-        return DummyGenerator.dummyListAssistantTask();
+    TareaListadoAssistant getTareaListadoAssistant(
+            @RequestParam(value = "ccUserId", required = true) String ccUserId,
+            @RequestParam(value = "callingList", required = true) String callingList,
+            @RequestParam(value = "tareaId", required = true) String tareaId
+    ) throws DataServiceFault {
+        LOGGER.debug("Get list assistant task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}",ccUserId, callingList, tareaId);
+        TareaListadoAssistant task = (TareaListadoAssistant)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
+        LOGGER.debug("List assistant task obtained from service: \n{}", task);
+        return task;
     }
 
     @RequestMapping(value = "/getClosingReason", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -312,73 +329,127 @@ public class VisorTareaController {
     @RequestMapping(value = "/maintenancesurveytask/getMaintenanceSurveyTask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    MaintenanceSurveyTask getMaintenanceSurveyTask() throws DataServiceFault {
-        LOGGER.debug("Creating dummy MaintenanceSurveyTask");
-        MaintenanceSurveyTask mst = DummyGenerator.dummyMaintenanceSurveyTask();
-        LOGGER.debug("Created dummy MaintenanceSurveyTask: {}", mst);
-        return mst;
+    MaintenanceSurveyTask getMaintenanceSurveyTask(
+            @RequestParam(value = "ccUserId", required = true) String ccUserId,
+            @RequestParam(value = "callingList", required = true) String callingList,
+            @RequestParam(value = "tareaId", required = true) String tareaId
+    ) throws DataServiceFault {
+        LOGGER.debug("Creating MaintenanceSurveyTask");
+        MaintenanceSurveyTask task = (MaintenanceSurveyTask)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
+        LOGGER.debug("Created MaintenanceSurveyTask: {}", task);
+        return task;
     }
 
     @RequestMapping(value = "/marketingsurveytask/getMarketingSurveyTask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    MarketingSurveyTask getMarketingSurveyTask() throws DataServiceFault {
-        LOGGER.debug("Creating dummy MarketingSurveyTask");
-        return DummyGenerator.dummyMarketingSurveyTask();
+    MarketingSurveyTask getMarketingSurveyTask(
+            @RequestParam(value = "ccUserId", required = true) String ccUserId,
+            @RequestParam(value = "callingList", required = true) String callingList,
+            @RequestParam(value = "tareaId", required = true) String tareaId
+    ) throws DataServiceFault {
+        LOGGER.debug("Get MarketingSurveyTask for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}",ccUserId, callingList, tareaId);
+        MarketingSurveyTask task = (MarketingSurveyTask)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
+        LOGGER.debug("Maintenance task obtained from service: \n{}", task);
+        return task;
     }
 
 
     @RequestMapping(value = "/keybox/getkeyboxtask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    KeyboxTask getKeyboxTask() throws DataServiceFault {
-        return DummyGenerator.dummyKeyboxTask();
+    KeyboxTask getKeyboxTask(
+            @RequestParam(value = "ccUserId", required = true) String ccUserId,
+            @RequestParam(value = "callingList", required = true) String callingList,
+            @RequestParam(value = "tareaId", required = true) String tareaId
+    ) throws DataServiceFault {
+        LOGGER.debug("Get maintenance task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}",ccUserId, callingList, tareaId);
+        KeyboxTask task = (KeyboxTask)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
+        LOGGER.debug("Maintenance task obtained from service: \n{}", task);
+        return task;
     }
 
     @RequestMapping(value = "anothercampaignstask/getanothercampaginstask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    TareaOtrasCampanas getAnotherCampaignsTask() throws DataServiceFault {
-        return DummyGenerator.dummyAnotherCampaingnsTask();
+    TareaOtrasCampanas getAnotherCampaignsTask(
+            @RequestParam(value = "ccUserId", required = true) String ccUserId,
+            @RequestParam(value = "callingList", required = true) String callingList,
+            @RequestParam(value = "tareaId", required = true) String tareaId
+    ) throws DataServiceFault {
+        LOGGER.debug("Get maintenance task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}",ccUserId, callingList, tareaId);
+        TareaOtrasCampanas task = (TareaOtrasCampanas)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
+        LOGGER.debug("Maintenance task obtained from service: \n{}", task);
+        return task;
     }
 
 
     @RequestMapping(value = "feecleaningtask/getfeecleaningtask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    TareaLimpiezaCuota getFeeCleaningTask() throws DataServiceFault {
-        LOGGER.debug("Creating dummy FeeCleaningTask");
-        return DummyGenerator.dummyFeeCleaningTask();
+    TareaLimpiezaCuota getFeeCleaningTask(
+            @RequestParam(value = "ccUserId", required = true) String ccUserId,
+            @RequestParam(value = "callingList", required = true) String callingList,
+            @RequestParam(value = "tareaId", required = true) String tareaId
+    ) throws DataServiceFault {
+        LOGGER.debug("Creating FeeCleaningTask");
+        LOGGER.debug("Get maintenance task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}",ccUserId, callingList, tareaId);
+        TareaLimpiezaCuota task = (TareaLimpiezaCuota)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
+        LOGGER.debug("Maintenance task obtained from service: \n{}", task);
+        return task;
     }
 
     @RequestMapping(value = "notificationtask/getnotificationtask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    TareaAviso getNotificationTask() throws DataServiceFault {
-        return DummyGenerator.dummyNotificationTask();
+    TareaAviso getNotificationTask(
+            @RequestParam(value = "ccUserId", required = true) String ccUserId,
+            @RequestParam(value = "callingList", required = true) String callingList,
+            @RequestParam(value = "tareaId", required = true) String tareaId
+        ) throws DataServiceFault {
+        LOGGER.debug("Get notification task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}",ccUserId, callingList, tareaId);
+        TareaAviso tareaAviso = (TareaAviso)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
+        LOGGER.debug("Notification task obtained from service: \n{}", tareaAviso);
+        return tareaAviso;
     }
 
     @RequestMapping(value = "/tarealimpiezacuota/gettarealimpiezacuota", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    TareaLimpiezaCuota getTareaLimpiezCuota() throws DataServiceFault {
-        LOGGER.debug("Creating dummy TareaLimpiezaCuota");
-        return DummyGenerator.dummyFeeCleaningTask();
+    TareaLimpiezaCuota getTareaLimpiezCuota(
+            @RequestParam(value = "ccUserId", required = true) String ccUserId,
+            @RequestParam(value = "callingList", required = true) String callingList,
+            @RequestParam(value = "tareaId", required = true) String tareaId
+    ) throws DataServiceFault {
+        LOGGER.debug("Creating TareaLimpiezaCuota");
+        LOGGER.debug("Get maintenance task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}",ccUserId, callingList, tareaId);
+        TareaLimpiezaCuota tareaLimpiezaCuota = (TareaLimpiezaCuota)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
+        LOGGER.debug("Maintenance task obtained from service: \n{}", tareaLimpiezaCuota);
+        return tareaLimpiezaCuota;
     }
 
 
     @RequestMapping(value = "/getInstallationData", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
-    @ResponseBody
-    InstallationData getInstallationData() throws DataServiceFault {
-        return DummyGenerator.dummyInstallationData();
+    @ResponseBody InstallationData getInstallationData(@RequestParam(value = "installationId", required = true) String installationId) throws DataServiceFault {
+        LOGGER.debug("Get Installation data for installationId: {}", installationId);
+        InstallationData  installationData = installationService.getInstallationData(installationId);
+        LOGGER.debug("Installation Data: {}", installationData);
+        return installationData;
     }
 
     @RequestMapping(value = "/listassitanttask/getListAssistantTask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    TareaListadoAssistant getListAssitantTask() throws DataServiceFault {
-        return DummyGenerator.dummyListAssistantTask();
+    TareaListadoAssistant getListAssitantTask(
+            @RequestParam(value = "ccUserId", required = true) String ccUserId,
+            @RequestParam(value = "callingList", required = true) String callingList,
+            @RequestParam(value = "tareaId", required = true) String tareaId
+    ) throws DataServiceFault {
+        LOGGER.debug("Get TareaListadoAssistant task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}",ccUserId, callingList, tareaId);
+        TareaListadoAssistant task = (TareaListadoAssistant)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
+        LOGGER.debug("TareaListadoAssistant obtained from service: \n{}", task);
+        return task;
     }
 
 

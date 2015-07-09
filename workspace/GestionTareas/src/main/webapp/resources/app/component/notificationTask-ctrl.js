@@ -6,12 +6,20 @@ app.controller('notificationtask', function ($scope, $http) {
 
 
     $scope.getTarea = function () {
-        console.log("Loading NotificationTask...")
-        $http({method: 'GET', url: 'visortarea/notificationtask/getnotificationtask'}).
-            success(function (data, status, headers, config) {
+        console.log("Loading NotificationTask");
+        console.log("Params: "
+            + " ccUserId: " + $scope.ccUserId
+            + " callingList: " + $scope.callingList
+            + " taskId: " + $scope.tareaId);
+        $http({
+            method: 'GET',
+            url: 'visortarea/notificationtask/getnotificationtask',
+            params: {ccUserId: $scope.ccUserId, callingList: $scope.callingList, tareaId: $scope.tareaId}
+        })
+            .success(function (data, status, headers, config) {
                 $scope.tarea = data;
-            }).
-            error(function (data, status, headers, config) {
+            })
+            .error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });

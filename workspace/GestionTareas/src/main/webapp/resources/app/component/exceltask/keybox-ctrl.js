@@ -2,7 +2,14 @@
 app.controller('keyboxtask-ctrl', function ($scope, $http) {
         $scope.getTarea = function () {
             console.log("Loading Keybox  Task...")
-            $http({method: 'GET', url: 'visortarea/keybox/getkeyboxtask'}).
+            console.log("Params: "
+            + " ccUserId: " + $scope.ccUserId
+            + " callingList: " + $scope.callingList
+            + " taskId: " + $scope.tareaId);
+            $http({method: 'GET',
+                url: 'visortarea/keybox/getkeyboxtask',
+                params: {ccUserId: $scope.ccUserId, callingList: $scope.callingList, tareaId: $scope.tareaId}
+            }).
                 success(function (data, status, headers, config) {
                     $scope.tarea = data;
                 }).

@@ -6,6 +6,11 @@
 
 
 <div ng-controller="maintenancetask-ctrl" ng-init="getTarea()">
+    <div class="spacer_t2"></div>
+    <div class="row bordel">
+        <h4> TAREA </h4>
+        {{tarea}}
+    </div>
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
             <div class="row">

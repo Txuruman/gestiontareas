@@ -2,32 +2,18 @@ app.controller('taskviewer-ctrl', function ($scope, $http) {
 
 
     $scope.getInstallationData = function () {
-        console.log("Loading Installation data...")
-        $http({method: 'GET', url: 'visortarea/getInstallationData'}).
-            success(function (data, status, headers, config) {
-                $scope.installationData = data;
-            }).
-            error(function (data, status, headers, config) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-            });
-        console.log("Installation data loaded...")
-    };
-
-    /*
-    $scope.searchTareaFromServer = function () {
-        console.log('search Tareas ' + $scope.searchText +  ' ' + $scope.searchOption);
-        $http({
-                method: 'GET',
-                url: 'searchtarea/query',
-                params: {searchText: $scope.searchText, searchOption: $scope.searchOption}
-            })
+        console.log("Loading Installation data for installation id: " + $scope.installationId);
+        $http({method: 'GET',
+                url: 'visortarea/getInstallationData',
+                params: {installationId: $scope.installationId}
+        })
             .success(function (data, status, headers, config) {
-                $scope.tareas = data;
+                $scope.installationData = data;
             })
             .error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
-    };*/
+        console.log("Installation data loaded...")
+    };
 });

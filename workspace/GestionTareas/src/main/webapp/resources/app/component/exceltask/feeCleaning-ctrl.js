@@ -3,7 +3,14 @@ app.controller('feecleaningtask-ctrl', function ($scope, $http) {
 
     $scope.getTarea = function () {
         console.log("Loading FeeCleaningTask...")
-        $http({method: 'GET', url: 'visortarea/feecleaningtask/getfeecleaningtask'}).
+        console.log("Params: "
+        + " ccUserId: " + $scope.ccUserId
+        + " callingList: " + $scope.callingList
+        + " taskId: " + $scope.tareaId);
+        $http({method: 'GET',
+            url: 'visortarea/feecleaningtask/getfeecleaningtask',
+            params: {ccUserId: $scope.ccUserId, callingList: $scope.callingList, tareaId: $scope.tareaId}
+        }).
             success(function (data, status, headers, config) {
                 $scope.tarea = data;
             }).

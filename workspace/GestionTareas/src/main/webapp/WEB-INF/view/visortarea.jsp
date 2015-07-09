@@ -15,21 +15,33 @@
 
 
 <body>
-
-Secundaria:${56 }<br/>
-Installation:${installation}<br/>
-callingList:${callingList}<br/>
-ccUserId:${ccUserId}<br/>
-
-
 <!-- Angular JS Scripts -->
 <script src="${pageContext.request.contextPath}/resources/app/gestiontarea-app.js"></script>
 <script src="${pageContext.request.contextPath}/resources/app/maincontrollers/taskViewer-ctrl.js"></script>
 
-<div class="container" ng-controller="taskviewer-ctrl" ng-init="getInstallationData()">
 
-    {{$scope.prueba=${callingList}}}<br/>
-    PRUEBA: {{prueba}}
+    <div class="container" ng-controller="taskviewer-ctrl" ng-init="tareaId='${tareaId}';installationId='${installationId}';callingList='${callingList}';ccUserId='${ccUserId}';getInstallationData(installationId)">
+
+    <div class="row bordel">
+        <h3> DEBUG DIV </h3>
+        <app:wrapping cells="6">
+            <h4> JSP VARIABLES</h4>
+            Secundaria:${secundaria}<br/>
+            Installation:${installationId}<br/>
+            callingList:${callingList}<br/>
+            ccUserId:${ccUserId}<br/>
+            idTarea:${tareaId}<br/>
+        </app:wrapping>
+        <app:wrapping cells="6">
+            <h4> ANGULAR VARIABLES</h4>
+            Installation:{{installationId}}<br/>
+            callingList:{{callingList}}<br/>
+            ccUserId:{{ccUserId}}<br/>
+            idTarea:{{tareaId}}<br/>
+        </app:wrapping>
+    </div>
+
+
 
 
     <div class="row">
@@ -41,7 +53,7 @@ ccUserId:${ccUserId}<br/>
     <%--<jsp:include page="bloques/tabs1.jsp"/>--%>
     <%--</div>--%>
 
-    <div class="spacer_t2"></div>
+        <div class="spacer_t2"></div>
 
     <form class="form-horizontal" role="form">
 

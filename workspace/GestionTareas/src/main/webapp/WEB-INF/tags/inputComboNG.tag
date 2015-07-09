@@ -37,15 +37,6 @@
                <%--maxlength="${maxlength}"--%>
         <%--${readonly=='true'? 'disabled' : ''}--%>
                 <%--/>--%>
-
-        <select class="form-control">
-            <option>option1</option>
-            <option>option2</option>
-            <option>option3</option>
-            <option>option4</option>
-            <option>option5</option>
-        </select>
-
         <select data-ng-init="getClosing()" ng-model="tarea.closing" convert-to-number class="form-control">
             <!-- ng-model="model.id" convert-to-number -->
             <option data-ng-repeat="k in closingList" value="{{k.id}}" ng-selected="k.id==tarea.closing">

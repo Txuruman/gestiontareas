@@ -83,6 +83,10 @@ public class QueryTareaService {
                 } else if (tipoTarea.equals(Constants.TAREA_MANTENIMIENTO)) {
                     tarea = createTareaMantenimientoFromParameters(responseMap);
                 }
+
+                LOGGER.debug("Tipo tarea:{}", tipoTarea);
+                LOGGER.debug("Tarea: {}", tarea);
+
                 return tarea;
             } else {
                 LOGGER.warn("Tipo tarea not found in response map checkCallingListContact.");
@@ -91,6 +95,36 @@ public class QueryTareaService {
         } else {
             LOGGER.warn("Response map not recovered from service call checkCallingListContact.");
             return null;
+        }
+    }
+
+    private void tareaToLog(String tipoTarea, Tarea tarea) {
+        if (tipoTarea != null) {
+            if (tipoTarea.equals(Constants.TAREA_AVISO)) {
+                TareaAviso castedTarea = (TareaAviso) tarea;
+                LOGGER.debug("Tarea - TareaAviso: {}", castedTarea);
+            } else if (tipoTarea.equals(Constants.TAREA_LISTADOASSISTANT)) {
+                TareaListadoAssistant castedTarea = (TareaListadoAssistant) tarea;
+                LOGGER.debug("Tarea - TareaListadoAssistant: {}", castedTarea);
+            } else if (tipoTarea.equals(Constants.TAREA_ENCUESTAMANTENIMIENTO)) {
+                MaintenanceSurveyTask castedTarea = (MaintenanceSurveyTask) tarea;
+                LOGGER.debug("Tarea - MaintenanceSurveyTask: {}", castedTarea);
+            } else if (tipoTarea.equals(Constants.TAREA_ENCUESTAMARKETING)) {
+                MarketingSurveyTask castedTarea = (MarketingSurveyTask) tarea;
+                LOGGER.debug("Tarea - MarketingSurveyTask: {}", castedTarea);
+            } else if (tipoTarea.equals(Constants.TAREA_KEYBOX)) {
+                KeyboxTask castedTarea = (KeyboxTask) tarea;
+                LOGGER.debug("Tarea - KeyboxTask: {}", castedTarea);
+            } else if (tipoTarea.equals(Constants.TAREA_LIMPIEZACUOTA)) {
+                TareaLimpiezaCuota castedTarea = (TareaLimpiezaCuota) tarea;
+                LOGGER.debug("Tarea - TareaLimpiezaCuota: {}", castedTarea);
+            } else if (tipoTarea.equals(Constants.TAREA_OTRASCAMPANAS)) {
+                TareaOtrasCampanas castedTarea = (TareaOtrasCampanas) tarea;
+                LOGGER.debug("Tarea - TareaOtrasCampanas: {}", castedTarea);
+            } else if (tipoTarea.equals(Constants.TAREA_MANTENIMIENTO)) {
+                TareaMantenimiento castedTarea = (TareaMantenimiento) tarea;
+                LOGGER.debug("Tarea - TareaMantenimiento: {}", castedTarea);
+            }
         }
     }
 
@@ -154,6 +188,8 @@ public class QueryTareaService {
      */
     private TareaAviso mapTareaAvisoFromWS(GetAvisobyIdResult avisobyIdResult) {
         TareaAviso tarea = new TareaAviso();
+
+        tarea.setIdAviso(avisobyIdResult.getIdaviso().intValue());
         tarea.setIdentificativoAvisoTarea(avisobyIdResult.getIdaviso().intValue());
         tarea.setObservaciones(avisobyIdResult.getObservaciones());
         tarea.setEstado(avisobyIdResult.getEstado().toString()); //TODO
@@ -417,7 +453,24 @@ public class QueryTareaService {
         if (idAviso != null && !idAviso.equals(0)) {
             List<GetAvisobyIdResult> avisobyId = spAioTareas2.getAvisobyId(idAviso);
             if (avisobyId != null && !avisobyId.isEmpty()) {
-                tarea = mapTareaAvisoFromWS(avisobyId.get(0)); //TODO Devuelve una lista aunque se supone que solo es uno, check
+                Iterator<GetAvisobyIdResult> iterator = avisobyId.iterator();
+                List<TareaAviso> bloquesTareasAviso = new ArrayList<TareaAviso>();
+                while(iterator.hasNext()){
+                    GetAvisobyIdResult avisobyIdResultItem = iterator.next();
+                    bloquesTareasAviso.add(mapTareaAvisoFromWS(avisobyIdResultItem));
+                }
+                tarea = bloquesTareasAviso.get(0);
+                if(bloquesTareasAviso.size()>=2){
+                    tarea.setTipoAviso2(bloquesTareasAviso.get(1).getTipoAviso1());
+                    tarea.setMotivo2(bloquesTareasAviso.get(1).getMotivo1());
+                }
+                if(bloquesTareasAviso.size()>=3){
+                    tarea.setTipoAviso3(bloquesTareasAviso.get(2).getTipoAviso1());
+                    tarea.setMotivo3(bloquesTareasAviso.get(2).getMotivo1());
+                }
+                if(bloquesTareasAviso.size()>=4){
+                    LOGGER.debug("No se esperan más de 3 tipos y motivos de aviso en la respuesta");
+                }
             }
             LOGGER.debug("Queried Aviso ({}): {}", idAviso, tarea);
         } else {

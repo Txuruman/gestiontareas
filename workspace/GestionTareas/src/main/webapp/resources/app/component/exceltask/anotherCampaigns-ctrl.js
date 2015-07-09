@@ -3,7 +3,14 @@ app.controller('anotherCampaigns', function ($scope, $http) {
 
     $scope.getTarea = function () {
         console.log("Loading Another Campaigns Task...")
-        $http({method: 'GET', url: 'visortarea/anothercampaignstask/getanothercampaginstask'}).
+        console.log("Params: "
+        + " ccUserId: " + $scope.ccUserId
+        + " callingList: " + $scope.callingList
+        + " taskId: " + $scope.tareaId);
+        $http({method: 'GET',
+            url: 'visortarea/anothercampaignstask/getanothercampaginstask',
+            params: {ccUserId: $scope.ccUserId, callingList: $scope.callingList, tareaId: $scope.tareaId}
+        }).
             success(function (data, status, headers, config) {
                 $scope.tarea = data;
             }).

@@ -32,6 +32,7 @@ public class InstallationService {
      * @throws DataServiceFault
      */
     public InstallationData getInstallationData(String installationNumber) throws DataServiceFault {
+        LOGGER.debug("Getting Installation Data by Service");
         try {
             assert installationNumber != null;
             Mainstallationdataresult installationDataWS1 = null;

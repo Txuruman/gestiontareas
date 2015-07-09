@@ -4,15 +4,16 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <div ng-controller="notificationtask" ng-init="getTarea()">
+    <div class="spacer_t2"></div>
+    <div class="row bordel">
+        <h4> TAREA </h4>
+        {{tarea}}
+    </div>
     <div class="row">
         <app:inputTextNG id="aviso" label="tareaAviso.identificativoAvisoTarea" value="tarea.idAviso" cells="6" readonly="false"/>
         <app:inputTextNG id="fechaCreacion" label="tareaAviso.fechaCreacion" value="tarea.fechaCreacion" cells="6" readonly="false"/>
 
-        <%--<input type="date" id="exampleInput" name="input" ng-model="tarea.fechaCreacion"--%>
-               <%--placeholder="yyyy/MM/dd" required /> <!--  min="2013-01-01" max="2013-12-31" -->--%>
-    asdfasdfs    {{tarea.fechaCreacion}}
-
-        <input type="date" data-ng-model="tarea.fechaCreacion" json-date/>
+       <!-- <input type="date" data-ng-model="tarea.fechaCreacion" json-date/> -->
 
     </div>
     <div class="spacer_t1"></div>
@@ -45,8 +46,6 @@
     <!-- row -->
     <div class="spacer_t1"></div>
     <div class="row">
-        <app:textAreaNG id="observaciones" label="eti.visortarea.tareaavisos.form.label.observaciones"
-                        value="tarea.observaciones" cells="6"/>
         <app:input id="closing" label="notificationtask.closing" cells="6" readonly="false">
             <select data-ng-init="getClosing()" ng-model="tarea.closing" convert-to-number class="form-control">
                 <!-- ng-model="model.id" convert-to-number -->
@@ -55,31 +54,19 @@
                 </option>
             </select>
         </app:input>
-        <div class="spacer_t1"></div>
-        <div class="spacer_t1"></div>
-        <div class="spacer_t1"></div>
-        <div class="spacer_t1"></div>
-        <div class="spacer_t1"></div>
-        <div class="spacer_t1"></div>
         <app:inputCombo id="adicionalesCierre" label="eti.visortarea.tareaavisos.form.label.adicionalesCierre"
                         value="${tarea.motivo3}" cells="6" readonly="false"/>
         <!-- subrow -->
         <div class="spacer_t1"></div>
     </div>
+    <div class="spacer_t1"></div>
+    <div class="row">
+        <app:textAreaNG id="observaciones" label="eti.visortarea.tareaavisos.form.label.observaciones" value="tarea.observaciones" cell_label="2" cell_input="10"/>
+    </div>
     <div class="spacer_t2"></div>
+
     <script src="${pageContext.request.contextPath}/resources/app/component/notificationTask-ctrl.js"></script>
-    TAREA: {{tarea}}<br/>
-    PRUEBA1: {{prueba}}<br/>
-    SCRIPT_SET_PRUEBA2: <script>
-        $scope.variableToScope(prueba2, $callingList);
-    </script><br/>
-    PRUEBA2: {{prueba2}}<br/>
-    SCOPE_SET1_PRUEBA3: {{$scope.prueba3 = '${callingList}'}}<br/>
-    PRUEBA3: {{prueba3}}<br/>
-    SCOPE_SET2_PRUEBA4: {{$scope.variableToScope(prueba4, ${callingList})}}<br/>
-    PRUEBA4: {{prueba4}}<br/>
-    NG:{{prueba2}}<br/>
-    TAREA:{{tarea}}<br/>
+
 </div>
 <!-- ANGULARJS NOTIFICATION TASK CONTROLLER END -->
 

@@ -26,7 +26,15 @@ app.controller('maintenancetask-ctrl', function ($scope, $http) {
 
     $scope.getTarea = function () {
         console.log("Loading MaintenanceTask...")
-        $http({method: 'GET', url: 'visortarea/getTareaMantenimiento'}).
+        console.log("Params: "
+        + " ccUserId: " + $scope.ccUserId
+        + " callingList: " + $scope.callingList
+        + " taskId: " + $scope.tareaId);
+        $http({
+            method: 'GET',
+            url: 'visortarea/getTareaMantenimiento',
+            params: {ccUserId: $scope.ccUserId, callingList: $scope.callingList, tareaId: $scope.tareaId}
+        }).
             success(function (data, status, headers, config) {
                 $scope.tarea = data;
             }).
