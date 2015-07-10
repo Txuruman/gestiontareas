@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import javax.jms.*;
 import javax.naming.InitialContext;
 import java.util.Date;
@@ -29,33 +28,11 @@ public class JMSReader {
      */
     private static final Logger LOGGER = LoggerFactory.getLogger(JMSReader.class);
 
-        @Resource(name="aliasName")
-        private String aliasName;
+    private static final String QCF_NAME = "sd.prd.es1prdxacfout";
+    private static final String QUEUE_NAME = "sd.prd.es1allinoneout";
+    private static final String BUS = "es1preosbprd01v-vip";
+    private static final String PORT = "8011";
 
-        @Resource(name="bus")
-        private String bus;
-
-        @Resource(name="port")
-        private String port;
-
-        @Resource(name="qfcName")
-        private String qfcName;
-
-        @Resource(name="queueName")
-        private String queueName;
-
-        @Resource(name="user")
-        private String user;
-
-        @Resource(name="pass")
-        private String pass;
-
-    //servidor
-    //	t3://10.2.145.102:8011
-    //	connection factory
-    //	sd.reptef.reptefxacf
-    //	queue
-    //	sd.reptef.telef_convmng_01
 
 //    private static final String QCF_NAME = "sd.prd.es1prdxacfout";
 //    private static final String QUEUE_NAME = "sd.prd.es1allinoneout";
@@ -79,43 +56,43 @@ public class JMSReader {
     @PostConstruct
     public void connect() {
         assert gestionSenalesService != null;
-        aliasLog("INFO", "JMS Reader connecting...");//TODO Imprimir config
+        LOGGER.info("JMS Reader connecting..."); //TODO Imprimir config
 
         try {
             Hashtable<String, String> env = new Hashtable<String, String>();
             env.put(javax.naming.Context.INITIAL_CONTEXT_FACTORY, "weblogic.jndi.WLInitialContextFactory");
-            env.put(javax.naming.Context.PROVIDER_URL, "t3://" + bus + ":" + port);
-            if(true) { //TODO Username y password !=null !empty
-                env.put(javax.naming.Context.SECURITY_PRINCIPAL, user);
-                env.put(javax.naming.Context.SECURITY_CREDENTIALS, pass);
+            env.put(javax.naming.Context.PROVIDER_URL, "t3://" + BUS + ":" + PORT);
+            if (true) { //TODO Username y password !null !empty
+                env.put(javax.naming.Context.SECURITY_PRINCIPAL, "username1");
+                env.put(javax.naming.Context.SECURITY_CREDENTIALS, "password1");
             }
 
-            aliasLog("INFO","javax.naming.Context ctx = new InitialContext(env);");
+            LOGGER.info("javax.naming.Context ctx = new InitialContext(env);");
             javax.naming.Context ctx = new InitialContext(env);
 
-            aliasLog("INFO", "QueueConnectionFactory qcf = (QueueConnectionFactory) ctx.lookup(QCF_NAME);");
-            QueueConnectionFactory qcf = (QueueConnectionFactory) ctx.lookup(qfcName);
+            LOGGER.info("QueueConnectionFactory qcf = (QueueConnectionFactory) ctx.lookup(QCF_NAME);");
+            QueueConnectionFactory qcf = (QueueConnectionFactory) ctx.lookup(QCF_NAME);
 
-            aliasLog("INFO", "QueueConnection qc = qcf.createQueueConnection();");
+            LOGGER.info("QueueConnection qc = qcf.createQueueConnection();");
             QueueConnection qc = qcf.createQueueConnection();
 
-            aliasLog("INFO","QueueSession qsess = qc.createQueueSession(false, Session.CLIENT_ACKNOWLEDGE);");
+            LOGGER.info("QueueSession qsess = qc.createQueueSession(false, Session.CLIENT_ACKNOWLEDGE);");
             QueueSession qsess = qc.createQueueSession(false, Session.CLIENT_ACKNOWLEDGE);
 
-            aliasLog("INFO", "Destination dest = (Destination) ctx.lookup(QUEUE_NAME);");
-            Destination dest = (Destination) ctx.lookup(queueName);
+            LOGGER.info("Destination dest = (Destination) ctx.lookup(QUEUE_NAME);");
+            Destination dest = (Destination) ctx.lookup(QUEUE_NAME);
 
-            aliasLog("INFO", "MessageConsumer consumer = qsess.createConsumer(dest);");
+            LOGGER.info("MessageConsumer consumer = qsess.createConsumer(dest);");
             MessageConsumer consumer = qsess.createConsumer(dest);
 
             consumer.setMessageListener(new MessageListener() {
                 public void onMessage(javax.jms.Message message) {
-                    aliasLog("INFO", "onMessage {}", message.toString());
+                    LOGGER.info("onMessage" + message.toString());
                 }
             });
 
         } catch (Exception e) {
-            aliasLog("ERROR", e.getMessage(), e);
+            LOGGER.error(e.getMessage(), e);
             e.printStackTrace();
         }
 //        for (int i=0;i<10;i++) {
@@ -220,29 +197,5 @@ public class JMSReader {
 ////        consumer.setMessageListener(listener);
 //
 //    }
-
-    private void aliasLog(String level,String message, Object... var2){
-        String[] laneSplit = message.split("\n");
-        StringBuilder sb = new StringBuilder();
-        for (String lane : laneSplit) {
-            sb.append("[JMSR-").append(aliasName).append("]").append(lane).append("\n");
-        }
-        if(level==null){
-            LOGGER.debug(sb.toString(), var2);
-        }else if(level.isEmpty() || equals("")){
-            LOGGER.debug(sb.toString(), var2);
-        }
-        else if(level.equals("DEBUG")){
-            LOGGER.debug(sb.toString(), var2);
-        }else if(level.equals("INFO")){
-            LOGGER.info(sb.toString(), var2);
-        }else if(level.equals("WARN")){
-            LOGGER.warn(sb.toString(), var2);
-        }else if(level.equals("ERROR")){
-            LOGGER.error(sb.toString(), var2);
-        }else{
-            LOGGER.debug(sb.toString(), var2);
-        }
-    }
 
 }
