@@ -62,6 +62,10 @@ public class JMSReader {
             Hashtable<String, String> env = new Hashtable<String, String>();
             env.put(javax.naming.Context.INITIAL_CONTEXT_FACTORY, "weblogic.jndi.WLInitialContextFactory");
             env.put(javax.naming.Context.PROVIDER_URL, "t3://" + BUS + ":" + PORT);
+            if (true) { //TODO Username y password !null !empty
+                env.put(javax.naming.Context.SECURITY_PRINCIPAL, "username1");
+                env.put(javax.naming.Context.SECURITY_CREDENTIALS, "password1");
+            }
 
             LOGGER.info("javax.naming.Context ctx = new InitialContext(env);");
             javax.naming.Context ctx = new InitialContext(env);
