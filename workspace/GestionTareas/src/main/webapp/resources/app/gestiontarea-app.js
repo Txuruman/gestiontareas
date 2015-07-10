@@ -1,5 +1,6 @@
 var app = angular.module("myApp", []);
 
+
 app.filter('stringToDate', function () {
     return function (input) {
         console.log("input" + input);

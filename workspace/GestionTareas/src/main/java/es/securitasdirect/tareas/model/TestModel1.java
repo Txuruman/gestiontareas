@@ -1,6 +1,8 @@
 package es.securitasdirect.tareas.model;
 
-import org.codehaus.jackson.map.annotate.JsonSerialize;
+
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

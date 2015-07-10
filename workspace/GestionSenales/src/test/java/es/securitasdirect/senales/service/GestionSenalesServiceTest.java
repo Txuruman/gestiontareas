@@ -74,7 +74,7 @@ public class GestionSenalesServiceTest {
          discard = gestionSenalesService.isExpired(m);
         assertThat(discard, is(false));
 
-        m.setEntryDate(new Date(System.currentTimeMillis() - 1*DAY));
+        m.setEntryDate(new Date(System.currentTimeMillis() - 1 * DAY));
         discard = gestionSenalesService.isExpired(m);
         assertThat(discard, is(false));
 
@@ -83,9 +83,14 @@ public class GestionSenalesServiceTest {
         discard = gestionSenalesService.isExpired(m);
         assertThat(discard, is(false));
 
-        m.setEntryDate(new Date(System.currentTimeMillis() - 5*DAY));
+        m.setEntryDate(new Date(System.currentTimeMillis() - 5 * DAY));
         discard = gestionSenalesService.isExpired(m);
         assertThat(discard, is(true));
+    }
+
+    @Test
+    public void testLogFormat() {
+        LOGGER.info("hola");
     }
 
 }

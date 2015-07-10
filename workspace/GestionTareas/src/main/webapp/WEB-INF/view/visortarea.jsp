@@ -16,6 +16,7 @@
 
 <body>
 <!-- Angular JS Scripts -->
+<script src="${pageContext.request.contextPath}/resources/app/common.js"></script>
 <script src="${pageContext.request.contextPath}/resources/app/gestiontarea-app.js"></script>
 <script src="${pageContext.request.contextPath}/resources/app/maincontrollers/taskViewer-ctrl.js"></script>
 

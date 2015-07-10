@@ -1,11 +1,11 @@
 package es.securitasdirect.tareas.web.controller;
 
-import org.codehaus.jackson.map.annotate.JsonSerialize;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
-@XmlRootElement
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class PersonData {
 	

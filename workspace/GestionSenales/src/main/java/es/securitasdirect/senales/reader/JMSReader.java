@@ -19,6 +19,13 @@ import java.util.Hashtable;
  */
 public class JMSReader {
 
+    /*
+    POZUELO
+        Cola principal
+        BUS:                       es1preosbprd01v-vip          PORT  8011
+        Endpoint:               sd.prd.es1allinoneout
+        Factoria:                 sd.prd.es1prdxacfout
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(JMSReader.class);
 
     private static final String QCF_NAME = "sd.prd.es1prdxacfout";

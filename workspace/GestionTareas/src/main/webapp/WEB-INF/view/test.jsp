@@ -9,12 +9,17 @@
     <title><spring:message code="titulo.BuscarTarea"/></title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/custom.css"/>
+
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/bower_components/angular-messages/angular-messages.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/app/common.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/app/gestiontarea-app.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/app/maincontrollers/taskViewer-ctrl.js"></script>
 
     <script type="text/javascript">
 
-        var app = angular.module('myApp', []);
-        app.controller('MyController', function ($scope, $http) {
+        var app = angular.module('myApp', ['common']);
+        app.controller('MyController', function ($scope, $http, $parse) {
 
             $scope.getPersonDataFromServer = function () {
 
@@ -29,7 +34,6 @@
             };
 
             $scope.getDesplegableKey1 = function () {
-
                 $http({method: 'GET', url: 'visortarea/getDesplegableKey1'}).
                         success(function (data, status, headers, config) {
                             $scope.key1 = data;
@@ -41,6 +45,37 @@
             };
 
 
+            var pretendThisIsOnTheServerAndCalledViaAjax = function(){
+                var fieldState = {firstName: 'VALID', lastName: 'VALID'};
+                var allowedNames = ['Bob', 'Jill', 'Murray', 'Sally'];
+
+                if (allowedNames.indexOf($scope.firstName) == -1) fieldState.firstName = 'Allowed values are: ' + allowedNames.join(',');
+                if ($scope.lastName == $scope.firstName) fieldState.lastName = 'Your last name must be different from your first name';
+
+                return fieldState;
+            };
+
+
+
+            var realCallAjax = function() {
+                $http({method: 'GET', url: 'test/message'}).
+                        success(function (data, status, headers, config) {
+                            processBaseResponse(data,status,headers,config);
+                        }).
+                        error(function (data, status, headers, config) {
+                            processBaseResponse(data,status,headers,config);
+                        });
+            };
+
+
+
+            $scope.submit = function(){
+                var serverResponse = pretendThisIsOnTheServerAndCalledViaAjax();
+                var realAjax = realCallAjax();
+                console.log("result:" + realAjax);
+
+            };
+
         }); //End contoller
 
     </script>
@@ -50,7 +85,15 @@
 
 
 <body data-ng-controller="MyController">
-<h3>Spring MVC AngularJS JSON Drop Down sample JNA aaa </h3>
+Real : {{serverMessages}}
+
+
+<app:messages/>
+
+
+
+
+<h3>Spring MVC AngularJS JSON Drop Down sample JNA </h3>
 
 <table style="margin: 0px auto;" align="left">
     <tr>
@@ -67,13 +110,31 @@
 <br/>
 getDesplegableKey1:{{key1}}
 <br/>
+
 <div data-ng-init="getDesplegableKey1()">
-    <select  ng-model="key1value"><!-- ng-model="model.id" convert-to-number -->
+    <select ng-model="key1value"><!-- ng-model="model.id" convert-to-number -->
         <option data-ng-repeat="k in key1" value="{{k.id}}">{{k.value}}</option>
     </select>
 </div>
 <br/>
 value:{{key1value}}
+<br/>
+<br/>
+<br/>
+
+<form name="myForm" onsubmit="return false;">
+
+    <div>
+        <input type="text" placeholder="First name" name="firstName" ng-model="firstName" required="true"/>
+        <span ng-show="myForm.firstName.$dirty && myForm.firstName.$error.required">You must enter a value here</span>
+        <span ng-show="myForm.firstName.$error.serverMessage">{{myForm.firstName.$error.serverMessage}}</span>
+    </div>
+    <div>
+        <input type="text" placeholder="Last name" name="lastName" ng-model="lastName"/>
+        <span ng-show="myForm.lastName.$error.serverMessage">{{myForm.lastName.$error.serverMessage}}</span>
+    </div>
+    <button ng-click="submit()">Submit</button>
+</form>
 
 </body>
 

@@ -221,7 +221,12 @@ public class GestionSenalesService {
 
     /**
      * Process the message OUT of Working Hours.
-     * Si la señal ha llegado fuera del horario de atención establecido, se enviará un SMS al cliente, en el idioma correspondiente, y se cancelará la incidencia.
+     *
+     * Si la hora actual está fuera del rango horario establecido (de 9 a 21 horas), se enviará un SMS al cliente, con el texto en el idioma adecuado, invocando un web service.
+     * A continuación debe cancelar la incidencia en IBS, invocando un web service.
+     * El texto del SMS es el siguiente:
+     *          	Español: “Securitas Direct le informa que para darles asistencia en el cambio de pilas, deberan pulsar el boton de 9 a 21 h, de L a S, lo activamos de nuevo. Gracias.”
+     *          	Resto de idiomas: “Securitas Direct informs, to change the batteries, you must press the envelope bottom from 9 to 21, Mon thru Sat, We´ll activate the bottom again. Thank you.”
      *
      * @param message
      */
@@ -265,6 +270,8 @@ public class GestionSenalesService {
                 text,
                 account,
                 country);
+
+        //A continuación debe cancelar la incidencia en IBS, invocando un web service.
     }
 
     /**
