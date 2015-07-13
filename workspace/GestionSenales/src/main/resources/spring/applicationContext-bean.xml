@@ -23,29 +23,44 @@
     -->
 
     <!-- Configuration of the different JMSReader over different queues -->
-    <bean id="jmsReaderPozuelo" class="es.securitasdirect.senales.reader.JMSReader" lazy-init="false">
-        <property name="aliasName" value="jmsReaderPozuelo" />
-        <property name="qfcName" value="sd.prd.es1prdxacfout" />
-        <property name="queueName" value="sd.prd.es1allinoneout" />
-        <property name="bus" value="es1preosbprd01v-vip" />
-        <property name="port" value="8011" />
-        <property name="user" value="username1" />
-        <property name="pass" value="password1" />
-    </bean>
-    <bean id="jmsReporting" class="es.securitasdirect.senales.reader.JMSReader" lazy-init="false">
-        <property name="aliasName" value="jmsReaderReporting" />
-        <property name="qfcName" value="sd.reptef.reptefxacf" />
-        <property name="queueName" value="sd.prd.es1allinoneout" />
-        <property name="bus" value="es1preosbprd01v-vip" />
-        <property name="port" value="8011" />
-        <property name="user" value="username2"/>
-        <property name="pass" value="password2"/>
-    </bean>
-    <bean id="jmsReaderYecora" class="es.securitasdirect.senales.reader.JMSReader" lazy-init="false">
 
-    </bean>
-    <bean id="jmsReaderErrores" class="es.securitasdirect.senales.reader.JMSReader" lazy-init="false">
+    <util:map id="jmsReaderList" map-class="java.util.HashMap" key-type="java.lang.String" value-type="es.securitasdirect.senales.model.JMSConnectionData">
+        <entry key="jmsReaderPozuelo">
+            <bean class="es.securitasdirect.senales.reader.JMSConnectionData" lazy-init="false">
+                <property name="aliasName" value="jmsReaderPozuelo" />
+                <property name="qfcName" value="sd.prd.es1prdxacfout" />
+                <property name="queueName" value="sd.prd.es1allinoneout" />
+                <property name="bus" value="es1preosbprd01v-vip" />
+                <property name="port" value="8011" />
+                <property name="user" value="username1" />
+                <property name="pass" value="password1" />
+            </bean>
+        </entry>
+        <entry key="jmsReporring">
+            <bean class="es.securitasdirect.senales.reader.JMSConnectionData" lazy-init="false">
+                <property name="aliasName" value="jmsReaderReporting" />
+                <property name="qfcName" value="sd.reptef.reptefxacf" />
+                <property name="queueName" value="sd.prd.es1allinoneout" />
+                <property name="bus" value="es1preosbprd01v-vip" />
+                <property name="port" value="8011" />
+                <property name="user" value="username2"/>
+                <property name="pass" value="password2"/>
+            </bean>
+        </entry>
+        <entry key="jmsReaderYecora">
+            <bean class="es.securitasdirect.senales.reader.JMSConnectionData" lazy-init="false">
 
+            </bean>
+        </entry>
+        <entry key="jsmReaderErrores">
+            <bean class="es.securitasdirect.senales.reader.JMSConnectionData" lazy-init="false">
+
+            </bean>
+        </entry>
+    </util:map>
+
+    <bean id="connectionDataKey" class="java.lang.String">
+        <constructor-arg value="jmsReaderPozuelo"/>
     </bean>
 
     <!-- Configuration of the File Reader and Writer of for the error messages -->

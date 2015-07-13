@@ -1,5 +1,6 @@
 package es.securitasdirect.senales.reader;
 
+import es.securitasdirect.senales.model.JMSConnectionData;
 import es.securitasdirect.senales.model.Message;
 import es.securitasdirect.senales.service.GestionSenalesService;
 import org.slf4j.Logger;
@@ -11,6 +12,7 @@ import javax.annotation.Resource;
 import javax.jms.*;
 import javax.naming.InitialContext;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Hashtable;
 
 /**
@@ -29,26 +31,11 @@ public class JMSReader {
      */
     private static final Logger LOGGER = LoggerFactory.getLogger(JMSReader.class);
 
-    @Resource(name="aliasName")
-    private String aliasName;
+    @Resource(name="connectionDataList")
+    private HashMap<String, JMSConnectionData> connectionDataMap;
 
-    @Resource(name="bus")
-    private String bus;
-
-    @Resource(name="port")
-    private String port;
-
-    @Resource(name="qfcName")
-    private String qfcName;
-
-    @Resource(name="queueName")
-    private String queueName;
-
-    @Resource(name="user")
-    private String user;
-
-    @Resource(name="pass")
-    private String pass;
+    @Resource(name="connectionDataKey")
+    private String connectionDataKey;
 
     //servidor
     //	t3://10.2.145.102:8011
@@ -84,17 +71,18 @@ public class JMSReader {
         try {
             Hashtable<String, String> env = new Hashtable<String, String>();
             env.put(javax.naming.Context.INITIAL_CONTEXT_FACTORY, "weblogic.jndi.WLInitialContextFactory");
-            env.put(javax.naming.Context.PROVIDER_URL, "t3://" + bus + ":" + port);
+            env.put(javax.naming.Context.PROVIDER_URL, "t3://" + connectionDataMap.get(connectionDataKey).getBus()
+                    + ":" + connectionDataMap.get(connectionDataKey).getPort());
             if(true) { //TODO Username y password !=null !empty
-                env.put(javax.naming.Context.SECURITY_PRINCIPAL, user);
-                env.put(javax.naming.Context.SECURITY_CREDENTIALS, pass);
+                env.put(javax.naming.Context.SECURITY_PRINCIPAL, connectionDataMap.get(connectionDataKey).getUser());
+                env.put(javax.naming.Context.SECURITY_CREDENTIALS, connectionDataMap.get(connectionDataKey).getPass());
             }
 
             aliasLog("INFO","javax.naming.Context ctx = new InitialContext(env);");
             javax.naming.Context ctx = new InitialContext(env);
 
             aliasLog("INFO", "QueueConnectionFactory qcf = (QueueConnectionFactory) ctx.lookup(QCF_NAME);");
-            QueueConnectionFactory qcf = (QueueConnectionFactory) ctx.lookup(qfcName);
+            QueueConnectionFactory qcf = (QueueConnectionFactory) ctx.lookup(connectionDataMap.get(connectionDataKey).getQfcName());
 
             aliasLog("INFO", "QueueConnection qc = qcf.createQueueConnection();");
             QueueConnection qc = qcf.createQueueConnection();
@@ -103,7 +91,7 @@ public class JMSReader {
             QueueSession qsess = qc.createQueueSession(false, Session.CLIENT_ACKNOWLEDGE);
 
             aliasLog("INFO", "Destination dest = (Destination) ctx.lookup(QUEUE_NAME);");
-            Destination dest = (Destination) ctx.lookup(queueName);
+            Destination dest = (Destination) ctx.lookup(connectionDataMap.get(connectionDataKey).getQueueName());
 
             aliasLog("INFO", "MessageConsumer consumer = qsess.createConsumer(dest);");
             MessageConsumer consumer = qsess.createConsumer(dest);
@@ -225,7 +213,7 @@ public class JMSReader {
         String[] laneSplit = message.split("\n");
         StringBuilder sb = new StringBuilder();
         for (String lane : laneSplit) {
-            sb.append("[JMSR-").append(aliasName).append("]").append(lane).append("\n");
+            sb.append("[JMSR-").append(connectionDataMap.get(connectionDataKey).getAliasName()).append("]").append(lane).append("\n");
         }
         if(level==null){
             LOGGER.debug(sb.toString(), var2);
