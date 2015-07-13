@@ -54,7 +54,7 @@ public class SearchTareaController {
         if(listaTareas!=null && !listaTareas.isEmpty()){
             LOGGER.info("Success search of task");
             searchTareaResponse.setTaskList(listaTareas);
-            searchTareaResponse.success(messageUtil.getProperty("searchTarea.success"));
+            searchTareaResponse.success(messageUtil.getProperty("searchTarea.success","4"));
         }else {
             LOGGER.warn("Tarea search not found result");
             searchTareaResponse.success(messageUtil.getProperty("searchTarea.notFound"));
