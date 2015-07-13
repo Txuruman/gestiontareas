@@ -51,7 +51,7 @@ public class QueryTareaService {
         //
         String ccIdentifier         = "ATC_SPN";
         String country              = "SPAIN";
-        String filter              = "chain_id=" + id;
+        String filter               = "chain_id=" + id;
 
         LOGGER.debug("Calling to service CallingList with values: ccIdentifier: {} applicationUser: {} ccUserId: {} filter: {} callingList: {} country: {}", ccIdentifier, applicationUser, ccUserId, filter, callingList, country);
 
