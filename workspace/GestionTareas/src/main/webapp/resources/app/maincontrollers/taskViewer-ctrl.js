@@ -41,13 +41,13 @@ app.controller('taskviewer-ctrl', function ($scope, $http, CommonService) {
         $http({method: 'GET', url: 'test/message'}).
             success(function (data, status, headers, config) {
                 $scope.allData=data;
-               // $scope.serverMessages=data.messages;
+               //$scope.serverMessages=data.messages;
                 CommonService.processBaseResponse(data, status, headers, config);
             }).
             error(function (data, status, headers, config) {
                 $scope.allData=data;
-               // $scope.serverMessages=data.messages;
-                CommonService.processBaseResponse(data, status, headers, config);
+                // $scope.serverMessages=data.messages;
+                  CommonService.processBaseResponse(data, status, headers, config);
             });
     };
 

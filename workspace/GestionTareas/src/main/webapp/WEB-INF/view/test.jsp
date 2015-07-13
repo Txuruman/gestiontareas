@@ -82,9 +82,12 @@
     <h2>Pagina de pruebas</h2>
 
     Total Data : {{allData}}<br/>
-    Server Messages : {{$scope.serverMessages}}<br/>
+    Server Messages : {{serverMessages}}<br/>
+    SmisMensajes : {{misMensajes}}<br/>
     CommonService Messages : {{$CommonService.serverMessages}}<br/>
-    App messages:
+    Root Messages : {{$rootScope.serverMessages}}<br/>
+
+
     <app:messages/>
 
     <app:inputButtonNG value="boton.Finalizar" button_type="primary" ng_click="getMessages()" fluid_wrapper="true"/>

@@ -1,7 +1,7 @@
 var app = angular.module("myApp", []);
 
 //create a service which defines a method square to return square of a number.
-app.service('CommonService', function(){
+app.service('CommonService', function($rootScope){
     this.square = function(a) {
         console.log("Multiplicando");
         return a * a;
@@ -12,14 +12,13 @@ app.service('CommonService', function(){
         return a + a;
     };
 
-    console.log("inicializando mensajes");
-
-    serverMessages = [{"level":"danger","forElement":null,"value":"static 1"},{"level":"danger","forElement":null,"value":"static 2 "},{"level":"info","forElement":null,"value":"static 3"}];
+    //Variable global para mostrar mensajes
+    $rootScope.serverMessages = [];
 
     /** Funcion para processar las respuestas del servidor, eg: processBaseResponse(data,status,headers,config);  */
     this.processBaseResponse = function(data, status, headers, config) {
         console.log("Procesando BaseResponse....");
-        serverMessages = data.messages;
+        $rootScope.serverMessages = data.messages;
         //TODO Si messages esta indefinido limpiar serverMessagesç
         console.log("Fin Procesando BaseResponse....");
     };
