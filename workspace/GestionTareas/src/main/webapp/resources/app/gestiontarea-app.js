@@ -19,7 +19,7 @@ app.service('CommonService', function($rootScope){
     this.processBaseResponse = function(data, status, headers, config) {
         console.log("Procesando BaseResponse....");
         $rootScope.serverMessages = data.messages;
-        //TODO Si messages esta indefinido limpiar serverMessagesç
+        // TODO if($rootScope.serverMessages == )
         console.log("Fin Procesando BaseResponse....");
     };
 

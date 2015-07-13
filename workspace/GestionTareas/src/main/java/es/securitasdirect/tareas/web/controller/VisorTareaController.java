@@ -428,16 +428,6 @@ public class VisorTareaController {
         return tareaLimpiezaCuota;
     }
 
-
-    @RequestMapping(value = "/getInstallationData", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public
-    @ResponseBody InstallationData getInstallationData(@RequestParam(value = "installationId", required = true) String installationId) throws DataServiceFault {
-        LOGGER.debug("Get Installation data for installationId: {}", installationId);
-        InstallationData  installationData = installationService.getInstallationData(installationId);
-        LOGGER.debug("Installation Data: {}", installationData);
-        return installationData;
-    }
-
     @RequestMapping(value = "/listassitanttask/getListAssistantTask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody

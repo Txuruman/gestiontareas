@@ -78,33 +78,45 @@ public class BaseResponse {
     }
 
     public BaseResponse info(String value) {
-        messages.add(new Message(Message.INFO,value));
+        if(value!=null && !value.isEmpty()) {
+            messages.add(new Message(Message.INFO, value));
+        }
         return this;
     }
 
     public BaseResponse warning(String value) {
-        messages.add(new Message(Message.WARNING,value));
+        if(value!=null && !value.isEmpty()){
+            messages.add(new Message(Message.WARNING,value));
+        }
         return this;
     }
 
     public BaseResponse success(String value) {
-        messages.add(new Message(Message.SUCCSESS,value));
+        if(value!=null && !value.isEmpty()){
+            messages.add(new Message(Message.SUCCSESS,value));
+        }
         return this;
     }
 
     public BaseResponse primary(String value) {
-        messages.add(new Message(Message.PRIMARY,value));
+        if(value!=null && !value.isEmpty()){
+            messages.add(new Message(Message.PRIMARY,value));
+        }
         return this;
     }
 
     public BaseResponse danger(String value) {
-        messages.add(new Message(Message.DANGER,value));
+        if(value!=null && !value.isEmpty()){
+            messages.add(new Message(Message.DANGER,value));
+        }
         return this;
     }
 
 
     public BaseResponse addMessage(String level, String value) {
-        messages.add(new Message(level, value));
+        if(value!=null && !value.isEmpty()){
+            messages.add(new Message(level, value));
+        }
         return this;
     }
 

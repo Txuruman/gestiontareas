@@ -12,8 +12,13 @@
 </head>
 <body>
 
-	<div class="container">
-		<div class="row">
+<!-- Angular JS Scripts -->
+<script src="${pageContext.request.contextPath}/resources/app/gestiontarea-app.js"></script>
+<script src="${pageContext.request.contextPath}/resources/app/maincontrollers/taskCreation-ctrl.js"></script>
+
+	<div class="container" ng-controller="taskCreation">
+        <app:messages/>
+        <div class="row">
 			<jsp:include page="bloques/tabs1.jsp" />
 		</div>
 		<div class="spacer_t2"></div>
@@ -82,8 +87,7 @@
                 </div>
             </div>
 		</form>
-
-	</div>
+	</div> <!-- ANGULARJS DIV END -->
 	<!-- Container -->
 
 </body>

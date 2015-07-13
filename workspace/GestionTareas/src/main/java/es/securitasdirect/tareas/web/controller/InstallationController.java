@@ -4,6 +4,8 @@ import es.securitasdirect.tareas.model.InstallationData;
 import es.securitasdirect.tareas.model.Tarea;
 import es.securitasdirect.tareas.service.InstallationService;
 import es.securitasdirect.tareas.service.SearchTareaService;
+import es.securitasdirect.tareas.web.controller.dto.InstallationDataResponse;
+import es.securitasdirect.tareas.web.controller.util.MessageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -27,15 +29,23 @@ public class InstallationController {
 
     @Inject
     private InstallationService installationService;
+    @Inject
+    protected MessageUtil messageUtil;
 
 
     @RequestMapping(value = "/query", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    InstallationData query(@RequestParam(value = "installationNumber", required = false) String installationNumber) throws Exception {
-        LOGGER.debug("Searching Installation text:{} ", installationNumber);
-        InstallationData installationData = installationService.getInstallationData(installationNumber);
-        return  installationData;
-
+    InstallationDataResponse query(@RequestParam(value = "installationId", required = true) String installationId) throws Exception {
+        LOGGER.debug("Get Installation data for installationId: {}", installationId);
+        InstallationData installationData = installationService.getInstallationData(installationId);
+        InstallationDataResponse installationDataResponse = new InstallationDataResponse();
+        if(installationData!=null){
+            installationDataResponse.setInstallationData(installationData);
+            installationDataResponse.success(messageUtil.getProperty("installationData.success"));
+        }else{
+            installationDataResponse.danger(messageUtil.getProperty("installationData.notFound"));
+        }
+        return  installationDataResponse;
     }
 }

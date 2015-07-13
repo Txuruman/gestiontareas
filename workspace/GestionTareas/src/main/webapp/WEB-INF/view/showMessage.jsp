@@ -13,8 +13,12 @@
 </head>
 <body>
 
-<div class="container">
+<!-- Angular JS Scripts -->
+<script src="${pageContext.request.contextPath}/resources/app/gestiontarea-app.js"></script>
+<script src="${pageContext.request.contextPath}/resources/app/maincontrollers/showMessage-ctrl.js"></script>
 
+<div class="container" ng-controller="showMessage">
+    <app:messages/>
     <div class="row">
 
         <div class="col-lg-12 center">
@@ -110,7 +114,7 @@
 
 
     </form>
-</div>
+</div><!-- ANGULARSJ CONTROLLER DIV END -->
 <!-- Container -->
 
 </body>

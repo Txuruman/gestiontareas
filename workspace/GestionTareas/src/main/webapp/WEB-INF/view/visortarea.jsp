@@ -27,7 +27,7 @@
 
 
 <div class="container" ng-controller="taskviewer-ctrl" ng-init="tareaId='${tareaId}';installationId='${installationId}';callingList='${callingList}';ccUserId='${ccUserId}';getInstallationData(installationId)">
-
+    <app:messages />
     <div class="row bordel">
         <h3> DEBUG DIV </h3>
         <app:wrapping cells="6">
@@ -148,8 +148,8 @@
         <!-- row -->
 
     </form>
-</div>
-<!-- END ANGULARJS CONTROLLER DIV-->
+</div><!-- END ANGULARJS CONTROLLER DIV-->
+S
 <!-- Scripts de angularjs -->
 
 </body>
