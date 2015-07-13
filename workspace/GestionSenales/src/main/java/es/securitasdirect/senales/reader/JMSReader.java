@@ -1,7 +1,5 @@
 package es.securitasdirect.senales.reader;
 
-import es.securitasdirect.senales.model.JMSConnectionData;
-import es.securitasdirect.senales.model.Message;
 import es.securitasdirect.senales.service.GestionSenalesService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,26 +28,6 @@ public class JMSReader {
         Factoria:                 sd.prd.es1prdxacfout
      */
     private static final Logger LOGGER = LoggerFactory.getLogger(JMSReader.class);
-
-    //servidor
-    //	t3://10.2.145.102:8011
-    //	connection factory
-    //	sd.reptef.reptefxacf
-    //	queue
-    //	sd.reptef.telef_convmng_01
-
-//    private static final String QCF_NAME = "sd.prd.es1prdxacfout";
-//    private static final String QUEUE_NAME = "sd.prd.es1allinoneout";
-//
-//    // Set up all the default values
-//    private static final String DEFAULT_MESSAGE = "Hello, World!";
-//    private static final String DEFAULT_CONNECTION_FACTORY = "reader/RemoteConnectionFactory";
-//    private static final String DEFAULT_DESTINATION = "reader/queue/test";
-//    private static final String DEFAULT_MESSAGE_COUNT = "1";
-//    private static final String DEFAULT_USERNAME = "admin";
-//    private static final String DEFAULT_PASSWORD = "admin!";
-//    private static final String INITIAL_CONTEXT_FACTORY = "org.jboss.naming.remote.client.InitialContextFactory";
-//    private static final String PROVIDER_URL = "remote://localhost:4447";
 
     private String aliasName;
 

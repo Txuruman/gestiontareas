@@ -14,7 +14,7 @@ app.service('CommonService', function(){
 
     console.log("inicializando mensajes");
 
-    var serverMessages = [{"level":"danger","forElement":null,"value":"static 1"},{"level":"danger","forElement":null,"value":"static 2 "},{"level":"info","forElement":null,"value":"static 3"}];
+    serverMessages = [{"level":"danger","forElement":null,"value":"static 1"},{"level":"danger","forElement":null,"value":"static 2 "},{"level":"info","forElement":null,"value":"static 3"}];
 
     /** Funcion para processar las respuestas del servidor, eg: processBaseResponse(data,status,headers,config);  */
     this.processBaseResponse = function(data, status, headers, config) {

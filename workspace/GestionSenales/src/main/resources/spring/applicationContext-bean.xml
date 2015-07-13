@@ -23,7 +23,6 @@
     -->
 
     <!-- Configuration of the different JMSReader over different queues -->
-
     <bean id="jmsReaderPozuelo" class="es.securitasdirect.senales.reader.JMSReader" lazy-init="false">
         <property name="aliasName" value="jmsReaderPozuelo" />
         <property name="qfcName" value="sd.prd.es1prdxacfout" />
@@ -33,7 +32,8 @@
         <property name="user" value="username1" />
         <property name="pass" value="password1" />
     </bean>
-    <bean id="jmsReporting" class="es.securitasdirect.senales.reader.JMSReader" lazy-init="false">
+
+    <bean id="jmsReaderYecora" class="es.securitasdirect.senales.reader.JMSReader" lazy-init="false">
         <property name="aliasName" value="jmsReaderReporting" />
         <property name="qfcName" value="sd.reptef.reptefxacf" />
         <property name="queueName" value="sd.prd.es1allinoneout" />
@@ -41,9 +41,6 @@
         <property name="port" value="8011" />
         <property name="user" value="username2"/>
         <property name="pass" value="password2"/>
-    </bean>
-    <bean id="jmsReaderYecora" class="es.securitasdirect.senales.reader.JMSReader" lazy-init="false">
-
     </bean>
     <bean id="jsmReaderErrores" class="es.securitasdirect.senales.reader.JMSReader" lazy-init="false">
 
