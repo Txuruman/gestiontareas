@@ -31,12 +31,6 @@ public class JMSReader {
      */
     private static final Logger LOGGER = LoggerFactory.getLogger(JMSReader.class);
 
-    @Resource(name="connectionDataList")
-    private HashMap<String, JMSConnectionData> connectionDataMap;
-
-    @Resource(name="connectionDataKey")
-    private String connectionDataKey;
-
     //servidor
     //	t3://10.2.145.102:8011
     //	connection factory
@@ -57,6 +51,20 @@ public class JMSReader {
 //    private static final String INITIAL_CONTEXT_FACTORY = "org.jboss.naming.remote.client.InitialContextFactory";
 //    private static final String PROVIDER_URL = "remote://localhost:4447";
 
+    private String aliasName;
+
+    private String bus;
+
+    private String port;
+
+    private String qfcName;
+
+    private String queueName;
+
+    private String user;
+
+    private String pass;
+
     @Autowired
     protected GestionSenalesService gestionSenalesService;
 
@@ -66,44 +74,44 @@ public class JMSReader {
     @PostConstruct
     public void connect() {
         assert gestionSenalesService != null;
-        aliasLog("INFO", "JMS Reader connecting...");//TODO Imprimir config
-
+        LOGGER.info("{} JMS Reader connecting:\n\t - Alias name: {}\n\t - Bus: {}\n\t - Port: {}\n\t - QFC Name: {}\n\t - Queue name: {}\n\t - User: {}\n\t - Password: {}", aliasName, bus, port, qfcName, queueName,user, pass);
         try {
             Hashtable<String, String> env = new Hashtable<String, String>();
             env.put(javax.naming.Context.INITIAL_CONTEXT_FACTORY, "weblogic.jndi.WLInitialContextFactory");
-            env.put(javax.naming.Context.PROVIDER_URL, "t3://" + connectionDataMap.get(connectionDataKey).getBus()
-                    + ":" + connectionDataMap.get(connectionDataKey).getPort());
-            if(true) { //TODO Username y password !=null !empty
-                env.put(javax.naming.Context.SECURITY_PRINCIPAL, connectionDataMap.get(connectionDataKey).getUser());
-                env.put(javax.naming.Context.SECURITY_CREDENTIALS, connectionDataMap.get(connectionDataKey).getPass());
+            env.put(javax.naming.Context.PROVIDER_URL, "t3://" + bus + ":" + port);
+            if(user!=null && !user.isEmpty() && pass!=null && !pass.isEmpty()) {
+                env.put(javax.naming.Context.SECURITY_PRINCIPAL, user);
+                env.put(javax.naming.Context.SECURITY_CREDENTIALS, pass);
+            }else{
+                LOGGER.info("JMS Reader configured with no user and password");
             }
 
-            aliasLog("INFO","javax.naming.Context ctx = new InitialContext(env);");
+            LOGGER.info("{} Getting initial Context", aliasName);
             javax.naming.Context ctx = new InitialContext(env);
 
-            aliasLog("INFO", "QueueConnectionFactory qcf = (QueueConnectionFactory) ctx.lookup(QCF_NAME);");
-            QueueConnectionFactory qcf = (QueueConnectionFactory) ctx.lookup(connectionDataMap.get(connectionDataKey).getQfcName());
+            LOGGER.info("{} QueueConnectionFactory qcf = (QueueConnectionFactory) ctx.lookup(QCF_NAME);", aliasName);
+            QueueConnectionFactory qcf = (QueueConnectionFactory) ctx.lookup(qfcName);
 
-            aliasLog("INFO", "QueueConnection qc = qcf.createQueueConnection();");
+            LOGGER.info("{} QueueConnection qc = qcf.createQueueConnection();", aliasName);
             QueueConnection qc = qcf.createQueueConnection();
 
-            aliasLog("INFO","QueueSession qsess = qc.createQueueSession(false, Session.CLIENT_ACKNOWLEDGE);");
+            LOGGER.info("{} QueueSession qsess = qc.createQueueSession(false, Session.CLIENT_ACKNOWLEDGE);", aliasName);
             QueueSession qsess = qc.createQueueSession(false, Session.CLIENT_ACKNOWLEDGE);
 
-            aliasLog("INFO", "Destination dest = (Destination) ctx.lookup(QUEUE_NAME);");
-            Destination dest = (Destination) ctx.lookup(connectionDataMap.get(connectionDataKey).getQueueName());
+            LOGGER.info("{} Destination dest = (Destination) ctx.lookup(QUEUE_NAME);", aliasName);
+            Destination dest = (Destination) ctx.lookup(queueName);
 
-            aliasLog("INFO", "MessageConsumer consumer = qsess.createConsumer(dest);");
+            LOGGER.info("{} MessageConsumer consumer = qsess.createConsumer(dest);", aliasName);
             MessageConsumer consumer = qsess.createConsumer(dest);
 
             consumer.setMessageListener(new MessageListener() {
                 public void onMessage(javax.jms.Message message) {
-                    aliasLog("INFO", "onMessage {}", message.toString());
+                    LOGGER.info("{} onMessage {}", aliasName, message.toString());
                 }
             });
 
         } catch (Exception e) {
-            aliasLog("ERROR", e.getMessage(), e);
+            LOGGER.error("{} {}", aliasName, e.getMessage());
             e.printStackTrace();
         }
 //        for (int i=0;i<10;i++) {
@@ -209,28 +217,59 @@ public class JMSReader {
 //
 //    }
 
-    private void aliasLog(String level,String message, Object... var2){
-        String[] laneSplit = message.split("\n");
-        StringBuilder sb = new StringBuilder();
-        for (String lane : laneSplit) {
-            sb.append("[JMSR-").append(connectionDataMap.get(connectionDataKey).getAliasName()).append("]").append(lane).append("\n");
-        }
-        if(level==null){
-            LOGGER.debug(sb.toString(), var2);
-        }else if(level.isEmpty() || equals("")){
-            LOGGER.debug(sb.toString(), var2);
-        }
-        else if(level.equals("DEBUG")){
-            LOGGER.debug(sb.toString(), var2);
-        }else if(level.equals("INFO")){
-            LOGGER.info(sb.toString(), var2);
-        }else if(level.equals("WARN")){
-            LOGGER.warn(sb.toString(), var2);
-        }else if(level.equals("ERROR")){
-            LOGGER.error(sb.toString(), var2);
-        }else{
-            LOGGER.debug(sb.toString(), var2);
-        }
+    public String getAliasName() {
+        return aliasName;
     }
 
+    public void setAliasName(String aliasName) {
+        this.aliasName = aliasName;
+    }
+
+    public String getBus() {
+        return bus;
+    }
+
+    public void setBus(String bus) {
+        this.bus = bus;
+    }
+
+    public String getPort() {
+        return port;
+    }
+
+    public void setPort(String port) {
+        this.port = port;
+    }
+
+    public String getQfcName() {
+        return qfcName;
+    }
+
+    public void setQfcName(String qfcName) {
+        this.qfcName = qfcName;
+    }
+
+    public String getQueueName() {
+        return queueName;
+    }
+
+    public void setQueueName(String queueName) {
+        this.queueName = queueName;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getPass() {
+        return pass;
+    }
+
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
 }
