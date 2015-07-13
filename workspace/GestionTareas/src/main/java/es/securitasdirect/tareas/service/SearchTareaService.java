@@ -37,6 +37,7 @@ public class SearchTareaService {
 
 
     private List<Tarea> createDummy() {
+        LOGGER.warn("Creating dummy Tarea list");
         List<Tarea> tareas = new ArrayList<Tarea>();
         Tarea ejemploAviso = new TareaAviso();
         ejemploAviso.setEstado("estado1");

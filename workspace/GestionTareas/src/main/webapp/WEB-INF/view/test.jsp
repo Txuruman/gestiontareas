@@ -84,8 +84,7 @@
     Total Data : {{allData}}<br/>
     Server Messages : {{$scope.serverMessages}}<br/>
     CommonService Messages : {{$CommonService.serverMessages}}<br/>
-
-
+    App messages:
     <app:messages/>
 
     <app:inputButtonNG value="boton.Finalizar" button_type="primary" ng_click="getMessages()" fluid_wrapper="true"/>

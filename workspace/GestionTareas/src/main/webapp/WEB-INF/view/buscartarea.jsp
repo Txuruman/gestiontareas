@@ -12,9 +12,13 @@
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
 
 </head>
-<body data-ng-controller="taskSearch">
+<body>
+<!-- Angular JS Scripts -->
+<script src="${pageContext.request.contextPath}/resources/app/gestiontarea-app.js"></script>
+<script src="${pageContext.request.contextPath}/resources/app/maincontrollers/taskSearch-ctrl.js"></script>
 
-<div class="container">
+<div class="container" ng-controller="taskSearch">
+    <app:messages/>
     <div class="row">
         <jsp:include page="bloques/tabs1.jsp"/>
     </div>
@@ -72,7 +76,7 @@
                                 <th>Gestion</th>
                                 <th>Aplazar</th>
                             </tr>
-                            <tr ng-repeat="t in tareas | orderBy : 'codigoCliente'">
+                            <tr ng-repeat="t in taskList | orderBy : 'codigoCliente'">
                                 <td>{{ t.codigoCliente }}</td>
                                 <td>{{ t.callingList }}</td>
                                 <td>{{ t.telefono }}</td>
@@ -89,9 +93,6 @@
     </form>
 </div>
 
-<!-- Angular JS Scripts -->
-<script src="${pageContext.request.contextPath}/resources/app/gestiontarea-app.js"></script>
-<script src="${pageContext.request.contextPath}/resources/app/maincontrollers/taskSearch-ctrl.js"></script>
 
 </body>
 </html>

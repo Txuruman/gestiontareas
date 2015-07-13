@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 import es.securitasdirect.tareas.model.Tarea;
 import es.securitasdirect.tareas.service.InstallationService;
 import es.securitasdirect.tareas.service.SearchTareaService;
+import es.securitasdirect.tareas.web.controller.dto.SearchTareaResponse;
+import es.securitasdirect.tareas.web.controller.util.MessageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -30,6 +32,8 @@ public class SearchTareaController {
     private SearchTareaService searchTareaService;
     @Inject
     private InstallationService installationService;
+    @Inject
+    protected MessageUtil messageUtil;
 
 
     @RequestMapping
@@ -42,9 +46,19 @@ public class SearchTareaController {
 
     @RequestMapping(value = "/query", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
     public @ResponseBody
-    List<Tarea> query(@RequestParam(value = "searchText", required = false) String searchText, @RequestParam(value = "searchOption", required = false) String searchOption) {
+    SearchTareaResponse query(@RequestParam(value = "searchText", required = false) String searchText, @RequestParam(value = "searchOption", required = false) String searchOption) {
         LOGGER.debug("Searching Tareas text:{} option:{}", searchText, searchOption);
         List<Tarea> listaTareas = searchTareaService.findByfindByPhone("652696869");
-        return listaTareas;
+        SearchTareaResponse searchTareaResponse = new SearchTareaResponse();
+
+        if(listaTareas!=null && !listaTareas.isEmpty()){
+            LOGGER.info("Success search of task");
+            searchTareaResponse.setTaskList(listaTareas);
+            searchTareaResponse.success(messageUtil.getProperty("searchTarea.success"));
+        }else {
+            LOGGER.warn("Tarea search not found result");
+            searchTareaResponse.success(messageUtil.getProperty("searchTarea.notFound"));
+        }
+        return searchTareaResponse;
     }
 }
