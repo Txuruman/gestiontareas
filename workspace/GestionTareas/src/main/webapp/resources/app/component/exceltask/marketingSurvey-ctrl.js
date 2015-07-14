@@ -1,4 +1,4 @@
-app.controller('marketingsurveytask-ctrl', function ($scope, $http) {
+app.controller('marketingsurveytask-ctrl', function ($scope, $http, CommonService) {
     //Angular Maintenance Survey Controller start
     $scope.getTarea = function () {
         console.log("Loading Marketing Survey Task...")
@@ -11,9 +11,11 @@ app.controller('marketingsurveytask-ctrl', function ($scope, $http) {
             params: {ccUserId: $scope.ccUserId, callingList: $scope.callingList, tareaId: $scope.tareaId}
         }).
             success(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data, status, headers, config);
                 $scope.tarea = data;
             }).
             error(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data, status, headers, config);
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });

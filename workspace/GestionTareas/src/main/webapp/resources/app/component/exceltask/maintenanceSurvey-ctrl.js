@@ -1,5 +1,5 @@
 //Angular Maintenance Survey Controller start
-app.controller('maintenancesurvey-ctrl', function ($scope, $http) {
+app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService) {
 
     $scope.getTarea = function () {
         console.log("Loading Maintenance Survey Task...")
@@ -12,9 +12,11 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http) {
             params: {ccUserId: $scope.ccUserId, callingList: $scope.callingList, tareaId: $scope.tareaId}
         }).
             success(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data, status, headers, config);
                 $scope.tarea = data;
             }).
             error(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data, status, headers, config);
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });

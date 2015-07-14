@@ -46,12 +46,48 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService) {
             });
         console.log("MaintenanceTask loaded...")
     };
-    //
-    //$scope.employee = [];
-    //$scope.loadData = function (employee) {
-    //    console.log("Cargando datos iniciales tarea mantenimiento...")
-    //    $scope.employee = JSON.parse(employee);
-    //};
 
+    $scope.interactionCreateMaintenance = function(){
+        var maintenanceTaskCreate = {
+            tarea:$scope.tarea,
+            prueba:'Hola'
+        };
+        console.log("Creating Maintenance task " + JSON.stringify(maintenanceTaskCreate));
+        $http({
+            method: 'PUT',
+            url: 'maintenancetask/create',
+            data: maintenanceTaskCreate
+        })
+        .success(function (data, status, headers, config) {
+            CommonService.processBaseResponse(data,status,headers,config);
+        })
+        .error(function (data, status, headers, config) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+            CommonService.processBaseResponse(data,status,headers,config);
+        });
+    }
+
+    $scope.finalizar = function(){
+        console.log("Finalizing Maintenance task");
+        var maintenanceTaskFinalize = {
+            tarea:$scope.tarea,
+            prueba:'Hola'
+        };
+        console.log("Finalize Maintenance task " + JSON.stringify(maintenanceTaskFinalize));
+        $http({
+            method: 'PUT',
+            url: 'maintenancetask/finalize',
+            data: maintenanceTaskFinalize
+        })
+        .success(function (data, status, headers, config) {
+            CommonService.processBaseResponse(data,status,headers,config);
+        })
+        .error(function (data, status, headers, config) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+            CommonService.processBaseResponse(data,status,headers,config);
+        });
+    }
 
 });

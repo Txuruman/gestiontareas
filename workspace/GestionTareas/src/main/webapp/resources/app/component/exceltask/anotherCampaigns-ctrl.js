@@ -1,5 +1,5 @@
 //Another Campaigns ANGULARJS script START
-app.controller('anotherCampaigns', function ($scope, $http) {
+app.controller('anotherCampaigns', function ($scope, $http, CommonService) {
 
     $scope.getTarea = function () {
         console.log("Loading Another Campaigns Task...")
@@ -12,9 +12,11 @@ app.controller('anotherCampaigns', function ($scope, $http) {
             params: {ccUserId: $scope.ccUserId, callingList: $scope.callingList, tareaId: $scope.tareaId}
         }).
             success(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data, status, headers, config);
                 $scope.tarea = data;
             }).
             error(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data, status, headers, config);
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });

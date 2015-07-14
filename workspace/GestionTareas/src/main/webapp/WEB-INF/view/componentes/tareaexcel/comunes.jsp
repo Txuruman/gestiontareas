@@ -6,10 +6,6 @@
 
 <div class="row">
     <div class="spacer_t2"></div>
-    <div class="row bordel">
-        <h4> TAREA </h4>
-        {{tarea}}
-    </div>
     <app:input id="closingReason" label="excelcommonfields.closingreason" cells="6" readonly="false">
         <select ng-model="tarea.closingReason" convert-to-number class="form-control">
             <!-- ng-model="model.id" convert-to-number -->

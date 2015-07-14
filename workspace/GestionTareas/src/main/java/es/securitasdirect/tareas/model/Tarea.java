@@ -100,4 +100,17 @@ public class Tarea {
     public void setCodigoCliente(Integer codigoCliente) {
         this.codigoCliente = codigoCliente;
     }
+
+    @Override
+    public String toString() {
+        return "Tarea{" +
+                "numeroInstalacion='" + numeroInstalacion + '\'' +
+                ", estado='" + estado + '\'' +
+                ", numeroContrato='" + numeroContrato + '\'' +
+                ", callingList='" + callingList + '\'' +
+                ", telefono='" + telefono + '\'' +
+                ", fechaReprogramacion=" + fechaReprogramacion +
+                ", codigoCliente=" + codigoCliente +
+                '}';
+    }
 }

@@ -13,12 +13,26 @@ app.service('CommonService', function($rootScope){
     };
 
     //Variable global para mostrar mensajes
+    console.log("Inicializando server messages")
     $rootScope.serverMessages = [];
 
     /** Funcion para processar las respuestas del servidor, eg: processBaseResponse(data,status,headers,config);  */
     this.processBaseResponse = function(data, status, headers, config) {
         console.log("Procesando BaseResponse....");
-        $rootScope.serverMessages = data.messages;
+        console.log("Mensajes antes de push: " + $rootScope.serverMessages)
+        console.log("Mensajes recibidos a añadir:" + data.messages);
+
+        console.log("Mensajes en scope:" + JSON.stringify($rootScope.serverMessages));
+        console.log("Mensajes recibidos en JSON:" + JSON.stringify(data.messages));
+
+        if(data.messages){
+            for (var msg in data.messages  ) {
+                $rootScope.serverMessages.push(data.messages[msg]);
+            }
+        }
+
+        console.log("Mensajes despues de push: " + JSON.stringify($rootScope.serverMessages));
+
         // TODO if($rootScope.serverMessages == )
         console.log("Fin Procesando BaseResponse....");
     };

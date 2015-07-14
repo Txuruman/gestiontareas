@@ -32,7 +32,7 @@
 
     <input type="button" class="${button_type}" value="<spring:message code="${value}" />"
         ${ng_click!=null && !ng_click.isEmpty() ? 'ng-click=\"'.concat(ng_click).concat('\"') : ''}
-        ${ng_controller!=null && !ng_controller.isEmpty() ? 'ng_controller=\"'.concat(ng_controller).concat('\"') : ''}
+        ${ng_controller!=null && !ng_controller.isEmpty() ? 'ng-controller=\"'.concat(ng_controller).concat('\"') : ''}
         />
 
 <c:if test="${fluid_wrapper != 'true'}">

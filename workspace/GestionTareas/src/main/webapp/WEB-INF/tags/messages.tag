@@ -5,9 +5,14 @@
 <div class="form-messages errors {{extraStyles}}" ng-show="serverMessages.length > 0" ng-cloak>
     <%--<img class="error-icon" src="/resources/img/error-icon.png">--%>
 
-    <div class="messages-group">
-        <div ng-repeat="msg in serverMessages">
-            <p class="{{msg.level}} bg-{{msg.level}}">{{msg.forElement}} {{msg.value}}</p>
+    <div class="list-group">
+        <!-- list-group-item-X: bootstrap, color style
+            badge: bootstrap, rounded panel
+            bordel-gray: custom, border
+            list-group-item-message: custom, message style.
+        -->
+        <div ng-repeat="msg in serverMessages" class="list-group-item-{{msg.level}} badge bordel-gray list-group-item-message" >
+            {{msg.forElement}} {{msg.value}}
         </div>
     </div>
 </div>

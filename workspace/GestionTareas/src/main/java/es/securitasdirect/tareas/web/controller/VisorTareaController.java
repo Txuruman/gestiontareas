@@ -7,7 +7,9 @@ import es.securitasdirect.tareas.service.ExternalDataService;
 import es.securitasdirect.tareas.service.InstallationService;
 import es.securitasdirect.tareas.service.QueryTareaService;
 import es.securitasdirect.tareas.service.TareaService;
+import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
 import es.securitasdirect.tareas.web.controller.params.ExternalParams;
+import es.securitasdirect.tareas.web.controller.util.MessageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -52,6 +54,9 @@ public class VisorTareaController {
     private ExternalDataService externalDataService;
     @Inject
     private QueryTareaService queryTareaService;
+
+    @Inject
+    protected MessageUtil messageUtil;
 
 
     private static final Logger LOGGER = LoggerFactory.getLogger(VisorTareaController.class);
@@ -271,14 +276,14 @@ public class VisorTareaController {
     @RequestMapping(value = "/getTareaMantenimiento", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    TareaMantenimiento getTareaMantenimiento(@RequestParam(value = "ccUserId", required = true) String ccUserId,
+    TareaResponse getTareaMantenimiento(@RequestParam(value = "ccUserId", required = true) String ccUserId,
                                              @RequestParam(value = "callingList", required = true) String callingList,
                                              @RequestParam(value = "tareaId", required = true) String tareaId
         ) throws DataServiceFault {
         LOGGER.debug("Get maintenance task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}",ccUserId, callingList, tareaId);
         TareaMantenimiento tareaMantenimiento = (TareaMantenimiento)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
         LOGGER.debug("Maintenance task obtained from service: \n{}", tareaMantenimiento);
-        return tareaMantenimiento;
+        return toTareaResponse(tareaMantenimiento);
     }
 
     /**
@@ -289,7 +294,7 @@ public class VisorTareaController {
     @RequestMapping(value = "/getTareaListadoAssistant", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    TareaListadoAssistant getTareaListadoAssistant(
+    TareaResponse getTareaListadoAssistant(
             @RequestParam(value = "ccUserId", required = true) String ccUserId,
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
@@ -297,7 +302,7 @@ public class VisorTareaController {
         LOGGER.debug("Get list assistant task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}",ccUserId, callingList, tareaId);
         TareaListadoAssistant task = (TareaListadoAssistant)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
         LOGGER.debug("List assistant task obtained from service: \n{}", task);
-        return task;
+        return toTareaResponse(task);
     }
 
     @RequestMapping(value = "/getClosingReason", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -329,7 +334,7 @@ public class VisorTareaController {
     @RequestMapping(value = "/maintenancesurveytask/getMaintenanceSurveyTask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    MaintenanceSurveyTask getMaintenanceSurveyTask(
+    TareaResponse getMaintenanceSurveyTask(
             @RequestParam(value = "ccUserId", required = true) String ccUserId,
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
@@ -337,13 +342,13 @@ public class VisorTareaController {
         LOGGER.debug("Creating MaintenanceSurveyTask");
         MaintenanceSurveyTask task = (MaintenanceSurveyTask)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
         LOGGER.debug("Created MaintenanceSurveyTask: {}", task);
-        return task;
+        return toTareaResponse(task);
     }
 
     @RequestMapping(value = "/marketingsurveytask/getMarketingSurveyTask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    MarketingSurveyTask getMarketingSurveyTask(
+    TareaResponse getMarketingSurveyTask(
             @RequestParam(value = "ccUserId", required = true) String ccUserId,
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
@@ -351,14 +356,14 @@ public class VisorTareaController {
         LOGGER.debug("Get MarketingSurveyTask for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}",ccUserId, callingList, tareaId);
         MarketingSurveyTask task = (MarketingSurveyTask)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
         LOGGER.debug("Maintenance task obtained from service: \n{}", task);
-        return task;
+        return toTareaResponse(task);
     }
 
 
     @RequestMapping(value = "/keybox/getkeyboxtask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    KeyboxTask getKeyboxTask(
+    TareaResponse getKeyboxTask(
             @RequestParam(value = "ccUserId", required = true) String ccUserId,
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
@@ -366,13 +371,13 @@ public class VisorTareaController {
         LOGGER.debug("Get maintenance task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}",ccUserId, callingList, tareaId);
         KeyboxTask task = (KeyboxTask)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
         LOGGER.debug("Maintenance task obtained from service: \n{}", task);
-        return task;
+        return toTareaResponse(task);
     }
 
     @RequestMapping(value = "anothercampaignstask/getanothercampaginstask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    TareaOtrasCampanas getAnotherCampaignsTask(
+    TareaResponse getAnotherCampaignsTask(
             @RequestParam(value = "ccUserId", required = true) String ccUserId,
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
@@ -380,14 +385,14 @@ public class VisorTareaController {
         LOGGER.debug("Get maintenance task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}",ccUserId, callingList, tareaId);
         TareaOtrasCampanas task = (TareaOtrasCampanas)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
         LOGGER.debug("Maintenance task obtained from service: \n{}", task);
-        return task;
+        return toTareaResponse(task);
     }
 
 
     @RequestMapping(value = "feecleaningtask/getfeecleaningtask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    TareaLimpiezaCuota getFeeCleaningTask(
+    TareaResponse getFeeCleaningTask(
             @RequestParam(value = "ccUserId", required = true) String ccUserId,
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
@@ -396,50 +401,50 @@ public class VisorTareaController {
         LOGGER.debug("Get maintenance task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}",ccUserId, callingList, tareaId);
         TareaLimpiezaCuota task = (TareaLimpiezaCuota)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
         LOGGER.debug("Maintenance task obtained from service: \n{}", task);
-        return task;
+        return toTareaResponse(task);
     }
 
     @RequestMapping(value = "notificationtask/getnotificationtask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    TareaAviso getNotificationTask(
+    TareaResponse getNotificationTask(
             @RequestParam(value = "ccUserId", required = true) String ccUserId,
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
         ) throws DataServiceFault {
         LOGGER.debug("Get notification task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}",ccUserId, callingList, tareaId);
-        TareaAviso tareaAviso = (TareaAviso)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-        LOGGER.debug("Notification task obtained from service: \n{}", tareaAviso);
-        return tareaAviso;
+        TareaAviso task = (TareaAviso)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
+        LOGGER.debug("Notification task obtained from service: \n{}", task);
+        return toTareaResponse(task);
     }
 
     @RequestMapping(value = "/tarealimpiezacuota/gettarealimpiezacuota", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    TareaLimpiezaCuota getTareaLimpiezCuota(
+    TareaResponse getTareaLimpiezCuota(
             @RequestParam(value = "ccUserId", required = true) String ccUserId,
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
     ) throws DataServiceFault {
         LOGGER.debug("Creating TareaLimpiezaCuota");
         LOGGER.debug("Get maintenance task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}",ccUserId, callingList, tareaId);
-        TareaLimpiezaCuota tareaLimpiezaCuota = (TareaLimpiezaCuota)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-        LOGGER.debug("Maintenance task obtained from service: \n{}", tareaLimpiezaCuota);
-        return tareaLimpiezaCuota;
+        TareaLimpiezaCuota task = (TareaLimpiezaCuota)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
+        LOGGER.debug("Maintenance task obtained from service: \n{}", task);
+        return toTareaResponse(task);
     }
 
     @RequestMapping(value = "/listassitanttask/getListAssistantTask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    TareaListadoAssistant getListAssitantTask(
+    TareaResponse getListAssitantTask(
             @RequestParam(value = "ccUserId", required = true) String ccUserId,
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
-    ) throws DataServiceFault {
-        LOGGER.debug("Get TareaListadoAssistant task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}",ccUserId, callingList, tareaId);
-        TareaListadoAssistant task = (TareaListadoAssistant)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-        LOGGER.debug("TareaListadoAssistant obtained from service: \n{}", task);
-        return task;
+    ) throws DataServiceFault  {
+            LOGGER.debug("Get TareaListadoAssistant task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}",ccUserId, callingList, tareaId);
+            TareaListadoAssistant task = (TareaListadoAssistant)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
+            LOGGER.debug("TareaListadoAssistant obtained from service: \n{}", task);
+            return toTareaResponse(task);
     }
 
 
@@ -449,6 +454,19 @@ public class VisorTareaController {
     Tarea aplazar( @RequestBody TareaAviso tarea) {
         LOGGER.debug("Aplazando tarea {}", tarea);
         return tarea;
+    }
+
+    TareaResponse toTareaResponse(Tarea tarea){
+        TareaResponse tareaResponse = new TareaResponse();
+        LOGGER.info("Process task response: {}", tarea);
+        if(tarea!=null) {
+            tareaResponse.setTarea(tarea);
+            tareaResponse.success(messageUtil.getProperty("task.success"));
+        }else{
+            tareaResponse.danger(messageUtil.getProperty("task.notFound"));
+        }
+        LOGGER.info("Task Response: {}", tareaResponse);
+        return tareaResponse;
     }
 
 }

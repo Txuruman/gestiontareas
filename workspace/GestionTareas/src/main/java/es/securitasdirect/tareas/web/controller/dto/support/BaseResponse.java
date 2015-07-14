@@ -75,6 +75,14 @@ public class BaseResponse {
         }
 
 
+        @Override
+        public String toString() {
+            return "Message{" +
+                    "level='" + level + '\'' +
+                    ", forElement='" + forElement + '\'' +
+                    ", value='" + value + '\'' +
+                    '}';
+        }
     }
 
     public BaseResponse info(String value) {
@@ -126,5 +134,12 @@ public class BaseResponse {
 
     public void setMessages(List<Message> messages) {
         this.messages = messages;
+    }
+
+    @Override
+    public String toString() {
+        return "BaseResponse{" +
+                "messages=" + messages +
+                '}';
     }
 }

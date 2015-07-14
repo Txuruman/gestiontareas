@@ -35,6 +35,12 @@
 	border-radius: 7px;
 }
 
+.bordel-gray {
+    border: 1px solid lightgray;
+    padding-bottom: 6px;
+    border-radius: 7px;
+}
+
 .panel-result {
 	padding: 3px;
 }
@@ -79,4 +85,20 @@ h2{
 .btn-primary {
 	background-color: #163f8b !important;
 	border-color: #16429a;
+}
+
+.list-group-item-message{
+    padding-top: 1%;
+    padding-bottom: 1%;
+    padding-left:2%;
+    padding-right: 2%;
+    margin-top:1px;
+    margin-left:1px;
+    margin-bottom: 1px;
+    margin-right: 1px;
+    /* Eliminar el width para hacer los mensajes inline*/
+    width: 98%;
+    /* Alineamiento del texto del mensaje */
+    text-align: left;
+    font-size: 14px;
 }

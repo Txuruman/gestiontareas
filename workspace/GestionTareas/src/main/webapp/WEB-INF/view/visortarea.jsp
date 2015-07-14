@@ -24,30 +24,13 @@
 <!-- Angular JS Scripts -->
 <script src="${pageContext.request.contextPath}/resources/app/gestiontarea-app.js"></script>
 <script src="${pageContext.request.contextPath}/resources/app/maincontrollers/taskViewer-ctrl.js"></script>
-
+<script src="${pageContext.request.contextPath}/resources/app/component/maintenanceTask-ctrl.js"></script>
 
 <div class="container" ng-controller="taskviewer-ctrl" ng-init="tareaId='${tareaId}';installationId='${installationId}';callingList='${callingList}';ccUserId='${ccUserId}';getInstallationData(installationId)">
     <app:messages />
-    <div class="row bordel">
-        <h3> DEBUG DIV </h3>
-        <app:wrapping cells="6">
-            <h4> JSP VARIABLES</h4>
-            Secundaria:${secundaria}<br/>
-            Installation:${installationId}<br/>
-            callingList:${callingList}<br/>
-            ccUserId:${ccUserId}<br/>
-            idTarea:${tareaId}<br/>
-        </app:wrapping>
-        <app:wrapping cells="6">
-            <h4> ANGULAR VARIABLES</h4>
-            Installation:{{installationId}}<br/>
-            callingList:{{callingList}}<br/>
-            ccUserId:{{ccUserId}}<br/>
-            idTarea:{{tareaId}}<br/>
-        </app:wrapping>
-    </div>
-
-
+    <!--
+        debug en mainTareaDebug
+    -->
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
             <h2><spring:message code="${titulo}"/></h2>
@@ -90,66 +73,15 @@
 
         <!-- INCLUDES DE TAREAS, dependiendo del tipo de tarea -->
         <div class="spacer_t3"></div>
-        <div class="panel panel-default">
-            <div class="panel-body">
+
                 <%--TODO AQUI SE INCLUYE LA SECUNDARIA--%>
                 <jsp:include page="${secundaria}"/>
             </div>
         </div>
-        <!-- Botones -->
-        <div class="spacer_t2"></div>
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <div class="row" align="right">
-                    <!-- Panel de botones - Seleccion de controlador -->
-                    <div class="container-fluid">
-                        <c:if test="${secundaria eq 'componentes/tarea_avisos.jsp'}">
-                            <app:inputButtonNG value="boton.Atras" button_type="default_disabled" ng_click="tareaAvisosAtras()" fluid_wrapper="true"/>
-                            <app:inputButtonNG value="boton.Modificar" button_type="default_disabled" ng_click="tareaAvisosModificar()" fluid_wrapper="true"/>
-                            <app:inputButtonNG value="boton.CrearMantenimiento" button_type="default" ng_click="tareaAvisosCrearMantenimiento()" fluid_wrapper="true"/>
-                            <app:inputButtonNG value="boton.Aplazar" button_type="default" ng_click="tareaAvisosAplazar()" fluid_wrapper="true"/>
-                            <app:inputButtonNG value="boton.Descartar" button_type="default" ng_click="tareaAvisosDescartar()" fluid_wrapper="true"/>
-                        </c:if>
-                        <!-- Botones -->
-                        <c:if test="${secundaria eq 'componentes/tarea_mantenimiento.jsp'}">
-                            <app:inputButtonNG value="boton.CrearMantenimiento" button_type="default" ng_click="tareaMantenimientoCrearMantenimiento()" fluid_wrapper="true"/>
-                        </c:if>
-                        <c:if test="${secundaria eq 'componentes/tareaexcel/encuenstasmantenimientos.jsp'}">
-                            <app:inputButtonNG value="boton.Aplazar" button_type="default" ng_click="encuestasMantenimientosAplazar()" fluid_wrapper="true"/>
-                            <app:inputButtonNG value="boton.Descartar" button_type="default" ng_click="encuestasMantenimientosDescartar()" fluid_wrapper="true"/>
-                        </c:if>
-                        <c:if test="${secundaria eq 'componentes/tareaexcel/encuestasmarketing.jsp'}">
-                            <app:inputButtonNG value="boton.Aplazar" button_type="default" ng_click="encuestasMarketingAplazar()" fluid_wrapper="true"/>
-                            <app:inputButtonNG value="boton.Descartar" button_type="default" ng_click="encuestasMarketingDescartar()" fluid_wrapper="true"/>
-                        </c:if>
-                        <c:if test="${secundaria eq 'componentes/tareaexcel/keybox.jsp'}">
-                            <app:inputButtonNG value="boton.Aplazar" button_type="default" ng_click="keyboxAplazar()" fluid_wrapper="true"/>
-                            <app:inputButtonNG value="boton.Descartar" button_type="default" ng_click="keyboxDescartar()" fluid_wrapper="true"/>
-                        </c:if>
-                        <c:if test="${secundaria eq 'componentes/tareaexcel/limpiezacuota.jsp'}">
-                            <app:inputButtonNG value="boton.Aplazar" button_type="default" ng_click="limpiezaCuotaAplazar()" fluid_wrapper="true"/>
-                            <app:inputButtonNG value="boton.Descartar" button_type="default" ng_click="limpiezaCuotaDescartar()" fluid_wrapper="true"/>
-                        </c:if>
-                        <c:if test="${secundaria eq 'componentes/tareaexcel/listadoassistant.jsp'}">
-                            <app:inputButtonNG value="boton.Aplazar" button_type="default" ng_click="listadoAssistantAplazar()" fluid_wrapper="true"/>
-                            <app:inputButtonNG value="boton.Descartar" button_type="default" ng_click="listadoAssistantDescartar()" fluid_wrapper="true"/>
-                        </c:if>
-                        <c:if test="${secundaria eq 'componentes/tareaexcel/otrascampanias.jsp'}">
-                            <app:inputButtonNG value="boton.Aplazar" button_type="default" ng_click="otrasCampaniasAplazar()" fluid_wrapper="true"/>
-                            <app:inputButtonNG value="boton.Descartar" button_type="default" ng_click="otrasCampaniasDescartar()" fluid_wrapper="true"/>
-                            <app:inputButtonNG value="boton.Descartar" button_type="default" ng_click="otrasCampaniasDescartar()" fluid_wrapper="true"/>
-                        </c:if>
-                        <app:inputButtonNG value="boton.Finalizar" button_type="primary" ng_click="otrasCampaniasDescartar()" fluid_wrapper="true"/>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Fin Botones -->
         <!-- row -->
 
     </form>
 </div><!-- END ANGULARJS CONTROLLER DIV-->
-S
 <!-- Scripts de angularjs -->
 
 </body>

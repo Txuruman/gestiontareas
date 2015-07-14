@@ -1,24 +1,24 @@
-package es.securitasdirect.tareas.web.controller.dto;
+package es.securitasdirect.tareas.web.controller.dto.request.maintenancetask;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import es.securitasdirect.tareas.model.Tarea;
+import es.securitasdirect.tareas.web.controller.dto.support.BaseRequest;
 import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
-
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Created by Javier Naval on 06/07/2015.
  */
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
-public class TareaResponse extends BaseResponse {
+public class MaintenanceTaskCreateRequest extends BaseRequest {
 
     private Tarea tarea;
 
-    public TareaResponse() {
+    private String prueba;
+
+    public MaintenanceTaskCreateRequest() {
     }
 
-    public TareaResponse(Tarea tarea) {
+    public MaintenanceTaskCreateRequest(Tarea tarea) {
         this.tarea = tarea;
     }
 
@@ -30,11 +30,19 @@ public class TareaResponse extends BaseResponse {
         this.tarea = tarea;
     }
 
+    public String getPrueba() {
+        return prueba;
+    }
+
+    public void setPrueba(String prueba) {
+        this.prueba = prueba;
+    }
 
     @Override
     public String toString() {
-        return super.toString() + "TareaResponse{" +
+        return "MaintenanceTaskCreateRequest{" +
                 "tarea=" + tarea +
+                ", prueba='" + prueba + '\'' +
                 '}';
     }
 }

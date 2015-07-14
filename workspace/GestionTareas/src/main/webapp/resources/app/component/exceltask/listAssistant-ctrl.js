@@ -1,5 +1,5 @@
 //Controlador List Assistant - Start
-app.controller('listAssistant-ctrl', function ($scope, $http) {
+app.controller('listAssistant-ctrl', function ($scope, $http, CommonService) {
         $scope.getTarea = function () {
             console.log("Loading List Assistant Task...")
             console.log("Params: "
@@ -12,9 +12,13 @@ app.controller('listAssistant-ctrl', function ($scope, $http) {
                 params: {ccUserId: $scope.ccUserId, callingList: $scope.callingList, tareaId: $scope.tareaId}
             })
                 .success(function (data, status, headers, config) {
+                    console.log("ListAssistantTask: " + JSON.stringify(data));
                     $scope.tarea = data;
+                    CommonService.processBaseResponse(data, status, headers, config);
+
                 })
                 .error(function (data, status, headers, config) {
+                    CommonService.processBaseResponse(data, status, headers, config);
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
                 });
