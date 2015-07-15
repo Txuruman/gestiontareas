@@ -262,6 +262,14 @@ public class VisorTareaController {
         return desplegableKey1;
     }
 
+    @RequestMapping(value = "/getDesplegableKey2", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public
+    @ResponseBody
+    List<Pair> getDesplegableKey2(@RequestParam(value = "key1", required = true) Integer key1) throws DataServiceFault {
+        List<Pair> desplegableKey2 = externalDataService.getDesplegableKey2(key1);
+        return desplegableKey2;
+    }
+
     @RequestMapping(value = "/getCancelationType", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody

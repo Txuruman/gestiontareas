@@ -229,7 +229,10 @@ public class QueryTareaService {
         tarea.setAgenteCierre(parameters.get(ServiceParams.TAREA_MANTENIMIENTO_AGENTECIERRE));
         tarea.setOpcionTipificacion(toIntegerFromMap(parameters.get(ServiceParams.TAREA_MANTENIMIENTO_OPCIONTIPIFICACION)));
         tarea.setKey1(toIntegerFromMap(parameters.get(ServiceParams.TAREA_MANTENIMIENTO_KEY1)));
+        //TODO Temporalmente ponemos un valor de los que salen en el combo
+        tarea.setKey1(4637); //Llave
         tarea.setKey2(toIntegerFromMap(parameters.get(ServiceParams.TAREA_MANTENIMIENTO_KEY2)));
+        tarea.setKey2(4641); //Aplazo Llamada
 
         return tarea;
     }
