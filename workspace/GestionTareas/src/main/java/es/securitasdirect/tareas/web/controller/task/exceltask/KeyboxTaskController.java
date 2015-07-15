@@ -1,9 +1,14 @@
 package es.securitasdirect.tareas.web.controller.task.exceltask;
 
 import es.securitasdirect.tareas.model.TareaMantenimiento;
+import es.securitasdirect.tareas.model.tareaexcel.KeyboxTask;
+import es.securitasdirect.tareas.model.tareaexcel.TareaLimpiezaCuota;
 import es.securitasdirect.tareas.service.QueryTareaService;
 import es.securitasdirect.tareas.web.controller.BaseController;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
+import es.securitasdirect.tareas.web.controller.dto.request.exceltask.keyboxtask.DiscardKeyboxTaskRequest;
+import es.securitasdirect.tareas.web.controller.dto.request.exceltask.keyboxtask.FinalizeKeyboxTaskRequest;
+import es.securitasdirect.tareas.web.controller.dto.request.exceltask.keyboxtask.PostponeKeyboxTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.maintenancetask.MaintenanceTaskCreateRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.maintenancetask.MaintenanceTaskFinalizeRequest;
 import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
@@ -32,37 +37,41 @@ public class KeyboxTaskController extends BaseController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(KeyboxTaskController.class);
 
-    @RequestMapping(value = "/getMaintenanceTask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody TareaResponse getMaintenanceTask(
-        @RequestParam(value = "ccUserId", required = true) String ccUserId,
-        @RequestParam(value = "callingList", required = true) String callingList,
-        @RequestParam(value = "tareaId", required = true) String tareaId
+    @RequestMapping(value = "/getTarea", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public @ResponseBody TareaResponse getKeyboxTask(
+            @RequestParam(value = "ccUserId", required = true) String ccUserId,
+            @RequestParam(value = "callingList", required = true) String callingList,
+            @RequestParam(value = "tareaId", required = true) String tareaId
     ) throws DataServiceFault {
-        LOGGER.debug("Get maintenance task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
-        TareaMantenimiento tareaMantenimiento = (TareaMantenimiento) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-        LOGGER.debug("Maintenance task obtained from service: \n{}", tareaMantenimiento);
-        return toTareaResponse(tareaMantenimiento);
+        LOGGER.debug("Get keybox task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
+        KeyboxTask tarea = (KeyboxTask) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
+        LOGGER.debug("Keybox task obtained from service: \n{}", tarea);
+        return toTareaResponse(tarea);
     }
 
-    @RequestMapping(value = "/create", method = {RequestMethod.PUT}, consumes  = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody BaseResponse interactionCreateMaintenance(@RequestBody MaintenanceTaskCreateRequest peticion) {
-        LOGGER.debug("Creando tarea de mantenimiento:\nRequest: {}",peticion);
-        BaseResponse response = new BaseResponse();
-        if (true) {
-            response.success(messageUtil.getProperty("tareamantenimiento.create.success"));
-        } else {
-            response.danger(messageUtil.getProperty("tareamantenimiento.create.error"));
-        }
-        LOGGER.debug("Creación de tarea de mantenimiento:\nResponse {}", response);
+
+    @RequestMapping(value = "/aplazar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public @ResponseBody BaseResponse finalizar(@RequestBody PostponeKeyboxTaskRequest request) {
+        LOGGER.debug("Finalizandotarea de keybox:\nRequest: {}", request);
+        BaseResponse response = dummyResponseGenerator.dummyFinalizeSuccess();
+        LOGGER.debug("Finalizando tarea de keybox:\nResponse: {}",response);
+        return response;
+    }
+
+
+    @RequestMapping(value = "/descartar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public @ResponseBody BaseResponse finalizar(@RequestBody DiscardKeyboxTaskRequest request) {
+        LOGGER.debug("Finalizandotarea de keybox:\nRequest: {}", request);
+        BaseResponse response = dummyResponseGenerator.dummyFinalizeSuccess();
+        LOGGER.debug("Finalizando tarea de keybox:\nResponse: {}",response);
         return response;
     }
 
     @RequestMapping(value = "/finalize", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody BaseResponse finalizar(@RequestBody MaintenanceTaskFinalizeRequest request) {
-        LOGGER.debug("Finalizando tarea de mantenimiento:\nRequest: {}", request);
+    public @ResponseBody BaseResponse finalizar(@RequestBody FinalizeKeyboxTaskRequest request) {
+        LOGGER.debug("Finalizando tarea de keybox:\nRequest: {}", request);
         BaseResponse response = dummyResponseGenerator.dummyFinalizeSuccess();
-        LOGGER.debug("Finalizando tarea de mantenimiento:\nResponse: {}",response);
+        LOGGER.debug("Finalizando tarea de keybox:\nResponse: {}",response);
         return response;
     }
-
 }

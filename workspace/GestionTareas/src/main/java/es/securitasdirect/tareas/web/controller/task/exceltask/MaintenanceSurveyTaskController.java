@@ -1,6 +1,7 @@
 package es.securitasdirect.tareas.web.controller.task.exceltask;
 
 import es.securitasdirect.tareas.model.TareaMantenimiento;
+import es.securitasdirect.tareas.model.tareaexcel.MaintenanceSurveyTask;
 import es.securitasdirect.tareas.service.QueryTareaService;
 import es.securitasdirect.tareas.web.controller.BaseController;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
@@ -32,20 +33,20 @@ public class MaintenanceSurveyTaskController extends BaseController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MaintenanceSurveyTaskController.class);
 
-    @RequestMapping(value = "/getMaintenanceTask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody TareaResponse getMaintenanceTask(
+    @RequestMapping(value = "/getTarea", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public @ResponseBody TareaResponse getMaintenanceSurveyTask(
         @RequestParam(value = "ccUserId", required = true) String ccUserId,
         @RequestParam(value = "callingList", required = true) String callingList,
         @RequestParam(value = "tareaId", required = true) String tareaId
     ) throws DataServiceFault {
-        LOGGER.debug("Get maintenance task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
-        TareaMantenimiento tareaMantenimiento = (TareaMantenimiento) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-        LOGGER.debug("Maintenance task obtained from service: \n{}", tareaMantenimiento);
-        return toTareaResponse(tareaMantenimiento);
+        LOGGER.debug("Get maintenance survey task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
+        MaintenanceSurveyTask tarea = (MaintenanceSurveyTask) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
+        LOGGER.debug("Maintenance survey task obtained from service: \n{}", tarea);
+        return toTareaResponse(tarea);
     }
 
     @RequestMapping(value = "/create", method = {RequestMethod.PUT}, consumes  = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody BaseResponse interactionCreateMaintenance(@RequestBody MaintenanceTaskCreateRequest peticion) {
+    public @ResponseBody BaseResponse interactionCreateMaintenanceSurveyTask(@RequestBody MaintenanceTaskCreateRequest peticion) {
         LOGGER.debug("Creando tarea de mantenimiento:\nRequest: {}",peticion);
         BaseResponse response = new BaseResponse();
         if (true) {
