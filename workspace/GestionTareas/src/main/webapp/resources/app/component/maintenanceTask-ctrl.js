@@ -36,7 +36,8 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService) {
             params: {ccUserId: $scope.ccUserId, callingList: $scope.callingList, tareaId: $scope.tareaId}
         }).
             success(function (data, status, headers, config) {
-                $scope.tarea = data;
+                console.log("Loaded maintenance task:" + JSON.stringify(data.tarea));
+                $scope.tarea = data.tarea;
                 CommonService.processBaseResponse(data,status,headers,config);
             }).
             error(function (data, status, headers, config) {
@@ -48,15 +49,16 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService) {
     };
 
     $scope.interactionCreateMaintenance = function(){
-        var maintenanceTaskCreate = {
+        console.log("Creating Maintenance task, task:" + JSON.stringify($scope.tarea));
+        var maintenanceTaskCreateRequest = {
             tarea:$scope.tarea,
             prueba:'Hola'
         };
-        console.log("Creating Maintenance task " + JSON.stringify(maintenanceTaskCreate));
+        console.log("Creating Maintenance task, request:" + JSON.stringify(maintenanceTaskCreateRequest));
         $http({
             method: 'PUT',
             url: 'maintenancetask/create',
-            data: maintenanceTaskCreate
+            data: maintenanceTaskCreateRequest
         })
         .success(function (data, status, headers, config) {
             CommonService.processBaseResponse(data,status,headers,config);
@@ -70,15 +72,15 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService) {
 
     $scope.finalizar = function(){
         console.log("Finalizing Maintenance task");
-        var maintenanceTaskFinalize = {
+        var maintenanceTaskFinalizeRequest = {
             tarea:$scope.tarea,
             prueba:'Hola'
         };
-        console.log("Finalize Maintenance task " + JSON.stringify(maintenanceTaskFinalize));
+        console.log("Finalize Maintenance task " + JSON.stringify(maintenanceTaskFinalizeRequest));
         $http({
             method: 'PUT',
             url: 'maintenancetask/finalize',
-            data: maintenanceTaskFinalize
+            data: maintenanceTaskFinalizeRequest
         })
         .success(function (data, status, headers, config) {
             CommonService.processBaseResponse(data,status,headers,config);
@@ -89,5 +91,7 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService) {
             CommonService.processBaseResponse(data,status,headers,config);
         });
     }
+
+
 
 });

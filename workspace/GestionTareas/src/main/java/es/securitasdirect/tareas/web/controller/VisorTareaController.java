@@ -8,6 +8,8 @@ import es.securitasdirect.tareas.service.InstallationService;
 import es.securitasdirect.tareas.service.QueryTareaService;
 import es.securitasdirect.tareas.service.TareaService;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
+import es.securitasdirect.tareas.web.controller.dto.request.notificationtask.*;
+import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
 import es.securitasdirect.tareas.web.controller.params.ExternalParams;
 import es.securitasdirect.tareas.web.controller.util.MessageUtil;
 import org.slf4j.Logger;
@@ -235,10 +237,6 @@ public class VisorTareaController {
         LOGGER.debug("Aplazando tarea idAviso:{}", "xxxxxx");
     }
 
-    public void descartar() {
-
-    }
-
     public void llamar() {
 
     }
@@ -323,13 +321,7 @@ public class VisorTareaController {
         return closingReasonList;
     }
 
-    @RequestMapping(value = "/notificationtask/getClosing", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public
-    @ResponseBody
-    List<Pair> getClosing() throws DataServiceFault {
-        List<Pair> closingList = externalDataService.getClosing();
-        return closingList;
-    }
+
 
     @RequestMapping(value = "/maintenancesurveytask/getMaintenanceSurveyTask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
@@ -404,19 +396,7 @@ public class VisorTareaController {
         return toTareaResponse(task);
     }
 
-    @RequestMapping(value = "notificationtask/getnotificationtask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public
-    @ResponseBody
-    TareaResponse getNotificationTask(
-            @RequestParam(value = "ccUserId", required = true) String ccUserId,
-            @RequestParam(value = "callingList", required = true) String callingList,
-            @RequestParam(value = "tareaId", required = true) String tareaId
-        ) throws DataServiceFault {
-        LOGGER.debug("Get notification task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}",ccUserId, callingList, tareaId);
-        TareaAviso task = (TareaAviso)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-        LOGGER.debug("Notification task obtained from service: \n{}", task);
-        return toTareaResponse(task);
-    }
+
 
     @RequestMapping(value = "/tarealimpiezacuota/gettarealimpiezacuota", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
@@ -448,13 +428,9 @@ public class VisorTareaController {
     }
 
 
-    @RequestMapping(value = "/aplazar", method ={RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public
-    @ResponseBody
-    Tarea aplazar( @RequestBody TareaAviso tarea) {
-        LOGGER.debug("Aplazando tarea {}", tarea);
-        return tarea;
-    }
+
+
+
 
     TareaResponse toTareaResponse(Tarea tarea){
         TareaResponse tareaResponse = new TareaResponse();

@@ -1,4 +1,4 @@
-package es.securitasdirect.tareas.web.controller.task;
+package es.securitasdirect.tareas.web.controller.task.exceltask;
 
 import es.securitasdirect.tareas.model.TareaMantenimiento;
 import es.securitasdirect.tareas.service.QueryTareaService;
@@ -6,10 +6,8 @@ import es.securitasdirect.tareas.web.controller.BaseController;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
 import es.securitasdirect.tareas.web.controller.dto.request.maintenancetask.MaintenanceTaskCreateRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.maintenancetask.MaintenanceTaskFinalizeRequest;
-import es.securitasdirect.tareas.web.controller.dto.support.BaseRequest;
 import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
 import es.securitasdirect.tareas.web.controller.dto.support.DummyResponseGenerator;
-import es.securitasdirect.tareas.web.controller.util.MessageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -24,15 +22,15 @@ import javax.inject.Inject;
  */
 
 @Controller
-@RequestMapping("/maintenancetask")
-public class MaintenanceTaskController extends BaseController {
+@RequestMapping("/listassistanttask")
+public class ListAssitantTaskController extends BaseController {
 
     @Inject
     private QueryTareaService queryTareaService;
     @Inject
     private DummyResponseGenerator dummyResponseGenerator;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MaintenanceTaskController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ListAssitantTaskController.class);
 
     @RequestMapping(value = "/getMaintenanceTask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody TareaResponse getMaintenanceTask(

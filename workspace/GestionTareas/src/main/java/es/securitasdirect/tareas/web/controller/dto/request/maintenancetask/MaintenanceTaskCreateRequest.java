@@ -2,6 +2,7 @@ package es.securitasdirect.tareas.web.controller.dto.request.maintenancetask;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import es.securitasdirect.tareas.model.Tarea;
+import es.securitasdirect.tareas.model.TareaMantenimiento;
 import es.securitasdirect.tareas.web.controller.dto.support.BaseRequest;
 import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
 
@@ -11,22 +12,22 @@ import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class MaintenanceTaskCreateRequest extends BaseRequest {
 
-    private Tarea tarea;
+    private TareaMantenimiento tarea;
 
     private String prueba;
 
     public MaintenanceTaskCreateRequest() {
     }
 
-    public MaintenanceTaskCreateRequest(Tarea tarea) {
+    public MaintenanceTaskCreateRequest(TareaMantenimiento tarea) {
         this.tarea = tarea;
     }
 
-    public Tarea getTarea() {
+    public TareaMantenimiento getTarea() {
         return tarea;
     }
 
-    public void setTarea(Tarea tarea) {
+    public void setTarea(TareaMantenimiento tarea) {
         this.tarea = tarea;
     }
 
