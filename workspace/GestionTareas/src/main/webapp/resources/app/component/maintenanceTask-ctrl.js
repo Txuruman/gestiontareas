@@ -4,13 +4,26 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService) {
         $http({method: 'GET', url: 'visortarea/getDesplegableKey1'}).
             success(function (data, status, headers, config) {
                 $scope.key1List = data;
+                CommonService.processBaseResponse(data,status,headers,config);
             }).
             error(function (data, status, headers, config) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
+                CommonService.processBaseResponse(data,status,headers,config);
             });
     };
 
+    $scope.getDesplegableKey2 = function () {
+        if ($scope.tarea && $scope.tarea.key1) {
+            console.log("Queriying Key2 for key1=" + $scope.tarea.key1);
+            $http({method: 'GET', url: 'visortarea/getDesplegableKey2', params: {key1: $scope.tarea.key1}}).
+                success(function (data, status, headers, config) {
+                    $scope.key2List = data;
+                    CommonService.processBaseResponse(data,status,headers,config);
+                }).
+                error(function (data, status, headers, config) {
+                    CommonService.processBaseResponse(data,status,headers,config);
+                });
+        }
+    };
 
     $scope.getCancelationType = function () {
         $http({method: 'GET', url: 'visortarea/getCancelationType'}).
@@ -25,6 +38,8 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService) {
 
 
     $scope.getTarea = function () {
+        $scope.vm.appReady=false;
+        
         console.log("Loading MaintenanceTask...");
         console.log("Params: "
         + " ccUserId: " + $scope.ccUserId
@@ -39,11 +54,15 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService) {
                 console.log("Loaded maintenance task:" + JSON.stringify(data.tarea));
                 $scope.tarea = data.tarea;
                 CommonService.processBaseResponse(data,status,headers,config);
+                $scope.getDesplegableKey1();
+                $scope.getDesplegableKey2();
+                $scope.vm.appReady=true;
             }).
             error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data,status,headers,config);
+                $scope.vm.appReady=true;
             });
         console.log("MaintenanceTask loaded...")
     };
@@ -60,14 +79,14 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService) {
             url: 'maintenancetask/create',
             data: maintenanceTaskCreateRequest
         })
-        .success(function (data, status, headers, config) {
-            CommonService.processBaseResponse(data,status,headers,config);
-        })
-        .error(function (data, status, headers, config) {
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
-            CommonService.processBaseResponse(data,status,headers,config);
-        });
+            .success(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data,status,headers,config);
+            })
+            .error(function (data, status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                CommonService.processBaseResponse(data,status,headers,config);
+            });
     }
 
     $scope.finalizar = function(){
@@ -82,16 +101,15 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService) {
             url: 'maintenancetask/finalize',
             data: maintenanceTaskFinalizeRequest
         })
-        .success(function (data, status, headers, config) {
-            CommonService.processBaseResponse(data,status,headers,config);
-        })
-        .error(function (data, status, headers, config) {
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
-            CommonService.processBaseResponse(data,status,headers,config);
-        });
+            .success(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data,status,headers,config);
+            })
+            .error(function (data, status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                CommonService.processBaseResponse(data,status,headers,config);
+            });
     }
-
 
 
 });

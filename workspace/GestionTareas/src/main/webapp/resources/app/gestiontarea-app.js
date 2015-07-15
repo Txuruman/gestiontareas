@@ -16,6 +16,20 @@ app.service('CommonService', function($rootScope){
     console.log("Inicializando server messages")
     $rootScope.serverMessages = [];
 
+
+    //Objeto global para almacenar
+    $rootScope.vm = {
+        appReady:true,
+        maxCaloriesPerDay: 2000,
+        currentPage: 1,
+        totalPages: 0,
+        originalMeals: [],
+        meals: [],
+        isSelectionEmpty: true,
+        errorMessages: [],
+        infoMessages: []
+    };
+
     /** Funcion para processar las respuestas del servidor, eg: processBaseResponse(data,status,headers,config);  */
     this.processBaseResponse = function(data, status, headers, config) {
         console.log("Procesando BaseResponse....");
@@ -24,7 +38,7 @@ app.service('CommonService', function($rootScope){
                 $rootScope.serverMessages.push(data.messages[msg]);
             }
         }
-        console.log("Mensajes despues de push: " + JSON.stringify($rootScope.serverMessages));
+        //TODO Control status ,etc si hay error meter mensajes
         // TODO if($rootScope.serverMessages == )
     };
 

@@ -24,13 +24,19 @@
 <!-- Angular JS Scripts -->
 <script src="${pageContext.request.contextPath}/resources/app/gestiontarea-app.js"></script>
 <script src="${pageContext.request.contextPath}/resources/app/maincontrollers/taskViewer-ctrl.js"></script>
-<script src="${pageContext.request.contextPath}/resources/app/component/maintenanceTask-ctrl.js"></script>
+
 
 <div class="container" ng-controller="taskviewer-ctrl" ng-init="tareaId='${tareaId}';installationId='${installationId}';callingList='${callingList}';ccUserId='${ccUserId}';getInstallationData(installationId)">
     <app:messages />
-    <!--
-        debug en mainTareaDebug
-    -->
+    
+    <!-- DEBUG Start -->
+
+    <div class="please-wait-dialog" ng-hide="vm.appReady">
+        Apliacion NO LISTA
+        <img class="please-wait-spinner" src="/resources/img/loading.gif">
+    </div>
+    <!-- DEBUG End -->
+
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
             <h2><spring:message code="${titulo}"/></h2>
@@ -71,17 +77,18 @@
         </div>
         <!-- Datos de la Instalacion  - End -->
 
-        <!-- INCLUDES DE TAREAS, dependiendo del tipo de tarea -->
-        <div class="spacer_t3"></div>
 
-                <%--TODO AQUI SE INCLUYE LA SECUNDARIA--%>
-                <jsp:include page="${secundaria}"/>
+        <!-- Include Tareas, dependiendo del tipo de tarea -->
+        <div class="spacer_t3"></div>
+            <%--TODO AQUI SE INCLUYE LA SECUNDARIA--%>
+            <jsp:include page="${secundaria}"/>
             </div>
         </div>
-        <!-- row -->
+        <!-- Include Tareas, end -->
 
     </form>
 </div><!-- END ANGULARJS CONTROLLER DIV-->
+S
 <!-- Scripts de angularjs -->
 
 </body>

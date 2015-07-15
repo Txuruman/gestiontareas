@@ -5,6 +5,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <div ng-controller="maintenancetask-ctrl" ng-init="getTarea()">
+
+
     <div class="panel panel-default">
         <div class="panel-body">
             <div class="spacer_t2"></div>
@@ -115,31 +117,19 @@
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                     <div class="row">
-
                         <app:input id="desplegableKey1" label="tareamantenimiento.key1">
-                            <!-- ng-model="model.id" convert-to-number -->
-                            <!--<option data-ng-repeat="item in key1List" value="{{item.id}}">{{item.value}}</option>
-                            <!-- data-ng-repeat.... realiza una iteración de key1List donde item es el valor en cada iteración
-                            -- item in key1List define la iteración y el campo donde almacenar el ítem de cada iteración
-                            -- value="{{item.id}}" obtiene del campo obtenido en la iteración el valor de id, poniéndolo en el value de un combo
-                            -- ...{{item.value}}... almacena en la <option/> el valor a mostrar.
-                            -->
-                            <!--<option data-ng-repeat="item in key1List" value="item.id" ng-selected="item.id=tarea.key1">{{item.value}}</option>-->
-                            <select data-ng-init="getDesplegableKey1()" ng-model="tarea.key1" convert-to-number class="form-control"><!-- ng-model="model.id" convert-to-number -->
-                                <option data-ng-repeat="k in key1List" value="{{k.id}}" ng-selected="k.id==tarea.key1">{{k.value}}</option>
+                            <select  ng-model="tarea.key1" convert-to-number class="form-control" ng-change="getDesplegableKey2()">
+                                <option data-ng-repeat="k in key1List" value="{{k.id}}" ng-selected="k.id==tarea.key1" >{{k.value}}</option>
                             </select>
                         </app:input>
-
-                        <%--<app:inputCombo id="desplegableKey1" label="tareamantenimiento.key1" value="${tarea.key1}" readonly="false"/>--%>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                     <div class="row">
                         <app:input id="desplegableKey2" label="tareamantenimiento.key2">
-                            <select data-ng-init="getDesplegableKey1()" ng-model="tarea.key2" convert-to-number class="form-control"><!-- ng-model="model.id" convert-to-number -->
-                                <option data-ng-repeat="k in key1List" value="{{k.id}}" ng-selected="k.id==tarea.key2">{{k.value}}</option>
+                            <select  ng-model="tarea.key2" convert-to-number class="form-control">
+                                <option data-ng-repeat="k in key2List" value="{{k.id}}" ng-selected="k.id==tarea.key2" >{{k.value}}</option>
                             </select>
-                            Provisionalmente el segundo combo lo rellenamos con lo mismo que el 1º sabiendo que tenemos que rellenarlo al seleccionar el 1º, llamando a otro servicio
                         </app:input>
                     </div>
                 </div>
