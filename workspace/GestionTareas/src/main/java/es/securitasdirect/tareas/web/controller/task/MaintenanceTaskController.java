@@ -1,6 +1,8 @@
 package es.securitasdirect.tareas.web.controller.task;
 
 import es.securitasdirect.tareas.model.TareaMantenimiento;
+import es.securitasdirect.tareas.model.external.Pair;
+import es.securitasdirect.tareas.service.ExternalDataService;
 import es.securitasdirect.tareas.service.QueryTareaService;
 import es.securitasdirect.tareas.web.controller.BaseController;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import org.wso2.ws.dataservice.DataServiceFault;
 
 import javax.inject.Inject;
+import java.util.List;
 
 /**
  * @author jel
@@ -31,10 +34,13 @@ public class MaintenanceTaskController extends BaseController {
     private QueryTareaService queryTareaService;
     @Inject
     private DummyResponseGenerator dummyResponseGenerator;
+    @Inject
+    private ExternalDataService externalDataService;
+
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MaintenanceTaskController.class);
 
-    @RequestMapping(value = "/getMaintenanceTask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value = "/gettarea", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody TareaResponse getMaintenanceTask(
         @RequestParam(value = "ccUserId", required = true) String ccUserId,
         @RequestParam(value = "callingList", required = true) String callingList,
@@ -65,6 +71,14 @@ public class MaintenanceTaskController extends BaseController {
         BaseResponse response = dummyResponseGenerator.dummyFinalizeSuccess();
         LOGGER.debug("Finalizando tarea de mantenimiento:\nResponse: {}",response);
         return response;
+    }
+
+    @RequestMapping(value = "/getCancelationType", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public
+    @ResponseBody
+    List<Pair> getCancelationType() throws DataServiceFault {
+        List<Pair> cancelationTypeList = externalDataService.getCancelationType();
+        return cancelationTypeList;
     }
 
 }

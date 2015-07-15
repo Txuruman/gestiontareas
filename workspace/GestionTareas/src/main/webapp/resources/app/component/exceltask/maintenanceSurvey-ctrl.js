@@ -8,7 +8,7 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService)
         + " callingList: " + $scope.callingList
         + " taskId: " + $scope.tareaId);
         $http({method: 'GET',
-            url: 'visortarea/maintenancesurveytask/getMaintenanceSurveyTask',
+            url: '/maintenancesurveytask/gettarea',
             params: {ccUserId: $scope.ccUserId, callingList: $scope.callingList, tareaId: $scope.tareaId}
         }).
             success(function (data, status, headers, config) {
@@ -23,11 +23,13 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService)
         console.log("Loaded Maintenance Survey Task");
 
         console.log("Loading Excel Task Commons: Closing reason");
-        $http({method: 'GET', url: 'visortarea/exceltaskcommon/getClosingReason'}).
+        $http({method: 'GET', url: '/exceltaskcommon/getClosingReason'}).
             success(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data, status, headers, config);
                 $scope.closingReasonList = data;
             }).
             error(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data, status, headers, config);
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });

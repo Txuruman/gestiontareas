@@ -36,7 +36,7 @@ public class FeeCleaningTaskController extends BaseController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FeeCleaningTaskController.class);
 
-    @RequestMapping(value = "/getTarea", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value = "/gettarea", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody TareaResponse getFeeCleaningTask(
         @RequestParam(value = "ccUserId", required = true) String ccUserId,
         @RequestParam(value = "callingList", required = true) String callingList,

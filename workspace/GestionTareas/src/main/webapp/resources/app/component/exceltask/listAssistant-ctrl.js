@@ -8,12 +8,12 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService) {
             + " taskId: " + $scope.tareaId);
             $http({
                 method: 'GET',
-                url: 'visortarea/listassitanttask/getListAssistantTask',
+                url: '/listassitanttask/gettarea',
                 params: {ccUserId: $scope.ccUserId, callingList: $scope.callingList, tareaId: $scope.tareaId}
             })
                 .success(function (data, status, headers, config) {
                     console.log("ListAssistantTask: " + JSON.stringify(data));
-                    $scope.tarea = data;
+                    $scope.tarea = data.tarea;
                     CommonService.processBaseResponse(data, status, headers, config);
 
                 })
@@ -26,11 +26,13 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService) {
 
 
             console.log("Loading Excel Task Commons: Closing reason");
-            $http({method: 'GET', url: 'visortarea/exceltaskcommon/getClosingReason'}).
+            $http({method: 'GET', url: '/exceltaskcommon/getClosingReason'}).
                 success(function (data, status, headers, config) {
+                    CommonService.processBaseResponse(data, status, headers, config);
                     $scope.closingReasonList = data;
                 }).
                 error(function (data, status, headers, config) {
+                    CommonService.processBaseResponse(data, status, headers, config);
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
                 });

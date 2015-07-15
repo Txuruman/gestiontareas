@@ -8,12 +8,12 @@ app.controller('feecleaningtask-ctrl', function ($scope, $http, CommonService) {
         + " callingList: " + $scope.callingList
         + " taskId: " + $scope.tareaId);
         $http({method: 'GET',
-            url: 'visortarea/feecleaningtask/getfeecleaningtask',
+            url: '/feecleaningtask/gettarea',
             params: {ccUserId: $scope.ccUserId, callingList: $scope.callingList, tareaId: $scope.tareaId}
         }).
             success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
-                $scope.tarea = data;
+                $scope.tarea = data.tarea;
             }).
             error(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
@@ -23,7 +23,7 @@ app.controller('feecleaningtask-ctrl', function ($scope, $http, CommonService) {
         console.log("Loaded FeeCleaningTask")
 
         console.log("Loading Excel Task Commons: Closing reason");
-        $http({method: 'GET', url: 'visortarea/exceltaskcommon/getClosingReason'}).
+        $http({method: 'GET', url: '/exceltaskcommon/getClosingReason'}).
             success(function (data, status, headers, config) {
                 $scope.closingReasonList = data;
             }).

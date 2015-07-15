@@ -7,12 +7,12 @@ app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService) {
             + " callingList: " + $scope.callingList
             + " taskId: " + $scope.tareaId);
             $http({method: 'GET',
-                url: 'visortarea/keybox/getkeyboxtask',
+                url: '/keyboxtask/gettarea',
                 params: {ccUserId: $scope.ccUserId, callingList: $scope.callingList, tareaId: $scope.tareaId}
             }).
                 success(function (data, status, headers, config) {
                     CommonService.processBaseResponse(data, status, headers, config);
-                    $scope.tarea = data;
+                    $scope.tarea = data.tarea;
                 }).
                 error(function (data, status, headers, config) {
                     CommonService.processBaseResponse(data, status, headers, config);
@@ -22,7 +22,7 @@ app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService) {
             console.log("Loaded Keybox Task")
 
             console.log("Loading Excel Task Commons: Closing reason");
-            $http({method: 'GET', url: 'visortarea/exceltaskcommon/getClosingReason'}).
+            $http({method: 'GET', url: '/exceltaskcommon/getClosingReason'}).
                 success(function (data, status, headers, config) {
                     $scope.closingReasonList = data;
                 }).

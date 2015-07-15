@@ -32,7 +32,7 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService) {
         + " taskId: " + $scope.tareaId);
         $http({
             method: 'GET',
-            url: 'visortarea/getTareaMantenimiento',
+            url: 'maintenancetask/gettarea',
             params: {ccUserId: $scope.ccUserId, callingList: $scope.callingList, tareaId: $scope.tareaId}
         }).
             success(function (data, status, headers, config) {

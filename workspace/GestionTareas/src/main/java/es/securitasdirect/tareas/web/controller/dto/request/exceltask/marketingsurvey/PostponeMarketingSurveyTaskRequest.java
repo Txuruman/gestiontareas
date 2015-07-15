@@ -1,4 +1,4 @@
-package es.securitasdirect.tareas.web.controller.dto.request.exceltask.marketingsurvey.maintenancesurvey;
+package es.securitasdirect.tareas.web.controller.dto.request.exceltask.marketingsurvey;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import es.securitasdirect.tareas.model.tareaexcel.MaintenanceSurveyTask;
