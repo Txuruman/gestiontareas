@@ -262,6 +262,23 @@ public class VisorTareaController {
         return desplegableKey1;
     }
 
+    @RequestMapping(value = "/getDesplegableKey2", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public
+    @ResponseBody
+    List<Pair> getDesplegableKey2(@RequestParam(value = "key1", required = true) Integer key1) throws DataServiceFault {
+        List<Pair> desplegableKey2 = externalDataService.getDesplegableKey2(key1);
+        return desplegableKey2;
+    }
+
+    @RequestMapping(value = "/getCancelationType", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public
+    @ResponseBody
+    List<Pair> getCancelationType() throws DataServiceFault {
+        List<Pair> cancelationTypeList = externalDataService.getCancelationType();
+        return cancelationTypeList;
+    }
+
+
     @RequestMapping(value = "/getTareaMantenimiento", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
@@ -301,6 +318,18 @@ public class VisorTareaController {
         List<Pair> closingReasonList = externalDataService.getClosingReason();
         return closingReasonList;
     }
+
+    @RequestMapping(value = "/exceltaskcommon/getClosingReason", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public
+    @ResponseBody
+    List<Pair> getClosingReason() throws DataServiceFault {
+        LOGGER.debug("Calling external data service: getClosingReason");
+        List<Pair> closingReasonList = externalDataService.getClosingReason();
+        LOGGER.debug("Closing reason list: {}", closingReasonList);
+        return closingReasonList;
+    }
+
+
 
     @RequestMapping(value = "/maintenancesurveytask/getMaintenanceSurveyTask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
