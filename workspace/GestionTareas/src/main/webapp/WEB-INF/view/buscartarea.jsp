@@ -7,15 +7,13 @@
 <html data-ng-app="myApp">
 <head>
     <title><spring:message code="titulo.BuscarTarea"/></title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.css"/>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/custom.css"/>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+
+    <app:commonImports/>
+    <script src="${pageContext.request.contextPath}/resources/app/maincontrollers/taskSearch-ctrl.js"></script>
 
 </head>
 <body>
-<!-- Angular JS Scripts -->
-<script src="${pageContext.request.contextPath}/resources/app/gestiontarea-app.js"></script>
-<script src="${pageContext.request.contextPath}/resources/app/maincontrollers/taskSearch-ctrl.js"></script>
+
 
 <div class="container" ng-controller="taskSearch">
     <app:messages/>
@@ -32,14 +30,15 @@
                         <label for="searchText" class="col-lg-3 col-md-3 col-sm-3 col-xs-2 control-label labelcent">
                             <spring:message code="eti.buscartarea.form.label.filtro"/>:
                         </label>
+
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-                            <input type="text" class="form-control" id="searchText" ng-model="searchText" required  ng-minlength="6">
+                            <input type="text" class="form-control" id="searchText" ng-model="searchText" required ng-minlength="6">
                         </div>
 
 
                         <!-- Boton Busqueda -->
                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-left">
-                            <app:inputButtonNG button_type="primary" value="boton.search" ng_click="searchTareaFromServer()" />
+                            <app:inputButtonNG button_type="primary" value="boton.search" ng_click="searchTareaFromServer()"/>
                         </div>
 
 
@@ -47,7 +46,7 @@
                         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4">
                             <div class="bordel text-center">
                                 <label class="checkbox-inline">
-                                    <input type="radio"  name="options" ng-model="searchOption" value="phone" ng-checked="true">
+                                    <input type="radio" name="options" ng-model="searchOption" value="phone" ng-checked="true">
                                     <spring:message code="eti.buscartarea.form.radio.telefono1"/>
                                 </label>
                                 <label class="checkbox-inline">

@@ -13,17 +13,15 @@
 <html data-ng-app="myApp">
 <head>
     <title><spring:message code="${titulo}"/></title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.css"/>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/custom.css"/>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.6.0/moment.min.js"></script>
+
+    <app:commonImports/>
+
+    <script src="${pageContext.request.contextPath}/resources/app/maincontrollers/taskViewer-ctrl.js"></script>
 </head>
 
 
 <body>
-<!-- Angular JS Scripts -->
-<script src="${pageContext.request.contextPath}/resources/app/gestiontarea-app.js"></script>
-<script src="${pageContext.request.contextPath}/resources/app/maincontrollers/taskViewer-ctrl.js"></script>
+
 
 
 <div class="container" ng-controller="taskviewer-ctrl" ng-init="tareaId='${tareaId}';installationId='${installationId}';callingList='${callingList}';ccUserId='${ccUserId}';getInstallationData(installationId)">
