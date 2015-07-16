@@ -1,4 +1,4 @@
-<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- http://www.onjava.com/pub/a/onjava/2004/05/12/jsp2part4.html -->
 <%@ tag body-content="empty" %>
