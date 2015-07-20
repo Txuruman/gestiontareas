@@ -23,32 +23,86 @@
     -->
 
     <!-- Configuration of the different JMSReader over different queues -->
+    <!--
+        POZUELO
+        Cola principal
+        BUS:                       es1preosbprd01v-vip          PORT  8011
+        Endpoint:               sd.prd.es1allinoneout
+        Factoria:                 sd.prd.es1prdxacfout
+    -->
     <bean id="jmsReaderPozuelo" class="es.securitasdirect.senales.reader.JMSReader" lazy-init="false">
-        <property name="aliasName" value="jmsReaderPozuelo" />
+        <property name="aliasName" value="Pozuelo" />
         <property name="qfcName" value="sd.prd.es1prdxacfout" />
         <property name="queueName" value="sd.prd.es1allinoneout" />
-        <property name="bus" value="es1preosbprd01v-vip" />
-        <property name="port" value="8011" />
-        <property name="user" value="username1" />
-        <property name="pass" value="password1" />
+        <property name="jndiUrl" value="t3://es1preosbprd01v-vip:8011" />
+        <property name="user" value="" /><!-- Opcionales -->
+        <property name="pass" value="" /><!-- Opcionales -->
     </bean>
 
-    <bean id="jmsReaderYecora" class="es.securitasdirect.senales.reader.JMSReader" lazy-init="false">
-        <property name="aliasName" value="jmsReaderReporting" />
-        <property name="qfcName" value="sd.reptef.reptefxacf" />
-        <property name="queueName" value="sd.prd.es1allinoneout" />
-        <property name="bus" value="es1preosbprd01v-vip" />
-        <property name="port" value="8011" />
-        <property name="user" value="username2"/>
-        <property name="pass" value="password2"/>
-    </bean>
-    <bean id="jsmReaderErrores" class="es.securitasdirect.senales.reader.JMSReader" lazy-init="false">
+    <!--
+        Cola Error
+        BUS:                       es1preosbprd01v-vip          PORT  8011
+        Endpoint:               sd.prd. es2ERRORallinoneOUT
+        Factoria:                 sd.prd.es1prdxacfout
+    -->
+    <!--<bean id="jmsReaderError1" class="es.securitasdirect.senales.reader.JMSReader" lazy-init="false">-->
+        <!--<property name="aliasName" value="jmsReaderError1" />-->
+        <!--<property name="qfcName" value="sd.prd.es1prdxacfout" />-->
+        <!--<property name="queueName" value="sd.prd.es2ERRORallinoneOUT" />-->
+        <!--<property name="jndiUrl" value="t3://es1preosbprd01v-vip:8011" />-->
+        <!--<property name="user" value="" />&lt;!&ndash; Opcionales &ndash;&gt;-->
+        <!--<property name="pass" value="" />&lt;!&ndash; Opcionales &ndash;&gt;-->
+    <!--</bean>-->
 
-    </bean>
+    <!--
+        YECORA
+        BUS:                       es2preosbprd01v-vip          PORT  8011
+        Endpoint:               sd.prd.es2allinoneout
+        Factoria:                 sd.prd.es2prdxacfout
+    -->
+    <!--<bean id="jmsReaderYecora" class="es.securitasdirect.senales.reader.JMSReader" lazy-init="false">-->
+        <!--<property name="aliasName" value="jmsReaderYecora" />-->
+        <!--<property name="qfcName" value="sd.prd.es2prdxacfout" />-->
+        <!--<property name="queueName" value="sd.prd.es2allinoneout" />-->
+        <!--<property name="jndiUrl" value="t3://es2preosbprd01v-vip:8011" />-->
+        <!--<property name="user" value=""/>-->
+        <!--<property name="pass" value=""/>-->
+    <!--</bean>-->
+
+    <!--
+        Cola Error
+        BUS:                       es2preosbprd01v-vip          PORT  8011
+        Endpoint:               sd.prd.es2ERRORallinoneOUT
+        Factoria:                 sd.prd.es2prdxacfout
+    -->
+    <!--<bean id="jmsReaderError2" class="es.securitasdirect.senales.reader.JMSReader" lazy-init="false">-->
+        <!--<property name="aliasName" value="jmsReaderError2" />-->
+        <!--<property name="qfcName" value="sd.prd.es2prdxacfout" />-->
+        <!--<property name="queueName" value="sd.prd.es2ERRORallinoneOUT" />-->
+        <!--<property name="jndiUrl" value="t3://es2preosbprd01v-vip:8011" />-->
+        <!--<property name="user" value=""/>-->
+        <!--<property name="pass" value=""/>-->
+    <!--</bean>-->
+
+    <!--
+       JNDI_URL: t3://10.2.145.102:8011
+            CONNECTION FACTORY: sd.reptef.reptefxacf
+            QUEUE: sd.reptef.telef_convmng_01
+    -->
+    <!--<bean id="jmsReaderRoberto" class="es.securitasdirect.senales.reader.JMSReader" lazy-init="false">-->
+        <!--<property name="aliasName" value="jmsReaderRoberto" />-->
+        <!--<property name="qfcName" value="sd.reptef.reptefxacf" />-->
+        <!--<property name="queueName" value="sd.reptef.telef_convmng_01" />-->
+        <!--<property name="jndiUrl" value="t3://10.2.145.102:8011" />-->
+        <!--<property name="user" value=""/> -->
+        <!--<property name="pass" value=""/> -->
+    <!--</bean>-->
+
+
 
     <!-- Configuration of the File Reader and Writer of for the error messages -->
-    <bean id="errorFileReader" class="es.securitasdirect.senales.reader.FileReader">
-    </bean>
+    <bean id="errorFileReader" class="es.securitasdirect.senales.reader.FileReader" />
+
 
     <!-- Task scheduler -->
     <task:annotation-driven executor="myExecutor" scheduler="myScheduler"/>
