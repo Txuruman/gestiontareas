@@ -2,6 +2,16 @@ var app = angular.module("myApp", ['ui.bootstrap']);
 
 
 
+//Controller for the app:messages
+app.controller('MessagesController', function ($scope, $rootScope) {
+    //Remove a message with the X button
+    $scope.closeMessage = function(index) {
+        $rootScope.vm.serverMessages.splice(index, 1);
+    };
+});
+
+
+
 app.controller('AccordionDemoCtrl', function ($scope) {
     $scope.oneAtATime = true;
 
@@ -113,13 +123,12 @@ app.service('CommonService', function($rootScope){
         return a + a;
     };
 
-    //Variable global para mostrar mensajes
-    console.log("Inicializando server messages")
-    $rootScope.serverMessages = [];
 
 
     //Objeto global para almacenar
     $rootScope.vm = {
+        //Variable global para mostrar mensajes
+        serverMessages : [],
         appReady:true,
         maxCaloriesPerDay: 2000,
         currentPage: 1,
@@ -131,12 +140,18 @@ app.service('CommonService', function($rootScope){
         infoMessages: []
     };
 
+    //this.addAlert = function() {
+    //    $scope.alerts.push({msg: 'Another alert!'});
+    //};
+
+
+
     /** Funcion para processar las respuestas del servidor, eg: processBaseResponse(data,status,headers,config);  */
     this.processBaseResponse = function(data, status, headers, config) {
         console.log("Procesando BaseResponse....");
         if(data.messages){
             for (var msg in data.messages  ) {
-                $rootScope.serverMessages.push(data.messages[msg]);
+                $rootScope.vm.serverMessages.push(data.messages[msg]);
             }
         }
         //TODO Control status ,etc si hay error meter mensajes

@@ -43,7 +43,6 @@ public class InstallationController {
         if(installationData!=null){
             installationDataResponse.setInstallationData(installationData);
             installationDataResponse.success(messageUtil.getProperty("installationData.success"));
-            installationDataResponse.success("Prueba de varios mensajes en una respuesta");
         }else{
             installationDataResponse.danger(messageUtil.getProperty("installationData.notFound"));
         }

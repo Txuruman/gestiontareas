@@ -4,20 +4,25 @@
 <%@ tag body-content="empty" %>
 
 <%--<div class="form-messages errors {{extraStyles}}" ng-show="serverMessages.length > 0" ng-cloak>--%>
-    <%--&lt;%&ndash;<img class="error-icon" src="/resources/img/error-icon.png">&ndash;%&gt;--%>
+<%--&lt;%&ndash;<img class="error-icon" src="/resources/img/error-icon.png">&ndash;%&gt;--%>
 
-    <%--<div class="list-group">--%>
-        <%--<!-- list-group-item-X: bootstrap, color style--%>
-            <%--badge: bootstrap, rounded panel--%>
-            <%--bordel-gray: custom, border--%>
-            <%--list-group-item-message: custom, message style.--%>
-        <%---->--%>
-        <%--<div ng-repeat="msg in serverMessages" class="list-group-item-{{msg.level}} badge bordel-gray list-group-item-message" >--%>
-            <%--{{msg.forElement}} {{msg.value}}--%>
-        <%--</div>--%>
+<%--<div class="list-group">--%>
+<%--<!-- list-group-item-X: bootstrap, color style--%>
+<%--badge: bootstrap, rounded panel--%>
+<%--bordel-gray: custom, border--%>
+<%--list-group-item-message: custom, message style.--%>
+<%---->--%>
+<%--<div ng-repeat="msg in serverMessages" class="list-group-item-{{msg.level}} badge bordel-gray list-group-item-message" >--%>
+<%--{{msg.forElement}} {{msg.value}}--%>
+<%--</div>--%>
 
-    <%--</div>--%>
+<%--</div>--%>
 <%--</div>--%>
 
 
-<alert ng-repeat="msg in serverMessages" type="{{msg.level}}" close="true">{{msg.value}}</alert>
+<div ng-controller="MessagesController">
+    <alert ng-repeat="msg in vm.serverMessages" type="{{msg.level}}" close="closeMessage($index)">{{msg.value}}</alert>
+</div>
+
+
+

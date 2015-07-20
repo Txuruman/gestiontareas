@@ -48,6 +48,7 @@ Enlaces
 
 <h2><a href="test.htm">test</a></h2>
 
+<h2><a href="test.htm"  target="popup"  onclick="window.open('http://google.com','externo','width=600,height=400')">New Window</a></h2>
 
 </body>
 </html>
