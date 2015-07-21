@@ -35,10 +35,9 @@
         <property name="qfcName" value="sd.prd.es1prdxacfout" />
         <property name="queueName" value="sd.prd.es1allinoneout" />
         <property name="jndiUrl" value="t3://es1preosbprd01v-vip:8011" />
-        <property name="user" value="" /><!-- Opcionales -->
-        <property name="pass" value="" /><!-- Opcionales -->
+        <property name="user" value="" />
+        <property name="pass" value="" />
     </bean>
-
     <!--
         Cola Error
         BUS:                       es1preosbprd01v-vip          PORT  8011

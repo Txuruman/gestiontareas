@@ -325,9 +325,12 @@ public class GestionSenalesService {
     }
 
     /**
-     * Detallo a continuación el criterio de obtención de los datos que posteriormente se insertarán en los campos de la calling list y que se obtendrán de la señal y el webservice de tareas, tal y como SD transmitió a INDRA.
+     * Detallo a continuación el criterio de obtención de los datos que posteriormente se insertarán en los campos de la calling list y que se obtendrán de la señal y el webservice de tareas,
+     * tal y como SD transmitió a INDRA.
      * <p/>
-     * No habrá dos chain_n sino un único registro y los teléfonos irán en campos de la calling list. Se han incluido los campos que son obligatorios para el IWS (ctr_no, clname, SEC_comment, notCallId). Al estar el ctr_no ya se utiliza un campo de CONTRATO.
+     * No habrá dos chain_n sino un único registro y los teléfonos irán en campos de la calling list.
+     * Se han incluido los campos que son obligatorios para el IWS (ctr_no, clname, SEC_comment, notCallId).
+     * Al estar el ctr_no ya se utiliza un campo de CONTRATO.
      * <p/>
      * <p/>
      * Columna de BD OCS	Origen del dato	Dato obtenido
@@ -397,7 +400,7 @@ public class GestionSenalesService {
                 return false;
             }
         } else {
-            //Is not configured
+            //Is not configured the expiration info
             return false;
         }
     }

@@ -48,6 +48,9 @@ public class XmlMarshaller extends Jaxb2Marshaller {
         return (Message) unmarshalObject(xmlInput);
     }
 
+    public PARAMSType unmarshallPARAMSType(String xmlInput) {
+        return (PARAMSType) unmarshalObject(xmlInput);
+    }
 //
 //    public String marshal(final CertificadoAdministrativo graph) {
 //        return marshalObject(graph);
