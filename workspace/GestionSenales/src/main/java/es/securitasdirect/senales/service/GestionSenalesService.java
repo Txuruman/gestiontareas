@@ -204,7 +204,7 @@ public class GestionSenalesService {
      */
     private void processMessageInWorkingHours(Message message) throws Exception {
         // El campo a utilizar para obtener el resto de información antes de insertar el registro en Tareas será InsNumber_e.
-        Integer insNumberE = message.getParamsType().getCIBB().getEVENTS().getInsNumberE();
+        Integer insNumberE = message.getCibb().getEVENTS().getInsNumberE();
         GetInstallationDataResult installationData = getInstallationData(insNumberE);
 
         //Una vez que se dispone de todos los datos, se pueden invocar los métodos de la capa CCL Obtener Calling List Tareas
@@ -235,7 +235,7 @@ public class GestionSenalesService {
 
         // Procesar el mensaje
         // El campo a utilizar para obtener el resto de información antes de insertar el registro en Tareas será InsNumber_e.
-        Integer insNumberE = message.getParamsType().getCIBB().getEVENTS().getInsNumberE();
+        Integer insNumberE = message.getCibb().getEVENTS().getInsNumberE();
         GetInstallationDataResult installationData = getInstallationData(insNumberE);
         String messageLanguageLocationKey = message.getLanguageLocationKey();
         SmsMessageLocation smsMessageLocation = null;
@@ -261,7 +261,7 @@ public class GestionSenalesService {
         String destination = null;
         String text = ""; //TODO Sacarlo de configuracion por PAIS
         String account = null;
-        String country = message.getParamsType().getCIBB().getPROPS().getPais();
+        String country = message.getCibb().getPROPS().getPais();
 
         cclIntegration.sendSMS(ccIdentifier,
                 applicationUser,

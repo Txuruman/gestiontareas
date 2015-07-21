@@ -1,11 +1,8 @@
 <!--
-XSD Generator to use this XML example and generate a XSD
-XSD Generator : http://www.xmlforasp.net/CodeBank/System_Xml_Schema/BuildSchema/BuildXMLSchema.aspx
+XDS Generator : http://www.xmlforasp.net/CodeBank/System_Xml_Schema/BuildSchema/BuildXMLSchema.aspx
 
-
-Model Generator to create Java Classes from XSD : http://www.javaworld.com/article/2071784/enterprise-java/java-xml-mapping-made-easy-with-jaxb-2-0.html
-c:\java\jdk1.6.0_45\bin\xjc.exe C:\AGS\TeamVision\GestionTareas\workspace\GestionSenales\src\test\resources\params.xsd  -p es.securitasdirect.senales.model.cibb -d C:\AGS\TeamVision\GestionTareas\workspace\GestionSenales\src\main\java
-
+Model Generator: http://www.javaworld.com/article/2071784/enterprise-java/java-xml-mapping-made-easy-with-jaxb-2-0.html
+C:\AGS\TeamVision\GestionTareas\workspace\GestionSenales\src\main\resources\params.xsd  -p es.securitasdirect.senales.model.params -d C:\AGS\TeamVision\GestionTareas\workspace\GestionSenales\src
 -->
 <CIBB>
     <EVENTS MMV="020401"

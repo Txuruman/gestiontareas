@@ -1,7 +1,8 @@
 package es.securitasdirect.senales.support;
 
 import es.securitasdirect.senales.model.Message;
-import es.securitasdirect.senales.model.params.PARAMSType;
+
+import es.securitasdirect.senales.model.cibb.CIBB;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -37,18 +38,18 @@ public class XmlMarsaller {
 
     @Test
     public void toXml() {
-        PARAMSType paramsType = new PARAMSType();
-        String xml = xmlMarshaller.marshall(paramsType);
+        CIBB cibb = new CIBB();
+        String xml = xmlMarshaller.marshall(cibb);
         LOGGER.info("XML Params: {}", xml);
     }
 
     @Test
     public void Xml_Message() throws IOException {
         String inputXml = readFile("params.xml");
-        PARAMSType paramsType = xmlMarshaller.unmarshall(inputXml);
-        LOGGER.info("ParamsType:\n {} \n Source Xml: \n {}", paramsType, inputXml);
+        CIBB cibb = xmlMarshaller.unmarshallCIBB(inputXml);
+        LOGGER.info("CIBB:\n {} \n Source Xml: \n {}", cibb, inputXml);
 
-        Message message = new Message(paramsType);
+        Message message = new Message(cibb);
         message.setEntryDate(new Date());
         String xmlMessage = xmlMarshaller.marshallMessage(message);
         LOGGER.info("Message:\n {} \n Message Xml: \n {}", message, xmlMessage);

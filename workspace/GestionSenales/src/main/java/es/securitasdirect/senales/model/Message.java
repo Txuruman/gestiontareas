@@ -1,6 +1,7 @@
 package es.securitasdirect.senales.model;
 
-import es.securitasdirect.senales.model.params.PARAMSType;
+import es.securitasdirect.senales.model.cibb.CIBB;
+
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
@@ -15,27 +16,23 @@ public class Message {
 	/** Entry date of the message in the process, used to discard old message */
 	private Date entryDate;
 
-	private PARAMSType paramsType;
+	private CIBB cibb;
 
     public Message() {
     }
 
-	public Message(PARAMSType paramsType) {
+	public Message(CIBB cibb) {
 		entryDate = new Date();
-		this.paramsType = paramsType;
+		this.cibb = cibb;
 	}
 
      public Integer getId() {
-        if (paramsType!=null && paramsType.getCIBB()!=null && paramsType.getCIBB().getEVENTS()!=null) {
-            return paramsType.getCIBB().getEVENTS().getInsNumberE();
+        if (cibb.getEVENTS()!=null) {
+            return cibb.getEVENTS().getInsNumberE();
         } else {
             return null;
         }
     }
-
-	public PARAMSType getParamsType() {
-		return paramsType;
-	}
 
 
     /**
@@ -43,8 +40,8 @@ public class Message {
      * @return
      */
     public String getType(){
-        if (paramsType!=null && paramsType.getCIBB()!=null && paramsType.getCIBB().getEVENTS()!=null&& paramsType.getCIBB().getEVENTS().getEVENT()!=null) {
-            return paramsType.getCIBB().getEVENTS().getEVENT().getId();
+        if (cibb!=null &&  cibb.getEVENTS()!=null&& cibb.getEVENTS().getEVENT()!=null) {
+            return cibb.getEVENTS().getEVENT().getId();
         }else{
             return null;
         }
@@ -54,17 +51,14 @@ public class Message {
      * Returns the language location key
      */
     public String getLanguageLocationKey(){
-        if(paramsType.getCIBB()!=null && paramsType.getCIBB().getPROPS()!=null){
-            return paramsType.getCIBB().getPROPS().getPais();
+        if(cibb!=null && cibb.getPROPS()!=null){
+            return cibb.getPROPS().getPais();
         }else{
             return null;
         }
     }
 
 
-	public void setParamsType(PARAMSType paramsType) {
-		this.paramsType = paramsType;
-	}
 
 	public Date getEntryDate() {
 		return entryDate;
@@ -74,12 +68,20 @@ public class Message {
 		this.entryDate = entryDate;
 	}
 
+	public CIBB getCibb() {
+		return cibb;
+	}
+
+	public void setCibb(CIBB cibb) {
+		this.cibb = cibb;
+	}
+
 	@Override
 	public String toString() {
 		final StringBuffer sb = new StringBuffer("Message{");
 		sb.append("id=").append(getId()).append(", ");
 		sb.append("entryDate=").append(entryDate).append(", ");
-		sb.append("paramsType=").append(paramsType);
+		sb.append("cibb=").append(cibb);
 		sb.append('}');
 		return sb.toString();
 	}

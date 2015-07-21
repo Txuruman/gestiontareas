@@ -1,7 +1,7 @@
 package es.securitasdirect.senales.support;
 
 import es.securitasdirect.senales.model.Message;
-import es.securitasdirect.senales.model.params.PARAMSType;
+import es.securitasdirect.senales.model.cibb.CIBB;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
@@ -32,12 +32,12 @@ public class XmlMarshaller extends Jaxb2Marshaller {
         return o;
     }
 
-    protected String marshall(final PARAMSType params) {
+    protected String marshall(final CIBB params) {
         return marshalObject(params);
     }
 
-    protected PARAMSType unmarshall(String xmlInput) {
-        return (PARAMSType) unmarshalObject(xmlInput);
+    public CIBB unmarshallCIBB(String xmlInput) {
+        return (CIBB) unmarshalObject(xmlInput);
     }
 
     public String marshallMessage(final Message message) {
@@ -48,9 +48,7 @@ public class XmlMarshaller extends Jaxb2Marshaller {
         return (Message) unmarshalObject(xmlInput);
     }
 
-    public PARAMSType unmarshallPARAMSType(String xmlInput) {
-        return (PARAMSType) unmarshalObject(xmlInput);
-    }
+
 //
 //    public String marshal(final CertificadoAdministrativo graph) {
 //        return marshalObject(graph);

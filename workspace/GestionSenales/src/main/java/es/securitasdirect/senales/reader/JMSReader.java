@@ -1,7 +1,7 @@
 package es.securitasdirect.senales.reader;
 
 import es.securitasdirect.senales.model.*;
-import es.securitasdirect.senales.model.params.PARAMSType;
+import es.securitasdirect.senales.model.cibb.CIBB;
 import es.securitasdirect.senales.service.GestionSenalesService;
 import es.securitasdirect.senales.support.XmlMarshaller;
 import org.slf4j.Logger;
@@ -149,10 +149,14 @@ public class JMSReader implements MessageListener {
                 es.securitasdirect.senales.model.Message modelMessage = new es.securitasdirect.senales.model.Message();
                 try {
                     //Extract JMS Info
-                    PARAMSType paramsType = xmlMarshaller.unmarshallPARAMSType(jmsMessageText);
+                    CIBB cibb = xmlMarshaller.unmarshallCIBB(jmsMessageText);
                     modelMessage = new es.securitasdirect.senales.model.Message();
-                    modelMessage.setParamsType(paramsType);
+                    modelMessage.setCibb(cibb);
                     modelMessage.setEntryDate(new Date());
+
+                    //TODO BORRAR ESTE LOG; solo es para coger mensajes de ejemplo
+                    LOGGER.info("JMSReader {} : Mensaje CIBB recivido\n\n\n\n\n\n{}\n\n\n\n\n\n\n\n", aliasName,jmsMessageText);
+
                 } catch (Exception e) {
                     LOGGER.error("JMSReader {} : Can't parse message content \n[{}]\n", aliasName, jmsMessageText, e);
                     modelMessage=null;
