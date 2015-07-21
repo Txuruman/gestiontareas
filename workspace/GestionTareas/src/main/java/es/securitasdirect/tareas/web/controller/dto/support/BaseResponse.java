@@ -1,5 +1,7 @@
 package es.securitasdirect.tareas.web.controller.dto.support;
 
+import es.securitasdirect.tareas.model.InstallationData;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -135,6 +137,7 @@ public class BaseResponse {
     public void setMessages(List<Message> messages) {
         this.messages = messages;
     }
+
 
     @Override
     public String toString() {

@@ -85,20 +85,21 @@ public class DummyGenerator {
 
     public static TareaMantenimiento dummyMaintenanceTask() {
         TareaMantenimiento t = new TareaMantenimiento();
-        t.setKey1(4588);
-        t.setContrato("texto contrato");
-        t.setDireccion("Dummy direccion");
-        t.setCiudad("Dummy ciudad");
+        t.setAgenteAsignado("Dummy AgenteAsignado");
+        t.setAgenteCierre("Dummy AgenteCierre");
+        t.setCiudad("Dummy Ciudad");
+        t.setDireccion("Dummy Direccion");
         t.setFechaEvento(new Date());
-        t.setTipificacion("Dummy tipificacion");
-        t.setAgenteAsignado("Dummy agente asignado");
-        t.setAgenteCierre("Dummy agente cierre");
-        t.setTelephone1("Dummy telephone 1");
-        t.setTelephone2("Dummy telephone 2");
-        t.setTelephone3("Dummy telephone 3");
-        t.setCancelationText("Dummy cancelation text");
-        t.setOpcionTipificacion(1);
-        t = (TareaMantenimiento)addTareaValues(t);
+        t.setKey1(0);
+        t.setKey2(0);
+        t.setNumeroContrato("Dummy NumeroContrato");
+        t.setOpcionTipificacion(0);
+        t.setTelefono1("Dummy Telefono1");
+        t.setTelefono2("Dummy Telefono2");
+        t.setTelefono3("Dummy Telefono3");
+        t.setTextoCancelacion("Dummy TextoCancelacion");
+        t.setTipoCancelacion("Dummy TipoCancelacion");
+        t.setTipoMantenimiento("Dummy TipoMantenimiento");
         return t;
     }
 
@@ -178,10 +179,7 @@ public class DummyGenerator {
         tareaAviso.setHorarioDesde("Dummy horario desde");
         tareaAviso.setHorarioHasta("Dummy horario hasta");
         tareaAviso.setClosing("1");
-        List<String> datosAdicionalesCierre = new ArrayList<String>();
-        datosAdicionalesCierre.add("Dummy datos adicionales cierre 1");
-        datosAdicionalesCierre.add("Dummy datos adicionales cierre 2");
-        tareaAviso.setDatosAdicionalesCierre(datosAdicionalesCierre);
+        tareaAviso.setDatosAdicionalesCierre("Datos adicionales cierre");
         tareaAviso.setFechaCierre(new Date());
         tareaAviso.setNota("Dummy nota");
         tareaAviso.setResponsableCierre("Dummy responsable cierre");

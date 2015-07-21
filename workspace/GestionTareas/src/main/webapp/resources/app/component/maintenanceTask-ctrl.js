@@ -39,7 +39,7 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService) {
 
     $scope.getTarea = function () {
         $scope.vm.appReady=false;
-        
+
         console.log("Loading MaintenanceTask...");
         console.log("Params: "
         + " ccUserId: " + $scope.ccUserId
@@ -66,6 +66,40 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService) {
             });
         console.log("MaintenanceTask loaded...")
     };
+
+    $scope.getInstallationAndTask = function(){
+        $scope.vm.appReady=false;
+
+        console.log("Loading MaintenanceTask...");
+        console.log("Params: "
+        + " installationId: " + $scope.installationId
+        + " ccUserId: " + $scope.ccUserId
+        + " callingList: " + $scope.callingList
+        + " taskId: " + $scope.tareaId);
+        $http({
+            method: 'GET',
+            url: 'maintenancetask/getInstallationAndTask',
+            params: {installationId: $scope.installationId, ccUserId: $scope.ccUserId, callingList: $scope.callingList, tareaId: $scope.tareaId}
+        }).
+            success(function (data, status, headers, config) {
+                console.log("Loaded maintenance task:" + JSON.stringify(data.tarea));
+                $scope.tarea = data.tarea;
+                $scope.installationData = data.installationData;
+                CommonService.processBaseResponse(data,status,headers,config);
+                $scope.getDesplegableKey1();
+                $scope.getDesplegableKey2();
+                $scope.vm.appReady=true;
+            }).
+            error(function (data, status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                CommonService.processBaseResponse(data,status,headers,config);
+                $scope.vm.appReady=true;
+            });
+        console.log("MaintenanceTask loaded...")
+    }
+
+
 
     $scope.interactionCreateMaintenance = function(){
         console.log("Creating Maintenance task, task:" + JSON.stringify($scope.tarea));

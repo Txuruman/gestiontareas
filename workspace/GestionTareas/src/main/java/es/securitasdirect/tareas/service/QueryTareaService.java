@@ -5,7 +5,7 @@ import com.webservice.CclResponse;
 import com.webservice.Item;
 import es.securitasdirect.tareas.model.*;
 import es.securitasdirect.tareas.model.tareaexcel.*;
-import es.securitasdirect.tareas.web.controller.params.ServiceParams;
+import es.securitasdirect.tareas.web.controller.params.TaskServiceParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wso2.ws.dataservice.*;
@@ -14,6 +14,8 @@ import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -53,7 +55,7 @@ public class QueryTareaService {
         String country              = "SPAIN";
         String filter               = "chain_id=" + id;
 
-        LOGGER.debug("Calling to service CallingList with values: ccIdentifier: {} applicationUser: {} ccUserId: {} filter: {} callingList: {} country: {}", ccIdentifier, applicationUser, ccUserId, filter, callingList, country);
+        LOGGER.debug("Calling to service CallingList with values:\n ccIdentifier: {}\n applicationUser: {}\n ccUserId: {}\n filter: {}\n callingList: {}\n country: {}", ccIdentifier, applicationUser, ccUserId, filter, callingList, country);
 
         Map<String, String> responseMap = checkCallingListContact(ccIdentifier,
                 applicationUser,
@@ -188,6 +190,10 @@ public class QueryTareaService {
      */
     private TareaAviso mapTareaAvisoFromWS(GetAvisobyIdResult avisobyIdResult) {
         TareaAviso tarea = new TareaAviso();
+        //Datos instalacion - Se obtiene de la llamada al servicio de avisoById (mediante librería para WS)
+        tarea.setNumeroInstalacion(avisobyIdResult.getInsNo());
+        tarea.setPersonaContacto(avisobyIdResult.getContacto());
+        tarea.setTelefono(avisobyIdResult.getValorFormaContacto());
 
         tarea.setIdAviso(avisobyIdResult.getIdaviso().intValue());
         tarea.setIdentificativoAvisoTarea(avisobyIdResult.getIdaviso().intValue());
@@ -211,26 +217,62 @@ public class QueryTareaService {
         tarea.setHorarioHasta(avisobyIdResult.getHasta().toString());//TODO FORMATO
         tarea.setDatosContacto(avisobyIdResult.getContacto());
 
+        tarea.setClosing("Campo desconocido en WS");
+        tarea.setDatosAdicionalesCierre("Campo desconocido en WS");
+
         return tarea;
     }
 
 
 
     private Tarea createTareaMantenimientoFromParameters(Map<String, String> parameters) {
+        /**
+         * 1.1.1.1.2.	Mapeo tarea mantenimiento
+           Campo pantalla	Datos WS
+           ESTADO                 NOMBRE_CAMPO            NOMBRE_CAMPO_WS     COMENTARIOS
+           --installationData--   numeroInstalacion	    INSTALACION
+           --installationdata--   titular	                                    (se lee del WS de getInstalacion [ref])
+           --installationData--   Persona de contacto     NOMBRE              (no existe en el modelo)
+           --installationData--   panel 	                                    WS de getInstalacion[ref]   (no viene en el modelo)
+           --installationdata--   telefono	            CONTACT_INFO
+           --installationData--   version                                     (no viene en el modelo)	WS de getInstalacion[ref]
+           --CONFIRMAR--          numeroContrato	        CTR_NO              (confirmar)
+           --NO_MOSTRADO--        tipoMantenimiento       TIPO_MANTENIMIENTO  (no viene en el modelo)
+           --X--                  direccion	            DIRECCION
+           --CONFIRMAR--          fechaEvento	            F_CREACION_TAREA?
+           --X--                  ciudad	                CIUDAD
+           --CONFIRMAR--          agenteAsignado	        AGENT_ID            (CONFIRMAR, SI ES EL LOGIN_ID HAY QUE LLAMAR A UN WS PARA TRADUCI
+           --CONFIRMAR--                                  Tipo cancelacion    (no viene en el modelo, o es tipificacion?)
+           --MODIFICACION--       tipoCancelacion         Tipo cancelacion    (no viene en el modelo, o es tipificacion?)
+           --CONFIRMAR--                                  Texto cancelacion   (no viene en el modelo, o es tipificacion?)
+           --MODIFICACION--       textoCancelacion        Texto cancelacion   (no viene en el modelo, o es tipificacion?)
+           --X--                  telefono1               TELEFONO1           (no viene en el modelo)
+           --X--                  telefono2               TELEFONO2           (no viene en el modelo)
+         */
         TareaMantenimiento tarea = new TareaMantenimiento();
-        loadTareaCommons(tarea, parameters);
+        //INSTALLATION DATA FROM TASK
+        tarea.setNumeroInstalacion(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_INS_NUMERO_INSTALACION));
+        tarea.setPersonaContacto(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_INS_PERSONA_CONTACTO));
+        tarea.setTelefono(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_INS_TELEFONO));
 
-        tarea.setContrato(parameters.get(ServiceParams.TAREA_MANTENIMIENTO_CONTRATO));
-        tarea.setDireccion(parameters.get(ServiceParams.TAREA_MANTENIMIENTO_DIRECCION));
-        tarea.setCiudad(parameters.get(ServiceParams.TAREA_MANTENIMIENTO_CIUDAD));
-        tarea.setFechaEvento(toDateFromMap(parameters.get(ServiceParams.TAREA_MANTENIMIENTO_FECHAEVENTO)));
-        tarea.setTipificacion(parameters.get(ServiceParams.TAREA_MANTENIMIENTO_TIPIFICACION));
-        tarea.setAgenteAsignado(parameters.get(ServiceParams.TAREA_MANTENIMIENTO_AGENTEASIGNADO));
-        tarea.setAgenteCierre(parameters.get(ServiceParams.TAREA_MANTENIMIENTO_AGENTECIERRE));
-        tarea.setOpcionTipificacion(toIntegerFromMap(parameters.get(ServiceParams.TAREA_MANTENIMIENTO_OPCIONTIPIFICACION)));
-        tarea.setKey1(toIntegerFromMap(parameters.get(ServiceParams.TAREA_MANTENIMIENTO_KEY1)));
-        tarea.setKey2(toIntegerFromMap(parameters.get(ServiceParams.TAREA_MANTENIMIENTO_KEY2)));
+        //TAREA DATA
+        tarea.setAgenteAsignado(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_AGENTEASIGNADO));
+        tarea.setAgenteCierre(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_AGENTECIERRE));
+        tarea.setTextoCancelacion(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_TEXTO_CANCELACION));;
+        tarea.setCiudad(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_CIUDAD));
+        tarea.setDireccion(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_DIRECCION));
+        tarea.setFechaEvento(toDateFromMap(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_FECHAEVENTO), TaskServiceParams.TAREA_MANTENIMIENTO_FECHAEVENTO_DATE_FORMAT ));
 
+        tarea.setKey1(toIntegerFromMap(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_KEY1)));
+        tarea.setKey2(toIntegerFromMap(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_KEY2)));
+        tarea.setNumeroContrato(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_NUMERO_CONTRATO));
+        tarea.setOpcionTipificacion(toIntegerFromMap(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_OPCIONTIPIFICACION)));
+        tarea.setTelefono1(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_TELEFONO_1));
+        tarea.setTelefono2(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_TELEFONO_2));
+        tarea.setTelefono3(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_TELEFONO_3));
+        tarea.setTextoCancelacion(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_TEXTO_CANCELACION));
+        tarea.setTipoCancelacion(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_TIPO_CANCELACION));
+        tarea.setTipoMantenimiento(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_TIPO_MANTENIMIENTO));
         return tarea;
     }
 
@@ -240,14 +282,14 @@ public class QueryTareaService {
         loadTareaCommons(task, parameters);
         loadTareaExcelCommons(task, parameters);
 
-        task.setMaintenanceNumber(toIntegerFromMap(parameters.get(ServiceParams.ENCUESTAMNTOS_MANTENIMIENTO)));
-        task.setTechnician(parameters.get(ServiceParams.ENCUESTAMNTOS_TECNICO));
-        task.setManager(parameters.get(ServiceParams.ENCUESTAMNTOS_RESPONSABLE));
-        task.setCostCenter(parameters.get(ServiceParams.ENCUESTAMNTOS_CENTROCOSTE));
-        task.setValuationKeyReason(parameters.get(ServiceParams.ENCUESTAMNTOS_RAZON));
-        task.setSolution(parameters.get(ServiceParams.ENCUESTAMNTOS_SOLUCION));
-        task.setAgreement(parameters.get(ServiceParams.ENCUESTAMNTOS_COMPROMISO));
-        task.setDestinationDepartment(parameters.get(ServiceParams.ENCUESTAMNTOS_DPTO_DESTINO));
+        task.setMaintenanceNumber(toIntegerFromMap(parameters.get(TaskServiceParams.ENCUESTAMNTOS_MANTENIMIENTO)));
+        task.setTechnician(parameters.get(TaskServiceParams.ENCUESTAMNTOS_TECNICO));
+        task.setManager(parameters.get(TaskServiceParams.ENCUESTAMNTOS_RESPONSABLE));
+        task.setCostCenter(parameters.get(TaskServiceParams.ENCUESTAMNTOS_CENTROCOSTE));
+        task.setValuationKeyReason(parameters.get(TaskServiceParams.ENCUESTAMNTOS_RAZON));
+        task.setSolution(parameters.get(TaskServiceParams.ENCUESTAMNTOS_SOLUCION));
+        task.setAgreement(parameters.get(TaskServiceParams.ENCUESTAMNTOS_COMPROMISO));
+        task.setDestinationDepartment(parameters.get(TaskServiceParams.ENCUESTAMNTOS_DPTO_DESTINO));
         return task;
     }
 
@@ -256,8 +298,8 @@ public class QueryTareaService {
         loadTareaCommons(tarea, parameters);
         loadTareaExcelCommons(tarea, parameters);
 
-        tarea.setDate(toDateFromMap(parameters.get(ServiceParams.ENCUESTASMKT_FECHA)));
-        tarea.setReason(parameters.get(ServiceParams.ENCUESTASMKT_MOTIVO));
+        tarea.setDate(toDateFromMap(parameters.get(TaskServiceParams.ENCUESTASMKT_FECHA)));
+        tarea.setReason(parameters.get(TaskServiceParams.ENCUESTASMKT_MOTIVO));
         return tarea;
     }
 
@@ -266,11 +308,11 @@ public class QueryTareaService {
         loadTareaCommons(tarea, parameters);
         loadTareaExcelCommons(tarea, parameters);
 
-        tarea.setContrato(parameters.get(ServiceParams.KEYBOX_CONTRATO));
-        tarea.setInvoiceDate(toDateFromMap(parameters.get(ServiceParams.KEYBOX_FECHA_FACTURA)));
-        tarea.setInvoiceNumber(parameters.get(ServiceParams.KEYBOX_NUMERO_FACTURA));
-        tarea.setLineValue(toIntegerFromMap(parameters.get(ServiceParams.KEYBOX_IMPORTE_LINEA)));
-        tarea.setIdentificadorItem(parameters.get(ServiceParams.KEYBOX_ID_ITEM));
+        tarea.setContrato(parameters.get(TaskServiceParams.KEYBOX_CONTRATO));
+        tarea.setInvoiceDate(toDateFromMap(parameters.get(TaskServiceParams.KEYBOX_FECHA_FACTURA)));
+        tarea.setInvoiceNumber(parameters.get(TaskServiceParams.KEYBOX_NUMERO_FACTURA));
+        tarea.setLineValue(toIntegerFromMap(parameters.get(TaskServiceParams.KEYBOX_IMPORTE_LINEA)));
+        tarea.setIdentificadorItem(parameters.get(TaskServiceParams.KEYBOX_ID_ITEM));
         return tarea;
     }
 
@@ -279,11 +321,11 @@ public class QueryTareaService {
         loadTareaCommons(tarea, parameters);
         loadTareaExcelCommons(tarea, parameters);
 
-        tarea.setCampo1(parameters.get(ServiceParams.OTRASCAMPANAS_CAMPO1));
-        tarea.setCampo2(parameters.get(ServiceParams.OTRASCAMPANAS_CAMPO2));
-        tarea.setCampo3(parameters.get(ServiceParams.OTRASCAMPANAS_CAMPO3));
-        tarea.setComentario(parameters.get(ServiceParams.OTRASCAMPANAS_CAMPO3));
-        tarea.setTipoCampana(parameters.get(ServiceParams.OTRASCAMPANAS_TIPOTAREA));
+        tarea.setCampo1(parameters.get(TaskServiceParams.OTRASCAMPANAS_CAMPO1));
+        tarea.setCampo2(parameters.get(TaskServiceParams.OTRASCAMPANAS_CAMPO2));
+        tarea.setCampo3(parameters.get(TaskServiceParams.OTRASCAMPANAS_CAMPO3));
+        tarea.setComentario(parameters.get(TaskServiceParams.OTRASCAMPANAS_CAMPO3));
+        tarea.setTipoCampana(parameters.get(TaskServiceParams.OTRASCAMPANAS_TIPOTAREA));
 
         return tarea;
     }
@@ -293,9 +335,9 @@ public class QueryTareaService {
         loadTareaCommons(tarea, parameters);
         loadTareaExcelCommons(tarea, parameters);
 
-        tarea.setContrato(parameters.get(ServiceParams.LIMPIEZA_CUOTA_CONTRATO));
-        tarea.setDepartamentoAsignado(parameters.get(ServiceParams.LIMPIEZA_CUOTA_DPT_ASIGNADO));
-        tarea.setDescripcionIncidencia(parameters.get(ServiceParams.LIMPIEZA_CUOTA_DESCRIPTCION));
+        tarea.setContrato(parameters.get(TaskServiceParams.LIMPIEZA_CUOTA_CONTRATO));
+        tarea.setDepartamentoAsignado(parameters.get(TaskServiceParams.LIMPIEZA_CUOTA_DPT_ASIGNADO));
+        tarea.setDescripcionIncidencia(parameters.get(TaskServiceParams.LIMPIEZA_CUOTA_DESCRIPTCION));
 
         return tarea;
     }
@@ -374,8 +416,17 @@ public class QueryTareaService {
      * Carga los datos comunes de Tarea pasados por parametro
      */
     private Tarea loadTareaCommons(Tarea tarea, Map<String, String> parameters) {
+        /**
+        --installationData--   numeroInstalacion	    INSTALACION
+         --installationdata--   titular	                                    (se lee del WS de getInstalacion [ref])
+         --installationData--   Persona de contacto     NOMBRE              (no existe en el modelo)
+         --installationData--   panel 	                                    WS de getInstalacion[ref]   (no viene en el modelo)
+         --installationdata--   telefono	            CONTACT_INFO
+         --installationData--   version                                     (no viene en el modelo)	WS de getInstalacion[ref]
+         */
         assert tarea != null && parameters != null;
-        tarea.setNumeroInstalacion(parameters.get(ServiceParams.NUMERO_INSTALACION));
+        tarea.setNumeroInstalacion(parameters.get(TaskServiceParams.NUMERO_INSTALACION));
+        tarea.setPersonaContacto(parameters.get(TaskServiceParams.TAREA_COMMONS_PERSONA_CONTACTO));
         //TODO JESUS
         return tarea;
     }
@@ -388,7 +439,7 @@ public class QueryTareaService {
     private TareaExcel loadTareaExcelCommons(TareaExcel tarea, Map<String, String> parameters) {
         assert tarea != null && parameters != null;
         //TODO Pendiente saber formato lista tarea.setClosingReason(parameters.get(ServiceParams.MOTIVO_CIERRE));
-        tarea.setCompensation(parameters.get(ServiceParams.COMPENSACION));
+        tarea.setCompensation(parameters.get(TaskServiceParams.COMPENSACION));
         return tarea;
     }
 
@@ -397,27 +448,28 @@ public class QueryTareaService {
         loadTareaCommons(tarea, parameters);
         loadTareaExcelCommons(tarea, parameters);
 
-        tarea.setNumeroInstalacion(parameters.get(ServiceParams.ASSISTANT_INSTALACION));
-        tarea.setMaintenanceNumber(toIntegerFromMap(parameters.get(ServiceParams.ASSISTANT_MANTENIMIENTO)));
-        tarea.setTechnician(parameters.get(ServiceParams.ASSISTANT_TECNICO));
-        tarea.setDepartamento(parameters.get(ServiceParams.ASSISTANT_DEPARTAMENTO));
-        tarea.setGrupoPanel(parameters.get(ServiceParams.ASSISTANT_GRUPOPANEL));
-        tarea.setTotalSinIVA(toFloatFromMap(parameters.get(ServiceParams.ASSISTANT_TOTALSINIVA)));
-        tarea.setTotalConIVA(toFloatFromMap(parameters.get(ServiceParams.ASSISTANT_TOTALCONIVA)));
-        tarea.setNumeroParte(parameters.get(ServiceParams.ASSISTANT_NPARTE));
-        tarea.setFechaArchivo(toDateFromMap(parameters.get(ServiceParams.ASSISTANT_ARCHIVO_FECHA)));
-        tarea.setSubtipoIncidencia(parameters.get(ServiceParams.ASSISTANT_SUBIDA_INC_FECHA));
-        tarea.setFechaPago(toDateFromMap(parameters.get(ServiceParams.ASSISTANT_PAGO_FECHA)));
-        tarea.setIncidencia(parameters.get(ServiceParams.ASSISTANT_INCIDENCIA));
-        tarea.setSubtipoIncidencia(parameters.get(ServiceParams.ASSISTANT_SUBINCIDENCIA));
-        tarea.setSolicitudCliente(parameters.get(ServiceParams.ASSISTANT_SOLICITUD));
-        tarea.setCambiosIncidencia(parameters.get(ServiceParams.ASSISTANT_CAMBIOS));
-        tarea.setBoFechaGestion(toDateFromMap(parameters.get(ServiceParams.ASSISTANT_BO_GESTION_FECHA)));
-        tarea.setBoMatricula(parameters.get(ServiceParams.ASSISTANT_BO_MATRICULA));
-        tarea.setBoFechaRecepcion(toDateFromMap(parameters.get(ServiceParams.ASSISTANT_BO_RECEPCION_FECHA)));
-        tarea.setBoTipo(parameters.get(ServiceParams.ASSISTANT_BO_EMPRESA_PARTICULAR));
-        tarea.setBoComentarios(parameters.get(ServiceParams.ASSISTANT_BO_COMENTARIOS));
-        tarea.setTelefono(parameters.get(ServiceParams.ASSISTANT_CONTACTO_TELEFONO));
+
+        tarea.setNumeroInstalacion(parameters.get(TaskServiceParams.ASSISTANT_INSTALACION));
+        tarea.setMaintenanceNumber(toIntegerFromMap(parameters.get(TaskServiceParams.ASSISTANT_MANTENIMIENTO)));
+        tarea.setTechnician(parameters.get(TaskServiceParams.ASSISTANT_TECNICO));
+        tarea.setDepartamento(parameters.get(TaskServiceParams.ASSISTANT_DEPARTAMENTO));
+        tarea.setGrupoPanel(parameters.get(TaskServiceParams.ASSISTANT_GRUPOPANEL));
+        tarea.setTotalSinIVA(toFloatFromMap(parameters.get(TaskServiceParams.ASSISTANT_TOTALSINIVA)));
+        tarea.setTotalConIVA(toFloatFromMap(parameters.get(TaskServiceParams.ASSISTANT_TOTALCONIVA)));
+        tarea.setNumeroParte(parameters.get(TaskServiceParams.ASSISTANT_NPARTE));
+        tarea.setFechaArchivo(toDateFromMap(parameters.get(TaskServiceParams.ASSISTANT_ARCHIVO_FECHA)));
+        tarea.setSubtipoIncidencia(parameters.get(TaskServiceParams.ASSISTANT_SUBIDA_INC_FECHA));
+        tarea.setFechaPago(toDateFromMap(parameters.get(TaskServiceParams.ASSISTANT_PAGO_FECHA)));
+        tarea.setIncidencia(parameters.get(TaskServiceParams.ASSISTANT_INCIDENCIA));
+        tarea.setSubtipoIncidencia(parameters.get(TaskServiceParams.ASSISTANT_SUBINCIDENCIA));
+        tarea.setSolicitudCliente(parameters.get(TaskServiceParams.ASSISTANT_SOLICITUD));
+        tarea.setCambiosIncidencia(parameters.get(TaskServiceParams.ASSISTANT_CAMBIOS));
+        tarea.setBoFechaGestion(toDateFromMap(parameters.get(TaskServiceParams.ASSISTANT_BO_GESTION_FECHA)));
+        tarea.setBoMatricula(parameters.get(TaskServiceParams.ASSISTANT_BO_MATRICULA));
+        tarea.setBoFechaRecepcion(toDateFromMap(parameters.get(TaskServiceParams.ASSISTANT_BO_RECEPCION_FECHA)));
+        tarea.setBoTipo(parameters.get(TaskServiceParams.ASSISTANT_BO_EMPRESA_PARTICULAR));
+        tarea.setBoComentarios(parameters.get(TaskServiceParams.ASSISTANT_BO_COMENTARIOS));
+        tarea.setTelefono(parameters.get(TaskServiceParams.ASSISTANT_CONTACTO_TELEFONO));
         return tarea;
     }
 
@@ -428,7 +480,7 @@ public class QueryTareaService {
      */
     private TareaAviso createTareaAvisoFromParameters(Map<String, String> responseMap) {
         TareaAviso tarea = null;
-        Integer idAviso = toIntegerFromMap(responseMap.get(ServiceParams.CALLING_LIST_RESPONSE_ID_AVISO));
+        Integer idAviso = toIntegerFromMap(responseMap.get(TaskServiceParams.TAREA_AVISO_CALLING_LIST_RESPONSE_ID_AVISO));
         if (idAviso != null && idAviso != 0) {
             try {
                 tarea = getTareaByIdAviso(idAviso);
@@ -483,16 +535,42 @@ public class QueryTareaService {
      * Conversores , indicar parametro (String).
      * Ejemplo de lo que devuelve Aviso Service: 2014-08-22T10:08:26.000+02:00
      */
-    private Date toDateFromMap(String value) {
-        return new Date(); //TODO JAVIER
+    private Date toDateFromMap(String value, String dateFormatPattern) {
+        Date fecha;
+        if(dateFormatPattern!=null){
+            SimpleDateFormat sdf = new SimpleDateFormat(dateFormatPattern);
+            try {
+                fecha = sdf.parse(value);
+            }catch (ParseException parseException){
+                LOGGER.error("El formato de fecha '{}' no se corresponde con la fecha dada '{}'", dateFormatPattern, value, parseException.getMessage(), parseException);
+                fecha = new Date();
+            }catch (IllegalArgumentException illegalArgumentException){
+                LOGGER.error("El formato de fecha '{}' no es un patrón válido.\nMessage: {}\nStackTrace: {}", dateFormatPattern, illegalArgumentException.getMessage(), illegalArgumentException);
+                fecha = new Date();
+            }
+        }else{
+            LOGGER.error("No se encontró el formato de fecha");
+            fecha = new Date();
+        }
+        return fecha;
+    }
+
+    private Date toDateFromMap(String value){
+        String dateFormatPattern = TaskServiceParams.DEFAULT_DATE_FORMAT;
+        return toDateFromMap(value, dateFormatPattern);
     }
 
     private Integer toIntegerFromMap(String value) {
-        if (value == null || value.isEmpty()) {
-            return null;
-        } else {
-            return Integer.valueOf(value);
+        Integer result = null;
+        if (value != null && !value.isEmpty()) {
+            try{
+                result = Integer.valueOf(value);
+            }catch(NumberFormatException numberFormatException){
+                LOGGER.error("No se pudo parsear a Integer el valor: '{}'\nMessage:{}\nException:{}", value, numberFormatException.getMessage(), numberFormatException);
+                result = null;
+            }
         }
+        return result;
     }
 
     private Float toFloatFromMap(String value) {

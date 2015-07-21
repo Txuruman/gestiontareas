@@ -278,20 +278,6 @@ public class VisorTareaController {
         return cancelationTypeList;
     }
 
-
-    @RequestMapping(value = "/getTareaMantenimiento", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public
-    @ResponseBody
-    TareaResponse getTareaMantenimiento(@RequestParam(value = "ccUserId", required = true) String ccUserId,
-                                             @RequestParam(value = "callingList", required = true) String callingList,
-                                             @RequestParam(value = "tareaId", required = true) String tareaId
-        ) throws DataServiceFault {
-        LOGGER.debug("Get maintenance task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}",ccUserId, callingList, tareaId);
-        TareaMantenimiento tareaMantenimiento = (TareaMantenimiento)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-        LOGGER.debug("Maintenance task obtained from service: \n{}", tareaMantenimiento);
-        return toTareaResponse(tareaMantenimiento);
-    }
-
     /**
      *
      * @return

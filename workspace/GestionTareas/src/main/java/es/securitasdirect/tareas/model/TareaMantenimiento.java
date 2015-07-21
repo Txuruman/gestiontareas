@@ -8,32 +8,87 @@ package es.securitasdirect.tareas.model;
 import java.util.Date;
 
 public class TareaMantenimiento extends Tarea {
+    /**
+     1.1.1.1.2.	Mapeo tarea mantenimiento
+     Campo pantalla	Datos WS
+     ESTADO                 NOMBRE_CAMPO            NOMBRE_CAMPO_WS     COMENTARIOS
+     --installationData--   numeroInstalacion	    INSTALACION
+     --installationdata--   titular	                                    (se lee del WS de getInstalacion [ref])
+     --installationData--   Persona de contacto     NOMBRE              (no existe en el modelo)
+     --installationData--   panel 	                                    WS de getInstalacion[ref]   (no viene en el modelo)
+     --installationdata--   telefono	            CONTACT_INFO
+     --installationData--   version                                     (no viene en el modelo)	WS de getInstalacion[ref]
+     --CONFIRMAR--          numeroContrato	        CTR_NO              (confirmar)
+     --NO_MOSTRADO--        tipoMantenimiento       TIPO_MANTENIMIENTO  (no viene en el modelo)
+     --X--                  direccion	            DIRECCION
+     --CONFIRMAR--          fechaEvento	            F_CREACION_TAREA?
+     --X--                  ciudad	                CIUDAD
+     --CONFIRMAR--          agenteAsignado	        AGENT_ID            (CONFIRMAR, SI ES EL LOGIN_ID HAY QUE LLAMAR A UN WS PARA TRADUCIRLO)
+     --CONFIRMAR--                                  Tipo cancelacion    (no viene en el modelo, o es tipificacion?)
+     --MODIFICACION--       tipoCancelacion         Tipo cancelacion    (no viene en el modelo, o es tipificacion?)
+     --CONFIRMAR--                                  Texto cancelacion   (no viene en el modelo, o es tipificacion?)
+     --MODIFICACION--       textoCancelacion        Texto cancelacion   (no viene en el modelo, o es tipificacion?)
+     --X--                  telefono1               TELEFONO1           (no viene en el modelo)
+     --X--                  telefono2               TELEFONO2           (no viene en el modelo)
+     --X--                  telefono3               TELEFONO3           (no viene en el modelo)
+     --DESCONOCIDO--        Key1
+     --DESCONOCIDO--        Key2
+     --NO_INDICADO--        agenteCierre
+     --NO_INDICADO--        opcionTipificacion
+     --NO_INDICADO--        textoCancelacion
+     */
 
     /**
-
      * Contrato
      */
-    String contrato;
+    String numeroContrato;
+    /**
+     *
+     */
+    String tipoMantenimiento;
     /**
      * Dirección
      */
     String direccion;
     /**
-     * Ciudad
-     */
-    String ciudad;
-    /**
      * Fecha y hora del Evento
      */
     Date fechaEvento;
     /**
-     * Tipificacion
+     * Ciudad
      */
-    String tipificacion;
+    String ciudad;
     /**
      * Agente Asignado
      */
     String agenteAsignado;
+    /**
+     * Tipo cancelacion
+     */
+    String tipoCancelacion;
+    /**
+     * Add based in screen interface
+     * @return
+     */
+    String telefono1;
+    /**
+     * Add based in screen interface
+     * @return
+     */
+    String telefono2;
+    /**
+     * Add based in screen interface
+     * @return
+     */
+    String telefono3;
+    /**
+     * Key1
+     */
+    Integer key1;
+    /**
+     * Key2
+     */
+    Integer key2;
     /**
      * Agente de Cierre
      */
@@ -43,73 +98,26 @@ public class TareaMantenimiento extends Tarea {
      */
     Integer opcionTipificacion;
     /**
-     * Key1
-     */
-    Integer key1;
-    /**
-     * Key2
-     */
-    Integer key2;
-
-    /**
-     * Add based in screen interface
-     * @return
-     */
-    String telephone1;
-    /**
-     * Add based in screen interface
-     * @return
-     */
-    String telephone2;
-    /**
-     * Add based in screen interface
-     * @return
-     */
-    String telephone3;
-
-    /**
      * Add based in screen interface
      */
-    String cancelationText;
+    String textoCancelacion;
 
-    public String getCancelationText() {
-        return cancelationText;
+    @Override
+    public String getNumeroContrato() {
+        return numeroContrato;
     }
 
-    public void setCancelationText(String cancelationText) {
-        this.cancelationText = cancelationText;
+    @Override
+    public void setNumeroContrato(String numeroContrato) {
+        this.numeroContrato = numeroContrato;
     }
 
-    public String getTelephone1() {
-        return telephone1;
+    public String getTipoMantenimiento() {
+        return tipoMantenimiento;
     }
 
-    public void setTelephone1(String telephone1) {
-        this.telephone1 = telephone1;
-    }
-
-    public String getTelephone2() {
-        return telephone2;
-    }
-
-    public void setTelephone2(String telephone2) {
-        this.telephone2 = telephone2;
-    }
-
-    public String getTelephone3() {
-        return telephone3;
-    }
-
-    public void setTelephone3(String telephone3) {
-        this.telephone3 = telephone3;
-    }
-
-    public String getContrato() {
-        return contrato;
-    }
-
-    public void setContrato(String contrato) {
-        this.contrato = contrato;
+    public void setTipoMantenimiento(String tipoMantenimiento) {
+        this.tipoMantenimiento = tipoMantenimiento;
     }
 
     public String getDireccion() {
@@ -120,14 +128,6 @@ public class TareaMantenimiento extends Tarea {
         this.direccion = direccion;
     }
 
-    public String getCiudad() {
-        return ciudad;
-    }
-
-    public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
-    }
-
     public Date getFechaEvento() {
         return fechaEvento;
     }
@@ -136,12 +136,12 @@ public class TareaMantenimiento extends Tarea {
         this.fechaEvento = fechaEvento;
     }
 
-    public String getTipificacion() {
-        return tipificacion;
+    public String getCiudad() {
+        return ciudad;
     }
 
-    public void setTipificacion(String tipificacion) {
-        this.tipificacion = tipificacion;
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
     }
 
     public String getAgenteAsignado() {
@@ -152,20 +152,40 @@ public class TareaMantenimiento extends Tarea {
         this.agenteAsignado = agenteAsignado;
     }
 
-    public String getAgenteCierre() {
-        return agenteCierre;
+    public String getTipoCancelacion() {
+        return tipoCancelacion;
     }
 
-    public void setAgenteCierre(String agenteCierre) {
-        this.agenteCierre = agenteCierre;
+    public void setTipoCancelacion(String tipoCancelacion) {
+        this.tipoCancelacion = tipoCancelacion;
     }
 
-    public Integer getOpcionTipificacion() {
-        return opcionTipificacion;
+    public void setTextoCancelacion(String textoCancelacion) {
+        this.textoCancelacion = textoCancelacion;
     }
 
-    public void setOpcionTipificacion(Integer opcionTipificacion) {
-        this.opcionTipificacion = opcionTipificacion;
+    public String getTelefono1() {
+        return telefono1;
+    }
+
+    public void setTelefono1(String telefono1) {
+        this.telefono1 = telefono1;
+    }
+
+    public String getTelefono2() {
+        return telefono2;
+    }
+
+    public void setTelefono2(String telefono2) {
+        this.telefono2 = telefono2;
+    }
+
+    public String getTelefono3() {
+        return telefono3;
+    }
+
+    public void setTelefono3(String telefono3) {
+        this.telefono3 = telefono3;
     }
 
     public Integer getKey1() {
@@ -184,24 +204,44 @@ public class TareaMantenimiento extends Tarea {
         this.key2 = key2;
     }
 
+    public String getAgenteCierre() {
+        return agenteCierre;
+    }
+
+    public void setAgenteCierre(String agenteCierre) {
+        this.agenteCierre = agenteCierre;
+    }
+
+    public Integer getOpcionTipificacion() {
+        return opcionTipificacion;
+    }
+
+    public void setOpcionTipificacion(Integer opcionTipificacion) {
+        this.opcionTipificacion = opcionTipificacion;
+    }
+
+    public String getTextoCancelacion() {
+        return textoCancelacion;
+    }
 
     @Override
     public String toString() {
         return "TareaMantenimiento{" +
-                "contrato='" + contrato + '\'' +
+                "numeroContrato='" + numeroContrato + '\'' +
+                ", tipoMantenimiento='" + tipoMantenimiento + '\'' +
                 ", direccion='" + direccion + '\'' +
-                ", ciudad='" + ciudad + '\'' +
                 ", fechaEvento=" + fechaEvento +
-                ", tipificacion='" + tipificacion + '\'' +
+                ", ciudad='" + ciudad + '\'' +
                 ", agenteAsignado='" + agenteAsignado + '\'' +
-                ", agenteCierre='" + agenteCierre + '\'' +
-                ", opcionTipificacion=" + opcionTipificacion +
+                ", tipoCancelacion='" + tipoCancelacion + '\'' +
+                ", telefono1='" + telefono1 + '\'' +
+                ", telefono2='" + telefono2 + '\'' +
+                ", telefono3='" + telefono3 + '\'' +
                 ", key1=" + key1 +
                 ", key2=" + key2 +
-                ", telephone1='" + telephone1 + '\'' +
-                ", telephone2='" + telephone2 + '\'' +
-                ", telephone3='" + telephone3 + '\'' +
-                ", cancelationText='" + cancelationText + '\'' +
+                ", agenteCierre='" + agenteCierre + '\'' +
+                ", opcionTipificacion=" + opcionTipificacion +
+                ", textoCancelacion='" + textoCancelacion + '\'' +
                 '}';
     }
 }

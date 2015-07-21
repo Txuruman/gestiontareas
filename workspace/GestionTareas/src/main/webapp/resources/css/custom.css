@@ -102,3 +102,14 @@ h2{
     text-align: left;
     font-size: 14px;
 }
+
+.alert{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left:20px;
+    padding-right:25px;
+    margin-top:3px;
+    margin-left:1px;
+    margin-bottom: 1px;
+    margin-right: 1px;
+}

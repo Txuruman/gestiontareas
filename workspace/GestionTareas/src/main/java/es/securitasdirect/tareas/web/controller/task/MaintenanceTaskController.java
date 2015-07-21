@@ -1,8 +1,10 @@
 package es.securitasdirect.tareas.web.controller.task;
 
+import es.securitasdirect.tareas.model.InstallationData;
 import es.securitasdirect.tareas.model.TareaMantenimiento;
 import es.securitasdirect.tareas.model.external.Pair;
 import es.securitasdirect.tareas.service.ExternalDataService;
+import es.securitasdirect.tareas.service.InstallationService;
 import es.securitasdirect.tareas.service.QueryTareaService;
 import es.securitasdirect.tareas.web.controller.BaseController;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
@@ -36,6 +38,8 @@ public class MaintenanceTaskController extends BaseController {
     private DummyResponseGenerator dummyResponseGenerator;
     @Inject
     private ExternalDataService externalDataService;
+    @Inject
+    private InstallationService installationDataService;
 
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MaintenanceTaskController.class);
@@ -51,6 +55,25 @@ public class MaintenanceTaskController extends BaseController {
         LOGGER.debug("Maintenance task obtained from service: \n{}", tareaMantenimiento);
         return toTareaResponse(tareaMantenimiento);
     }
+
+    @RequestMapping(value = "/getInstallationAndTask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public @ResponseBody TareaResponse getInstallationAndTask(
+        @RequestParam(value = "installationId", required = true) String installationId,
+        @RequestParam(value = "ccUserId", required = true) String ccUserId,
+        @RequestParam(value = "callingList", required = true) String callingList,
+        @RequestParam(value = "tareaId", required = true) String tareaId
+    ) throws DataServiceFault {
+        LOGGER.debug("Get maintenance task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
+        TareaMantenimiento tareaMantenimiento = (TareaMantenimiento) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
+        LOGGER.debug("Maintenance task obtained from service: \n{}", tareaMantenimiento);
+        LOGGER.debug("Get installation data for params: \ninstallationId: {}", installationId);
+        InstallationData installationData = installationDataService.getInstallationData(installationId);
+        LOGGER.debug("Installation data obtained from service: \n{}", installationData);
+        return toTareaResponse(tareaMantenimiento, installationData);
+    }
+
+
+
 
     @RequestMapping(value = "/create", method = {RequestMethod.PUT}, consumes  = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody BaseResponse interactionCreateMaintenance(@RequestBody MaintenanceTaskCreateRequest peticion) {
@@ -80,5 +103,7 @@ public class MaintenanceTaskController extends BaseController {
         List<Pair> cancelationTypeList = externalDataService.getCancelationType();
         return cancelationTypeList;
     }
+
+
 
 }

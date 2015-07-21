@@ -26,6 +26,26 @@ public abstract class BaseController {
     @Inject
     protected MessageUtil messageUtil;
 
+    protected TareaResponse toTareaResponse(Tarea tarea, InstallationData installationData) {
+        TareaResponse tareaResponse = new TareaResponse();
+        LOGGER.info("Process task response: {}", tarea);
+        if (tarea != null) {
+            tareaResponse.setTarea(tarea);
+            tareaResponse.success(messageUtil.getProperty("task.success"));
+        } else {
+            tareaResponse.danger(messageUtil.getProperty("task.notFound"));
+        }
+        if(installationData!=null){
+            tareaResponse.setInstallationData(installationData);
+            tareaResponse.success(messageUtil.getProperty("installationData.success"));
+        }else{
+            tareaResponse.danger(messageUtil.getProperty("installationData.notFound"));
+        }
+        LOGGER.info("Task Response: {}", tareaResponse);
+        return tareaResponse;
+    }
+
+
     protected TareaResponse toTareaResponse(Tarea tarea) {
         TareaResponse tareaResponse = new TareaResponse();
         LOGGER.info("Process task response: {}", tarea);

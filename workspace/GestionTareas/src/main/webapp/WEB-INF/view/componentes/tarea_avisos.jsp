@@ -4,7 +4,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 
-<div ng-controller="notificationtask" ng-init="getTarea()">
+<div ng-controller="notificationtask" ng-init="getInstallationAndTask()">
+    <jsp:include page="instalacion.jsp"/>
     <div class="panel panel-default">
         <div class="panel-body">
             <div class="spacer_t2"></div>
@@ -21,34 +22,68 @@
             </div>
             <div class="spacer_t1"></div>
             <div class="row">
-                <app:inputCombo id="tipoAviso1" label="eti.visortarea.form.label.tipo" value="${tarea.tipoAviso1}" cells="6"
-                                readonly="false"/>
-                <app:inputCombo id="motivo1" label="eti.visortarea.form.label.reason" value="${tarea.motivo1}" cells="6"
-                                readonly="false"/>
+                <app:wrapping cells="6">Tipo aviso 1: {{tarea.tipoAviso1}}</app:wrapping>
+                <app:wrapping cells="6">Motivo 1: {{tarea.motivo1}}</app:wrapping>
+                <app:wrapping cells="6">Tipo aviso 2: {{tarea.tipoAviso2}}</app:wrapping>
+                <app:wrapping cells="6">Motivo 2: {{tarea.motivo2}}</app:wrapping>
+                <app:wrapping cells="6">Tipo aviso 3: {{tarea.tipoAviso3}}</app:wrapping>
+                <app:wrapping cells="6">Motivo 3: {{tarea.motivo3}}</app:wrapping>
+            </div>
+            <div class="row">
+                <app:input id="tipoAviso1" label="eti.visortarea.form.label.tipo" cells="6">
+                    <select  ng-model="tarea.tipoAviso1" convert-to-number class="form-control">
+                        <option data-ng-repeat="itemTipoAviso1 in tipoAvisoList" value="{{itemTipoAviso1.id}}" ng-selected="itemTipoAviso1.id==tarea.tipoAviso1" >{{itemTipoAviso1.value}}</option>
+                    </select>
+                </app:input>
+                <app:input id="motivo1" label="eti.visortarea.form.label.reason" cells="6">
+                    <select  ng-model="tarea.motivo1" convert-to-number class="form-control">
+                        <option data-ng-repeat="itemMotivo1 in motivoList" value="{{itemMotivo1.id}}" ng-selected="itemMotivo1.id==tarea.motivo1" >{{itemMotivo1.value}}</option>
+                    </select>
+                </app:input>
             </div>
             <div class="spacer_t1"></div>
             <div class="row">
-                <app:inputCombo id="tipoAviso2" value="${tarea.tipoAviso2}" cells="6" readonly="false"/>
-                <app:inputCombo id="motivo2" value="${tarea.motivo2}" cells="6" readonly="false"/>
+                <app:input id="tipoAviso2" cells="6">
+                    <select  ng-model="tarea.tipoAviso2" convert-to-number class="form-control">
+                        <option data-ng-repeat="itemTipoAviso2 in tipoAvisoList" value="{{itemTipoAviso2.id}}" ng-selected="itemTipoAviso2.id==tarea.tipoAviso2" >{{itemTipoAviso2.value}}</option>
+                    </select>
+                </app:input>
+                <app:input id="motivo2" cells="6">
+                    <select  ng-model="tarea.motivo2" convert-to-number class="form-control">
+                        <option data-ng-repeat="itemMotivo2 in motivoList" value="{{itemMotivo2.id}}" ng-selected="itemMotivo2.id==tarea.motivo2" >{{itemMotivo2.value}}</option>
+                    </select>
+                </app:input>
             </div>
             <div class="spacer_t1"></div>
             <div class="row">
-                <app:inputCombo id="tipoAviso3" value="${tarea.tipoAviso3}" cells="6" readonly="false"/>
-                <app:inputCombo id="motivo3" value="${tarea.motivo3}" cells="6" readonly="false"/>
+                <app:input id="tipoAviso3" cells="6">
+                    <select  ng-model="tarea.tipoAviso3" convert-to-number class="form-control">
+                        <option data-ng-repeat="k in tipoAvisoList" value="{{k.id}}" ng-selected="k.id==tarea.tipoAviso3" >{{k.value}}</option>
+                    </select>
+                </app:input>
+                <app:input id="motivo3" cells="6">
+                    <select  ng-model="tarea.motivo3" convert-to-number class="form-control">
+                        <option data-ng-repeat="k in motivoList" value="{{k.id}}" ng-selected="k.id==tarea.motivo3" >{{k.value}}</option>
+                    </select>
+                </app:input>
             </div>
             <!-- row -->
+            <div class="row">
+                <app:wrapping cells="6">Cierre: {{tarea.closing}}</app:wrapping>
+                <app:wrapping cells="6">Datos adicionales: {{tarea.datosAdicionalesCierre}}</app:wrapping>
+            </div>
             <div class="spacer_t1"></div>
             <div class="row">
                 <app:input id="closing" label="notificationtask.closing" cells="6" readonly="false">
-                    <select data-ng-init="getClosing()" ng-model="tarea.closing" convert-to-number class="form-control">
-                        <!-- ng-model="model.id" convert-to-number -->
-                        <option data-ng-repeat="k in closingList" value="{{k.id}}" ng-selected="k.id==tarea.closing">
-                            {{k.value}}
-                        </option>
+                    <select ng-model="tarea.closing" convert-to-number class="form-control">
+                        <option data-ng-repeat="k in closingList" value="{{k.id}}" ng-selected="k.id==tarea.closing">{{k.value}}</option>
                     </select>
                 </app:input>
-                <app:inputCombo id="adicionalesCierre" label="eti.visortarea.tareaavisos.form.label.adicionalesCierre"
-                                value="${tarea.motivo3}" cells="6" readonly="false"/>
+                <app:input id="closing" label="notificationTask.closingAdditionalData" cells="6" readonly="false">
+                    <select ng-model="tarea.closing" convert-to-number class="form-control">
+                        <option data-ng-repeat="k in datosAdicionalesList" value="{{k.id}}" ng-selected="k.id==tarea.datosAdicionalesCierre">{{k.value}}</option>
+                    </select>
+                </app:input>
                 <!-- subrow -->
                 <div class="spacer_t1"></div>
             </div>
