@@ -26,27 +26,38 @@ public interface TaskServiceParams {
     /*
      * Tarea de tipo Listado Assistant
      */
-    public static String ASSISTANT_INSTALACION = "instalacion";
-    public static String ASSISTANT_MANTENIMIENTO = "";
-    public static String ASSISTANT_TECNICO = "instalacion";
-    public static String ASSISTANT_DEPARTAMENTO = "instalacion";
-    public static String ASSISTANT_GRUPOPANEL = "instalacion";
-    public static String ASSISTANT_TOTALSINIVA = "instalacion";
-    public static String ASSISTANT_TOTALCONIVA = "instalacion";
-    public static String ASSISTANT_NPARTE = "instalacion";
-    public static String ASSISTANT_ARCHIVO_FECHA = "instalacion";
-    public static String ASSISTANT_SUBIDA_INC_FECHA = "instalacion";
-    public static String ASSISTANT_PAGO_FECHA = "instalacion";
-    public static String ASSISTANT_INCIDENCIA = "instalacion";
-    public static String ASSISTANT_SUBINCIDENCIA = "instalacion";
-    public static String ASSISTANT_SOLICITUD = "instalacion";
-    public static String ASSISTANT_CAMBIOS = "instalacion";
-    public static String ASSISTANT_BO_GESTION_FECHA = "instalacion";
-    public static String ASSISTANT_BO_MATRICULA = "instalacion";
-    public static String ASSISTANT_BO_RECEPCION_FECHA = "instalacion";
-    public static String ASSISTANT_BO_EMPRESA_PARTICULAR = "instalacion";
-    public static String ASSISTANT_BO_COMENTARIOS = "instalacion";
-    public static String ASSISTANT_CONTACTO_TELEFONO = "instalacion";
+    //INSTALLATION DATA
+    public static String LIST_ASSISTANT_TASK_INS_NUMERO_INSTALACION = "INSTALACION";
+    public static String LIST_ASSISTANT_TASK_INS_PERSONA_CONTACTO = "NOMBRE";
+    public static String LIST_ASSISTANT_TASK_INS_TELEFONO = "CONTACT_INFO";
+
+    public static String LIST_ASSISTANT_TASK_TITULAR = "";
+    public static String LIST_ASSISTANT_TASK_PANEL = "";
+    public static String LIST_ASSISTANT_TASK_VERSION = "";
+    public static String LIST_ASSISTANT_TASK_MOTIVO_CIERRE = "";//EN PANTALLA
+    public static String LIST_ASSISTANT_TASK_COMPENSACION = "";//EN PANTALLA
+    public static String LIST_ASSISTANT_TASK_N_MANTENIMIENTO = "MANTENIMIENTO";
+    public static String LIST_ASSISTANT_TASK_TECNICO = "TECNICO";
+    public static String LIST_ASSISTANT_TASK_DEPARTAMENTO = "DEPARTAMENTO";
+    public static String LIST_ASSISTANT_TASK_TOTAL_SIN_IVA = "TOTAL_SIN_IVA";
+    public static String LIST_ASSISTANT_TASK_TOTAL_CON_IVA = "TOTAL";
+    public static String LIST_ASSISTANT_TASK_GRUPO_PANEL = "GRUPO_PANEL";
+    public static String LIST_ASSISTANT_TASK_TIPO_INCIDENCIA = "TIPOINCIDENCIA";
+    public static String LIST_ASSISTANT_TASK_SUBTIPO_INCIDENCIA = "SUBTIPO_INCIDENCIA";
+    public static String LIST_ASSISTANT_TASK_PARTE_N = "NUM_PARTE";
+    public static String LIST_ASSISTANT_TASK_FECHA_INCIDENCIA = "F_INCIDENCIA";
+    public static String LIST_ASSISTANT_TASK_FECHA_PAGO = "F_PAGO";
+    public static String LIST_ASSISTANT_TASK_OPERADOR = "OPERADOR";
+    public static String LIST_ASSISTANT_TASK_FECHA_CIERRE = "F_CIERRE";
+    public static String LIST_ASSISTANT_TASK_FECHA_ARCHIVO = "F_ARCHIVO";
+    public static String LIST_ASSISTANT_TASK_BO_FECHA_RECEPCION = "BO_FRECEPCION";
+    public static String LIST_ASSISTANT_TASK_BO_MATRICULA = "BO_MATRICULA";
+    public static String LIST_ASSISTANT_TASK_BO_DATOS = "BO_DATOS";
+    public static String LIST_ASSISTANT_TASK_BO_FECHA_GESTION = "BO_FGESTION";
+    public static String LIST_ASSISTANT_TASK_BO_TIPO = "BO_TIPO";
+    public static String LIST_ASSISTANT_TASK_BO_COMENTARIOS = "BO_COMENTARIOS";
+    public static String LIST_ASSISTANT_TASK_SOLICITUD = "SOLICITUD";
+    public static String LIST_ASSISTANT_TASK_CAMBIOS = "CAMBIOS";
 
 
     /**

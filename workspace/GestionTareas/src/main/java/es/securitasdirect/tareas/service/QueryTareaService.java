@@ -449,27 +449,27 @@ public class QueryTareaService {
         loadTareaExcelCommons(tarea, parameters);
 
 
-        tarea.setNumeroInstalacion(parameters.get(TaskServiceParams.ASSISTANT_INSTALACION));
-        tarea.setMaintenanceNumber(toIntegerFromMap(parameters.get(TaskServiceParams.ASSISTANT_MANTENIMIENTO)));
-        tarea.setTechnician(parameters.get(TaskServiceParams.ASSISTANT_TECNICO));
-        tarea.setDepartamento(parameters.get(TaskServiceParams.ASSISTANT_DEPARTAMENTO));
-        tarea.setGrupoPanel(parameters.get(TaskServiceParams.ASSISTANT_GRUPOPANEL));
-        tarea.setTotalSinIVA(toFloatFromMap(parameters.get(TaskServiceParams.ASSISTANT_TOTALSINIVA)));
-        tarea.setTotalConIVA(toFloatFromMap(parameters.get(TaskServiceParams.ASSISTANT_TOTALCONIVA)));
-        tarea.setNumeroParte(parameters.get(TaskServiceParams.ASSISTANT_NPARTE));
-        tarea.setFechaArchivo(toDateFromMap(parameters.get(TaskServiceParams.ASSISTANT_ARCHIVO_FECHA)));
-        tarea.setSubtipoIncidencia(parameters.get(TaskServiceParams.ASSISTANT_SUBIDA_INC_FECHA));
-        tarea.setFechaPago(toDateFromMap(parameters.get(TaskServiceParams.ASSISTANT_PAGO_FECHA)));
-        tarea.setIncidencia(parameters.get(TaskServiceParams.ASSISTANT_INCIDENCIA));
-        tarea.setSubtipoIncidencia(parameters.get(TaskServiceParams.ASSISTANT_SUBINCIDENCIA));
-        tarea.setSolicitudCliente(parameters.get(TaskServiceParams.ASSISTANT_SOLICITUD));
-        tarea.setCambiosIncidencia(parameters.get(TaskServiceParams.ASSISTANT_CAMBIOS));
-        tarea.setBoFechaGestion(toDateFromMap(parameters.get(TaskServiceParams.ASSISTANT_BO_GESTION_FECHA)));
-        tarea.setBoMatricula(parameters.get(TaskServiceParams.ASSISTANT_BO_MATRICULA));
-        tarea.setBoFechaRecepcion(toDateFromMap(parameters.get(TaskServiceParams.ASSISTANT_BO_RECEPCION_FECHA)));
-        tarea.setBoTipo(parameters.get(TaskServiceParams.ASSISTANT_BO_EMPRESA_PARTICULAR));
-        tarea.setBoComentarios(parameters.get(TaskServiceParams.ASSISTANT_BO_COMENTARIOS));
-        tarea.setTelefono(parameters.get(TaskServiceParams.ASSISTANT_CONTACTO_TELEFONO));
+        tarea.setNumeroInstalacion(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_INS_NUMERO_INSTALACION));
+        tarea.setMaintenanceNumber(toIntegerFromMap(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_N_MANTENIMIENTO)));
+        tarea.setTechnician(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_TECNICO));
+        tarea.setDepartamento(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_DEPARTAMENTO));
+        tarea.setGrupoPanel(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_GRUPO_PANEL));
+        tarea.setTotalSinIVA(toFloatFromMap(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_TOTAL_SIN_IVA)));
+        tarea.setTotalConIVA(toFloatFromMap(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_TOTAL_CON_IVA)));
+        tarea.setNumeroParte(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_PARTE_N));
+        tarea.setFechaArchivo(toDateFromMap(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_FECHA_ARCHIVO)));
+        tarea.setSubtipoIncidencia(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_SUBTIPO_INCIDENCIA));
+        tarea.setFechaPago(toDateFromMap(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_FECHA_PAGO)));
+        tarea.setIncidencia(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_TIPO_INCIDENCIA));
+        tarea.setSubtipoIncidencia(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_SUBTIPO_INCIDENCIA));
+        tarea.setSolicitudCliente(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_SOLICITUD));
+        tarea.setCambiosIncidencia(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_CAMBIOS));
+        tarea.setBoFechaGestion(toDateFromMap(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_BO_FECHA_GESTION)));
+        tarea.setBoMatricula(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_BO_MATRICULA));
+        tarea.setBoFechaRecepcion(toDateFromMap(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_BO_FECHA_RECEPCION)));
+        tarea.setBoTipo(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_BO_TIPO));
+        tarea.setBoComentarios(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_BO_COMENTARIOS));
+        tarea.setTelefono(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_INS_TELEFONO));
         return tarea;
     }
 

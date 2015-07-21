@@ -4,6 +4,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <div ng-controller="marketingsurveytask-ctrl" ng-init="getTarea()">
+    <jsp:include page="instalacion.jsp"/>
     <div class="panel panel-default">
         <div class="panel-body">
             <jsp:include page="comunes.jsp"/>
