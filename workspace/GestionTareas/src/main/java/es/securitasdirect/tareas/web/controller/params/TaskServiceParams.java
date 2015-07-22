@@ -108,14 +108,15 @@ public interface TaskServiceParams {
 
 
 
-    public  static String OTRASCAMPANAS_CAMPO1 = "campo";
-    public  static String OTRASCAMPANAS_CAMPO2 = "campo";
-    public  static String OTRASCAMPANAS_CAMPO3 = "campo";
-    public  static String OTRASCAMPANAS_TIPOTAREA = "campo";
+    public static String OTRASCAMPANAS_CAMPO1 = "CUSTOM01";
+    public static String OTRASCAMPANAS_CAMPO2 = "CUSTOM02";
+    public static String OTRASCAMPANAS_CAMPO3 = "CUSTOM03";
+    public static String OTRASCAMPANAS_COMENTARIO = "COMENTARIOS";
+    public static String OTRASCAMPANAS_TIPO_CAMPANA = "TIPO_CAMPAÑA";
 
-    public  static String LIMPIEZA_CUOTA_CONTRATO = "campo";
-    public static  String LIMPIEZA_CUOTA_DPT_ASIGNADO = "campo";
-    public static  String LIMPIEZA_CUOTA_DESCRIPTCION = "campo";
+    public static String LIMPIEZA_CUOTA_CONTRATO = "CTR_NO";
+    public static String LIMPIEZA_CUOTA_DPT_ASIGNADO = "DEPARTAMENTO";
+    public static String LIMPIEZA_CUOTA_INCIDENCIA = "INCIDENCIA";
 
     /*Tarea Mantenimiento */
     /**
