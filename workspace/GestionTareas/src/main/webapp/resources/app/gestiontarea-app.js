@@ -2,6 +2,61 @@ var app = angular.module("myApp", ['ui.bootstrap']);
 
 
 
+
+//Controlador para mostrar la ventana modal de aplazar
+app.controller('DelayModalCtrl', function ($scope, $modal, $log) {
+
+    //Abre la ventana, posibles tamaños '', 'sm', 'lg'
+    $scope.open = function (size) {
+        var modalInstance = $modal.open({
+            animation:false, //Indica si animamos el modal
+            templateUrl: 'deplayModalContent.html', //HTML del modal
+            controller: 'DelayModalInstanceCtrl',  //Referencia al controller especifico para el modal
+            size: size,
+            resolve: {
+                items: function () {
+                    return $scope.items;
+                }
+            }
+        });
+
+        //Funciones para recivir el cierre ok y el cancel
+        modalInstance.result.then(function (delayDate) {
+            $log.info('Delaying task to' + delayDate);
+            $scope.selected = delayDate;
+            aplazar();
+        }, function (param) {
+            $log.info('Modal dismissed at: ' + new Date() + ' with param ' + param);
+        });
+    };
+
+});
+
+// Please note that $modalInstance represents a modal window (instance) dependency.
+// It is not the same as the $modal service used above.
+app.controller('DelayModalInstanceCtrl', function ($scope, $modalInstance, $log) {
+
+    $scope.today =  new Date();
+    $scope.delayDate = $scope.today;
+    $scope.delayTime = $scope.today;
+
+    $scope.ok = function () {
+        //Llama a la función de result.then de DelayModalCtrl
+        if ($scope.delayDate && $scope.delayTime) {
+            $scope.delayDate.setHours($scope.delayTime.getHours(), $scope.delayTime.getMinutes(), 0, 0);
+        }
+        $log.info("Selected delay time :" + $scope.delayDate );
+        $modalInstance.close($scope.delayDate);
+    };
+
+    $scope.cancel = function () {
+        //Llama a la funcion result.then de DelayModalCtrl
+        $modalInstance.dismiss('cancel');
+    };
+});
+
+
+
 //Controller for the app:messages
 app.controller('MessagesController', function ($scope, $rootScope) {
     //Remove a message with the X button

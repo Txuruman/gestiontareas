@@ -1,8 +1,37 @@
-app.controller('notificationtask', function ($scope, $http, CommonService) {
+app.controller('notificationtask', function ($scope, $http, CommonService, $modal, $log) {
 
     $scope.logTarea = function () {
         console.log("Tarea: " + $scope.tarea);
     };
+
+
+   ////Ventana Aplazar
+   //
+   // //Abre la ventana, posibles tamaños '', 'sm', 'lg'
+   // $scope.open = function (size) {
+   //     var modalInstance = $modal.open({
+   //         animation:false, //Indica si animamos el modal
+   //         templateUrl: 'deplayModalContent.html', //HTML del modal
+   //         controller: 'DelayModalInstanceCtrl',  //Referencia al controller especifico para el modal
+   //         size: size,
+   //         resolve: {
+   //             items: function () {
+   //                 return $scope.items;
+   //             }
+   //         }
+   //     });
+   //
+   //     //Funciones para recivir el cierre ok y el cancel
+   //     modalInstance.result.then(function (selectedItem) {
+   //         $log.info('Selected Item: ' + selectedItem);
+   //         $scope.selected = selectedItem;
+   //     }, function (param) {
+   //         $log.info('Modal dismissed at: ' + new Date() + ' with param ' + param);
+   //     });
+   // };
+
+
+
 
 
     $scope.getTarea = function () {
@@ -44,7 +73,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService) {
 
 
     $scope.aplazar = function () {
-        console.log('Aplazar, tarea: ' + JSON.stringify($scope.tarea));
+        console.log('Delay NotificationTask: ' + JSON.stringify($scope.tarea));
         var postponeNotificationTaskRequest = {
             task:$scope.tarea,
             prueba:'Hola'

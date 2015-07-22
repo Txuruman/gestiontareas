@@ -59,11 +59,26 @@
             <div class="spacer_t2"></div>
         </div>
     </div>
+
+
+    <!-- Botones Tarea Aviso -->
     <jsp:include page="btn_avisos.jsp"/>
+
+    <!-- Dialogo Delay Modal -->
+    <app:delayModalContent/>
+
+
+
+
+
+
+
+
+
 </div>
 <script src="${pageContext.request.contextPath}/resources/app/component/notificationTask-ctrl.js"></script>
 
 
 
-    <!-- ANGULARJS NOTIFICATION TASK CONTROLLER END -->
+<!-- ANGULARJS NOTIFICATION TASK CONTROLLER END -->
 
