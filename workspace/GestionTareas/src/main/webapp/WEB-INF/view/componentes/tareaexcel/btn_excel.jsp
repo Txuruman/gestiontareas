@@ -8,11 +8,16 @@
         <div class="row" align="right">
             <!-- Panel de botones - Seleccion de controlador -->
             <div class="container-fluid">
-                <app:inputButtonNG value="boton.Aplazar" button_type="default" ng_click="aplazar()" fluid_wrapper="true"/>
+                <app:inputButtonNG value="boton.Aplazar" button_type="default" ng_click="openDelayModal()" fluid_wrapper="true"/>
                 <app:inputButtonNG value="boton.Descartar" button_type="default" ng_click="descartar()" fluid_wrapper="true"/>
                 <app:inputButtonNG value="boton.Finalizar" button_type="primary" ng_click="finalizar()" fluid_wrapper="true"/>
             </div>
         </div>
     </div>
 </div>
+
+
+<!-- Dialogo Delay Modal -->
+<app:delayModalContent/>
+
 <!-- Fin Botones -->

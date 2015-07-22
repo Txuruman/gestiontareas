@@ -50,7 +50,8 @@ public class QueryTareaService {
                             String callingList,
                             String id) {
 
-        //
+        assert Integer.valueOf(id)!=null: "Hay que meter un número"; //TODO Quitar esto y pasar el parametro a Integer cuando se vea más claro
+
         String ccIdentifier         = "ATC_SPN";
         String country              = "SPAIN";
         String filter               = "chain_id=" + id;

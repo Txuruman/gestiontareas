@@ -9,7 +9,7 @@ import es.securitasdirect.tareas.web.controller.BaseController;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
 import es.securitasdirect.tareas.web.controller.dto.request.exceltask.listadoassistanttask.DiscardMaintenanceSurveyTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.exceltask.listadoassistanttask.FinalizeMaintenanceSurveyTaskRequest;
-import es.securitasdirect.tareas.web.controller.dto.request.exceltask.listadoassistanttask.PostponeMaintenanceSurveyTaskRequest;
+import es.securitasdirect.tareas.web.controller.dto.request.exceltask.maintenancesurvey.PostponeMaintenanceSurveyTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
 import es.securitasdirect.tareas.web.controller.dto.support.DummyResponseGenerator;
 import org.slf4j.Logger;
@@ -22,7 +22,7 @@ import org.wso2.ws.dataservice.DataServiceFault;
 import javax.inject.Inject;
 
 /**
- * @author jel
+ * @author
  */
 
 @Controller

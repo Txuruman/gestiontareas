@@ -10,6 +10,7 @@ import es.securitasdirect.tareas.service.InstallationService;
 import es.securitasdirect.tareas.service.QueryTareaService;
 import es.securitasdirect.tareas.web.controller.BaseController;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
+import es.securitasdirect.tareas.web.controller.dto.request.PostponeRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.maintenancetask.MaintenanceTaskCreateRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.maintenancetask.MaintenanceTaskFinalizeRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.notificationtask.*;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import org.wso2.ws.dataservice.DataServiceFault;
 
 import javax.inject.Inject;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -92,6 +94,9 @@ public class NotificationTaskController extends BaseController {
     BaseResponse postpone( @RequestBody PostponeNotificationTaskRequest request) {
         LOGGER.debug("Aplazando tarea\nRequest:{}", request);
         BaseResponse response = new BaseResponse();
+
+        response.success("fecha recibida:"  + request.getDelayDate());
+
         if(true){
             response.success(messageUtil.getProperty("notificationTask.postpone.success"));
         }else{
@@ -100,6 +105,18 @@ public class NotificationTaskController extends BaseController {
         LOGGER.debug("Aplazamiento de tarea\nResponse:{}", response);
         return response;
     }
+
+
+    @RequestMapping(value = "/testdate", method ={RequestMethod.PUT}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public
+    @ResponseBody
+    PostponeRequest testdate( @RequestBody PostponeNotificationTaskRequest request) {
+        LOGGER.debug("testdate :{}", request);
+        PostponeRequest p = new PostponeRequest();
+        p.setDelayDate(new Date());
+        return p;
+    }
+
 
     @RequestMapping(value = "/atras", method ={RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public

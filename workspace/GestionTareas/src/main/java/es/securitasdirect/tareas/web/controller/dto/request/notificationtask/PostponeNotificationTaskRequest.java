@@ -3,17 +3,17 @@ package es.securitasdirect.tareas.web.controller.dto.request.notificationtask;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import es.securitasdirect.tareas.model.Tarea;
 import es.securitasdirect.tareas.model.TareaAviso;
+import es.securitasdirect.tareas.web.controller.dto.request.PostponeRequest;
 import es.securitasdirect.tareas.web.controller.dto.support.BaseRequest;
 
 /**
- * Created by Javier Naval on 06/07/2015.
+ *
  */
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
-public class PostponeNotificationTaskRequest extends BaseRequest {
+public class PostponeNotificationTaskRequest extends PostponeRequest {
 
     private TareaAviso task;
 
-    private String prueba;
 
     public PostponeNotificationTaskRequest() {
     }
@@ -30,19 +30,13 @@ public class PostponeNotificationTaskRequest extends BaseRequest {
         this.task = task;
     }
 
-    public String getPrueba() {
-        return prueba;
-    }
-
-    public void setPrueba(String prueba) {
-        this.prueba = prueba;
-    }
-
     @Override
     public String toString() {
-        return "PostponeNotificationTaskRequest{" +
-                "task=" + task +
-                ", prueba='" + prueba + '\'' +
-                '}';
+        final StringBuffer sb = new StringBuffer("PostponeNotificationTaskRequest{");
+        sb.append("delayDate=").append(delayDate);
+        sb.append(", recallType=").append(recallType);
+        sb.append(", task=").append(task);
+        sb.append('}');
+        return sb.toString();
     }
 }

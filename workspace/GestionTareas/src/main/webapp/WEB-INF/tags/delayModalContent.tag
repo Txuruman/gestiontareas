@@ -14,8 +14,11 @@
                 <spring:message code='delay.recallType'/>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-               combo
-
+                <select ng-model="delayInfo.recallType" >
+                    <option value="0">Recalltype0</option>
+                    <option value="1">Recalltype1</option>
+                    <option value="2">Recalltype2</option>
+                </select>
             </div>
         </div>
 
@@ -32,12 +35,12 @@
         <div class="row">
             <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
                 <div style="display:inline-block; min-height:290px;">
-                    <datepicker ng-model="delayDate" min-date="today" show-weeks="true" class="well well-sm" custom-class="getDayClass(date, mode)"></datepicker>
+                    <datepicker ng-model="delayInfo.delayDate" min-date="today" show-weeks="true" class="well well-sm" custom-class="getDayClass(date, mode)"></datepicker>
                 </div>
 
             </div>
             <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
-                <timepicker ng-model="delayTime"  hour-step="1" minute-step="5" show-meridian="true"></timepicker>
+                <timepicker ng-model="delayInfo.delayTime"  hour-step="1" minute-step="5" show-meridian="true"></timepicker>
             </div>
         </div>
         <!-- Test

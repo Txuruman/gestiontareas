@@ -12,7 +12,10 @@
             <div class="row">
                 <app:inputTextNG id="aviso" label="tareaAviso.identificativoAvisoTarea" value="tarea.idAviso" cells="6" readonly="false"/>
                 <app:inputTextNG id="fechaCreacion" label="tareaAviso.fechaCreacion" value="tarea.fechaCreacion" cells="6" readonly="false"/>
-               <!-- <input type="date" data-ng-model="tarea.fechaCreacion" json-date/> -->
+
+                <datepicker ng-model="tarea.fechaCreacion"  class="well well-sm" custom-class="getDayClass(date, mode)"></datepicker>
+
+               {{tarea.fechaCreacion}}
             </div>
             <div class="spacer_t1"></div>
             <div class="row">
@@ -99,8 +102,6 @@
     <!-- Botones Tarea Aviso -->
     <jsp:include page="btn_avisos.jsp"/>
 
-    <!-- Dialogo Delay Modal -->
-    <app:delayModalContent/>
 
 
 

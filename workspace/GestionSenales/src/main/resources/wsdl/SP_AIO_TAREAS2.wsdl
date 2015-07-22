@@ -134,7 +134,7 @@
                     <xs:element name="estado" nillable="true" type="xs:integer"/>
                     <xs:element name="tipo" nillable="true" type="xs:string"/>
                     <xs:element name="motivo" nillable="true" type="xs:string"/>
-                    <xs:element name="fecha_creacion" nillable="true" type="xs:date"/>
+                    <xs:element name="fecha_creacion" nillable="true" type="xs:string"/>
                     <xs:element name="observaciones" nillable="true" type="xs:string"/>
                     <xs:element name="ins_no" nillable="true" type="xs:string"/>
                     <xs:element name="requerido_por" nillable="true" type="xs:string"/>
@@ -144,6 +144,7 @@
                     <xs:element name="desde" nillable="true" type="xs:integer"/>
                     <xs:element name="hasta" nillable="true" type="xs:integer"/>
                     <xs:element name="skill" nillable="true" type="xs:string"/>
+                    <xs:element name="valor_forma_contacto" nillable="true" type="xs:string"/>
                     <xs:element ref="ns0:inet_check_ins_no_results"/>
                 </xs:sequence>
             </xs:complexType>

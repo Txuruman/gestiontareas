@@ -57,59 +57,33 @@ public class QueryTareasServiceTest {
 
 
         String ccUserId             = "12187";
-        String filter               = "chain_id=1";
+        String id               = "1";
+        String callingList = "CL_CCT_ATT_Averia_Test";
 
-        List<String> callingListList = new ArrayList<String>();
+//         String callingList = "CL_CCT_ATT_Averia_Test";
+//         String callingList = "CL_CCT_ATC_CRA";
+//         String callingList = "CL_CCT_ATC_Recla";
+//         String callingList = "CL_CCT_ATT_Averia_Cam";
+//         String callingList = "CL_CCT_ATT_Averia_FastI";
+//         String callingList = "CL_CCT_ATT_Averia_FastII";
+//         String callingList = "CL_CCT_ATT_Averia_Iridium";
+//         String callingList = "CL_CCT_ATT_Averia_Oldclass";
+//         String callingList = "CL_CCT_ATT_Averia_SDM";
+//         String callingList = "CL_CCT_ATT_Camaras";
+//         String callingList = "CL_CCT_BO";
+//         String callingList = "CL_CCT_BO_Recla";
+//         String callingList = "CL_CCT_GI_Robo1";
+//         String callingList = "CL_CCT_GI_Robo2";
+//         String callingList = "CL_CCT_Ingles_ATC";
+//         String callingList = "CL_CCT_Ingles_ATT";
+//         String callingList = "CL_CCT_ODC";
 
-         callingListList.add("CL_CCT_ATT_Averia_Test");
-         callingListList.add("CL_CCT_ATC_CRA");
-         callingListList.add("CL_CCT_ATC_Recla");
-         callingListList.add("CL_CCT_ATT_Averia_Cam");
-         callingListList.add("CL_CCT_ATT_Averia_FastI");
-         callingListList.add("CL_CCT_ATT_Averia_FastII");
-         callingListList.add("CL_CCT_ATT_Averia_Iridium");
-         callingListList.add("CL_CCT_ATT_Averia_Oldclass");
-         callingListList.add("CL_CCT_ATT_Averia_SDM");
-         callingListList.add("CL_CCT_ATT_Camaras");
-         callingListList.add("CL_CCT_BO");
-         callingListList.add("CL_CCT_BO_Recla");
-         callingListList.add("CL_CCT_GI_Robo1");
-         callingListList.add("CL_CCT_GI_Robo2");
-         callingListList.add("CL_CCT_Ingles_ATC");
-         callingListList.add("CL_CCT_Ingles_ATT");
-         callingListList.add("CL_CCT_ODC");
-
-        LOGGER.debug("Probando las diferentes tareas de tipo aviso");
-        HashMap<String, String> results = new HashMap<String, String>();
-        HashMap<String, Boolean> assertions = new HashMap<String, Boolean>();
-        for (String callingList : callingListList) {
-            LOGGER.info("Realizando la llamada para " + callingList);
             Tarea tarea = queryTareaService.queryTarea(
                     ccUserId,
                     callingList,
-                    filter);
+                    id);
             LOGGER.info("Tarea: {}", tarea);
-            boolean res = tarea!=null;
-            assertions.put(callingList, res);
-            String descResultado;
-            if(res == true){
-                descResultado = "Resultado OK";
-            }else{
-                //TODO Envolver Tarea en Bean de resultado, con los mensajes en su caso.
-                descResultado = "Resultado ERROR";
-            }
-            results.put(callingList, descResultado);
-        }
-        StringBuilder sb = new StringBuilder();
-        for (String key : results.keySet()) {
-            String value = results.get(key);
-            sb.append("\n").append(key).append(": ").append(value);
-        }
-        LOGGER.info("RESULTADOS TAREAS AVISO:\n{}", sb.toString());
-        for (String key : assertions.keySet()) {
-            Boolean value = assertions.get(key);
-            assertThat(value, is(true));
-        }
+
     }
 
     @Test
