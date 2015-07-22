@@ -1,5 +1,5 @@
 //Angular Maintenance Survey Controller start
-app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService) {
+app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService, $log) {
 
     $scope.getTarea = function () {
         console.log("Loading Maintenance Survey Task...")
@@ -41,10 +41,10 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService)
     }
 
 
-    $scope.getInstallationAndTask = function(){
+    $scope.getInstallationAndTask = function($log){
         $scope.vm.appReady=false;
 
-        console.log("Loading MaintenanceTask...");
+        console.log("Loading Maintenance Survey Task...");
         console.log("Params: "
         + " installationId: " + $scope.installationId
         + " ccUserId: " + $scope.ccUserId
@@ -69,7 +69,7 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService)
                 CommonService.processBaseResponse(data,status,headers,config);
                 $scope.vm.appReady=true;
             });
-        console.log("MaintenanceTask loaded...")
+        console.log("Maintenance survey Task loaded...")
     }
 
 });

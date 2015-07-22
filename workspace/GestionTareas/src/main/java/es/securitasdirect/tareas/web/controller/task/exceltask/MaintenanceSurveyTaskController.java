@@ -58,7 +58,7 @@ public class MaintenanceSurveyTaskController extends BaseController {
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
     ) throws DataServiceFault {
-        LOGGER.debug("Get maintenance task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
+        LOGGER.debug("Get maintenance survey task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
         MaintenanceSurveyTask tarea = (MaintenanceSurveyTask) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
         LOGGER.debug("Maintenance survey task obtained from service: \n{}", tarea);
         LOGGER.debug("Get installation data for params: \ninstallationId: {}", installationId);

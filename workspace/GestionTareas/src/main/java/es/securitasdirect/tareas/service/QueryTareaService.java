@@ -320,8 +320,8 @@ public class QueryTareaService {
         tarea.setCampo1(parameters.get(TaskServiceParams.OTRASCAMPANAS_CAMPO1));
         tarea.setCampo2(parameters.get(TaskServiceParams.OTRASCAMPANAS_CAMPO2));
         tarea.setCampo3(parameters.get(TaskServiceParams.OTRASCAMPANAS_CAMPO3));
-        tarea.setComentario(parameters.get(TaskServiceParams.OTRASCAMPANAS_CAMPO3));
-        tarea.setTipoCampana(parameters.get(TaskServiceParams.OTRASCAMPANAS_TIPOTAREA));
+        tarea.setComentario(parameters.get(TaskServiceParams.OTRASCAMPANAS_COMENTARIO));
+        tarea.setTipoCampana(parameters.get(TaskServiceParams.OTRASCAMPANAS_TIPO_CAMPANA));
 
         return tarea;
     }
@@ -333,7 +333,7 @@ public class QueryTareaService {
 
         tarea.setContrato(parameters.get(TaskServiceParams.LIMPIEZA_CUOTA_CONTRATO));
         tarea.setDepartamentoAsignado(parameters.get(TaskServiceParams.LIMPIEZA_CUOTA_DPT_ASIGNADO));
-        tarea.setDescripcionIncidencia(parameters.get(TaskServiceParams.LIMPIEZA_CUOTA_DESCRIPTCION));
+        tarea.setDescripcionIncidencia(parameters.get(TaskServiceParams.LIMPIEZA_CUOTA_INCIDENCIA));
 
         return tarea;
     }
