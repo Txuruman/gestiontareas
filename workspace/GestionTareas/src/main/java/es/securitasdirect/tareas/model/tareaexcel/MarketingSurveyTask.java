@@ -12,46 +12,30 @@ import java.util.Date;
  */
 public class MarketingSurveyTask extends TareaExcel {
 
+    private Date fecha;
+    private String motivo;
 
-    /**
-     * Date - Fecha
-     */
-    Date date;
-    /**
-     * Reason - Motivo.
-     * varchar (500)
-     */
-    String reason;
-
-
-
-    public Date getDate() {
-        return date;
+    public Date getFecha() {
+        return fecha;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
-    public String getReason() {
-        return reason;
+    public String getMotivo() {
+        return motivo;
     }
 
-    public void setReason(String reason) {
-        this.reason = reason;
+    public void setMotivo(String motivo) {
+        this.motivo = motivo;
     }
-
-
-
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("TareaEncuestaMarketing{");
-        sb.append("date=").append(date);
-        sb.append(", reason='").append(reason).append('\'');
-        sb.append(", closingReason=").append(closingReason);
-        sb.append(", compensation='").append(compensation).append('\'');
-        sb.append('}');
-        return sb.toString();
+        return "MarketingSurveyTask{" +
+                "fecha=" + fecha +
+                ", motivo='" + motivo + '\'' +
+                '}';
     }
 }

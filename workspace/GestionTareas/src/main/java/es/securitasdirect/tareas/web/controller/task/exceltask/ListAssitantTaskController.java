@@ -1,6 +1,9 @@
 package es.securitasdirect.tareas.web.controller.task.exceltask;
 
+import es.securitasdirect.tareas.model.InstallationData;
+import es.securitasdirect.tareas.model.TareaMantenimiento;
 import es.securitasdirect.tareas.model.tareaexcel.TareaListadoAssistant;
+import es.securitasdirect.tareas.service.InstallationService;
 import es.securitasdirect.tareas.service.QueryTareaService;
 import es.securitasdirect.tareas.web.controller.BaseController;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
@@ -30,6 +33,8 @@ public class ListAssitantTaskController extends BaseController {
     private QueryTareaService queryTareaService;
     @Inject
     private DummyResponseGenerator dummyResponseGenerator;
+    @Inject
+    private InstallationService installationDataService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ListAssitantTaskController.class);
 
@@ -47,27 +52,44 @@ public class ListAssitantTaskController extends BaseController {
 
 
     @RequestMapping(value = "/aplazar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody BaseResponse finalizar(@RequestBody PostponeListAssistantTaskRequest request) {
-        LOGGER.debug("Finalizando tarea de ListAssistant:\nRequest: {}", request);
-        BaseResponse response = dummyResponseGenerator.dummyFinalizeSuccess();
+    public @ResponseBody BaseResponse aplazar(@RequestBody PostponeListAssistantTaskRequest request) {
+        LOGGER.debug("Aplazando tarea de ListAssistant:\nRequest: {}", request);
+        BaseResponse response = dummyResponseGenerator.dummyCustomSuccess("commonexcel.postpone.success");
         LOGGER.debug("Finalizando tarea de ListAssistant:\nResponse: {}",response);
         return response;
     }
 
 
     @RequestMapping(value = "/descartar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody BaseResponse finalizar(@RequestBody DiscardListAssistantTaskRequest request) {
+    public @ResponseBody BaseResponse descartar(@RequestBody DiscardListAssistantTaskRequest request) {
+        LOGGER.debug("Descartar tarea de ListAssistant:\nRequest: {}", request);
+        BaseResponse response = dummyResponseGenerator.dummyCustomSuccess("commonexcel.discard.success");
+        LOGGER.debug("Descartando tarea de ListAssistant:\nResponse: {}",response);
+        return response;
+    }
+
+    @RequestMapping(value = "/finalizar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public @ResponseBody BaseResponse finalizar(@RequestBody FinalizeListAssistantTaskRequest request) {
         LOGGER.debug("Finalizando tarea de ListAssistant:\nRequest: {}", request);
-        BaseResponse response = dummyResponseGenerator.dummyFinalizeSuccess();
+        BaseResponse response = dummyResponseGenerator.dummyCustomSuccess("excelcommonfields.finalizes.success");
         LOGGER.debug("Finalizando tarea de ListAssistant:\nResponse: {}",response);
         return response;
     }
 
-    @RequestMapping(value = "/finalize", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody BaseResponse finalizar(@RequestBody FinalizeListAssistantTaskRequest request) {
-        LOGGER.debug("Finalizando tarea de ListAssistant:\nRequest: {}", request);
-        BaseResponse response = dummyResponseGenerator.dummyFinalizeSuccess();
-        LOGGER.debug("Finalizando tarea de ListAssistant:\nResponse: {}",response);
-        return response;
+
+    @RequestMapping(value = "/getInstallationAndTask", method = {RequestMethod.GET}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public @ResponseBody TareaResponse getInstallationAndTask(
+            @RequestParam(value = "installationId", required = true) String installationId,
+            @RequestParam(value = "ccUserId", required = true) String ccUserId,
+            @RequestParam(value = "callingList", required = true) String callingList,
+            @RequestParam(value = "tareaId", required = true) String tareaId
+    ) throws DataServiceFault {
+        LOGGER.debug("Get maintenance task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
+        TareaListadoAssistant listAssistantTask = (TareaListadoAssistant) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
+        LOGGER.debug("List assistant task obtained from service: \n{}", listAssistantTask);
+        LOGGER.debug("Get installation data for params: \ninstallationId: {}", installationId);
+        InstallationData installationData = installationDataService.getInstallationData(installationId);
+        LOGGER.debug("Installation data obtained from service: \n{}", installationData);
+        return toTareaResponse(listAssistantTask, installationData);
     }
 }

@@ -59,6 +59,46 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
         console.log("NotificationTask loaded...")
     };
 
+
+    $scope.getInstallationAndTask = function () {
+        console.log('Loading NotificationTask');
+        console.log("Params: "
+        + " installationId: " + $scope.installationId
+        + " ccUserId: " + $scope.ccUserId
+        + " callingList: " + $scope.callingList
+        + " taskId: " + $scope.tareaId);
+        $http({
+            method: 'GET',
+            url: 'notificationtask/getInstallationAndTask',
+            params: {
+                installationId: $scope.installationId,
+                ccUserId: $scope.ccUserId,
+                callingList: $scope.callingList,
+                tareaId: $scope.tareaId}
+        })
+            .success(function (data, status, headers, config) {
+                console.log('Loaded NotificationTask Data' + JSON.stringify(data));
+                CommonService.processBaseResponse(data, status, headers, config);
+                $scope.tarea = data.tarea;
+                $scope.installationData = data.installationData;
+                //TODO OBTENER DATOS DE COMBOS - Desconocido origen
+                $scope.tipoAvisoList = data.tipoAvisoList;
+                $scope.motivoList = data.motivoAvisoList;
+                $scope.closingList = data.closingList;
+                $scope.datosAdicionalesList = data.closingListAditionalData;
+            })
+
+
+
+            .error(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data, status, headers, config);
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+        console.log("NotificationTask loaded...")
+    };
+
+
     $scope.getClosing = function () {
         console.log('Notification task - getClosing');
         $http({method: 'GET', url: 'notificationtask/getClosing'}).

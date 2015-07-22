@@ -31,4 +31,12 @@ public class DummyResponseGenerator {
         baseResponse.success(messageUtil.getProperty("tareamantenimiento.finalize.success"));
         return baseResponse;
     }
+
+
+    public BaseResponse dummyCustomSuccess(String customName){
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.warning("Dummy");
+        baseResponse.success(messageUtil.getProperty(customName));
+        return baseResponse;
+    }
 }

@@ -68,6 +68,31 @@ public class ExternalDataService {
     public List<Pair> getClosing() throws DataServiceFault{
         LOGGER.debug("Calling for closing query (for pull down combo)");
         List<Pair> result = dummyPairList();
+        result.add(new Pair(5,"Dummy for cierre"));
+        return result;
+    }
+
+    /**
+     * Call for notification type query
+     */
+    public List<Pair> getNotificationType() throws DataServiceFault{
+        LOGGER.debug("Calling for notification type (for pull down combo)");
+        List<Pair> result = dummyPairList();
+        result.add(new Pair(500, "Dummy EDS 500"));
+        result.add(new Pair(550, "Dummy EDS 550"));
+        result.add(new Pair(560, "Dummy EDS 560"));
+        return result;
+    }
+
+    /**
+     * Call for notification type query
+     */
+    public List<Pair> getNotificationTypeReason() throws DataServiceFault{
+        LOGGER.debug("Calling for notification type (for pull down combo)");
+        List<Pair> result = dummyPairList();
+        result.add(new Pair(501, "Dummy EDS 501"));
+        result.add(new Pair(552, "Dummy EDS 552"));
+        result.add(new Pair(561, "Dummy EDS 561"));
         return result;
     }
 
@@ -119,7 +144,7 @@ public class ExternalDataService {
     }
 
 
-    public List<Pair> getDatosAdicionalesCierreTareaAviso() {
+    public List<Pair> getDatosAdicionalesCierreTareaAviso() throws DataServiceFault {
         assert datosAdicionalesCierreTareaAviso!=null;
         return datosAdicionalesCierreTareaAviso;
     }

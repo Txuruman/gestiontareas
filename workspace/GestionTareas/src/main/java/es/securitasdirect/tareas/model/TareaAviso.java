@@ -61,7 +61,7 @@ public class TareaAviso extends Tarea {
     /**
      * Datos adicionales del cierre
      */
-    List<String> datosAdicionalesCierre;
+    String datosAdicionalesCierre;
     /**
      * Fecha de Cierre
      */
@@ -222,11 +222,11 @@ public class TareaAviso extends Tarea {
         this.closing = closing;
     }
 
-    public List<String> getDatosAdicionalesCierre() {
+    public String getDatosAdicionalesCierre() {
         return datosAdicionalesCierre;
     }
 
-    public void setDatosAdicionalesCierre(List<String> datosAdicionalesCierre) {
+    public void setDatosAdicionalesCierre(String datosAdicionalesCierre) {
         this.datosAdicionalesCierre = datosAdicionalesCierre;
     }
 

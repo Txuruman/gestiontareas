@@ -21,6 +21,7 @@ public class Tarea {
      */
     protected String estado;
 
+    protected String personaContacto;
     /**
      * ctr_no = número de contrato
      * varchar(12)
@@ -101,11 +102,20 @@ public class Tarea {
         this.codigoCliente = codigoCliente;
     }
 
+    public String getPersonaContacto() {
+        return personaContacto;
+    }
+
+    public void setPersonaContacto(String personaContacto) {
+        this.personaContacto = personaContacto;
+    }
+
     @Override
     public String toString() {
         return "Tarea{" +
                 "numeroInstalacion='" + numeroInstalacion + '\'' +
                 ", estado='" + estado + '\'' +
+                ", personaContacto='" + personaContacto + '\'' +
                 ", numeroContrato='" + numeroContrato + '\'' +
                 ", callingList='" + callingList + '\'' +
                 ", telefono='" + telefono + '\'' +

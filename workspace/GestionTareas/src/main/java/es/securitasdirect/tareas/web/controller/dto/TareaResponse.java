@@ -2,6 +2,7 @@ package es.securitasdirect.tareas.web.controller.dto;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import es.securitasdirect.tareas.model.InstallationData;
 import es.securitasdirect.tareas.model.Tarea;
 import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
 
@@ -12,6 +13,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class TareaResponse extends BaseResponse {
+
+    private InstallationData installationData;
 
     private Tarea tarea;
 
@@ -31,10 +34,19 @@ public class TareaResponse extends BaseResponse {
     }
 
 
+    public InstallationData getInstallationData() {
+        return installationData;
+    }
+
+    public void setInstallationData(InstallationData installationData) {
+        this.installationData = installationData;
+    }
+
     @Override
     public String toString() {
-        return super.toString() + "TareaResponse{" +
-                "tarea=" + tarea +
+        return "TareaResponse{" +
+                "installationData=" + installationData +
+                ", tarea=" + tarea +
                 '}';
     }
 }

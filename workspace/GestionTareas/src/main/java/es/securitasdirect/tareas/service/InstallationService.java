@@ -33,28 +33,23 @@ public class InstallationService {
      */
     public InstallationData getInstallationData(String installationNumber) throws DataServiceFault {
         LOGGER.debug("Getting Installation Data by Service");
-        try {
-            assert installationNumber != null;
-            Mainstallationdataresult installationDataWS1 = null;
-            GetInstallationDataResults installationDataWS2 = null;
+        assert installationNumber != null;
+        Mainstallationdataresult installationDataWS1 = null;
+        GetInstallationDataResults installationDataWS2 = null;
 
-            List<Mainstallationdataresult> installationDataWS1List = spInstallationMonData.getInstallationData(installationNumber);
-            if (installationDataWS1List != null && !installationDataWS1List.isEmpty()) {
-                installationDataWS1 = installationDataWS1List.get(0);
-                // Obtener la versión del panel
-                GetInstallationDataInput getInstallationDataInput = new GetInstallationDataInput();
-                getInstallationDataInput.setSIns(installationDataWS1.getSIns().intValue());
-                getInstallationDataInput.setSCtr(1); //TODO Numero contrato? no sirve para nada
-                installationDataWS2 = spAioTareas2.getInstallationData(getInstallationDataInput);
-            }
-
-            InstallationData installationData = createInstallationData(installationDataWS1, installationDataWS2);
-            LOGGER.debug("getInstallationData({}) : {}", installationNumber, installationData);
-            return installationData;
-        } catch (Exception e) {
-            //TODO DUMMY
-            return DummyGenerator.getInstallationData();
+        List<Mainstallationdataresult> installationDataWS1List = spInstallationMonData.getInstallationData(installationNumber);
+        if (installationDataWS1List != null && !installationDataWS1List.isEmpty()) {
+            installationDataWS1 = installationDataWS1List.get(0);
+            // Obtener la versión del panel
+            GetInstallationDataInput getInstallationDataInput = new GetInstallationDataInput();
+            getInstallationDataInput.setSIns(installationDataWS1.getSIns().intValue());
+            getInstallationDataInput.setSCtr(1); //TODO Numero contrato? no sirve para nada
+            installationDataWS2 = spAioTareas2.getInstallationData(getInstallationDataInput);
         }
+
+        InstallationData installationData = createInstallationData(installationDataWS1, installationDataWS2);
+        LOGGER.debug("getInstallationData({}) : {}", installationNumber, installationData);
+        return installationData;
     }
 
 
