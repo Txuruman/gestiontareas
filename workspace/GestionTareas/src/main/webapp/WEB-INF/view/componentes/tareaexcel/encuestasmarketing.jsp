@@ -3,14 +3,18 @@
 <%@ taglib prefix="app" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<div ng-controller="marketingsurveytask-ctrl" ng-init="getTarea()">
+<div ng-controller="marketingsurveytask-ctrl" ng-init="getInstallationAndTask()">
+    <div class="row bordel">
+        Tarea: {{tarea}}<br/>
+        Instalacion: {{installationData}}
+    </div>
     <jsp:include page="instalacion.jsp"/>
     <div class="panel panel-default">
         <div class="panel-body">
             <jsp:include page="comunes.jsp"/>
             <div class="row">
-                <app:inputTextNG id="date" label="marketingsurvey.date" value="tarea.date" cells="6" readonly="true"/>
-                <app:inputTextNG id="reason" label="eti.visortarea.form.label.reason" value="tarea.reason" cells="6" readonly="true"/>
+                <app:inputTextNG id="date" label="marketingsurvey.date" value="tarea.fecha" cells="6" readonly="true"/>
+                <app:inputTextNG id="reason" label="marketingsurvey.reason" value="tarea.motivo" cells="6" readonly="true"/>
             </div>
         </div>
     </div>

@@ -5,10 +5,6 @@
 
 <div ng-controller="listAssistant-ctrl" ng-init="getInstallationAndTask()">
     <jsp:include page="instalacion.jsp"/>
-    <div class="row bordel">
-        Tarea: {{tarea}}<br/>
-        Instalacion: {{installationData}}
-    </div>
     <div class="panel panel-default">
         <div class="panel-body">
             <jsp:include page="comunes.jsp"/>

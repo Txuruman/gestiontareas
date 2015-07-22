@@ -14,6 +14,8 @@ public interface TaskServiceParams {
      * TAREA COMUNES
      */
     public static String TAREA_COMMONS_PERSONA_CONTACTO = "NOMBRE";
+    public static String TAREA_COMMONS_INSTALACION = "INSTALACION";
+    public static String TAREA_COMMONS_TELEFONO = "CONTACT_INFO";
 
     /**
      * Generales
@@ -30,6 +32,10 @@ public interface TaskServiceParams {
     public static String LIST_ASSISTANT_TASK_INS_NUMERO_INSTALACION = "INSTALACION";
     public static String LIST_ASSISTANT_TASK_INS_PERSONA_CONTACTO = "NOMBRE";
     public static String LIST_ASSISTANT_TASK_INS_TELEFONO = "CONTACT_INFO";
+    public static String LIST_ASSISTANT_TASK_CALLING_LIST = "CALLING_LIST";
+    public static String LIST_ASSISTANT_TASK_N_CONTRATO = "CTR_NO";
+
+    public static String LIST_ASSISTANT_TASK_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     public static String LIST_ASSISTANT_TASK_TITULAR = "";
     public static String LIST_ASSISTANT_TASK_PANEL = "";
@@ -39,9 +45,9 @@ public interface TaskServiceParams {
     public static String LIST_ASSISTANT_TASK_N_MANTENIMIENTO = "MANTENIMIENTO";
     public static String LIST_ASSISTANT_TASK_TECNICO = "TECNICO";
     public static String LIST_ASSISTANT_TASK_DEPARTAMENTO = "DEPARTAMENTO";
-    public static String LIST_ASSISTANT_TASK_TOTAL_SIN_IVA = "TOTAL_SIN_IVA";
+    public static String LIST_ASSISTANT_TASK_TOTAL_SIN_IVA = "TOTAL_SINIVA";
     public static String LIST_ASSISTANT_TASK_TOTAL_CON_IVA = "TOTAL";
-    public static String LIST_ASSISTANT_TASK_GRUPO_PANEL = "GRUPO_PANEL";
+    public static String LIST_ASSISTANT_TASK_GRUPO_PANEL = "GRUPOPANEL";
     public static String LIST_ASSISTANT_TASK_TIPO_INCIDENCIA = "TIPOINCIDENCIA";
     public static String LIST_ASSISTANT_TASK_SUBTIPO_INCIDENCIA = "SUBTIPO_INCIDENCIA";
     public static String LIST_ASSISTANT_TASK_PARTE_N = "NUM_PARTE";
@@ -72,11 +78,24 @@ public interface TaskServiceParams {
     public static String ENCUESTAMNTOS_COMPROMISO = "COMPROMISO";
     public static String ENCUESTAMNTOS_DPTO_DESTINO = "DPTO_DESTINO";
 
+
+    public static String MAINTENANCE_SURVEY_TASK_INSTALACION = "INSTALACION";
+    public static String MAINTENANCE_SURVEY_TASK_TITULAR = ""; // WS GET INST
+    public static String MAINTENANCE_SURVEY_TASK_PERSONA_CONTACTO = "NOMBRE";
+    public static String MAINTENANCE_SURVEY_TASK_PANEL = ""; // WS GET INST
+    public static String MAINTENANCE_SURVEY_TASK_TELEFONO = "CONTACT_INFO";
+    public static String MAINTENANCE_SURVEY_TASK_VERSION = ""; //WS GET INST
+    public static String MAINTENANCE_SURVEY_TASK_MOTIVO_CIERRE = ""; //SE RELLENA EN PANTALLA
+    public static String MAINTENANCE_SURVEY_TASK_COMPENSACION = ""; //SE RELLENA EN PANTALLA
+    public static String MAINTENANCE_SURVEY_TASK = "F_CREACION_TAREA"; //CONFIRMAR
+
+
     /**
      * Tarea de tipo Encuesta mercados
      */
-    public static String ENCUESTASMKT_FECHA = "mantenimiento";
-    public static String ENCUESTASMKT_MOTIVO = "mantenimiento";
+    public static String MARKETING_SURVEY_TASK_FECHA = "F_CREACION_TAREA";//CONFIRMAR
+    public static String MARKETING_SURVEY_TASK_MOTIVO = "MOTIVO";
+    public static String MARKETING_SURVEY_TASK_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     public static String KEYBOX_CONTRATO = "KEYBOX_CONTRATO";
     public static String KEYBOX_FECHA_FACTURA = "KEYBOX_FECHA_FACTURA";

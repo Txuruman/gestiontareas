@@ -52,8 +52,8 @@ public class ListAssitantTaskController extends BaseController {
 
 
     @RequestMapping(value = "/aplazar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody BaseResponse finalizar(@RequestBody PostponeListAssistantTaskRequest request) {
-        LOGGER.debug("Finalizando tarea de ListAssistant:\nRequest: {}", request);
+    public @ResponseBody BaseResponse aplazar(@RequestBody PostponeListAssistantTaskRequest request) {
+        LOGGER.debug("Aplazando tarea de ListAssistant:\nRequest: {}", request);
         BaseResponse response = dummyResponseGenerator.dummyCustomSuccess("commonexcel.postpone.success");
         LOGGER.debug("Finalizando tarea de ListAssistant:\nResponse: {}",response);
         return response;
@@ -61,17 +61,17 @@ public class ListAssitantTaskController extends BaseController {
 
 
     @RequestMapping(value = "/descartar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody BaseResponse finalizar(@RequestBody DiscardListAssistantTaskRequest request) {
-        LOGGER.debug("Finalizando tarea de ListAssistant:\nRequest: {}", request);
+    public @ResponseBody BaseResponse descartar(@RequestBody DiscardListAssistantTaskRequest request) {
+        LOGGER.debug("Descartar tarea de ListAssistant:\nRequest: {}", request);
         BaseResponse response = dummyResponseGenerator.dummyCustomSuccess("commonexcel.discard.success");
-        LOGGER.debug("Finalizando tarea de ListAssistant:\nResponse: {}",response);
+        LOGGER.debug("Descartando tarea de ListAssistant:\nResponse: {}",response);
         return response;
     }
 
     @RequestMapping(value = "/finalizar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody BaseResponse finalizar(@RequestBody FinalizeListAssistantTaskRequest request) {
         LOGGER.debug("Finalizando tarea de ListAssistant:\nRequest: {}", request);
-        BaseResponse response = dummyResponseGenerator.dummyCustomSuccess("commonexcel.finalizes.success");
+        BaseResponse response = dummyResponseGenerator.dummyCustomSuccess("excelcommonfields.finalizes.success");
         LOGGER.debug("Finalizando tarea de ListAssistant:\nResponse: {}",response);
         return response;
     }

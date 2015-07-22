@@ -126,8 +126,8 @@ public class DummyGenerator {
     public static MarketingSurveyTask dummyMarketingSurveyTask(){
         MarketingSurveyTask marketingSurveyTask =  new MarketingSurveyTask();
             LOGGER.debug("Creating dummy MarketingSurveyTask");
-            marketingSurveyTask.setDate(new Date());
-            marketingSurveyTask.setReason("Dummy reason");
+            marketingSurveyTask.setFecha(new Date());
+            marketingSurveyTask.setMotivo("Dummy reason");
 
             marketingSurveyTask = (MarketingSurveyTask)addTareaValues(marketingSurveyTask);
             marketingSurveyTask = (MarketingSurveyTask)addTareaExcelValues(marketingSurveyTask);

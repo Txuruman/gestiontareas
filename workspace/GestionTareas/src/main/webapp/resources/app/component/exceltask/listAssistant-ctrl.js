@@ -139,7 +139,7 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService) {
                 CommonService.processBaseResponse(data,status,headers,config);
                 $scope.vm.appReady=true;
             });
-        console.log("MaintenanceTask loaded...")
+        console.log("List assistant task loaded...")
     }
 
 

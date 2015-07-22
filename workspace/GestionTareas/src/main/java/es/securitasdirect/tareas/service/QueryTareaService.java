@@ -282,14 +282,6 @@ public class QueryTareaService {
         loadTareaCommons(task, parameters);
         loadTareaExcelCommons(task, parameters);
 
-        task.setMaintenanceNumber(toIntegerFromMap(parameters.get(TaskServiceParams.ENCUESTAMNTOS_MANTENIMIENTO)));
-        task.setTechnician(parameters.get(TaskServiceParams.ENCUESTAMNTOS_TECNICO));
-        task.setManager(parameters.get(TaskServiceParams.ENCUESTAMNTOS_RESPONSABLE));
-        task.setCostCenter(parameters.get(TaskServiceParams.ENCUESTAMNTOS_CENTROCOSTE));
-        task.setValuationKeyReason(parameters.get(TaskServiceParams.ENCUESTAMNTOS_RAZON));
-        task.setSolution(parameters.get(TaskServiceParams.ENCUESTAMNTOS_SOLUCION));
-        task.setAgreement(parameters.get(TaskServiceParams.ENCUESTAMNTOS_COMPROMISO));
-        task.setDestinationDepartment(parameters.get(TaskServiceParams.ENCUESTAMNTOS_DPTO_DESTINO));
         return task;
     }
 
@@ -298,8 +290,8 @@ public class QueryTareaService {
         loadTareaCommons(tarea, parameters);
         loadTareaExcelCommons(tarea, parameters);
 
-        tarea.setDate(toDateFromMap(parameters.get(TaskServiceParams.ENCUESTASMKT_FECHA)));
-        tarea.setReason(parameters.get(TaskServiceParams.ENCUESTASMKT_MOTIVO));
+        tarea.setFecha(toDateFromMap(parameters.get(TaskServiceParams.MARKETING_SURVEY_TASK_FECHA),TaskServiceParams.MARKETING_SURVEY_TASK_DATE_FORMAT));
+        tarea.setMotivo(parameters.get(TaskServiceParams.MARKETING_SURVEY_TASK_MOTIVO));
         return tarea;
     }
 
@@ -425,9 +417,10 @@ public class QueryTareaService {
          --installationData--   version                                     (no viene en el modelo)	WS de getInstalacion[ref]
          */
         assert tarea != null && parameters != null;
-        tarea.setNumeroInstalacion(parameters.get(TaskServiceParams.NUMERO_INSTALACION));
+        tarea.setNumeroInstalacion(parameters.get(TaskServiceParams.TAREA_COMMONS_INSTALACION));
         tarea.setPersonaContacto(parameters.get(TaskServiceParams.TAREA_COMMONS_PERSONA_CONTACTO));
-        //TODO JESUS
+        tarea.setTelefono(parameters.get(TaskServiceParams.TAREA_COMMONS_TELEFONO));
+
         return tarea;
     }
 
@@ -447,7 +440,8 @@ public class QueryTareaService {
         TareaListadoAssistant tarea = new TareaListadoAssistant();
         loadTareaCommons(tarea, parameters);
         loadTareaExcelCommons(tarea, parameters);
-
+        tarea.setCallingList(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_CALLING_LIST));
+        tarea.setNumeroContrato(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_N_CONTRATO));
 
         tarea.setNumeroInstalacion(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_INS_NUMERO_INSTALACION));
         tarea.setMaintenanceNumber(toIntegerFromMap(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_N_MANTENIMIENTO)));
@@ -457,16 +451,18 @@ public class QueryTareaService {
         tarea.setTotalSinIVA(toFloatFromMap(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_TOTAL_SIN_IVA)));
         tarea.setTotalConIVA(toFloatFromMap(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_TOTAL_CON_IVA)));
         tarea.setNumeroParte(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_PARTE_N));
-        tarea.setFechaArchivo(toDateFromMap(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_FECHA_ARCHIVO)));
-        tarea.setSubtipoIncidencia(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_SUBTIPO_INCIDENCIA));
+        tarea.setFechaArchivo(toDateFromMap(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_FECHA_ARCHIVO), TaskServiceParams.LIST_ASSISTANT_TASK_DATE_FORMAT));
+        tarea.setFechaIncidencia(toDateFromMap(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_FECHA_INCIDENCIA), TaskServiceParams.LIST_ASSISTANT_TASK_DATE_FORMAT));
         tarea.setFechaPago(toDateFromMap(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_FECHA_PAGO)));
-        tarea.setIncidencia(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_TIPO_INCIDENCIA));
+        tarea.setOperador(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_OPERADOR));
+        tarea.setFechaCierre(toDateFromMap(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_FECHA_CIERRE), TaskServiceParams.LIST_ASSISTANT_TASK_DATE_FORMAT));
+        tarea.setTipoIncicencia(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_TIPO_INCIDENCIA));
         tarea.setSubtipoIncidencia(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_SUBTIPO_INCIDENCIA));
         tarea.setSolicitudCliente(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_SOLICITUD));
         tarea.setCambiosIncidencia(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_CAMBIOS));
-        tarea.setBoFechaGestion(toDateFromMap(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_BO_FECHA_GESTION)));
+        tarea.setBoFechaGestion(toDateFromMap(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_BO_FECHA_GESTION), TaskServiceParams.LIST_ASSISTANT_TASK_DATE_FORMAT));
         tarea.setBoMatricula(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_BO_MATRICULA));
-        tarea.setBoFechaRecepcion(toDateFromMap(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_BO_FECHA_RECEPCION)));
+        tarea.setBoFechaRecepcion(toDateFromMap(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_BO_FECHA_RECEPCION), TaskServiceParams.LIST_ASSISTANT_TASK_DATE_FORMAT));
         tarea.setBoTipo(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_BO_TIPO));
         tarea.setBoComentarios(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_BO_COMENTARIOS));
         tarea.setTelefono(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_INS_TELEFONO));
