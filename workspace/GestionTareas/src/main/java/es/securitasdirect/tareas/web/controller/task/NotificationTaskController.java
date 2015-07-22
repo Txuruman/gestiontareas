@@ -92,30 +92,9 @@ public class NotificationTaskController extends BaseController {
     public
     @ResponseBody
     BaseResponse postpone( @RequestBody PostponeNotificationTaskRequest request) {
-        LOGGER.debug("Aplazando tarea\nRequest:{}", request);
-        BaseResponse response = new BaseResponse();
-
-        response.success("fecha recibida:"  + request.getDelayDate());
-
-        if(true){
-            response.success(messageUtil.getProperty("notificationTask.postpone.success"));
-        }else{
-            response.danger(messageUtil.getProperty("notificationTask.postpone.error"));
-        }
-        LOGGER.debug("Aplazamiento de tarea\nResponse:{}", response);
-        return response;
+        return super.delayTask(request.getTask(),request.getRecallType(),request.getDelayDate());
     }
 
-
-    @RequestMapping(value = "/testdate", method ={RequestMethod.PUT}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public
-    @ResponseBody
-    PostponeRequest testdate( @RequestBody PostponeNotificationTaskRequest request) {
-        LOGGER.debug("testdate :{}", request);
-        PostponeRequest p = new PostponeRequest();
-        p.setDelayDate(new Date());
-        return p;
-    }
 
 
     @RequestMapping(value = "/atras", method ={RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
