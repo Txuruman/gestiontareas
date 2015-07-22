@@ -1,8 +1,11 @@
 package es.securitasdirect.tareas.web.controller.task.exceltask;
 
+import es.securitasdirect.tareas.model.InstallationData;
 import es.securitasdirect.tareas.model.TareaMantenimiento;
 import es.securitasdirect.tareas.model.tareaexcel.KeyboxTask;
 import es.securitasdirect.tareas.model.tareaexcel.TareaLimpiezaCuota;
+import es.securitasdirect.tareas.model.tareaexcel.TareaListadoAssistant;
+import es.securitasdirect.tareas.service.InstallationService;
 import es.securitasdirect.tareas.service.QueryTareaService;
 import es.securitasdirect.tareas.web.controller.BaseController;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
@@ -34,6 +37,8 @@ public class KeyboxTaskController extends BaseController {
     private QueryTareaService queryTareaService;
     @Inject
     private DummyResponseGenerator dummyResponseGenerator;
+    @Inject
+    private InstallationService installationDataService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(KeyboxTaskController.class);
 
@@ -52,26 +57,42 @@ public class KeyboxTaskController extends BaseController {
 
     @RequestMapping(value = "/aplazar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody BaseResponse finalizar(@RequestBody PostponeKeyboxTaskRequest request) {
-        LOGGER.debug("Finalizandotarea de keybox:\nRequest: {}", request);
+        LOGGER.debug("Aplazar de keybox:\nRequest: {}", request);
         BaseResponse response = dummyResponseGenerator.dummyFinalizeSuccess();
-        LOGGER.debug("Finalizando tarea de keybox:\nResponse: {}",response);
+        LOGGER.debug("Aplazada tarea de keybox:\nResponse: {}",response);
         return response;
     }
 
 
     @RequestMapping(value = "/descartar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody BaseResponse finalizar(@RequestBody DiscardKeyboxTaskRequest request) {
-        LOGGER.debug("Finalizandotarea de keybox:\nRequest: {}", request);
+        LOGGER.debug("Descartar de keybox:\nRequest: {}", request);
         BaseResponse response = dummyResponseGenerator.dummyFinalizeSuccess();
-        LOGGER.debug("Finalizando tarea de keybox:\nResponse: {}",response);
+        LOGGER.debug("Descartada tarea de keybox:\nResponse: {}",response);
         return response;
     }
 
-    @RequestMapping(value = "/finalize", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value = "/finalizar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody BaseResponse finalizar(@RequestBody FinalizeKeyboxTaskRequest request) {
         LOGGER.debug("Finalizando tarea de keybox:\nRequest: {}", request);
         BaseResponse response = dummyResponseGenerator.dummyFinalizeSuccess();
-        LOGGER.debug("Finalizando tarea de keybox:\nResponse: {}",response);
+        LOGGER.debug("Finalizada tarea de keybox:\nResponse: {}",response);
         return response;
+    }
+
+    @RequestMapping(value = "/getInstallationAndTask", method = {RequestMethod.GET}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public @ResponseBody TareaResponse getInstallationAndTask(
+            @RequestParam(value = "installationId", required = true) String installationId,
+            @RequestParam(value = "ccUserId", required = true) String ccUserId,
+            @RequestParam(value = "callingList", required = true) String callingList,
+            @RequestParam(value = "tareaId", required = true) String tareaId
+    ) throws DataServiceFault {
+        LOGGER.debug("Get maintenance task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
+        KeyboxTask task = (KeyboxTask) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
+        LOGGER.debug("Keybox task obtained from service: \n{}", task);
+        LOGGER.debug("Get installation data for params: \ninstallationId: {}", installationId);
+        InstallationData installationData = installationDataService.getInstallationData(installationId);
+        LOGGER.debug("Installation data obtained from service: \n{}", installationData);
+        return toTareaResponse(task, installationData);
     }
 }

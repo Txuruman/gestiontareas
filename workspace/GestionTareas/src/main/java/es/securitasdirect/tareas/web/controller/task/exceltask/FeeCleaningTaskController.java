@@ -1,7 +1,10 @@
 package es.securitasdirect.tareas.web.controller.task.exceltask;
 
+import es.securitasdirect.tareas.model.InstallationData;
 import es.securitasdirect.tareas.model.TareaMantenimiento;
+import es.securitasdirect.tareas.model.tareaexcel.KeyboxTask;
 import es.securitasdirect.tareas.model.tareaexcel.TareaLimpiezaCuota;
+import es.securitasdirect.tareas.service.InstallationService;
 import es.securitasdirect.tareas.service.QueryTareaService;
 import es.securitasdirect.tareas.web.controller.BaseController;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
@@ -33,6 +36,8 @@ public class FeeCleaningTaskController extends BaseController {
     private QueryTareaService queryTareaService;
     @Inject
     private DummyResponseGenerator dummyResponseGenerator;
+    @Inject
+    private InstallationService installationDataService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FeeCleaningTaskController.class);
 
@@ -51,28 +56,43 @@ public class FeeCleaningTaskController extends BaseController {
 
     @RequestMapping(value = "/aplazar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody BaseResponse finalizar(@RequestBody PostponeFeeCleaningTaskRequest request) {
-        LOGGER.debug("Finalizando tarea de limpieza de cuotas:\nRequest: {}", request);
+        LOGGER.debug("Aplazando tarea de limpieza de cuotas:\nRequest: {}", request);
         BaseResponse response = dummyResponseGenerator.dummyFinalizeSuccess();
-        LOGGER.debug("Finalizando tarea de limpieza de cuotas:\nResponse: {}",response);
+        LOGGER.debug("Aplazada tarea de limpieza de cuotas:\nResponse: {}",response);
         return response;
     }
 
 
     @RequestMapping(value = "/descartar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody BaseResponse finalizar(@RequestBody DiscardFeeCleaningTaskRequest request) {
-        LOGGER.debug("Finalizando tarea de limpieza de cuotas:\nRequest: {}", request);
+        LOGGER.debug("Descartando tarea de limpieza de cuotas:\nRequest: {}", request);
         BaseResponse response = dummyResponseGenerator.dummyFinalizeSuccess();
-        LOGGER.debug("Finalizando tarea de limpieza de cuotas:\nResponse: {}",response);
+        LOGGER.debug("Descartada tarea de limpieza de cuotas:\nResponse: {}",response);
         return response;
     }
 
-    @RequestMapping(value = "/finalize", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value = "/finalizar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody BaseResponse finalizar(@RequestBody FinalizeFeeCleaningTaskRequest request) {
         LOGGER.debug("Finalizando tarea de limpieza de cuotas:\nRequest: {}", request);
         BaseResponse response = dummyResponseGenerator.dummyFinalizeSuccess();
-        LOGGER.debug("Finalizando tarea de limpieza de cuotas:\nResponse: {}",response);
+        LOGGER.debug("Finalizada tarea de limpieza de cuotas:\nResponse: {}",response);
         return response;
     }
 
+    @RequestMapping(value = "/getInstallationAndTask", method = {RequestMethod.GET}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public @ResponseBody TareaResponse getInstallationAndTask(
+            @RequestParam(value = "installationId", required = true) String installationId,
+            @RequestParam(value = "ccUserId", required = true) String ccUserId,
+            @RequestParam(value = "callingList", required = true) String callingList,
+            @RequestParam(value = "tareaId", required = true) String tareaId
+    ) throws DataServiceFault {
+        LOGGER.debug("Get fee cleaning task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
+        TareaLimpiezaCuota task = (TareaLimpiezaCuota) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
+        LOGGER.debug("Fee cleaning task obtained from service: \n{}", task);
+        LOGGER.debug("Get installation data for params: \ninstallationId: {}", installationId);
+        InstallationData installationData = installationDataService.getInstallationData(installationId);
+        LOGGER.debug("Installation data obtained from service: \n{}", installationData);
+        return toTareaResponse(task, installationData);
+    }
 
 }

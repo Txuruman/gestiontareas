@@ -97,11 +97,16 @@ public interface TaskServiceParams {
     public static String MARKETING_SURVEY_TASK_MOTIVO = "MOTIVO";
     public static String MARKETING_SURVEY_TASK_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
-    public static String KEYBOX_CONTRATO = "KEYBOX_CONTRATO";
-    public static String KEYBOX_FECHA_FACTURA = "KEYBOX_FECHA_FACTURA";
-    public static String KEYBOX_NUMERO_FACTURA = "KEYBOX_NUMERO_FACTURA";
-    public static String KEYBOX_IMPORTE_LINEA = "KEYBOX_IMPORTE_LINEA";
-    public static String KEYBOX_ID_ITEM = "KEYBOX_ID_ITEM";
+    public static String KEYBOX_TASK_NUMERO_FACTURA = "FACTURA";
+    public static String KEYBOX_TASK_FECHA_FACTURA = "F_FACTURA";
+    public static String KEYBOX_TASK_IMPORTE_LINEA = "IMPORTE_LINEA";
+    public static String KEYBOX_TASK_ID_ITEM = "ITEM";
+    public static String KEYBOX_TASK_CONTRATO = "CTR_NO";
+    public static String KEYBOX_TASK_PANEL = "PANEL";
+    public static String KEYBOX_TASK_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+
+
+
 
     public  static String OTRASCAMPANAS_CAMPO1 = "campo";
     public  static String OTRASCAMPANAS_CAMPO2 = "campo";

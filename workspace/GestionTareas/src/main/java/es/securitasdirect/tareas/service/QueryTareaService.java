@@ -89,6 +89,10 @@ public class QueryTareaService {
                 LOGGER.debug("Tipo tarea:{}", tipoTarea);
                 LOGGER.debug("Tarea: {}", tarea);
 
+                if(tarea==null){
+                    LOGGER.debug("Couldn´t create Tarea for values:\nccIdentifier: {}\napplicationUser: {}\nccUserId: {}" +
+                    "\nfilter: {}\ncallingList: {}\ncountry: {}", ccIdentifier, applicationUser, ccUserId, filter, callingList, country);
+                }
                 return tarea;
             } else {
                 LOGGER.warn("Tipo tarea not found in response map checkCallingListContact.");
@@ -299,12 +303,12 @@ public class QueryTareaService {
         KeyboxTask tarea = new KeyboxTask();
         loadTareaCommons(tarea, parameters);
         loadTareaExcelCommons(tarea, parameters);
-
-        tarea.setContrato(parameters.get(TaskServiceParams.KEYBOX_CONTRATO));
-        tarea.setInvoiceDate(toDateFromMap(parameters.get(TaskServiceParams.KEYBOX_FECHA_FACTURA)));
-        tarea.setInvoiceNumber(parameters.get(TaskServiceParams.KEYBOX_NUMERO_FACTURA));
-        tarea.setLineValue(toIntegerFromMap(parameters.get(TaskServiceParams.KEYBOX_IMPORTE_LINEA)));
-        tarea.setIdentificadorItem(parameters.get(TaskServiceParams.KEYBOX_ID_ITEM));
+        tarea.setInvoiceNumber(parameters.get(TaskServiceParams.KEYBOX_TASK_NUMERO_FACTURA));
+        tarea.setInvoiceDate(toDateFromMap(parameters.get(TaskServiceParams.KEYBOX_TASK_FECHA_FACTURA),TaskServiceParams.KEYBOX_TASK_DATE_FORMAT));
+        tarea.setLineValue(toIntegerFromMap(parameters.get(TaskServiceParams.KEYBOX_TASK_IMPORTE_LINEA)));
+        tarea.setIdentificadorItem(parameters.get(TaskServiceParams.KEYBOX_TASK_ID_ITEM));
+        tarea.setContrato(parameters.get(TaskServiceParams.KEYBOX_TASK_CONTRATO));
+        tarea.setPanel(parameters.get(TaskServiceParams.KEYBOX_TASK_PANEL));
         return tarea;
     }
 
@@ -478,11 +482,8 @@ public class QueryTareaService {
         TareaAviso tarea = null;
         Integer idAviso = toIntegerFromMap(responseMap.get(TaskServiceParams.TAREA_AVISO_CALLING_LIST_RESPONSE_ID_AVISO));
         if (idAviso != null && idAviso != 0) {
-            try {
-                tarea = getTareaByIdAviso(idAviso);
-            } catch (DataServiceFault dataServiceFault) {
-                LOGGER.error("Error calling service for TareaAviso data or not valid ID_AVISO: {}", idAviso);
-            }
+            LOGGER.debug("Calling service for TareaAviso for ID: '{}'", idAviso);
+            tarea = getTareaByIdAviso(idAviso);
         } else {
             LOGGER.warn("ID_AVISO (idaviso) not found in response map");
         }
@@ -496,10 +497,15 @@ public class QueryTareaService {
      * @param idAviso
      * @return
      */
-    protected TareaAviso getTareaByIdAviso(Integer idAviso) throws DataServiceFault {
+    protected TareaAviso getTareaByIdAviso(Integer idAviso) {
         TareaAviso tarea = null;
         if (idAviso != null && !idAviso.equals(0)) {
-            List<GetAvisobyIdResult> avisobyId = spAioTareas2.getAvisobyId(idAviso);
+            List<GetAvisobyIdResult> avisobyId = null;
+            try{
+                avisobyId = spAioTareas2.getAvisobyId(idAviso);
+            }catch (DataServiceFault dsf){
+                LOGGER.error("ERROR calling service for TareaAviso ID:'{}'", idAviso);
+            }
             if (avisobyId != null && !avisobyId.isEmpty()) {
                 Iterator<GetAvisobyIdResult> iterator = avisobyId.iterator();
                 List<TareaAviso> bloquesTareasAviso = new ArrayList<TareaAviso>();
@@ -519,8 +525,10 @@ public class QueryTareaService {
                 if(bloquesTareasAviso.size()>=4){
                     LOGGER.debug("No se esperan más de 3 tipos y motivos de aviso en la respuesta");
                 }
+                LOGGER.debug("Queried Aviso ({}): {}", idAviso, tarea);
+            }else{
+                LOGGER.debug("Queried Aviso not found ({}): {}", idAviso, tarea);
             }
-            LOGGER.debug("Queried Aviso ({}): {}", idAviso, tarea);
         } else {
             LOGGER.warn("Can not query for an not informed idAviso.");
         }

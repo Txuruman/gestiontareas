@@ -3,7 +3,6 @@ package es.securitasdirect.tareas.model;
 import es.securitasdirect.tareas.model.tareaexcel.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.wso2.ws.dataservice.DataServiceFault;
 
 import java.util.ArrayList;
 import java.util.Date;
