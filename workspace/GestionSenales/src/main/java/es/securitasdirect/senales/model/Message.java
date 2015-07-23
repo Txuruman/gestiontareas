@@ -3,6 +3,7 @@ package es.securitasdirect.senales.model;
 import es.securitasdirect.senales.model.cibb.CIBB;
 
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
@@ -16,6 +17,7 @@ public class Message {
 	/** Entry date of the message in the process, used to discard old message */
 	private Date entryDate;
 
+
 	private CIBB cibb;
 
     public Message() {
@@ -27,7 +29,7 @@ public class Message {
 	}
 
      public Integer getId() {
-        if (cibb.getEVENTS()!=null) {
+        if (cibb!=null && cibb.getEVENTS()!=null) {
             return cibb.getEVENTS().getInsNumberE();
         } else {
             return null;
@@ -46,6 +48,17 @@ public class Message {
             return null;
         }
     }
+
+	/**
+	 * Returns the message Event Type
+	 */
+	public Integer getEventType() {
+		if (cibb!=null &&  cibb.getEVENTS()!=null&& cibb.getEVENTS().getEVENT()!=null) {
+			return cibb.getEVENTS().getEVENT().getType();
+		}else{
+			return null;
+		}
+	}
 
     /**
      * Returns the language location key
@@ -68,6 +81,7 @@ public class Message {
 		this.entryDate = entryDate;
 	}
 
+	@XmlElement(name = "CIBB")
 	public CIBB getCibb() {
 		return cibb;
 	}
@@ -85,4 +99,6 @@ public class Message {
 		sb.append('}');
 		return sb.toString();
 	}
+
+
 }

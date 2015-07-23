@@ -22,85 +22,9 @@
     <context:property-placeholder location="classpath*:database.properties,classpath*:hibernate.properties,classpath*:app-version.properties"/>
     -->
 
-    <!-- Configuration of the different JMSReader over different queues -->
-    <!--
-        POZUELO
-        Cola principal
-        BUS:                       es1preosbprd01v-vip          PORT  8011
-        Endpoint:               sd.prd.es1allinoneout
-        Factoria:                 sd.prd.es1prdxacfout
-    -->
-    <bean id="jmsReaderPozuelo" class="es.securitasdirect.senales.reader.JMSReader" lazy-init="false">
-        <property name="aliasName" value="Pozuelo" />
-        <property name="qfcName" value="sd.prd.es1prdxacfout" />
-        <property name="queueName" value="sd.prd.es1allinoneout" />
-        <property name="jndiUrl" value="t3://es1preosbprd01v-vip:8011" />
-        <property name="user" value="" />
-        <property name="pass" value="" />
-    </bean>
-    <!--
-        Cola Error
-        BUS:                       es1preosbprd01v-vip          PORT  8011
-        Endpoint:               sd.prd. es2ERRORallinoneOUT
-        Factoria:                 sd.prd.es1prdxacfout
-    -->
-    <!--<bean id="jmsReaderError1" class="es.securitasdirect.senales.reader.JMSReader" lazy-init="false">-->
-        <!--<property name="aliasName" value="jmsReaderError1" />-->
-        <!--<property name="qfcName" value="sd.prd.es1prdxacfout" />-->
-        <!--<property name="queueName" value="sd.prd.es2ERRORallinoneOUT" />-->
-        <!--<property name="jndiUrl" value="t3://es1preosbprd01v-vip:8011" />-->
-        <!--<property name="user" value="" />&lt;!&ndash; Opcionales &ndash;&gt;-->
-        <!--<property name="pass" value="" />&lt;!&ndash; Opcionales &ndash;&gt;-->
-    <!--</bean>-->
-
-    <!--
-        YECORA
-        BUS:                       es2preosbprd01v-vip          PORT  8011
-        Endpoint:               sd.prd.es2allinoneout
-        Factoria:                 sd.prd.es2prdxacfout
-    -->
-    <!--<bean id="jmsReaderYecora" class="es.securitasdirect.senales.reader.JMSReader" lazy-init="false">-->
-        <!--<property name="aliasName" value="jmsReaderYecora" />-->
-        <!--<property name="qfcName" value="sd.prd.es2prdxacfout" />-->
-        <!--<property name="queueName" value="sd.prd.es2allinoneout" />-->
-        <!--<property name="jndiUrl" value="t3://es2preosbprd01v-vip:8011" />-->
-        <!--<property name="user" value=""/>-->
-        <!--<property name="pass" value=""/>-->
-    <!--</bean>-->
-
-    <!--
-        Cola Error
-        BUS:                       es2preosbprd01v-vip          PORT  8011
-        Endpoint:               sd.prd.es2ERRORallinoneOUT
-        Factoria:                 sd.prd.es2prdxacfout
-    -->
-    <!--<bean id="jmsReaderError2" class="es.securitasdirect.senales.reader.JMSReader" lazy-init="false">-->
-        <!--<property name="aliasName" value="jmsReaderError2" />-->
-        <!--<property name="qfcName" value="sd.prd.es2prdxacfout" />-->
-        <!--<property name="queueName" value="sd.prd.es2ERRORallinoneOUT" />-->
-        <!--<property name="jndiUrl" value="t3://es2preosbprd01v-vip:8011" />-->
-        <!--<property name="user" value=""/>-->
-        <!--<property name="pass" value=""/>-->
-    <!--</bean>-->
-
-    <!--
-       JNDI_URL: t3://10.2.145.102:8011
-            CONNECTION FACTORY: sd.reptef.reptefxacf
-            QUEUE: sd.reptef.telef_convmng_01
-    -->
-    <!--<bean id="jmsReaderRoberto" class="es.securitasdirect.senales.reader.JMSReader" lazy-init="false">-->
-        <!--<property name="aliasName" value="jmsReaderRoberto" />-->
-        <!--<property name="qfcName" value="sd.reptef.reptefxacf" />-->
-        <!--<property name="queueName" value="sd.reptef.telef_convmng_01" />-->
-        <!--<property name="jndiUrl" value="t3://10.2.145.102:8011" />-->
-        <!--<property name="user" value=""/> -->
-        <!--<property name="pass" value=""/> -->
-    <!--</bean>-->
-
-
 
     <!-- Configuration of the File Reader and Writer of for the error messages -->
-    <bean id="errorFileReader" class="es.securitasdirect.senales.reader.FileReader" />
+    <bean id="errorFileReader" class="es.securitasdirect.senales.reader.FileReader"/>
 
 
     <!-- Task scheduler -->
@@ -125,21 +49,31 @@
      La forma en la que se implementa el control de señales permitidas mediante parámetros en el fichero de configuración de CCL (CCLconfig.properties) es la siguiente:
         1)	Un parámetro ALLOWED_QSIGNALS que indicará una lista de los códigos de señal permitidos, separados por “;”.
         2)	Para cada señal permitida:
-        2.1)  Un parámetro con el identificador para luego invocar el método de obtención de  calling list y campaña (XXX_SIGNAL_CL_ID).
-        2.2)  Otro parámetro para indicar el status permitido para la señal  (XXX_SIGNAL_STATUS).Donde XXX es el código de señal.
+        2.1)  Un parámetro con el identificador para luego invocar el método de obtención de  calling list y campaña (XXX_SIGNAL_CL_ID). <EVENT id="UCB"> del XML
+        2.2)  Otro parámetro para indicar el status permitido para la señal  (XXX_SIGNAL_STATUS).Donde XXX es el código de señal. <type>2</type> del XML.
     -->
 
     <util:map id="allowedQSignals" map-class="java.util.HashMap" key-type="java.lang.String" value-type="es.securitasdirect.senales.model.SignalMetadata">
         <entry key="ILS">
             <bean class="es.securitasdirect.senales.model.SignalMetadata">
                 <property name="clId" value="DIY_TAREAS_BTN"/>
-                <property name="status" value="1"/>
+                <property name="allowedStatus">
+                   <list value-type="java.lang.Integer">
+                       <value>1</value>
+                       <value>2</value>
+                   </list>
+                </property>
             </bean>
         </entry>
         <entry key="UCB">
             <bean class="es.securitasdirect.senales.model.SignalMetadata">
                 <property name="clId" value="DIY_TAREAS_BTN"/>
-                <property name="status" value="2"/>
+                <property name="allowedStatus">
+                    <list value-type="java.lang.Integer">
+                        <value>1</value>
+                        <value>2</value>
+                    </list>
+                </property>
             </bean>
         </entry>
     </util:map>
@@ -157,34 +91,34 @@
         <!-- Default language location values -->
         <entry key="DEF">
             <bean class="es.securitasdirect.senales.model.SmsMessageLocation">
-                <property name="another" value="Not specified message" />
-                <property name="outOfWorkingHours" value="Received message out of working hours, it will be pending to process" />
+                <property name="another" value="Not specified message"/>
+                <property name="outOfWorkingHours" value="Received message out of working hours, it will be pending to process"/>
             </bean>
         </entry>
 
         <entry key="ESP">
             <bean class="es.securitasdirect.senales.model.SmsMessageLocation">
-                <property name="another" value="Mensaje no especificado" />
-                <property name="outOfWorkingHours" value="Mensaje recibido fuera del horario de trabajo, quedará pendiente de procesar" />
+                <property name="another" value="Mensaje no especificado"/>
+                <property name="outOfWorkingHours" value="Mensaje recibido fuera del horario de trabajo, quedará pendiente de procesar"/>
             </bean>
         </entry>
         <entry key="ENG">
             <bean class="es.securitasdirect.senales.model.SmsMessageLocation">
-                <property name="another" value="Not specified messsage" />
-                <property name="outOfWorkingHours" value="Received message out of working hours, it will be pending to process" />
+                <property name="another" value="Not specified messsage"/>
+                <property name="outOfWorkingHours" value="Received message out of working hours, it will be pending to process"/>
             </bean>
         </entry>
         <!-- Example of definition of same message for different languages or countries-->
         <entry key="US_ENG">
             <bean class="es.securitasdirect.senales.model.SmsMessageLocation">
-                <property name="another" value="anotherENG" />
-                <property name="outOfWorkingHours" ref="outOfWorkingHoursENG" />
+                <property name="another" value="anotherENG"/>
+                <property name="outOfWorkingHours" ref="outOfWorkingHoursENG"/>
             </bean>
         </entry>
         <entry key="GB_ENG">
             <bean class="es.securitasdirect.senales.model.SmsMessageLocation">
-                <property name="another" ref="anotherENG" />
-                <property name="outOfWorkingHours" ref="outOfWorkingHoursENG" />
+                <property name="another" ref="anotherENG"/>
+                <property name="outOfWorkingHours" ref="outOfWorkingHoursENG"/>
             </bean>
         </entry>
     </util:map>
@@ -195,9 +129,8 @@
     </util:list>
 
     <!--<util:map id="callingListToModel2" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.util.ArrayList">-->
-        <!--<entry key="TareaAviso" value-ref="tareaAvisoItems" />-->
+    <!--<entry key="TareaAviso" value-ref="tareaAvisoItems" />-->
     <!--</util:map>-->
-
 
 
     <!-- Work hours definitions, when outside the work hour the SMS will be sent -->
