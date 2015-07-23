@@ -266,7 +266,7 @@ public class QueryTareaService {
         tarea.setTextoCancelacion(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_TEXTO_CANCELACION));;
         tarea.setCiudad(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_CIUDAD));
         tarea.setDireccion(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_DIRECCION));
-        tarea.setFechaEvento(toDateFromMap(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_FECHAEVENTO), TaskServiceParams.TAREA_MANTENIMIENTO_FECHAEVENTO_DATE_FORMAT ));
+        tarea.setFechaEvento(toDateFromMap(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_FECHAEVENTO), TaskServiceParams.TAREA_MANTENIMIENTO_FECHAEVENTO_DATE_FORMAT));
 
         tarea.setKey1(toIntegerFromMap(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_KEY1)));
         tarea.setKey2(toIntegerFromMap(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_KEY2)));
@@ -295,7 +295,7 @@ public class QueryTareaService {
         loadTareaCommons(tarea, parameters);
         loadTareaExcelCommons(tarea, parameters);
 
-        tarea.setFecha(toDateFromMap(parameters.get(TaskServiceParams.MARKETING_SURVEY_TASK_FECHA),TaskServiceParams.MARKETING_SURVEY_TASK_DATE_FORMAT));
+        tarea.setFecha(toDateFromMap(parameters.get(TaskServiceParams.MARKETING_SURVEY_TASK_FECHA), TaskServiceParams.MARKETING_SURVEY_TASK_DATE_FORMAT));
         tarea.setMotivo(parameters.get(TaskServiceParams.MARKETING_SURVEY_TASK_MOTIVO));
         return tarea;
     }
@@ -305,7 +305,7 @@ public class QueryTareaService {
         loadTareaCommons(tarea, parameters);
         loadTareaExcelCommons(tarea, parameters);
         tarea.setInvoiceNumber(parameters.get(TaskServiceParams.KEYBOX_TASK_NUMERO_FACTURA));
-        tarea.setInvoiceDate(toDateFromMap(parameters.get(TaskServiceParams.KEYBOX_TASK_FECHA_FACTURA),TaskServiceParams.KEYBOX_TASK_DATE_FORMAT));
+        tarea.setInvoiceDate(toDateFromMap(parameters.get(TaskServiceParams.KEYBOX_TASK_FECHA_FACTURA), TaskServiceParams.KEYBOX_TASK_DATE_FORMAT));
         tarea.setLineValue(toIntegerFromMap(parameters.get(TaskServiceParams.KEYBOX_TASK_IMPORTE_LINEA)));
         tarea.setIdentificadorItem(parameters.get(TaskServiceParams.KEYBOX_TASK_ID_ITEM));
         tarea.setContrato(parameters.get(TaskServiceParams.KEYBOX_TASK_CONTRATO));
@@ -503,6 +503,7 @@ public class QueryTareaService {
         if (idAviso != null && !idAviso.equals(0)) {
             List<GetAvisobyIdResult> avisobyId = null;
             try{
+                //Viene una lista de 3 avisos o menos, son todos el mismo, solo cambia los tipoAviso y tipoMotivo
                 avisobyId = spAioTareas2.getAvisobyId(idAviso);
             }catch (DataServiceFault dsf){
                 LOGGER.error("ERROR calling service for TareaAviso ID:'{}'", idAviso);
@@ -541,22 +542,18 @@ public class QueryTareaService {
      * Ejemplo de lo que devuelve Aviso Service: 2014-08-22T10:08:26.000+02:00
      */
     private Date toDateFromMap(String value, String dateFormatPattern) {
-        Date fecha;
-        if(dateFormatPattern!=null){
+        assert dateFormatPattern!=null;
+        Date fecha =null;
             SimpleDateFormat sdf = new SimpleDateFormat(dateFormatPattern);
             try {
                 fecha = sdf.parse(value);
             }catch (ParseException parseException){
                 LOGGER.error("El formato de fecha '{}' no se corresponde con la fecha dada '{}'", dateFormatPattern, value, parseException.getMessage(), parseException);
-                fecha = new Date();
+                fecha = null;
             }catch (IllegalArgumentException illegalArgumentException){
                 LOGGER.error("El formato de fecha '{}' no es un patrón válido.\nMessage: {}\nStackTrace: {}", dateFormatPattern, illegalArgumentException.getMessage(), illegalArgumentException);
-                fecha = new Date();
+                fecha = null;
             }
-        }else{
-            LOGGER.error("No se encontró el formato de fecha");
-            fecha = new Date();
-        }
         return fecha;
     }
 
@@ -586,10 +583,7 @@ public class QueryTareaService {
         }
     }
 
-    private List toListFromMap(String value) {
-        if (true) throw new RuntimeException("No implementado");
-        return new ArrayList();
-    }
+
 
 
 }

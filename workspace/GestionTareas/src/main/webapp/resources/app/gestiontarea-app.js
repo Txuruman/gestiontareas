@@ -26,8 +26,48 @@ app.controller('DelayModalInstanceCtrl', function ($scope, $modalInstance, $log)
         //Llama a la funcion result.then de DelayModalCtrl
         $modalInstance.dismiss('cancel');
     };
-})
-;
+});
+
+
+// Configure the $httpProvider by adding our date transformer
+app.config(["$httpProvider", function ($httpProvider) {
+    $httpProvider.defaults.transformResponse.push(function(responseData){
+        convertDateStringsToDates(responseData);
+        return responseData;
+    });
+}]);
+
+//Transoformación de Cadenas a Fecha(Javascript)
+//El formato de fecha configurado en el servidor es: 2011-11-29T15:52:18.867Z  y  2020-02-18
+var regexIso8601 = /^(\d{4}|\+\d{6})(?:-(\d{2})(?:-(\d{2})(?:T(\d{2}):(\d{2}):(\d{2})\.(\d{1,})(Z|([\-+])(\d{2}):(\d{2}))?)?)?)?$/;
+
+function convertDateStringsToDates(input) {
+    // Ignore things that aren't objects.
+    if (typeof input !== "object") return input;
+
+    for (var key in input) {
+        if (!input.hasOwnProperty(key)) continue;
+
+        var value = input[key];
+        var match;
+        // Check for string properties which look like dates.
+        // TODO: Improve this regex to better match ISO 8601 date strings.
+        if (typeof value === "string" && (match = value.match(regexIso8601))) {
+            // Assume that Date.parse can parse ISO 8601 strings, or has been shimmed in older browsers to do so.
+            console.log("Transformando fecha",value);
+            var milliseconds = Date.parse(match[0]);
+            if (!isNaN(milliseconds)) {
+                input[key] = new Date(milliseconds);
+            }
+        } else if (typeof value === "object") {
+            // Recurse into object
+            convertDateStringsToDates(value);
+        }
+    }
+}
+
+////Transoformación de Cadenas a Fecha(Javascript)  - End
+
 
 
 //Controller for the app:messages

@@ -45,7 +45,7 @@ public class TareaAviso extends Tarea {
     /*	Datos de Contacto: cliente que inició la incidencia, forma de contacto, horarios de contacto  */
     String datosContacto;
     /*	Fecha de creación: información para trazabilidad y para la gestión de días de vencimiento  */
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "CET")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     Date fechaCreacion;
     /*	Estado  */
     String estado;

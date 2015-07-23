@@ -15,9 +15,8 @@
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <select ng-model="delayInfo.recallType" >
-                    <option value="0">Recalltype0</option>
-                    <option value="1">Recalltype1</option>
-                    <option value="2">Recalltype2</option>
+                    <option value="P">Personal</option>
+                    <option value="C">Campa&nacute;a</option>
                 </select>
             </div>
         </div>
