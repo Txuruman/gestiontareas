@@ -11,11 +11,7 @@
             <div class="spacer_t2"></div>
             <div class="row">
                 <app:inputTextNG id="aviso" label="tareaAviso.identificativoAvisoTarea" value="tarea.idAviso" cells="6" readonly="false"/>
-                <app:inputTextNG id="fechaCreacion" label="tareaAviso.fechaCreacion" value="tarea.fechaCreacion" cells="6" readonly="false"/>
-
-                <datepicker ng-model="tarea.fechaCreacion"  class="well well-sm" custom-class="getDayClass(date, mode)"></datepicker>
-
-               {{tarea.fechaCreacion}}
+                <app:inputDate id="fechaCreacion" label="tareaAviso.fechaCreacion" value="tarea.fechaCreacion"  cells="6" readonly="false"/>
             </div>
             <div class="spacer_t1"></div>
             <div class="row">
