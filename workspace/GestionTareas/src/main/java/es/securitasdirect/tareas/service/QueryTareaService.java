@@ -469,7 +469,7 @@ public class QueryTareaService {
         tarea.setNumeroParte(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_PARTE_N));
         tarea.setFechaArchivo(toDateFromMap(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_FECHA_ARCHIVO), TaskServiceParams.LIST_ASSISTANT_TASK_DATE_FORMAT));
         tarea.setFechaIncidencia(toDateFromMap(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_FECHA_INCIDENCIA), TaskServiceParams.LIST_ASSISTANT_TASK_DATE_FORMAT));
-        tarea.setFechaPago(toDateFromMap(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_FECHA_PAGO)));
+        tarea.setFechaPago(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_FECHA_PAGO));
         tarea.setOperador(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_OPERADOR));
         tarea.setFechaCierre(toDateFromMap(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_FECHA_CIERRE), TaskServiceParams.LIST_ASSISTANT_TASK_DATE_FORMAT));
         tarea.setTipoIncicencia(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_TIPO_INCIDENCIA));

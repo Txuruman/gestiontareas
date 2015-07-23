@@ -5,6 +5,8 @@ package es.securitasdirect.tareas.model;
  * @author Team Vision
  */
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class TareaMantenimiento extends Tarea {
@@ -53,6 +55,7 @@ public class TareaMantenimiento extends Tarea {
     /**
      * Fecha y hora del Evento
      */
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     Date fechaEvento;
     /**
      * Ciudad

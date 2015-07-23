@@ -13,6 +13,9 @@
                 <app:inputTextNG id="aviso" label="tareaAviso.identificativoAvisoTarea" value="tarea.idAviso" cells="6" readonly="false"/>
                 <app:inputDate id="fechaCreacion" label="tareaAviso.fechaCreacion" value="tarea.fechaCreacion"  cells="6" readonly="false"/>
             </div>
+            <div class="row">
+                FechaCreacion: {{tarea.fechaCreacion}}
+            </div>
             <div class="spacer_t1"></div>
             <div class="row">
                 <app:inputTextNG id="requeridoPor" label="tareaAviso.requeridoPor" value="tarea.requeridoPor" cells="6" readonly="false"/>

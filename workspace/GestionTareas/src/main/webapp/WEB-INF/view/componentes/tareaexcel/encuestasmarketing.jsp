@@ -13,7 +13,7 @@
         <div class="panel-body">
             <jsp:include page="comunes.jsp"/>
             <div class="row">
-                <app:inputTextNG id="date" label="marketingsurvey.date" value="tarea.fecha" cells="6" readonly="true"/>
+                <app:inputDate id="date" label="marketingsurvey.date" value="tarea.fecha" cells="6" readonly="true"/>
                 <app:inputTextNG id="reason" label="marketingsurvey.reason" value="tarea.motivo" cells="6" readonly="true"/>
             </div>
         </div>

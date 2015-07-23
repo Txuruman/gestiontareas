@@ -50,7 +50,7 @@ public class DummyGenerator {
         tareaListadoAssistant.setFechaArchivo(new Date());
         tareaListadoAssistant.setFechaCierre(new Date());
         tareaListadoAssistant.setFechaIncidencia(new Date());
-        tareaListadoAssistant.setFechaPago(new Date());
+        tareaListadoAssistant.setFechaPago("Dummy fecha pago (no es fecha)");
         tareaListadoAssistant.setGrupoPanel("Dummy grupo panel");
         tareaListadoAssistant.setIncidencia("Dummy incidencia");
         tareaListadoAssistant.setMaintenanceNumber(0);

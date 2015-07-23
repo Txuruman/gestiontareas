@@ -3,7 +3,7 @@
 <%@ taglib prefix="app" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<div ng-controller="keyboxtask-ctrl" ng-init="getTarea()">
+<div ng-controller="keyboxtask-ctrl" ng-init="getInstallationAndTask()">
     <jsp:include page="instalacion.jsp"/>
     <div class="panel panel-default">
         <div class="panel-body">
@@ -11,7 +11,7 @@
             <div class="row">
                 <app:inputTextNG id="invoiceNumber" label="keybox.invoicenumber" value="tarea.invoiceNumber" cells="6"
                                  readonly="true"/>
-                <app:inputTextNG id="invoiceDate" label="keybox.invoicedate" value="tarea.invoiceDate" cells="6"
+                <app:inputDate id="invoiceDate" label="keybox.invoicedate" value="tarea.invoiceDate" cells="6"
                                  readonly="true"/>
             </div>
             <div class="spacer_t1"></div>
