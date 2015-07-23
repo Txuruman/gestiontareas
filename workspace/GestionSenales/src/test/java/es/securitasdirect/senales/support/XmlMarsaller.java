@@ -24,7 +24,8 @@ import static org.hamcrest.core.IsNull.notNullValue;
  * Created by Javier Naval on 23/06/2015.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath*:spring/applicationContext-*.xml" })
+//Evitamos cargar el applicationContext-jms para que funcionen los test
+@ContextConfiguration(locations = {"classpath*:spring/applicationContext-bean.xml","classpath*:spring/applicationContext-ws.xml"})
 public class XmlMarsaller {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(XmlMarsaller.class);
