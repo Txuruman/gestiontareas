@@ -287,6 +287,14 @@ public class QueryTareaService {
         loadTareaCommons(task, parameters);
         loadTareaExcelCommons(task, parameters);
 
+        task.setMaintenanceNumber(toIntegerFromMap(parameters.get(TaskServiceParams.MAINTENANCE_SURVEY_TASK_NUMERO_MANTENIMIENTO)));
+        task.setTechnician(parameters.get(TaskServiceParams.MAINTENANCE_SURVEY_TASK_TECNICO));
+        task.setManager(parameters.get(TaskServiceParams.MAINTENANCE_SURVEY_TASK_RESPONSABLE));
+        task.setCostCenter(parameters.get(TaskServiceParams.MAINTENANCE_SURVEY_TASK_CENTROCOSTE));
+        task.setValuationKeyReason(parameters.get(TaskServiceParams.MAINTENANCE_SURVEY_TASK_RAZON));
+        task.setSolution(parameters.get(TaskServiceParams.MAINTENANCE_SURVEY_TASK_SOLUCION));
+        task.setAgreement(parameters.get(TaskServiceParams.MAINTENANCE_SURVEY_TASK_COMPROMISO));
+        task.setDestinationDepartment(parameters.get(TaskServiceParams.MAINTENANCE_SURVEY_TASK_DPTO_DESTINO));
         return task;
     }
 
@@ -425,6 +433,9 @@ public class QueryTareaService {
         tarea.setNumeroInstalacion(parameters.get(TaskServiceParams.TAREA_COMMONS_INSTALACION));
         tarea.setPersonaContacto(parameters.get(TaskServiceParams.TAREA_COMMONS_PERSONA_CONTACTO));
         tarea.setTelefono(parameters.get(TaskServiceParams.TAREA_COMMONS_TELEFONO));
+
+
+
 
         return tarea;
     }

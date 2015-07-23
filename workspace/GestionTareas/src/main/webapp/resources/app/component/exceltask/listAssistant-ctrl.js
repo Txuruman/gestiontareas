@@ -67,7 +67,7 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
     }
 
     $scope.descartar = function(){
-        console.log("DescartDiscardar List Assistant task, task: " + JSON.stringify($scope.tarea));
+        console.log("Discard List Assistant task, task: " + JSON.stringify($scope.tarea));
         var discardListAssistantTaskRequest = {
             tarea:$scope.tarea,
             prueba:'Hola'
