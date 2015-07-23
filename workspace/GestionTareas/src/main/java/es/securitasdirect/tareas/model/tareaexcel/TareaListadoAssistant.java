@@ -1,5 +1,6 @@
 package es.securitasdirect.tareas.model.tareaexcel;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import es.securitasdirect.tareas.model.TareaExcel;
 
 import java.util.Date;
@@ -60,19 +61,22 @@ public class TareaListadoAssistant extends TareaExcel {
     /**
      * Fecha de Cierre
      */
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     Date fechaCierre;
     /**
      * Fecha de Archivo
      */
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     Date fechaArchivo;
     /**
      * Fecha de Incidencia
      */
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     Date fechaIncidencia;
     /**
-     * Fecha de Pago
+     * Fecha de Pago (Cadena de descripcion tipo 05 - RECIBO) (No es una fecha)
      */
-    Date fechaPago;
+     String fechaPago;
     /**
      * Operador.
      * varchar (10)
@@ -109,6 +113,7 @@ public class TareaListadoAssistant extends TareaExcel {
     /**
      * Fecha de Gestión
      */
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     Date boFechaGestion;
     /**
      * Matrícula.
@@ -123,6 +128,7 @@ public class TareaListadoAssistant extends TareaExcel {
     /**
      * Fecha de recepción
      */
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     Date boFechaRecepcion;
     /**
      * Tipo. mpresa o Particular?
@@ -240,11 +246,11 @@ public class TareaListadoAssistant extends TareaExcel {
         this.fechaIncidencia = fechaIncidencia;
     }
 
-    public Date getFechaPago() {
+    public String getFechaPago() {
         return fechaPago;
     }
 
-    public void setFechaPago(Date fechaPago) {
+    public void setFechaPago(String fechaPago) {
         this.fechaPago = fechaPago;
     }
 

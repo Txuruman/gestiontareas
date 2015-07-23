@@ -69,6 +69,21 @@ app.controller('anotherCampaigns', function ($scope, $http, CommonService, $moda
     }
 
 
+    $scope.getClosingReason = function(){
+        console.log("Loading Excel Task Commons: Closing reason");
+        $http({method: 'GET', url: '/exceltaskcommon/getClosingReason'}).
+            success(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data, status, headers, config);
+                $scope.closingReasonList = data;
+            }).
+            error(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data, status, headers, config);
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+        console.log("Loaded Excel Task Commons: Closing reason");
+    }
+
 
     //Ventana Aplazar - Start
     //Abre la ventana, posibles tamaños '', 'sm', 'lg'

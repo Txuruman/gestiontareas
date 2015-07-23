@@ -19,8 +19,11 @@
             <div class="row">
                         <app:inputTextNG id="direccion" label="tareamantenimiento.direccion" value="tarea.direccion"
                                          readonly="true" cells="6"/>
-                        <app:inputTextNG id="fechaEvento" label="tareamantenimiento.fechaEvento" value="tarea.fechaEvento"
+                        <app:inputDate id="fechaEvento" label="tareamantenimiento.fechaEvento" value="tarea.fechaEvento"
                                          readonly="true" cells="6"/>
+            </div>
+            <div class="row">
+                Fecha evento: {{tarea.fechaEvento}}
             </div>
             <div class="spacer_t1"></div>
             <div class="row">

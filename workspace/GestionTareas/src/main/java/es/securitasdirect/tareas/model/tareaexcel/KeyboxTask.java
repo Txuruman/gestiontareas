@@ -1,5 +1,6 @@
 package es.securitasdirect.tareas.model.tareaexcel;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import es.securitasdirect.tareas.model.TareaExcel;
 
 import java.util.Date;
@@ -18,6 +19,7 @@ public class KeyboxTask extends TareaExcel {
     /**
      * Invoice date - Fecha de la Factura
      */
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     Date invoiceDate;
     /**
      * Importe de la Línea
