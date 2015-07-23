@@ -20,10 +20,11 @@ import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;
 
 /**
- * Created by Javier Naval on 23/06/2015.
+ *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath*:spring/applicationContext-*.xml"})
+//Evitamos cargar el applicationContext-jms para que funcionen los test
+@ContextConfiguration(locations = {"classpath*:spring/applicationContext-bean.xml","classpath*:spring/applicationContext-ws.xml"})
 public class GestionSenalesMessagesTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GestionSenalesMessagesTest.class);
@@ -43,6 +44,10 @@ public class GestionSenalesMessagesTest {
     @Value("classpath:notAllowedSignal.xml")
     private Resource notAllowedSignal;
 
+
+    @Value("classpath:notAllowedSignalType.xml")
+    private Resource notAllowedSignalType;
+
     @Test
     public void inject() {
         assertThat(gestionSenalesService, notNullValue());
@@ -57,7 +62,14 @@ public class GestionSenalesMessagesTest {
     @Test
     public void notAllowedSignal() throws Exception {
         Message message = fileService.readMessage(notAllowedSignal.getFile());
-        message.setEntryDate(new Date());
+        message.setEntryDate(new Date());//Para que no descarte por fecha
+        gestionSenalesService.onMessage(message);
+    }
+
+    @Test
+    public void notAllowedSignalType() throws Exception {
+        Message message = fileService.readMessage(notAllowedSignalType.getFile());
+        message.setEntryDate(new Date());//Para que no descarte por fecha
         gestionSenalesService.onMessage(message);
     }
 
@@ -77,6 +89,17 @@ public class GestionSenalesMessagesTest {
         gestionSenalesService.endWorkHour = previousEndWorkHour;
         gestionSenalesService.endWorkMinute = previousEndWorkMinute;
     }
+
+
+    @Test
+    public void inWorkinHour() throws Exception {
+        Message message = fileService.readMessage(exampleMessage.getFile());
+        message.setEntryDate(new Date());
+
+        gestionSenalesService.onMessage(message);
+
+    }
+
 
 
 }

@@ -87,12 +87,11 @@ public class QueryTareaService {
                     tarea = createTareaMantenimientoFromParameters(responseMap);
                 }
 
-                LOGGER.debug("Tipo tarea:{}", tipoTarea);
-                LOGGER.debug("Tarea: {}", tarea);
-
                 if(tarea==null){
                     LOGGER.debug("Couldn´t create Tarea for values:\nccIdentifier: {}\napplicationUser: {}\nccUserId: {}" +
                     "\nfilter: {}\ncallingList: {}\ncountry: {}", ccIdentifier, applicationUser, ccUserId, filter, callingList, country);
+                } else {
+                    LOGGER.debug("Loaded Task {} : {}", tipoTarea,tarea);
                 }
                 return tarea;
             } else {
@@ -469,6 +468,7 @@ public class QueryTareaService {
         tarea.setNumeroParte(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_PARTE_N));
         tarea.setFechaArchivo(toDateFromMap(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_FECHA_ARCHIVO), TaskServiceParams.LIST_ASSISTANT_TASK_DATE_FORMAT));
         tarea.setFechaIncidencia(toDateFromMap(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_FECHA_INCIDENCIA), TaskServiceParams.LIST_ASSISTANT_TASK_DATE_FORMAT));
+        //TODO FECHA DE PAGO ES FORMA DE PAGO EN REALIDAD
         tarea.setFechaPago(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_FECHA_PAGO));
         tarea.setOperador(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_OPERADOR));
         tarea.setFechaCierre(toDateFromMap(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_FECHA_CIERRE), TaskServiceParams.LIST_ASSISTANT_TASK_DATE_FORMAT));
@@ -555,16 +555,18 @@ public class QueryTareaService {
     private Date toDateFromMap(String value, String dateFormatPattern) {
         assert dateFormatPattern!=null;
         Date fecha =null;
+        if (value!=null && !value.isEmpty()) {
             SimpleDateFormat sdf = new SimpleDateFormat(dateFormatPattern);
             try {
                 fecha = sdf.parse(value);
-            }catch (ParseException parseException){
+            } catch (ParseException parseException) {
                 LOGGER.error("El formato de fecha '{}' no se corresponde con la fecha dada '{}'", dateFormatPattern, value, parseException.getMessage(), parseException);
                 fecha = null;
-            }catch (IllegalArgumentException illegalArgumentException){
+            } catch (IllegalArgumentException illegalArgumentException) {
                 LOGGER.error("El formato de fecha '{}' no es un patrón válido.\nMessage: {}\nStackTrace: {}", dateFormatPattern, illegalArgumentException.getMessage(), illegalArgumentException);
                 fecha = null;
             }
+        }
         return fecha;
     }
 

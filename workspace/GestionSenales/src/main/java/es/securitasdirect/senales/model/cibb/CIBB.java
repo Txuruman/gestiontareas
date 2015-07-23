@@ -370,6 +370,22 @@ public class CIBB {
         @XmlAttribute(name = "TypeProtocol")
         protected String typeProtocol;
 
+        @Override
+        public String toString() {
+            final StringBuffer sb = new StringBuffer("EVENTS{");
+            sb.append("event=").append(event);
+            sb.append(", mmv=").append(mmv);
+            sb.append(", modelo='").append(modelo).append('\'');
+            sb.append(", counter='").append(counter).append('\'');
+            sb.append(", ack=").append(ack);
+            sb.append(", insNumber=").append(insNumber);
+            sb.append(", insNumberE=").append(insNumberE);
+            sb.append(", dataTime=").append(dataTime);
+            sb.append(", typeProtocol='").append(typeProtocol).append('\'');
+            sb.append('}');
+            return sb.toString();
+        }
+
         /**
          * Gets the value of the event property.
          * 
@@ -1499,6 +1515,37 @@ public class CIBB {
         @XmlAttribute(name = "ServiceType")
         protected String serviceType;
 
+        @Override
+        public String toString() {
+            final StringBuffer sb = new StringBuffer("PROPS{");
+            sb.append("tfno=").append(tfno);
+            sb.append(", texto='").append(texto).append('\'');
+            sb.append(", pais='").append(pais).append('\'');
+            sb.append(", host='").append(host).append('\'');
+            sb.append(", op='").append(op).append('\'');
+            sb.append(", centro='").append(centro).append('\'');
+            sb.append(", numero='").append(numero).append('\'');
+            sb.append(", tipo='").append(tipo).append('\'');
+            sb.append(", user=").append(user);
+            sb.append(", err='").append(err).append('\'');
+            sb.append(", transId='").append(transId).append('\'');
+            sb.append(", timeIn=").append(timeIn);
+            sb.append(", recepName='").append(recepName).append('\'');
+            sb.append(", medio='").append(medio).append('\'');
+            sb.append(", tansmisionType='").append(tansmisionType).append('\'');
+            sb.append(", seviceType='").append(seviceType).append('\'');
+            sb.append(", protocolType='").append(protocolType).append('\'');
+            sb.append(", inOrOut='").append(inOrOut).append('\'');
+            sb.append(", destinoType='").append(destinoType).append('\'');
+            sb.append(", origenType='").append(origenType).append('\'');
+            sb.append(", modeloId='").append(modeloId).append('\'');
+            sb.append(", origen='").append(origen).append('\'');
+            sb.append(", ok=").append(ok);
+            sb.append(", serviceType='").append(serviceType).append('\'');
+            sb.append('}');
+            return sb.toString();
+        }
+
         /**
          * Gets the value of the tfno property.
          * 
@@ -2077,4 +2124,13 @@ public class CIBB {
 
     }
 
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("CIBB{");
+        sb.append("events=").append(events);
+        sb.append(", props=").append(props);
+        sb.append('}');
+        return sb.toString();
+    }
 }
