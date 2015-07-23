@@ -3,7 +3,7 @@
 <%@ taglib prefix="app" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<div ng-controller="anotherCampaigns" ng-init="getTarea()">
+<div ng-controller="anotherCampaigns" ng-init="getInstallationAndTask()">
     <jsp:include page="instalacion.jsp"/>
     <div class="panel panel-default">
         <div class="panel-body">

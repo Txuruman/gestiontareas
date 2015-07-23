@@ -1,6 +1,9 @@
 package es.securitasdirect.tareas.web.controller.task.exceltask;
 
+import es.securitasdirect.tareas.model.InstallationData;
+import es.securitasdirect.tareas.model.tareaexcel.TareaLimpiezaCuota;
 import es.securitasdirect.tareas.model.tareaexcel.TareaOtrasCampanas;
+import es.securitasdirect.tareas.service.InstallationService;
 import es.securitasdirect.tareas.service.QueryTareaService;
 import es.securitasdirect.tareas.web.controller.BaseController;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
@@ -30,6 +33,8 @@ public class AnotherCampaignsTaskController extends BaseController {
     private QueryTareaService queryTareaService;
     @Inject
     private DummyResponseGenerator dummyResponseGenerator;
+    @Inject
+    private InstallationService installationDataService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AnotherCampaignsTaskController.class);
 
@@ -68,6 +73,22 @@ public class AnotherCampaignsTaskController extends BaseController {
         BaseResponse response = dummyResponseGenerator.dummyFinalizeSuccess();
         LOGGER.debug("Finalizando tarea de otras campañas:\nResponse: {}",response);
         return response;
+    }
+
+    @RequestMapping(value = "/getInstallationAndTask", method = {RequestMethod.GET}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public @ResponseBody TareaResponse getInstallationAndTask(
+            @RequestParam(value = "installationId", required = true) String installationId,
+            @RequestParam(value = "ccUserId", required = true) String ccUserId,
+            @RequestParam(value = "callingList", required = true) String callingList,
+            @RequestParam(value = "tareaId", required = true) String tareaId
+    ) throws DataServiceFault {
+        LOGGER.debug("Get another campaigns task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
+        TareaOtrasCampanas task = (TareaOtrasCampanas) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
+        LOGGER.debug("Another campaigns task obtained from service: \n{}", task);
+        LOGGER.debug("Get installation data for params: \ninstallationId: {}", installationId);
+        InstallationData installationData = installationDataService.getInstallationData(installationId);
+        LOGGER.debug("Installation data obtained from service: \n{}", installationData);
+        return toTareaResponse(task, installationData);
     }
 
 }

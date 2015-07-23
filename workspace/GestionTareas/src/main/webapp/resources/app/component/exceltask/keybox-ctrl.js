@@ -1,5 +1,5 @@
 //Angular KeyboxTask controller
-app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService) {
+app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService, $modal, $log) {
         $scope.getTarea = function () {
             console.log("Loading Keybox  Task...")
             console.log("Params: "

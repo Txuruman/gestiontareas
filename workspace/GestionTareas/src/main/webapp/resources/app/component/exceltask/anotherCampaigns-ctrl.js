@@ -37,6 +37,38 @@ app.controller('anotherCampaigns', function ($scope, $http, CommonService, $moda
     };
 
 
+    $scope.getInstallationAndTask = function(){
+        $scope.vm.appReady=false;
+
+        console.log("Loading Another Campaigns Task...");
+        console.log("Params: "
+        + " installationId: " + $scope.installationId
+        + " ccUserId: " + $scope.ccUserId
+        + " callingList: " + $scope.callingList
+        + " taskId: " + $scope.tareaId);
+        $http({
+            method: 'GET',
+            url: 'anothercampaignstask/getInstallationAndTask',
+            params: {installationId: $scope.installationId, ccUserId: $scope.ccUserId, callingList: $scope.callingList, tareaId: $scope.tareaId}
+        }).
+            success(function (data, status, headers, config) {
+                console.log("Loaded fee cleaning task:" + JSON.stringify(data.tarea));
+                $scope.tarea = data.tarea;
+                $scope.installationData = data.installationData;
+                CommonService.processBaseResponse(data,status,headers,config);
+                $scope.getClosingReason();
+                $scope.vm.appReady=true;
+            }).
+            error(function (data, status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                CommonService.processBaseResponse(data,status,headers,config);
+                $scope.vm.appReady=true;
+            });
+        console.log("List assistant task loaded...")
+    }
+
+
 
     //Ventana Aplazar - Start
     //Abre la ventana, posibles tamaños '', 'sm', 'lg'

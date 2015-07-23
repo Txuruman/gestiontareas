@@ -1,5 +1,5 @@
 //Fee cleaning ANGULARJS script START
-app.controller('feecleaningtask-ctrl', function ($scope, $http, CommonService) {
+app.controller('feecleaningtask-ctrl', function ($scope, $http, CommonService, $modal, $log) {
 
     $scope.getTarea = function () {
         console.log("Loading FeeCleaningTask...")
