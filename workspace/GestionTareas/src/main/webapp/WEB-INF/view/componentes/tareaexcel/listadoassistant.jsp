@@ -28,7 +28,7 @@
             <div class="spacer_t1"></div>
             <div class="row">
                 <app:inputDate id="fechaIncidencia" label="eti.visortarea.form.label.assistant.fechaIncidencia" value="tarea.fechaIncidencia" cells="4" cell_label="6" cell_input="6" readonly="true"/>
-                <app:inputDate id="fechaPago" label="eti.visortarea.form.label.assistant.fechaPago" value="tarea.fechaPago" cells="4" cell_label="6" cell_input="6" readonly="true"/>
+                <app:inputTextNG id="fechaPago" label="eti.visortarea.form.label.assistant.fechaPago" value="tarea.fechaPago" cells="4" cell_label="6" cell_input="6" readonly="true"/>
                 <app:inputTextNG id="operador" label="eti.visortarea.form.label.assistant.operador" value="tarea.operador" cells="4" cell_label="6" cell_input="6" readonly="true"/>
             </div>
             <div class="spacer_t1"></div>
