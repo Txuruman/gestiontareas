@@ -69,27 +69,27 @@ public class MaintenanceSurveyTaskController extends BaseController {
 
 
     @RequestMapping(value = "/aplazar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody BaseResponse finalizar(@RequestBody PostponeMaintenanceSurveyTaskRequest request) {
-        LOGGER.debug("Finalizando tarea de encuesta de mantenimiento:\nRequest: {}", request);
+    public @ResponseBody BaseResponse aplazar(@RequestBody PostponeMaintenanceSurveyTaskRequest request) {
+        LOGGER.debug("Aplazar tarea de encuesta de mantenimiento:\nRequest: {}", request);
         BaseResponse response = dummyResponseGenerator.dummyFinalizeSuccess();
-        LOGGER.debug("Finalizando tarea de encuesta de mantenimiento:\nResponse: {}",response);
+        LOGGER.debug("Aplazada tarea de encuesta de mantenimiento:\nResponse: {}",response);
         return response;
     }
 
 
     @RequestMapping(value = "/descartar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody BaseResponse finalizar(@RequestBody DiscardMaintenanceSurveyTaskRequest request) {
-        LOGGER.debug("Finalizando tarea de encuesta de mantenimiento:\nRequest: {}", request);
-        BaseResponse response = dummyResponseGenerator.dummyFinalizeSuccess();
-        LOGGER.debug("Finalizando tarea de encuesta de mantenimiento:\nResponse: {}",response);
+    public @ResponseBody BaseResponse descartar(@RequestBody DiscardMaintenanceSurveyTaskRequest request) {
+        LOGGER.debug("Descartar tarea de encuesta de mantenimiento:\nRequest: {}", request);
+        BaseResponse response = dummyResponseGenerator.dummyCustomSuccess("commonexcel.discard.success");
+        LOGGER.debug("Descartada tarea de encuesta de mantenimiento:\nResponse: {}",response);
         return response;
     }
 
-    @RequestMapping(value = "/finalize", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value = "/finalizar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody BaseResponse finalizar(@RequestBody FinalizeMaintenanceSurveyTaskRequest request) {
-        LOGGER.debug("Finalizando tarea de encuesta de mantenimiento:\nRequest: {}", request);
-        BaseResponse response = dummyResponseGenerator.dummyFinalizeSuccess();
-        LOGGER.debug("Finalizando tarea de encuesta de mantenimiento:\nResponse: {}",response);
+        LOGGER.debug("Finalizar tarea de encuesta de mantenimiento:\nRequest: {}", request);
+        BaseResponse response = dummyResponseGenerator.dummyCustomSuccess("commonexcel.finalize.success");
+        LOGGER.debug("Finalizada tarea de encuesta de mantenimiento:\nResponse: {}",response);
         return response;
     }
 

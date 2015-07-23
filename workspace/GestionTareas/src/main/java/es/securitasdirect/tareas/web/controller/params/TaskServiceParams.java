@@ -69,14 +69,14 @@ public interface TaskServiceParams {
     /**
      * Tarea de tipo Encuesta mantenimientos
      */
-    public static String ENCUESTAMNTOS_MANTENIMIENTO = "MANTENIMIENTO";
-    public static String ENCUESTAMNTOS_TECNICO = "TECNICO";
-    public static String ENCUESTAMNTOS_RESPONSABLE = "JE";
-    public static String ENCUESTAMNTOS_CENTROCOSTE = "CC";
-    public static String ENCUESTAMNTOS_RAZON = "RAZON";
-    public static String ENCUESTAMNTOS_SOLUCION = "SOLUCION";
-    public static String ENCUESTAMNTOS_COMPROMISO = "COMPROMISO";
-    public static String ENCUESTAMNTOS_DPTO_DESTINO = "DPTO_DESTINO";
+    public static String MAINTENANCE_SURVEY_TASK_NUMERO_MANTENIMIENTO = "MANTENIMIENTO";
+    public static String MAINTENANCE_SURVEY_TASK_TECNICO = "TECNICO";
+    public static String MAINTENANCE_SURVEY_TASK_RESPONSABLE = "JE";
+    public static String MAINTENANCE_SURVEY_TASK_CENTROCOSTE = "CC";
+    public static String MAINTENANCE_SURVEY_TASK_RAZON = "RAZON";
+    public static String MAINTENANCE_SURVEY_TASK_SOLUCION = "SOLUCION";
+    public static String MAINTENANCE_SURVEY_TASK_COMPROMISO = "COMPROMISO";
+    public static String MAINTENANCE_SURVEY_TASK_DPTO_DESTINO = "DPTO_DESTINO";
 
 
     public static String MAINTENANCE_SURVEY_TASK_INSTALACION = "INSTALACION";

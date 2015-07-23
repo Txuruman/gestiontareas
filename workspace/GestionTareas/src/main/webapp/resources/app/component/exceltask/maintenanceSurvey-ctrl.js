@@ -1,5 +1,5 @@
 //Angular Maintenance Survey Controller start
-app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService, $log) {
+app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,$modal, $log) {
 
     $scope.getTarea = function () {
         console.log("Loading Maintenance Survey Task...")
@@ -42,10 +42,8 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,
 
 
     $scope.getInstallationAndTask = function() {
-        $scope.getInstallationAndTask = function ($log) {
             $scope.vm.appReady = false;
 
-            console.log("Loading MaintenanceTask...");
             console.log("Loading Maintenance Survey Task...");
             console.log("Params: "
                 + " installationId: " + $scope.installationId
@@ -72,8 +70,74 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,
                     $scope.vm.appReady = true;
                 });
             console.log("Maintenance survey Task loaded...")
-        }
     };
+
+    $scope.aplazar = function(){
+        console.log("Postpone Maintenance Survey task, task: " + JSON.stringify($scope.tarea));
+        var postponeMaintenanceSurveyTaskRequest = {
+            tarea:$scope.tarea,
+            prueba:'Hola'
+        };
+        console.log("Postpone Maintenance Survey Task, request: " + JSON.stringify(postponeMaintenanceSurveyTaskRequest));
+        $http({
+            method: 'PUT',
+            url: 'maintenancesurveytask/aplazar',
+            data: postponeMaintenanceSurveyTaskRequest
+        })
+            .success(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data,status,headers,config);
+            })
+            .error(function (data, status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                CommonService.processBaseResponse(data,status,headers,config);
+            });
+    };
+
+    $scope.descartar = function(){
+        console.log("Discard Maintenance Survey task, task: " + JSON.stringify($scope.tarea));
+        var discardMaintenanceSurveyTaskRequest = {
+            tarea:$scope.tarea,
+            prueba:'Hola'
+        };
+        console.log("Discard List Assistant Task, request: " + JSON.stringify(discardMaintenanceSurveyTaskRequest));
+        $http({
+            method: 'PUT',
+            url: 'maintenancesurveytask/descartar',
+            data: discardMaintenanceSurveyTaskRequest
+        })
+            .success(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data,status,headers,config);
+            })
+            .error(function (data, status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                CommonService.processBaseResponse(data,status,headers,config);
+            });
+    };
+
+    $scope.finalizar = function(){
+        console.log("Finalizar Maintenance Survey task, task: " + JSON.stringify($scope.tarea));
+        var finalizeMaintenanceSurveyTaskRequest = {
+            tarea:$scope.tarea,
+            prueba:'Hola'
+        };
+        console.log("Finalizar Maintenance Survey Task, request: " + JSON.stringify(finalizeMaintenanceSurveyTaskRequest));
+        $http({
+            method: 'PUT',
+            url: 'maintenancesurveytask/finalizar',
+            data: finalizeMaintenanceSurveyTaskRequest
+        })
+            .success(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data,status,headers,config);
+            })
+            .error(function (data, status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                CommonService.processBaseResponse(data,status,headers,config);
+            });
+    };
+
 
 
     //Ventana Aplazar - Start
