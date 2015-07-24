@@ -9,14 +9,11 @@ import es.securitasdirect.tareas.service.ExternalDataService;
 import es.securitasdirect.tareas.service.InstallationService;
 import es.securitasdirect.tareas.service.QueryTareaService;
 import es.securitasdirect.tareas.web.controller.BaseController;
+import es.securitasdirect.tareas.web.controller.CommonsController;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
-import es.securitasdirect.tareas.web.controller.dto.request.PostponeRequest;
-import es.securitasdirect.tareas.web.controller.dto.request.maintenancetask.MaintenanceTaskCreateRequest;
-import es.securitasdirect.tareas.web.controller.dto.request.maintenancetask.MaintenanceTaskFinalizeRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.notificationtask.*;
 import es.securitasdirect.tareas.web.controller.dto.response.NotificationTaskResponse;
 import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
-import es.securitasdirect.tareas.web.controller.dto.support.DummyResponseGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -174,38 +171,6 @@ public class NotificationTaskController extends BaseController {
 
     NotificationTaskResponse toNotificationTaskResponse(TareaAviso tarea,
                                                         InstallationData installationData){
-        List<Pair> tipoAvisoList;
-        List<Pair> motivoAvisoList;
-        List<Pair> closingList;
-        List<Pair> closingListAditionalData;
-
-        try{
-            tipoAvisoList = externalDataService.getNotificationType();
-        }catch (DataServiceFault dsf){
-            LOGGER.error("Error obteniendo los tipos de aviso: \nFaultInfo:{}\nMessage:{}\n{}", dsf.getFaultInfo(), dsf.getMessage(),dsf.toString());
-            tipoAvisoList = null;
-        }
-
-        try{
-            motivoAvisoList = externalDataService.getNotificationTypeReason();
-        }catch (DataServiceFault dsf){
-            LOGGER.error("Error obteniendo los motivos de tipos de aviso: \nFaultInfo:{}\nMessage:{}\n{}", dsf.getFaultInfo(), dsf.getMessage(),dsf.toString());
-            motivoAvisoList = null;
-        }
-
-        try{
-            closingList = externalDataService.getClosing();
-        }catch (DataServiceFault dsf){
-            LOGGER.error("Error obteniendo los tipos de cierre: \nFaultInfo:{}\nMessage:{}\n{}", dsf.getFaultInfo(), dsf.getMessage(),dsf.toString());
-            closingList = null;
-        }
-
-        try{
-            closingListAditionalData = externalDataService.getDatosAdicionalesCierreTareaAviso();
-        }catch (DataServiceFault dsf){
-            LOGGER.error("Error datos adicionales de tipos de cierre:\nFaultInfo:{}\nMessage:{}\n{}", dsf.getFaultInfo(), dsf.getMessage(),dsf.toString());
-            closingListAditionalData = null;
-        }
         NotificationTaskResponse tareaResponse = new NotificationTaskResponse();
 
         LOGGER.info("Process task response");
@@ -223,30 +188,6 @@ public class NotificationTaskController extends BaseController {
             tareaResponse.danger(messageUtil.getProperty("installationData.notFound"));
         }
 
-        if(tipoAvisoList!=null){
-            tareaResponse.setTipoAvisoList(tipoAvisoList);
-            tareaResponse.success(messageUtil.getProperty("notificationTask.tipoAvisoList.success"));
-        }else{
-            tareaResponse.danger(messageUtil.getProperty("notificationTask.tipoAvisoList.notFound"));
-        }
-        if(motivoAvisoList!=null){
-            tareaResponse.setMotivoAvisoList(motivoAvisoList);
-            tareaResponse.success(messageUtil.getProperty("notificationTask.motivoAvisoList.success"));
-        }else{
-            tareaResponse.danger(messageUtil.getProperty("notificationTask.motivoAvisoList.notFound"));
-        }
-        if(closingList!=null){
-            tareaResponse.setClosingList(closingList);
-            tareaResponse.success(messageUtil.getProperty("notificationTask.closingList.success"));
-        }else{
-            tareaResponse.danger(messageUtil.getProperty("notificationTask.closingList.notFound"));
-        }
-        if(closingListAditionalData!=null){
-            tareaResponse.setClosingListAditionalData(closingListAditionalData);
-            tareaResponse.success(messageUtil.getProperty("notificationTask.closingListAditionalData.success"));
-        }else{
-            tareaResponse.danger(messageUtil.getProperty("notificationTask.closingListAditionalData.notFound"));
-        }
         LOGGER.info("Task Response: {}", tareaResponse);
         return tareaResponse;
     }

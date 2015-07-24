@@ -1,7 +1,7 @@
 app.controller('notificationtask', function ($scope, $http, CommonService, $modal, $log) {
 
     $scope.logTarea = function () {
-        console.log("Tarea: " + $scope.tarea);
+        $log.debug("Tarea: " + $scope.tarea);
     };
 
 
@@ -33,8 +33,8 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
 
 
     $scope.getTarea = function () {
-        console.log('Loading NotificationTask');
-        console.log("Params: "
+        $log.debug('Loading NotificationTask');
+        $log.debug("Params: "
             + " ccUserId: " + $scope.ccUserId
             + " callingList: " + $scope.callingList
             + " taskId: " + $scope.tareaId);
@@ -44,7 +44,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             params: {ccUserId: $scope.ccUserId, callingList: $scope.callingList, tareaId: $scope.tareaId}
         })
             .success(function (data, status, headers, config) {
-                console.log('Loaded NotificationTask: ' + JSON.stringify(data.tarea));
+                $log.debug('Loaded NotificationTask: ' + JSON.stringify(data.tarea));
                 CommonService.processBaseResponse(data, status, headers, config);
                 $scope.tarea = data.tarea;
 
@@ -54,13 +54,84 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
-        console.log("NotificationTask loaded...")
+        $log.debug("NotificationTask loaded...")
     };
 
 
+    $scope.init1 = function(){
+        $log.debug("Charging page, combo lists");
+        $http({
+            method: 'GET',
+            url: 'commons/getNotificationTypeList'
+        })
+            .success(function (data, status, headers, config) {
+                $log.debug('Loaded Notification Type List', data);
+                $scope.tipoAvisoList = data.pairList;
+                CommonService.processBaseResponse(data, status, headers, config);
+            })
+            .error(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data, status, headers, config);
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+
+        $http({
+            method: 'GET',
+            url: 'commons/getClosingList'
+        })
+            .success(function (data, status, headers, config) {
+                $log.debug('Loaded Closing Type List', data);
+                $scope.closingList = data.pairList;
+                CommonService.processBaseResponse(data, status, headers, config);
+            })
+            .error(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data, status, headers, config);
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+
+
+        $http({
+            method: 'GET',
+            url: 'commons/getTypeReasonList'
+        })
+            .success(function (data, status, headers, config) {
+                $log.debug('Loaded Type Reason List', data);
+                $scope.motivoList = data.pairList;
+                CommonService.processBaseResponse(data, status, headers, config);
+            })
+            .error(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data, status, headers, config);
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+
+        $http({
+            method: 'GET',
+            url: 'commons/getClosingAditionalDataList'
+        })
+            .success(function (data, status, headers, config) {
+                $log.debug('Loaded Closing Aditional Data List', data);
+                $scope.datosAdicionalesList = data.pairList;
+                CommonService.processBaseResponse(data, status, headers, config);
+            })
+            .error(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data, status, headers, config);
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+    };
+
+    $scope.init = function(){
+        CommonService.getNotificationTypeList();
+        CommonService.getClosingList();
+        CommonService.getTypeReasonList();
+        CommonService.getClosingAditionalDataList();
+    }
+
     $scope.getInstallationAndTask = function () {
-        console.log('Loading NotificationTask');
-        console.log("Params: "
+        $log.debug('Loading NotificationTask');
+        $log.debug("Params: "
             + " installationId: " + $scope.installationId
             + " ccUserId: " + $scope.ccUserId
             + " callingList: " + $scope.callingList
@@ -76,15 +147,12 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             }
         })
             .success(function (data, status, headers, config) {
-                console.log('Loaded NotificationTask Data' + JSON.stringify(data));
+                $log.debug('Loaded NotificationTask Data' + JSON.stringify(data));
                 CommonService.processBaseResponse(data, status, headers, config);
                 $scope.tarea = data.tarea;
                 $scope.installationData = data.installationData;
                 //TODO OBTENER DATOS DE COMBOS - Desconocido origen
-                $scope.tipoAvisoList = data.tipoAvisoList;
-                $scope.motivoList = data.motivoAvisoList;
-                $scope.closingList = data.closingList;
-                $scope.datosAdicionalesList = data.closingListAditionalData;
+
             })
 
 
@@ -93,12 +161,12 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
-        console.log("NotificationTask loaded...")
+        $log.debug("NotificationTask loaded...")
     };
 
 
     $scope.getClosing = function () {
-        console.log('Notification task - getClosing');
+        $log.debug('Notification task - getClosing');
         $http({method: 'GET', url: 'notificationtask/getClosing'}).
             success(function (data, status, headers, config) {
                 $scope.closingList = data;
@@ -139,23 +207,23 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     };
 
     $scope.modificar = function () {
-        console.log('Modificar Tarea, tarea: ' + $scope.tarea);
+        $log.debug('Modificar Tarea, tarea: ' + $scope.tarea);
         var modifyNotificationTaskRequest = {
             task: $scope.tarea,
             prueba: 'Hola'
         };
-        console.log('Modificar Tarea, request ' + JSON.stringify(modifyNotificationTaskRequest));
+        $log.debug('Modificar Tarea, request ' + JSON.stringify(modifyNotificationTaskRequest));
         $http({
             method: 'PUT',
             url: 'notificationtask/modificar',
             data: modifyNotificationTaskRequest
         })
             .success(function (data, status, headers, config) {
-                console.log('Modificación de la tarea realizada, response: ' + JSON.stringify(data));
+                $log.debug('Modificación de la tarea realizada, response: ' + JSON.stringify(data));
                 CommonService.processBaseResponse(data, status, headers, config);
             })
             .error(function (data, status, headers, config) {
-                console.log('Error en la modificación de la tarea, response: ' + JSON.stringify(data));
+                $log.debug('Error en la modificación de la tarea, response: ' + JSON.stringify(data));
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data, status, headers, config);
@@ -163,23 +231,23 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     }
 
     $scope.atras = function () {
-        console.log('Atras, tarea: ' + JSON.stringify($scope.tarea));
+        $log.debug('Atras, tarea: ' + JSON.stringify($scope.tarea));
         var backNotificationTaskRequest = {
             task: $scope.tarea,
             prueba: 'Hola'
         };
-        console.log('Atras, request: ' + JSON.stringify(backNotificationTaskRequest));
+        $log.debug('Atras, request: ' + JSON.stringify(backNotificationTaskRequest));
         $http({
             method: 'PUT',
             url: 'notificationtask/atras',
             data: backNotificationTaskRequest
         })
             .success(function (data, status, headers, config) {
-                console.log('Atras realizado, response: ' + JSON.stringify(data));
+                $log.debug('Atras realizado, response: ' + JSON.stringify(data));
                 CommonService.processBaseResponse(data, status, headers, config);
             })
             .error(function (data, status, headers, config) {
-                console.log('Error en la realización de atras, response: ' + JSON.stringify(data));
+                $log.debug('Error en la realización de atras, response: ' + JSON.stringify(data));
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data, status, headers, config);
@@ -187,23 +255,23 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     }
 
     $scope.crearmantenimiento = function () {
-        console.log('Crear mantenimiento, tarea: ' + JSON.stringify($scope.tarea));
+        $log.debug('Crear mantenimiento, tarea: ' + JSON.stringify($scope.tarea));
         var createMaintenanceNotificationTaskRequest = {
             task: $scope.tarea,
             prueba: 'Hola'
         };
-        console.log('Crear mantenimiento, request: ' + JSON.stringify(createMaintenanceNotificationTaskRequest));
+        $log.debug('Crear mantenimiento, request: ' + JSON.stringify(createMaintenanceNotificationTaskRequest));
         $http({
             method: 'PUT',
             url: 'notificationtask/crearmantenimiento',
             data: createMaintenanceNotificationTaskRequest
         })
             .success(function (data, status, headers, config) {
-                console.log('Creación de mantenimiento realizada, response: ' + JSON.stringify(data));
+                $log.debug('Creación de mantenimiento realizada, response: ' + JSON.stringify(data));
                 CommonService.processBaseResponse(data, status, headers, config);
             })
             .error(function (data, status, headers, config) {
-                console.log('Error en la creación de mantenimiento, response: ' + JSON.stringify(data));
+                $log.debug('Error en la creación de mantenimiento, response: ' + JSON.stringify(data));
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data, status, headers, config);
@@ -211,23 +279,23 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     }
 
     $scope.descartar = function () {
-        console.log('Descartar ' + $scope.tarea);
+        $log.debug('Descartar ' + $scope.tarea);
         var createMaintenanceNotificationTaskRequest = {
             task: $scope.tarea,
             prueba: 'Hola'
         };
-        console.log('Descartar, request: ' + JSON.stringify(createMaintenanceNotificationTaskRequest));
+        $log.debug('Descartar, request: ' + JSON.stringify(createMaintenanceNotificationTaskRequest));
         $http({
             method: 'PUT',
             url: 'notificationtask/descartar',
             data: createMaintenanceNotificationTaskRequest
         })
             .success(function (data, status, headers, config) {
-                console.log('Realización de descarte, response: ' + JSON.stringify(data));
+                $log.debug('Realización de descarte, response: ' + JSON.stringify(data));
                 CommonService.processBaseResponse(data, status, headers, config);
             })
             .error(function (data, status, headers, config) {
-                console.log('Error en la realización del descarte, response: ' + JSON.stringify(data));
+                $log.debug('Error en la realización del descarte, response: ' + JSON.stringify(data));
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data, status, headers, config);
@@ -235,23 +303,23 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     }
 
     $scope.finalizar = function () {
-        console.log('Finalizar, tarea: ' + $scope.tarea);
+        $log.debug('Finalizar, tarea: ' + $scope.tarea);
         var finalizeNotificationTaskRequest = {
             tarea: $scope.tarea,
             prueba: 'Hola'
         };
-        console.log('Finalizar, request: ' + JSON.stringify(finalizeNotificationTaskRequest));
+        $log.debug('Finalizar, request: ' + JSON.stringify(finalizeNotificationTaskRequest));
         $http({
             method: 'PUT',
             url: 'notificationtask/finalizar',
             data: finalizeNotificationTaskRequest
         })
             .success(function (data, status, headers, config) {
-                console.log('Finalización realizada, response: ' + JSON.stringify(finalizeNotificationTaskRequest));
+                $log.debug('Finalización realizada, response: ' + JSON.stringify(finalizeNotificationTaskRequest));
                 CommonService.processBaseResponse(data, status, headers, config);
             })
             .error(function (data, status, headers, config) {
-                console.log('Error al finalizar, request: ' + JSON.stringify(finalizeNotificationTaskRequest));
+                $log.debug('Error al finalizar, request: ' + JSON.stringify(finalizeNotificationTaskRequest));
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data, status, headers, config);

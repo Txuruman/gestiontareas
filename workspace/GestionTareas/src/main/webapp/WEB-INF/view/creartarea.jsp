@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<div class="container" ng-controller="taskCreation" ng-init="loadInstallation();" >
+<div class="container" ng-controller="taskCreation" ng-init="init()" >
     <div class="row">
         <jsp:include page="bloques/tabs1.jsp"/>
     </div>
@@ -39,7 +39,13 @@
                 <!-- row -->
                 <div class="spacer_t1"></div>
                 <div class="row">
-                    <app:inputCombo id="type1" value="createTaskModel.type1" label="createtask.type" cells="6"/>
+                    <app:input id="tipoAviso1" label="createtask.type" cells="6">
+                        <select  ng-model="createTaskModel.type" convert-to-number class="form-control">
+                            <option data-ng-repeat="itemTipoAviso1 in tipoAvisoList" value="{{itemTipoAviso1.id}}" ng-selected="itemTipoAviso1.id==tarea.tipoAviso1" >{{itemTipoAviso1.value}}</option>
+                        </select>
+                    </app:input>
+
+
                     <app:inputCombo id="reason1" value="createTaskModel.reason1" label="createtask.reason" cells="6"/>
                 </div>
                 <div class="spacer_t1"></div>

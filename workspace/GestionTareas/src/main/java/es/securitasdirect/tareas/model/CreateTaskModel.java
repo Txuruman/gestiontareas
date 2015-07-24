@@ -9,6 +9,8 @@ import java.util.Date;
  */
 public class CreateTaskModel {
 
+    private InstallationData installationData;
+
     private Integer installationNumber;
 
     private String holder;
@@ -130,10 +132,19 @@ public class CreateTaskModel {
         this.comment = comment;
     }
 
+    public InstallationData getInstallationData() {
+        return installationData;
+    }
+
+    public void setInstallationData(InstallationData installationData) {
+        this.installationData = installationData;
+    }
+
     @Override
     public String toString() {
         return "CreateTaskModel{" +
-                "installationNumber=" + installationNumber +
+                "installationData=" + installationData +
+                ", installationNumber=" + installationNumber +
                 ", holder='" + holder + '\'' +
                 ", telephone='" + telephone + '\'' +
                 ", panel='" + panel + '\'' +

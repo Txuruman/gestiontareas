@@ -73,7 +73,7 @@ public class CreateTaskController extends BaseController {
     }
 
     try{
-        motivoAvisoList = externalDataService.getNotificationTypeReason();
+        motivoAvisoList = externalDataService.getTypeReasonList();
     }catch (DataServiceFault dsf){
         LOGGER.error("Error obteniendo los motivos de tipos de aviso: \nFaultInfo:{}\nMessage:{}\n{}", dsf.getFaultInfo(), dsf.getMessage(),dsf.toString());
         motivoAvisoList = null;

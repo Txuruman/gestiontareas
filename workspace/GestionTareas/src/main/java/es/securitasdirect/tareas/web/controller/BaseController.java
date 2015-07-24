@@ -17,12 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.wso2.ws.dataservice.DataServiceFault;
 
 import javax.inject.Inject;
 import java.util.Date;
 
-@Controller
-@RequestMapping("/installation")
 public abstract class BaseController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BaseController.class);
@@ -98,10 +97,33 @@ public abstract class BaseController {
 
 
 
+
     protected BaseResponse processException(Exception exception) {
         LOGGER.error("Error sent in BaseResponse {}" , exception.getMessage());
         BaseResponse response = new BaseResponse();
         response.danger(exception.getMessage()); //TODO MENSAGE GENERICO CON
         return response;
     }
+
+    protected BaseResponse processException(Exception exception, String funcMsg){
+        BaseResponse response = new BaseResponse();
+        if(funcMsg!=null && !funcMsg.isEmpty()){
+            response.danger(funcMsg);
+        }
+        LOGGER.error(funcMsg);
+        if(exception instanceof DataServiceFault){
+            DataServiceFault dataServiceFault = (DataServiceFault) exception;
+            StringBuilder sb = new StringBuilder();
+            sb.append("Error in data service: ")
+                    .append("FaultInfo:").append(dataServiceFault.getFaultInfo())
+                    .append("Message:").append(dataServiceFault.getMessage());
+            response.danger(sb.toString());
+            sb.append("\n").append(dataServiceFault.toString());
+            LOGGER.error(sb.toString());
+        }else{
+            LOGGER.error("Error sent in BaseResponse {}\n{}" , exception.getMessage(),exception.toString());
+        }
+        return response;
+    }
+
 }
