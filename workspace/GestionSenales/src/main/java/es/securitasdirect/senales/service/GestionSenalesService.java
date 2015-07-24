@@ -3,6 +3,8 @@ package es.securitasdirect.senales.service;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.webservice.CCLIntegration;
+import com.webservice.ClResponse;
+import com.webservice.IclResponse;
 import es.securitasdirect.senales.model.Message;
 import es.securitasdirect.senales.model.SignalMetadata;
 import es.securitasdirect.senales.model.SmsMessageLocation;
@@ -10,6 +12,7 @@ import es.securitasdirect.senales.support.FileService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.wso2.ws.dataservice.DataServiceFault;
 import org.wso2.ws.dataservice.GetInstallationDataResult;
 import org.wso2.ws.dataservice.SPAIOTAREAS2PortType;
@@ -18,6 +21,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.inject.Named;
 import javax.inject.Singleton;
+import javax.jws.WebParam;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -152,8 +156,8 @@ public class GestionSenalesService {
         //TODO CHECK Y LOG DE LA CONFIGURACON
     }
 
+    ///TODO  @Async
     public void onMessage(Message message) {
-        //TODO ThreadPool o Async
         processMessage(message);
     }
 
@@ -204,29 +208,35 @@ public class GestionSenalesService {
      */
     private void processMessageInWorkingHours(Message message) throws Exception {
         // El campo a utilizar para obtener el resto de información antes de insertar el registro en Tareas será InsNumber_e.
+        //Obtener instalacion
         Integer insNumberE = message.getCibb().getEVENTS().getInsNumberE();
         GetInstallationDataResult installationData = getInstallationData(insNumberE);
 
-        //Una vez que se dispone de todos los datos, se pueden invocar los métodos de la capa CCL Obtener Calling List Tareas
-        //TODO
-        // Insertar contacto en calling list.
-        //TODO
+        //Obtener Calling List ,Una vez que se dispone de todos los datos, se pueden invocar los métodos de la capa CCL Obtener Calling List Tareas
+        ClResponse callingListANDCampaign = getCallingListANDCampaign(message);
 
-        //TODO Procesarlo
-        if (new Random().nextBoolean() || true) {
-            throw new Exception("Error Procesando Mensaje " + message.toString());
+        if (installationData == null || callingListANDCampaign == null) {
+            LOGGER.error("Discarding message for lack of info. {}", message);
+        } else {
+            // Insertar contacto en calling list.
+            insertCallingListContact(message, installationData, callingListANDCampaign);
+
+            //TODO Procesarlo
+            if (new Random().nextBoolean() || true) {
+                throw new Exception("Error Procesando Mensaje " + message.toString());
+            }
+            LOGGER.debug("Processed sucesfully Message {}", message);
         }
-        LOGGER.debug("Processed sucesfully Message {}", message);
     }
 
     /**
      * Process the message OUT of Working Hours.
-     *
+     * <p/>
      * Si la hora actual está fuera del rango horario establecido (de 9 a 21 horas), se enviará un SMS al cliente, con el texto en el idioma adecuado, invocando un web service.
      * A continuación debe cancelar la incidencia en IBS, invocando un web service.
      * El texto del SMS es el siguiente:
-     *          	Español: “Securitas Direct le informa que para darles asistencia en el cambio de pilas, deberan pulsar el boton de 9 a 21 h, de L a S, lo activamos de nuevo. Gracias.”
-     *          	Resto de idiomas: “Securitas Direct informs, to change the batteries, you must press the envelope bottom from 9 to 21, Mon thru Sat, We´ll activate the bottom again. Thank you.”
+     * 	Español: “Securitas Direct le informa que para darles asistencia en el cambio de pilas, deberan pulsar el boton de 9 a 21 h, de L a S, lo activamos de nuevo. Gracias.”
+     * 	Resto de idiomas: “Securitas Direct informs, to change the batteries, you must press the envelope bottom from 9 to 21, Mon thru Sat, We´ll activate the bottom again. Thank you.”
      *
      * @param message
      */
@@ -286,13 +296,29 @@ public class GestionSenalesService {
     }
 
     private boolean isAllowedType(Message message) {
+        boolean isAllowed = false;
         String messageType = message.getType();
         if (messageType != null) {
-            return allowedQSignals.keySet().contains(message.getType());
+            SignalMetadata signalMetadata = allowedQSignals.get(message.getType());
+            if (signalMetadata == null) {
+                LOGGER.warn("Not allowed signal type {}", messageType);
+            } else {
+                Integer messageEventType = message.getEventType();
+                if (messageEventType == null) {
+                    LOGGER.warn("Cannot get the message event type of {}", message);
+                } else {
+                    if (signalMetadata.getAllowedStatus() == null || !signalMetadata.getAllowedStatus().contains(messageEventType)) {
+                        LOGGER.warn("Not allowed signal event type {} {}", messageType, messageEventType);
+                    } else {
+                        isAllowed = true;
+                    }
+                }
+            }
         } else {
             LOGGER.warn("Cannot get the message type of {}", message);
-            return false;
         }
+
+        return isAllowed;
     }
 
     /**
@@ -314,15 +340,6 @@ public class GestionSenalesService {
         fileService.writeMessage(message);
     }
 
-    private GetInstallationDataResult getInstallationData(Integer insNumberE) throws DataServiceFault {
-        List<GetInstallationDataResult> installationData = spAioTareas2.getInstallationData(insNumberE, 1);//TODO Consultar que es el segundo parametro
-        if (installationData != null && !installationData.isEmpty()) {
-            return installationData.get(0);
-        } else {
-            LOGGER.error("Can't find installation data for insNumber {}", insNumberE);
-            return null;
-        }
-    }
 
     /**
      * Detallo a continuación el criterio de obtención de los datos que posteriormente se insertarán en los campos de la calling list y que se obtendrán de la señal y el webservice de tareas,
@@ -405,5 +422,116 @@ public class GestionSenalesService {
         }
     }
 
+    /**
+     * CCL Obtener Calling List Tareas llamando a CCDIntegrationService.getCallingListANDCampaign
+     * TODO Pendiente los parametros
+     */
+    protected ClResponse getCallingListANDCampaign(Message message) {
+        SignalMetadata signalMetadata = allowedQSignals.get(message.getType());
+
+        String ccIdentifier = "TAREAS";
+        String applicationUser = "TAREAS";
+        String ccUserId = "TAREAS";
+        String identifier = signalMetadata.getClId();  //Se obtiene el valor de este parametro de la configuración
+        String country = "SPAIN"; //TODO No funcinoa el valor de PAIS que hay en el XML, por ejemplo viene ESP en vez de SPAIN
+
+        ClResponse callingListANDCampaign = cclIntegration.getCallingListANDCampaign(ccIdentifier, applicationUser, ccUserId, identifier, country);
+
+        if (callingListANDCampaign != null) {
+            return callingListANDCampaign;
+        } else {
+            LOGGER.error("Can't find Calling List and Campaign for message {}", message);
+            return null;
+        }
+    }
+
+
+    /**
+     * Obtiene los datos de instalacion
+     *
+     * @param insNumberE
+     * @return
+     * @throws DataServiceFault
+     */
+    protected GetInstallationDataResult getInstallationData(Integer insNumberE) throws DataServiceFault {
+        List<GetInstallationDataResult> installationData = spAioTareas2.getInstallationData(insNumberE, 1);//TODO Consultar que es el segundo parametro
+        if (installationData != null && !installationData.isEmpty()) {
+            return installationData.get(0);
+        } else {
+            LOGGER.error("Can't find installation data for insNumber {}", insNumberE);
+            return null;
+        }
+    }
+
+
+    /**
+     * Insertar contacto en calling list. CCLIntegration.insertCallingListContact
+     */
+    protected void insertCallingListContact(Message message, GetInstallationDataResult installationData, ClResponse callingListANDCampaign) {
+        LOGGER.debug("Inserting calling list contact for {}", message);
+        /*
+
+        Columna de BD OCS	Origen del dato	Dato obtenido
+        INSTALACION	WS Tareas	GetInstallationDataResults / ins_no
+        CTR_NO	WS Tareas	GetInstallationDataResults / GetContractNumberResponse / ctr_no
+        NOMBRE	WS Tareas	GetInstallationDataResults / fname + name
+        DIRECCION	WS Tareas	GetInstallationDataResults / street1no2+street1+street1no1+street2
+        CIUDAD	WS Tareas	GetInstallationDataResults / city
+        PANEL	WS Tareas	GetInstallationDataResults / panel
+        VERSION	WS Tareas	GetInstallationDataResults / versión
+        TIPO_MANTENIMIENTO	N/A	Valor “DIY”
+        TELEFONO1	WS Tareas	GetInstallationDataResults / phone1
+        TELEFONO2	WS Tareas	GetInstallationDataResults / phone2
+        TELEFONO3	WS Tareas	GetInstallationDataResults / phone3
+        IDIOMA	WS Tareas	GetInstallationDataResults / skill  quedándose con los tres primeros caracteres que son los del idioma (A alemán, I inglés, E español)
+        CLNAME	Config. CCL	Obtenido del getCallingListANDCampaing
+        SEC_COMMENT	N/A	Vacío
+        NOTCALLID	N/A	Concatenación de instalación_DIY_telefono1
+        F_CREACION_TAREA	Señal	Fecha / Hora del evento en formato dd/mm/aaaa hh:mm:ss
+        Atributo “DataTime” de la etiqueta EVENTS
+         */
+
+
+        String ccIdentifier = null;
+        String applicationUser = null;
+        String ccUserId = null;
+        List<net.java.dev.jaxb.array.StringArray> insertValues = null;
+        String date = null;
+        String hour = null;
+        String dialRule = null;
+        String timeFrom = null;
+        String timeUntil = null;
+        String callingList = null;
+        String campaign = null;
+        List<net.java.dev.jaxb.array.StringArray> numbers = null;
+        String country = null;
+        String ctrNo = null;
+        String isEquals = null;
+
+
+        IclResponse iclResponse = cclIntegration.insertCallingListContact(
+                ccIdentifier,
+                applicationUser,
+                ccUserId,
+                insertValues,
+                date,
+                hour,
+                dialRule,
+                timeFrom,
+                timeUntil,
+                callingList,
+                campaign,
+                numbers,
+                country,
+                ctrNo,
+                isEquals
+        );
+
+        if (iclResponse == null) {
+            LOGGER.error("Can't insert calling list and campaign for {}", message);
+        } else {
+            LOGGER.debug("Successfully inserted calling list and campaign for {}", message);
+        }
+    }
 
 }

@@ -7,6 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.wso2.ws.dataservice.DataServiceFault;
+import org.wso2.ws.dataservice.GetInstallationDataResult;
 
 import javax.inject.Inject;
 import java.text.SimpleDateFormat;
@@ -20,7 +22,8 @@ import static org.hamcrest.core.IsNull.notNullValue;
  * Created by Javier Naval on 23/06/2015.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath*:spring/applicationContext-*.xml"})
+//Evitamos cargar el applicationContext-jms para que funcionen los test
+@ContextConfiguration(locations = {"classpath*:spring/applicationContext-bean.xml","classpath*:spring/applicationContext-ws.xml"})
 public class GestionSenalesServiceTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GestionSenalesServiceTest.class);
@@ -90,7 +93,14 @@ public class GestionSenalesServiceTest {
 
     @Test
     public void testLogFormat() {
-        LOGGER.info("hola");
+        LOGGER.info("example");
+    }
+
+
+    @Test
+    public void getInstallation() throws DataServiceFault {
+        GetInstallationDataResult installationData = gestionSenalesService.getInstallationData(111111);
+        LOGGER.info("installationData: {}",installationData);
     }
 
 }
