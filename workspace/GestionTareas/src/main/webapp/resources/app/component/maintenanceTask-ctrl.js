@@ -97,7 +97,7 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService) {
                 $scope.vm.appReady=true;
             });
         console.log("MaintenanceTask loaded...")
-    }
+    };
 
 
 

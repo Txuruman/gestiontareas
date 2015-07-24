@@ -1,5 +1,6 @@
 package es.securitasdirect.tareas.web.controller.dto.support;
 
+import es.securitasdirect.tareas.web.controller.dto.response.PairListResponse;
 import es.securitasdirect.tareas.web.controller.util.MessageUtil;
 
 import javax.inject.Inject;
@@ -37,6 +38,13 @@ public class DummyResponseGenerator {
         BaseResponse baseResponse = new BaseResponse();
         baseResponse.warning("Dummy");
         baseResponse.success(messageUtil.getProperty(customName));
+        return baseResponse;
+    }
+
+    public PairListResponse dummyPairCustomSuccess(String customMessage){
+        PairListResponse baseResponse = new PairListResponse();
+        baseResponse.warning("Dummy");
+        baseResponse.success(messageUtil.getProperty(customMessage));
         return baseResponse;
     }
 

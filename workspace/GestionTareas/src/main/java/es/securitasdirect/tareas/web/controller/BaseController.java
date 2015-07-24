@@ -98,7 +98,7 @@ public abstract class BaseController {
 
 
 
-    private BaseResponse processException(Exception exception) {
+    protected BaseResponse processException(Exception exception) {
         LOGGER.error("Error sent in BaseResponse {}" , exception.getMessage());
         BaseResponse response = new BaseResponse();
         response.danger(exception.getMessage()); //TODO MENSAGE GENERICO CON
