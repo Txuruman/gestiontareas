@@ -1,10 +1,10 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="app" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="app" tagdir="/WEB-INF/tags" %>-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 
-<div ng-controller="notificationtask" ng-init="getInstallationAndTask()">
+<div ng-controller="notificationtask" ng-init="init();getInstallationAndTask()">
     <jsp:include page="instalacion.jsp"/>
     <div class="panel panel-default">
         <div class="panel-body">

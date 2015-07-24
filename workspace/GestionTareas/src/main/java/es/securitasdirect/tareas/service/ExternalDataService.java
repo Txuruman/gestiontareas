@@ -87,7 +87,7 @@ public class ExternalDataService {
     /**
      * Call for notification type query
      */
-    public List<Pair> getNotificationTypeReason() throws DataServiceFault{
+    public List<Pair> getTypeReasonList() throws DataServiceFault{
         LOGGER.debug("Calling for notification type (for pull down combo)");
         List<Pair> result = dummyPairList();
         result.add(new Pair(501, "Dummy EDS 501"));

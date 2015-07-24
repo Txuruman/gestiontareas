@@ -94,94 +94,11 @@ public class VisorTareaController {
             LOGGER.error("No calling list parameter received");
             throw new Exception("No calling list parameter received");
         }
-
-//
-//        //Consultar Datos Instalacion, si vienen como parametro
-//        ins_no = parametersMap.get(ExternalParams.NUMERO_INSTALACION);
-//        if (ins_no != null) {
-//            installationData = installationService.getInstallationData(ins_no);
-//        } else {
-//            throw new Exception("Installation number parameter not received");
-//        }
-//
-//
-//        tarea = tareaService.loadTareaFromParameters(parametersMap);
-//        //Puede que tengamos tarea o no, si no hay parametros es tarea Nueva de tipo AVISO
-//        if (tarea == null) {
-//            //Inicializamos una tarea por defecto de tipo Aviso
-//            tarea = new TareaAviso();
-//        } else {
-//            // pa por si tenemos que hacer algo con las tareas
-//        }
-//
-//
-//        ModelAndView mv = null;
-//        if (installationData == null) {
-//            //Si no hay instalacion vamos a la pantalla de buscar
-//            mv = new ModelAndView("buscartarea");
-//        } else {
-//            //Si hay instalacion
-//            mv = new ModelAndView("visortarea");
-//            /**
-//             * Condicional para saber que contenido secundario hay que cargar
-//             */
-//            String titulo = null;
-//            if (tarea instanceof TareaAviso) {
-//                titulo = "titulo.TareaAviso";
-//                mv.addObject(SECUNDARIA, AVISO);
-//                //Cargar combos específicos de TareaAviso
-//                List<Pair> datosAdicionalesCierreTareaAviso = externalDataService.getDatosAdicionalesCierreTareaAviso();
-//            } else if (tarea instanceof TareaListadoAssistant) {
-//                titulo = "titulo.TareaListadoAssistant";
-//                mv.addObject(SECUNDARIA, EXCEL_LISTADO_ASSISTANT);
-//            } else if (tarea instanceof MaintenanceSurveyTask) {
-//                titulo = "titulo.TareaEncuestaMantenimiento";
-//                mv.addObject(SECUNDARIA, EXCEL_ENCUESTAS_MANTENIMIENTOS);
-//            } else if (tarea instanceof MarketingSurveyTask) {
-//                titulo = "titulo.TareaEncuestaMarketing";
-//                mv.addObject(SECUNDARIA, EXCEL_ENCUESTAS_MARKETING);
-//            } else if (tarea instanceof KeyboxTask) {
-//                titulo = "titulo.TareaKeybox";
-//                mv.addObject(SECUNDARIA, EXCEL_KEYBOX);
-//            } else if (tarea instanceof TareaLimpiezaCuota) {
-//                titulo = "titulo.TareaLimpiezaCuota";
-//                mv.addObject(SECUNDARIA, EXCEL_LIMPIEZA_DE_CUOTA);
-//            } else if (tarea instanceof TareaOtrasCampanas) {
-//                titulo = "titulo.TareaOtrasCampanas";
-//                mv.addObject(SECUNDARIA, EXCEL_OTRAS_CAMPANIAS);
-//            } else if (tarea instanceof TareaMantenimiento) {
-//                titulo = "titulo.TareaMantenimiento";
-//                mv.addObject(SECUNDARIA, MANTENIMIENTO);
-//                //Cargar combo de tarea de Mantenimiento, solo si es tarea de mantenimiento
-//                List<Pair> desplegableKey1 = externalDataService.getDesplegableKey1();
-//                List<Pair> desplegableKey2 = externalDataService.getDesplegableKey2(null);
-//                mv.addObject("desplegableKey1", desplegableKey1);
-//            }
-//            mv.addObject(TITULO, titulo);
-//            mv.addObject("tarea", tarea);
-//            mv.addObject("installationData", installationData);
-//
-//            //TODO Borrar, temporal para ver los parámetros enviados a la página
-//            mv.addObject("todosparametros", parametersMap);
-//
-//        }
-//
-//        /**
-//         * Variable del estilo de las tabs
-//         */
-//        String tecla1 = "active";
-//        String tecla2 = "inactive";
-//        String tecla3 = "inactive";
-//        mv.addObject("tecla1", tecla1);
-//        mv.addObject("tecla2", tecla2);
-//        mv.addObject("tecla3", tecla3);
-//
-//        return mv;
     }
 
 
     /**
-     * Mapea el tipo de tarea a sus págin as
+     * Mapea el tipo de tarea a sus páginas
      */
     private ModelAndView loadModelAndViewForTarea(String tareaType,  Map<String, String> parametersMap ) {
         assert tareaType != null;
@@ -420,11 +337,6 @@ public class VisorTareaController {
             LOGGER.debug("TareaListadoAssistant obtained from service: \n{}", task);
             return toTareaResponse(task);
     }
-
-
-
-
-
 
     TareaResponse toTareaResponse(Tarea tarea){
         TareaResponse tareaResponse = new TareaResponse();

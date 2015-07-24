@@ -177,7 +177,7 @@ app.controller('DatepickerDemoCtrl', function ($scope) {
 
 
 //create a service which defines a method square to return square of a number.
-app.service('CommonService', function ($rootScope) {
+app.service('CommonService', function ($rootScope, $log) {
     this.square = function (a) {
         console.log("Multiplicando");
         return a * a;
@@ -225,6 +225,77 @@ app.service('CommonService', function ($rootScope) {
     this.disabledWeekendSelection = function (date, mode) {
         return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
     };
+
+
+    this.getNotificationTypeList = function() {
+        $log.debug("Charging page, combo lists");
+        $http({
+            method: 'GET',
+            url: 'commons/getNotificationTypeList'
+        })
+            .success(function (data, status, headers, config) {
+                $log.debug('Loaded Notification Type List', data);
+                $scope.tipoAvisoList = data.pairList;
+                processBaseResponse(data, status, headers, config);
+            })
+            .error(function (data, status, headers, config) {
+                processBaseResponse(data, status, headers, config);
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+    };
+
+    this.getClosingList = function() {
+        $http({
+            method: 'GET',
+            url: 'commons/getClosingList'
+        })
+            .success(function (data, status, headers, config) {
+                $log.debug('Loaded Closing Type List', data);
+                $scope.closingList = data.pairList;
+                processBaseResponse(data, status, headers, config);
+            })
+            .error(function (data, status, headers, config) {
+                processBaseResponse(data, status, headers, config);
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+    };
+
+    this.getTypeReasonList = function() {
+        $http({
+            method: 'GET',
+            url: 'commons/getTypeReasonList'
+        })
+            .success(function (data, status, headers, config) {
+                $log.debug('Loaded Type Reason List', data);
+                $scope.motivoList = data.pairList;
+                processBaseResponse(data, status, headers, config);
+            })
+            .error(function (data, status, headers, config) {
+                processBaseResponse(data, status, headers, config);
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+    }
+
+    this.getClosingAditionalDataList = function() {
+        $http({
+            method: 'GET',
+            url: 'commons/getClosingAditionalDataList'
+        })
+            .success(function (data, status, headers, config) {
+                $log.debug('Loaded Closing Aditional Data List', data);
+                $scope.datosAdicionalesList = data.pairList;
+                processBaseResponse(data, status, headers, config);
+            })
+            .error(function (data, status, headers, config) {
+                processBaseResponse(data, status, headers, config);
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+    };
+
 
 
 });

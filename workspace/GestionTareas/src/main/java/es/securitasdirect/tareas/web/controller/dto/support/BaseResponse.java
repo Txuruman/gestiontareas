@@ -138,6 +138,16 @@ public class BaseResponse {
         this.messages = messages;
     }
 
+    public void addMessages(List<Message> messagesAdd){
+        for (Message messageToAdd : messagesAdd) {
+            messages.add(messageToAdd);
+        }
+    }
+
+    public void addMessage(Message msg){
+        messages.add(msg);
+    }
+
 
     @Override
     public String toString() {

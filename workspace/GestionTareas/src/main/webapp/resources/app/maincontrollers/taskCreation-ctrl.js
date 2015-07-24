@@ -78,10 +78,11 @@ app.controller('taskCreation', function ($scope, $http, CommonService, $modal, $
         $log.debug("Loading Option Types");
         $http({
             method: 'GET',
-            url: 'createtask/gettypelist'
+            url: 'commons/gettypelist'
         })
             .success(function(data, status, headers, config){
                 CommonService.processBaseResponse(data, status, headers, config);
+                $scope.typeList = data.pairList;
                 $scope.vm.appReady=true;
             })
             .error(function (data, status, headers, config) {
@@ -102,6 +103,7 @@ app.controller('taskCreation', function ($scope, $http, CommonService, $modal, $
         })
             .success(function(data, status, headers, config){
                 CommonService.processBaseResponse(data, status, headers, config);
+                $scope.reasonList = data.pairList;
                 $scope.vm.appReady=true;
             })
             .error(function (data, status, headers, config) {
@@ -112,5 +114,70 @@ app.controller('taskCreation', function ($scope, $http, CommonService, $modal, $
             });
         $log.debug("Reason types loaded.");
     }
+
+    $scope.init = function(){
+        $log.debug("Charging page, combo lists");
+        $http({
+            method: 'GET',
+            url: 'commons/getNotificationTypeList'
+        })
+            .success(function (data, status, headers, config) {
+                $log.debug('Loaded Notification Type List', data);
+                $scope.tipoAvisoList = data.pairList;
+                CommonService.processBaseResponse(data, status, headers, config);
+            })
+            .error(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data, status, headers, config);
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+
+        $http({
+            method: 'GET',
+            url: 'commons/getClosingList'
+        })
+            .success(function (data, status, headers, config) {
+                $log.debug('Loaded Closing Type List', data);
+                $scope.closingList = data.pairList;
+                CommonService.processBaseResponse(data, status, headers, config);
+            })
+            .error(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data, status, headers, config);
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+
+
+        $http({
+            method: 'GET',
+            url: 'commons/getTypeReasonList'
+        })
+            .success(function (data, status, headers, config) {
+                $log.debug('Loaded Type Reason List', data);
+                $scope.motivoList = data.pairList;
+                CommonService.processBaseResponse(data, status, headers, config);
+            })
+            .error(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data, status, headers, config);
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+
+        $http({
+            method: 'GET',
+            url: 'commons/getClosingAditionalDataList'
+        })
+            .success(function (data, status, headers, config) {
+                $log.debug('Loaded Closing Aditional Data List', data);
+                $scope.datosAdicionalesList = data.pairList;
+                CommonService.processBaseResponse(data, status, headers, config);
+            })
+            .error(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data, status, headers, config);
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+    };
+
 
 });
