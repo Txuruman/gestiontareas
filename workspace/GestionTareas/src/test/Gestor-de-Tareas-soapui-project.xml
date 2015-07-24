@@ -12718,20 +12718,20 @@
          <country>?</country>
       </web:dialNumberExtensionSITE>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/dialNumberExtensionSITERequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="getCallingListANDCampaign" bindingOperationName="getCallingListANDCampaign" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="06113185-55a9-4f61-ad52-6182781213ea"><con:settings/><con:call name="Request 1" id="638f4ee8-e7db-4ce3-bc1d-8d65829da053"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/dialNumberExtensionSITERequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="getCallingListANDCampaign" bindingOperationName="getCallingListANDCampaign" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="06113185-55a9-4f61-ad52-6182781213ea"><con:settings/><con:call name="Request DIY_TAREAS_BTN" id="638f4ee8-e7db-4ce3-bc1d-8d65829da053"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
    <soapenv:Header/>
    <soapenv:Body>
       <web:getCallingListANDCampaign>
          <!--Optional:-->
-         <ccIdentifier></ccIdentifier>
+         <ccIdentifier>TAREAS</ccIdentifier>
          <!--Optional:-->
-         <applicationUser></applicationUser>
+         <applicationUser>TAREAS</applicationUser>
          <!--Optional:-->
-         <ccUserId>9</ccUserId>
+         <ccUserId>TAREAS</ccUserId>
          <!--Optional:-->
-         <identifier></identifier>
+         <identifier>DIY_TAREAS_BTN</identifier>
          <!--Optional:-->
-         <country></country>
+         <country>SPAIN</country>
       </web:getCallingListANDCampaign>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/getCallingListANDCampaignRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="" name="getCallStatus" bindingOperationName="getCallStatus" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="10d5e268-a1ff-41f7-b35b-f26b04729501"><con:settings/><con:call name="Request 1" id="470cf965-3249-47ac-93ed-a22853e8fd6a"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">

@@ -1,4 +1,4 @@
-package es.securitasdirect.tareas.web.controller.dto.request.exceltask.listadoassistanttask;
+package es.securitasdirect.tareas.web.controller.dto.request.exceltask.maintenancesurvey;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import es.securitasdirect.tareas.model.Tarea;
