@@ -23,10 +23,7 @@
 
 <div class="container" ng-controller="taskviewer-ctrl" ng-init="tareaId='${tareaId}';installationId='${installationId}';callingList='${callingList}';ccUserId='${ccUserId}'">
     <app:messages/>
-    <div class="please-wait-dialog" ng-hide="vm.appReady">
-        Apliacion NO LISTA
-        <img class="please-wait-spinner" src="/resources/img/loading.gif">
-    </div>
+
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
             <h2><spring:message code="${titulo}"/></h2>

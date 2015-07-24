@@ -23,6 +23,9 @@
 <div ng-controller="MessagesController">
     <alert ng-repeat="msg in vm.serverMessages" type="{{msg.level}}" close="closeMessage($index)">{{msg.value}}</alert>
 </div>
+<div class="please-wait-dialog" ng-hide="vm.appReady">
+    <img class="please-wait-spinner" src="http://www.mytreedb.com/uploads/mytreedb/loader/ajax_loader_blue_512.gif">
+</div>
 
 
 
