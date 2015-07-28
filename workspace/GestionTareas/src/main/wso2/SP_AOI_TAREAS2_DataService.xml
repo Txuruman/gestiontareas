@@ -1,0 +1,249 @@
+<data name="SP_AIO_TAREAS2">
+    <config id="SP_SYBASE_BILL">
+        <property name="carbon_datasource_name">SP_SYBASE_BILL</property>
+    </config>
+    <config id="SP_SYBASE_MON">
+        <property name="carbon_datasource_name">SP_SYBASE_MON</property>
+    </config>
+    <config id="ES_SQL_AVISOS">
+        <property name="carbon_datasource_name">ES_SQL_AVISOS</property>
+    </config>
+    <query id="inet_check_ins_no" useConfig="SP_SYBASE_BILL">
+        <sql>exec sbnpro..inet_check_ins_no ?, '', 0</sql>
+        <result element="inet_check_ins_no_results" rowName="inet_check_ins_no_result">
+            <element column="s_ins" name="s_ins" xsdType="integer"/>
+            <element column="s_ctr" name="s_ctr" xsdType="integer"/>
+            <element column="s_acc" name="s_acc" xsdType="integer"/>
+            <call-query href="getInstallationData" requiredRoles="">
+                <with-param column="s_ins" name="s_ins"/>
+                <with-param column="s_ctr" name="s_ctr"/>
+            </call-query>
+        </result>
+        <param name="ins_no" sqlType="STRING"/>
+    </query>
+    <query id="inet_check_ctr_no" useConfig="SP_SYBASE_BILL">
+        <sql>exec sbnpro..inet_check_ctr_no ?, '', 0</sql>
+        <result element="inet_check_ctr_no_results" rowName="inet_check_ctr_no_result">
+            <element column="s_ins" name="s_ins" xsdType="integer"/>
+            <element column="s_ctr" name="s_ctr" xsdType="integer"/>
+            <element column="s_acc" name="s_acc" xsdType="integer"/>
+        </result>
+        <param name="ctr_no" sqlType="STRING"/>
+    </query>
+    <query id="getInstallationData" useConfig="SP_SYBASE_MON">
+        <sql>select top 1 i.ins_no, al.panel, al.rev as version, ad.fname, ad.name, ad.street1no2, ad.street1, ad.street1no1,ad.street2, ad.city, ad.state, str_replace(str_replace(str_replace(cp.phone1, '&amp;', 'Y'), '&gt;', ''), '&lt;', '') phone1, i.skill&#13;from sbnmaster..ma_installations i, sbnmaster..addresses ad, sbnmaster..ma_alarmids al, &#13;sbnmaster..contper cp, sbnmaster..ma_actplan_call ap&#13;where i.s#addr=ad.s#addr and i.s#ins=al.s#ins and i.s#ins = ap.s#ins and ap.s#cont = cp.s#cont &#13;and ap.cix = cp.ix and ap.pix=0 and ap.cix&gt;=0 and i.s#ins = ? order by ap.cix asc</sql>
+        <result element="getInstallationDataResults" rowName="getInstallationDataResult">
+            <element column="ins_no" name="ins_no" xsdType="string"/>
+            <element column="panel" name="panel" xsdType="string"/>
+            <element column="version" name="version" xsdType="string"/>
+            <element column="fname" name="fname" xsdType="string"/>
+            <element column="name" name="name" xsdType="string"/>
+            <element column="street1" name="street1" xsdType="string"/>
+            <element column="street1no1" name="street1no1" xsdType="string"/>
+            <element column="street1no2" name="street1no2" xsdType="string"/>
+            <element column="street2" name="street2" xsdType="string"/>
+            <element column="city" name="city" xsdType="string"/>
+            <element column="state" name="state" xsdType="string"/>
+            <element column="phone1" name="phone1" xsdType="string"/>
+            <element column="skill" name="skill" xsdType="string"/>
+            <call-query href="getContractNumber" requiredRoles="">
+                <with-param name="s_ctr" query-param="s_ctr"/>
+            </call-query>
+        </result>
+        <param name="s_ins" sqlType="INTEGER"/>
+        <param name="s_ctr" ordinal="2" sqlType="INTEGER"/>
+    </query>
+    <query id="getContractNumber" useConfig="SP_SYBASE_BILL">
+        <sql>select ctr_no from sbnbill..contract_basics where s#ctr = ?</sql>
+        <result element="getContractNumberResponse" rowName="getContractNumberResponses">
+            <element column="ctr_no" name="ctr_no" xsdType="string"/>
+        </result>
+        <param name="s_ctr" sqlType="INTEGER"/>
+    </query>
+    <query id="getKey1DIY" useConfig="SP_SYBASE_MON">
+        <sql>select ck.s#key, ck.keyid, t.text from sbnmaster..communication_keys ck, sbnmaster..texts t where ck.s#txt=t.s#txt and ck.keyid in ('BC', 'CB','DS','FO','LLV','MA','PM','TA','TE','TP')</sql>
+        <result element="getKey1DIYResults" rowName="getKey1DIYResult">
+            <element column="s#key" name="s_key" xsdType="integer"/>
+            <element column="keyid" name="keyid" xsdType="string"/>
+            <element column="text" name="text" xsdType="string"/>
+        </result>
+    </query>
+    <query id="getKey2DIY" useConfig="SP_SYBASE_MON">
+        <sql>select s#key_2 as skey2 from sbnmaster..communication_keys_keys&#13;where s#key_1 = ?</sql>
+        <result element="getKey2DIYResults" rowName="getKey2DIYResult">
+            <element column="skey2" name="skey2" xsdType="integer"/>
+            <call-query href="getKeyData" requiredRoles="">
+                <with-param column="skey2" name="skey"/>
+            </call-query>
+        </result>
+        <param name="skey1" sqlType="INTEGER"/>
+    </query>
+    <query id="getKeyData" useConfig="SP_SYBASE_MON">
+        <sql>select ck.s#key, ck.keyid, t.text&#13;from sbnmaster..communication_keys ck, sbnmaster..texts t&#13;where ck.s#txt=t.s#txt and s#key = ?</sql>
+        <result element="getKeyDataResults" rowName="getKeyDataResult">
+            <element column="s#key" name="s_key" xsdType="integer"/>
+            <element column="keyid" name="keyid" xsdType="string"/>
+            <element column="text" name="text" xsdType="string"/>
+        </result>
+        <param name="skey" sqlType="INTEGER"/>
+    </query>
+    <query id="closeIncBTNDIY" useConfig="SP_SYBASE_MON">
+        <sql>exec ATOMICA..iic_alarm_dispose_AIO_Tareas ?,'0001',11,'','IWS','BTN','',?,'',0,0,''</sql>
+        <param name="ins_no" sqlType="STRING"/>
+        <param name="comment" sqlType="STRING"/>
+    </query>
+    <query id="getAvisobyId" useConfig="ES_SQL_AVISOS">
+        <sql>select A.NAVISO, A.IDSTAT, B.IDTIPO, B.IDMOTIVO, DATEADD(SS,(A.FECHAUTC+A.DSOFFSET),'01-01-1970') AS FECHA_CREACION, &#13;A.OBSERVACIONES, D.NUMINST,  &#13;(A.IDREQ + ' - ' + A.IDEMPLEADO) AS REQUERIDO_POR, D.TITULAR, C.NOMBRE, &#13;H.CODFORMA, H.DESDE, H.HASTA, D.SKILL, H.VALOR&#13;from AVISOS_1..AVISOS A &#13;inner join AVISOS_1..CODIFAVISO B on A.NAVISO=B.NAVISO&#13;left join AVISOS_1..CONTACTOS C on C.NAVISO=A.NAVISO&#13;inner join AVISOS_1..DATOS_INSTALACION D on D.NAVISO=A.NAVISO&#13;left join AVISOS_1..HORARIOS H on H.NAVISO=A.NAVISO&#13;where B.IDCODIF IN (1,2,3) AND A.NAVISO = ?</sql>
+        <result element="getAvisobyIdResults" rowName="getAvisobyIdResult">
+            <element column="naviso" name="idaviso" xsdType="integer"/>
+            <element column="idstat" name="estado" xsdType="integer"/>
+            <element column="idtipo" name="tipo" xsdType="string"/>
+            <element column="idmotivo" name="motivo" xsdType="string"/>
+            <element column="fecha_creacion" name="fecha_creacion" xsdType="string"/>
+            <element column="observaciones" name="observaciones" xsdType="string"/>
+            <element column="numinst" name="ins_no" xsdType="string"/>
+            <element column="requerido_por" name="requerido_por" xsdType="string"/>
+            <element column="titular" name="titular" xsdType="string"/>
+            <element column="nombre" name="contacto" xsdType="string"/>
+            <element column="codforma" name="forma_contacto" xsdType="string"/>
+            <element column="desde" name="desde" xsdType="integer"/>
+            <element column="hasta" name="hasta" xsdType="integer"/>
+            <element column="skill" name="skill" xsdType="string"/>
+            <element column="VALOR" name="valor_forma_contacto" xsdType="string"/>
+            <call-query href="inet_check_ins_no" requiredRoles="">
+                <with-param column="numinst" name="ins_no"/>
+            </call-query>
+        </result>
+        <param name="naviso" sqlType="INTEGER"/>
+    </query>
+    <query id="getAvisosNoCargados" useConfig="ES_SQL_AVISOS">
+        <sql>select NAVISO, NUMINST, DSGRUPO from AVISOS_1..Lista_AVISOS_TAREAS where CARGADO = 0</sql>
+        <result element="getAvisosNoCargadosResults" rowName="getAvisosNoCargadosResult">
+            <element column="naviso" name="idaviso" xsdType="integer"/>
+            <element column="numinst" name="ins_no" xsdType="string"/>
+            <element column="dsgrupo" name="grupo" xsdType="string"/>
+        </result>
+    </query>
+    <query id="setAvisoCargado" useConfig="ES_SQL_AVISOS">
+        <sql>UPDATE AVISOS_1..AVISOS_TAREAS SET CARGADO = 1 where NAVISO=?</sql>
+        <param name="naviso" sqlType="INTEGER"/>
+    </query>
+    <query id="setAvisoNoCargado" useConfig="ES_SQL_AVISOS">
+        <sql>UPDATE AVISOS_1..AVISOS_TAREAS SET CARGADO = 0 where NAVISO=?</sql>
+        <param name="naviso" sqlType="INTEGER"/>
+    </query>
+    <query id="getInsNoFromEmail" useConfig="SP_SYBASE_BILL">
+        <sql>select top 1 i.ins_no from sbnmaster..addresses a, sbnmaster..ma_installations i &#13;where (a.e_mail1=lower(?) or a.e_mail1=upper(?)) and a.s#addr = i.s#addr&#13;union&#13;select top 1 i.ins_no from sbnbill..contract_basics cb,sbnbill..contract_details cd,sbnbill..billing_accounts ba, sbnmaster..bl_addresses a,sbnmaster..ma_installations i &#13;where (a.e_mail1=lower(?) or a.e_mail1=upper(?)) and i.s#ins=cd.s#ins and cd.s#ctr=cb.s#ctr and cb.s#acc=ba.s#acc and ba.s#addr=a.s#addr</sql>
+        <result element="getInsNoFromEmailResultados" rowName="getInsNoFromEmailResultado">
+            <element column="ins_no" name="ins_no" xsdType="string"/>
+        </result>
+        <param name="email" sqlType="STRING"/>
+        <param name="email" sqlType="STRING"/>
+        <param name="email" sqlType="STRING"/>
+        <param name="email" sqlType="STRING"/>
+    </query>
+    <query id="getTipoAviso" useConfig="ES_SQL_AVISOS">
+        <sql>select TIPOS.IDTIPO,TIPOS.DSTIPO&#13;from AVISOS_1..VW_TIPOS TIPOS where BORRADO=0&#13;order by TIPOS.DSTIPO ASC</sql>
+        <result element="tiposaviso" rowName="tipoaviso">
+            <element column="IDTIPO" name="tipo" xsdType="integer"/>
+            <element column="DSTIPO" name="descripcion" xsdType="string"/>
+        </result>
+    </query>
+    <query id="getTipoMotivo" useConfig="ES_SQL_AVISOS">
+        <sql>select MOTIVO.IDMOTIVO,MOTIVO.DSMOTIVO&#13;from AVISOS_1..MOTIVOS MOTIVO&#13;where MOTIVO.BORRADO=0 and MOTIVO.IDTIPO = ?</sql>
+        <result element="tiposmotivo" rowName="tipomotivo">
+            <element column="IDMOTIVO" name="id" xsdType="integer"/>
+            <element column="DSMOTIVO" name="descripcion" xsdType="string"/>
+        </result>
+        <param name="idtipo" sqlType="INTEGER"/>
+    </query>
+    <query id="getTipoCierre" useConfig="ES_SQL_AVISOS">
+        <sql>select TIPO.IDTIPOCIERRE, DESCRIP.DSTIPOCIERRE &#13;from AVISOS_1..TCIERRE_MOTIVO TIPO, AVISOS_1..TIPOCIERRE DESCRIP&#13;where TIPO.IDTIPOCIERRE = DESCRIP.IDTIPOCIERRE&#13;and DESCRIP.VISIBLE=1&#13;and TIPO.IDTIPO = ?&#13;and (TIPO.IDMOTIVO='' or TIPO.IDMOTIVO =?)</sql>
+        <result element="tiposcierre" rowName="tipocierre">
+            <element column="IDTIPOCIERRE" name="tipo" xsdType="string"/>
+            <element column="DSTIPOCIERRE" name="descripcion" xsdType="string"/>
+        </result>
+        <param name="idtipo" sqlType="INTEGER"/>
+        <param name="idmotivo" sqlType="INTEGER"/>
+    </query>
+    <operation name="inet_check_ins_no">
+        <call-query href="inet_check_ins_no">
+            <with-param name="ins_no" query-param="ins_no"/>
+        </call-query>
+    </operation>
+    <operation name="inet_check_ctr_no">
+        <call-query href="inet_check_ctr_no">
+            <with-param name="ctr_no" query-param="ctr_no"/>
+        </call-query>
+    </operation>
+    <operation name="getInstallationData">
+        <call-query href="getInstallationData">
+            <with-param name="s_ins" query-param="s_ins"/>
+            <with-param name="s_ctr" query-param="s_ctr"/>
+        </call-query>
+    </operation>
+    <operation name="getContractNumber">
+        <call-query href="getContractNumber">
+            <with-param name="s_ctr" query-param="s_ctr"/>
+        </call-query>
+    </operation>
+    <operation name="getKey1DIY">
+        <call-query href="getKey1DIY"/>
+    </operation>
+    <operation name="getKeyData">
+        <call-query href="getKeyData">
+            <with-param name="skey" query-param="skey"/>
+        </call-query>
+    </operation>
+    <operation name="getKey2DIY">
+        <call-query href="getKey2DIY">
+            <with-param name="skey1" query-param="skey1"/>
+        </call-query>
+    </operation>
+    <operation name="closeIncBTNDIY" returnRequestStatus="true">
+        <call-query href="closeIncBTNDIY">
+            <with-param name="ins_no" query-param="ins_no"/>
+            <with-param name="comment" query-param="comment"/>
+        </call-query>
+    </operation>
+    <operation name="getAvisobyId">
+        <call-query href="getAvisobyId">
+            <with-param name="naviso" query-param="naviso"/>
+        </call-query>
+    </operation>
+    <operation name="getAvisosNoCargados">
+        <call-query href="getAvisosNoCargados"/>
+    </operation>
+    <operation name="setAvisoCargado">
+        <call-query href="setAvisoCargado">
+            <with-param name="naviso" query-param="naviso"/>
+        </call-query>
+    </operation>
+    <operation name="setAvisoNoCargado">
+        <call-query href="setAvisoNoCargado">
+            <with-param name="naviso" query-param="naviso"/>
+        </call-query>
+    </operation>
+    <operation name="getInsNoFromEmail">
+        <call-query href="getInsNoFromEmail">
+            <with-param name="email" query-param="email"/>
+        </call-query>
+    </operation>
+    <operation name="getTipoAviso">
+        <description>Consulta tipos de aviso de la tabla VW_TIPOS                                                                                                       </description>
+        <call-query href="getTipoAviso"/>
+    </operation>
+    <operation name="getTipoMotivo">
+        <description>Obtiene los tipos de Motivo dependiendo del Tipo de Aviso                                                                        &#13;                                    </description>
+        <call-query href="getTipoMotivo">
+            <with-param name="idtipo" query-param="idtipo"/>
+        </call-query>
+    </operation>
+    <operation name="getTipoCierre">
+        <description>Lectura de los valores de tipo de cierre dependiendo de los valores de tipo de aviso y tipo de motivo.                                           </description>
+        <call-query href="getTipoCierre">
+            <with-param name="idtipo" query-param="idtipo"/>
+            <with-param name="idmotivo" query-param="idmotivo"/>
+        </call-query>
+    </operation>
+</data>

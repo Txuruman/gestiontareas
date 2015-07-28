@@ -9,8 +9,8 @@
 <%@ attribute name="required" required="false" description="If the field is required true/false" %>
 <%@ attribute name="readonly" required="false" description="If the field is readonly true/false" %>
 <%@ attribute name="maxlength" required="false" description="The maximum number of characters allowed in the <input> element" %>
-<%@ attribute name="cell_label" required="false"  description="The maximun cells label in parent space" type="java.lang.Integer" %>
-<%@ attribute name="cell_input" required="false"  description="The maximun cells label in parent space" %>
+<%@ attribute name="cell_label" required="false" description="The maximun cells label in parent space" type="java.lang.Integer" %>
+<%@ attribute name="cell_input" required="false" description="The maximun cells label in parent space" %>
 
 <c:if test="${cell_label == null}">
     <c:set var="cell_label" value="4"/>
@@ -31,14 +31,27 @@
         <c:if test="${label!=null && !label.isEmpty()}"> <spring:message code='${label}'/> ${required=='true'? '*' : ''}:</c:if>
     </label>
 
-    
+
     <div class="col-lg-${cell_input} col-md-${cell_input} col-sm-${cell_input} col-xs-${cell_input}">
-        <input type="date"
-               id="${id}"
-               name="${id}"
-               class="form-control input-custom-global"
-               ng-model="${value}"
-               ${readonly=='true'? 'disabled' : ''}  />
+        <!-- Si es editable imprimimos calendario -->
+        <c:if test="${!readonly}">
+            <input type="date"
+                   id="${id}"
+                   name="${id}"
+                   class="form-control input-custom-global"
+                   ng-model="${value}"
+                ${readonly=='true'? 'disabled' : ''}  />
+        </c:if>
+
+        <!-- Si no es editable imprimimos texto para evitar los problemas de fecha vacia -->
+        <c:if test="${readonly}">
+            <input type="text"
+                   id="${id}"
+                   name="${id}"
+                   class="form-control input-custom-global"
+                   ng-model=" ${value} | date: 'dd/MM/yyyy' "
+                ${readonly=='true'? 'disabled' : ''}  />
+        </c:if>
     </div>
 
 </div>

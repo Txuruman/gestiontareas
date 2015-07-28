@@ -50,15 +50,15 @@ public class InstallationServiceTest {
 
 
     //DIRECTO WS
-    @Test
-    public void testGetInstallationWSAioTareas2() throws DataServiceFault {
-        GetInstallationDataInput getInstallationDataInput = new GetInstallationDataInput();
-        getInstallationDataInput.setSIns(70578);
-        getInstallationDataInput.setSCtr(7);
-        GetInstallationDataResults installationData = spAioTareas2.getInstallationData(getInstallationDataInput);
-        assertThat(installationData, notNullValue());
-        LOGGER.info(installationData.toString());
-    }
+//    @Test
+//    public void testGetInstallationWSAioTareas2() throws DataServiceFault {
+//        GetInstallationDataInput getInstallationDataInput = new GetInstallationDataInput();
+//        getInstallationDataInput.setSIns(70578);
+//        getInstallationDataInput.setSCtr(7);
+//        GetInstallationDataResults installationData = spAioTareas2.getInstallationData(getInstallationDataInput);
+//        assertThat(installationData, notNullValue());
+//        LOGGER.info(installationData.toString());
+//    }
 
 
     @Test
