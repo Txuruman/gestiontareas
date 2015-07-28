@@ -1,11 +1,10 @@
 package es.securitasdirect.tareas.web.controller.task.exceltask;
 
 import es.securitasdirect.tareas.model.InstallationData;
-import es.securitasdirect.tareas.model.TareaMantenimiento;
 import es.securitasdirect.tareas.model.tareaexcel.TareaListadoAssistant;
 import es.securitasdirect.tareas.service.InstallationService;
 import es.securitasdirect.tareas.service.QueryTareaService;
-import es.securitasdirect.tareas.web.controller.BaseController;
+import es.securitasdirect.tareas.web.controller.TaskController;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
 import es.securitasdirect.tareas.web.controller.dto.request.exceltask.listadoassistanttask.DiscardListAssistantTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.exceltask.listadoassistanttask.FinalizeListAssistantTaskRequest;
@@ -17,7 +16,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.wso2.ws.dataservice.DataServiceFault;
 
 import javax.inject.Inject;
 
@@ -27,7 +25,7 @@ import javax.inject.Inject;
 
 @Controller
 @RequestMapping("/listassistanttask")
-public class ListAssitantTaskController extends BaseController {
+public class ListAssitantTaskController extends TaskController {
 
     @Inject
     private QueryTareaService queryTareaService;
@@ -43,11 +41,17 @@ public class ListAssitantTaskController extends BaseController {
             @RequestParam(value = "ccUserId", required = true) String ccUserId,
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
-    ) throws DataServiceFault {
+    ) {
+        TareaResponse response;
         LOGGER.debug("Get list assistant task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
-        TareaListadoAssistant tarea = (TareaListadoAssistant) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-        LOGGER.debug("List assistant task obtained from service: \n{}", tarea);
-        return toTareaResponse(tarea);
+        try{
+            TareaListadoAssistant tarea = (TareaListadoAssistant) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
+            response = processSuccessTask(tarea, "listAssistantTask.getTask");
+            LOGGER.debug("List assistant task obtained from service: \n{}", tarea);
+        }catch(Exception e){
+            response = processException(e, "listassistanttask.gettarea.error");
+        }
+        return response;
     }
 
 
@@ -83,13 +87,30 @@ public class ListAssitantTaskController extends BaseController {
             @RequestParam(value = "ccUserId", required = true) String ccUserId,
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
-    ) throws DataServiceFault {
+    ) {
+        TareaResponse response = new TareaResponse();
         LOGGER.debug("Get maintenance task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
-        TareaListadoAssistant listAssistantTask = (TareaListadoAssistant) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-        LOGGER.debug("List assistant task obtained from service: \n{}", listAssistantTask);
+        try{
+            TareaListadoAssistant listAssistantTask = (TareaListadoAssistant) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
+            TareaResponse tareaResponse = processSuccessTask(listAssistantTask, "listAssistantTask.getTask");
+            response.addMessages(tareaResponse.getMessages());
+            response.setTarea(tareaResponse.getTarea());
+            LOGGER.debug("List assistant task obtained from service: \n{}", listAssistantTask);
+        }catch(Exception e){
+            TareaResponse tareaResponse = processException(e, "listAssistantTask.getTask.error");
+            response.addMessages(tareaResponse.getMessages());
+        }
         LOGGER.debug("Get installation data for params: \ninstallationId: {}", installationId);
-        InstallationData installationData = installationDataService.getInstallationData(installationId);
-        LOGGER.debug("Installation data obtained from service: \n{}", installationData);
-        return toTareaResponse(listAssistantTask, installationData);
+        try{
+            InstallationData installationData = installationDataService.getInstallationData(installationId);
+            TareaResponse installationResponse = processSuccessInstallation(installationData);
+            LOGGER.debug("Installation data obtained from service: \n{}", installationData);
+            response.addMessages(installationResponse.getMessages());
+            response.setInstallationData(installationResponse.getInstallationData());
+        }catch(Exception e){
+            TareaResponse tareaResponse = processException(e, "installationData.error");
+            response.addMessages(tareaResponse.getMessages());
+        }
+        return response;
     }
 }

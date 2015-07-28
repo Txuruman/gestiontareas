@@ -7,6 +7,7 @@ import es.securitasdirect.tareas.model.tareaexcel.TareaLimpiezaCuota;
 import es.securitasdirect.tareas.service.InstallationService;
 import es.securitasdirect.tareas.service.QueryTareaService;
 import es.securitasdirect.tareas.web.controller.BaseController;
+import es.securitasdirect.tareas.web.controller.TaskController;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
 import es.securitasdirect.tareas.web.controller.dto.request.exceltask.feecleaning.DiscardFeeCleaningTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.exceltask.feecleaning.FinalizeFeeCleaningTaskRequest;
@@ -30,7 +31,7 @@ import javax.inject.Inject;
 
 @Controller
 @RequestMapping("/feecleaningtask")
-public class FeeCleaningTaskController extends BaseController {
+public class FeeCleaningTaskController extends TaskController {
 
     @Inject
     private QueryTareaService queryTareaService;
@@ -46,11 +47,17 @@ public class FeeCleaningTaskController extends BaseController {
         @RequestParam(value = "ccUserId", required = true) String ccUserId,
         @RequestParam(value = "callingList", required = true) String callingList,
         @RequestParam(value = "tareaId", required = true) String tareaId
-    ) throws DataServiceFault {
+    ) {
         LOGGER.debug("Get fee cleaning task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
-        TareaLimpiezaCuota tarea = (TareaLimpiezaCuota) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-        LOGGER.debug("Fee cleaning task obtained from service: \n{}", tarea);
-        return toTareaResponse(tarea);
+        TareaResponse response;
+        try{
+            TareaLimpiezaCuota tarea = (TareaLimpiezaCuota) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
+            LOGGER.debug("Fee cleaning task obtained from service: \n{}", tarea);
+            response = processSuccessTask(tarea, "feeCleaningTask.getTask");
+        }catch(Exception e){
+            response = processException(e, "feeCleaningTask.getTask.error");
+        }
+        return response;
     }
 
 
@@ -85,14 +92,30 @@ public class FeeCleaningTaskController extends BaseController {
             @RequestParam(value = "ccUserId", required = true) String ccUserId,
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
-    ) throws DataServiceFault {
+    )  {
+        TareaResponse response = new TareaResponse();
         LOGGER.debug("Get fee cleaning task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
-        TareaLimpiezaCuota task = (TareaLimpiezaCuota) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-        LOGGER.debug("Fee cleaning task obtained from service: \n{}", task);
-        LOGGER.debug("Get installation data for params: \ninstallationId: {}", installationId);
-        InstallationData installationData = installationDataService.getInstallationData(installationId);
-        LOGGER.debug("Installation data obtained from service: \n{}", installationData);
-        return toTareaResponse(task, installationData);
+        try{
+            LOGGER.debug("Get installation data for params: \ninstallationId: {}", installationId);
+            TareaLimpiezaCuota task = (TareaLimpiezaCuota) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
+            TareaResponse tareaResponse = processSuccessTask(task, "feeCleaningTask.getTask");
+            response.addMessages(tareaResponse.getMessages());
+            response.setTarea(tareaResponse.getTarea());
+            LOGGER.debug("Fee cleaning task obtained from service: \n{}", task);
+        }catch(Exception e){
+            TareaResponse tareaResponse = processException(e, "feeCleaningTask.getTask.error");
+            response.addMessages(tareaResponse.getMessages());
+        }
+        try{
+            InstallationData installationData = installationDataService.getInstallationData(installationId);
+            TareaResponse installationResponse = processSuccessInstallation(installationData);
+            response.addMessages(installationResponse.getMessages());
+            response.setInstallationData(installationResponse.getInstallationData());
+            LOGGER.debug("Installation data obtained from service: \n{}", installationData);
+        }catch(Exception e){
+            TareaResponse installationResponse = processException(e, "installationData.error");
+            response.addMessages(installationResponse.getMessages());
+        }
+        return response;
     }
-
 }

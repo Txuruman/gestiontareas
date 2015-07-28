@@ -48,7 +48,7 @@ public class QueryTareaService {
 
     public Tarea queryTarea(String ccUserId,
                             String callingList,
-                            String id) {
+                            String id) throws Exception{
 
         assert Integer.valueOf(id)!=null: "Hay que meter un número"; //TODO Quitar esto y pasar el parametro a Integer cuando se vea más claro
 
@@ -383,7 +383,7 @@ public class QueryTareaService {
                                                         String filter,
                                                         String callingList,
 
-                                                        String country) {
+                                                        String country) throws Exception {
         //WS Call
         CclResponse response = null;
         try {
@@ -396,7 +396,7 @@ public class QueryTareaService {
                     country);
         } catch (Exception e) {
             LOGGER.error("Error calling CCL checkCallingListContact.", e);
-            return null;
+            throw e;
         }
 
         //Results Map

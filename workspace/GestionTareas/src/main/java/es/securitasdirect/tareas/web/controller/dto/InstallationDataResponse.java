@@ -12,6 +12,12 @@ import java.util.List;
 public class InstallationDataResponse extends BaseResponse {
     private InstallationData installationData;
 
+    public InstallationDataResponse(){}
+
+    public InstallationDataResponse(BaseResponse baseResponse){
+        super.setMessages(baseResponse.getMessages());
+    }
+
     public InstallationData getInstallationData() {
         return installationData;
     }

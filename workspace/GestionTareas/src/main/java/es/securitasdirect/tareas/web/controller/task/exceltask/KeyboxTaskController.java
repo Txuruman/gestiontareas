@@ -8,6 +8,7 @@ import es.securitasdirect.tareas.model.tareaexcel.TareaListadoAssistant;
 import es.securitasdirect.tareas.service.InstallationService;
 import es.securitasdirect.tareas.service.QueryTareaService;
 import es.securitasdirect.tareas.web.controller.BaseController;
+import es.securitasdirect.tareas.web.controller.TaskController;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
 import es.securitasdirect.tareas.web.controller.dto.request.exceltask.keyboxtask.DiscardKeyboxTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.exceltask.keyboxtask.FinalizeKeyboxTaskRequest;
@@ -21,7 +22,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.wso2.ws.dataservice.DataServiceFault;
 
 import javax.inject.Inject;
 
@@ -31,7 +31,7 @@ import javax.inject.Inject;
 
 @Controller
 @RequestMapping("/keyboxtask")
-public class KeyboxTaskController extends BaseController {
+public class KeyboxTaskController extends TaskController {
 
     @Inject
     private QueryTareaService queryTareaService;
@@ -47,11 +47,17 @@ public class KeyboxTaskController extends BaseController {
             @RequestParam(value = "ccUserId", required = true) String ccUserId,
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
-    ) throws DataServiceFault {
+    )  {
+        TareaResponse response;
         LOGGER.debug("Get keybox task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
-        KeyboxTask tarea = (KeyboxTask) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-        LOGGER.debug("Keybox task obtained from service: \n{}", tarea);
-        return toTareaResponse(tarea);
+        try{
+            KeyboxTask tarea = (KeyboxTask) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
+            response = processSuccessTask(tarea, "keyboxtask.gettask");
+            LOGGER.debug("Keybox task obtained from service: \n{}", tarea);
+        }catch(Exception e){
+            response = processException(e, "keyboxtask.gettask.error");
+        }
+        return response;
     }
 
 
@@ -86,13 +92,27 @@ public class KeyboxTaskController extends BaseController {
             @RequestParam(value = "ccUserId", required = true) String ccUserId,
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
-    ) throws DataServiceFault {
+    )  {
+        TareaResponse response;
         LOGGER.debug("Get maintenance task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
-        KeyboxTask task = (KeyboxTask) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-        LOGGER.debug("Keybox task obtained from service: \n{}", task);
+        try{
+            KeyboxTask task = (KeyboxTask) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
+            response = processSuccessTask(task, "keyboxTask.getTask");
+            LOGGER.debug("Keybox task obtained from service: \n{}", task);
+        }catch(Exception e){
+            response = processException(e, "keyboxTask.getTask.error");
+        }
         LOGGER.debug("Get installation data for params: \ninstallationId: {}", installationId);
-        InstallationData installationData = installationDataService.getInstallationData(installationId);
-        LOGGER.debug("Installation data obtained from service: \n{}", installationData);
-        return toTareaResponse(task, installationData);
+        try{
+            InstallationData installationData = installationDataService.getInstallationData(installationId);
+            TareaResponse installationResponse = processSuccessInstallation(installationData);
+            response.setInstallationData(installationResponse.getInstallationData());
+            response.addMessages(installationResponse.getMessages());
+            LOGGER.debug("Installation data obtained from service: \n{}", installationData);
+        }catch(Exception e){
+            TareaResponse installationResponse = processException(e, "installationData.error");
+            response.addMessages(installationResponse.getMessages());
+        }
+        return response;
     }
 }

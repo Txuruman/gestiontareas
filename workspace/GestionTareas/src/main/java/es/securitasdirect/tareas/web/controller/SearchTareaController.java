@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import es.securitasdirect.tareas.model.Tarea;
-import es.securitasdirect.tareas.service.InstallationService;
 import es.securitasdirect.tareas.service.SearchTareaService;
 import es.securitasdirect.tareas.web.controller.dto.SearchTareaResponse;
 import es.securitasdirect.tareas.web.controller.util.MessageUtil;
@@ -30,8 +29,6 @@ public class SearchTareaController {
 
     @Inject
     private SearchTareaService searchTareaService;
-    @Inject
-    private InstallationService installationService;
     @Inject
     protected MessageUtil messageUtil;
 

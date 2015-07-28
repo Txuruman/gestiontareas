@@ -56,29 +56,8 @@ public class CreateTaskController extends BaseController {
             }
         }catch(Exception e){
             //TODO captura de error de llamada al servicio
-            response = (PairListResponse)super.processException(e);
+            response = new PairListResponse(super.processException(e));
         }
         return response;
     }
-
-    //getreasonlist
-
-
-/*
-    try{
-        tipoAvisoList = externalDataService.getNotificationType();
-    }catch (DataServiceFault dsf){
-        LOGGER.error("Error obteniendo los tipos de aviso: \nFaultInfo:{}\nMessage:{}\n{}", dsf.getFaultInfo(), dsf.getMessage(),dsf.toString());
-        tipoAvisoList = null;
-    }
-
-    try{
-        motivoAvisoList = externalDataService.getTypeReasonList();
-    }catch (DataServiceFault dsf){
-        LOGGER.error("Error obteniendo los motivos de tipos de aviso: \nFaultInfo:{}\nMessage:{}\n{}", dsf.getFaultInfo(), dsf.getMessage(),dsf.toString());
-        motivoAvisoList = null;
-    }
-*/
-
-
 }

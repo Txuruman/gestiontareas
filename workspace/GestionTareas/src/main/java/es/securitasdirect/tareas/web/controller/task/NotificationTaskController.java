@@ -1,18 +1,17 @@
 package es.securitasdirect.tareas.web.controller.task;
 
 import es.securitasdirect.tareas.model.InstallationData;
-import es.securitasdirect.tareas.model.Tarea;
 import es.securitasdirect.tareas.model.TareaAviso;
-import es.securitasdirect.tareas.model.TareaMantenimiento;
 import es.securitasdirect.tareas.model.external.Pair;
 import es.securitasdirect.tareas.service.ExternalDataService;
 import es.securitasdirect.tareas.service.InstallationService;
 import es.securitasdirect.tareas.service.QueryTareaService;
 import es.securitasdirect.tareas.web.controller.BaseController;
-import es.securitasdirect.tareas.web.controller.CommonsController;
+import es.securitasdirect.tareas.web.controller.TaskController;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
 import es.securitasdirect.tareas.web.controller.dto.request.notificationtask.*;
 import es.securitasdirect.tareas.web.controller.dto.response.NotificationTaskResponse;
+import es.securitasdirect.tareas.web.controller.dto.response.PairListResponse;
 import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +30,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/notificationtask")
-public class NotificationTaskController extends BaseController {
+public class NotificationTaskController extends TaskController {
 
     @Inject
     private QueryTareaService queryTareaService;
@@ -47,11 +46,20 @@ public class NotificationTaskController extends BaseController {
             @RequestParam(value = "ccUserId", required = true) String ccUserId,
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
-    ) throws DataServiceFault {
+    ) {
         LOGGER.debug("Get notification task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}",ccUserId, callingList, tareaId);
-        TareaAviso task = (TareaAviso)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-        LOGGER.debug("Notification task obtained from service: \n{}", task);
-        return toTareaResponse(task);
+        TareaResponse response;
+        try{
+            TareaAviso task = (TareaAviso)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
+            LOGGER.debug("Notification task obtained from service:");
+            response = super.processSuccessTask(task, "notificationTask.getTask");
+        }catch(Exception e){
+            //EN el caso de obtener una excepción, se realiza el procesamiento de la excepción que añade los errores correspondientes, y se incluye en la respuesta.
+            BaseResponse exceptionResponse = processException(e, messageUtil.getProperty("notificationTask.getTask.error"));
+            response = new TareaResponse();
+            response.addMessages(exceptionResponse.getMessages());
+        }
+        return response;
     }
 
 
@@ -63,23 +71,57 @@ public class NotificationTaskController extends BaseController {
             @RequestParam(value = "ccUserId", required = true) String ccUserId,
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
-    ) throws DataServiceFault {
+    )  {
         LOGGER.debug("Get notification task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}",ccUserId, callingList, tareaId);
-        TareaAviso task = (TareaAviso)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-        LOGGER.debug("Notification task obtained from service: \n{}", task);
+        NotificationTaskResponse response = new NotificationTaskResponse();
+        TareaAviso task = null;
+        try{
+            task = (TareaAviso)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
+            TareaResponse taskResponse = processSuccessTask(task,"notificationTask.getTask");
+            response.addMessages(taskResponse.getMessages());
+            response.setTarea(taskResponse.getTarea());
+        }catch(Exception e){
+            response = new NotificationTaskResponse(processException(e, "notificationTask.getTask.error"));
+        }
+        if(task!=null){
+            LOGGER.debug("Notification task obtained from service: \n{}", task);
+        }else{
+            LOGGER.debug("Failed to obtain notification task from service");
+        }
         LOGGER.debug("Get installation data for params: \ninstallationId: {}", installationId);
-        InstallationData installationData = installationDataService.getInstallationData(installationId);
-        LOGGER.debug("Installation data obtained from service: \n{}", installationData);
-        return toNotificationTaskResponse(task, installationData);
+        InstallationData installationData = null;
+        try{
+            installationData = installationDataService.getInstallationData(installationId);
+            TareaResponse installationResponse = processSuccessInstallation(installationData);
+            response.addMessages(installationResponse.getMessages());
+            response.setInstallationData(installationResponse.getInstallationData());
+        }catch(Exception e){
+            response = new NotificationTaskResponse(processException(e, "installationData.error"));
+        }
+        if(installationData!=null){
+            LOGGER.debug("Installation data obtained from service: \n{}", installationData);
+        }else{
+            LOGGER.debug("Failed to obtain installation data service.");
+        }
+        return response;
     }
 
 
     @RequestMapping(value = "/getClosing", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    List<Pair> getClosing() throws DataServiceFault {
-        List<Pair> closingList = externalDataService.getClosing();
-        return closingList;
+    PairListResponse getClosing() {
+        PairListResponse response;
+        List<Pair> closingList = null;
+        try{
+            closingList = externalDataService.getClosing();
+            response = new PairListResponse();
+            response.setPairList(closingList);
+            response.success("notificationtask.getclosing.success");
+        }catch(Exception e){
+            response = new PairListResponse(processException(e, "notificationtask.getclosing.error"));
+        }
+        return response;
     }
 
 
@@ -89,10 +131,8 @@ public class NotificationTaskController extends BaseController {
     public
     @ResponseBody
     BaseResponse postpone( @RequestBody PostponeNotificationTaskRequest request) {
-        return super.delayTask(request.getTask(),request.getRecallType(),request.getDelayDate());
+        return super.delayTask(request.getTask(),request.getRecallType(),request.getDelayDate(), "notificationtask.postpone");
     }
-
-
 
     @RequestMapping(value = "/atras", method ={RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
@@ -169,10 +209,13 @@ public class NotificationTaskController extends BaseController {
         return response;
     }
 
-    NotificationTaskResponse toNotificationTaskResponse(TareaAviso tarea,
-                                                        InstallationData installationData){
+    private NotificationTaskResponse toNotificationTaskResponse(TareaAviso tarea,
+                                                        InstallationData installationData,
+                                                        NotificationTaskResponse response){
         NotificationTaskResponse tareaResponse = new NotificationTaskResponse();
-
+        if(response != null){
+            tareaResponse.addMessages(response.getMessages());
+        }
         LOGGER.info("Process task response");
         if (tarea != null) {
             tareaResponse.setTarea(tarea);
@@ -191,5 +234,10 @@ public class NotificationTaskController extends BaseController {
         LOGGER.info("Task Response: {}", tareaResponse);
         return tareaResponse;
     }
+
+    private NotificationTaskResponse toNotificationTaskResponse(TareaAviso tarea, InstallationData installationData){
+        return toNotificationTaskResponse(tarea, installationData, null);
+    }
+
 
 }

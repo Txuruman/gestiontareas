@@ -1,11 +1,10 @@
 package es.securitasdirect.tareas.web.controller.task.exceltask;
 
 import es.securitasdirect.tareas.model.InstallationData;
-import es.securitasdirect.tareas.model.tareaexcel.TareaLimpiezaCuota;
 import es.securitasdirect.tareas.model.tareaexcel.TareaOtrasCampanas;
 import es.securitasdirect.tareas.service.InstallationService;
 import es.securitasdirect.tareas.service.QueryTareaService;
-import es.securitasdirect.tareas.web.controller.BaseController;
+import es.securitasdirect.tareas.web.controller.TaskController;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
 import es.securitasdirect.tareas.web.controller.dto.request.exceltask.anothercampaigns.DiscardAnotherCampaignsTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.exceltask.anothercampaigns.FinalizeAnotherCampaignsTaskRequest;
@@ -17,7 +16,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.wso2.ws.dataservice.DataServiceFault;
 
 import javax.inject.Inject;
 
@@ -27,7 +25,7 @@ import javax.inject.Inject;
 
 @Controller
 @RequestMapping("/anothercampaignstask")
-public class AnotherCampaignsTaskController extends BaseController {
+public class AnotherCampaignsTaskController extends TaskController {
 
     @Inject
     private QueryTareaService queryTareaService;
@@ -43,11 +41,17 @@ public class AnotherCampaignsTaskController extends BaseController {
             @RequestParam(value = "ccUserId", required = true) String ccUserId,
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
-    ) throws DataServiceFault {
+    ) {
+        TareaResponse response;
         LOGGER.debug("Get maintenance task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
-        TareaOtrasCampanas tarea = (TareaOtrasCampanas) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-        LOGGER.debug("Another campaigns task obtained from service: \n{}", tarea);
-        return toTareaResponse(tarea);
+        try{
+            TareaOtrasCampanas tarea = (TareaOtrasCampanas) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
+            response = processSuccessTask(tarea, "anothercampaigntask.gettarea");
+            LOGGER.debug("Another campaigns task obtained from service: \n{}", tarea);
+        }catch(Exception e){
+            response = processException(e, "anothercampaigntask.gettarea.error");
+        }
+        return response;
     }
 
     @RequestMapping(value = "/aplazar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -81,14 +85,28 @@ public class AnotherCampaignsTaskController extends BaseController {
             @RequestParam(value = "ccUserId", required = true) String ccUserId,
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
-    ) throws DataServiceFault {
+    ) {
+        TareaResponse response;
         LOGGER.debug("Get another campaigns task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
-        TareaOtrasCampanas task = (TareaOtrasCampanas) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-        LOGGER.debug("Another campaigns task obtained from service: \n{}", task);
+        try{
+            TareaOtrasCampanas task = (TareaOtrasCampanas) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
+            response = processSuccessTask(task, "anotherCampaignsTask.getTask");
+            LOGGER.debug("Another campaigns task obtained from service: \n{}", task);
+        }catch(Exception e){
+            response = processException(e, "anotherCampaignsTask.getTask.error");
+        }
         LOGGER.debug("Get installation data for params: \ninstallationId: {}", installationId);
-        InstallationData installationData = installationDataService.getInstallationData(installationId);
-        LOGGER.debug("Installation data obtained from service: \n{}", installationData);
-        return toTareaResponse(task, installationData);
-    }
+        try{
+            InstallationData installationData = installationDataService.getInstallationData(installationId);
+            TareaResponse installationResponse = super.processSuccessInstallation(installationData);
+            response.addMessages(installationResponse.getMessages());
+            response.setInstallationData(installationResponse.getInstallationData());
+            LOGGER.debug("Installation data obtained from service: \n{}", installationData);
 
+        } catch (Exception e) {
+            TareaResponse installationResponse = processException(e, "installationData.error");
+            response.addMessages(installationResponse.getMessages());
+        }
+        return response;
+    }
 }

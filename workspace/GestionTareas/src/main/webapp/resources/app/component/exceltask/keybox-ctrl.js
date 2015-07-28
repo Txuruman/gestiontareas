@@ -1,44 +1,46 @@
 //Angular KeyboxTask controller
 app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService, $modal, $log) {
-        $scope.getTarea = function () {
-            console.log("Loading Keybox  Task...")
-            console.log("Params: "
-            + " ccUserId: " + $scope.ccUserId
-            + " callingList: " + $scope.callingList
-            + " taskId: " + $scope.tareaId);
-            $http({method: 'GET',
-                url: '/keyboxtask/gettarea',
-                params: {ccUserId: $scope.ccUserId, callingList: $scope.callingList, tareaId: $scope.tareaId}
+    $scope.getTarea = function () {
+        $log.debug("Loading Keybox  Task...");
+        $log.debug("Params: "
+        + " ccUserId: " + $scope.ccUserId
+        + " callingList: " + $scope.callingList
+        + " taskId: " + $scope.tareaId);
+        $http({method: 'GET',
+            url: '/keyboxtask/gettarea',
+            params: {ccUserId: $scope.ccUserId, callingList: $scope.callingList, tareaId: $scope.tareaId}
+        }).
+            success(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data, status, headers, config);
+                $scope.tarea = data.tarea;
+                $log.debug("Keybox task loaded");
             }).
-                success(function (data, status, headers, config) {
-                    CommonService.processBaseResponse(data, status, headers, config);
-                    $scope.tarea = data.tarea;
-                }).
-                error(function (data, status, headers, config) {
-                    CommonService.processBaseResponse(data, status, headers, config);
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
-                });
-            console.log("Loaded Keybox Task")
+            error(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data, status, headers, config);
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                $log.error("Error loading keybox task");
+            });
 
-            console.log("Loading Excel Task Commons: Closing reason");
-            $http({method: 'GET', url: '/exceltaskcommon/getClosingReason'}).
-                success(function (data, status, headers, config) {
-                    $scope.closingReasonList = data;
-                }).
-                error(function (data, status, headers, config) {
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
-                });
-            console.log("Loaded Excel Task Commons: Closing reason");
-        };
+        $log.debug("Loading Excel Task Commons: Closing reason");
+        $http({method: 'GET', url: '/exceltaskcommon/getClosingReason'}).
+            success(function (data, status, headers, config) {
+                $scope.closingReasonList = data.pairList;
+                $log.debug("Closing reason list loaded: ", data.pairList);
+            }).
+            error(function (data, status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                $log.error("Error loading closing reason list");
+            });
+    };
 
 
     $scope.getInstallationAndTask = function(){
         $scope.vm.appReady=false;
 
-        console.log("Loading Keybox Task...");
-        console.log("Params: "
+        $log.debug("Loading Keybox Task...");
+        $log.debug("Params: "
         + " installationId: " + $scope.installationId
         + " ccUserId: " + $scope.ccUserId
         + " callingList: " + $scope.callingList
@@ -49,7 +51,8 @@ app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService, $modal
             params: {installationId: $scope.installationId, ccUserId: $scope.ccUserId, callingList: $scope.callingList, tareaId: $scope.tareaId}
         }).
             success(function (data, status, headers, config) {
-                console.log("Loaded keybox task:" + JSON.stringify(data.tarea));
+                console.log("Loaded keybox task:",data.tarea);
+                console.log("Loaded installation data:",data.installationData);
                 $scope.tarea = data.tarea;
                 $scope.installationData = data.installationData;
                 CommonService.processBaseResponse(data,status,headers,config);
@@ -61,32 +64,33 @@ app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService, $modal
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data,status,headers,config);
                 $scope.vm.appReady=true;
+                $log.error("Error loading keybox task and installation data");
             });
-        console.log("List assistant task loaded...")
-    }
+    };
 
     $scope.getClosingReason = function(){
-        console.log("Loading Excel Task Commons: Closing reason");
+        $log.debug("Loading Excel Task Commons: Closing reason");
         $http({method: 'GET', url: '/exceltaskcommon/getClosingReason'}).
             success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
-                $scope.closingReasonList = data;
+                $scope.closingReasonList = data.pairList;
+                $log.debug("Closing reason list loaded");
             }).
             error(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
+                $log.error("Error loeading closing reason list");
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
-        console.log("Loaded Excel Task Commons: Closing reason");
-    }
+    };
 
     $scope.aplazar = function(){
-        console.log("Postpone Keybox task, task: " + JSON.stringify($scope.tarea));
+        $log.debug("Postpone Keybox task, task: ", $scope.tarea);
         var postponeKeyboxTaskRequest = {
             tarea:$scope.tarea,
             prueba:'Hola'
         };
-        console.log("Postpone Keybox Task, request: " + JSON.stringify(postponeKeyboxTaskRequest));
+        $log.debug("Postpone Keybox Task, request: ",postponeKeyboxTaskRequest);
         $http({
             method: 'PUT',
             url: 'keyboxtask/aplazar',
@@ -94,21 +98,23 @@ app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService, $modal
         })
             .success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data,status,headers,config);
+                $log.debug("Postponed keybox task");
             })
             .error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data,status,headers,config);
+                $log.error("Error postponing keybox task");
             });
-    }
+    };
 
     $scope.descartar = function(){
-        console.log("Discard Keybox task, task: " + JSON.stringify($scope.tarea));
+        $log.debug("Discard Keybox task, task: " ,$scope.tarea);
         var discardKeyboxTaskRequest = {
             tarea:$scope.tarea,
             prueba:'Hola'
         };
-        console.log("Discard Keybox Task, request: " + JSON.stringify(discardKeyboxTaskRequest));
+        $log.debug("Discard Keybox Task, request: ",discardKeyboxTaskRequest);
         $http({
             method: 'PUT',
             url: 'keyboxtask/descartar',
@@ -116,21 +122,23 @@ app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService, $modal
         })
             .success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data,status,headers,config);
+                $log.debug("Discarded keybox task");
             })
             .error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data,status,headers,config);
+                $log.error("Error discarding keybox task");
             });
-    }
+    };
 
     $scope.finalizar = function(){
-        console.log("Finalizar Keybox task, task: " + JSON.stringify($scope.tarea));
+        $log.debug("Finalizar Keybox task, task: ",$scope.tarea);
         var finalizeKeyboxTaskRequest = {
             tarea:$scope.tarea,
             prueba:'Hola'
         };
-        console.log("Finalizar Keybox Task, request: " + JSON.stringify(finalizeKeyboxTaskRequest));
+        $log.debug("Finalizar Keybox Task, request: " ,finalizeKeyboxTaskRequest);
         $http({
             method: 'PUT',
             url: 'keyboxtask/finalizar',
@@ -138,19 +146,15 @@ app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService, $modal
         })
             .success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data,status,headers,config);
+                $log.debug("Finalized keybox task");
             })
             .error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data,status,headers,config);
+                $log.error("Error finalizing keybox task");
             });
-    }
-
-
-
-
-
-
+    };
 
     //Ventana Aplazar - Start
     //Abre la ventana, posibles tamaños '', 'sm', 'lg'

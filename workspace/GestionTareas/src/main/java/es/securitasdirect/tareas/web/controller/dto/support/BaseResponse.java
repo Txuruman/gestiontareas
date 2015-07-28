@@ -3,6 +3,7 @@ package es.securitasdirect.tareas.web.controller.dto.support;
 import es.securitasdirect.tareas.model.InstallationData;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -146,6 +147,17 @@ public class BaseResponse {
 
     public void addMessage(Message msg){
         messages.add(msg);
+    }
+
+    public boolean hasError(){
+        Iterator<Message> messageList = this.messages.iterator();
+        boolean hasError = false;
+        if(messageList.hasNext()){
+            if(messageList.next().getLevel().equals(Message.DANGER)){
+                hasError = true;
+            }
+        }
+        return hasError;
     }
 
 

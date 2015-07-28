@@ -2,8 +2,8 @@
 app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,$modal, $log) {
 
     $scope.getTarea = function () {
-        console.log("Loading Maintenance Survey Task...")
-        console.log("Params: "
+        $log.debug("Loading Maintenance Survey Task...");
+        $log.debug("Params: "
         + " ccUserId: " + $scope.ccUserId
         + " callingList: " + $scope.callingList
         + " taskId: " + $scope.tareaId);
@@ -13,39 +13,40 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,
         }).
             success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
-                $scope.tarea = data;
+                $scope.tarea = data.tarea;
+                $log.debug("Loaded maintenance survey task: ", data.tarea)
             }).
             error(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
+                $log.error("Error loading maintenance survey task");
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
-        console.log("Loaded Maintenance Survey Task");
-
        $scope.getClosingReason();
     };
 
     $scope.getClosingReason = function(){
-        console.log("Loading Excel Task Commons: Closing reason");
+        $log.debug("Loading Excel Task Commons: Closing reason");
         $http({method: 'GET', url: '/exceltaskcommon/getClosingReason'}).
             success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
-                $scope.closingReasonList = data;
+                $scope.closingReasonList = data.pairList;
+                $log.debug("Loaded closing reason list", data.pairList)
             }).
             error(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
+                $log.error("Error loading closing reason");
             });
-        console.log("Loaded Excel Task Commons: Closing reason");
     };
 
 
     $scope.getInstallationAndTask = function() {
             $scope.vm.appReady = false;
 
-            console.log("Loading Maintenance Survey Task...");
-            console.log("Params: "
+            $log.debug("Loading Maintenance Survey Task...");
+            $log.debug("Params: "
                 + " installationId: " + $scope.installationId
                 + " ccUserId: " + $scope.ccUserId
                 + " callingList: " + $scope.callingList
@@ -56,7 +57,8 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,
                 params: {installationId: $scope.installationId, ccUserId: $scope.ccUserId, callingList: $scope.callingList, tareaId: $scope.tareaId}
             }).
                 success(function (data, status, headers, config) {
-                    console.log("Loaded maintenance survey task:" + JSON.stringify(data.tarea));
+                    $log.debug("Loaded maintenance survey task:" ,data.tarea);
+                    $log.debug("Loaded installation data: ",data.installationData);
                     $scope.tarea = data.tarea;
                     $scope.installationData = data.installationData;
                     CommonService.processBaseResponse(data, status, headers, config);
@@ -68,17 +70,17 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,
                     // or server returns response with an error status.
                     CommonService.processBaseResponse(data, status, headers, config);
                     $scope.vm.appReady = true;
+                    $log.error("Error loading maintenance survey task and/or installation data");
                 });
-            console.log("Maintenance survey Task loaded...")
     };
 
     $scope.aplazar = function(){
-        console.log("Postpone Maintenance Survey task, task: " + JSON.stringify($scope.tarea));
+        $log.debug("Postpone Maintenance Survey task, task: ",$scope.tarea);
         var postponeMaintenanceSurveyTaskRequest = {
             tarea:$scope.tarea,
             prueba:'Hola'
         };
-        console.log("Postpone Maintenance Survey Task, request: " + JSON.stringify(postponeMaintenanceSurveyTaskRequest));
+        $log.debug("Postpone Maintenance Survey Task, request: ", postponeMaintenanceSurveyTaskRequest);
         $http({
             method: 'PUT',
             url: 'maintenancesurveytask/aplazar',
@@ -86,21 +88,23 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,
         })
             .success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data,status,headers,config);
+                $log.debug("Postpone maintenance survey task done");
             })
             .error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data,status,headers,config);
+                $log.error("Error doing postpone to maintenance survey task");
             });
     };
 
     $scope.descartar = function(){
-        console.log("Discard Maintenance Survey task, task: " + JSON.stringify($scope.tarea));
+        $log.debug("Discard Maintenance Survey task, task: ",$scope.tarea);
         var discardMaintenanceSurveyTaskRequest = {
             tarea:$scope.tarea,
             prueba:'Hola'
         };
-        console.log("Discard List Assistant Task, request: " + JSON.stringify(discardMaintenanceSurveyTaskRequest));
+        $log.debug("Discard List Assistant Task, request: " ,discardMaintenanceSurveyTaskRequest);
         $http({
             method: 'PUT',
             url: 'maintenancesurveytask/descartar',
@@ -108,21 +112,23 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,
         })
             .success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data,status,headers,config);
+                $log.debug("Discarded maintenance survey task");
             })
             .error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data,status,headers,config);
+                $log.error("Error discarding maintenance survey task");
             });
     };
 
     $scope.finalizar = function(){
-        console.log("Finalizar Maintenance Survey task, task: " + JSON.stringify($scope.tarea));
+        $log.debug("Finalizar Maintenance Survey task, task: ",$scope.tarea);
         var finalizeMaintenanceSurveyTaskRequest = {
             tarea:$scope.tarea,
             prueba:'Hola'
         };
-        console.log("Finalizar Maintenance Survey Task, request: " + JSON.stringify(finalizeMaintenanceSurveyTaskRequest));
+        $log("Finalizar Maintenance Survey Task, request: ", finalizeMaintenanceSurveyTaskRequest);
         $http({
             method: 'PUT',
             url: 'maintenancesurveytask/finalizar',
@@ -130,11 +136,13 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,
         })
             .success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data,status,headers,config);
+                $log.debug("Finalized maintenance survey task");
             })
             .error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data,status,headers,config);
+                $log.error("Error finalizing maintenance survey task");
             });
     };
 

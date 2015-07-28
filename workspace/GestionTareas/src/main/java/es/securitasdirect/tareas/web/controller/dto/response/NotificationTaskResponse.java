@@ -16,5 +16,16 @@ import java.util.List;
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class NotificationTaskResponse extends TareaResponse {
 
+    public NotificationTaskResponse(){}
+
+    public NotificationTaskResponse(BaseResponse baseResponse){
+        super.setMessages(baseResponse.getMessages());
+    }
+
+    public NotificationTaskResponse(TareaResponse tareaResponse){
+        super.setMessages(tareaResponse.getMessages());
+        super.setInstallationData(tareaResponse.getInstallationData());
+        super.setTarea(tareaResponse.getTarea());
+    }
 
 }

@@ -25,7 +25,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/installation")
-public class InstallationController {
+public class InstallationController extends BaseController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(InstallationController.class);
 
@@ -42,18 +42,32 @@ public class InstallationController {
         InstallationDataResponse installationDataResponse = new InstallationDataResponse();
         try{
             InstallationData installationData = installationService.getInstallationData(installationId);
-
-            if(installationData!=null){
-                installationDataResponse.setInstallationData(installationData);
-                installationDataResponse.success(messageUtil.getProperty("installationData.success"));
-                installationDataResponse.success("Prueba de varios mensajes en una respuesta");
-            }else{
-                installationDataResponse.danger(messageUtil.getProperty("installationData.notFound"));
-            }
-            return  installationDataResponse;
+            installationDataResponse = processSuccessInstallation(installationData);
         }catch(Exception e){
-            installationDataResponse.danger(messageUtil.getProperty("exception",e.getMessage(),e.toString()));
-            return installationDataResponse;
+            installationDataResponse = this.processException(e);
         }
+        return installationDataResponse;
+    }
+
+    /**
+     * Se informa con la instalacion obtenida y se informa la respuesta con dicha instalación y el mensaje correspondiente.
+     * @param installationData
+     * @return
+     */
+    public InstallationDataResponse processSuccessInstallation(InstallationData installationData) {
+        InstallationDataResponse installationDataResponse = new InstallationDataResponse();
+        LOGGER.info("Process installationData response: {}", installationData);
+        if(installationData!=null) {
+            installationDataResponse.setInstallationData(installationData);
+            installationDataResponse.success(messageUtil.getProperty("installationData.success"));
+        }else{
+            installationDataResponse.danger(messageUtil.getProperty("installationData.notFound"));
+        }
+        LOGGER.info("Installation Data Response: {}", installationDataResponse);
+        return installationDataResponse;
+    }
+
+    public InstallationDataResponse processException(Exception e){
+        return new InstallationDataResponse(super.processException(e, "installationData.error"));
     }
 }

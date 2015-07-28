@@ -2,25 +2,18 @@ package es.securitasdirect.tareas.web.controller;
 
 import es.securitasdirect.tareas.model.InstallationData;
 import es.securitasdirect.tareas.model.Tarea;
-import es.securitasdirect.tareas.model.TareaAviso;
-import es.securitasdirect.tareas.service.InstallationService;
+import es.securitasdirect.tareas.model.external.Pair;
 import es.securitasdirect.tareas.service.TareaService;
-import es.securitasdirect.tareas.web.controller.dto.InstallationDataResponse;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
 import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
 import es.securitasdirect.tareas.web.controller.util.MessageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.wso2.ws.dataservice.DataServiceFault;
 
 import javax.inject.Inject;
 import java.util.Date;
+import java.util.List;
 
 public abstract class BaseController {
 
@@ -31,84 +24,23 @@ public abstract class BaseController {
     @Inject
     protected TareaService tareaService;
 
-    protected TareaResponse toTareaResponse(Tarea tarea, InstallationData installationData) {
-        TareaResponse tareaResponse = new TareaResponse();
-        LOGGER.info("Process task response: {}", tarea);
-        if (tarea != null) {
-            tareaResponse.setTarea(tarea);
-            tareaResponse.success(messageUtil.getProperty("task.success"));
-        } else {
-            tareaResponse.danger(messageUtil.getProperty("task.notFound"));
-        }
-        if(installationData!=null){
-            tareaResponse.setInstallationData(installationData);
-            tareaResponse.success(messageUtil.getProperty("installationData.success"));
-        }else{
-            tareaResponse.danger(messageUtil.getProperty("installationData.notFound"));
-        }
-        LOGGER.info("Task Response: {}", tareaResponse);
-        return tareaResponse;
-    }
-
-
-    protected TareaResponse toTareaResponse(Tarea tarea) {
-        TareaResponse tareaResponse = new TareaResponse();
-        LOGGER.info("Process task response: {}", tarea);
-        if (tarea != null) {
-            tareaResponse.setTarea(tarea);
-            tareaResponse.success(messageUtil.getProperty("task.success"));
-        } else {
-            tareaResponse.danger(messageUtil.getProperty("task.notFound"));
-        }
-        LOGGER.info("Task Response: {}", tareaResponse);
-        return tareaResponse;
-    }
-
-
-    /**
-     * Procesamiento generico para aplazar una tarea
-     * @param task
-     * @param recallType
-     * @param delayDate
-     * @return
-     */
-    public BaseResponse delayTask(Tarea task, String recallType, Date delayDate) {
-        LOGGER.debug("Aplazando tarea {} TODO ", task ,delayDate, recallType);
-
-        BaseResponse response = new BaseResponse();
-
-        //Llamada al servicio para aplazar
-        try {
-            //Llamada al servicio para aplazar
-            boolean ok = tareaService.aplazar(9);
-            if(ok){
-                response.success(messageUtil.getProperty("notificationTask.postpone.success"));
-            }else{
-                response.danger(messageUtil.getProperty("notificationTask.postpone.error"));
-            }
-        } catch (Exception e) {
-            response = processException(e);
-        }
-
-        LOGGER.debug("Aplazamiento de tarea\nResponse:{}", response);
-        return response;
-    }
-
-
-
-
-
     protected BaseResponse processException(Exception exception) {
         LOGGER.error("Error sent in BaseResponse {}" , exception.getMessage());
         BaseResponse response = new BaseResponse();
-        response.danger(exception.getMessage()); //TODO MENSAGE GENERICO CON
+        response.danger(exception.getMessage());
         return response;
     }
 
     protected BaseResponse processException(Exception exception, String funcMsg){
         BaseResponse response = new BaseResponse();
         if(funcMsg!=null && !funcMsg.isEmpty()){
-            response.danger(funcMsg);
+            String localizedMessage = messageUtil.getProperty(funcMsg);
+            if(localizedMessage!=null && !localizedMessage.isEmpty()){
+                response.danger(localizedMessage);
+            }else{
+                response.warning("Localized message not found");
+                response.danger(funcMsg);
+            }
         }
         LOGGER.error(funcMsg);
         if(exception instanceof DataServiceFault){
@@ -121,7 +53,20 @@ public abstract class BaseController {
             sb.append("\n").append(dataServiceFault.toString());
             LOGGER.error(sb.toString());
         }else{
-            LOGGER.error("Error sent in BaseResponse {}\n{}" , exception.getMessage(),exception.toString());
+            StringBuilder sb = new StringBuilder();
+            sb.append("Error sent in response: ").append(exception.getMessage()).append(" - ").append(exception.toString()).append(" - ").append(exception);
+            response.danger(sb.toString());
+            LOGGER.error(sb.toString().replace(" - ", "\n"));
+        }
+        return response;
+    }
+
+    protected BaseResponse processSuccess(Object obj, String msg){
+        BaseResponse response = new BaseResponse();
+        if(obj!=null){
+            response.success(messageUtil.getProperty(msg+".success"));
+        }else{
+            response.warning(messageUtil.getProperty(msg+".notFound"));
         }
         return response;
     }

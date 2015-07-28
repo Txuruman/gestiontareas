@@ -1,11 +1,10 @@
 package es.securitasdirect.tareas.web.controller.task.exceltask;
 
 import es.securitasdirect.tareas.model.InstallationData;
-import es.securitasdirect.tareas.model.TareaMantenimiento;
 import es.securitasdirect.tareas.model.tareaexcel.MaintenanceSurveyTask;
 import es.securitasdirect.tareas.service.InstallationService;
 import es.securitasdirect.tareas.service.QueryTareaService;
-import es.securitasdirect.tareas.web.controller.BaseController;
+import es.securitasdirect.tareas.web.controller.TaskController;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
 import es.securitasdirect.tareas.web.controller.dto.request.exceltask.maintenancesurvey.DiscardMaintenanceSurveyTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.exceltask.maintenancesurvey.FinalizeMaintenanceSurveyTaskRequest;
@@ -17,7 +16,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.wso2.ws.dataservice.DataServiceFault;
 
 import javax.inject.Inject;
 
@@ -27,7 +25,7 @@ import javax.inject.Inject;
 
 @Controller
 @RequestMapping("/maintenancesurveytask")
-public class MaintenanceSurveyTaskController extends BaseController {
+public class MaintenanceSurveyTaskController extends TaskController {
 
     @Inject
     private QueryTareaService queryTareaService;
@@ -43,11 +41,17 @@ public class MaintenanceSurveyTaskController extends BaseController {
         @RequestParam(value = "ccUserId", required = true) String ccUserId,
         @RequestParam(value = "callingList", required = true) String callingList,
         @RequestParam(value = "tareaId", required = true) String tareaId
-    ) throws DataServiceFault {
+    )  {
+        TareaResponse response;
         LOGGER.debug("Get maintenance survey task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
-        MaintenanceSurveyTask tarea = (MaintenanceSurveyTask) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-        LOGGER.debug("Maintenance survey task obtained from service: \n{}", tarea);
-        return toTareaResponse(tarea);
+        try{
+            MaintenanceSurveyTask tarea = (MaintenanceSurveyTask) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
+            LOGGER.debug("Maintenance survey task obtained from service: \n{}", tarea);
+            response = processSuccessTask(tarea, "maintenanceSurveyTask.getTask");
+        }catch(Exception e){
+            response = processException(e, "maintenanceSurveyTask.getTask");
+        }
+        return response;
     }
 
 
@@ -57,14 +61,31 @@ public class MaintenanceSurveyTaskController extends BaseController {
             @RequestParam(value = "ccUserId", required = true) String ccUserId,
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
-    ) throws DataServiceFault {
+    ) {
+        TareaResponse response = new TareaResponse();
         LOGGER.debug("Get maintenance survey task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
-        MaintenanceSurveyTask tarea = (MaintenanceSurveyTask) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-        LOGGER.debug("Maintenance survey task obtained from service: \n{}", tarea);
+        try{
+            MaintenanceSurveyTask tarea = (MaintenanceSurveyTask) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
+            TareaResponse tareaResponse = processSuccessTask(tarea, "maintenanceSurveyTask.getTask");
+            response.addMessages(tareaResponse.getMessages());
+            response.setTarea(tareaResponse.getTarea());
+            LOGGER.debug("Maintenance survey task obtained from service: \n{}", tarea);
+        }catch(Exception e){
+            TareaResponse tareaResponse = processException(e, "maintenanceSurveyTask.getTask.error");
+            response.addMessages(tareaResponse.getMessages());
+        }
         LOGGER.debug("Get installation data for params: \ninstallationId: {}", installationId);
-        InstallationData installationData = installationDataService.getInstallationData(installationId);
-        LOGGER.debug("Installation data obtained from service: \n{}", installationData);
-        return toTareaResponse(tarea, installationData);
+        try{
+            InstallationData installationData = installationDataService.getInstallationData(installationId);
+            TareaResponse installationResponse = processSuccessInstallation(installationData);
+            response.addMessages(installationResponse.getMessages());
+            response.setInstallationData(installationResponse.getInstallationData());
+            LOGGER.debug("Installation data obtained from service: \n{}", installationData);
+        }catch(Exception e){
+            TareaResponse installationResponse = processException(e, "installationData.error");
+            response.addMessages(installationResponse.getMessages());
+        }
+        return response;
     }
 
 

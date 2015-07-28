@@ -3,6 +3,7 @@ package es.securitasdirect.tareas.web.controller.dto.response;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import es.securitasdirect.tareas.model.external.Pair;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
+import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
 
 import java.util.List;
 
@@ -12,6 +13,12 @@ import java.util.List;
  */
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class PairListResponse extends TareaResponse {
+
+    public PairListResponse(){}
+
+    public PairListResponse(BaseResponse baseResponse){
+        super.setMessages(baseResponse.getMessages());
+    }
 
     private List<Pair> pairList;
 

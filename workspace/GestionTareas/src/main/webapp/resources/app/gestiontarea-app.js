@@ -183,7 +183,7 @@ app.service('CommonService', function ($rootScope, $log, $http) {
         return a * a;
     };
 
-    $scope.suma = function (a) {
+    this.suma = function (a) {
         console.log("Suma");
         return a + a;
     };
@@ -236,11 +236,24 @@ app.service('CommonService', function ($rootScope, $log, $http) {
             .success(function (data, status, headers, config) {
                 $log.debug('Loaded Notification Type List', data);
                 $rootScope.tipoAvisoList = data.pairList;
-                suma(5);
-                this.processBaseResponse(data, status, headers, config);
+                //TODO - SUSTITUÍR POR FUNCIÓN DE PROCESS BASE RESPONSE
+                $log.debug("Procesando BaseResponse....");
+                if (data && data.messages) {
+                    for (var msg in data.messages) {
+                        $rootScope.vm.serverMessages.push(data.messages[msg]);
+                    }
+                }
+                // END TODO
             })
             .error(function (data, status, headers, config) {
-                this.processBaseResponse(data, status, headers, config);
+                //TODO - SUSTITUÍR POR FUNCIÓN DE PROCESS BASE RESPONSE
+                $log.debug("Procesando BaseResponse....");
+                if (data && data.messages) {
+                    for (var msg in data.messages) {
+                        $rootScope.vm.serverMessages.push(data.messages[msg]);
+                    }
+                }
+                // END TODO
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
@@ -255,10 +268,24 @@ app.service('CommonService', function ($rootScope, $log, $http) {
             .success(function (data, status, headers, config) {
                 $log.debug('Loaded Closing Type List', data);
                 $rootScope.closingList = data.pairList;
-                this.processBaseResponse(data, status, headers, config);
+                //TODO - SUSTITUÍR POR FUNCIÓN DE PROCESS BASE RESPONSE
+                $log.debug("Procesando BaseResponse....");
+                if (data && data.messages) {
+                    for (var msg in data.messages) {
+                        $rootScope.vm.serverMessages.push(data.messages[msg]);
+                    }
+                }
+                // END TODO
             })
             .error(function (data, status, headers, config) {
-                this.processBaseResponse(data, status, headers, config);
+                //TODO - SUSTITUÍR POR FUNCIÓN DE PROCESS BASE RESPONSE
+                $log.debug("Procesando BaseResponse....");
+                if (data && data.messages) {
+                    for (var msg in data.messages) {
+                        $rootScope.vm.serverMessages.push(data.messages[msg]);
+                    }
+                }
+                // END TODO
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
@@ -273,10 +300,24 @@ app.service('CommonService', function ($rootScope, $log, $http) {
             .success(function (data, status, headers, config) {
                 $log.debug('Loaded Type Reason List', data);
                 $rootScope.motivoList = data.pairList;
-                this.processBaseResponse(data, status, headers, config);
+                //TODO - SUSTITUÍR POR FUNCIÓN DE PROCESS BASE RESPONSE
+                $log.debug("Procesando BaseResponse....");
+                if (data && data.messages) {
+                    for (var msg in data.messages) {
+                        $rootScope.vm.serverMessages.push(data.messages[msg]);
+                    }
+                }
+                // END TODO
             })
             .error(function (data, status, headers, config) {
-                this.processBaseResponse(data, status, headers, config);
+                //TODO - SUSTITUÍR POR FUNCIÓN DE PROCESS BASE RESPONSE
+                $log.debug("Procesando BaseResponse....");
+                if (data && data.messages) {
+                    for (var msg in data.messages) {
+                        $rootScope.vm.serverMessages.push(data.messages[msg]);
+                    }
+                }
+                // END TODO
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
@@ -291,10 +332,24 @@ app.service('CommonService', function ($rootScope, $log, $http) {
             .success(function (data, status, headers, config) {
                 $log.debug('Loaded Closing Aditional Data List', data);
                 $rootScope.datosAdicionalesList = data.pairList;
-                this.processBaseResponse(data, status, headers, config);
+                //TODO - SUSTITUÍR POR FUNCIÓN DE PROCESS BASE RESPONSE
+                $log.debug("Procesando BaseResponse....");
+                if (data && data.messages) {
+                    for (var msg in data.messages) {
+                        $rootScope.vm.serverMessages.push(data.messages[msg]);
+                    }
+                }
+                // END TODO
             })
             .error(function (data, status, headers, config) {
-                this.processBaseResponse(data, status, headers, config);
+                //TODO - SUSTITUÍR POR FUNCIÓN DE PROCESS BASE RESPONSE
+                $log.debug("Procesando BaseResponse....");
+                if (data && data.messages) {
+                    for (var msg in data.messages) {
+                        $rootScope.vm.serverMessages.push(data.messages[msg]);
+                    }
+                }
+                // END TODO
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
@@ -310,12 +365,26 @@ app.service('CommonService', function ($rootScope, $log, $http) {
             success(function (data, status, headers, config) {
                 $log.debug("Installation data found: " ,data.installationData);
                 $rootScope.installationData = data.installationData;
-                this.processBaseResponse(data,status,headers,config);
+                //TODO - SUSTITUÍR POR FUNCIÓN DE PROCESS BASE RESPONSE
+                $log.debug("Procesando BaseResponse....");
+                if (data && data.messages) {
+                    for (var msg in data.messages) {
+                        $rootScope.vm.serverMessages.push(data.messages[msg]);
+                    }
+                }
+                // END TODO
             }).
             error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
-                this.processBaseResponse(data,status,headers,config);
+                //TODO - SUSTITUÍR POR FUNCIÓN DE PROCESS BASE RESPONSE
+                $log.debug("Procesando BaseResponse....");
+                if (data && data.messages) {
+                    for (var msg in data.messages) {
+                        $rootScope.vm.serverMessages.push(data.messages[msg]);
+                    }
+                }
+                // END TODO
                 $log.debug("Error in Installation data search");
             });
         $log.debug("Installation data loaded...")
