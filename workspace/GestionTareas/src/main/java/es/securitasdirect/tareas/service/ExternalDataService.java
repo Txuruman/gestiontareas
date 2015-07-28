@@ -73,14 +73,14 @@ public class ExternalDataService {
     }
 
     /**
-     * Call for notification type query
+     * Listado de los tipos de Aviso
      */
     public List<Pair> getNotificationType() throws DataServiceFault{
-        LOGGER.debug("Calling for notification type (for pull down combo)");
-        List<Pair> result = dummyPairList();
-        result.add(new Pair(500, "Dummy EDS 500"));
-        result.add(new Pair(550, "Dummy EDS 550"));
-        result.add(new Pair(560, "Dummy EDS 560"));
+        LOGGER.debug("Calling for notification type ");
+        List<Pair> result = new ArrayList<Pair>();
+        for (Tipoaviso tipoaviso : spAioTareas2.getTipoAviso()) {
+            result.add(new Pair(tipoaviso.getTipo().intValue(),tipoaviso.getDescripcion()));
+        }
         return result;
     }
 
