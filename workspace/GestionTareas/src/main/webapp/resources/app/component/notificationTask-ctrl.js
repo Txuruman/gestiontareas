@@ -34,6 +34,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
 
     $scope.getTarea = function () {
         $log.debug('Loading NotificationTask');
+        $scope.vm.appReady=false;
         $log.debug("Params: "
             + " ccUserId: " + $scope.ccUserId
             + " callingList: " + $scope.callingList
@@ -47,89 +48,28 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 $log.debug('Loaded NotificationTask: ' + JSON.stringify(data.tarea));
                 CommonService.processBaseResponse(data, status, headers, config);
                 $scope.tarea = data.tarea;
-
+                $scope.vm.appReady=true;
             })
             .error(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
+                $scope.vm.appReady=true;
             });
         $log.debug("NotificationTask loaded...")
     };
 
-
-    $scope.init1 = function(){
-        $log.debug("Charging page, combo lists");
-        $http({
-            method: 'GET',
-            url: 'commons/getNotificationTypeList'
-        })
-            .success(function (data, status, headers, config) {
-                $log.debug('Loaded Notification Type List', data);
-                $scope.tipoAvisoList = data.pairList;
-                CommonService.processBaseResponse(data, status, headers, config);
-            })
-            .error(function (data, status, headers, config) {
-                CommonService.processBaseResponse(data, status, headers, config);
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-            });
-
-        $http({
-            method: 'GET',
-            url: 'commons/getClosingList'
-        })
-            .success(function (data, status, headers, config) {
-                $log.debug('Loaded Closing Type List', data);
-                $scope.closingList = data.pairList;
-                CommonService.processBaseResponse(data, status, headers, config);
-            })
-            .error(function (data, status, headers, config) {
-                CommonService.processBaseResponse(data, status, headers, config);
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-            });
-
-
-        $http({
-            method: 'GET',
-            url: 'commons/getTypeReasonList'
-        })
-            .success(function (data, status, headers, config) {
-                $log.debug('Loaded Type Reason List', data);
-                $scope.motivoList = data.pairList;
-                CommonService.processBaseResponse(data, status, headers, config);
-            })
-            .error(function (data, status, headers, config) {
-                CommonService.processBaseResponse(data, status, headers, config);
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-            });
-
-        $http({
-            method: 'GET',
-            url: 'commons/getClosingAditionalDataList'
-        })
-            .success(function (data, status, headers, config) {
-                $log.debug('Loaded Closing Aditional Data List', data);
-                $scope.datosAdicionalesList = data.pairList;
-                CommonService.processBaseResponse(data, status, headers, config);
-            })
-            .error(function (data, status, headers, config) {
-                CommonService.processBaseResponse(data, status, headers, config);
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-            });
+    $scope.init = function(){
+        $scope.vm.appReady=false;
+        CommonService.getNotificationTypeList($scope);
+        CommonService.getTypeReasonList($scope);
+        CommonService.getClosingList($scope);
+        CommonService.getClosingAditionalDataList($scope);
+        $scope.vm.appReady=true;
     };
 
-    $scope.init = function(){
-        CommonService.getNotificationTypeList();
-        CommonService.getClosingList();
-        CommonService.getTypeReasonList();
-        CommonService.getClosingAditionalDataList();
-    }
-
     $scope.getInstallationAndTask = function () {
+        $scope.vm.appReady=false;
         $log.debug('Loading NotificationTask');
         $log.debug("Params: "
             + " installationId: " + $scope.installationId
@@ -151,31 +91,19 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 CommonService.processBaseResponse(data, status, headers, config);
                 $scope.tarea = data.tarea;
                 $scope.installationData = data.installationData;
-                //TODO OBTENER DATOS DE COMBOS - Desconocido origen
-
+                $scope.vm.appReady=true;
             })
-
-
             .error(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
+                $scope.vm.appReady=true;
             });
         $log.debug("NotificationTask loaded...")
     };
 
 
-    $scope.getClosing = function () {
-        $log.debug('Notification task - getClosing');
-        $http({method: 'GET', url: 'notificationtask/getClosing'}).
-            success(function (data, status, headers, config) {
-                $scope.closingList = data;
-            }).
-            error(function (data, status, headers, config) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-            });
-    };
+
 
 
     $scope.aplazar = function (delayDate, recallType) {

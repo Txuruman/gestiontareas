@@ -177,13 +177,13 @@ app.controller('DatepickerDemoCtrl', function ($scope) {
 
 
 //create a service which defines a method square to return square of a number.
-app.service('CommonService', function ($rootScope, $log) {
+app.service('CommonService', function ($rootScope, $log, $http) {
     this.square = function (a) {
         console.log("Multiplicando");
         return a * a;
     };
 
-    this.suma = function (a) {
+    $scope.suma = function (a) {
         console.log("Suma");
         return a + a;
     };
@@ -227,77 +227,99 @@ app.service('CommonService', function ($rootScope, $log) {
     };
 
 
-    this.getNotificationTypeList = function() {
-        $log.debug("Charging page, combo lists");
+    this.getNotificationTypeList = function(data, status, heathers, config) {
+        $log.debug("Load Notification Type List");
         $http({
             method: 'GET',
             url: 'commons/getNotificationTypeList'
         })
             .success(function (data, status, headers, config) {
                 $log.debug('Loaded Notification Type List', data);
-                $scope.tipoAvisoList = data.pairList;
-                processBaseResponse(data, status, headers, config);
+                $rootScope.tipoAvisoList = data.pairList;
+                suma(5);
+                this.processBaseResponse(data, status, headers, config);
             })
             .error(function (data, status, headers, config) {
-                processBaseResponse(data, status, headers, config);
+                this.processBaseResponse(data, status, headers, config);
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
     };
 
-    this.getClosingList = function() {
+    this.getClosingList = function(data, status, heathers, config) {
+        $log.debug("Load Closing Type List");
         $http({
             method: 'GET',
             url: 'commons/getClosingList'
         })
             .success(function (data, status, headers, config) {
                 $log.debug('Loaded Closing Type List', data);
-                $scope.closingList = data.pairList;
-                processBaseResponse(data, status, headers, config);
+                $rootScope.closingList = data.pairList;
+                this.processBaseResponse(data, status, headers, config);
             })
             .error(function (data, status, headers, config) {
-                processBaseResponse(data, status, headers, config);
+                this.processBaseResponse(data, status, headers, config);
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
     };
 
-    this.getTypeReasonList = function() {
+    this.getTypeReasonList = function(data, status, heathers, config) {
+        $log.debug("Load Task Type Reason List");
         $http({
             method: 'GET',
             url: 'commons/getTypeReasonList'
         })
             .success(function (data, status, headers, config) {
                 $log.debug('Loaded Type Reason List', data);
-                $scope.motivoList = data.pairList;
-                processBaseResponse(data, status, headers, config);
+                $rootScope.motivoList = data.pairList;
+                this.processBaseResponse(data, status, headers, config);
             })
             .error(function (data, status, headers, config) {
-                processBaseResponse(data, status, headers, config);
+                this.processBaseResponse(data, status, headers, config);
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
-    }
+    };
 
-    this.getClosingAditionalDataList = function() {
+    this.getClosingAditionalDataList = function(data, status, heathers, config) {
+        $log.debug("Load Closing Aditional Data List");
         $http({
             method: 'GET',
             url: 'commons/getClosingAditionalDataList'
         })
             .success(function (data, status, headers, config) {
                 $log.debug('Loaded Closing Aditional Data List', data);
-                $scope.datosAdicionalesList = data.pairList;
-                processBaseResponse(data, status, headers, config);
+                $rootScope.datosAdicionalesList = data.pairList;
+                this.processBaseResponse(data, status, headers, config);
             })
             .error(function (data, status, headers, config) {
-                processBaseResponse(data, status, headers, config);
+                this.processBaseResponse(data, status, headers, config);
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
     };
 
-
-
+    this.loadInstallationData = function(installationId,data, status, heathers, config){
+        $log.debug("Search Installation. ID: " + installationId);
+        $http({
+            method: 'GET',
+            url: 'commons/searchInstallation',
+            params: {installationId: installationId}
+        }).
+            success(function (data, status, headers, config) {
+                $log.debug("Installation data found: " ,data.installationData);
+                $rootScope.installationData = data.installationData;
+                this.processBaseResponse(data,status,headers,config);
+            }).
+            error(function (data, status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                this.processBaseResponse(data,status,headers,config);
+                $log.debug("Error in Installation data search");
+            });
+        $log.debug("Installation data loaded...")
+    }
 });
 
 app.filter('stringToDate', function () {

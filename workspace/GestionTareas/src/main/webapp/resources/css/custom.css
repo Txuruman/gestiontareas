@@ -113,3 +113,29 @@ h2{
     margin-bottom: 1px;
     margin-right: 1px;
 }
+
+.please-wait-dialog{
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    margin-top:3px;
+    margin-left:1px;
+    margin-bottom: 1px;
+    margin-right: 1px;
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}
+
+.please-wait-spinner{
+    /*width: 10%;
+    height: 10%;*/
+    /*max-width: 50px;
+    max-height: 50px;*/
+    min-height: 10px;
+    min-width: 10px;
+    margin-left: 48%;
+    width: 3%;
+    height: 3%;
+}

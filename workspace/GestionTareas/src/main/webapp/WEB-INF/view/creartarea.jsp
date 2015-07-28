@@ -1,3 +1,4 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="app" tagdir="/WEB-INF/tags" %>
@@ -8,20 +9,15 @@
 <head>
     <title><spring:message code="titulo.creartarea"/></title>
     <app:commonImports/>
-    <script src="${pageContext.request.contextPath}/resources/app/maincontrollers/taskCreation-ctrl.js"></script>
-
 </head>
 <body>
 
-<div class="container" ng-controller="taskCreation" ng-init="init()" >
+<div class="container" ng-controller="taskCreation" ng-init="installationId='${installationId}';ccUserId='${ccUserId}';init()" >
     <div class="row">
         <jsp:include page="bloques/tabs1.jsp"/>
     </div>
     <app:messages/>
-    <div class="please-wait-dialog" ng-hide="vm.appReady">
-        Apliacion NO LISTA
-        <img class="please-wait-spinner" src="/resources/img/loading.gif">
-    </div>
+
     <div class="form-horizontal" role="form">
         <div class="spacer_t2"></div>
         <jsp:include page="instalacion.jsp"/>
@@ -81,4 +77,5 @@
 <!-- Container -->
 
 </body>
+<script src="${pageContext.request.contextPath}/resources/app/maincontrollers/taskCreation-ctrl.js"></script>
 </html>
