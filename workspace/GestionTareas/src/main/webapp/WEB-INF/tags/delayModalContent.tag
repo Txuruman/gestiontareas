@@ -42,13 +42,6 @@
                 <timepicker ng-model="delayInfo.delayTime"  hour-step="1" minute-step="5" show-meridian="true"></timepicker>
             </div>
         </div>
-        <!-- Test
-        <ul>
-            <li ng-repeat="item in items">
-                <a ng-click="selected.item = item">{{ item }}</a>
-            </li>
-        </ul>
-        Seleccionado: <b>{{ selected.item }}</b>-->
     </div>
     <div class="modal-footer">
         <button class="btn btn-primary" ng-click="ok()"><spring:message code='boton.ok'/></button>
