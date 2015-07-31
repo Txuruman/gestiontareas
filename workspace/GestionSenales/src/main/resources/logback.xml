@@ -14,7 +14,7 @@ See here for more details: http://gordondickens.com/wordpress/2013/03/27/sawing-
     </appender>
 
     <appender name="file" class="ch.qos.logback.core.FileAppender">
-        <file>/tmp/teamvision/gestionsenales/gestionSenales.log</file>
+        <file>/tmp/teamvision/gestionSenales.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- daily rollover -->
             <fileNamePattern>gestionSenales.%d{yyyy-MM-dd}.log</fileNamePattern>
