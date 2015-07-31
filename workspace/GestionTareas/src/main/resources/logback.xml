@@ -14,10 +14,10 @@ See here for more details: http://gordondickens.com/wordpress/2013/03/27/sawing-
     </appender>
 
     <appender name="file" class="ch.qos.logback.core.FileAppender">
-        <file>/tmp/teamvision/gestiontareas/gestionTareas.log</file>
+        <file>/tmp/teamvision/gestionTareas.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- daily rollover -->
-            <fileNamePattern>gestionSenales.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>gestionTareas.%d{yyyy-MM-dd}.log</fileNamePattern>
             <!-- keep 3 days' worth of history -->
             <maxHistory>3</maxHistory>
         </rollingPolicy>
