@@ -59,7 +59,7 @@ public class TareasServiceTest {
 
     @Test
     public void datosAdicionalesCierreTareaAviso() throws DataServiceFault {
-        List<Pair> datosAdicionalesCierreTareaAviso = externalDataService.getDatosAdicionalesCierreTareaAviso();
+        List<Pair> datosAdicionalesCierreTareaAviso = externalDataService.getDatosAdicionalesCierreTareaAviso(0);
         LOGGER.info("datosAdicionalesCierreTareaAviso {}", datosAdicionalesCierreTareaAviso);
         assertThat(datosAdicionalesCierreTareaAviso, notNullValue());
     }

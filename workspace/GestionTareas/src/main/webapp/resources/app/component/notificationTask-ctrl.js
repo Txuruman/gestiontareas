@@ -1,5 +1,7 @@
 app.controller('notificationtask', function ($scope, $http, CommonService, $modal, $log) {
 
+    var controller = this;
+
     $scope.logTarea = function () {
         $log.debug("Tarea: " + $scope.tarea);
     };
@@ -61,15 +63,11 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
 
     $scope.init = function(){
         $scope.vm.appReady=false;
-        CommonService.getNotificationTypeList($scope);
-        CommonService.getTypeReasonList($scope);
-        CommonService.getClosingList($scope);
-        CommonService.getClosingAditionalDataList($scope);
+        this.getInstallationAndTask();
         $scope.vm.appReady=true;
     };
 
     $scope.getInstallationAndTask = function () {
-        $scope.vm.appReady=false;
         $log.debug('Loading NotificationTask');
         $log.debug("Params: "
             + " installationId: " + $scope.installationId
@@ -91,20 +89,89 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 CommonService.processBaseResponse(data, status, headers, config);
                 $scope.tarea = data.tarea;
                 $scope.installationData = data.installationData;
-                $scope.vm.appReady=true;
+                CommonService.getNotificationTypeList();
+                controller.getTypeReasonList1($scope.tarea.tipoAviso1);
+                controller.getTypeReasonList2($scope.tarea.tipoAviso2);
+                controller.getTypeReasonList3($scope.tarea.tipoAviso3);
+                $log.debug("Motivo lists: ",$scope.motivoList1,$scope.motivoList2,$scope.motivoList3);
+                $log.debug("SCOPE TAREA:", $scope.tarea);
+                $log.debug("Get closing list params: " + $scope.tarea.tipoAviso1 + ", " + $scope.tarea.motivo1);
+                CommonService.getClosingList($scope.tarea.tipoAviso1, $scope.tarea.motivo1);
+                CommonService.getClosingAditionalDataList($scope);
             })
             .error(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
-                $scope.vm.appReady=true;
             });
         $log.debug("NotificationTask loaded...")
     };
 
+    this.getTypeReasonList1 = function(typeId,data, status, headers, config) {
+        $log.debug("Load Task Type Reason List");
+        var taskTypeReasonRequest = {
+            idType: typeId
+        };
+        $http({
+            method: 'PUT',
+            url: 'commons/getTypeReasonList',
+            data: taskTypeReasonRequest
+        })
+            .success(function (data, status, headers, config) {
+                $log.debug('Loaded Type Reason List', data);
+                $scope.motivoList1 = data.pairList;
+                CommonService.processBaseResponse(data, status, headers, config);
+            })
+            .error(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data, status, headers, config);
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+    };
 
+    this.getTypeReasonList2 = function(typeId) {
+        $log.debug("Load Task Type Reason List");
+        var taskTypeReasonRequest = {
+            idType: typeId
+        };
+        $http({
+            method: 'PUT',
+            url: 'commons/getTypeReasonList',
+            data: taskTypeReasonRequest
+        })
+            .success(function (data, status, headers, config) {
+                $log.debug('Loaded Type Reason List', data);
+                $scope.motivoList2 = data.pairList;
+                CommonService.processBaseResponse(data, status, headers, config);
+            })
+            .error(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data, status, headers, config);
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+    };
 
-
+    this.getTypeReasonList3 = function(typeId) {
+        $log.debug("Load Task Type Reason List");
+        var taskTypeReasonRequest = {
+            idType: typeId
+        };
+        $http({
+            method: 'PUT',
+            url: 'commons/getTypeReasonList',
+            data: taskTypeReasonRequest
+        })
+            .success(function (data, status, headers, config) {
+                $log.debug('Loaded Type Reason List', data);
+                $scope.motivoList3 = data.pairList;
+                CommonService.processBaseResponse(data, status, headers, config);
+            })
+            .error(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data, status, headers, config);
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+    };
 
     $scope.aplazar = function (delayDate, recallType) {
         $log.info('Delay to ' + delayDate + ' with recallType ' + recallType + ' NotificationTask ' + JSON.stringify($scope.tarea));

@@ -1,10 +1,15 @@
 package es.securitasdirect.tareas.web.controller;
 
+import es.securitasdirect.tareas.model.external.BigIntegerPair;
 import es.securitasdirect.tareas.model.external.Pair;
+import es.securitasdirect.tareas.model.external.StringPair;
 import es.securitasdirect.tareas.service.ExternalDataService;
-import es.securitasdirect.tareas.web.controller.dto.request.createtask.CreateMaintenanceRequest;
-import es.securitasdirect.tareas.web.controller.dto.request.createtask.CreateTaskRequest;
+import es.securitasdirect.tareas.web.controller.dto.request.notificationtask.ClosingTypeAditionalDataRequest;
+import es.securitasdirect.tareas.web.controller.dto.request.notificationtask.ClosingTypeRequest;
+import es.securitasdirect.tareas.web.controller.dto.request.notificationtask.TypeReasonListRequest;
+import es.securitasdirect.tareas.web.controller.dto.response.BigIntegerPairResponse;
 import es.securitasdirect.tareas.web.controller.dto.response.PairListResponse;
+import es.securitasdirect.tareas.web.controller.dto.response.StringPairListResponse;
 import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
 import es.securitasdirect.tareas.web.controller.dto.support.DummyResponseGenerator;
 import org.slf4j.Logger;
@@ -27,9 +32,6 @@ import java.util.List;
 @Controller
 @RequestMapping("/commons")
 public class CommonsController extends BaseController {
-
-    @Inject
-    private DummyResponseGenerator dummyResponseGenerator;
     @Inject
     private ExternalDataService externalDataService;
 
@@ -42,68 +44,78 @@ public class CommonsController extends BaseController {
         PairListResponse response = new PairListResponse();
         try{
             tipoAvisoList = externalDataService.getNotificationType();
-            response.setPairList(tipoAvisoList);
-            response.success("Obtenidos los de tipos de avisos");
+            if(tipoAvisoList!=null && !tipoAvisoList.isEmpty()){
+                response.setPairList(tipoAvisoList);
+                response.success(messageUtil.getProperty("commonService.notificationTypeList.success"));
+            }else{
+                response.warning(messageUtil.getProperty("commonService.notificationTypeList.notFound"));
+            }
+
         }catch (DataServiceFault dsf){
             LOGGER.error("Error obteniendo los tipos de aviso: \nFaultInfo:{}\nMessage:{}\n{}", dsf.getFaultInfo(), dsf.getMessage(),dsf.toString());
-            response.danger("Error obteniendo tipos de aviso");
+            response.danger(messageUtil.getProperty("commonService.notificationTypeList.error"));
         }
         return response;
     }
 
-    @RequestMapping(value = "/getClosingList", method = {RequestMethod.GET}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody PairListResponse getClosingList(){
-        List<Pair> closingList;
-        PairListResponse response = new PairListResponse();
+    @RequestMapping(value = "/getClosingList", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE},produces = {MediaType.APPLICATION_JSON_VALUE})
+    public @ResponseBody StringPairListResponse getClosingList(@RequestBody ClosingTypeRequest closingTypeRequest){
+        List<StringPair> closingList;
+        StringPairListResponse response = new StringPairListResponse();
         try{
-            closingList = externalDataService.getClosing();
+            LOGGER.debug("Getting closing type list for request: {}",  closingTypeRequest);
+            closingList = externalDataService.getClosing(closingTypeRequest.getIdType(), closingTypeRequest.getReasonId());
             if(closingList!=null && !closingList.isEmpty()){
                 response.setPairList(closingList);
-                response.success("Obtenidos los tipos de cierre");
+                response.success(messageUtil.getProperty("commonService.closingTypeList.success"));
             }else{
-                response.danger("No se han obtenido tipos de cierre");
+                response.danger(messageUtil.getProperty("commonService.closingTypeList.notFound"));
             }
         }catch (Exception e){
-            response = (PairListResponse)super.processException(e, "Error obteniendo tipos de cierre");
+            BaseResponse baseResponse = super.processException(e, messageUtil.getProperty("commonService.closingTypeList.error"));
+            response.addMessages(baseResponse.getMessages());
         }
         return response;
     }
 
-    @RequestMapping(value = "/getClosingAditionalDataList", method = {RequestMethod.GET}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody PairListResponse getClosingAditionalDataList(){
+    @RequestMapping(value = "/getClosingAditionalDataList", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public @ResponseBody PairListResponse getClosingAditionalDataList(ClosingTypeAditionalDataRequest request){
         List<Pair> closingListAditionalData;
         PairListResponse response = new PairListResponse();
         try{
-            closingListAditionalData = externalDataService.getDatosAdicionalesCierreTareaAviso();
+            closingListAditionalData = externalDataService.getDatosAdicionalesCierreTareaAviso(request.getClosingTypeId());
             if(closingListAditionalData!=null && !closingListAditionalData.isEmpty()){
                 response.setPairList(closingListAditionalData);
-                response.success("Obtenidos los tipos de datos adicionales de tipos de cierre");
+                response.success(messageUtil.getProperty("commonService.closingAditionalDataList.success"));
             }else{
-                response.warning("No se han recuperado tipos de datos adicionales de tipos de cierre");
+                response.warning(messageUtil.getProperty("commonService.closingAditionalDataList.notFound"));
             }
         }catch (DataServiceFault dsf){
             LOGGER.error("Error obteniendo los tipos de datos adicionales de tipos de cierre: \nFaultInfo:{}\nMessage:{}\n{}", dsf.getFaultInfo(), dsf.getMessage(),dsf.toString());
-            response.danger("Error obteniendo los tipos de datos adicionales de tipos de cierre");
+            response.danger(messageUtil.getProperty("commonService.closingAditionalDataList.error"));
         }
         return response;
     }
 
-    @RequestMapping(value = "/getTypeReasonList", method = {RequestMethod.GET}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody PairListResponse getTypeReasonList(){
-        List<Pair> typeReasonList;
-        PairListResponse response = new PairListResponse();
+    @RequestMapping(value = "/getTypeReasonList", method = {RequestMethod.PUT},consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public @ResponseBody BigIntegerPairResponse getTypeReasonList(@RequestBody TypeReasonListRequest request){
+        List<BigIntegerPair> typeReasonList;
+        BigIntegerPairResponse response = new BigIntegerPairResponse();
         try{
-            typeReasonList = externalDataService.getTypeReasonList();
+            LOGGER.debug("Calling for get type reason list with request: {}", request);
+            typeReasonList = externalDataService.getTypeReasonList(request.getIdType());
             if(typeReasonList!=null && !typeReasonList.isEmpty()){
                 response.setPairList(typeReasonList);
-                response.success("Obtenidos los tipos de motivos");
+                response.success(messageUtil.getProperty("commonService.taskTypeReasonList.success"));
+
             }else{
-                response.warning("No se han recuperado tipos de motivos");
+                response.warning(messageUtil.getProperty("commonService.taskTypeReasonList.notFound"));
             }
         }catch (DataServiceFault dsf){
-            LOGGER.error("Error obteniendo los datos adicionales de tipos de cierre: \nFaultInfo:{}\nMessage:{}\n{}", dsf.getFaultInfo(), dsf.getMessage(),dsf.toString());
-            response.danger("Error obteniendo los datos adicionales de tipos de cierre");
+            LOGGER.error("Error loading task type closing reason list: \nFaultInfo:{}\nMessage:{}\n{}", dsf.getFaultInfo(), dsf.getMessage(),dsf.toString());
+            response.danger(messageUtil.getProperty("commonService.taskTypeReasonList.error"));
         }
+        LOGGER.debug("Type reason list call response: {}", response);
         return response;
     }
 

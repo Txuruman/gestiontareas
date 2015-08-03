@@ -4,8 +4,34 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 
-<div ng-controller="notificationtask" ng-init="init();getInstallationAndTask()">
+<div ng-controller="notificationtask" ng-init="init()">
     <jsp:include page="instalacion.jsp"/>
+    <div class="row bordel">
+        <h3> DEBUG DIV </h3>
+        <app:wrapping cells="6">
+            <h4> JSP VARIABLES</h4>
+            Secundaria:${secundaria}<br/>
+            Installation:${installationId}<br/>
+            callingList:${callingList}<br/>
+            ccUserId:${ccUserId}<br/>
+            idTarea:${tareaId}<br/>
+        </app:wrapping>
+        <app:wrapping cells="6">
+            <h4> ANGULAR VARIABLES</h4>
+            Installation:{{installationId}}<br/>
+            callingList:{{callingList}}<br/>
+            ccUserId:{{ccUserId}}<br/>
+            idTarea:{{tareaId}}<br/>
+        </app:wrapping>
+        <div clas="row">
+            Tarea:{{tarea}}
+        </div>
+        <div clas="row">
+            Motivo Aviso Lists:<br/>1:{{motivoList1}}
+            <br/>2:{{motivoList2}}
+            <br/>3:{{motivoList3}}
+        </div>
+    </div>
     <div class="panel panel-default">
         <div class="panel-body">
             <div class="spacer_t2"></div>
@@ -39,7 +65,7 @@
                 </app:input>
                 <app:input id="motivo1" label="eti.visortarea.form.label.reason" cells="6">
                     <select  ng-model="tarea.motivo1" convert-to-number class="form-control">
-                        <option data-ng-repeat="itemMotivo1 in motivoList" value="{{itemMotivo1.id}}" ng-selected="itemMotivo1.id==tarea.motivo1" >{{itemMotivo1.value}}</option>
+                        <option data-ng-repeat="itemMotivo1 in motivoList1" value="{{itemMotivo1.id}}" ng-selected="itemMotivo1.id==tarea.motivo1" >{{itemMotivo1.value}}</option>
                     </select>
                 </app:input>
             </div>
@@ -52,7 +78,7 @@
                 </app:input>
                 <app:input id="motivo2" cells="6">
                     <select  ng-model="tarea.motivo2" convert-to-number class="form-control">
-                        <option data-ng-repeat="itemMotivo2 in motivoList" value="{{itemMotivo2.id}}" ng-selected="itemMotivo2.id==tarea.motivo2" >{{itemMotivo2.value}}</option>
+                        <option data-ng-repeat="itemMotivo2 in motivoList2" value="{{itemMotivo2.id}}" ng-selected="itemMotivo2.id==tarea.motivo2" >{{itemMotivo2.value}}</option>
                     </select>
                 </app:input>
             </div>
@@ -65,7 +91,7 @@
                 </app:input>
                 <app:input id="motivo3" cells="6">
                     <select  ng-model="tarea.motivo3" convert-to-number class="form-control">
-                        <option data-ng-repeat="k in motivoList" value="{{k.id}}" ng-selected="k.id==tarea.motivo3" >{{k.value}}</option>
+                        <option data-ng-repeat="k in motivoList3" value="{{k.id}}" ng-selected="k.id==tarea.motivo3" >{{k.value}}</option>
                     </select>
                 </app:input>
             </div>

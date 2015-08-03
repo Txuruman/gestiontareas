@@ -13,21 +13,21 @@ import java.util.List;
  * Almacena los campos propios de la respuesta para tarea de aviso
  */
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
-public class PairListResponse extends TareaResponse {
+public class StringPairListResponse extends TareaResponse {
 
-    public PairListResponse(){}
+    public StringPairListResponse(){}
 
-    public PairListResponse(BaseResponse baseResponse){
+    public StringPairListResponse(BaseResponse baseResponse){
         super.setMessages(baseResponse.getMessages());
     }
 
-    private List<Pair> pairList;
+    private List<StringPair> pairList;
 
-    public List<Pair> getPairList() {
+    public List<StringPair> getPairList() {
         return pairList;
     }
 
-    public void setPairList(List<Pair> pairList) {
+    public void setPairList(List<StringPair> pairList) {
         this.pairList = pairList;
     }
 

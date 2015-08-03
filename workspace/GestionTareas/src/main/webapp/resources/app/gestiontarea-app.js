@@ -178,6 +178,7 @@ app.controller('DatepickerDemoCtrl', function ($scope) {
 
 //create a service which defines a method square to return square of a number.
 app.service('CommonService', function ($rootScope, $log, $http) {
+    var service=this;
     this.square = function (a) {
         console.log("Multiplicando");
         return a * a;
@@ -210,6 +211,7 @@ app.service('CommonService', function ($rootScope, $log, $http) {
 
 
     /** Funcion para processar las respuestas del servidor, eg: processBaseResponse(data,status,headers,config);  */
+    /* quitado this. */
     this.processBaseResponse = function (data, status, headers, config) {
         console.log("Procesando BaseResponse....");
         if (data && data.messages) {
@@ -227,7 +229,7 @@ app.service('CommonService', function ($rootScope, $log, $http) {
     };
 
 
-    this.getNotificationTypeList = function(data, status, heathers, config) {
+    this.getNotificationTypeList = function() {
         $log.debug("Load Notification Type List");
         $http({
             method: 'GET',
@@ -236,126 +238,62 @@ app.service('CommonService', function ($rootScope, $log, $http) {
             .success(function (data, status, headers, config) {
                 $log.debug('Loaded Notification Type List', data);
                 $rootScope.tipoAvisoList = data.pairList;
-                //TODO - SUSTITUÍR POR FUNCIÓN DE PROCESS BASE RESPONSE
-                $log.debug("Procesando BaseResponse....");
-                if (data && data.messages) {
-                    for (var msg in data.messages) {
-                        $rootScope.vm.serverMessages.push(data.messages[msg]);
-                    }
-                }
-                // END TODO
+                service.processBaseResponse(data, status, headers, config);
             })
             .error(function (data, status, headers, config) {
-                //TODO - SUSTITUÍR POR FUNCIÓN DE PROCESS BASE RESPONSE
-                $log.debug("Procesando BaseResponse....");
-                if (data && data.messages) {
-                    for (var msg in data.messages) {
-                        $rootScope.vm.serverMessages.push(data.messages[msg]);
-                    }
-                }
-                // END TODO
+                service.processBaseResponse(data, status, headers, config);
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
     };
 
-    this.getClosingList = function(data, status, heathers, config) {
-        $log.debug("Load Closing Type List");
+    this.getClosingList = function(idType, reasonId) {
+        $log.debug("Load Closing Type List for params: "+ idType + ", " + reasonId);
+        var closingTypeRequest = {
+            idType: idType,
+            reasonId: reasonId
+        };
+        $log.debug("Load Closing Type List Request", closingTypeRequest);
         $http({
-            method: 'GET',
-            url: 'commons/getClosingList'
+            method: 'PUT',
+            url: 'commons/getClosingList',
+            data: closingTypeRequest
         })
             .success(function (data, status, headers, config) {
-                $log.debug('Loaded Closing Type List', data);
+                $log.debug('Loaded Closing Type List Response', data);
                 $rootScope.closingList = data.pairList;
-                //TODO - SUSTITUÍR POR FUNCIÓN DE PROCESS BASE RESPONSE
-                $log.debug("Procesando BaseResponse....");
-                if (data && data.messages) {
-                    for (var msg in data.messages) {
-                        $rootScope.vm.serverMessages.push(data.messages[msg]);
-                    }
-                }
-                // END TODO
+                service.processBaseResponse(data, status, headers, config);
             })
             .error(function (data, status, headers, config) {
-                //TODO - SUSTITUÍR POR FUNCIÓN DE PROCESS BASE RESPONSE
-                $log.debug("Procesando BaseResponse....");
-                if (data && data.messages) {
-                    for (var msg in data.messages) {
-                        $rootScope.vm.serverMessages.push(data.messages[msg]);
-                    }
-                }
-                // END TODO
+                $log.error("Error loading Closing Type List");
+                service.processBaseResponse(data, status, headers, config);
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
     };
 
-    this.getTypeReasonList = function(data, status, heathers, config) {
-        $log.debug("Load Task Type Reason List");
+    this.getClosingAditionalDataList = function(closingTypeId) {
+        $log.debug("Load Closing Aditional Data List for param:", closingTypeId);
+        var closingAditionalDataRequest = {
+            closingTypeId: closingTypeId
+        }
         $http({
-            method: 'GET',
-            url: 'commons/getTypeReasonList'
-        })
-            .success(function (data, status, headers, config) {
-                $log.debug('Loaded Type Reason List', data);
-                $rootScope.motivoList = data.pairList;
-                //TODO - SUSTITUÍR POR FUNCIÓN DE PROCESS BASE RESPONSE
-                $log.debug("Procesando BaseResponse....");
-                if (data && data.messages) {
-                    for (var msg in data.messages) {
-                        $rootScope.vm.serverMessages.push(data.messages[msg]);
-                    }
-                }
-                // END TODO
-            })
-            .error(function (data, status, headers, config) {
-                //TODO - SUSTITUÍR POR FUNCIÓN DE PROCESS BASE RESPONSE
-                $log.debug("Procesando BaseResponse....");
-                if (data && data.messages) {
-                    for (var msg in data.messages) {
-                        $rootScope.vm.serverMessages.push(data.messages[msg]);
-                    }
-                }
-                // END TODO
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-            });
-    };
-
-    this.getClosingAditionalDataList = function(data, status, heathers, config) {
-        $log.debug("Load Closing Aditional Data List");
-        $http({
-            method: 'GET',
+            method: 'PUT',
             url: 'commons/getClosingAditionalDataList'
         })
             .success(function (data, status, headers, config) {
                 $log.debug('Loaded Closing Aditional Data List', data);
                 $rootScope.datosAdicionalesList = data.pairList;
-                //TODO - SUSTITUÍR POR FUNCIÓN DE PROCESS BASE RESPONSE
-                $log.debug("Procesando BaseResponse....");
-                if (data && data.messages) {
-                    for (var msg in data.messages) {
-                        $rootScope.vm.serverMessages.push(data.messages[msg]);
-                    }
-                }
-                // END TODO
+                service.processBaseResponse(data, status, headers, config);
             })
             .error(function (data, status, headers, config) {
-                //TODO - SUSTITUÍR POR FUNCIÓN DE PROCESS BASE RESPONSE
-                $log.debug("Procesando BaseResponse....");
-                if (data && data.messages) {
-                    for (var msg in data.messages) {
-                        $rootScope.vm.serverMessages.push(data.messages[msg]);
-                    }
-                }
-                // END TODO
+                service.processBaseResponse(data, status, headers, config);
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
     };
 
-    this.loadInstallationData = function(installationId,data, status, heathers, config){
+    this.loadInstallationData = function(installationId,data, status, headers, config){
         $log.debug("Search Installation. ID: " + installationId);
         $http({
             method: 'GET',
@@ -365,26 +303,12 @@ app.service('CommonService', function ($rootScope, $log, $http) {
             success(function (data, status, headers, config) {
                 $log.debug("Installation data found: " ,data.installationData);
                 $rootScope.installationData = data.installationData;
-                //TODO - SUSTITUÍR POR FUNCIÓN DE PROCESS BASE RESPONSE
-                $log.debug("Procesando BaseResponse....");
-                if (data && data.messages) {
-                    for (var msg in data.messages) {
-                        $rootScope.vm.serverMessages.push(data.messages[msg]);
-                    }
-                }
-                // END TODO
+                service.processBaseResponse(data, status, headers, config);
             }).
             error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
-                //TODO - SUSTITUÍR POR FUNCIÓN DE PROCESS BASE RESPONSE
-                $log.debug("Procesando BaseResponse....");
-                if (data && data.messages) {
-                    for (var msg in data.messages) {
-                        $rootScope.vm.serverMessages.push(data.messages[msg]);
-                    }
-                }
-                // END TODO
+                service.processBaseResponse(data, status, headers, config);
                 $log.debug("Error in Installation data search");
             });
         $log.debug("Installation data loaded...")

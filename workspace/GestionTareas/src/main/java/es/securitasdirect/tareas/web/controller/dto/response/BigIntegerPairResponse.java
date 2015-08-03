@@ -1,8 +1,8 @@
 package es.securitasdirect.tareas.web.controller.dto.response;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import es.securitasdirect.tareas.model.external.BigIntegerPair;
 import es.securitasdirect.tareas.model.external.Pair;
-import es.securitasdirect.tareas.model.external.StringPair;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
 import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
 
@@ -13,27 +13,27 @@ import java.util.List;
  * Almacena los campos propios de la respuesta para tarea de aviso
  */
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
-public class PairListResponse extends TareaResponse {
+public class BigIntegerPairResponse extends TareaResponse {
 
-    public PairListResponse(){}
+    public BigIntegerPairResponse(){}
 
-    public PairListResponse(BaseResponse baseResponse){
+    public BigIntegerPairResponse(BaseResponse baseResponse){
         super.setMessages(baseResponse.getMessages());
     }
 
-    private List<Pair> pairList;
+    private List<BigIntegerPair> pairList;
 
-    public List<Pair> getPairList() {
+    public List<BigIntegerPair> getPairList() {
         return pairList;
     }
 
-    public void setPairList(List<Pair> pairList) {
+    public void setPairList(List<BigIntegerPair> pairList) {
         this.pairList = pairList;
     }
 
     @Override
     public String toString() {
-        return "PairListResponse{" +
+        return "BigIntegerPair{" +
                 "pairList=" + pairList +
                 '}';
     }
