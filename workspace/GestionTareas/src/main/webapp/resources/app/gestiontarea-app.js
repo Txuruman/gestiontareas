@@ -14,17 +14,17 @@ app.controller('DelayModalInstanceCtrl', function ($scope, $modalInstance, $log)
 
 
     $scope.ok = function () {
-        //Llama a la función de result.then de DelayModalCtrl
-        if ($scope.delayDate && $scope.delayTime) {
-            $scope.delayDate.setHours($scope.delayTime.getHours(), $scope.delayTime.getMinutes(), 0, 0);
-        }
-        $log.debug("Selected delay info :" + $scope.delayInfo );
-        $modalInstance.close($scope.delayInfo);
-    };
+            //Llama a la función de result.then de DelayModalCtrl
+            if ($scope.delayDate && $scope.delayTime) {
+                $scope.delayDate.setHours($scope.delayTime.getHours(), $scope.delayTime.getMinutes(), 0, 0);
+            }
+            $log.debug("Selected delay info :" + $scope.delayInfo );
+            $modalInstance.close($scope.delayInfo);
+        };
 
-    $scope.cancel = function () {
-        //Llama a la funcion result.then de DelayModalCtrl
-        $modalInstance.dismiss('cancel');
+        $scope.cancel = function () {
+            //Llama a la funcion result.then de DelayModalCtrl
+            $modalInstance.dismiss('cancel');
     };
 });
 
