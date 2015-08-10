@@ -53,7 +53,7 @@
                 </div>
 
             </div>
-            qwerty
+
             <div class="spacer_t2"></div>
             <div class="row">
                 <!-- Tabla de Tareas -->
