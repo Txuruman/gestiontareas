@@ -13,12 +13,14 @@ import java.util.List;
  * Almacena los campos propios de la respuesta para tarea de aviso
  */
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
-public class PairListResponse extends TareaResponse {
+public class PairListResponse extends BaseResponse {
 
     public PairListResponse(){}
 
     public PairListResponse(BaseResponse baseResponse){
-        super.setMessages(baseResponse.getMessages());
+        if(baseResponse!=null){
+            super.setMessages(baseResponse.getMessages());
+        }
     }
 
     private List<Pair> pairList;
@@ -34,7 +36,8 @@ public class PairListResponse extends TareaResponse {
     @Override
     public String toString() {
         return "PairListResponse{" +
-                "pairList=" + pairList +
+                "messages=" + super.getMessages() + ", " +
+                "pairList=" + pairList + ", " +
                 '}';
     }
 }

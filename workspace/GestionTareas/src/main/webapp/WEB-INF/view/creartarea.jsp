@@ -26,7 +26,7 @@
                 <!-- row -->
                 <div class="spacer_t1"></div>
                 <div class="row">
-                    <app:inputTextNG id="requiredBy" value="createTaskModel.requiredBy" label="createtask.requiredby" cells="6"/>
+                    <app:inputTextNG id="requiredBy" value="createTaskModel.requiredBy" label="createtask.requiredby" cells="6" />
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <app:inputTextNG id="hourfrom" value="createTaskModel.hourFrom" cells="6" label="createtask.hour.from"/>
                         <app:inputTextNG id="hourfrom" value="createTaskModel.hourTo" cells="6" label="createtask.hour.to"/>

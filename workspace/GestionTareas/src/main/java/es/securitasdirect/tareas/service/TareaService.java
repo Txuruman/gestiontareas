@@ -68,8 +68,40 @@ public class TareaService {
         return true;
     }
 
+    public boolean createTask(Tarea tarea){
+        LOGGER.debug("Creating task: {}", tarea);
+        boolean result;
+        try{
+            //TODO Llamada WS crear tarea
+            //TODO establecer criterio de OK y KO
+            if(true){
+                result = true;
+            }else{
+                result = false;
+            }
+        }catch(Exception e){
+            LOGGER.error("Error creating task: {}", e);
+            result = false;
+        }
+        return result;
+    }
 
 
-
-
+    public boolean createMaintenance(Tarea task) {
+        LOGGER.debug("Creating maintenance: {}", task);
+        boolean result;
+        try{
+            //TODO Llamada WS crear tarea
+            //TODO establecer criterio de OK y KO
+            if(true){
+                result = true;
+            }else{
+                result = false;
+            }
+        }catch(Exception e){
+            LOGGER.error("Error creating maintenance: {}", e);
+            result = false;
+        }
+        return result;
+    }
 }

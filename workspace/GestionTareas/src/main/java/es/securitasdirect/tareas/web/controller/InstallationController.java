@@ -68,6 +68,7 @@ public class InstallationController extends BaseController {
     }
 
     public InstallationDataResponse processException(Exception e){
-        return new InstallationDataResponse(super.processException(e, "installationData.error"));
+        String SERVICE_MESSAGE = "installationData";
+        return new InstallationDataResponse(super.processException(e, SERVICE_MESSAGE));
     }
 }

@@ -1,6 +1,5 @@
 package es.securitasdirect.tareas.service;
 
-import es.securitasdirect.tareas.model.DummyGenerator;
 import es.securitasdirect.tareas.model.InstallationData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,6 +70,4 @@ public class InstallationService {
             return data;
         }
     }
-
-
 }

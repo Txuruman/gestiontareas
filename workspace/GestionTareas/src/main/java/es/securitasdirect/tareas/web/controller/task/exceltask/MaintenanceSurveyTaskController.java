@@ -42,14 +42,15 @@ public class MaintenanceSurveyTaskController extends TaskController {
         @RequestParam(value = "callingList", required = true) String callingList,
         @RequestParam(value = "tareaId", required = true) String tareaId
     )  {
+        String TASK_SERVICE_MESSAGE = "maintenanceSurveyTask.getTask";
         TareaResponse response;
         LOGGER.debug("Get maintenance survey task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
         try{
             MaintenanceSurveyTask tarea = (MaintenanceSurveyTask) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
             LOGGER.debug("Maintenance survey task obtained from service: \n{}", tarea);
-            response = processSuccessTask(tarea, "maintenanceSurveyTask.getTask");
+            response = processSuccessTask(tarea,TASK_SERVICE_MESSAGE );
         }catch(Exception e){
-            response = processException(e, "maintenanceSurveyTask.getTask");
+            response = processException(e,TASK_SERVICE_MESSAGE);
         }
         return response;
     }
@@ -62,18 +63,20 @@ public class MaintenanceSurveyTaskController extends TaskController {
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
     ) {
+        String TASK_SERVICE_MESSAGE = "maintenanceSurveyTask.getTask";
         TareaResponse response = new TareaResponse();
         LOGGER.debug("Get maintenance survey task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
         try{
             MaintenanceSurveyTask tarea = (MaintenanceSurveyTask) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-            TareaResponse tareaResponse = processSuccessTask(tarea, "maintenanceSurveyTask.getTask");
+            TareaResponse tareaResponse = processSuccessTask(tarea, TASK_SERVICE_MESSAGE);
             response.addMessages(tareaResponse.getMessages());
             response.setTarea(tareaResponse.getTarea());
             LOGGER.debug("Maintenance survey task obtained from service: \n{}", tarea);
         }catch(Exception e){
-            TareaResponse tareaResponse = processException(e, "maintenanceSurveyTask.getTask.error");
+            TareaResponse tareaResponse = processException(e, TASK_SERVICE_MESSAGE);
             response.addMessages(tareaResponse.getMessages());
         }
+        String INSTALLATION_SERVICE_MESSAGE = "installationData";
         LOGGER.debug("Get installation data for params: \ninstallationId: {}", installationId);
         try{
             InstallationData installationData = installationDataService.getInstallationData(installationId);
@@ -82,7 +85,7 @@ public class MaintenanceSurveyTaskController extends TaskController {
             response.setInstallationData(installationResponse.getInstallationData());
             LOGGER.debug("Installation data obtained from service: \n{}", installationData);
         }catch(Exception e){
-            TareaResponse installationResponse = processException(e, "installationData.error");
+            TareaResponse installationResponse = processException(e, INSTALLATION_SERVICE_MESSAGE);
             response.addMessages(installationResponse.getMessages());
         }
         return response;

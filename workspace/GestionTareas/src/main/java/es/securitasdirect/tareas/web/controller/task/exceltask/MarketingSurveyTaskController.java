@@ -45,14 +45,15 @@ public class MarketingSurveyTaskController extends TaskController {
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
     ) {
+        String SERVICE_MESSAGE = "marketingSurveyTask.getTask";
         LOGGER.debug("Get maintenance survey task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
         TareaResponse response;
         try{
             MarketingSurveyTask tarea = (MarketingSurveyTask) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-            response = processSuccessTask(tarea, "marketingSurveyTask.getTask");
+            response = processSuccessTask(tarea,SERVICE_MESSAGE );
             LOGGER.debug("Marketing survey task obtained from service: \n{}", tarea);
         }catch(Exception e){
-            response = processException(e, "marketingSurveyTask.getTask.error");
+            response = processException(e, SERVICE_MESSAGE);
         }
         return response;
     }
@@ -90,17 +91,19 @@ public class MarketingSurveyTaskController extends TaskController {
             @RequestParam(value = "tareaId", required = true) String tareaId
     ){
         LOGGER.debug("Get marketing survey task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
+        String TASK_SERVICE_MESSAGE =  "marketingSurveyTask.getTask";
         TareaResponse response = new TareaResponse();
         try{
             MarketingSurveyTask task = (MarketingSurveyTask) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-            TareaResponse tareaResponse = processSuccessTask(task,"marketingSurveyTask.getTask");
+            TareaResponse tareaResponse = processSuccessTask(task,TASK_SERVICE_MESSAGE);
             response.addMessages(tareaResponse.getMessages());
             response.setTarea(tareaResponse.getTarea());
             LOGGER.debug("Marketing survey task obtained from service: \n{}", task);
         }catch(Exception e) {
-            TareaResponse tareaResponse = processException(e, "marketingSurveyTask.getTask.error");
+            TareaResponse tareaResponse = processException(e, TASK_SERVICE_MESSAGE);
             response.addMessages(tareaResponse.getMessages());
         }
+        String INSTALLATION_SERVICE_MESSAGE = "installationData";
         LOGGER.debug("Get installation data for params: \ninstallationId: {}", installationId);
         try{
             InstallationData installationData = installationDataService.getInstallationData(installationId);
@@ -109,7 +112,7 @@ public class MarketingSurveyTaskController extends TaskController {
             response.addMessages(installationResponse.getMessages());
             response.setInstallationData(installationResponse.getInstallationData());
         }catch(Exception e){
-            TareaResponse installationResponse = processException(e, "installationData.error");
+            TareaResponse installationResponse = processException(e, INSTALLATION_SERVICE_MESSAGE);
             response.addMessages(installationResponse.getMessages());
         }
         return response;

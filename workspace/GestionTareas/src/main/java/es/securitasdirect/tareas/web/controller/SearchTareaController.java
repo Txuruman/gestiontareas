@@ -7,18 +7,17 @@ import javax.servlet.http.HttpServletResponse;
 import es.securitasdirect.tareas.model.Tarea;
 import es.securitasdirect.tareas.service.SearchTareaService;
 import es.securitasdirect.tareas.web.controller.dto.SearchTareaResponse;
+import es.securitasdirect.tareas.web.controller.dto.request.searchtask.SearchTaskRequest;
 import es.securitasdirect.tareas.web.controller.util.MessageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -41,11 +40,19 @@ public class SearchTareaController {
     }
 
 
-    @RequestMapping(value = "/query", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+    @RequestMapping(value = "/query", method = RequestMethod.PUT, consumes={MediaType.APPLICATION_JSON_VALUE}, produces = { MediaType.APPLICATION_JSON_VALUE })
     public @ResponseBody
-    SearchTareaResponse query(@RequestParam(value = "searchText", required = false) String searchText, @RequestParam(value = "searchOption", required = false) String searchOption) {
-        LOGGER.debug("Searching Tareas text:{} option:{}", searchText, searchOption);
-        List<Tarea> listaTareas = searchTareaService.findByfindByPhone("652696869");
+    SearchTareaResponse query(@RequestBody SearchTaskRequest request) {
+        LOGGER.debug("Searching Tareas text:{} option:{}", request.getSearchText(), request.getSearchOption());
+        List<Tarea> listaTareas;
+        if(request.getSearchOption().equals(SearchTaskRequest.TELEPHONE)){
+            listaTareas = searchTareaService.findByPhone(request.getSearchText());
+        }else if(request.getSearchOption().equals(SearchTaskRequest.CLIENT)){
+            listaTareas = searchTareaService.findByClient(request.getSearchText());
+        }else{
+            listaTareas = new ArrayList<Tarea>();
+        }
+
         SearchTareaResponse searchTareaResponse = new SearchTareaResponse();
 
         if(listaTareas!=null && !listaTareas.isEmpty()){

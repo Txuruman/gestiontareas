@@ -6,32 +6,7 @@
 
 <div ng-controller="notificationtask" ng-init="init()">
     <jsp:include page="instalacion.jsp"/>
-    <div class="row bordel">
-        <h3> DEBUG DIV </h3>
-        <app:wrapping cells="6">
-            <h4> JSP VARIABLES</h4>
-            Secundaria:${secundaria}<br/>
-            Installation:${installationId}<br/>
-            callingList:${callingList}<br/>
-            ccUserId:${ccUserId}<br/>
-            idTarea:${tareaId}<br/>
-        </app:wrapping>
-        <app:wrapping cells="6">
-            <h4> ANGULAR VARIABLES</h4>
-            Installation:{{installationId}}<br/>
-            callingList:{{callingList}}<br/>
-            ccUserId:{{ccUserId}}<br/>
-            idTarea:{{tareaId}}<br/>
-        </app:wrapping>
-        <div clas="row">
-            Tarea:{{tarea}}
-        </div>
-        <div clas="row">
-            Motivo Aviso Lists:<br/>1:{{motivoList1}}
-            <br/>2:{{motivoList2}}
-            <br/>3:{{motivoList3}}
-        </div>
-    </div>
+
     <div class="panel panel-default">
         <div class="panel-body">
             <div class="spacer_t2"></div>
@@ -40,7 +15,6 @@
                 <app:inputDate id="fechaCreacion" label="tareaAviso.fechaCreacion" value="tarea.fechaCreacion"  cells="6" readonly="false"/>
             </div>
             <div class="row">
-                FechaCreacion: {{tarea.fechaCreacion}}
             </div>
             <div class="spacer_t1"></div>
             <div class="row">
@@ -49,14 +23,6 @@
                 <app:inputTextNG id="horarioHasta" label="tareaAviso.horarioHasta" value="tarea.horarioHasta" cells="3" readonly="false"/>
             </div>
             <div class="spacer_t1"></div>
-            <div class="row">
-                <app:wrapping cells="6">Tipo aviso 1: {{tarea.tipoAviso1}}</app:wrapping>
-                <app:wrapping cells="6">Motivo 1: {{tarea.motivo1}}</app:wrapping>
-                <app:wrapping cells="6">Tipo aviso 2: {{tarea.tipoAviso2}}</app:wrapping>
-                <app:wrapping cells="6">Motivo 2: {{tarea.motivo2}}</app:wrapping>
-                <app:wrapping cells="6">Tipo aviso 3: {{tarea.tipoAviso3}}</app:wrapping>
-                <app:wrapping cells="6">Motivo 3: {{tarea.motivo3}}</app:wrapping>
-            </div>
             <div class="row">
                 <app:input id="tipoAviso1" label="eti.visortarea.form.label.tipo" cells="6">
                     <select  ng-model="tarea.tipoAviso1" convert-to-number class="form-control">
@@ -96,10 +62,6 @@
                 </app:input>
             </div>
             <!-- row -->
-            <div class="row">
-                <app:wrapping cells="6">Cierre: {{tarea.closing}}</app:wrapping>
-                <app:wrapping cells="6">Datos adicionales: {{tarea.datosAdicionalesCierre}}</app:wrapping>
-            </div>
             <div class="spacer_t1"></div>
             <div class="row">
                 <app:input id="closing" label="notificationtask.closing" cells="6" readonly="false">
@@ -126,16 +88,6 @@
 
     <!-- Botones Tarea Aviso -->
     <jsp:include page="btn_avisos.jsp"/>
-
-
-
-
-
-
-
-
-
-
 </div>
 <script src="${pageContext.request.contextPath}/resources/app/component/notificationTask-ctrl.js"></script>
 

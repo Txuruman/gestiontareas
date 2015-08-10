@@ -47,17 +47,16 @@ public class NotificationTaskController extends TaskController {
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
     ) {
+        String SERVICE_MESSAGE = "notificationTask.getTask";
         LOGGER.debug("Get notification task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}",ccUserId, callingList, tareaId);
         TareaResponse response;
         try{
             TareaAviso task = (TareaAviso)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
             LOGGER.debug("Notification task obtained from service:");
-            response = super.processSuccessTask(task, "notificationTask.getTask");
+            response = super.processSuccessTask(task, SERVICE_MESSAGE);
         }catch(Exception e){
             //EN el caso de obtener una excepción, se realiza el procesamiento de la excepción que añade los errores correspondientes, y se incluye en la respuesta.
-            BaseResponse exceptionResponse = processException(e, messageUtil.getProperty("notificationTask.getTask.error"));
-            response = new TareaResponse();
-            response.addMessages(exceptionResponse.getMessages());
+            response = new TareaResponse(processException(e, SERVICE_MESSAGE));
         }
         return response;
     }
@@ -75,13 +74,14 @@ public class NotificationTaskController extends TaskController {
         LOGGER.debug("Get notification task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}",ccUserId, callingList, tareaId);
         NotificationTaskResponse response = new NotificationTaskResponse();
         TareaAviso task = null;
+        String TASK_SERVICE_MESSAGE = "notificationTask.getTask";
         try{
             task = (TareaAviso)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-            TareaResponse taskResponse = processSuccessTask(task,"notificationTask.getTask");
+            TareaResponse taskResponse = processSuccessTask(task,TASK_SERVICE_MESSAGE);
             response.addMessages(taskResponse.getMessages());
             response.setTarea(taskResponse.getTarea());
         }catch(Exception e){
-            response = new NotificationTaskResponse(processException(e, "notificationTask.getTask.error"));
+            response = new NotificationTaskResponse(processException(e, TASK_SERVICE_MESSAGE));
         }
         if(task!=null){
             LOGGER.debug("Notification task obtained from service: \n{}", task);
@@ -90,13 +90,14 @@ public class NotificationTaskController extends TaskController {
         }
         LOGGER.debug("Get installation data for params: \ninstallationId: {}", installationId);
         InstallationData installationData = null;
+        String INSTALLATION_SERVICE_MESSAGE = "installationData";
         try{
             installationData = installationDataService.getInstallationData(installationId);
             TareaResponse installationResponse = processSuccessInstallation(installationData);
             response.addMessages(installationResponse.getMessages());
             response.setInstallationData(installationResponse.getInstallationData());
         }catch(Exception e){
-            response = new NotificationTaskResponse(processException(e, "installationData.error"));
+            response = new NotificationTaskResponse(processException(e, INSTALLATION_SERVICE_MESSAGE));
         }
         if(installationData!=null){
             LOGGER.debug("Installation data obtained from service: \n{}", installationData);
@@ -111,15 +112,16 @@ public class NotificationTaskController extends TaskController {
     public
     @ResponseBody
     PairListResponse getClosing() {
+        String SERVICE_MESSAGE = "notificationtask.getclosing";
         PairListResponse response;
         List<Pair> closingList = null;
         try{
             closingList = externalDataService.dummyPairList();
             response = new PairListResponse();
             response.setPairList(closingList);
-            response.success("notificationtask.getclosing.success");
+            //processresponse
         }catch(Exception e){
-            response = new PairListResponse(processException(e, "notificationtask.getclosing.error"));
+            response = new PairListResponse(processException(e,SERVICE_MESSAGE));
         }
         return response;
     }

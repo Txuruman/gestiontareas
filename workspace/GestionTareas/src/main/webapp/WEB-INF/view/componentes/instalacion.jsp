@@ -15,19 +15,19 @@
 
         <div class="spacer_t1"></div>
         <div class="row">
-            <app:inputTextNG id="personaContacto" label="visortarea.personacontacto"
-                             value="tarea.personaContacto" cells="6" readonly="true"/>
             <app:inputTextNG id="panel" label="visortarea.panel" value="installationData.panel" cells="6"
                              readonly="true"/>
+            <app:inputTextNG id="version" label="visortarea.version" value="installationData.version" cells="6"
+                             readonly="true" />
         </div>
 
         <div class="spacer_t1"></div>
 
         <div class="row">
+            <app:inputTextNG id="personaContacto" label="visortarea.personacontacto"
+                             value="tarea.personaContacto" cells="6" readonly="false"/>
             <app:inputTextNG id="telefono" label="visortarea.telefono" value="tarea.telefono" cells="6"
-                             readonly="true"/>
-            <app:inputTextNG id="version" label="visortarea.version" value="installationData.version" cells="6"
-                             readonly="true"/>
+                             readonly="false" type="number"/>
         </div>
         <!-- Datos de la Instalacion  - End -->
     </div>

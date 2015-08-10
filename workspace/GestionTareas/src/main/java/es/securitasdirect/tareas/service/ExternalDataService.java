@@ -165,10 +165,11 @@ public class ExternalDataService {
         LOGGER.debug("Calling for closing type aditional data list, params: closingTypeId: {}", closingTypeId);
         List<Pair> result = new ArrayList<Pair>();
         if(closingTypeId!=null){
-            //List<Tipomotivo> wsResult= spAioTareas2.getClosingTypeAditionalData(closingTypeId);
-            //for (Tipomotivo tipomotivo : wsResult) {
-                result.add(new Pair(0, ""));
-            //}
+            List<TipoDatosAdicionalesTipoCierre> tiposDatosAdicionalesTipoCierreList = spAioTareas2.getClosingTypeAditionalData(closingTypeId.toString());
+            for (TipoDatosAdicionalesTipoCierre tipoDatosAdicionalesTipoCierre : tiposDatosAdicionalesTipoCierreList) {
+                result.add(new Pair(Integer.parseInt(tipoDatosAdicionalesTipoCierre.getId()), tipoDatosAdicionalesTipoCierre.getValor()));
+                //TODO ver tipos de retorno de datos (CONSULTA WS)
+            }
             LOGGER.debug("Closing type aditional data list reponse: {}", result);
         }else {
             LOGGER.warn("Not informed parameters for  closing type aditional data list query, params: closingTypeId: {}", closingTypeId);

@@ -6,16 +6,13 @@ import es.securitasdirect.tareas.model.external.Pair;
 import es.securitasdirect.tareas.service.ExternalDataService;
 import es.securitasdirect.tareas.service.InstallationService;
 import es.securitasdirect.tareas.service.QueryTareaService;
-import es.securitasdirect.tareas.web.controller.BaseController;
 import es.securitasdirect.tareas.web.controller.TaskController;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
 import es.securitasdirect.tareas.web.controller.dto.request.maintenancetask.MaintenanceTaskCreateRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.maintenancetask.MaintenanceTaskFinalizeRequest;
 import es.securitasdirect.tareas.web.controller.dto.response.PairListResponse;
-import es.securitasdirect.tareas.web.controller.dto.support.BaseRequest;
 import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
 import es.securitasdirect.tareas.web.controller.dto.support.DummyResponseGenerator;
-import es.securitasdirect.tareas.web.controller.util.MessageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -54,12 +51,13 @@ public class MaintenanceTaskController extends TaskController {
     ) throws DataServiceFault {
         LOGGER.debug("Get maintenance task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
         TareaResponse response;
+        String SERVICE_MESSAGE = "maintenancetask.gettarea";
         try{
             TareaMantenimiento tareaMantenimiento = (TareaMantenimiento) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-            response = processSuccessTask(tareaMantenimiento,"maintenancetask.gettarea");
+            response = processSuccessTask(tareaMantenimiento,SERVICE_MESSAGE);
             LOGGER.debug("Maintenance task obtained from service: \n{}", tareaMantenimiento);
         }catch(Exception e){
-            response = new TareaResponse(processException(e, "maintenancetask.gettarea.error"));
+            response = new TareaResponse(processException(e, SERVICE_MESSAGE));
         }
         return response;
     }
@@ -70,17 +68,19 @@ public class MaintenanceTaskController extends TaskController {
         @RequestParam(value = "ccUserId", required = true) String ccUserId,
         @RequestParam(value = "callingList", required = true) String callingList,
         @RequestParam(value = "tareaId", required = true) String tareaId
-    ) throws DataServiceFault {
+    ) {
+        String TASK_SERVICE_MESSAGE = "maintenanceTask.getTask";
         LOGGER.debug("Get maintenance task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
         TareaResponse response;
         try{
             TareaMantenimiento tareaMantenimiento = (TareaMantenimiento) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-            response = processSuccessTask(tareaMantenimiento, "maintenanceTask.getTask");
+            response = processSuccessTask(tareaMantenimiento,TASK_SERVICE_MESSAGE);
             LOGGER.debug("Maintenance task obtained from service: \n{}", tareaMantenimiento);
         }catch(Exception e){
-            response = new TareaResponse(processException(e, "maintenanceTask.getTask.error"));
+            response = new TareaResponse(processException(e, TASK_SERVICE_MESSAGE));
         }
         LOGGER.debug("Get installation data for params: \ninstallationId: {}", installationId);
+        String INSTALLATION_SERVICE_MESSAGE = "installationData";
         try{
             InstallationData installationData = installationDataService.getInstallationData(installationId);
             TareaResponse installationResponse = processSuccessInstallation(installationData);
@@ -88,7 +88,7 @@ public class MaintenanceTaskController extends TaskController {
             response.setInstallationData(installationResponse.getInstallationData());
             LOGGER.debug("Installation data obtained from service: \n{}", installationData);
         }catch (Exception e){
-            TareaResponse installationResponse = new TareaResponse(processException(e, "installationData.error"));
+            TareaResponse installationResponse = new TareaResponse(processException(e, INSTALLATION_SERVICE_MESSAGE));
             response.addMessages(installationResponse.getMessages());
         }
         return response;
@@ -122,13 +122,14 @@ public class MaintenanceTaskController extends TaskController {
     public
     @ResponseBody
     PairListResponse getDesplegableKey1() {
+        String SERVICE_MESSAGE = "maintenanceTask.getDesplegableKey1";
         PairListResponse response;
         try{
             List<Pair> desplegableKey1 = externalDataService.getDesplegableKey1();
-            response = new PairListResponse(processSuccess(desplegableKey1, "maintenanceTask.getDesplegableKey1"));
+            response = new PairListResponse(processSuccessMessages(desplegableKey1,SERVICE_MESSAGE ));
             response.setPairList(desplegableKey1);
         }catch(Exception e){
-            response = new PairListResponse(processException(e, "maintenanceTask.getDesplegableKey1.error"));
+            response = new PairListResponse(processException(e, SERVICE_MESSAGE));
         }
         return response;
     }
@@ -137,13 +138,14 @@ public class MaintenanceTaskController extends TaskController {
     public
     @ResponseBody
     PairListResponse getDesplegableKey2(@RequestParam(value = "key1", required = true) Integer key1)  {
+        String SERVICE_MESSAGE =  "maintenanceTask.getDesplegableKey2";
         PairListResponse response;
         try{
             List<Pair> desplegableKey2 = externalDataService.getDesplegableKey2(key1);
-            response = new PairListResponse(processSuccess(desplegableKey2, "maintenanceTask.getDesplegableKey2"));
+            response = new PairListResponse(processSuccessMessages(desplegableKey2,SERVICE_MESSAGE));
             response.setPairList(desplegableKey2);
         }catch(Exception e){
-            response = new PairListResponse(processException(e, "maintenanceTask.getDesplegableKey2.error"));
+            response = new PairListResponse(processException(e, SERVICE_MESSAGE));
         }
         return response;
     }
@@ -151,14 +153,15 @@ public class MaintenanceTaskController extends TaskController {
     @RequestMapping(value = "/getCancelationType", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    PairListResponse getCancelationType() {
+    PairListResponse getCancelationType(){
+        String SERVICE_MESSAGE = "maintenanceTask.cancelationTypeList";
         PairListResponse response;
         try{
             List<Pair> cancelationTypeList = externalDataService.getCancelationType();
-            response = new PairListResponse(processSuccess(cancelationTypeList, "maintenanceTask.cancelationTypeList"));
+            response = new PairListResponse(processSuccessMessages(cancelationTypeList, SERVICE_MESSAGE));
             response.setPairList(cancelationTypeList);
         }catch(Exception e){
-            response = new PairListResponse(processException(e, "maintenanceTask.cancelationTypeList.error"));
+            response = new PairListResponse(processException(e, SERVICE_MESSAGE));
         }
         return response;
     }

@@ -13,7 +13,7 @@ import java.util.List;
  * Almacena los campos propios de la respuesta para tarea de aviso
  */
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
-public class BigIntegerPairResponse extends TareaResponse {
+public class BigIntegerPairResponse extends BaseResponse {
 
     public BigIntegerPairResponse(){}
 

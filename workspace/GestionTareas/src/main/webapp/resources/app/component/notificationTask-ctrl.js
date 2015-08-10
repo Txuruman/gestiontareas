@@ -1,6 +1,5 @@
 app.controller('notificationtask', function ($scope, $http, CommonService, $modal, $log) {
-
-    var controller = this;
+    var controllerVar = this;
 
     $scope.logTarea = function () {
         $log.debug("Tarea: " + $scope.tarea);
@@ -13,7 +12,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
         var modalInstance = $modal.open({
             animation: false, //Indica si animamos el modal
             templateUrl: 'deplayModalContent.html', //HTML del modal
-            controller: 'DelayModalInstanceCtrl',  //Referencia al controller especifico para el modal
+            controllerVar: 'DelayModalInstanceCtrl',  //Referencia al controller especifico para el modal
             size: size,
             resolve: {
                 //Creo que esto es para pasar parametros al controller interno
@@ -89,22 +88,87 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 CommonService.processBaseResponse(data, status, headers, config);
                 $scope.tarea = data.tarea;
                 $scope.installationData = data.installationData;
-                CommonService.getNotificationTypeList();
-                controller.getTypeReasonList1($scope.tarea.tipoAviso1);
-                controller.getTypeReasonList2($scope.tarea.tipoAviso2);
-                controller.getTypeReasonList3($scope.tarea.tipoAviso3);
+                controllerVar.getNotificationTypeList();
+                controllerVar.getTypeReasonList1($scope.tarea.tipoAviso1);
+                controllerVar.getTypeReasonList2($scope.tarea.tipoAviso2);
+                controllerVar.getTypeReasonList3($scope.tarea.tipoAviso3);
                 $log.debug("Motivo lists: ",$scope.motivoList1,$scope.motivoList2,$scope.motivoList3);
                 $log.debug("SCOPE TAREA:", $scope.tarea);
                 $log.debug("Get closing list params: " + $scope.tarea.tipoAviso1 + ", " + $scope.tarea.motivo1);
-                CommonService.getClosingList($scope.tarea.tipoAviso1, $scope.tarea.motivo1);
-                CommonService.getClosingAditionalDataList($scope);
+                controllerVar.getClosingList($scope.tarea.tipoAviso1, $scope.tarea.motivo1, $scope.tarea.closing);
             })
             .error(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
-        $log.debug("NotificationTask loaded...")
+        $log.debug("NotificationTask loaded...");
+    };
+
+    this.getClosingList = function(idType, reasonId, closing) {
+        $log.debug("Load Closing Type List for params: "+ idType + ", " + reasonId);
+        var closingTypeRequest = {
+            idType: idType,
+            reasonId: reasonId
+        };
+        $log.debug("Load Closing Type List Request: ", closingTypeRequest);
+        $http({
+            method: 'PUT',
+            url: 'commons/getClosingList',
+            data: closingTypeRequest
+        })
+            .success(function (data, status, headers, config) {
+                $log.debug('Loaded Closing Type List Response', data);
+                $scope.closingList = data.pairList;
+                CommonService.processBaseResponse(data, status, headers, config);
+                controllerVar.getClosingAditionalDataList(closing);
+            })
+            .error(function (data, status, headers, config) {
+                $log.error("Error loading Closing Type List");
+                CommonService.processBaseResponse(data, status, headers, config);
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+    };
+
+    this.getClosingAditionalDataList = function(closingTypeId) {
+        $log.debug("Load Closing Aditional Data List for param:", closingTypeId);
+        var closingAditionalDataRequest = {
+            closingTypeId: closingTypeId
+        };
+        $http({
+            method: 'PUT',
+            url: 'commons/getClosingAditionalDataList',
+            data: closingAditionalDataRequest
+        })
+            .success(function (data, status, headers, config) {
+                $log.debug('Loaded Closing Aditional Data List', data);
+                $scope.datosAdicionalesList = data.pairList;
+                CommonService.processBaseResponse(data, status, headers, config);
+            })
+            .error(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data, status, headers, config);
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
+    };
+
+    this.getNotificationTypeList = function() {
+        $log.debug("Load Notification Type List");
+        $http({
+            method: 'GET',
+            url: 'commons/getNotificationTypeList'
+        })
+            .success(function (data, status, headers, config) {
+                $log.debug('Loaded Notification Type List', data);
+                $scope.tipoAvisoList = data.pairList;
+                CommonService.processBaseResponse(data, status, headers, config);
+            })
+            .error(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data, status, headers, config);
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+            });
     };
 
     this.getTypeReasonList1 = function(typeId,data, status, headers, config) {
@@ -247,7 +311,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data, status, headers, config);
             });
-    }
+    };
 
     $scope.crearmantenimiento = function () {
         $log.debug('Crear mantenimiento, tarea: ' + JSON.stringify($scope.tarea));
@@ -271,7 +335,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data, status, headers, config);
             });
-    }
+    };
 
     $scope.descartar = function () {
         $log.debug('Descartar ' + $scope.tarea);
@@ -295,7 +359,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data, status, headers, config);
             });
-    }
+    };
 
     $scope.finalizar = function () {
         $log.debug('Finalizar, tarea: ' + $scope.tarea);
@@ -319,6 +383,5 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data, status, headers, config);
             });
-    }
-})
-;
+    };
+});

@@ -9,7 +9,6 @@ import es.securitasdirect.tareas.service.QueryTareaService;
 import es.securitasdirect.tareas.service.TareaService;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
 import es.securitasdirect.tareas.web.controller.dto.response.PairListResponse;
-import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
 import es.securitasdirect.tareas.web.controller.params.ExternalParams;
 import es.securitasdirect.tareas.web.controller.task.exceltask.CommonExcelTaskController;
 import es.securitasdirect.tareas.web.controller.util.MessageUtil;
@@ -177,15 +176,16 @@ public class VisorTareaController extends TaskController {
     public
     @ResponseBody
     PairListResponse getClosingReason()  {
+        String SERVICE_MESSAGE = "exceltaskcommon.getclosigreason";
         PairListResponse response;
         LOGGER.debug("Calling external data service: getClosingReason");
         try{
             List<Pair> closingReasonList = externalDataService.getClosingReason();
-            response = new PairListResponse(processSuccess(closingReasonList, "exceltaskcommon.getclosigreason"));
+            response = new PairListResponse(processSuccessMessages(closingReasonList, SERVICE_MESSAGE));
             response.setPairList(closingReasonList);
             LOGGER.debug("Closing reason list: {}", closingReasonList);
         }catch(Exception e){
-            response = new PairListResponse(processException(e, "exceltaskcommon.getclosigreason.error"));
+            response = new PairListResponse(processException(e, SERVICE_MESSAGE));
         }
         return response;
     }
@@ -200,13 +200,14 @@ public class VisorTareaController extends TaskController {
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
     )  {
+        String SERVICE_MESSAGE = "maintenanncesurveytask.getmaintenancesurveytask";
         TareaResponse response;
         LOGGER.debug("Creating MaintenanceSurveyTask");
         try{
             MaintenanceSurveyTask task = (MaintenanceSurveyTask)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-            response = super.processSuccessTask(task, "maintenanncesurveytask.getmaintenancesurveytask");
+            response = super.processSuccessTask(task,SERVICE_MESSAGE);
         }catch(Exception e){
-            response = new TareaResponse(processException(e,"maintenanncesurveytask.getmaintenancesurveytask.error"));
+            response = new TareaResponse(processException(e,SERVICE_MESSAGE));
         }
         return response;
     }
@@ -219,14 +220,15 @@ public class VisorTareaController extends TaskController {
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
     )  {
+        String SERVICE_MESSAGE = "marketingsurvey.getmarketingsurveytask";
         LOGGER.debug("Get MarketingSurveyTask for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}",ccUserId, callingList, tareaId);
         TareaResponse response;
         try{
             MarketingSurveyTask task = (MarketingSurveyTask)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-            response = processSuccessTask(task,"marketingsurvey.getmarketingsurveytask");
+            response = processSuccessTask(task,SERVICE_MESSAGE);
             LOGGER.debug("Maintenance task obtained from service: \n{}", task);
         }catch(Exception e){
-            response = new TareaResponse(processException(e,"marketingsurveytask.getmarketingsurveytask.error"));
+            response = new TareaResponse(processException(e,SERVICE_MESSAGE));
         }
         return response;
     }
@@ -240,14 +242,15 @@ public class VisorTareaController extends TaskController {
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
     )  {
+        String SERVICE_MESSAGE = "keybox.getkeyboxtask";
         LOGGER.debug("Get maintenance task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}",ccUserId, callingList, tareaId);
         TareaResponse response;
         try{
             KeyboxTask task = (KeyboxTask)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-            response = processSuccessTask(task, "keybox.getkeyboxtask");
+            response = processSuccessTask(task,SERVICE_MESSAGE);
             LOGGER.debug("Maintenance task obtained from service: \n{}", task);
         }catch(Exception e){
-            response = new TareaResponse(processException(e, "keybox.getkeyboxtask.error"));
+            response = new TareaResponse(processException(e, SERVICE_MESSAGE));
         }
         return response;
     }
@@ -260,14 +263,15 @@ public class VisorTareaController extends TaskController {
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
     )  {
+        String SERVICE_MESSAGE = "anothercampaignstask.getanothercampaignstask";
         TareaResponse response;
         LOGGER.debug("Get maintenance task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}",ccUserId, callingList, tareaId);
         try{
             TareaOtrasCampanas task = (TareaOtrasCampanas)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-            response = processSuccessTask(task, "anothercampaignstask.getanothercampaignstask");
+            response = processSuccessTask(task, SERVICE_MESSAGE);
             LOGGER.debug("Maintenance task obtained from service: \n{}", task);
         }catch(Exception e){
-            response = new TareaResponse(processException(e, "anothercampaignstask.getanothercampaignstask.error"));
+            response = new TareaResponse(processException(e,SERVICE_MESSAGE));
         }
         return response;
     }
@@ -281,15 +285,16 @@ public class VisorTareaController extends TaskController {
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
     ) {
+        String SERVICE_MESSAGE = "feecleaningtask.getfeecleaningtask";
         LOGGER.debug("Creating FeeCleaningTask");
         LOGGER.debug("Get maintenance task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}",ccUserId, callingList, tareaId);
         TareaResponse response;
         try{
             TareaLimpiezaCuota task = (TareaLimpiezaCuota)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
             LOGGER.debug("Maintenance task obtained from service: \n{}", task);
-            response = super.processSuccessTask(task,"feecleaningtask.getfeecleaningtask");
+            response = super.processSuccessTask(task,SERVICE_MESSAGE);
         }catch(Exception e){
-            response = new TareaResponse(processException(e, "feecleaningtask.getfeecleaningtask.error"));
+            response = new TareaResponse(processException(e, SERVICE_MESSAGE));
         }
         return response;
     }
@@ -304,15 +309,16 @@ public class VisorTareaController extends TaskController {
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
     ) {
+        String SERVICE_MESSAGE = "tarealimpiezacuota.gettarealimpiezacuota";
         LOGGER.debug("Creating TareaLimpiezaCuota");
         LOGGER.debug("Get maintenance task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}",ccUserId, callingList, tareaId);
         TareaResponse response;
         try{
             TareaLimpiezaCuota task = (TareaLimpiezaCuota)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
             LOGGER.debug("Maintenance task obtained from service: \n{}", task);
-            response = processSuccessTask(task,"tarealimpiezacuota.gettarealimpiezacuota");
+            response = processSuccessTask(task,SERVICE_MESSAGE);
         }catch(Exception e){
-            response = new TareaResponse(processException(e, "tarealimpiezacuota.gettarealimpiezacuota.error"));
+            response = new TareaResponse(processException(e, SERVICE_MESSAGE));
         }
         return response;
     }
@@ -325,14 +331,15 @@ public class VisorTareaController extends TaskController {
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
     )  {
+        String SERVICE_MESSAGE = "listassistanttask.getlistassistanttask";
         LOGGER.debug("Get TareaListadoAssistant task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}",ccUserId, callingList, tareaId);
         TareaResponse response;
         try{
             TareaListadoAssistant task = (TareaListadoAssistant)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
             LOGGER.debug("TareaListadoAssistant obtained from service: \n{}", task);
-            response = processSuccessTask(task,"listassistanttask.getlistassistanttask");
+            response = processSuccessTask(task,SERVICE_MESSAGE);
         }catch (Exception e){
-            response = new TareaResponse(processException(e, "listassistanttask.getlistassistanttask.error"));
+            response = new TareaResponse(processException(e, SERVICE_MESSAGE));
         }
         return response;
     }

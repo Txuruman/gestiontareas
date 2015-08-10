@@ -1,5 +1,6 @@
 package es.securitasdirect.tareas.service;
 
+
 import es.securitasdirect.tareas.model.Tarea;
 import es.securitasdirect.tareas.model.TareaAviso;
 import es.securitasdirect.tareas.model.TareaMantenimiento;
@@ -23,9 +24,10 @@ public class SearchTareaService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SearchTareaService.class);
 
-    public List<Tarea> findByfindByPhone(String phone){
+    public List<Tarea> findByPhone(String phone){
         LOGGER.debug("Searching Tarea by Phone {}", phone);
         List<Tarea> tareas = createDummy();
+        LOGGER.debug("Found tareaList by Phone: {}, tareas");
         return tareas;
     }
 
@@ -35,11 +37,18 @@ public class SearchTareaService {
         return tareas;
     }
 
+    public List<Tarea> findByClient(String client){
+        LOGGER.debug("Searching Task by Client: {}", client);
+        List<Tarea> tareas = createDummy();
+        return tareas;
+    }
+
 
     private List<Tarea> createDummy() {
         LOGGER.warn("Creating dummy Tarea list");
         List<Tarea> tareas = new ArrayList<Tarea>();
         Tarea ejemploAviso = new TareaAviso();
+        ejemploAviso.setNumeroInstalacion("1234");
         ejemploAviso.setEstado("estado1");
         ejemploAviso.setTelefono("652696869");
         ejemploAviso.setCallingList("CC_CA_IL_500");
@@ -49,6 +58,7 @@ public class SearchTareaService {
         tareas.add(ejemploAviso);
 
         Tarea ejemploTareaMantenimiento = new TareaMantenimiento();
+        ejemploTareaMantenimiento.setNumeroInstalacion("12345");
         ejemploTareaMantenimiento.setEstado("estado2");
         ejemploTareaMantenimiento.setTelefono("652696789");
         ejemploTareaMantenimiento.setCallingList("CC_CA_IL_502");
@@ -58,6 +68,7 @@ public class SearchTareaService {
         tareas.add(ejemploTareaMantenimiento);
 
         Tarea ejemploTareaEncuestaMarketing = new MarketingSurveyTask();
+        ejemploTareaEncuestaMarketing.setNumeroInstalacion("123456");
         ejemploTareaEncuestaMarketing.setEstado("estado3");
         ejemploTareaEncuestaMarketing.setTelefono("652696478");
         ejemploTareaEncuestaMarketing.setCallingList("CC_CA_IL_510");
@@ -67,6 +78,7 @@ public class SearchTareaService {
         tareas.add(ejemploTareaEncuestaMarketing);
 
         Tarea ejemploTareaListadoAssistant = new TareaListadoAssistant();
+        ejemploTareaListadoAssistant.setNumeroInstalacion("1234567");
         ejemploTareaListadoAssistant.setEstado("estado4");
         ejemploTareaListadoAssistant.setTelefono("652696785");
         ejemploTareaListadoAssistant.setCallingList("CC_CA_IL_512");

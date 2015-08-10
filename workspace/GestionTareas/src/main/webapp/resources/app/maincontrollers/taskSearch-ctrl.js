@@ -2,10 +2,14 @@ app.controller('taskSearch', function ($scope, $http, CommonService) {
 
     $scope.searchTareaFromServer = function () {
         console.log('search Tareas ' + $scope.searchText +  ' ' + $scope.searchOption);
+        var searchTaskRequest = {
+            searchText: $scope.searchText,
+            searchOption: $scope.searchOption
+        };
         $http({
-                method: 'GET',
+                method: 'PUT',
                 url: 'searchtarea/query',
-                params: {searchText: $scope.searchText, searchOption: $scope.searchOption}
+                data: searchTaskRequest
             })
             .success(function (data, status, headers, config) {
                 $scope.taskList = data.taskList;

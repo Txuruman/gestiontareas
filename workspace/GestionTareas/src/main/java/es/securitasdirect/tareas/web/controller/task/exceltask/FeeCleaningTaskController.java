@@ -48,14 +48,15 @@ public class FeeCleaningTaskController extends TaskController {
         @RequestParam(value = "callingList", required = true) String callingList,
         @RequestParam(value = "tareaId", required = true) String tareaId
     ) {
+        String SERVICE_MESSAGE = "feeCleaningTask.getTask";
         LOGGER.debug("Get fee cleaning task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
         TareaResponse response;
         try{
             TareaLimpiezaCuota tarea = (TareaLimpiezaCuota) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
             LOGGER.debug("Fee cleaning task obtained from service: \n{}", tarea);
-            response = processSuccessTask(tarea, "feeCleaningTask.getTask");
+            response = processSuccessTask(tarea, SERVICE_MESSAGE);
         }catch(Exception e){
-            response = processException(e, "feeCleaningTask.getTask.error");
+            response = processException(e, SERVICE_MESSAGE);
         }
         return response;
     }
@@ -93,19 +94,21 @@ public class FeeCleaningTaskController extends TaskController {
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
     )  {
+        String TASK_SERVICE_MESSAGE = "feeCleaningTask.getTask";
         TareaResponse response = new TareaResponse();
         LOGGER.debug("Get fee cleaning task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
         try{
             LOGGER.debug("Get installation data for params: \ninstallationId: {}", installationId);
             TareaLimpiezaCuota task = (TareaLimpiezaCuota) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-            TareaResponse tareaResponse = processSuccessTask(task, "feeCleaningTask.getTask");
+            TareaResponse tareaResponse = processSuccessTask(task, TASK_SERVICE_MESSAGE);
             response.addMessages(tareaResponse.getMessages());
             response.setTarea(tareaResponse.getTarea());
             LOGGER.debug("Fee cleaning task obtained from service: \n{}", task);
         }catch(Exception e){
-            TareaResponse tareaResponse = processException(e, "feeCleaningTask.getTask.error");
+            TareaResponse tareaResponse = processException(e, TASK_SERVICE_MESSAGE);
             response.addMessages(tareaResponse.getMessages());
         }
+        String INSTALLATION_SERVICE_MESSAGE = "installationData";
         try{
             InstallationData installationData = installationDataService.getInstallationData(installationId);
             TareaResponse installationResponse = processSuccessInstallation(installationData);
@@ -113,7 +116,7 @@ public class FeeCleaningTaskController extends TaskController {
             response.setInstallationData(installationResponse.getInstallationData());
             LOGGER.debug("Installation data obtained from service: \n{}", installationData);
         }catch(Exception e){
-            TareaResponse installationResponse = processException(e, "installationData.error");
+            TareaResponse installationResponse = processException(e, INSTALLATION_SERVICE_MESSAGE);
             response.addMessages(installationResponse.getMessages());
         }
         return response;

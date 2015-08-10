@@ -29,6 +29,11 @@ public class TareaResponse extends BaseResponse {
         this.tarea = tarea;
     }
 
+    public TareaResponse(BaseResponse baseResponse, Tarea tarea){
+        super.setMessages(baseResponse.getMessages());
+        this.tarea = tarea;
+    }
+
     public Tarea getTarea() {
         return tarea;
     }
