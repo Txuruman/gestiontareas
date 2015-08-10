@@ -35,9 +35,12 @@ public class CreateTaskController extends BaseController {
         LOGGER.debug("Creating task");
         BaseResponse response;
         try{
+            LOGGER.debug("Create task request: {}", request);
             boolean result = tareaService.createTask(request.getTask());
+            LOGGER.debug("Created task result: {}", result);
             response = processSuccessMessages(result, SERVICE_MESSAGE);
         }catch(Exception e){
+            LOGGER.error("Error creating task:");
             response = processException(e,SERVICE_MESSAGE);
         }
         return response;
@@ -47,34 +50,15 @@ public class CreateTaskController extends BaseController {
     @RequestMapping(value = "/createmaintenance", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody BaseResponse createMaintenance(@RequestBody CreateMaintenanceRequest request) {
         String SERVICE_MESSAGE = "createtask.createmaintenance";
-        LOGGER.debug("Creating maintenance");
+        LOGGER.debug("Creating maintenance for request: {}", request);
         BaseResponse response;
         try{
-            //TODO LLAMADA A SERVICE
-            response = super.processSuccessMessages(tareaService.createMaintenance(request.getTask()), SERVICE_MESSAGE);
+            boolean createdMaintenance = tareaService.createMaintenance(request.getTask());
+            LOGGER.debug("Created maintenance result: {}", createdMaintenance);
+            response = super.processSuccessMessages( createdMaintenance, SERVICE_MESSAGE);
         }catch(Exception e){
+            LOGGER.debug("Error creating maintenance:");
             response = super.processException(e, SERVICE_MESSAGE);
-        }
-        //TODO LLAMADA A SERVICE ?
-        //BaseResponse baseResponse = dummyResponseGenerator.dummyCustomSuccess("createtask.createmaintenance.success");
-        return response;
-    }
-
-    @RequestMapping(value = "/gettypelist", method = {RequestMethod.GET}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody PairListResponse getTypeList(){
-        LOGGER.debug("Getting task types");
-        PairListResponse response = null;
-        try{
-            //TODO llamada a SERVICE;
-            //response = dummyResponseGenerator.dummyPairCustomSuccess("createtask.gettypelist.success");
-            if(response!=null){
-                //
-            }else{
-
-            }
-        }catch(Exception e){
-            //TODO captura de error de llamada al servicio
-            response = new PairListResponse(super.processException(e));
         }
         return response;
     }

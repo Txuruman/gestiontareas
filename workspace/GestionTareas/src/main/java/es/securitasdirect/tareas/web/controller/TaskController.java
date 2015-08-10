@@ -34,8 +34,6 @@ public abstract class TaskController extends BaseController{
         BaseResponse response = new BaseResponse();
         //Llamada al servicio para aplazar
         try {
-            //Llamada al servicio para aplazar
-            //TODO - idAViso = task.getIdAviso();
             boolean ok = tareaService.aplazar(9);
             response = super.processSuccessMessages(ok, message);
         } catch (Exception e) {

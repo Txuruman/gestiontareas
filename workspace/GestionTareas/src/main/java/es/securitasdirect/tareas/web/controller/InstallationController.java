@@ -42,8 +42,10 @@ public class InstallationController extends BaseController {
         InstallationDataResponse installationDataResponse = new InstallationDataResponse();
         try{
             InstallationData installationData = installationService.getInstallationData(installationId);
+            LOGGER.debug("Loaded installation data: {}", installationData);
             installationDataResponse = processSuccessInstallation(installationData);
         }catch(Exception e){
+            LOGGER.debug("Error loading installation data");
             installationDataResponse = this.processException(e);
         }
         return installationDataResponse;
@@ -56,7 +58,7 @@ public class InstallationController extends BaseController {
      */
     public InstallationDataResponse processSuccessInstallation(InstallationData installationData) {
         InstallationDataResponse installationDataResponse = new InstallationDataResponse();
-        LOGGER.info("Process installationData response: {}", installationData);
+        LOGGER.info("Process installationData: {}", installationData);
         if(installationData!=null) {
             installationDataResponse.setInstallationData(installationData);
             installationDataResponse.success(messageUtil.getProperty("installationData.success"));
