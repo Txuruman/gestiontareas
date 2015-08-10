@@ -67,6 +67,7 @@ public class CommonsController extends BaseController {
             response = new StringPairListResponse(super.processSuccessMessages(closingList, SERVICE_MESSAGE));
             response.setPairList(closingList);
         }catch (Exception e){
+            LOGGER.error("Error in closing type list service request:");
             response = new StringPairListResponse(super.processException(e,SERVICE_MESSAGE));
         }
         LOGGER.debug("GetClosingListResponse = {}", response);
@@ -83,9 +84,12 @@ public class CommonsController extends BaseController {
             closingListAditionalData = externalDataService.getDatosAdicionalesCierreTareaAviso(request.getClosingTypeId());
             response = new PairListResponse(super.processSuccessMessages(closingListAditionalData, SERVICE_MESSAGE));
             response.setPairList(closingListAditionalData);
+            LOGGER.debug("Closing aditional data list: {}", closingListAditionalData);
         }catch (Exception exc){
+            LOGGER.error("Error in closing aditional data list request:");
             response = new PairListResponse(super.processException(exc,SERVICE_MESSAGE));
         }
+        LOGGER.debug("GetClosingAditionalDataListResponse = {}", response);
         return response;
     }
 
@@ -97,9 +101,11 @@ public class CommonsController extends BaseController {
         try{
             LOGGER.debug("Calling for get type reason list with request: {}", request);
             typeReasonList = externalDataService.getTypeReasonList(request.getIdType());
+            LOGGER.debug("Type reason list: {}", typeReasonList);
             response = new BigIntegerPairResponse(super.processSuccessMessages(typeReasonList, SERVICE_MESSAGE));
             response.setPairList(typeReasonList);
         }catch (Exception exc){
+            LOGGER.error("Error in type reason list request");
             response = new BigIntegerPairResponse(super.processException(exc,SERVICE_MESSAGE));
         }
         LOGGER.debug("Type reason list call response: {}", response);

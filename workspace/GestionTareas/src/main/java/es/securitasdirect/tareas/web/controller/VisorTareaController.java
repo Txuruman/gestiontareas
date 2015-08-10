@@ -185,6 +185,7 @@ public class VisorTareaController extends TaskController {
             response.setPairList(closingReasonList);
             LOGGER.debug("Closing reason list: {}", closingReasonList);
         }catch(Exception e){
+            LOGGER.error("Error loading closing reason list:");
             response = new PairListResponse(processException(e, SERVICE_MESSAGE));
         }
         return response;
@@ -205,8 +206,10 @@ public class VisorTareaController extends TaskController {
         LOGGER.debug("Creating MaintenanceSurveyTask");
         try{
             MaintenanceSurveyTask task = (MaintenanceSurveyTask)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
+            LOGGER.debug("Maintenance survey task creation success");
             response = super.processSuccessTask(task,SERVICE_MESSAGE);
         }catch(Exception e){
+            LOGGER.error("Error creating maintenance survey task:");
             response = new TareaResponse(processException(e,SERVICE_MESSAGE));
         }
         return response;
@@ -228,6 +231,7 @@ public class VisorTareaController extends TaskController {
             response = processSuccessTask(task,SERVICE_MESSAGE);
             LOGGER.debug("Maintenance task obtained from service: \n{}", task);
         }catch(Exception e){
+            LOGGER.error("Error loading marketing survey task");
             response = new TareaResponse(processException(e,SERVICE_MESSAGE));
         }
         return response;
@@ -250,6 +254,7 @@ public class VisorTareaController extends TaskController {
             response = processSuccessTask(task,SERVICE_MESSAGE);
             LOGGER.debug("Maintenance task obtained from service: \n{}", task);
         }catch(Exception e){
+            LOGGER.error("Error loading keybox task");
             response = new TareaResponse(processException(e, SERVICE_MESSAGE));
         }
         return response;
@@ -271,6 +276,7 @@ public class VisorTareaController extends TaskController {
             response = processSuccessTask(task, SERVICE_MESSAGE);
             LOGGER.debug("Maintenance task obtained from service: \n{}", task);
         }catch(Exception e){
+            LOGGER.error("Error loading another campaign task");
             response = new TareaResponse(processException(e,SERVICE_MESSAGE));
         }
         return response;
@@ -294,6 +300,7 @@ public class VisorTareaController extends TaskController {
             LOGGER.debug("Maintenance task obtained from service: \n{}", task);
             response = super.processSuccessTask(task,SERVICE_MESSAGE);
         }catch(Exception e){
+            LOGGER.error("Error loading maintenance task");
             response = new TareaResponse(processException(e, SERVICE_MESSAGE));
         }
         return response;
@@ -315,9 +322,10 @@ public class VisorTareaController extends TaskController {
         TareaResponse response;
         try{
             TareaLimpiezaCuota task = (TareaLimpiezaCuota)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-            LOGGER.debug("Maintenance task obtained from service: \n{}", task);
+            LOGGER.debug("Fee cleaning task obtained from service: \n{}", task);
             response = processSuccessTask(task,SERVICE_MESSAGE);
         }catch(Exception e){
+            LOGGER.error("Error loading fee cleaning task");
             response = new TareaResponse(processException(e, SERVICE_MESSAGE));
         }
         return response;
@@ -339,6 +347,7 @@ public class VisorTareaController extends TaskController {
             LOGGER.debug("TareaListadoAssistant obtained from service: \n{}", task);
             response = processSuccessTask(task,SERVICE_MESSAGE);
         }catch (Exception e){
+            LOGGER.error("Error loading list assitant task");
             response = new TareaResponse(processException(e, SERVICE_MESSAGE));
         }
         return response;

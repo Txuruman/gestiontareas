@@ -10,6 +10,14 @@ import java.util.List;
  * Created by Roberto on 13/07/2015.
  */
 public class SearchTareaResponse extends BaseResponse {
+
+    public SearchTareaResponse(){
+
+    }
+    public SearchTareaResponse(BaseResponse baseResponse){
+        super.setMessages(baseResponse.getMessages());
+    }
+
     private List<Tarea> taskList;
 
     public List<Tarea> getTaskList() {

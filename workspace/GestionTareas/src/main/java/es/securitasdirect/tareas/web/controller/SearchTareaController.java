@@ -22,7 +22,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/searchtarea")
-public class SearchTareaController {
+public class SearchTareaController extends BaseController{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SearchTareaController.class);
 
@@ -43,6 +43,7 @@ public class SearchTareaController {
     @RequestMapping(value = "/query", method = RequestMethod.PUT, consumes={MediaType.APPLICATION_JSON_VALUE}, produces = { MediaType.APPLICATION_JSON_VALUE })
     public @ResponseBody
     SearchTareaResponse query(@RequestBody SearchTaskRequest request) {
+        String SERVICE_MESSAGE = "searchTarea";
         LOGGER.debug("Searching Tareas text:{} option:{}", request.getSearchText(), request.getSearchOption());
         List<Tarea> listaTareas;
         if(request.getSearchOption().equals(SearchTaskRequest.TELEPHONE)){
@@ -52,9 +53,17 @@ public class SearchTareaController {
         }else{
             listaTareas = new ArrayList<Tarea>();
         }
+        SearchTareaResponse searchTareaResponse;
+        try{
+            LOGGER.debug("Task list query response: {}");
+            searchTareaResponse = new SearchTareaResponse(super.processSuccessMessages(listaTareas, SERVICE_MESSAGE));
+            searchTareaResponse.setTaskList(listaTareas);
+        }catch(Exception e){
+            LOGGER.error("Error in task list query");
+            searchTareaResponse=new SearchTareaResponse(processException(e, SERVICE_MESSAGE));
+        }
 
-        SearchTareaResponse searchTareaResponse = new SearchTareaResponse();
-
+        /*
         if(listaTareas!=null && !listaTareas.isEmpty()){
             LOGGER.info("Success search of task");
             searchTareaResponse.setTaskList(listaTareas);
@@ -62,7 +71,7 @@ public class SearchTareaController {
         }else {
             LOGGER.warn("Tarea search not found result");
             searchTareaResponse.success(messageUtil.getProperty("searchTarea.notFound"));
-        }
+        }*/
         return searchTareaResponse;
     }
 }
