@@ -62,7 +62,7 @@ public class CommonsController extends BaseController {
         StringPairListResponse response;
         try{
             LOGGER.debug("Getting closing type list for request: {}",  closingTypeRequest);
-            closingList = externalDataService.getClosing(closingTypeRequest.getIdType(), closingTypeRequest.getReasonId());
+            closingList = externalDataService.getClosing(closingTypeRequest.getIdType(), closingTypeRequest.getReasonId(), closingTypeRequest.getGroupId());
             LOGGER.debug("Loaded closing type list {}", closingList);
             response = new StringPairListResponse(super.processSuccessMessages(closingList, SERVICE_MESSAGE));
             response.setPairList(closingList);

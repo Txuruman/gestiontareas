@@ -85,6 +85,10 @@
         </div>
     </div>
 
+    <div>
+        Tipo Aviso1: {{tarea.tipoAviso1}}
+        Motivo Aviso1: {{tarea.motivo1}}
+    </div>
 
     <!-- Botones Tarea Aviso -->
     <jsp:include page="btn_avisos.jsp"/>

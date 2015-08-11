@@ -13,6 +13,16 @@ public class ClosingTypeRequest extends BaseRequest {
 
     Integer reasonId;
 
+    Integer groupId;
+
+    public Integer getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(Integer groupId) {
+        this.groupId = groupId;
+    }
+
     public Integer getIdType() {
         return idType;
     }
@@ -34,6 +44,7 @@ public class ClosingTypeRequest extends BaseRequest {
         return "ClosingTypeRequest{" +
                 "idType=" + idType +
                 ", reasonId=" + reasonId +
+                ", groupId=" + groupId +
                 '}';
     }
 }

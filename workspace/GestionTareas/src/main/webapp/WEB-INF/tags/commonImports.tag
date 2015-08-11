@@ -28,4 +28,3 @@ display: none !important;
     }
 </style>
 <!-- Angular JS Scripts -->
-<script src="${pageContext.request.contextPath}/resources/app/moduloweb-app.js"></script>

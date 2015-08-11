@@ -45,24 +45,21 @@ public class SearchTareaController extends BaseController{
     SearchTareaResponse query(@RequestBody SearchTaskRequest request) {
         String SERVICE_MESSAGE = "searchTarea";
         LOGGER.debug("Searching Tareas text:{} option:{}", request.getSearchText(), request.getSearchOption());
-        List<Tarea> listaTareas;
-        if(request.getSearchOption().equals(SearchTaskRequest.TELEPHONE)){
-            listaTareas = searchTareaService.findByPhone(request.getSearchText());
-        }else if(request.getSearchOption().equals(SearchTaskRequest.CLIENT)){
-            listaTareas = searchTareaService.findByClient(request.getSearchText());
-        }else{
-            listaTareas = new ArrayList<Tarea>();
-        }
-        SearchTareaResponse searchTareaResponse;
+        SearchTareaResponse response;
         try{
-            LOGGER.debug("Task list query response: {}");
-            searchTareaResponse = new SearchTareaResponse(super.processSuccessMessages(listaTareas, SERVICE_MESSAGE));
-            searchTareaResponse.setTaskList(listaTareas);
+            List<Tarea> listaTareas;
+            if(request.getSearchOption().equals(SearchTaskRequest.TELEPHONE)){
+                listaTareas = searchTareaService.findByPhone(request.getSearchText());
+            }else if(request.getSearchOption().equals(SearchTaskRequest.CLIENT)){
+                listaTareas = searchTareaService.findByClient(request.getSearchText());
+            }else{
+                listaTareas = new ArrayList<Tarea>();
+            }
+            response = new SearchTareaResponse(processSuccessMessages(listaTareas, SERVICE_MESSAGE));
+            response.setTaskList(listaTareas);
         }catch(Exception e){
-            LOGGER.error("Error in task list query");
-            searchTareaResponse=new SearchTareaResponse(processException(e, SERVICE_MESSAGE));
+            response = new SearchTareaResponse(processException(e, SERVICE_MESSAGE));
         }
-
         /*
         if(listaTareas!=null && !listaTareas.isEmpty()){
             LOGGER.info("Success search of task");
@@ -72,6 +69,6 @@ public class SearchTareaController extends BaseController{
             LOGGER.warn("Tarea search not found result");
             searchTareaResponse.success(messageUtil.getProperty("searchTarea.notFound"));
         }*/
-        return searchTareaResponse;
+        return response;
     }
 }

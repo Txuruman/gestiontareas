@@ -27,13 +27,14 @@ public class SearchTareaService {
     public List<Tarea> findByPhone(String phone){
         LOGGER.debug("Searching Tarea by Phone {}", phone);
         List<Tarea> tareas = createDummy();
-        LOGGER.debug("Found tareaList by Phone: {}, tareas");
+        LOGGER.debug("Found tareaList by Phone: {}", tareas);
         return tareas;
     }
 
     public List<Tarea> findByInstalacion (String instalacion){
-        LOGGER.debug("Searching Tarea by Phone {}", instalacion);
+        LOGGER.debug("Searching Tarea by Installation: {}", instalacion);
         List<Tarea> tareas = createDummy();
+        LOGGER.debug("Found tareaList by Installation", tareas);
         return tareas;
     }
 

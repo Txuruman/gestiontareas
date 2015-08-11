@@ -387,6 +387,7 @@ public class QueryTareaService {
         //WS Call
         CclResponse response = null;
         try {
+            LOGGER.debug("Call CCLIntegration WS for Calling list with params: ccIdentifier:{}, {}");
             response = cclIntegration.checkCallingListContact(ccIdentifier,
                     applicationUser,
                     ccUserId,

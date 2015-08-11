@@ -95,7 +95,12 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 $log.debug("Motivo lists: ",$scope.motivoList1,$scope.motivoList2,$scope.motivoList3);
                 $log.debug("SCOPE TAREA:", $scope.tarea);
                 $log.debug("Get closing list params: " + $scope.tarea.tipoAviso1 + ", " + $scope.tarea.motivo1);
-                controllerVar.getClosingList($scope.tarea.tipoAviso1, $scope.tarea.motivo1, $scope.tarea.closing);
+                var groupId; //Definir de donde se saca groupId
+                controllerVar.getClosingList($scope.tarea.tipoAviso1,
+                    $scope.tarea.motivo1,
+                    $scope.tarea.closing,
+                    groupId
+                );
             })
             .error(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
@@ -105,11 +110,12 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
         $log.debug("NotificationTask loaded...");
     };
 
-    this.getClosingList = function(idType, reasonId, closing) {
+    this.getClosingList = function(idType, reasonId, closing, groupId) {
         $log.debug("Load Closing Type List for params: "+ idType + ", " + reasonId);
         var closingTypeRequest = {
             idType: idType,
-            reasonId: reasonId
+            reasonId: reasonId,
+            groupId: groupId
         };
         $log.debug("Load Closing Type List Request: ", closingTypeRequest);
         $http({

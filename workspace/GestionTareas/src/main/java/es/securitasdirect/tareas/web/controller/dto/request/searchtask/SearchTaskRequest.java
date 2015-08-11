@@ -10,8 +10,8 @@ import es.securitasdirect.tareas.web.controller.dto.support.BaseRequest;
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class SearchTaskRequest extends BaseRequest {
 
-    public static String TELEPHONE = "telephone";
-    public static String CLIENT = "client";
+    public static String TELEPHONE = "phone";
+    public static String CLIENT = "customer";
 
     private String searchText;
     private String searchOption;
