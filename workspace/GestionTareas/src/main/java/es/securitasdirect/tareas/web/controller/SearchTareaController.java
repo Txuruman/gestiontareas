@@ -46,8 +46,7 @@ public class SearchTareaController extends BaseController{
         String SERVICE_MESSAGE = "searchTarea";
         LOGGER.debug("Searching Tareas text:{} option:{}", request.getSearchText(), request.getSearchOption());
         SearchTareaResponse response;
-        if(request.getSearchOption()==null || request.getSearchText() == null
-                || request.getSearchOption().equals("") || request.getSearchText().equals("")){
+        if(request.validateParams()){
             response = new SearchTareaResponse(processParamsError(SERVICE_MESSAGE));
         }else{
             try{
