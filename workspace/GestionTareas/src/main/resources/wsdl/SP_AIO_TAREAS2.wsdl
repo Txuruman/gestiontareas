@@ -79,6 +79,7 @@
                     <xs:sequence>
                         <xs:element name="idtipo" nillable="true" type="xs:int"/>
                         <xs:element name="idmotivo" nillable="true" type="xs:int"/>
+                        <xs:element name="idgrp" nillable="true" type="xs:int"/>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
@@ -519,9 +520,7 @@
             <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:getTipoMotivoDataServiceFault"/>
         </wsdl:operation>
         <wsdl:operation name="getTipoCierre">
-            <wsdl:documentation>
-                Lectura de los valores de tipo de cierre dependiendo de los valores de tipo de aviso y tipo de motivo.
-            </wsdl:documentation>
+            <wsdl:documentation/>
             <wsdl:input message="ns0:getTipoCierreRequest" wsaw:Action="urn:getTipoCierre"/>
             <wsdl:output message="ns0:getTipoCierreResponse" wsaw:Action="urn:getTipoCierreResponse"/>
             <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:getTipoCierreDataServiceFault"/>

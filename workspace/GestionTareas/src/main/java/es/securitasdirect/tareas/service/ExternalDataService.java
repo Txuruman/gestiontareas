@@ -65,21 +65,21 @@ public class ExternalDataService {
 
 
 
-    /**
+    /**es1dbusdss03v
      * Call for closing reason query
      */
-    public List<StringPair> getClosing(Integer idTipo, Integer idMotivo) throws DataServiceFault{
-        LOGGER.debug("Calling for closing type list, params: idTipo: {}, idMotivo: {}", idTipo, idMotivo);
+    public List<StringPair> getClosing(Integer idTipo, Integer idMotivo, Integer idGrp) throws DataServiceFault{
+        LOGGER.debug("Calling for closing type list, params: idTipo: {}, idMotivo: {}, idGrp: {}", idTipo, idMotivo, idGrp);
         List<StringPair> result = new ArrayList<StringPair>();
         if(idTipo!=null && idMotivo!=null){
-            List<Tipocierre> wsResult = spAioTareas2.getTipoCierre(idTipo, idMotivo);
+            List<Tipocierre> wsResult = spAioTareas2.getTipoCierre(idTipo, idMotivo, idGrp);
             LOGGER.debug("WS closing type list reponse: {}", wsResult);
             for (Tipocierre tipocierre : wsResult) {
-                result.add(new StringPair(tipocierre.getTipo(), tipocierre.getDescripcion()));
+              result.add(new StringPair(tipocierre.getTipo(), tipocierre.getDescripcion()));
             }
             LOGGER.debug("Closing type list reponse: {}", result);
         }else{
-            LOGGER.warn("Not informed parameters for closing type list query, params: idTipo: {}, idMotivo: {}",idTipo, idMotivo);
+            LOGGER.warn("Not informed parameters for closing type list query, params: idTipo: {}, idMotivo: {}, idGrp: {}",idTipo, idMotivo, idGrp);
         }
         return result;
     }
