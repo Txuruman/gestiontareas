@@ -85,6 +85,12 @@ public abstract class BaseController {
         return response;
     }
 
+    protected BaseResponse processParamsError(String msg){
+        BaseResponse response = new BaseResponse();
+        response.warning(msg + ".paramsError");
+        return response;
+    }
+
 
 
     protected BaseResponse processSuccessMessages(boolean res, String msg){
