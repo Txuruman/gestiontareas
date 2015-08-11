@@ -46,29 +46,24 @@ public class SearchTareaController extends BaseController{
         String SERVICE_MESSAGE = "searchTarea";
         LOGGER.debug("Searching Tareas text:{} option:{}", request.getSearchText(), request.getSearchOption());
         SearchTareaResponse response;
-        try{
-            List<Tarea> listaTareas;
-            if(request.getSearchOption().equals(SearchTaskRequest.TELEPHONE)){
-                listaTareas = searchTareaService.findByPhone(request.getSearchText());
-            }else if(request.getSearchOption().equals(SearchTaskRequest.CLIENT)){
-                listaTareas = searchTareaService.findByClient(request.getSearchText());
-            }else{
-                listaTareas = new ArrayList<Tarea>();
+        if(request.validateParams()){
+            response = new SearchTareaResponse(processParamsError(SERVICE_MESSAGE));
+        }else{
+            try{
+                List<Tarea> listaTareas;
+                if(request.getSearchOption().equals(SearchTaskRequest.TELEPHONE)){
+                    listaTareas = searchTareaService.findByPhone(request.getSearchText());
+                }else if(request.getSearchOption().equals(SearchTaskRequest.CLIENT)){
+                    listaTareas = searchTareaService.findByClient(request.getSearchText());
+                }else{
+                    listaTareas = new ArrayList<Tarea>();
+                }
+                response = new SearchTareaResponse(processSuccessMessages(listaTareas, SERVICE_MESSAGE));
+                response.setTaskList(listaTareas);
+            }catch(Exception e){
+                response = new SearchTareaResponse(processException(e, SERVICE_MESSAGE));
             }
-            response = new SearchTareaResponse(processSuccessMessages(listaTareas, SERVICE_MESSAGE));
-            response.setTaskList(listaTareas);
-        }catch(Exception e){
-            response = new SearchTareaResponse(processException(e, SERVICE_MESSAGE));
         }
-        /*
-        if(listaTareas!=null && !listaTareas.isEmpty()){
-            LOGGER.info("Success search of task");
-            searchTareaResponse.setTaskList(listaTareas);
-            searchTareaResponse.success(messageUtil.getProperty("searchTarea.success","4"));
-        }else {
-            LOGGER.warn("Tarea search not found result");
-            searchTareaResponse.success(messageUtil.getProperty("searchTarea.notFound"));
-        }*/
         return response;
     }
 }
