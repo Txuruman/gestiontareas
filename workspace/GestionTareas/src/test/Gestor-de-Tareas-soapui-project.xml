@@ -12569,27 +12569,27 @@
          <ccUserId>?</ccUserId>
       </web:checkSupervisorAgent>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/checkSupervisorAgentRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="consultationCall" bindingOperationName="consultationCall" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="0f5597df-912d-4597-8605-af2eff8fa049"><con:settings/><con:call name="Request 1" id="3818e25e-ae6a-404c-bc7f-b80f8b88a179"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/checkSupervisorAgentRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="consultationCall" bindingOperationName="consultationCall" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="0f5597df-912d-4597-8605-af2eff8fa049"><con:settings/><con:call name="Request 1" id="3818e25e-ae6a-404c-bc7f-b80f8b88a179"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
    <soapenv:Header/>
    <soapenv:Body>
       <web:consultationCall>
          <!--Optional:-->
-         <ccIdentifier>?</ccIdentifier>
+         <ccIdentifier>ATC_SPN</ccIdentifier>
          <!--Optional:-->
-         <applicationUser>?</applicationUser>
+         <applicationUser>Tareas</applicationUser>
          <!--Optional:-->
-         <ccUserId>?</ccUserId>
+         <ccUserId>12187</ccUserId>
          <!--Optional:-->
-         <call_id>?</call_id>
+         <call_id>chain_id=1</call_id>
          <!--Optional:-->
-         <destTransfer>?</destTransfer>
+         <destTransfer>SPAIN</destTransfer>
          <!--Optional:-->
-         <opComments>?</opComments>
+         <opComments></opComments>
          <!--Optional:-->
-         <clientInsNo>?</clientInsNo>
+         <clientInsNo></clientInsNo>
       </web:consultationCall>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/consultationCallRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="consultationCallMKT" bindingOperationName="consultationCallMKT" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="fb3ee61e-ffb5-4acd-96ab-782fccfd0742"><con:settings/><con:call name="Request 1" id="0404f4d5-cd57-4e6e-8752-dbd6bc492850"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/consultationCallRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="" name="consultationCallMKT" bindingOperationName="consultationCallMKT" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="fb3ee61e-ffb5-4acd-96ab-782fccfd0742"><con:settings/><con:call name="Request 1" id="0404f4d5-cd57-4e6e-8752-dbd6bc492850"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
    <soapenv:Header/>
    <soapenv:Body>
       <web:consultationCallMKT>
@@ -12778,7 +12778,7 @@
          <country>?</country>
       </web:getCCLVersion>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/getCCLVersionRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="getInsNoByPhoneAndCountryVRU" bindingOperationName="getInsNoByPhoneAndCountryVRU" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="ba0e76fc-1712-478b-8ebb-acfce6186b01"><con:settings/><con:call name="Request 1" id="80153afe-3fea-463f-a8cb-3dcb4571ff79"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/getCCLVersionRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="" name="getInsNoByPhoneAndCountryVRU" bindingOperationName="getInsNoByPhoneAndCountryVRU" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="ba0e76fc-1712-478b-8ebb-acfce6186b01"><con:settings/><con:call name="Request 1" id="80153afe-3fea-463f-a8cb-3dcb4571ff79"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
    <soapenv:Header/>
    <soapenv:Body>
       <web:getInsNoByPhoneAndCountryVRU>
@@ -13201,7 +13201,7 @@
          <ccUserId>?</ccUserId>
       </web:retrieveData>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/retrieveDataRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="retrieveDataAnswerCall" bindingOperationName="retrieveDataAnswerCall" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="d45a5169-604e-466d-a606-f7b9f3b31b51"><con:settings/><con:call name="Request 1" id="ce27c5be-7327-4d68-ab20-020038f829f7"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/retrieveDataRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="" name="retrieveDataAnswerCall" bindingOperationName="retrieveDataAnswerCall" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="d45a5169-604e-466d-a606-f7b9f3b31b51"><con:settings/><con:call name="Request 1" id="ce27c5be-7327-4d68-ab20-020038f829f7"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
    <soapenv:Header/>
    <soapenv:Body>
       <web:retrieveDataAnswerCall>
