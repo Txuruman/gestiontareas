@@ -1,5 +1,4 @@
 app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService, $log) {
-    var controllerVar = this;
 
     $scope.getDesplegableKey1 = function (){
         $log.debug("Loading desplegable key1");
