@@ -1,4 +1,5 @@
 app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService, $log) {
+    var controllerVar = this;
 
     $scope.getDesplegableKey1 = function (){
         $log.debug("Loading desplegable key1");
@@ -7,8 +8,10 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService, $
                 $scope.key1List = data.pairList;
                 CommonService.processBaseResponse(data,status,headers,config);
                 $log.debug("Desplegable key1 loaded");
+                $scope.getDesplegableKey2();
             }).
             error(function (data, status, headers, config) {
+                $scope.getDesplegableKey2();
                 CommonService.processBaseResponse(data,status,headers,config);
                 $log.error("Error loading desplegable key1");
             });
@@ -78,8 +81,14 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService, $
             });
     };
 
-    $scope.getInstallationAndTask = function(){
+    $scope.init = function(){
         $scope.vm.appReady=false;
+        this.getInstallationAndTask();
+        $scope.vm.appReady=true;
+    };
+
+
+    $scope.getInstallationAndTask = function(){
 
         $log.debug("Loading MaintenanceTask...");
         $log.debug("Params: "
@@ -99,14 +108,12 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService, $
                 $scope.installationData = data.installationData;
                 CommonService.processBaseResponse(data,status,headers,config);
                 $scope.getDesplegableKey1();
-                $scope.getDesplegableKey2();
-                $scope.vm.appReady=true;
+                $scope.getCancelationType();
             }).
             error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data,status,headers,config);
-                $scope.vm.appReady=true;
                 $log.error("Error loading maintenance task");
             });
     };
