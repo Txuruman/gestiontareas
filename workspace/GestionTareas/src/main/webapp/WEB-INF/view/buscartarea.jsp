@@ -13,12 +13,7 @@
 
 </head>
 <body>
-<div class="container" ng-controller="taskSearch"  ng-init="taskList[0].numeroInstalacion=111111;taskList[1].numeroInstalacion=222222;taskList[2].numeroInstalacion=333333;taskList[3].numeroInstalacion=444444;
-                                                            taskList[0].callingList='AVISO';taskList[1].callingList='EXCEL KEYBOX';taskList[2].callingList='EXCEL ENCUESTA MNTOS';taskList[3].callingList='MANTENIMIENTO';
-                                                            taskList[0].estado='Ready';taskList[1].estado='Ready';taskList[2].estado='Retrieved';taskList[3].estado='Ready';
-                                                            taskList[0].observaciones='Robo mientras sonaba la alarma';taskList[1].observaciones='';taskList[2].observaciones='Fallo en sensor de la puerta';taskList[3].observaciones='';
-                                                            taskList[0].fechaReprogramacion='2015-10-30 14:25:45';taskList[1].fechaReprogramacion='2015-10-30 14:25:45';taskList[2].fechaReprogramacion='2015-10-30 14:25:45';taskList[3].fechaReprogramacion='2015-10-30 14:25:45';
-                                                            desactivarBotones=true;" >
+<div class="container" ng-controller="taskSearch">
 
     <app:messages/>
     <div class="row">
@@ -80,8 +75,8 @@
                         <td>{{ t.observaciones }}</td>
                         <td>{{ t.fechaReprogramacion | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                         <td><a href="visortarea.htm?ins_no=<c:out value="${tarea.callingList}"/>&tipotarea=aviso"
-                               class="btn btn-default" ng-disabled = "{{ desactivarBotones }}"><spring:message code="eti.buscartarea.btn.gestion"/></a></td>
-                        <td><a href="#" class="btn btn-default" ng-disabled = "{{ desactivarBotones }}" ><spring:message code="eti.buscartarea.btn.aplazar"/></a>
+                               class="btn btn-default" ><spring:message code="eti.buscartarea.btn.gestion"/></a></td>
+                        <td><a href="#" class="btn btn-default" ><spring:message code="eti.buscartarea.btn.aplazar"/></a>
                         </td>
                     </tr>
                 </table>
