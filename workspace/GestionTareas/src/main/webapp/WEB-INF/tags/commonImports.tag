@@ -18,7 +18,7 @@ display: none !important;
 
 <script src="${pageContext.request.contextPath}/resources/bower_components/ie8compatibility/angular.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/ui-bootstrap-tpls-0.13.0.js"></script>
-<script src="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"></script>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/custom.css"/>
 <!-- Angular JS Scripts -->
 <script src="${pageContext.request.contextPath}/resources/app/gestiontarea-app.js"></script>
