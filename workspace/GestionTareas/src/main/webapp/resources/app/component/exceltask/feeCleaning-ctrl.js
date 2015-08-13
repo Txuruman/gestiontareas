@@ -2,11 +2,11 @@
 app.controller('feecleaningtask-ctrl', function ($scope, $http, CommonService, $modal, $log) {
 
     $scope.getTarea = function () {
-        $log.debug("Loading FeeCleaningTask...")
-        $log.debug("Params: "
-        + " ccUserId: " + $scope.ccUserId
-        + " callingList: " + $scope.callingList
-        + " taskId: " + $scope.tareaId);
+        //$log.debug("Loading FeeCleaningTask...")
+        //$log.debug("Params: "
+        //+ " ccUserId: " + $scope.ccUserId
+        //+ " callingList: " + $scope.callingList
+        //+ " taskId: " + $scope.tareaId);
         $http({method: 'GET',
             url: '/feecleaningtask/gettarea',
             params: {ccUserId: $scope.ccUserId, callingList: $scope.callingList, tareaId: $scope.tareaId}
@@ -14,25 +14,25 @@ app.controller('feecleaningtask-ctrl', function ($scope, $http, CommonService, $
             success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
                 $scope.tarea = data.tarea;
-                $log.debug("Loaded fee cleaning task: ", data.tarea);
+                //$log.debug("Loaded fee cleaning task: ", data.tarea);
             }).
             error(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
-                $log.error("Error loading fee cleaning task");
+                //$log.error("Error loading fee cleaning task");
             });
 
-        $log.debug("Loading Excel Task Commons: Closing reason");
+        //$log.debug("Loading Excel Task Commons: Closing reason");
         $http({method: 'GET', url: '/GestionTareas/exceltaskcommon/getClosingReason'}).
             success(function (data, status, headers, config) {
-                $log.debug("Loaded closing reason list", data.pairList)
+                //$log.debug("Loaded closing reason list", data.pairList)
                 $scope.closingReasonList = data.pairList;
             }).
             error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
-                $log.error("Error loading closing reason list");
+                //$log.error("Error loading closing reason list");
             });
     };
 
@@ -40,20 +40,20 @@ app.controller('feecleaningtask-ctrl', function ($scope, $http, CommonService, $
     $scope.getInstallationAndTask = function(){
         $scope.vm.appReady=false;
 
-        $log.debug("Loading Fee Cleaning Task...");
-        $log.debug("Params: "
-        + " installationId: " + $scope.installationId
-        + " ccUserId: " + $scope.ccUserId
-        + " callingList: " + $scope.callingList
-        + " taskId: " + $scope.tareaId);
+        //$log.debug("Loading Fee Cleaning Task...");
+        //$log.debug("Params: "
+        //+ " installationId: " + $scope.installationId
+        //+ " ccUserId: " + $scope.ccUserId
+        //+ " callingList: " + $scope.callingList
+        //+ " taskId: " + $scope.tareaId);
         $http({
             method: 'GET',
             url: 'feecleaningtask/getInstallationAndTask',
             params: {installationId: $scope.installationId, ccUserId: $scope.ccUserId, callingList: $scope.callingList, tareaId: $scope.tareaId}
         }).
             success(function (data, status, headers, config) {
-                $log.debug("Loaded fee cleaning task:",data.tarea);
-                $log.debug("Loaded isntallation data:",data.installationData);
+                //$log.debug("Loaded fee cleaning task:",data.tarea);
+                //$log.debug("Loaded isntallation data:",data.installationData);
                 $scope.tarea = data.tarea;
                 $scope.installationData = data.installationData;
                 CommonService.processBaseResponse(data,status,headers,config);
@@ -65,33 +65,33 @@ app.controller('feecleaningtask-ctrl', function ($scope, $http, CommonService, $
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data,status,headers,config);
                 $scope.vm.appReady=true;
-                $log.error("Error loading installation and task");
+                //$log.error("Error loading installation and task");
             });
     };
 
     $scope.getClosingReason = function(){
-        $log.debug("Loading Excel Task Commons: Closing reason");
+        //$log.debug("Loading Excel Task Commons: Closing reason");
         $http({method: 'GET', url: '/exceltaskcommon/getClosingReason'}).
             success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
                 $scope.closingReasonList = data.pairList;
-                $log.debug("Closing reason list loaded: ", data.pairList);
+                //$log.debug("Closing reason list loaded: ", data.pairList);
             }).
             error(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
-                $log.error("Error loading closint reason list");
+                //$log.error("Error loading closint reason list");
             });
     };
 
     $scope.aplazar = function(){
-        $log.debug("Postpone Fee cleaning task, task: ",$scope.tarea);
+        //$log.debug("Postpone Fee cleaning task, task: ",$scope.tarea);
         var postponeFeeCleaningTaskRequest = {
             tarea:$scope.tarea,
             prueba:'Hola'
         };
-        $log.debug("Postpone Fee Cleaning Task, request: " ,postponeFeeCleaningTaskRequest);
+        //$log.debug("Postpone Fee Cleaning Task, request: " ,postponeFeeCleaningTaskRequest);
         $http({
             method: 'PUT',
             url: 'feecleaningtask/aplazar',
@@ -99,23 +99,23 @@ app.controller('feecleaningtask-ctrl', function ($scope, $http, CommonService, $
         })
             .success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data,status,headers,config);
-                $log.debug("Successful postpone fee cleaning task");
+                //$log.debug("Successful postpone fee cleaning task");
             })
             .error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data,status,headers,config);
-                $log.error("Error executing postpone for fee cleaning task");
+                //$log.error("Error executing postpone for fee cleaning task");
             });
     };
 
     $scope.descartar = function(){
-        $log.debug("Discard Fee Cleaning task, task: " ,$scope.tarea);
+        //$log.debug("Discard Fee Cleaning task, task: " ,$scope.tarea);
         var discardFeeCleaningTaskRequest = {
             tarea:$scope.tarea,
             prueba:'Hola'
         };
-        $log.debug("Discard Fee Clenaning Task, request: ",discardFeeCleaningTaskRequest);
+        //$log.debug("Discard Fee Clenaning Task, request: ",discardFeeCleaningTaskRequest);
         $http({
             method: 'PUT',
             url: 'feecleaningtask/descartar',
@@ -123,23 +123,23 @@ app.controller('feecleaningtask-ctrl', function ($scope, $http, CommonService, $
         })
             .success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data,status,headers,config);
-                $log.debug("Discarded fee cleaning task");
+                //$log.debug("Discarded fee cleaning task");
             })
             .error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data,status,headers,config);
-                $log.error("Error discarding fee cleaning task");
+                //$log.error("Error discarding fee cleaning task");
             });
     };
 
     $scope.finalizar = function(){
-        $log.debug("Finalizar Fee cleaning task, task: ",$scope.tarea);
+        //$log.debug("Finalizar Fee cleaning task, task: ",$scope.tarea);
         var finalizeFeeCleaningTaskRequest = {
             tarea:$scope.tarea,
             prueba:'Hola'
         };
-        $log.debug("Finalizar Fee Cleaning Task, request: ",finalizeFeeCleaningTaskRequest);
+        //$log.debug("Finalizar Fee Cleaning Task, request: ",finalizeFeeCleaningTaskRequest);
         $http({
             method: 'PUT',
             url: 'feecleaningtask/finalizar',
@@ -147,13 +147,13 @@ app.controller('feecleaningtask-ctrl', function ($scope, $http, CommonService, $
         })
             .success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data,status,headers,config);
-                $log.debug("Finalized fee cleaning task");
+                //$log.debug("Finalized fee cleaning task");
             })
             .error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data,status,headers,config);
-                $log.error("Error finalizing fee cleaning task");
+                //$log.error("Error finalizing fee cleaning task");
             });
     };
 
