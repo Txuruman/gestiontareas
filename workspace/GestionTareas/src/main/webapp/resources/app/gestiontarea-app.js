@@ -18,7 +18,7 @@ app.controller('DelayModalInstanceCtrl', function ($scope, $modalInstance, $log)
             if ($scope.delayDate && $scope.delayTime) {
                 $scope.delayDate.setHours($scope.delayTime.getHours(), $scope.delayTime.getMinutes(), 0, 0);
             }
-            $log.debug("Selected delay info :" + $scope.delayInfo );
+            //$log.debug("Selected delay info :" + $scope.delayInfo );
             $modalInstance.close($scope.delayInfo);
         };
 
@@ -54,7 +54,7 @@ function convertDateStringsToDates(input) {
         // TODO: Improve this regex to better match ISO 8601 date strings.
         if (typeof value === "string" && (match = value.match(regexIso8601))) {
             // Assume that Date.parse can parse ISO 8601 strings, or has been shimmed in older browsers to do so.
-            console.log("Transformando fecha",value);
+            //console.log("Transformando fecha",value);
             var milliseconds = Date.parse(match[0]);
             if (!isNaN(milliseconds)) {
                 input[key] = new Date(milliseconds);
@@ -180,12 +180,12 @@ app.controller('DatepickerDemoCtrl', function ($scope) {
 app.service('CommonService', function ($rootScope, $log, $http) {
     var service=this;
     this.square = function (a) {
-        console.log("Multiplicando");
+        //console.log("Multiplicando");
         return a * a;
     };
 
     this.suma = function (a) {
-        console.log("Suma");
+        //console.log("Suma");
         return a + a;
     };
 
@@ -213,7 +213,7 @@ app.service('CommonService', function ($rootScope, $log, $http) {
     /** Funcion para processar las respuestas del servidor, eg: processBaseResponse(data,status,headers,config);  */
     /* quitado this. */
     this.processBaseResponse = function (data, status, headers, config) {
-        console.log("Procesando BaseResponse....");
+        //console.log("Procesando BaseResponse....");
         if (data && data.messages) {
             for (var msg in data.messages) {
                 $rootScope.vm.serverMessages.push(data.messages[msg]);
@@ -229,14 +229,14 @@ app.service('CommonService', function ($rootScope, $log, $http) {
     };
 
     this.loadInstallationData = function(installationId,data, status, headers, config){
-        $log.debug("Search Installation. ID: " + installationId);
+        //$log.debug("Search Installation. ID: " + installationId);
         $http({
             method: 'GET',
             url: 'commons/searchInstallation',
             params: {installationId: installationId}
         }).
             success(function (data, status, headers, config) {
-                $log.debug("Installation data found: " ,data.installationData);
+                //$log.debug("Installation data found: " ,data.installationData);
                 $rootScope.installationData = data.installationData;
                 service.processBaseResponse(data, status, headers, config);
             }).
@@ -244,15 +244,15 @@ app.service('CommonService', function ($rootScope, $log, $http) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
                 service.processBaseResponse(data, status, headers, config);
-                $log.debug("Error in Installation data search");
+                //$log.debug("Error in Installation data search");
             });
-        $log.debug("Installation data loaded...")
+        //$log.debug("Installation data loaded...")
     }
 });
 
 app.filter('stringToDate', function () {
     return function (input) {
-        console.log("input" + input);
+        //console.log("input" + input);
         if (!input)
             return null;
 
@@ -269,14 +269,14 @@ app.directive('jsonDate', function ($filter) {
 
             //format text going to user (model to view)
             ngModel.$formatters.push(function (value) {
-                console.log("String To Date:" + value)
+                //console.log("String To Date:" + value)
                 var date = $filter('stringToDate')(value);
                 return date.toString();
             });
 
             //format text from the user (view to model)
             ngModel.$parsers.push(function (value) {
-                console.log("View to Model")
+                //console.log("View to Model")
                 var date = new Date(value);
                 if (!isNaN(date.getTime())) {
                     return moment(date).format();
