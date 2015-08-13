@@ -12,7 +12,7 @@ public interface ExternalParams {
 
     public static String ID_TAREA = "bp_out_GSW_CHAIN_ID_CUSTOM";
 
-    public static String NUMERO_INSTALACION = "ins_no";
+    public static String NUMERO_INSTALACION = "bp_out_INSTALACION";
 
 
     public static String ID_AVISO = "idaviso";

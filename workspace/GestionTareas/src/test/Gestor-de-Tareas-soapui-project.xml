@@ -12439,7 +12439,48 @@
       </web:checkCallingListContact>
    </soapenv:Body>
 </soapenv:Envelope>
-]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/checkCallingListContactRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="" name="checkCallingListContactDNC" bindingOperationName="checkCallingListContactDNC" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="1a673d3f-7064-4db3-8927-c74df494af29"><con:settings/><con:call name="Request 1" id="2fcac4dc-cbae-40df-885d-661aec87dea3"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
+]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/checkCallingListContactRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call id="e90d78d6-db5a-4aef-b218-f5f8f50f9308" name="BusquedaTareas"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <web:checkCallingListContact>\r
+         <!--Optional:-->\r
+         <ccIdentifier>ATC_SPN</ccIdentifier>\r
+         <!--Optional:-->\r
+         <applicationUser>Tareas</applicationUser>\r
+         <!--Optional:-->\r
+         <ccUserId>12187</ccUserId>\r
+         <!--Optional:-->\r
+         <filter>CONTACT_INFO='699590908'</filter>\r
+         <returnData/>
+         <!--Optional:-->\r
+           <callingList>CL_CCT_ATT_Averia_Test</callingList>
+           <callingList>CL_CCT_ATC_CRA</callingList>
+           <callingList>CL_CCT_ATC_Recla</callingList>
+           <callingList>CL_CCT_ATT_Averia_Cam</callingList>
+           <callingList>CL_CCT_ATT_Averia_FastI</callingList>
+           <callingList>CL_CCT_ATT_Averia_FastII</callingList>
+           <callingList>CL_CCT_ATT_Averia_Iridium</callingList>
+           <callingList>CL_CCT_ATT_Averia_Oldclass</callingList>
+           <callingList>CL_CCT_ATT_Averia_SDM</callingList>
+           <callingList>CL_CCT_ATT_Camaras</callingList>
+           <callingList>CL_CCT_BO</callingList>
+           <callingList>CL_CCT_BO_Recla</callingList>
+           <callingList>CL_CCT_GI_Robo1</callingList>
+           <callingList>CL_CCT_GI_Robo2</callingList>
+           <callingList>CL_CCT_Ingles_ATC</callingList>
+           <callingList>CL_CCT_Ingles_ATT</callingList>
+           <callingList>CL_CCT_ODC</callingList>
+           <callingList>CL_TAREAS_DIY</callingList>
+           <callingList>CL_CCT_XLS_ENCUESTAS_MTOS</callingList>
+           <callingList>CL_CCT_XLS_ENCUESTAS_MKT</callingList>
+           <callingList>CL_CCT_XLS_KEYBOX</callingList>
+           <callingList>CL_CCT_XLS_LIMPIEZA_CUOTA</callingList>
+           <callingList>CL_CCT_XLS_ASSISTANT</callingList>
+           <callingList>CL_CCT_XLS_ATC</callingList>
+         <country>SPAIN</country>\r
+      </web:checkCallingListContact>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/checkCallingListContactRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="" name="checkCallingListContactDNC" bindingOperationName="checkCallingListContactDNC" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="1a673d3f-7064-4db3-8927-c74df494af29"><con:settings/><con:call name="Request 1" id="2fcac4dc-cbae-40df-885d-661aec87dea3"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
    <soapenv:Header/>
    <soapenv:Body>
       <web:checkCallingListContactDNC>

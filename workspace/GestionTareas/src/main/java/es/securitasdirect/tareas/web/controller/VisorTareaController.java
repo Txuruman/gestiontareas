@@ -3,10 +3,7 @@ package es.securitasdirect.tareas.web.controller;
 import es.securitasdirect.tareas.model.*;
 import es.securitasdirect.tareas.model.external.Pair;
 import es.securitasdirect.tareas.model.tareaexcel.*;
-import es.securitasdirect.tareas.service.ExternalDataService;
-import es.securitasdirect.tareas.service.InstallationService;
-import es.securitasdirect.tareas.service.QueryTareaService;
-import es.securitasdirect.tareas.service.TareaService;
+import es.securitasdirect.tareas.service.*;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
 import es.securitasdirect.tareas.web.controller.dto.response.PairListResponse;
 import es.securitasdirect.tareas.web.controller.params.ExternalParams;
@@ -57,6 +54,8 @@ public class VisorTareaController extends TaskController {
     private QueryTareaService queryTareaService;
     @Inject
     private CommonExcelTaskController commonExcelTaskController;
+    @Inject
+    private TareaServiceTools tareaServiceTools;
 
     @Inject
     protected MessageUtil messageUtil;
@@ -83,7 +82,7 @@ public class VisorTareaController extends TaskController {
         //Redirigir a la página adecuada con el calling list que nos viene
         String callingList = parametersMap.get(ExternalParams.CALLING_LIST);
         if (callingList != null) {
-            String tareaType = queryTareaService.getTaskTypeFromCallingList(callingList);
+            String tareaType = tareaServiceTools.getTaskTypeFromCallingList(callingList);
             if (tareaType != null) {
                 //Redirect to the appropiate page
                 return loadModelAndViewForTarea(tareaType, parametersMap);

@@ -1,6 +1,8 @@
 package es.securitasdirect.tareas.service;
 
 
+import com.webservice.CCLIntegration;
+import com.webservice.CclResponse;
 import es.securitasdirect.tareas.model.Tarea;
 import es.securitasdirect.tareas.model.TareaAviso;
 import es.securitasdirect.tareas.model.TareaMantenimiento;
@@ -9,11 +11,11 @@ import es.securitasdirect.tareas.model.tareaexcel.TareaListadoAssistant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Resource;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Service to Search for Tareas
@@ -21,6 +23,19 @@ import java.util.List;
 @Named(value = "searchTareaService")
 @Singleton
 public class SearchTareaService {
+
+    @Inject
+    private CCLIntegration cclIntegration;
+    @Inject
+    private TareaServiceTools tareaServiceTools;
+    @Resource(name = "applicationUser")
+    private String applicationUser;
+
+    /**
+     * Maps the name of the Calling List to the specific tipe of Tarea
+     */
+    @Resource(name = "callingListToModel")
+    private Map<String, List<String>> callingListToModel;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SearchTareaService.class);
 
@@ -36,6 +51,57 @@ public class SearchTareaService {
         List<Tarea> tareas = createDummy();
         LOGGER.debug("Found tareaList by Installation", tareas);
         return tareas;
+    }
+
+    public List<Tarea> findByPhone(String ccIdentifier,
+                                   String ccUserId,
+                                   String phone,
+                                   String country){
+        StringBuilder sbFilter = new StringBuilder();
+        sbFilter.append("contact_info=").append(phone);
+        return find(ccIdentifier,
+                ccUserId,
+                phone,
+                country,sbFilter.toString());
+    }
+
+    public List<Tarea> find(String ccIdentifier,
+                                   String ccUserId,
+                                   String phone,
+                                   String country, String filter){
+        List<Tarea> response;
+        if(ccIdentifier==null || ccIdentifier.isEmpty()
+                || applicationUser==null || applicationUser.isEmpty()
+                || ccUserId==null || ccUserId.isEmpty()
+                || phone==null || phone.isEmpty()
+                || country==null || country.isEmpty()
+                ){
+            response = null;
+            LOGGER.warn("Parámetros para la búsqueda de tareas por teléfono no informados");
+        }else {
+
+            List<String> returnData = Arrays.asList("");
+
+            List<String> callingListList = new ArrayList<String>();
+            for (String callingListType : callingListToModel.keySet()) {
+                List<String> callingListTypeCallingListList = callingListToModel.get(callingListType);
+                callingListList.addAll(callingListTypeCallingListList);
+            }
+
+            CclResponse cclResponse = cclIntegration.checkCallingListContact(
+                    ccIdentifier,
+                    applicationUser,
+                    ccUserId,
+                    filter,
+                    returnData,
+                    callingListList,
+                    country
+            );
+            LOGGER.debug("CCL RESPONSE, EXTRAER TAREAS");
+            Map<String, String> map = tareaServiceTools.loadCclResponseMap(cclResponse);
+            response = tareaServiceTools.createTareaListFromParameters(map);
+        }
+        return response;
     }
 
     public List<Tarea> findByClient(String client){

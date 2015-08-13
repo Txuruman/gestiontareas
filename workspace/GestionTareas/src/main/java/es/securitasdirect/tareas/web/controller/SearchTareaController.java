@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import es.securitasdirect.tareas.model.Tarea;
+import es.securitasdirect.tareas.service.QueryTareaService;
 import es.securitasdirect.tareas.service.SearchTareaService;
 import es.securitasdirect.tareas.web.controller.dto.SearchTareaResponse;
 import es.securitasdirect.tareas.web.controller.dto.request.searchtask.SearchTaskRequest;
@@ -28,6 +29,8 @@ public class SearchTareaController extends BaseController{
 
     @Inject
     private SearchTareaService searchTareaService;
+    @Inject
+    private QueryTareaService queryTareaService;
     @Inject
     protected MessageUtil messageUtil;
 
@@ -65,5 +68,9 @@ public class SearchTareaController extends BaseController{
             }
         }
         return response;
+    }
+
+    public void a(){
+
     }
 }
