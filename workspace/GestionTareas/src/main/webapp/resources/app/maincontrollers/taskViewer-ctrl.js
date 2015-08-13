@@ -1,6 +1,6 @@
 app.controller('taskviewer-ctrl', function ($scope, $http, CommonService) {
    $scope.getInstallationData = function () {
-        console.log("Loading Installation data for installation number: " + $scope.installationId);
+        //console.log("Loading Installation data for installation number: " + $scope.installationId);
 
         $http({
             method: 'GET',
