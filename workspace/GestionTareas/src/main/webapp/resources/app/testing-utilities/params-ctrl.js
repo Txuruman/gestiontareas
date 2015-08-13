@@ -2,7 +2,7 @@ app.controller('params', function ($scope, $http) {
 
     /* PARAMETROS
     $scope.searchTareaFromServer = function () {
-        console.log('search Tareas ' + $scope.searchText +  ' ' + $scope.searchOption);
+        //console.log('search Tareas ' + $scope.searchText +  ' ' + $scope.searchOption);
         $http({
                 method: 'GET',
                 url: 'searchtarea/query',
