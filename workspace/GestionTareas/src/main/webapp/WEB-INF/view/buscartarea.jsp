@@ -76,13 +76,15 @@
                         <td>{{ t.fechaReprogramacion | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                         <td><a href="visortarea.htm?ins_no=<c:out value="${tarea.callingList}"/>&tipotarea=aviso"
                                class="btn btn-default" ><spring:message code="eti.buscartarea.btn.gestion"/></a></td>
-                        <td><a href="#" class="btn btn-default" ><spring:message code="eti.buscartarea.btn.aplazar"/></a>
+                        <td><a href="#" class="btn btn-default" ng-click="openDelayModal()"><spring:message code="eti.buscartarea.btn.aplazar"/></a>
                         </td>
                     </tr>
                 </table>
             </div>
         </form>
     </div>
+    <!-- Dialogo Delay Modal -->
+	<app:delayModalContent/>
 </div>
 </body>
 </html>
