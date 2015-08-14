@@ -74,7 +74,7 @@
                         <td>{{ t.estado }}</td>
                         <td>{{ t.observaciones }}</td>
                         <td>{{ t.fechaReprogramacion | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                        <td><a href="visortarea.htm?ins_no=<c:out value="${tarea.callingList}"/>&tipotarea=aviso"
+                        <td><a ng-href="visortarea.htm?bp_out_chain_id={{t.idAviso}}&bp_out_INSTALACION={{t.numeroInstalacion}}&bp_agent=${pageContext.request.getParameter('AGENTELOGADO')}&bp_out_clname={{t.callingList}}"
                                class="btn btn-default" ><spring:message code="eti.buscartarea.btn.gestion"/></a></td>
                         <td><a href="#" class="btn btn-default" ><spring:message code="eti.buscartarea.btn.aplazar"/></a>
                         </td>
