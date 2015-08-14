@@ -1,3 +1,4 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -74,7 +75,7 @@
                         <td>{{ t.estado }}</td>
                         <td>{{ t.observaciones }}</td>
                         <td>{{ t.fechaReprogramacion | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                        <td><a href="visortarea.htm?ins_no=<c:out value="${tarea.callingList}"/>&tipotarea=aviso"
+                        <td><a ng-href="visortarea.htm?bp_out_INSTALACION={{t.numeroInstalacion}}&bp_agent=${pageContext.request.getParameter('AGENTELOGADO')}&bp_out_GSW_CHAIN_ID_CUSTOM={{t.idAviso}}&bp_out_clname={{t.callingList}}"
                                class="btn btn-default" ><spring:message code="eti.buscartarea.btn.gestion"/></a></td>
                         <td><a href="#" class="btn btn-default" ng-click="openDelayModal()"><spring:message code="eti.buscartarea.btn.aplazar"/></a>
                         </td>
@@ -88,4 +89,3 @@
 </div>
 </body>
 </html>
-
