@@ -189,7 +189,7 @@ public class GestionSenalesService {
                 }
                 processedOk = true;
             } catch (Exception e) {
-                LOGGER.error("Error processing message {}", message);//TODO Añadir excepcion
+                LOGGER.error("Error processing message {}", message,e);
                 onError(message);
                 processedOk = false;
             }

@@ -97,6 +97,7 @@ public class SearchTareaService {
                     callingListList,
                     country
             );
+
             LOGGER.debug("CCL RESPONSE, EXTRAER TAREAS");
             Map<String, String> map = tareaServiceTools.loadCclResponseMap(cclResponse);
             response = tareaServiceTools.createTareaListFromParameters(map);
