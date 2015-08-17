@@ -28,7 +28,7 @@
 
 <div class="col-lg-${cells} col-md-${cells} col-sm-${cells} col-xs-${cells}">
     <label class="col-lg-${cell_label} col-md-${cell_label} col-sm-${cell_label} col-xs-${cell_label} control-label labelcent ${required=='true'? 'label.required' : ''}">
-        <c:if test="${label!=null && !label.isEmpty()}"> <spring:message code='${label}'/> ${required=='true'? '*' : ''}:</c:if>
+        <c:if test="${not empty label}"> <spring:message code='${label}'/> ${required=='true'? '*' : ''}:</c:if>
     </label>
 
     
