@@ -74,4 +74,9 @@
             />
     <!-- TODO Parametro por JNDI, fichero configuracion????? -->
 
+    <jaxws:client name="wsTickets"
+                  serviceClass="wsticketsv2.WsTicketsSoap"
+                  address="http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx?WSDL"
+            />
+    <!-- TODO Parametro por JNDI, fichero configuracion????? -->
 </beans>

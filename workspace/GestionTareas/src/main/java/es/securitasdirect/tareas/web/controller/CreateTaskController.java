@@ -22,41 +22,43 @@ import javax.inject.Inject;
 @RequestMapping("/createtask")
 public class CreateTaskController extends BaseController {
 
-    @Inject
-    private DummyResponseGenerator dummyResponseGenerator;
-
     private static final Logger LOGGER = LoggerFactory.getLogger(CreateTaskController.class);
 
+    /**
+     *
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/createtask", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody BaseResponse createTask(@RequestBody CreateTaskRequest request) {
+        String SERVICE_MESSAGE = "createtask.create";
         LOGGER.debug("Creating task");
-        BaseResponse baseResponse = dummyResponseGenerator.dummyCustomSuccess("createtask.create.success");
-        return baseResponse;
+        BaseResponse response;
+        try{
+            LOGGER.debug("Create task request: {}", request);
+            boolean result = tareaService.createTask(request.getTask());
+            LOGGER.debug("Created task result: {}", result);
+            response = processSuccessMessages(result, SERVICE_MESSAGE);
+        }catch(Exception e){
+            LOGGER.error("Error creating task:");
+            response = processException(e,SERVICE_MESSAGE);
+        }
+        return response;
     }
 
 
     @RequestMapping(value = "/createmaintenance", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody BaseResponse createMaintenance(@RequestBody CreateMaintenanceRequest request) {
-        LOGGER.debug("Creating maintenance");
-        BaseResponse baseResponse = dummyResponseGenerator.dummyCustomSuccess("createtask.createmaintenance.success");
-        return baseResponse;
-    }
-
-    @RequestMapping(value = "/gettypelist", method = {RequestMethod.GET}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody PairListResponse getTypeList(){
-        LOGGER.debug("Getting task types");
-        PairListResponse response = null;
+        String SERVICE_MESSAGE = "createtask.createmaintenance";
+        LOGGER.debug("Creating maintenance for request: {}", request);
+        BaseResponse response;
         try{
-            //TODO llamada a servicio;
-            response = dummyResponseGenerator.dummyPairCustomSuccess("createtask.gettypelist.success");
-            if(response!=null){
-                //
-            }else{
-
-            }
+            boolean createdMaintenance = tareaService.createMaintenance(request.getTask());
+            LOGGER.debug("Created maintenance result: {}", createdMaintenance);
+            response = super.processSuccessMessages( createdMaintenance, SERVICE_MESSAGE);
         }catch(Exception e){
-            //TODO captura de error de llamada al servicio
-            response = new PairListResponse(super.processException(e));
+            LOGGER.debug("Error creating maintenance:");
+            response = super.processException(e, SERVICE_MESSAGE);
         }
         return response;
     }

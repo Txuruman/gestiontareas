@@ -48,14 +48,15 @@ public class KeyboxTaskController extends TaskController {
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
     )  {
+        String SERVICE_MESSAGE = "keyboxtask.gettask";
         TareaResponse response;
         LOGGER.debug("Get keybox task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
         try{
             KeyboxTask tarea = (KeyboxTask) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-            response = processSuccessTask(tarea, "keyboxtask.gettask");
+            response = processSuccessTask(tarea, SERVICE_MESSAGE);
             LOGGER.debug("Keybox task obtained from service: \n{}", tarea);
         }catch(Exception e){
-            response = processException(e, "keyboxtask.gettask.error");
+            response = processException(e, SERVICE_MESSAGE);
         }
         return response;
     }
@@ -94,15 +95,17 @@ public class KeyboxTaskController extends TaskController {
             @RequestParam(value = "tareaId", required = true) String tareaId
     )  {
         TareaResponse response;
+        String TASK_SERVICE_MESSAGE = "keyboxTask.getTask";
         LOGGER.debug("Get maintenance task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
         try{
             KeyboxTask task = (KeyboxTask) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-            response = processSuccessTask(task, "keyboxTask.getTask");
+            response = processSuccessTask(task, TASK_SERVICE_MESSAGE);
             LOGGER.debug("Keybox task obtained from service: \n{}", task);
         }catch(Exception e){
-            response = processException(e, "keyboxTask.getTask.error");
+            response = processException(e, TASK_SERVICE_MESSAGE);
         }
         LOGGER.debug("Get installation data for params: \ninstallationId: {}", installationId);
+        String INSTALLATION_SERVICE_MESSAGE = "installationData";
         try{
             InstallationData installationData = installationDataService.getInstallationData(installationId);
             TareaResponse installationResponse = processSuccessInstallation(installationData);
@@ -110,7 +113,7 @@ public class KeyboxTaskController extends TaskController {
             response.addMessages(installationResponse.getMessages());
             LOGGER.debug("Installation data obtained from service: \n{}", installationData);
         }catch(Exception e){
-            TareaResponse installationResponse = processException(e, "installationData.error");
+            TareaResponse installationResponse = processException(e, INSTALLATION_SERVICE_MESSAGE);
             response.addMessages(installationResponse.getMessages());
         }
         return response;

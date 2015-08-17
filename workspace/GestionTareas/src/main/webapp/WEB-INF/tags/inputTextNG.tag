@@ -11,6 +11,8 @@
 <%@ attribute name="maxlength" required="false" description="The maximum number of characters allowed in the <input> element" %>
 <%@ attribute name="cell_label" required="false"  description="The maximun cells label in parent space" type="java.lang.Integer" %>
 <%@ attribute name="cell_input" required="false"  description="The maximun cells label in parent space" %>
+<%@ attribute name="type" required="false"  description="The maximun cells label in parent space" %>
+
 
 <c:if test="${cell_label == null}">
     <c:set var="cell_label" value="4"/>
@@ -26,21 +28,31 @@
     <c:out value="Por favor introducir valores que sumen entre el label y el input un total de maximpo 12 "/>
 </c:if>
 
+<c:if test="${empty type}">
+    <c:set var="type" value="text" />
+</c:if>
+
+<c:if test="${type=='number' && empty pattern}">
+    <c:set var="pattern" value="[0-9]+([\.,][0-9]+)*" />
+</c:if>
+
+
+
 <div class="col-lg-${cells} col-md-${cells} col-sm-${cells} col-xs-${cells}">
-    <label class="col-lg-${cell_label} col-md-${cell_label} col-sm-${cell_label} col-xs-${cell_label} control-label labelcent ${required=='true'? 'label.required' : ''}">
-        <c:if test="${not empty label}"> <spring:message code='${label}'/> ${required=='true'? '*' : ''}:</c:if>
+    <label class="col-lg-${cell_label} col-md-${cell_label} col-sm-${cell_label} col-xs-${cell_label} control-label labelcent ${required=="true" ? "*" : ""}">
+        <c:if test="${not empty label}"> <spring:message code="${label}"/> ${required=="true" ? "*" : ""}:</c:if>
     </label>
 
     
     <div class="col-lg-${cell_input} col-md-${cell_input} col-sm-${cell_input} col-xs-${cell_input}">
-        <input type="text"
+        <input type="${type}"
                id="${id}"
                name="${id}"
                class="form-control input-custom-global"
                ng-model="${value}"
                maxlength="${maxlength}"
-                ${readonly=='true'? 'disabled' : ''}
+               pattern="${pattern}"
+               ${readonly=="true" ? "disabled" : ""}
                 />
     </div>
-
 </div>

@@ -18,7 +18,7 @@ app.controller('DelayModalInstanceCtrl', function ($scope, $modalInstance, $log)
             if ($scope.delayDate && $scope.delayTime) {
                 $scope.delayDate.setHours($scope.delayTime.getHours(), $scope.delayTime.getMinutes(), 0, 0);
             }
-            $log.debug("Selected delay info :" + $scope.delayInfo );
+            //$log.debug("Selected delay info :" + $scope.delayInfo );
             $modalInstance.close($scope.delayInfo);
         };
 
@@ -37,6 +37,26 @@ app.config(["$httpProvider", function ($httpProvider) {
     });
 }]);
 
+/* Directiva para que funcionen las modales en IE8
+ * En vez de utilizar script usamos div para el contenedor de las modales.
+ * Esta directiva se encarga de hacer que funcione.
+ * Ejemplo: WEB-INF/tags/invoiceDetailModalContent.tag
+ */
+app.directive('cachedTemplate', ['$templateCache', function ($templateCache) {
+	  "use strict";
+	  return {
+	    restrict: 'A',
+	    terminal: true,
+	    compile: function (element, attr) {
+	      if (attr.type === 'text/ng-template') {
+	        var templateUrl = attr.cachedTemplate,
+	            text = element.html();
+	        $templateCache.put(templateUrl, text);
+	      }
+	    }
+	  };
+	}])
+
 //Transoformación de Cadenas a Fecha(Javascript)
 //El formato de fecha configurado en el servidor es: 2011-11-29T15:52:18.867Z  y  2020-02-18
 var regexIso8601 = /^(\d{4}|\+\d{6})(?:-(\d{2})(?:-(\d{2})(?:T(\d{2}):(\d{2}):(\d{2})\.(\d{1,})(Z|([\-+])(\d{2}):(\d{2}))?)?)?)?$/;
@@ -54,7 +74,7 @@ function convertDateStringsToDates(input) {
         // TODO: Improve this regex to better match ISO 8601 date strings.
         if (typeof value === "string" && (match = value.match(regexIso8601))) {
             // Assume that Date.parse can parse ISO 8601 strings, or has been shimmed in older browsers to do so.
-            console.log("Transformando fecha",value);
+            //console.log("Transformando fecha",value);
             var milliseconds = Date.parse(match[0]);
             if (!isNaN(milliseconds)) {
                 input[key] = new Date(milliseconds);
@@ -178,13 +198,14 @@ app.controller('DatepickerDemoCtrl', function ($scope) {
 
 //create a service which defines a method square to return square of a number.
 app.service('CommonService', function ($rootScope, $log, $http) {
+    var service=this;
     this.square = function (a) {
-        console.log("Multiplicando");
+        //console.log("Multiplicando");
         return a * a;
     };
 
     this.suma = function (a) {
-        console.log("Suma");
+        //console.log("Suma");
         return a + a;
     };
 
@@ -210,8 +231,9 @@ app.service('CommonService', function ($rootScope, $log, $http) {
 
 
     /** Funcion para processar las respuestas del servidor, eg: processBaseResponse(data,status,headers,config);  */
+    /* quitado this. */
     this.processBaseResponse = function (data, status, headers, config) {
-        console.log("Procesando BaseResponse....");
+        //console.log("Procesando BaseResponse....");
         if (data && data.messages) {
             for (var msg in data.messages) {
                 $rootScope.vm.serverMessages.push(data.messages[msg]);
@@ -226,174 +248,31 @@ app.service('CommonService', function ($rootScope, $log, $http) {
         return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
     };
 
-
-    this.getNotificationTypeList = function(data, status, heathers, config) {
-        $log.debug("Load Notification Type List");
-        $http({
-            method: 'GET',
-            url: 'commons/getNotificationTypeList'
-        })
-            .success(function (data, status, headers, config) {
-                $log.debug('Loaded Notification Type List', data);
-                $rootScope.tipoAvisoList = data.pairList;
-                //TODO - SUSTITUÍR POR FUNCIÓN DE PROCESS BASE RESPONSE
-                $log.debug("Procesando BaseResponse....");
-                if (data && data.messages) {
-                    for (var msg in data.messages) {
-                        $rootScope.vm.serverMessages.push(data.messages[msg]);
-                    }
-                }
-                // END TODO
-            })
-            .error(function (data, status, headers, config) {
-                //TODO - SUSTITUÍR POR FUNCIÓN DE PROCESS BASE RESPONSE
-                $log.debug("Procesando BaseResponse....");
-                if (data && data.messages) {
-                    for (var msg in data.messages) {
-                        $rootScope.vm.serverMessages.push(data.messages[msg]);
-                    }
-                }
-                // END TODO
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-            });
-    };
-
-    this.getClosingList = function(data, status, heathers, config) {
-        $log.debug("Load Closing Type List");
-        $http({
-            method: 'GET',
-            url: 'commons/getClosingList'
-        })
-            .success(function (data, status, headers, config) {
-                $log.debug('Loaded Closing Type List', data);
-                $rootScope.closingList = data.pairList;
-                //TODO - SUSTITUÍR POR FUNCIÓN DE PROCESS BASE RESPONSE
-                $log.debug("Procesando BaseResponse....");
-                if (data && data.messages) {
-                    for (var msg in data.messages) {
-                        $rootScope.vm.serverMessages.push(data.messages[msg]);
-                    }
-                }
-                // END TODO
-            })
-            .error(function (data, status, headers, config) {
-                //TODO - SUSTITUÍR POR FUNCIÓN DE PROCESS BASE RESPONSE
-                $log.debug("Procesando BaseResponse....");
-                if (data && data.messages) {
-                    for (var msg in data.messages) {
-                        $rootScope.vm.serverMessages.push(data.messages[msg]);
-                    }
-                }
-                // END TODO
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-            });
-    };
-
-    this.getTypeReasonList = function(data, status, heathers, config) {
-        $log.debug("Load Task Type Reason List");
-        $http({
-            method: 'GET',
-            url: 'commons/getTypeReasonList'
-        })
-            .success(function (data, status, headers, config) {
-                $log.debug('Loaded Type Reason List', data);
-                $rootScope.motivoList = data.pairList;
-                //TODO - SUSTITUÍR POR FUNCIÓN DE PROCESS BASE RESPONSE
-                $log.debug("Procesando BaseResponse....");
-                if (data && data.messages) {
-                    for (var msg in data.messages) {
-                        $rootScope.vm.serverMessages.push(data.messages[msg]);
-                    }
-                }
-                // END TODO
-            })
-            .error(function (data, status, headers, config) {
-                //TODO - SUSTITUÍR POR FUNCIÓN DE PROCESS BASE RESPONSE
-                $log.debug("Procesando BaseResponse....");
-                if (data && data.messages) {
-                    for (var msg in data.messages) {
-                        $rootScope.vm.serverMessages.push(data.messages[msg]);
-                    }
-                }
-                // END TODO
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-            });
-    };
-
-    this.getClosingAditionalDataList = function(data, status, heathers, config) {
-        $log.debug("Load Closing Aditional Data List");
-        $http({
-            method: 'GET',
-            url: 'commons/getClosingAditionalDataList'
-        })
-            .success(function (data, status, headers, config) {
-                $log.debug('Loaded Closing Aditional Data List', data);
-                $rootScope.datosAdicionalesList = data.pairList;
-                //TODO - SUSTITUÍR POR FUNCIÓN DE PROCESS BASE RESPONSE
-                $log.debug("Procesando BaseResponse....");
-                if (data && data.messages) {
-                    for (var msg in data.messages) {
-                        $rootScope.vm.serverMessages.push(data.messages[msg]);
-                    }
-                }
-                // END TODO
-            })
-            .error(function (data, status, headers, config) {
-                //TODO - SUSTITUÍR POR FUNCIÓN DE PROCESS BASE RESPONSE
-                $log.debug("Procesando BaseResponse....");
-                if (data && data.messages) {
-                    for (var msg in data.messages) {
-                        $rootScope.vm.serverMessages.push(data.messages[msg]);
-                    }
-                }
-                // END TODO
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-            });
-    };
-
-    this.loadInstallationData = function(installationId,data, status, heathers, config){
-        $log.debug("Search Installation. ID: " + installationId);
+    this.loadInstallationData = function(installationId,data, status, headers, config){
+        //$log.debug("Search Installation. ID: " + installationId);
         $http({
             method: 'GET',
             url: 'commons/searchInstallation',
             params: {installationId: installationId}
         }).
             success(function (data, status, headers, config) {
-                $log.debug("Installation data found: " ,data.installationData);
+                //$log.debug("Installation data found: " ,data.installationData);
                 $rootScope.installationData = data.installationData;
-                //TODO - SUSTITUÍR POR FUNCIÓN DE PROCESS BASE RESPONSE
-                $log.debug("Procesando BaseResponse....");
-                if (data && data.messages) {
-                    for (var msg in data.messages) {
-                        $rootScope.vm.serverMessages.push(data.messages[msg]);
-                    }
-                }
-                // END TODO
+                service.processBaseResponse(data, status, headers, config);
             }).
             error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
-                //TODO - SUSTITUÍR POR FUNCIÓN DE PROCESS BASE RESPONSE
-                $log.debug("Procesando BaseResponse....");
-                if (data && data.messages) {
-                    for (var msg in data.messages) {
-                        $rootScope.vm.serverMessages.push(data.messages[msg]);
-                    }
-                }
-                // END TODO
-                $log.debug("Error in Installation data search");
+                service.processBaseResponse(data, status, headers, config);
+                //$log.debug("Error in Installation data search");
             });
-        $log.debug("Installation data loaded...")
+        //$log.debug("Installation data loaded...")
     }
 });
 
 app.filter('stringToDate', function () {
     return function (input) {
-        console.log("input" + input);
+        //console.log("input" + input);
         if (!input)
             return null;
 
@@ -410,14 +289,14 @@ app.directive('jsonDate', function ($filter) {
 
             //format text going to user (model to view)
             ngModel.$formatters.push(function (value) {
-                console.log("String To Date:" + value)
+                //console.log("String To Date:" + value)
                 var date = $filter('stringToDate')(value);
                 return date.toString();
             });
 
             //format text from the user (view to model)
             ngModel.$parsers.push(function (value) {
-                console.log("View to Model")
+                //console.log("View to Model")
                 var date = new Date(value);
                 if (!isNaN(date.getTime())) {
                     return moment(date).format();

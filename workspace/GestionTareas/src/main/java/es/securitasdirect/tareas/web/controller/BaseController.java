@@ -5,6 +5,7 @@ import es.securitasdirect.tareas.model.Tarea;
 import es.securitasdirect.tareas.model.external.Pair;
 import es.securitasdirect.tareas.service.TareaService;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
+import es.securitasdirect.tareas.web.controller.dto.response.PairListResponse;
 import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
 import es.securitasdirect.tareas.web.controller.util.MessageUtil;
 import org.slf4j.Logger;
@@ -31,7 +32,8 @@ public abstract class BaseController {
         return response;
     }
 
-    protected BaseResponse processException(Exception exception, String funcMsg){
+    protected BaseResponse processException(Exception exception, String funcMsgParam){
+        String funcMsg = funcMsgParam + ".error";
         BaseResponse response = new BaseResponse();
         if(funcMsg!=null && !funcMsg.isEmpty()){
             String localizedMessage = messageUtil.getProperty(funcMsg);
@@ -61,14 +63,41 @@ public abstract class BaseController {
         return response;
     }
 
-    protected BaseResponse processSuccess(Object obj, String msg){
+    protected BaseResponse processSuccessMessages(Object obj, String msg) {
         BaseResponse response = new BaseResponse();
-        if(obj!=null){
-            response.success(messageUtil.getProperty(msg+".success"));
-        }else{
-            response.warning(messageUtil.getProperty(msg+".notFound"));
+        if (obj != null) {
+            if (obj instanceof List) {
+                if (!((List) obj).isEmpty()) {
+                    response.success(messageUtil.getProperty(msg + ".success"));
+                    LOGGER.debug("Service {} - Response {}", msg, "Success");
+                } else {
+                    response.warning(messageUtil.getProperty(msg + ".notFound"));
+                    LOGGER.debug("Service {} - Response {}", msg, "Not Found");
+                }
+            } else {
+                response.success(messageUtil.getProperty(msg + ".success"));
+                LOGGER.debug("Service {} - Response {}", msg, "Success");
+            }
+        } else {
+            response.warning(messageUtil.getProperty(msg + ".notFound"));
+            LOGGER.debug("Service {} - Response {}", msg, "Not Found");
         }
         return response;
     }
 
+    protected BaseResponse processParamsError(String msg){
+        BaseResponse response = new BaseResponse();
+        response.warning(msg + ".paramsError");
+        return response;
+    }
+
+
+
+    protected BaseResponse processSuccessMessages(boolean res, String msg){
+        Object object = null;
+        if(res){
+            object=new Object();
+        }
+        return processSuccessMessages(object, msg);
+    }
 }

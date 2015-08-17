@@ -7,7 +7,9 @@ import es.securitasdirect.tareas.model.Tarea;
 import es.securitasdirect.tareas.model.TareaAviso;
 import es.securitasdirect.tareas.model.TareaExcel;
 import es.securitasdirect.tareas.model.TareaMantenimiento;
+import es.securitasdirect.tareas.model.external.BigIntegerPair;
 import es.securitasdirect.tareas.model.external.Pair;
+import es.securitasdirect.tareas.model.external.StringPair;
 import es.securitasdirect.tareas.model.tareaexcel.*;
 import es.securitasdirect.tareas.web.controller.params.ExternalParams;
 import org.slf4j.Logger;
@@ -56,19 +58,29 @@ public class ExternalDataService {
      */
     public List<Pair> getClosingReason() throws DataServiceFault{
         LOGGER.debug("Calling for closing reason query (for pull down combo)");
+        //spAioTareas2.getMotivoCierre();
         List<Pair> result = dummyPairListFor("Closing Reason");
         return result;
     }
 
 
 
-    /**
+    /**es1dbusdss03v
      * Call for closing reason query
      */
-    public List<Pair> getClosing() throws DataServiceFault{
-        LOGGER.debug("Calling for closing query (for pull down combo)");
-        List<Pair> result = dummyPairList();
-        result.add(new Pair(5,"Dummy for cierre"));
+    public List<StringPair> getClosing(Integer idTipo, Integer idMotivo, Integer idGrp) throws DataServiceFault{
+        LOGGER.debug("Calling for closing type list, params: idTipo: {}, idMotivo: {}, idGrp: {}", idTipo, idMotivo, idGrp);
+        List<StringPair> result = new ArrayList<StringPair>();
+        if(idTipo!=null && idMotivo!=null){
+            List<Tipocierre> wsResult = spAioTareas2.getTipoCierre(idTipo, idMotivo, idGrp);
+            LOGGER.debug("WS closing type list reponse: {}", wsResult);
+            for (Tipocierre tipocierre : wsResult) {
+              result.add(new StringPair(tipocierre.getTipo(), tipocierre.getDescripcion()));
+            }
+            LOGGER.debug("Closing type list reponse: {}", result);
+        }else{
+            LOGGER.warn("Not informed parameters for closing type list query, params: idTipo: {}, idMotivo: {}, idGrp: {}",idTipo, idMotivo, idGrp);
+        }
         return result;
     }
 
@@ -76,7 +88,7 @@ public class ExternalDataService {
      * Listado de los tipos de Aviso
      */
     public List<Pair> getNotificationType() throws DataServiceFault{
-        LOGGER.debug("Calling for notification type ");
+        LOGGER.debug("Calling for notification type list");
         List<Pair> result = new ArrayList<Pair>();
         for (Tipoaviso tipoaviso : spAioTareas2.getTipoAviso()) {
             result.add(new Pair(tipoaviso.getTipo().intValue(),tipoaviso.getDescripcion()));
@@ -85,14 +97,19 @@ public class ExternalDataService {
     }
 
     /**
-     * Call for notification type query
      */
-    public List<Pair> getTypeReasonList() throws DataServiceFault{
-        LOGGER.debug("Calling for notification type (for pull down combo)");
-        List<Pair> result = dummyPairList();
-        result.add(new Pair(501, "Dummy EDS 501"));
-        result.add(new Pair(552, "Dummy EDS 552"));
-        result.add(new Pair(561, "Dummy EDS 561"));
+    public List<BigIntegerPair> getTypeReasonList(Integer typeId) throws DataServiceFault{
+        LOGGER.debug("Calling for notification type reason list, params: typeId: {}", typeId);
+        List<BigIntegerPair> result = new ArrayList<BigIntegerPair>();
+        if(typeId!=null){
+            List<Tipomotivo> wsResult= spAioTareas2.getTipoMotivo(typeId);
+            for (Tipomotivo tipomotivo : wsResult) {
+                result.add(new BigIntegerPair(tipomotivo.getId(), tipomotivo.getDescripcion()));
+            }
+            LOGGER.debug("Notification type reason list reponse: {}", result);
+        }else {
+            LOGGER.warn("Not informed parameters for  notification type reason list query, params: typeId: {}{}", typeId);
+        }
         return result;
     }
 
@@ -100,7 +117,7 @@ public class ExternalDataService {
      * Creation of pair dummy list for unknown services
      * @return
      */
-    private List<Pair> dummyPairList(){
+    public List<Pair> dummyPairList(){
         LOGGER.warn("Creating dummy list for mock a unknown service");
         List<Pair> dummyPairList = new ArrayList<Pair>();
         dummyPairList.add(new Pair(1, "dummy1"));
@@ -144,9 +161,20 @@ public class ExternalDataService {
     }
 
 
-    public List<Pair> getDatosAdicionalesCierreTareaAviso() throws DataServiceFault {
-        assert datosAdicionalesCierreTareaAviso!=null;
-        return datosAdicionalesCierreTareaAviso;
+    public List<Pair> getDatosAdicionalesCierreTareaAviso(Integer closingTypeId) throws DataServiceFault {
+        LOGGER.debug("Calling for closing type aditional data list, params: closingTypeId: {}", closingTypeId);
+        List<Pair> result = new ArrayList<Pair>();
+        if(closingTypeId!=null){
+            List<TipoDatosAdicionalesTipoCierre> tiposDatosAdicionalesTipoCierreList = spAioTareas2.getClosingTypeAditionalData(closingTypeId.toString());
+            for (TipoDatosAdicionalesTipoCierre tipoDatosAdicionalesTipoCierre : tiposDatosAdicionalesTipoCierreList) {
+                result.add(new Pair(Integer.parseInt(tipoDatosAdicionalesTipoCierre.getId()), tipoDatosAdicionalesTipoCierre.getValor()));
+                //TODO ver tipos de retorno de datos (CONSULTA WS)
+            }
+            LOGGER.debug("Closing type aditional data list reponse: {}", result);
+        }else {
+            LOGGER.warn("Not informed parameters for  closing type aditional data list query, params: closingTypeId: {}", closingTypeId);
+        }
+        return result;
     }
 
     public List<Pair> getDatosCierreTareaExcel() {

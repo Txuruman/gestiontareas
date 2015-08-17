@@ -4,7 +4,7 @@
 <%@ taglib prefix="app" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<div ng-controller="maintenancetask-ctrl" ng-init="getInstallationAndTask()">
+<div ng-controller="maintenancetask-ctrl" ng-init="init()">
     <jsp:include page="instalacion.jsp"/>
     <div class="panel panel-default">
         <div class="panel-body">
@@ -39,7 +39,7 @@
                     </div>
                     <div class="row">
                         <app:input id="cancelationTypeCombo" label="tareamantenimiento.tipoCancelacion">
-                            <select data-ng-init="getCancelationType()" ng-model="tarea.tipoCancelacion" convert-to-number class="form-control">
+                            <select ng-model="tarea.tipoCancelacion" convert-to-number class="form-control">
                                 <option data-ng-repeat="k in cancelationTypeList" value="{{k.id}}" ng-selected="k.id==tarea.tipoCancelacion">{{k.value}}</option>
                             </select>
                         </app:input>

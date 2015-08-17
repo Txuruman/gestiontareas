@@ -40,8 +40,8 @@
     <div class="col-lg-${cell_input} col-md-${cell_input} col-sm-${cell_input} col-xs-${cell_input}">
         <textarea type="text" class="form-control custom-area" name="${id}" id="${id}"
                   maxlength="${maxlength}" rows="5"
-        ${readonly=='true'? 'disabled' : ''} ng-model="${value}">
-
+                  ${readonly=='true'? 'disabled' : ''}
+                  ng-model="${value}">
         </textarea>
     </div>
 

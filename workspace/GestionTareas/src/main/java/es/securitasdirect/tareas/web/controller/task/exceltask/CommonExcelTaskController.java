@@ -2,7 +2,6 @@ package es.securitasdirect.tareas.web.controller.task.exceltask;
 
 import es.securitasdirect.tareas.model.external.Pair;
 import es.securitasdirect.tareas.service.ExternalDataService;
-import es.securitasdirect.tareas.service.QueryTareaService;
 import es.securitasdirect.tareas.web.controller.BaseController;
 import es.securitasdirect.tareas.web.controller.dto.response.PairListResponse;
 import org.slf4j.Logger;
@@ -32,15 +31,16 @@ public class CommonExcelTaskController extends BaseController {
     public
     @ResponseBody
     PairListResponse getClosingReason() {
+        String SERVICE_MESSAGE = "commonexcel.closingReasonList";
         LOGGER.debug("Calling external data service: getClosingReason");
         PairListResponse response;
         try{
             List<Pair> closingReasonList = externalDataService.getClosingReason();
-            response = new PairListResponse(processSuccess(closingReasonList, "commonexcel.closingReasonList"));
+            response = new PairListResponse(processSuccessMessages(closingReasonList,SERVICE_MESSAGE));
             response.setPairList(closingReasonList);
             LOGGER.debug("Closing reason list: {}", closingReasonList);
         }catch(Exception e){
-            response = new PairListResponse(processException(e, "commonexcel.closingReasonList.error"));
+            response = new PairListResponse(processException(e,SERVICE_MESSAGE));
         }
         return response;
     }

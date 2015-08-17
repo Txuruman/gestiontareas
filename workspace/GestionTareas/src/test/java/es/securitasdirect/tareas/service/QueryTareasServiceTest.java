@@ -280,11 +280,4 @@ public class QueryTareasServiceTest {
 
 
 
-    @Test
-    public void queryTareaAvisoDirecto() throws DataServiceFault {
-        TareaAviso tareaByIdAviso = queryTareaService.getTareaByIdAviso(10267236);
-        assertThat(tareaByIdAviso, notNullValue());
-    }
-
-
 }

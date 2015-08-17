@@ -41,6 +41,13 @@
     border-radius: 7px;
 }
 
+.bordel-gray2 {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+
+
 .panel-result {
 	padding: 3px;
 }
@@ -138,4 +145,8 @@ h2{
     margin-left: 48%;
     width: 3%;
     height: 3%;
+}
+/*Para las modales (IE8)*/
+div[type="text/ng-template"]{
+    display: none;
 }

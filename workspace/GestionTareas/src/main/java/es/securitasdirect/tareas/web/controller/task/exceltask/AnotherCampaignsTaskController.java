@@ -42,14 +42,15 @@ public class AnotherCampaignsTaskController extends TaskController {
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
     ) {
+        String SERVICE_MESSAGE = "anothercampaigntask.gettarea";
         TareaResponse response;
         LOGGER.debug("Get maintenance task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
         try{
             TareaOtrasCampanas tarea = (TareaOtrasCampanas) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-            response = processSuccessTask(tarea, "anothercampaigntask.gettarea");
+            response = processSuccessTask(tarea, SERVICE_MESSAGE);
             LOGGER.debug("Another campaigns task obtained from service: \n{}", tarea);
         }catch(Exception e){
-            response = processException(e, "anothercampaigntask.gettarea.error");
+            response = processException(e, SERVICE_MESSAGE);
         }
         return response;
     }
@@ -86,15 +87,17 @@ public class AnotherCampaignsTaskController extends TaskController {
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
     ) {
+        String TASK_SERVICE_MESSAGE = "anotherCampaignsTask.getTask";
         TareaResponse response;
         LOGGER.debug("Get another campaigns task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
         try{
             TareaOtrasCampanas task = (TareaOtrasCampanas) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-            response = processSuccessTask(task, "anotherCampaignsTask.getTask");
+            response = processSuccessTask(task, TASK_SERVICE_MESSAGE);
             LOGGER.debug("Another campaigns task obtained from service: \n{}", task);
         }catch(Exception e){
-            response = processException(e, "anotherCampaignsTask.getTask.error");
+            response = processException(e, TASK_SERVICE_MESSAGE);
         }
+        String INSTALLATION_SERVICE_MESSAGE = "installationData";
         LOGGER.debug("Get installation data for params: \ninstallationId: {}", installationId);
         try{
             InstallationData installationData = installationDataService.getInstallationData(installationId);
@@ -104,7 +107,7 @@ public class AnotherCampaignsTaskController extends TaskController {
             LOGGER.debug("Installation data obtained from service: \n{}", installationData);
 
         } catch (Exception e) {
-            TareaResponse installationResponse = processException(e, "installationData.error");
+            TareaResponse installationResponse = processException(e, INSTALLATION_SERVICE_MESSAGE);
             response.addMessages(installationResponse.getMessages());
         }
         return response;

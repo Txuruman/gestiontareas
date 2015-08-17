@@ -27,7 +27,7 @@
 </c:if>
 
 <div class="col-lg-${cells} col-md-${cells} col-sm-${cells} col-xs-${cells}">
-    <label class="col-lg-${cell_label} col-md-${cell_label} col-sm-${cell_label} col-xs-${cell_label} control-label labelcent ${required=='true'? 'label.required' : ''}">
+    <label class="col-lg-${cell_label} col-md-${cell_label} col-sm-${cell_label} col-xs-${cell_label} control-label labelcent ${required=="true" ? "label.required" : ""}">
         <c:if test="${not empty label}"> <spring:message code='${label}'/> ${required=='true'? '*' : ''}:</c:if>
     </label>
 
@@ -40,7 +40,7 @@
                    name="${id}"
                    class="form-control input-custom-global"
                    ng-model="${value}"
-                ${readonly=='true'? 'disabled' : ''}  />
+                   ${readonly=='true' ? 'disabled' : ''}  />
         </c:if>
 
         <!-- Si no es editable imprimimos texto para evitar los problemas de fecha vacia -->
@@ -50,7 +50,7 @@
                    name="${id}"
                    class="form-control input-custom-global"
                    ng-model=" ${value} | date: 'dd/MM/yyyy' "
-                ${readonly=='true'? 'disabled' : ''}  />
+                   ${readonly=='true' ? 'disabled' : ''}  />
         </c:if>
     </div>
 

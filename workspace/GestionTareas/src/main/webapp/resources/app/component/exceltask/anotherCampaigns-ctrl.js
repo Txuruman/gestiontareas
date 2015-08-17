@@ -2,11 +2,11 @@
 app.controller('anotherCampaigns', function ($scope, $http, CommonService, $modal, $log) {
 
     $scope.getTarea = function () {
-        $log.debug("Loading Another Campaigns Task...")
-        $log.debug("Params: "
-        + " ccUserId: " + $scope.ccUserId
-        + " callingList: " + $scope.callingList
-        + " taskId: " + $scope.tareaId);
+        //$log.debug("Loading Another Campaigns Task...")
+        //$log.debug("Params: "
+        //+ " ccUserId: " + $scope.ccUserId
+        //+ " callingList: " + $scope.callingList
+        //+ " taskId: " + $scope.tareaId);
         $http({method: 'GET',
             url: '/anothercampaignstask/gettarea',
             params: {ccUserId: $scope.ccUserId, callingList: $scope.callingList, tareaId: $scope.tareaId}
@@ -14,20 +14,20 @@ app.controller('anotherCampaigns', function ($scope, $http, CommonService, $moda
             success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
                 $scope.tarea = data.tarea;
-                $log.debug("Loaded Another Campaigns Task:", $scope.tarea);
+                //$log.debug("Loaded Another Campaigns Task:", $scope.tarea);
             }).
             error(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
-                $log.error("Error loading another campagns task");
+                //$log.error("Error loading another campagns task");
             });
 
 
-        $log.debug("Loading Excel Task Commons: Closing reason");
+        //$log.debug("Loading Excel Task Commons: Closing reason");
         $http({method: 'GET', url: '/exceltaskcommon/getClosingReason'}).
             success(function (data, status, headers, config) {
-                $log.debug("Closing reason list loaded")
+                //$log.debug("Closing reason list loaded")
                 CommonService.processBaseResponse(data, status, headers, config);
                 $scope.closingReasonList = data.pairList;
             }).
@@ -35,7 +35,7 @@ app.controller('anotherCampaigns', function ($scope, $http, CommonService, $moda
                 CommonService.processBaseResponse(data, status, headers, config);
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
-                $log.error("Error loading closing reason list")
+                //$log.error("Error loading closing reason list")
             });
     };
 
@@ -43,19 +43,19 @@ app.controller('anotherCampaigns', function ($scope, $http, CommonService, $moda
     $scope.getInstallationAndTask = function(){
         $scope.vm.appReady=false;
 
-        $log.debug("Loading Another Campaigns Task...");
-        $log.debug("Params: "
-        + " installationId: " + $scope.installationId
-        + " ccUserId: " + $scope.ccUserId
-        + " callingList: " + $scope.callingList
-        + " taskId: " + $scope.tareaId);
+        //$log.debug("Loading Another Campaigns Task...");
+        //$log.debug("Params: "
+        //+ " installationId: " + $scope.installationId
+        //+ " ccUserId: " + $scope.ccUserId
+        //+ " callingList: " + $scope.callingList
+        //+ " taskId: " + $scope.tareaId);
         $http({
             method: 'GET',
             url: 'anothercampaignstask/getInstallationAndTask',
             params: {installationId: $scope.installationId, ccUserId: $scope.ccUserId, callingList: $scope.callingList, tareaId: $scope.tareaId}
         }).
             success(function (data, status, headers, config) {
-                $log.debug("Loaded fee cleaning task:",data.tarea);
+                //$log.debug("Loaded fee cleaning task:",data.tarea);
                 $scope.tarea = data.tarea;
                 $scope.installationData = data.installationData;
                 CommonService.processBaseResponse(data,status,headers,config);
@@ -67,16 +67,16 @@ app.controller('anotherCampaigns', function ($scope, $http, CommonService, $moda
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data,status,headers,config);
                 $scope.vm.appReady=true;
-                $log.error("Error loading installation and task");
+                //$log.error("Error loading installation and task");
             });
     };
 
 
     $scope.getClosingReason = function(){
-        $log.debug("Loading Excel Task Commons: Closing reason");
+        //$log.debug("Loading Excel Task Commons: Closing reason");
         $http({method: 'GET', url: '/exceltaskcommon/getClosingReason'}).
             success(function (data, status, headers, config) {
-                $log.debug("Closing reason list loaded:", data.pairList);
+                //$log.debug("Closing reason list loaded:", data.pairList);
                 CommonService.processBaseResponse(data, status, headers, config);
                 $scope.closingReasonList = data.pairList;
 
@@ -85,7 +85,7 @@ app.controller('anotherCampaigns', function ($scope, $http, CommonService, $moda
                 CommonService.processBaseResponse(data, status, headers, config);
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
-                $log.error("Error loading closing reason list");
+                //$log.error("Error loading closing reason list");
             });
     };
 

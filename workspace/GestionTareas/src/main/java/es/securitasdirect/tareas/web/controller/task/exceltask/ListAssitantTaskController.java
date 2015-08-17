@@ -43,13 +43,14 @@ public class ListAssitantTaskController extends TaskController {
             @RequestParam(value = "tareaId", required = true) String tareaId
     ) {
         TareaResponse response;
+        String SERVICE_MESSAGE = "listAssistantTask.getTask";
         LOGGER.debug("Get list assistant task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
         try{
             TareaListadoAssistant tarea = (TareaListadoAssistant) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-            response = processSuccessTask(tarea, "listAssistantTask.getTask");
+            response = processSuccessTask(tarea, SERVICE_MESSAGE);
             LOGGER.debug("List assistant task obtained from service: \n{}", tarea);
         }catch(Exception e){
-            response = processException(e, "listassistanttask.gettarea.error");
+            response = processException(e, SERVICE_MESSAGE);
         }
         return response;
     }
@@ -89,18 +90,20 @@ public class ListAssitantTaskController extends TaskController {
             @RequestParam(value = "tareaId", required = true) String tareaId
     ) {
         TareaResponse response = new TareaResponse();
+        String TASK_SERVICE_MESSAGE = "listAssistantTask.getTask";
         LOGGER.debug("Get maintenance task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
         try{
             TareaListadoAssistant listAssistantTask = (TareaListadoAssistant) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-            TareaResponse tareaResponse = processSuccessTask(listAssistantTask, "listAssistantTask.getTask");
+            TareaResponse tareaResponse = processSuccessTask(listAssistantTask, TASK_SERVICE_MESSAGE);
             response.addMessages(tareaResponse.getMessages());
             response.setTarea(tareaResponse.getTarea());
             LOGGER.debug("List assistant task obtained from service: \n{}", listAssistantTask);
         }catch(Exception e){
-            TareaResponse tareaResponse = processException(e, "listAssistantTask.getTask.error");
+            TareaResponse tareaResponse = processException(e, TASK_SERVICE_MESSAGE);
             response.addMessages(tareaResponse.getMessages());
         }
         LOGGER.debug("Get installation data for params: \ninstallationId: {}", installationId);
+        String INSTALLATION_SERVICE_MESSAGE = "installationData";
         try{
             InstallationData installationData = installationDataService.getInstallationData(installationId);
             TareaResponse installationResponse = processSuccessInstallation(installationData);
@@ -108,7 +111,7 @@ public class ListAssitantTaskController extends TaskController {
             response.addMessages(installationResponse.getMessages());
             response.setInstallationData(installationResponse.getInstallationData());
         }catch(Exception e){
-            TareaResponse tareaResponse = processException(e, "installationData.error");
+            TareaResponse tareaResponse = processException(e,INSTALLATION_SERVICE_MESSAGE);
             response.addMessages(tareaResponse.getMessages());
         }
         return response;

@@ -29,15 +29,14 @@
 <c:if test="${fluid_wrapper != 'true'}">
     <div class="col-lg-${cells} col-md-${cells} col-sm-${cells} col-xs-${cells}">
 </c:if>
-
     <input type="button" class="${button_type}" value="<spring:message code="${value}" />"
            <c:if test="${not empty ng_click}">
-               ng-click="<c:out value="ng_click" />"
+               ng-click="<c:out value="${ng_click}" />"
            </c:if>
             <c:if test="${not empty ng_controller}">
-                ng-click="<c:out value="ng_controller" />"
+                ng-click="<c:out value="${ng_controller}" />"
             </c:if>
-
+        />
 <c:if test="${fluid_wrapper != 'true'}">
     </div>
 </c:if>

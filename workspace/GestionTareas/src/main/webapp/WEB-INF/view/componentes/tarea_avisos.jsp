@@ -4,8 +4,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 
-<div ng-controller="notificationtask" ng-init="init();getInstallationAndTask()">
+<div ng-controller="notificationtask" ng-init="init()">
     <jsp:include page="instalacion.jsp"/>
+
     <div class="panel panel-default">
         <div class="panel-body">
             <div class="spacer_t2"></div>
@@ -14,7 +15,6 @@
                 <app:inputDate id="fechaCreacion" label="tareaAviso.fechaCreacion" value="tarea.fechaCreacion"  cells="6" readonly="false"/>
             </div>
             <div class="row">
-                FechaCreacion: {{tarea.fechaCreacion}}
             </div>
             <div class="spacer_t1"></div>
             <div class="row">
@@ -24,14 +24,6 @@
             </div>
             <div class="spacer_t1"></div>
             <div class="row">
-                <app:wrapping cells="6">Tipo aviso 1: {{tarea.tipoAviso1}}</app:wrapping>
-                <app:wrapping cells="6">Motivo 1: {{tarea.motivo1}}</app:wrapping>
-                <app:wrapping cells="6">Tipo aviso 2: {{tarea.tipoAviso2}}</app:wrapping>
-                <app:wrapping cells="6">Motivo 2: {{tarea.motivo2}}</app:wrapping>
-                <app:wrapping cells="6">Tipo aviso 3: {{tarea.tipoAviso3}}</app:wrapping>
-                <app:wrapping cells="6">Motivo 3: {{tarea.motivo3}}</app:wrapping>
-            </div>
-            <div class="row">
                 <app:input id="tipoAviso1" label="eti.visortarea.form.label.tipo" cells="6">
                     <select  ng-model="tarea.tipoAviso1" convert-to-number class="form-control">
                         <option data-ng-repeat="itemTipoAviso1 in tipoAvisoList" value="{{itemTipoAviso1.id}}" ng-selected="itemTipoAviso1.id==tarea.tipoAviso1" >{{itemTipoAviso1.value}}</option>
@@ -39,7 +31,7 @@
                 </app:input>
                 <app:input id="motivo1" label="eti.visortarea.form.label.reason" cells="6">
                     <select  ng-model="tarea.motivo1" convert-to-number class="form-control">
-                        <option data-ng-repeat="itemMotivo1 in motivoList" value="{{itemMotivo1.id}}" ng-selected="itemMotivo1.id==tarea.motivo1" >{{itemMotivo1.value}}</option>
+                        <option data-ng-repeat="itemMotivo1 in motivoList1" value="{{itemMotivo1.id}}" ng-selected="itemMotivo1.id==tarea.motivo1" >{{itemMotivo1.value}}</option>
                     </select>
                 </app:input>
             </div>
@@ -52,7 +44,7 @@
                 </app:input>
                 <app:input id="motivo2" cells="6">
                     <select  ng-model="tarea.motivo2" convert-to-number class="form-control">
-                        <option data-ng-repeat="itemMotivo2 in motivoList" value="{{itemMotivo2.id}}" ng-selected="itemMotivo2.id==tarea.motivo2" >{{itemMotivo2.value}}</option>
+                        <option data-ng-repeat="itemMotivo2 in motivoList2" value="{{itemMotivo2.id}}" ng-selected="itemMotivo2.id==tarea.motivo2" >{{itemMotivo2.value}}</option>
                     </select>
                 </app:input>
             </div>
@@ -65,15 +57,11 @@
                 </app:input>
                 <app:input id="motivo3" cells="6">
                     <select  ng-model="tarea.motivo3" convert-to-number class="form-control">
-                        <option data-ng-repeat="k in motivoList" value="{{k.id}}" ng-selected="k.id==tarea.motivo3" >{{k.value}}</option>
+                        <option data-ng-repeat="k in motivoList3" value="{{k.id}}" ng-selected="k.id==tarea.motivo3" >{{k.value}}</option>
                     </select>
                 </app:input>
             </div>
             <!-- row -->
-            <div class="row">
-                <app:wrapping cells="6">Cierre: {{tarea.closing}}</app:wrapping>
-                <app:wrapping cells="6">Datos adicionales: {{tarea.datosAdicionalesCierre}}</app:wrapping>
-            </div>
             <div class="spacer_t1"></div>
             <div class="row">
                 <app:input id="closing" label="notificationtask.closing" cells="6" readonly="false">
@@ -97,19 +85,13 @@
         </div>
     </div>
 
+    <div>
+        Tipo Aviso1: {{tarea.tipoAviso1}}
+        Motivo Aviso1: {{tarea.motivo1}}
+    </div>
 
     <!-- Botones Tarea Aviso -->
     <jsp:include page="btn_avisos.jsp"/>
-
-
-
-
-
-
-
-
-
-
 </div>
 <script src="${pageContext.request.contextPath}/resources/app/component/notificationTask-ctrl.js"></script>
 

@@ -31,21 +31,13 @@ public abstract class TaskController extends BaseController{
      */
     public BaseResponse delayTask(Tarea task, String recallType, Date delayDate, String message) {
         LOGGER.debug("Aplazando tarea {} TODO ", task ,delayDate, recallType);
-
         BaseResponse response = new BaseResponse();
-
         //Llamada al servicio para aplazar
         try {
-            //Llamada al servicio para aplazar
-            //TODO - idAViso = task.getIdAviso();
             boolean ok = tareaService.aplazar(9);
-            if(ok){
-                response.success(messageUtil.getProperty(message + ".success"));
-            }else{
-                response.danger(messageUtil.getProperty(message + ".notFound"));
-            }
+            response = super.processSuccessMessages(ok, message);
         } catch (Exception e) {
-            response = processException(e, message + ".error");
+            response = processException(e, message);
         }
         LOGGER.debug("Aplazamiento de tarea\nResponse:{}", response);
         return response;
@@ -58,16 +50,7 @@ public abstract class TaskController extends BaseController{
      * @return
      */
     public TareaResponse processSuccessTask(Tarea task, String s) {
-        TareaResponse tareaResponse = new TareaResponse();
-        LOGGER.info("Process task response: {}", task);
-        if(task!=null) {
-            tareaResponse.setTarea(task);
-            tareaResponse.success(messageUtil.getProperty(s+".success"));
-        }else{
-            tareaResponse.danger(messageUtil.getProperty(s + "notFound"));
-        }
-        LOGGER.info("Task Response: {}", tareaResponse);
-        return tareaResponse;
+        return new TareaResponse(super.processSuccessMessages(task,s), task);
     }
 
     /**
@@ -76,16 +59,9 @@ public abstract class TaskController extends BaseController{
      * @return
      */
     public TareaResponse processSuccessInstallation(InstallationData installationData) {
-        TareaResponse tareaResponse = new TareaResponse();
-        LOGGER.info("Process installationData response: {}", installationData);
-        if(installationData!=null) {
-            tareaResponse.setInstallationData(installationData);
-            tareaResponse.success(messageUtil.getProperty("installationData.success"));
-        }else{
-            tareaResponse.danger(messageUtil.getProperty("installationData.notFound"));
-        }
-        LOGGER.info("Installation Data Response: {}", tareaResponse);
-        return tareaResponse;
+        TareaResponse response = new TareaResponse(super.processSuccessMessages(installationData, "installationData"));
+        response.setInstallationData(installationData);
+        return response;
     }
 
     public TareaResponse processException(Exception e, String msg){

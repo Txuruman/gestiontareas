@@ -2,12 +2,12 @@ app.controller('taskCreation', function ($scope, $http, CommonService, $modal, $
 
     $scope.createTask = function(){
         $scope.vm.appReady=false;
-        $log.debug("Creating task");
+        //$log.debug("Creating task");
         var createTaskRequest = {
             tarea:$scope.task,
             prueba:'Hola'
         };
-        $log.debug("Creating task request: ",createTaskRequest);
+        //$log.debug("Creating task request: ",createTaskRequest);
         $http({
             method: 'PUT',
             url: '/createtask/createtask',
@@ -28,12 +28,12 @@ app.controller('taskCreation', function ($scope, $http, CommonService, $modal, $
 
     $scope.createMaintenance = function(){
         $scope.vm.appReady=false;
-        $log.debug("Creating maintenance");
+        //$log.debug("Creating maintenance");
         var createMaintenanceRequest = {
             tarea:$scope.task,
             prueba:'Hola'
         };
-        $log.debug("Creating maintenance request: ", createMaintenanceRequest );
+        //$log.debug("Creating maintenance request: ", createMaintenanceRequest );
         $http({
             method: 'PUT',
             url: '/createtask/createmaintenance',
@@ -53,11 +53,11 @@ app.controller('taskCreation', function ($scope, $http, CommonService, $modal, $
 
     $scope.init = function(data, status, heathers, config) {
         $scope.vm.appReady=false;
-        $log.debug("Charging page, combo lists");
+        //$log.debug("Charging page, combo lists");
         CommonService.getNotificationTypeList(data, status, heathers, config);
         CommonService.getTypeReasonList(data, status, heathers, config);
         CommonService.loadInstallationData($scope.installationId,data, status, heathers, config);
-        $log.debug("Charging page, combo lists");
+        //$log.debug("Charging page, combo lists");
         $scope.vm.appReady=true;
     };
 
