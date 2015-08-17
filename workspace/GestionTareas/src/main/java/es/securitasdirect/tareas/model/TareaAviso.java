@@ -196,17 +196,6 @@ public class TareaAviso extends Tarea {
         this.fechaCreacion = fechaCreacion;
     }
 
-    @Override
-    public String getEstado() {
-        return estado;
-    }
-
-    @Override
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-
     public Integer getIdAviso() {
         return idAviso;
     }

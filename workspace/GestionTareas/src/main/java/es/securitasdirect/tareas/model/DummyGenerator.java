@@ -174,7 +174,7 @@ public class DummyGenerator {
         tareaAviso.setRequeridoPor("Dummy requerido por");
         tareaAviso.setDatosContacto("Dummy datos contacto");
         tareaAviso.setFechaCreacion(new Date());
-        tareaAviso.setEstado("Dummy estado");
+        tareaAviso.setEstado(1);
         tareaAviso.setHorarioDesde("Dummy horario desde");
         tareaAviso.setHorarioHasta("Dummy horario hasta");
         tareaAviso.setClosing("1");

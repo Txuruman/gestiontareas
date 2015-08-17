@@ -55,7 +55,7 @@ public class SearchTareaController extends BaseController{
             try{
                 List<Tarea> listaTareas;
                 if(request.getSearchOption().equals(SearchTaskRequest.TELEPHONE)){
-                    listaTareas = searchTareaService.findByPhone(request.getSearchText());
+                    listaTareas = searchTareaService.findByPhone("11","22",request.getSearchText(),"44");
                 }else if(request.getSearchOption().equals(SearchTaskRequest.CLIENT)){
                     listaTareas = searchTareaService.findByClient(request.getSearchText());
                 }else{
