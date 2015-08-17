@@ -26,3 +26,13 @@ li[tab],.pagination a{
 		width:auto !important;
 	}
 }
+ul.nav.nav-tabs.nav-justified li{
+	width:49.3%;
+	display:inline-block;
+}
+form.form-horizontal input.radio-inline{
+	padding-top:0 !important;
+}
+html{
+	width:98.4%;
+}
