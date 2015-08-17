@@ -1,5 +1,6 @@
 package es.securitasdirect.tareas.web.controller;
 
+import es.securitasdirect.tareas.service.TareaService;
 import es.securitasdirect.tareas.web.controller.dto.request.createtask.CreateMaintenanceRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.createtask.CreateTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.response.PairListResponse;
@@ -23,6 +24,9 @@ import javax.inject.Inject;
 public class CreateTaskController extends BaseController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CreateTaskController.class);
+
+    @Inject
+    protected TareaService tareaService;
 
     /**
      *
