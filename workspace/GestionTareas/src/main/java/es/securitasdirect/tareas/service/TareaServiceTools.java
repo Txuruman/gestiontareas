@@ -222,7 +222,7 @@ public class TareaServiceTools {
         tarea.setIdAviso(avisobyIdResult.getIdaviso().intValue());
         tarea.setIdentificativoAvisoTarea(avisobyIdResult.getIdaviso().intValue());
         tarea.setObservaciones(avisobyIdResult.getObservaciones());
-        tarea.setEstado(avisobyIdResult.getEstado().toString()); //TODO
+        tarea.setEstado(1);
         tarea.setTitular(avisobyIdResult.getTitular());
         tarea.setFechaCreacion(toDateFromMap(avisobyIdResult.getFechaCreacion())); //TODO OJO PUEDE SER DISTINTO
 
