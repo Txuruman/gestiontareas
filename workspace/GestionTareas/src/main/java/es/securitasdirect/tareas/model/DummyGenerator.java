@@ -208,7 +208,7 @@ public class DummyGenerator {
 
     public static Tarea addTareaValues(Tarea tarea){
         tarea.setNumeroInstalacion("Dummy numeroInstalacion");
-        tarea.setEstado("Dummy status");
+        tarea.setEstado(1);
         tarea.setNumeroContrato("Dummy contract number");
         tarea.setCallingList("Dummy calling list");
         tarea.setTelefono("Dummy telephone");
