@@ -20,7 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- * Created by Roberto on 12/08/2015.
+ * Servicio con mapeos de Tareas para utilizarse en Serach y Query
  */
 @Named(value = "tareaServiceTools")
 @Singleton
@@ -56,11 +56,8 @@ public class TareaServiceTools {
         return null;
     }
 
-    protected List<Tarea> createTareaListFromParameters(Map<String, String> responseMap){
-        return null;
-    }
 
-    private Tarea createTareaFromParameters(Map<String, String> responseMap){
+    public Tarea createTareaFromParameters(Map<String, String> responseMap){
         String tipoTarea = getTaskTypeFromMap(responseMap);
         Tarea tarea = null;
         if (responseMap != null) {
@@ -222,7 +219,7 @@ public class TareaServiceTools {
         tarea.setIdAviso(avisobyIdResult.getIdaviso().intValue());
         tarea.setIdentificativoAvisoTarea(avisobyIdResult.getIdaviso().intValue());
         tarea.setObservaciones(avisobyIdResult.getObservaciones());
-        tarea.setEstado(1);
+        tarea.setEstado(1); 
         tarea.setTitular(avisobyIdResult.getTitular());
         tarea.setFechaCreacion(toDateFromMap(avisobyIdResult.getFechaCreacion())); //TODO OJO PUEDE SER DISTINTO
 
@@ -254,19 +251,30 @@ public class TareaServiceTools {
      *
      * @return
      */
-    public Map<String, String> loadCclResponseMap(CclResponse reponse) {
+    public Map<String, String> loadCclResponseMap(CclResponse reponse, int position) {
         HashMap<String, String> responseMap = new HashMap<String, String>();
-        for (Item item : reponse.getColumnReturn().get(0).getItem()) { //Recorre la lista, aunque no parezca una lista
-            if (item != null) {
-                if (item.getCampo() != null && item.getValor() != null) {
-                    responseMap.put(item.getCampo(), item.getValor());
-                } else if (item.getCampo() != null && item.getValor() == null) {
-                    responseMap.put(item.getCampo(), ""); //TODO QUITAR
+        if (position>reponse.getColumnReturn().size()) {
+            return null;
+        } else {
+            for (Item item : reponse.getColumnReturn().get(position).getItem()) { //Recorre la lista, aunque no parezca una lista
+                if (item != null) {
+                    if (item.getCampo() != null && item.getValor() != null) {
+                        responseMap.put(item.getCampo(), item.getValor());
+                    } else if (item.getCampo() != null && item.getValor() == null) {
+                        responseMap.put(item.getCampo(), ""); //TODO QUITAR
+                    }
                 }
             }
+            return responseMap;
         }
-        return responseMap;
     }
+
+    /** Para los mapas que solo deberían tener una tarea */
+    public Map<String, String> loadCclUniqueResponseMap(CclResponse reponse) {
+        return loadCclResponseMap(reponse,0);
+    }
+
+
     private Tarea createTareaMantenimientoFromParameters(Map<String, String> parameters) {
         /**
          * 1.1.1.1.2.	Mapeo tarea mantenimiento

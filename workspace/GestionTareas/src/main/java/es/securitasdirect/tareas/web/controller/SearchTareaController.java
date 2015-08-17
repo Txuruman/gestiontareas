@@ -53,11 +53,16 @@ public class SearchTareaController extends BaseController{
             response = new SearchTareaResponse(processParamsError(SERVICE_MESSAGE));
         }else{
             try{
+                //TODO ESTOS PARAMETROS VENDRAN POR POST
+                String ccIdentifier="ATC_SPN";
+                String ccUserId="12187";
+                String country="SPAIN";
+
                 List<Tarea> listaTareas;
                 if(request.getSearchOption().equals(SearchTaskRequest.TELEPHONE)){
-                    listaTareas = searchTareaService.findByPhone(request.getSearchText());
+                    listaTareas = searchTareaService.findByPhone(ccIdentifier, ccUserId,  country,request.getSearchText());
                 }else if(request.getSearchOption().equals(SearchTaskRequest.CLIENT)){
-                    listaTareas = searchTareaService.findByClient(request.getSearchText());
+                    listaTareas = searchTareaService.findByCustomer(ccIdentifier, ccUserId,  country,request.getSearchText());
                 }else{
                     listaTareas = new ArrayList<Tarea>();
                 }
@@ -70,7 +75,4 @@ public class SearchTareaController extends BaseController{
         return response;
     }
 
-    public void a(){
-
-    }
 }

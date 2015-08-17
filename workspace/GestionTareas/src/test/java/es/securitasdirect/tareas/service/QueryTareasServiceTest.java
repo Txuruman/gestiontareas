@@ -1,5 +1,7 @@
 package es.securitasdirect.tareas.service;
 
+import com.webservice.CCLIntegration;
+import com.webservice.CclResponse;
 import es.securitasdirect.tareas.model.Tarea;
 import es.securitasdirect.tareas.model.TareaAviso;
 import org.junit.Test;
@@ -19,6 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Arrays;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -35,6 +38,13 @@ public class QueryTareasServiceTest {
 
     @Inject
     protected QueryTareaService queryTareaService;
+
+    @Inject
+    private CCLIntegration cclIntegration;
+    @Inject
+    private TareaServiceTools tareaServiceTools;
+    @Resource(name = "applicationUser")
+    private String applicationUser;
 
     /**
      * <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
@@ -277,6 +287,11 @@ public class QueryTareasServiceTest {
         }
 
     }
+
+
+    @Resource(name = "callingListToModel")
+    private Map<String, List<String>> callingListToModel;
+
 
 
 
