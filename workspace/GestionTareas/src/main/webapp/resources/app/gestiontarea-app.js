@@ -246,6 +246,7 @@ app.service('CommonService', function ($rootScope, $log, $http, $timeout) {
         	$timeout(function(){
             	$('div[type="success"]').addClass("alert-success alert-dismissable");
             	$('div[type="warning"]').addClass("alert-warning alert-dismissable");
+            	$('div[type="danger"]').addClass("alert-danger alert-dismissable");
             },0);
         }
         //TODO Control status ,etc si hay error meter mensajes

@@ -116,7 +116,7 @@ public class SearchTareaService {
         List<Tarea> tareas = new ArrayList<Tarea>();
         Tarea ejemploAviso = new TareaAviso();
         ejemploAviso.setNumeroInstalacion("1234");
-        ejemploAviso.setEstado("estado1");
+        ejemploAviso.setEstado(1);
         ejemploAviso.setTelefono("652696869");
         ejemploAviso.setCallingList("CC_CA_IL_500");
         ejemploAviso.setNumeroContrato("526369");
@@ -126,7 +126,7 @@ public class SearchTareaService {
 
         Tarea ejemploTareaMantenimiento = new TareaMantenimiento();
         ejemploTareaMantenimiento.setNumeroInstalacion("12345");
-        ejemploTareaMantenimiento.setEstado("estado2");
+        ejemploTareaMantenimiento.setEstado(2);
         ejemploTareaMantenimiento.setTelefono("652696789");
         ejemploTareaMantenimiento.setCallingList("CC_CA_IL_502");
         ejemploTareaMantenimiento.setNumeroContrato("526370");
@@ -136,7 +136,7 @@ public class SearchTareaService {
 
         Tarea ejemploTareaEncuestaMarketing = new MarketingSurveyTask();
         ejemploTareaEncuestaMarketing.setNumeroInstalacion("123456");
-        ejemploTareaEncuestaMarketing.setEstado("estado3");
+        ejemploTareaEncuestaMarketing.setEstado(3);
         ejemploTareaEncuestaMarketing.setTelefono("652696478");
         ejemploTareaEncuestaMarketing.setCallingList("CC_CA_IL_510");
         ejemploTareaEncuestaMarketing.setNumeroContrato("526371");
@@ -146,7 +146,7 @@ public class SearchTareaService {
 
         Tarea ejemploTareaListadoAssistant = new TareaListadoAssistant();
         ejemploTareaListadoAssistant.setNumeroInstalacion("1234567");
-        ejemploTareaListadoAssistant.setEstado("estado4");
+        ejemploTareaListadoAssistant.setEstado(4);
         ejemploTareaListadoAssistant.setTelefono("652696785");
         ejemploTareaListadoAssistant.setCallingList("CC_CA_IL_512");
         ejemploTareaListadoAssistant.setNumeroContrato("526372");
