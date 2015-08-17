@@ -72,7 +72,32 @@
                     <tr ng-repeat="t in taskList | orderBy : 'codigoCliente'">
                         <td>{{ t.numeroInstalacion }}</td>
                         <td>{{ t.callingList }}</td>
-                        <td>{{ t.estado }}</td>
+                        <td>
+                        	<div ng-show="t.estado===0">
+                        		<spring:message code="searchTarea.table.status.status0"/>
+                        	</div>
+                        	<div ng-show="t.estado===1">
+                        		<spring:message code="searchTarea.table.status.status1"/>
+                        	</div>
+                        	<div ng-show="t.estado===2">
+                        		<spring:message code="searchTarea.table.status.status2"/>
+                        	</div>
+                        	<div ng-show="t.estado===3">
+                        		<spring:message code="searchTarea.table.status.status3"/>
+                        	</div>
+                        	<div ng-show="t.estado===4">
+                        		<spring:message code="searchTarea.table.status.status4"/>
+                        	</div>
+                        	<div ng-show="t.estado===5">
+                        		<spring:message code="searchTarea.table.status.status5"/>
+                        	</div>
+                        	<div ng-show="t.estado===6">
+                        		<spring:message code="searchTarea.table.status.status6"/>
+                        	</div>
+                        	<div ng-show="t.estado===8">
+                        		<spring:message code="searchTarea.table.status.status8"/>
+                        	</div>
+                        </td>
                         <td>{{ t.observaciones }}</td>
                         <td>{{ t.fechaReprogramacion | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                         <td><a ng-href="visortarea.htm?bp_out_INSTALACION={{t.numeroInstalacion}}&bp_agent=${pageContext.request.getParameter('AGENTELOGADO')}&bp_out_GSW_CHAIN_ID_CUSTOM={{t.idAviso}}&bp_out_clname={{t.callingList}}"

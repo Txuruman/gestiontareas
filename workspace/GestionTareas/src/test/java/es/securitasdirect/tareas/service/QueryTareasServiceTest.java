@@ -1,5 +1,7 @@
 package es.securitasdirect.tareas.service;
 
+import com.webservice.CCLIntegration;
+import com.webservice.CclResponse;
 import es.securitasdirect.tareas.model.Tarea;
 import es.securitasdirect.tareas.model.TareaAviso;
 import org.junit.Test;
@@ -19,6 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Arrays;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -35,6 +38,13 @@ public class QueryTareasServiceTest {
 
     @Inject
     protected QueryTareaService queryTareaService;
+
+    @Inject
+    private CCLIntegration cclIntegration;
+    @Inject
+    private TareaServiceTools tareaServiceTools;
+    @Resource(name = "applicationUser")
+    private String applicationUser;
 
     /**
      * <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
@@ -276,6 +286,62 @@ public class QueryTareasServiceTest {
 
         }
 
+    }
+
+
+    @Resource(name = "callingListToModel")
+    private Map<String, List<String>> callingListToModel;
+
+    private List<String> callingListList;
+
+    @Test
+    public List<Tarea> find(){
+
+        String ccIdentifier="";
+        String ccUserId="";
+        String phone="";
+        String country="";
+        String filter="";
+
+        List<Tarea> response;
+        if(ccIdentifier==null || ccIdentifier.isEmpty()
+                || applicationUser==null || applicationUser.isEmpty()
+                || ccUserId==null || ccUserId.isEmpty()
+                || phone==null || phone.isEmpty()
+                || country==null || country.isEmpty()
+                ){
+            response = null;
+            LOGGER.warn("Parámetros para la búsqueda de tareas por teléfono no informados");
+        }else {
+
+            List<String> returnData = Arrays.asList("");
+
+
+
+            CclResponse cclResponse = cclIntegration.checkCallingListContact(
+                    ccIdentifier,
+                    applicationUser,
+                    ccUserId,
+                    filter,
+                    returnData,
+                    getConfiguredCallingList(),
+                    country
+            );
+            LOGGER.debug("CCL RESPONSE, EXTRAER TAREAS");
+            Map<String, String> map = tareaServiceTools.loadCclResponseMap(cclResponse);
+            response = tareaServiceTools.createTareaListFromParameters(map);
+        }
+        return response;
+    }
+    private List<String> getConfiguredCallingList() {
+        if(callingListList == null) {
+            callingListList = new ArrayList<String>() ;
+            for (String callingListType : callingListToModel.keySet()) {
+                List<String> callingListTypeCallingListList = callingListToModel.get(callingListType);
+                callingListList.addAll(callingListTypeCallingListList);
+            }
+        }
+        return callingListList;
     }
 
 
