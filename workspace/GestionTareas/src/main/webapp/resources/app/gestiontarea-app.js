@@ -197,7 +197,7 @@ app.controller('DatepickerDemoCtrl', function ($scope) {
 
 
 //create a service which defines a method square to return square of a number.
-app.service('CommonService', function ($rootScope, $log, $http) {
+app.service('CommonService', function ($rootScope, $log, $http, $timeout) {
     var service=this;
     this.square = function (a) {
         //console.log("Multiplicando");
@@ -235,9 +235,18 @@ app.service('CommonService', function ($rootScope, $log, $http) {
     this.processBaseResponse = function (data, status, headers, config) {
         //console.log("Procesando BaseResponse....");
         if (data && data.messages) {
-            for (var msg in data.messages) {
+        	/**
+        	 * For modificado para correcto funcionamiento en IE8
+        	 * Original: for (var msg in data.messages) {
+        	 */
+        	for (var msg=0;msg<data.messages.length; msg++) {
                 $rootScope.vm.serverMessages.push(data.messages[msg]);
             }
+        	//Necesario para asignar las clases de la directiva alert (IE8)
+        	$timeout(function(){
+            	$('div[type="success"]').addClass("alert-success alert-dismissable");
+            	$('div[type="warning"]').addClass("alert-warning alert-dismissable");
+            },0);
         }
         //TODO Control status ,etc si hay error meter mensajes
         // TODO if($rootScope.serverMessages == )

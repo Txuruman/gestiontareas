@@ -19,7 +19,7 @@ public class Tarea {
     /**
      * Estado de la Tarea (record_status): ready, retrieved, …
      */
-    protected String estado;
+    protected Integer estado;
 
     protected String personaContacto;
     /**
@@ -54,11 +54,11 @@ public class Tarea {
         this.numeroInstalacion = numeroInstalacion;
     }
 
-    public String getEstado() {
+    public Integer getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(Integer estado) {
         this.estado = estado;
     }
 
@@ -122,5 +122,20 @@ public class Tarea {
                 ", fechaReprogramacion=" + fechaReprogramacion +
                 ", codigoCliente=" + codigoCliente +
                 '}';
+    }
+
+
+
+    private interface TaskStatus {
+
+        public static final int NO_RECORD_STATUS_= 0;
+        public static final int READY_= 1;
+        public static final int RETRIEVED_= 2;
+        public static final int UPDATED_= 3;
+        public static final int STALE_= 4;
+        public static final int CANCELED_= 5;
+        public static final int AGENT_ERROR_= 6;
+        public static final int MISSED_CALLBACK_= 8;
+
     }
 }

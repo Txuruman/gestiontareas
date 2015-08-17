@@ -1,5 +1,5 @@
 //Controlador List Assistant - Start
-app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $modal, $log) {
+app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $modal, $log, $timeout) {
     $scope.getTarea = function () {
         //$log.debug("Loading List Assistant Task...")
         //console.log("Params: "
@@ -15,7 +15,6 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
                 //$log.debug("ListAssistantTask: " ,data);
                 $scope.tarea = data.tarea;
                 CommonService.processBaseResponse(data, status, headers, config);
-
             })
             .error(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
@@ -173,8 +172,6 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
             //Boton cancelar del Modal
         });
     };
-    //Ventana Aplazar - End
-
-
+    //Ventana Aplazar - End    
 });
 //Controlador List Assistant - End

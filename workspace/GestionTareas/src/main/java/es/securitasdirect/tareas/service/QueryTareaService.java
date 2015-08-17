@@ -19,7 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- *
+ * Servicio para consulta de una tarea
  */
 @Named(value = "queryTareaService")
 @Singleton

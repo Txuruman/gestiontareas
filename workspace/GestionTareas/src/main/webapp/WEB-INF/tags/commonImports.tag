@@ -4,7 +4,6 @@
 <meta charset="utf-8" />
 <!--[if IE 8]>
 <script src="${pageContext.request.contextPath}/resources/js/es5-shim.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/jquery-1.9.0.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/html5.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/respond.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/pie/PIE.js"></script>
@@ -15,7 +14,7 @@ display: none !important;
 }
 </style>
 <![endif]-->
-
+<script src="${pageContext.request.contextPath}/resources/js/jquery-1.9.0.js"></script>
 <script src="${pageContext.request.contextPath}/resources/bower_components/ie8compatibility/angular.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/ui-bootstrap-tpls-0.13.0.js"></script>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"/>
