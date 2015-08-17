@@ -1,0 +1,28 @@
+.vertical-text{
+	-ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=6.123233995736766e-17, M12=1, M21=-1, M22=6.123233995736766e-17, SizingMethod='auto expand')";
+    left:-20px !important;
+    top:-95px !important;
+    color: rgb(42,100,150) !important;
+    -moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+    border-radius:4px !important;
+    behavior: url(../pie/PIE.htc);
+}
+
+li[tab],.pagination a{
+	cursor:pointer;
+}
+
+.modal-content{
+	margin:20px auto !important;
+	width:70%;
+}
+.paddingLastCell{
+	padding-right:32px !important;
+} 
+
+@media (max-width: 800px) {
+	.modal-content{
+		width:auto !important;
+	}
+}

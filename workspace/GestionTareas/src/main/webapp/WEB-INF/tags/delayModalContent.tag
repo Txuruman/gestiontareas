@@ -4,7 +4,7 @@
 
 
 <!-- El id se hace referencia en el controller -->
-<script type="text/ng-template" id="deplayModalContent.html">
+<div type="text/ng-template" data-cached-template="deplayModalContent.html">
     <div class="modal-header">
         <h3 class="modal-title"> <spring:message code='titulo.deplay.modal'/> </h3>
     </div>
@@ -47,4 +47,4 @@
         <button class="btn btn-primary" ng-click="ok()"><spring:message code='boton.ok'/></button>
         <button class="btn btn-warning" ng-click="cancel()"><spring:message code='boton.cancel'/></button>
     </div>
-</script>
+</div>

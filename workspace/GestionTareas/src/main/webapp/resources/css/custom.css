@@ -146,3 +146,7 @@ h2{
     width: 3%;
     height: 3%;
 }
+/*Para las modales (IE8)*/
+div[type="text/ng-template"]{
+    display: none;
+}
