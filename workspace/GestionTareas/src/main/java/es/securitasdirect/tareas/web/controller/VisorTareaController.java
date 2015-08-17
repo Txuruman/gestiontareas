@@ -11,6 +11,7 @@ import es.securitasdirect.tareas.web.controller.task.exceltask.CommonExcelTaskCo
 import es.securitasdirect.tareas.web.controller.util.MessageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +29,14 @@ import java.util.*;
 @Controller
 @RequestMapping("/visortarea")
 public class VisorTareaController extends TaskController {
+
+    @Autowired
+    protected  AgentController agentController;
+
+    //Funciona
+//    @Autowired
+//    private Agent agent;
+
     /**
      * clases de avisos
      */
@@ -78,6 +87,9 @@ public class VisorTareaController extends TaskController {
         LOGGER.debug("Parameter map from resquest:\n{}", parametersMap);
 
         //TODO Validador y sino lanzar excepcion
+
+        //Crear el objeto de sesion con los datos del agent
+        Agent agent = agentController.loadAgentFromIWS(parametersMap);
 
         //Redirigir a la página adecuada con el calling list que nos viene
         String callingList = parametersMap.get(ExternalParams.CALLING_LIST);
@@ -131,7 +143,7 @@ public class VisorTareaController extends TaskController {
             titulo = "titulo.TareaMantenimiento";
             mv.addObject(SECUNDARIA, MANTENIMIENTO);
         }
-        mv.addObject("titulo", titulo);
+        mv.addObject(TITULO, titulo);
         mv.addObject("installationId", parametersMap.get(ExternalParams.NUMERO_INSTALACION));
         mv.addObject("callingList", parametersMap.get(ExternalParams.CALLING_LIST));
         mv.addObject("tareaId", parametersMap.get(ExternalParams.ID_TAREA));
