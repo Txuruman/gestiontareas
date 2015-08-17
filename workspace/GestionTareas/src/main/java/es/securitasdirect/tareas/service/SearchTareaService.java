@@ -32,6 +32,11 @@ public class SearchTareaService {
     private String applicationUser;
 
     /**
+     * Lista de las Calling list configuradas en la aplicación
+     */
+    private List<String> callingListList;
+
+    /**
      * Maps the name of the Calling List to the specific tipe of Tarea
      */
     @Resource(name = "callingListToModel")
@@ -39,76 +44,64 @@ public class SearchTareaService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SearchTareaService.class);
 
-    public List<Tarea> findByPhone(String phone){
-        LOGGER.debug("Searching Tarea by Phone {}", phone);
-        List<Tarea> tareas = createDummy();
-        LOGGER.debug("Found tareaList by Phone: {}", tareas);
-        return tareas;
-    }
-
-    public List<Tarea> findByInstalacion (String instalacion){
-        LOGGER.debug("Searching Tarea by Installation: {}", instalacion);
-        List<Tarea> tareas = createDummy();
-        LOGGER.debug("Found tareaList by Installation", tareas);
-        return tareas;
-    }
-
     public List<Tarea> findByPhone(String ccIdentifier,
                                    String ccUserId,
-                                   String phone,
-                                   String country){
-        StringBuilder sbFilter = new StringBuilder();
-        sbFilter.append("contact_info=").append(phone);
+                                   String country,
+                                   String phone) {
+        LOGGER.debug("Search Task By Phone {}", phone);
         return find(ccIdentifier,
                 ccUserId,
-                phone,
-                country,sbFilter.toString());
+                country,
+                "CONTACT_INFO='" + phone + "'");
+    }
+
+    public List<Tarea> findByCustomer(String ccIdentifier,
+                                      String ccUserId,
+                                      String country,
+                                      String customer
+    ) {
+        LOGGER.debug("Search Task By Customer {}", customer);
+        return find(ccIdentifier,
+                ccUserId,
+                country,
+                "CTR_NO='" + customer + "'");
     }
 
     public List<Tarea> find(String ccIdentifier,
-                                   String ccUserId,
-                                   String phone,
-                                   String country, String filter){
-        List<Tarea> response;
-        if(ccIdentifier==null || ccIdentifier.isEmpty()
-                || applicationUser==null || applicationUser.isEmpty()
-                || ccUserId==null || ccUserId.isEmpty()
-                || phone==null || phone.isEmpty()
-                || country==null || country.isEmpty()
-                ){
-            response = null;
+                            String ccUserId,
+                            String country,
+                            String filter) {
+        List<Tarea> taskList = null;
+        if (ccIdentifier == null || ccIdentifier.isEmpty()
+                || applicationUser == null || applicationUser.isEmpty()
+                || ccUserId == null || ccUserId.isEmpty()
+                || country == null || country.isEmpty()
+                ) {
+
             LOGGER.warn("Parámetros para la búsqueda de tareas por teléfono no informados");
-        }else {
+        } else {
 
-            List<String> returnData = Arrays.asList("");
-
-            List<String> callingListList = new ArrayList<String>();
-            for (String callingListType : callingListToModel.keySet()) {
-                List<String> callingListTypeCallingListList = callingListToModel.get(callingListType);
-                callingListList.addAll(callingListTypeCallingListList);
-            }
 
             CclResponse cclResponse = cclIntegration.checkCallingListContact(
                     ccIdentifier,
                     applicationUser,
                     ccUserId,
                     filter,
-                    returnData,
-                    callingListList,
+                    new ArrayList<String>(0),
+                    getConfiguredCallingList(),
                     country
             );
 
-            LOGGER.debug("CCL RESPONSE, EXTRAER TAREAS");
-            Map<String, String> map = tareaServiceTools.loadCclResponseMap(cclResponse);
-            response = tareaServiceTools.createTareaListFromParameters(map);
-        }
-        return response;
-    }
+            LOGGER.debug("Search Tarea with filter {} returned {} results", filter);
 
-    public List<Tarea> findByClient(String client){
-        LOGGER.debug("Searching Task by Client: {}", client);
-        List<Tarea> tareas = createDummy();
-        return tareas;
+             taskList = new ArrayList<Tarea>();
+            for (int i=0; i<cclResponse.getColumnReturn().size();i++) {
+                Map<String, String> map = tareaServiceTools.loadCclResponseMap(cclResponse,i);
+                taskList.add(tareaServiceTools.createTareaFromParameters(map));
+            }
+
+        }
+        return taskList;
     }
 
 
@@ -158,5 +151,18 @@ public class SearchTareaService {
         return tareas;
 
     }
+
+
+    private List<String> getConfiguredCallingList() {
+        if (callingListList == null) {
+            callingListList = new ArrayList<String>();
+            for (String callingListType : callingListToModel.keySet()) {
+                List<String> callingListTypeCallingListList = callingListToModel.get(callingListType);
+                callingListList.addAll(callingListTypeCallingListList);
+            }
+        }
+        return callingListList;
+    }
+
 
 }

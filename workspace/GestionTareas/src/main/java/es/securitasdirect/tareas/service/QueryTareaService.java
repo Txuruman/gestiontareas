@@ -61,17 +61,7 @@ public class QueryTareaService {
                 filter,
                 callingList,
                 country);
-        List<Tarea> tareaList = tareaServiceTools.createTareaListFromParameters(responseMap);
-        if(tareaList==null){
-            tarea = null;
-        }else if(tareaList.isEmpty()){
-            tarea = null;
-        }else {
-            if(tareaList.size() > 1){
-                LOGGER.warn("Received multiple tasks when expected unique");
-            }
-            tarea = tareaList.get(1);
-        }
+        tarea = tareaServiceTools.createTareaFromParameters(responseMap);
         return tarea;
     }
 
@@ -181,7 +171,7 @@ public class QueryTareaService {
         } else {
             //Si la respuesta no tiene error
             //Obtener el tipo de respuesta
-            responseMap = tareaServiceTools.loadCclResponseMap(response);
+            responseMap = tareaServiceTools.loadCclUniqueResponseMap(response);
             LOGGER.debug("checkCallingListContact result {}", responseMap);
         }
         return responseMap;
