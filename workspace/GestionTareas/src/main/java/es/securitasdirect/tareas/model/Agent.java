@@ -27,7 +27,6 @@ public class Agent {
     private String interactionDirection;
     private String interactionType;
 
-    
     public String getIdAgent() {
         return idAgent;
     }

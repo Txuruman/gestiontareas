@@ -40,10 +40,10 @@ public class NotificationTaskController extends TaskController {
     private ExternalDataService externalDataService;
     @Inject
     private InstallationService installationDataService;
-    @Autowired
+    @Autowired  //TODO METER ESTO EN TODOS
     private AgentController agentController;
 
-    /*
+    /* TODO COMENTAR TODOS LOS GETTASK
     @RequestMapping(value = "/gettask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
@@ -72,19 +72,18 @@ public class NotificationTaskController extends TaskController {
     @ResponseBody
     NotificationTaskResponse getInstallationAndTask(
             @RequestParam(value = "installationId", required = true) String installationId,  //TODO QUITAR ESTE PARAMETRO
-            @RequestParam(value = "ccUserId", required = true) String ccUserId,
+            @RequestParam(value = "ccUserId", required = true) String ccUserId, //TODO QUITAR ESTE PARAMETRO
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
     ) {
         NotificationTaskResponse response = new NotificationTaskResponse();
-        if (agentController.isLogged()) {
-
+        if (agentController.isLogged()) {  //TODO
             try {
                 //Buscar Tarea
                 TareaAviso task = (TareaAviso) queryTareaService.queryTarea(
-                        agentController.getAgent().getIdAgent(),
-                        agentController.getAgent().getAgentCountryJob(),
-                        agentController.getAgent().getDesktopDepartment()
+                        agentController.getAgent().getIdAgent(), //TODO
+                        agentController.getAgent().getAgentCountryJob(),//TODO
+                        agentController.getAgent().getDesktopDepartment()//TODO
                         , callingList, tareaId);
                 if (task != null) {
                     response.setTarea(task);
@@ -106,6 +105,8 @@ public class NotificationTaskController extends TaskController {
                 LOGGER.error(e.getMessage(), e);
                 processException(e);
             }
+        } else {
+            response.danger("agent.notLoggedIn"); //TODO
         }
         return response;
 

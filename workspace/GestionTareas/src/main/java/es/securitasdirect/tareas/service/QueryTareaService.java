@@ -42,21 +42,15 @@ public class QueryTareaService {
     @Resource(name = "applicationUser")
     private String applicationUser;
 
-    public Tarea queryTarea(String ccUserId ,
-                            String callingList,
-                            String id) throws Exception{
-        return null;//TODO BORRAR
-    }
-
     public Tarea queryTarea(String ccUserId, String country, String desktopDepartment,
                             String callingList,
-                            String id) throws Exception{
+                            String id) throws Exception {
 
-        assert Integer.valueOf(id)!=null: "Hay que meter un número"; //TODO Quitar esto y pasar el parametro a Integer cuando se vea más claro
-        assert country!=null;
-        assert desktopDepartment!=null;
+        assert Integer.valueOf(id) != null : "Hay que meter un número"; //TODO Quitar esto y pasar el parametro a Integer cuando se vea más claro
+        assert country != null;
+        assert desktopDepartment != null;
 
-        String filter               = "chain_id=" + id;
+        String filter = "chain_id=" + id;
 
         Tarea tarea;
 
@@ -100,8 +94,6 @@ public class QueryTareaService {
             }
         }
     }
-
-
 
 
     private boolean cclResponseHasError(CclResponse response) {
@@ -182,18 +174,6 @@ public class QueryTareaService {
         }
         return responseMap;
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

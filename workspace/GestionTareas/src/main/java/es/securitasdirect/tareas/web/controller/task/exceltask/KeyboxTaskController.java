@@ -89,11 +89,41 @@ public class KeyboxTaskController extends TaskController {
 
     @RequestMapping(value = "/getInstallationAndTask", method = {RequestMethod.GET}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody TareaResponse getInstallationAndTask(
-            @RequestParam(value = "installationId", required = true) String installationId,
+            @RequestParam(value = "installationId", required = true) String installationId, //TODO QUITAR ESTE PARAMETRO
             @RequestParam(value = "ccUserId", required = true) String ccUserId,
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
     )  {
+
+        LOGGER.debug("Get Notification task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}",ccUserId, callingList, tareaId);
+        TareaResponse response = new TareaResponse();
+        try {
+            //Buscar Tarea
+            KeyboxTask task = (KeyboxTask)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
+            if (task!=null) {
+                response.setTarea(task);
+                //Buscamos la instalación
+                if (task.getNumeroInstalacion()!=null) {
+                    InstallationData installationData = installationDataService.getInstallationData(task.getNumeroInstalacion());
+                    if (installationData!=null) {
+                        response.setInstallationData(installationData);
+                    } else {
+                        response.danger("getTask.noInstallation");
+                    }
+                } else {
+                    response.danger("getTask.noInstallation");
+                }
+            } else {
+                response.danger("getTask.notFound");
+            }
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(),e);
+            processException(e);
+        }
+        return response;
+
+
+        /*
         TareaResponse response;
         String TASK_SERVICE_MESSAGE = "keyboxTask.getTask";
         LOGGER.debug("Get maintenance task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
@@ -117,5 +147,6 @@ public class KeyboxTaskController extends TaskController {
             response.addMessages(installationResponse.getMessages());
         }
         return response;
+        */
     }
 }
