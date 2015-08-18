@@ -38,8 +38,12 @@ public class TareaServiceTools {
      * Returns the specific Tarea type from the response, mapping with a map configured in Spring
      */
     protected String getTaskTypeFromMap(Map<String, String> responseMap) {
-        String callingList = responseMap.get(TASK_TYPE);
-        return getTaskTypeFromCallingList(callingList);
+        if (responseMap==null) {
+            return null;
+        } else {
+            String callingList = responseMap.get(TASK_TYPE);
+            return getTaskTypeFromCallingList(callingList);
+        }
     }
 
     /**
@@ -58,9 +62,9 @@ public class TareaServiceTools {
 
 
     public Tarea createTareaFromParameters(Map<String, String> responseMap){
-        String tipoTarea = getTaskTypeFromMap(responseMap);
         Tarea tarea = null;
         if (responseMap != null) {
+            String tipoTarea = getTaskTypeFromMap(responseMap);
             if (tipoTarea != null) {
                 if (tipoTarea.equals(Constants.TAREA_AVISO)) {
                     tarea = createTareaAvisoFromParameters(responseMap);
@@ -116,8 +120,6 @@ public class TareaServiceTools {
         TareaListadoAssistant tarea = new TareaListadoAssistant();
         loadTareaCommons(tarea, parameters);
         loadTareaExcelCommons(tarea, parameters);
-        tarea.setCallingList(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_CALLING_LIST));
-        tarea.setNumeroContrato(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_N_CONTRATO));
 
         tarea.setNumeroInstalacion(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_INS_NUMERO_INSTALACION));
         tarea.setMaintenanceNumber(toIntegerFromMap(parameters.get(TaskServiceParams.LIST_ASSISTANT_TASK_N_MANTENIMIENTO)));
@@ -300,6 +302,7 @@ public class TareaServiceTools {
          --X--                  telefono2               TELEFONO2           (no viene en el modelo)
          */
         TareaMantenimiento tarea = new TareaMantenimiento();
+        loadTareaCommons(tarea,parameters);
         //INSTALLATION DATA FROM TASK
         tarea.setNumeroInstalacion(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_INS_NUMERO_INSTALACION));
         tarea.setPersonaContacto(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_INS_PERSONA_CONTACTO));
@@ -409,10 +412,11 @@ public class TareaServiceTools {
         tarea.setNumeroInstalacion(parameters.get(TaskServiceParams.TAREA_COMMONS_INSTALACION));
         tarea.setPersonaContacto(parameters.get(TaskServiceParams.TAREA_COMMONS_PERSONA_CONTACTO));
         tarea.setTelefono(parameters.get(TaskServiceParams.TAREA_COMMONS_TELEFONO));
-
-
-
-
+        tarea.setEstado(toIntegerFromMap(parameters.get(TaskServiceParams.TAREA_COMMONS_ESTADO)));
+        tarea.setCallingList(parameters.get(TaskServiceParams.TAREA_COMMONS_CALLING_LIST));
+        tarea.setNumeroContrato(parameters.get(TaskServiceParams.TAREA_COMMONS_N_CONTRATO));
+        tarea.setId(toIntegerFromMap(parameters.get(TaskServiceParams.TAREA_COMMONS_ID)));
+        tarea.setFechaReprogramacion(toDateFromMap(parameters.get(TaskServiceParams.TAREA_COMMONS_FECHA_REPROGRAMACION)));
         return tarea;
     }
 

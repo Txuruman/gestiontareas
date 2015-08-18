@@ -49,6 +49,19 @@ public class SearchTareasServiceTest {
         }
     }
 
+    @Test
+    public void searchByPhone2(){
+        String ccIdentifier="ATC_SPN";
+        String ccUserId="12187";
+        String phone="999999";
+        String country="SPAIN";
+        List<Tarea> tareaList = searchTareaService.findByPhone(ccIdentifier, ccUserId, country, phone);
+        assertThat(tareaList,notNullValue());
+        for (Tarea tarea : tareaList) {
+            LOGGER.info(tarea.toString());
+        }
+    }
+
 
     @Test
     public void searchByCustomer(){

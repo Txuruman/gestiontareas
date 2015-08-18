@@ -11,6 +11,17 @@ import java.util.Date;
  */
 public class Tarea {
 
+    private interface TaskStatus {
+        public static final int NO_RECORD_STATUS_= 0;
+        public static final int READY_= 1;
+        public static final int RETRIEVED_= 2;
+        public static final int UPDATED_= 3;
+        public static final int STALE_= 4;
+        public static final int CANCELED_= 5;
+        public static final int AGENT_ERROR_= 6;
+        public static final int MISSED_CALLBACK_= 8;
+    }
+
     /**
      * Número de Instalación
      */
@@ -28,8 +39,11 @@ public class Tarea {
      */
     protected String numeroContrato;
 
-    /** */
+    /** Calling list de la tarea, agrupa las tareas por tipos*/
     protected String callingList;
+
+    /** Identificador de la tarea en la calling list, lo que se viene a llamar chain_id , junto con calling list hacen clave para las busquedas */
+    protected Integer id;
 
     /** */
     protected String telefono;
@@ -45,6 +59,14 @@ public class Tarea {
         TODO PENDIENTE: REVISAR QUÉ OTROS CAMPOS DE GENESYS HAY QUE TENER EN CUENTA
         (CONTRASTARLOS CON LOS DEL DOCUMENTO DPB140808_ENT_DISEÑO TÉCNICO CALLBACK ATC V1.4.DOCX)
      */
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getNumeroInstalacion() {
         return numeroInstalacion;
@@ -110,32 +132,22 @@ public class Tarea {
         this.personaContacto = personaContacto;
     }
 
+
     @Override
     public String toString() {
-        return "Tarea{" +
-                "numeroInstalacion='" + numeroInstalacion + '\'' +
-                ", estado='" + estado + '\'' +
-                ", personaContacto='" + personaContacto + '\'' +
-                ", numeroContrato='" + numeroContrato + '\'' +
-                ", callingList='" + callingList + '\'' +
-                ", telefono='" + telefono + '\'' +
-                ", fechaReprogramacion=" + fechaReprogramacion +
-                ", codigoCliente=" + codigoCliente +
-                '}';
+        final StringBuffer sb = new StringBuffer("Tarea{");
+        sb.append("numeroInstalacion='").append(numeroInstalacion).append('\'');
+        sb.append(", estado=").append(estado);
+        sb.append(", personaContacto='").append(personaContacto).append('\'');
+        sb.append(", numeroContrato='").append(numeroContrato).append('\'');
+        sb.append(", callingList='").append(callingList).append('\'');
+        sb.append(", id=").append(id);
+        sb.append(", telefono='").append(telefono).append('\'');
+        sb.append(", fechaReprogramacion=").append(fechaReprogramacion);
+        sb.append(", codigoCliente=").append(codigoCliente);
+        sb.append('}');
+        return sb.toString();
     }
 
 
-
-    private interface TaskStatus {
-
-        public static final int NO_RECORD_STATUS_= 0;
-        public static final int READY_= 1;
-        public static final int RETRIEVED_= 2;
-        public static final int UPDATED_= 3;
-        public static final int STALE_= 4;
-        public static final int CANCELED_= 5;
-        public static final int AGENT_ERROR_= 6;
-        public static final int MISSED_CALLBACK_= 8;
-
-    }
 }
