@@ -12,7 +12,10 @@ public interface ExternalParams {
 
     public static String ID_TAREA = "bp_out_GSW_CHAIN_ID_CUSTOM";
 
-    public static String NUMERO_INSTALACION = "bp_out_INSTALACION";
+    public static String NUMERO_INSTALACION = "bp_out_instalacion";
+
+    public static String NUMERO_CONTRATO = "bp_out_ctr_no";
+
 
     public static String ID_AVISO = "idaviso";
     
@@ -48,15 +51,6 @@ public interface ExternalParams {
     public static String INTERACTION_DIRECTION = "bp_interactionDirection";
 
     public static String INTERACTION_TYPE= "bp_interactionType";
-    
-    public static String OUT_GSW_CHAIN_ID= "bp_out_GSW_CHAIN_ID";
 
-    public static String OUT_CTR_NO= "bp_out_ctr_no";
-    
-//    public static String OUT_ClNAME= "bp_out_clname";
-//
-//    public static String OUT_GSW_CHAIN_ID_CUSTOM= "bp_out_GSW_CHAIN_ID_CUSTOM";
-
-    
 
 }

@@ -6,6 +6,7 @@ import es.securitasdirect.tareas.model.external.Pair;
 import es.securitasdirect.tareas.service.ExternalDataService;
 import es.securitasdirect.tareas.service.InstallationService;
 import es.securitasdirect.tareas.service.QueryTareaService;
+import es.securitasdirect.tareas.web.controller.AgentController;
 import es.securitasdirect.tareas.web.controller.BaseController;
 import es.securitasdirect.tareas.web.controller.TaskController;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
@@ -15,6 +16,7 @@ import es.securitasdirect.tareas.web.controller.dto.response.PairListResponse;
 import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -38,7 +40,10 @@ public class NotificationTaskController extends TaskController {
     private ExternalDataService externalDataService;
     @Inject
     private InstallationService installationDataService;
+    @Autowired  //TODO METER ESTO EN TODOS
+    private AgentController agentController;
 
+    /* TODO COMENTAR TODOS LOS GETTASK
     @RequestMapping(value = "/gettask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
@@ -48,53 +53,60 @@ public class NotificationTaskController extends TaskController {
             @RequestParam(value = "tareaId", required = true) String tareaId
     ) {
         String SERVICE_MESSAGE = "notificationTask.getTask";
-        LOGGER.debug("Get notification task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}",ccUserId, callingList, tareaId);
+        LOGGER.debug("Get notification task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
         TareaResponse response;
-        try{
-            TareaAviso task = (TareaAviso)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
+        try {
+            TareaAviso task = (TareaAviso) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
             LOGGER.debug("Notification task obtained from service:");
             response = super.processSuccessTask(task, SERVICE_MESSAGE);
-        }catch(Exception e){
+        } catch (Exception e) {
             //EN el caso de obtener una excepción, se realiza el procesamiento de la excepción que añade los errores correspondientes, y se incluye en la respuesta.
             response = new TareaResponse(processException(e, SERVICE_MESSAGE));
         }
         return response;
-    }
+    }*/
 
 
     @RequestMapping(value = "/getInstallationAndTask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    TareaResponse getInstallationAndTask(
+    NotificationTaskResponse getInstallationAndTask(
             @RequestParam(value = "installationId", required = true) String installationId,  //TODO QUITAR ESTE PARAMETRO
-            @RequestParam(value = "ccUserId", required = true) String ccUserId,
+            @RequestParam(value = "ccUserId", required = true) String ccUserId, //TODO QUITAR ESTE PARAMETRO
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
-    )  {
-        LOGGER.debug("Get Notification task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}",ccUserId, callingList, tareaId);
-        TareaResponse response = new TareaResponse();
-        try {
-            //Buscar Tarea
-            TareaAviso task = (TareaAviso)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-            if (task!=null) {
-                response.setTarea(task);
-                //Buscamos la instalación
-                if (task.getNumeroInstalacion()!=null) {
-                    InstallationData installationData = installationDataService.getInstallationData(task.getNumeroInstalacion());
-                    if (installationData!=null) {
-                        response.setInstallationData(installationData);
+    ) {
+        NotificationTaskResponse response = new NotificationTaskResponse();
+        if (agentController.isLogged()) {  //TODO
+            try {
+                //Buscar Tarea
+                TareaAviso task = (TareaAviso) queryTareaService.queryTarea(
+                        agentController.getAgent().getIdAgent(), //TODO
+                        agentController.getAgent().getAgentCountryJob(),//TODO
+                        agentController.getAgent().getDesktopDepartment()//TODO
+                        , callingList, tareaId);
+                if (task != null) {
+                    response.setTarea(task);
+                    //Buscamos la instalación
+                    if (task.getNumeroInstalacion() != null) {
+                        InstallationData installationData = installationDataService.getInstallationData(task.getNumeroInstalacion());
+                        if (installationData != null) {
+                            response.setInstallationData(installationData);
+                        } else {
+                            response.danger("getTask.noInstallation");
+                        }
                     } else {
                         response.danger("getTask.noInstallation");
                     }
                 } else {
-                    response.danger("getTask.noInstallation");
+                    response.danger("getTask.notFound");
                 }
-            } else {
-                response.danger("getTask.notFound");
+            } catch (Exception e) {
+                LOGGER.error(e.getMessage(), e);
+                processException(e);
             }
-        } catch (Exception e) {
-            LOGGER.error(e.getMessage(),e);
-            processException(e);
+        } else {
+            response.danger("agent.notLoggedIn"); //TODO
         }
         return response;
 
@@ -144,13 +156,13 @@ public class NotificationTaskController extends TaskController {
         String SERVICE_MESSAGE = "notificationtask.getclosing";
         PairListResponse response;
         List<Pair> closingList = null;
-        try{
+        try {
             closingList = externalDataService.dummyPairList();
             response = new PairListResponse();
             response.setPairList(closingList);
             //processresponse
-        }catch(Exception e){
-            response = new PairListResponse(processException(e,SERVICE_MESSAGE));
+        } catch (Exception e) {
+            response = new PairListResponse(processException(e, SERVICE_MESSAGE));
         }
         return response;
     }
@@ -158,82 +170,82 @@ public class NotificationTaskController extends TaskController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(NotificationTaskController.class);
 
-    @RequestMapping(value = "/aplazar", method ={RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value = "/aplazar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    BaseResponse postpone( @RequestBody PostponeNotificationTaskRequest request) {
-        return super.delayTask(request.getTask(),request.getRecallType(),request.getDelayDate(), "notificationtask.postpone");
+    BaseResponse postpone(@RequestBody PostponeNotificationTaskRequest request) {
+        return super.delayTask(request.getTask(), request.getRecallType(), request.getDelayDate(), "notificationtask.postpone");
     }
 
-    @RequestMapping(value = "/atras", method ={RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value = "/atras", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    BaseResponse modify( @RequestBody BackNotificationTaskRequest request) {
+    BaseResponse modify(@RequestBody BackNotificationTaskRequest request) {
         LOGGER.debug("Atrás\nRequest: {}", request);
         BaseResponse response = new BaseResponse();
-        if(true){
+        if (true) {
             response.success(messageUtil.getProperty("notificationTask.back.success"));
-        }else{
+        } else {
             response.danger(messageUtil.getProperty("notificationTask.back.error"));
         }
         LOGGER.debug("Atrás tarea de aviso\nResponse:{}", response);
         return response;
     }
 
-    @RequestMapping(value = "/modificar", method ={RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value = "/modificar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    BaseResponse modify( @RequestBody ModifyNotificationTaskRequest request) {
+    BaseResponse modify(@RequestBody ModifyNotificationTaskRequest request) {
         LOGGER.debug("Modificar tarea\nRequest: {}", request);
         BaseResponse response = new BaseResponse();
-        if(true){
+        if (true) {
             response.success(messageUtil.getProperty("notificationTask.modify.success"));
-        }else{
+        } else {
             response.danger(messageUtil.getProperty("notificationTask.modify.error"));
         }
         LOGGER.debug("Modificación de tarea\nResponse:{}", response);
         return response;
     }
 
-    @RequestMapping(value = "/crearmantenimiento", method ={RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value = "/crearmantenimiento", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    BaseResponse modify( @RequestBody CreateMaintenanceNotificationTaskRequest request) {
+    BaseResponse modify(@RequestBody CreateMaintenanceNotificationTaskRequest request) {
         LOGGER.debug("Crear mantenimiento\nRequest: {}", request);
         BaseResponse response = new BaseResponse();
-        if(true){
+        if (true) {
             response.success(messageUtil.getProperty("notificationTask.createMaintenance.success"));
-        }else{
+        } else {
             response.danger(messageUtil.getProperty("notificationTask.createMaintenance.error"));
         }
         LOGGER.debug("Creación de mantenimieto\nResponse:{}", response);
         return response;
     }
 
-    @RequestMapping(value = "/descartar", method ={RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value = "/descartar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    BaseResponse discard( @RequestBody DiscardNotificationTaskRequest request) {
+    BaseResponse discard(@RequestBody DiscardNotificationTaskRequest request) {
         LOGGER.debug("Descartar\nRequest: {}", request);
         BaseResponse response = new BaseResponse();
-        if(true){
+        if (true) {
             response.success(messageUtil.getProperty("notificationTask.discard.success"));
-        }else{
+        } else {
             response.danger(messageUtil.getProperty("notificationTask.discard.error"));
         }
         LOGGER.debug("Descarte\nResponse:{}", response);
         return response;
     }
 
-    @RequestMapping(value = "/finalizar", method ={RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value = "/finalizar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    BaseResponse discard( @RequestBody FinalizeNotificationTaskRequest request) {
+    BaseResponse discard(@RequestBody FinalizeNotificationTaskRequest request) {
         LOGGER.debug("Finalizar\nRequest: {}", request);
         BaseResponse response = new BaseResponse();
-        if(true){
+        if (true) {
             response.success(messageUtil.getProperty("notificationTask.finalize.success"));
-        }else{
+        } else {
             response.danger(messageUtil.getProperty("notificationTask.finalize.error"));
         }
         LOGGER.debug("Finalización\nResponse:{}", response);
@@ -241,10 +253,10 @@ public class NotificationTaskController extends TaskController {
     }
 
     private NotificationTaskResponse toNotificationTaskResponse(TareaAviso tarea,
-                                                        InstallationData installationData,
-                                                        NotificationTaskResponse response){
+                                                                InstallationData installationData,
+                                                                NotificationTaskResponse response) {
         NotificationTaskResponse tareaResponse = new NotificationTaskResponse();
-        if(response != null){
+        if (response != null) {
             tareaResponse.addMessages(response.getMessages());
         }
         LOGGER.info("Process task response");
@@ -255,10 +267,10 @@ public class NotificationTaskController extends TaskController {
             tareaResponse.danger(messageUtil.getProperty("task.notFound"));
         }
 
-        if(installationData!=null){
+        if (installationData != null) {
             tareaResponse.setInstallationData(installationData);
             tareaResponse.success(messageUtil.getProperty("installationData.success"));
-        }else{
+        } else {
             tareaResponse.danger(messageUtil.getProperty("installationData.notFound"));
         }
 
@@ -266,7 +278,7 @@ public class NotificationTaskController extends TaskController {
         return tareaResponse;
     }
 
-    private NotificationTaskResponse toNotificationTaskResponse(TareaAviso tarea, InstallationData installationData){
+    private NotificationTaskResponse toNotificationTaskResponse(TareaAviso tarea, InstallationData installationData) {
         return toNotificationTaskResponse(tarea, installationData, null);
     }
 
