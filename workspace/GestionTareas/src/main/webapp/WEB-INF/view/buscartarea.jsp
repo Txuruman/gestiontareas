@@ -21,7 +21,7 @@
         <jsp:include page="bloques/tabs1.jsp"/>
     </div>
     <div class="row panel">
-        <form class="form-horizontal" role="form">
+        <form class="form-horizontal" role="form" name="searchForm">
             <div class="panel panel-default panel-body">
                 <div class="row">
                     <!-- Caja de busqueda -->
@@ -31,13 +31,14 @@
                         </label>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                        <input type="text" class="form-control" id="searchText" ng-model="searchText" required value=""
-                               ng-minlength="6">
+                        <input type="text" name="searchTextInput" class="form-control" id="searchText" ng-model="searchText"
+                               ng-minlength="6" ng-required="true" title="6 caracteres mínimo" pattern=".{6,}">
+                        <span class="error" ng-show="searchForm.searchTextInput.$error.required"><spring:message code="searchTarea.error.required"/></span>
+                        <span class="error" ng-show="searchForm.searchTextInput.$error.minlength"><spring:message code="searchTarea.error.minlength"/></span>
                     </div>
                     <!-- Boton Busqueda -->
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-left">
-                        <app:inputButtonNG button_type="primary" value="boton.search"
-                                           ng_click="searchTareaFromServer()"/>
+                        <app:inputButtonNG button_type="primary" type="submit" value="boton.search" ng_click="searchForm.$valid ? searchTareaFromServer() : null"/>
                     </div>
                     <!-- Opciones busqueda -->
                     <app:wrapping cells="4">
