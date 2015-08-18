@@ -85,9 +85,17 @@ public class AvisoService {
         /* <ITEM></ITEM> */
         createItem.setIdItemIBS("");
         createItem.setCount("1");
-        createItem.setIdProblem("212");
+        createItem.setIdProblem("210");
         createItem.setIdType("200");
         create_list_item.add(createItem);
+
+        /* <ITEM></ITEM> */
+        createItem.setIdItemIBS("");
+        createItem.setCount("1");
+        createItem.setIdProblem("500");
+        createItem.setIdType("300");
+        create_list_item.add(createItem);
+
 
         /*
          * <USER></USER>
