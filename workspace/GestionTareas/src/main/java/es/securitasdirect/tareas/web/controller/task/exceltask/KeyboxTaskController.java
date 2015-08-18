@@ -118,10 +118,10 @@ public class KeyboxTaskController extends TaskController {
                         if (installationData!=null) {
                             response.setInstallationData(installationData);
                         } else {
-                            response.danger("getTask.noInstallation");
+                            response.danger(messageUtil.getProperty("getTask.noInstallation"));
                         }
                     } else {
-                        response.danger("getTask.noInstallation");
+                        response.danger(messageUtil.getProperty("getTask.noInstallation"));
                     }
                 } else {
                     response.danger("getTask.notFound");

@@ -92,8 +92,6 @@ public class AnotherCampaignsTaskController extends TaskController {
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
     ) {
-
-
         LOGGER.debug("Get Notification task for params: \ncallingList:{}\ntareaId:{}", callingList, tareaId);
         TareaResponse response = new TareaResponse();
         if (agentController.isLogged()) {
@@ -112,10 +110,10 @@ public class AnotherCampaignsTaskController extends TaskController {
                         if (installationData!=null) {
                             response.setInstallationData(installationData);
                         } else {
-                            response.danger("getTask.noInstallation");
+                            response.danger(messageUtil.getProperty("getTask.noInstallation"));
                         }
                     } else {
-                        response.danger("getTask.noInstallation");
+                        response.danger(messageUtil.getProperty("getTask.noInstallation"));
                     }
                 } else {
                     response.danger("getTask.notFound");

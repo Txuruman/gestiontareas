@@ -174,14 +174,7 @@ public class VisorTareaController extends TaskController {
 
     }
 
-    public Map<String, String> createParameterMap(HttpServletRequest hsr) {
-        Map<String, String> parameterValues = new HashMap<String, String>();
 
-        for (Object parameterName : hsr.getParameterMap().keySet()) {
-            parameterValues.put(parameterName.toString(), hsr.getParameter(parameterName.toString()));
-        }
-        return parameterValues;
-    }
 
     @RequestMapping(value = "/exceltaskcommon/getClosingReason", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public

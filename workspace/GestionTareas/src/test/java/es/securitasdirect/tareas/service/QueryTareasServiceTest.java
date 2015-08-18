@@ -40,8 +40,6 @@ public class QueryTareasServiceTest {
     protected QueryTareaService queryTareaService;
 
     @Inject
-    private CCLIntegration cclIntegration;
-    @Inject
     private TareaServiceTools tareaServiceTools;
     @Resource(name = "applicationUser")
     private String applicationUser;
@@ -149,7 +147,7 @@ public class QueryTareasServiceTest {
 
 
             Tarea tarea = queryTareaService.queryTarea(
-                    ccUserId,
+                    ccUserId,country,desktopDepartment,
                     callingList,
                     filter
             );
@@ -174,7 +172,7 @@ public class QueryTareasServiceTest {
 
 
             Tarea tarea = queryTareaService.queryTarea(
-                    ccUserId,
+                    ccUserId,country,desktopDepartment,
                     callingList,
                     filter
             );
@@ -198,7 +196,7 @@ public class QueryTareasServiceTest {
         LOGGER.debug("Probando la tarea de tipo Limpieza de Couta");
 
             Tarea tarea = queryTareaService.queryTarea(
-                    ccUserId,
+                    ccUserId,country,desktopDepartment,
                     callingList,
                     filter
             );

@@ -44,35 +44,35 @@ public class SearchTareaService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SearchTareaService.class);
 
-    public List<Tarea> findByPhone(String ccIdentifier,
+    public List<Tarea> findByPhone(String desktopDepartment,
                                    String ccUserId,
                                    String country,
                                    String phone) {
         LOGGER.debug("Search Task By Phone {}", phone);
-        return find(ccIdentifier,
+        return find(desktopDepartment,
                 ccUserId,
                 country,
                 "CONTACT_INFO='" + phone + "'");
     }
 
-    public List<Tarea> findByCustomer(String ccIdentifier,
+    public List<Tarea> findByCustomer(String desktopDepartment,
                                       String ccUserId,
                                       String country,
                                       String customer
     ) {
         LOGGER.debug("Search Task By Customer {}", customer);
-        return find(ccIdentifier,
+        return find(desktopDepartment,
                 ccUserId,
                 country,
                 "CTR_NO='" + customer + "'");
     }
 
-    public List<Tarea> find(String ccIdentifier,
+    public List<Tarea> find(String desktopDepartment,
                             String ccUserId,
                             String country,
                             String filter) {
         List<Tarea> taskList = null;
-        if (ccIdentifier == null || ccIdentifier.isEmpty()
+        if (desktopDepartment == null || desktopDepartment.isEmpty()
                 || applicationUser == null || applicationUser.isEmpty()
                 || ccUserId == null || ccUserId.isEmpty()
                 || country == null || country.isEmpty()
@@ -83,7 +83,7 @@ public class SearchTareaService {
 
 
             CclResponse cclResponse = cclIntegration.checkCallingListContact(
-                    ccIdentifier,
+                    desktopDepartment,
                     applicationUser,
                     ccUserId,
                     filter,
@@ -91,6 +91,7 @@ public class SearchTareaService {
                     getConfiguredCallingList(),
                     country
             );
+
 
             LOGGER.debug("Search Tarea with filter {} returned {} result", filter,cclResponse.getOperationResult().getResultMessage());
 

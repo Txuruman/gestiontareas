@@ -13,8 +13,11 @@ import org.slf4j.LoggerFactory;
 import org.wso2.ws.dataservice.DataServiceFault;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public abstract class BaseController {
 
@@ -93,5 +96,14 @@ public abstract class BaseController {
             object=new Object();
         }
         return processSuccessMessages(object, msg);
+    }
+
+    public Map<String, String> createParameterMap(HttpServletRequest hsr) {
+        Map<String, String> parameterValues = new HashMap<String, String>();
+
+        for (Object parameterName : hsr.getParameterMap().keySet()) {
+            parameterValues.put(parameterName.toString(), hsr.getParameter(parameterName.toString()));
+        }
+        return parameterValues;
     }
 }

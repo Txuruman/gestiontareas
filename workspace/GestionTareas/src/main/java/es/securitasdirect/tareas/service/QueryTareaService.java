@@ -42,11 +42,6 @@ public class QueryTareaService {
     @Resource(name = "applicationUser")
     private String applicationUser;
 
-    public Tarea queryTarea(String ccUserId ,
-                            String callingList,
-                            String id) throws Exception{
-        return null;//TODO BORRAR
-    }
 
     public Tarea queryTarea(String ccUserId, String country, String desktopDepartment,
                             String callingList,
@@ -134,7 +129,7 @@ public class QueryTareaService {
     /**
      * Web Service Calling and transformation of the results to Map
      *
-     * @param ccIdentifier
+     * @param desktopDepartment
      * @param applicationUser
      * @param ccUserId
      * @param filter
@@ -142,7 +137,7 @@ public class QueryTareaService {
      * @param country
      * @return
      */
-    private Map<String, String> checkCallingListContact(String ccIdentifier,
+    private Map<String, String> checkCallingListContact(String desktopDepartment,
                                                         String applicationUser,
                                                         String ccUserId,
                                                         String filter,
@@ -153,7 +148,7 @@ public class QueryTareaService {
         CclResponse response = null;
         try {
             LOGGER.debug("Call CCLIntegration WS for Calling list with params: ccIdentifier:{}, {}");
-            response = cclIntegration.checkCallingListContact(ccIdentifier,
+            response = cclIntegration.checkCallingListContact(desktopDepartment,
                     applicationUser,
                     ccUserId,
                     filter,

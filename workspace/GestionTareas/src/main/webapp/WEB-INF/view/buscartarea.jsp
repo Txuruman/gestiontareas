@@ -107,7 +107,6 @@
                                class="btn btn-default" ng-disabled="t.estado===2"><spring:message code="eti.buscartarea.btn.gestion" /></a></td>
                         <td><a href="#" class="btn btn-default" ng-click="openDelayModal()" ng-disabled="t.estado===2"><spring:message code="eti.buscartarea.btn.aplazar"/></a>
                         </td>
-                        <td>{{t}}</td>
                     </tr>
                 </table>
             </div>
