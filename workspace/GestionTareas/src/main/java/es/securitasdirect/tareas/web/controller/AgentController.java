@@ -58,11 +58,13 @@ public  class AgentController {
         agent.setIdAgent(parametersMap.get(ExternalParams.identificadorAgente));
         agent.setInteractionDirection(parametersMap.get(ExternalParams.INTERACTION_DIRECTION));
         agent.setInteractionType(parametersMap.get(ExternalParams.INTERACTION_TYPE));
-        agent.setOut_clname(parametersMap.get(ExternalParams.CALLING_LIST));
-        agent.setOut_ctr_no(parametersMap.get(ExternalParams.OUT_CTR_NO));
-        agent.setOut_GSW_CHAIN_ID(parametersMap.get(ExternalParams.OUT_GSW_CHAIN_ID));
-        agent.setOut_GSW_CHAIN_ID_CUSTOM(parametersMap.get(ExternalParams.ID_TAREA));
-        
+
+        LOGGER.debug("Loaded Agent info {}", agent);
         return agent;
+    }
+
+    /** Indica si el agente ha enviado suficiente información para considerarlo registado */
+    public boolean isLogged(){
+        return true;
     }
 }

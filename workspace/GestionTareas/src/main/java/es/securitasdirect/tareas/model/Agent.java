@@ -26,11 +26,7 @@ public class Agent {
     private String auth_signature;
     private String interactionDirection;
     private String interactionType;
-    private String out_GSW_CHAIN_ID;
-    private String out_clname;
-    private String out_GSW_CHAIN_ID_CUSTOM;
-    private String out_ctr_no;
-    
+
     
     public String getIdAgent() {
         return idAgent;
@@ -168,37 +164,27 @@ public class Agent {
 		this.interactionType = interactionType;
 	}
 
-	public String getOut_GSW_CHAIN_ID() {
-		return out_GSW_CHAIN_ID;
+	@Override
+	public String toString() {
+		final StringBuffer sb = new StringBuffer("Agent{");
+		sb.append("idAgent='").append(idAgent).append('\'');
+		sb.append(", connid='").append(connid).append('\'');
+		sb.append(", agentIBS='").append(agentIBS).append('\'');
+		sb.append(", agentUserSD='").append(agentUserSD).append('\'');
+		sb.append(", agentCountryJob='").append(agentCountryJob).append('\'');
+		sb.append(", currentLanguage='").append(currentLanguage).append('\'');
+		sb.append(", agentPlace='").append(agentPlace).append('\'');
+		sb.append(", agentGroupSD='").append(agentGroupSD).append('\'');
+		sb.append(", agentGroupOutService='").append(agentGroupOutService).append('\'');
+		sb.append(", desktopDepartment='").append(desktopDepartment).append('\'');
+		sb.append(", callingListManagedDesktop='").append(callingListManagedDesktop).append('\'');
+		sb.append(", auth_requestDate='").append(auth_requestDate).append('\'');
+		sb.append(", auth_connid='").append(auth_connid).append('\'');
+		sb.append(", auth_ipAddress='").append(auth_ipAddress).append('\'');
+		sb.append(", auth_signature='").append(auth_signature).append('\'');
+		sb.append(", interactionDirection='").append(interactionDirection).append('\'');
+		sb.append(", interactionType='").append(interactionType).append('\'');
+		sb.append('}');
+		return sb.toString();
 	}
-
-	public void setOut_GSW_CHAIN_ID(String out_GSW_CHAIN_ID) {
-		this.out_GSW_CHAIN_ID = out_GSW_CHAIN_ID;
-	}
-
-	public String getOut_clname() {
-		return out_clname;
-	}
-
-	public void setOut_clname(String out_clname) {
-		this.out_clname = out_clname;
-	}
-
-	public String getOut_GSW_CHAIN_ID_CUSTOM() {
-		return out_GSW_CHAIN_ID_CUSTOM;
-	}
-
-	public void setOut_GSW_CHAIN_ID_CUSTOM(String out_GSW_CHAIN_ID_CUSTOM) {
-		this.out_GSW_CHAIN_ID_CUSTOM = out_GSW_CHAIN_ID_CUSTOM;
-	}
-
-	public String getOut_ctr_no() {
-		return out_ctr_no;
-	}
-
-	public void setOut_ctr_no(String out_ctr_no) {
-		this.out_ctr_no = out_ctr_no;
-	}
-    
-    
 }

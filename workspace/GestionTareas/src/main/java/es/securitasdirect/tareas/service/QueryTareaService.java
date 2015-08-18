@@ -42,20 +42,26 @@ public class QueryTareaService {
     @Resource(name = "applicationUser")
     private String applicationUser;
 
-    public Tarea queryTarea(String ccUserId,
+    public Tarea queryTarea(String ccUserId ,
+                            String callingList,
+                            String id) throws Exception{
+        return null;//TODO BORRAR
+    }
+
+    public Tarea queryTarea(String ccUserId, String country, String desktopDepartment,
                             String callingList,
                             String id) throws Exception{
 
         assert Integer.valueOf(id)!=null: "Hay que meter un número"; //TODO Quitar esto y pasar el parametro a Integer cuando se vea más claro
+        assert country!=null;
+        assert desktopDepartment!=null;
 
-        String ccIdentifier         = "ATC_SPN";
-        String country              = "SPAIN";
         String filter               = "chain_id=" + id;
 
         Tarea tarea;
 
-        LOGGER.debug("Calling to service CallingList with values:\n ccIdentifier: {}\n applicationUser: {}\n ccUserId: {}\n filter: {}\n callingList: {}\n country: {}", ccIdentifier, applicationUser, ccUserId, filter, callingList, country);
-        Map<String, String> responseMap = checkCallingListContact(ccIdentifier,
+        LOGGER.debug("Calling to service CallingList with values:\n ccIdentifier: {}\n applicationUser: {}\n ccUserId: {}\n filter: {}\n callingList: {}\n country: {}", desktopDepartment, applicationUser, ccUserId, filter, callingList, country);
+        Map<String, String> responseMap = checkCallingListContact(desktopDepartment,
                 applicationUser,
                 ccUserId,
                 filter,
