@@ -6,6 +6,7 @@ import es.securitasdirect.tareas.model.Tarea;
 import es.securitasdirect.tareas.service.TareaService;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
 import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
+import es.securitasdirect.tareas.web.controller.params.ExternalParams;
 import es.securitasdirect.tareas.web.controller.util.MessageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +41,28 @@ public  class AgentController {
 
     public Agent loadAgentFromIWS(Map<String, String> parametersMap) {
         agent = new Agent();
-        //TODO CARGAR PARAMETROS DE EXTERNAL PARAMS
+        agent.setAgentCountryJob(parametersMap.get(ExternalParams.AGENT_COUTRY_JOB));
+        agent.setAgentGroupOutService(parametersMap.get(ExternalParams.AGENT_GROUP_OUT_SERVICE));
+        agent.setAgentGroupSD(parametersMap.get(ExternalParams.AGENT_GROUP_SD));
+        agent.setAgentIBS(parametersMap.get(ExternalParams.AGENT_IBS));
+        agent.setAgentPlace(parametersMap.get(ExternalParams.AGENT_PLACE));
+        agent.setAgentUserSD(parametersMap.get(ExternalParams.AGENT_USER_SD));
+        agent.setAuth_connid(parametersMap.get(ExternalParams.AUTH_CONNID));
+        agent.setAuth_ipAddress(parametersMap.get(ExternalParams.AUTH_IPADDRESS));
+        agent.setAuth_requestDate(parametersMap.get(ExternalParams.AUTH_REQUEST_DATE));
+        agent.setAuth_signature(parametersMap.get(ExternalParams.AUTH_SIGNATURE));
+        agent.setCallingListManagedDesktop(parametersMap.get(ExternalParams.CALLING_LIST_MANAGED_DESK));
+        agent.setConnid(parametersMap.get(ExternalParams.CONN_ID));
+        agent.setCurrentLanguage(parametersMap.get(ExternalParams.CURRENT_LANGUAGE));
+        agent.setDesktopDepartment(parametersMap.get(ExternalParams.DESKTOP_DEP));
+        agent.setIdAgent(parametersMap.get(ExternalParams.identificadorAgente));
+        agent.setInteractionDirection(parametersMap.get(ExternalParams.INTERACTION_DIRECTION));
+        agent.setInteractionType(parametersMap.get(ExternalParams.INTERACTION_TYPE));
+        agent.setOut_clname(parametersMap.get(ExternalParams.CALLING_LIST));
+        agent.setOut_ctr_no(parametersMap.get(ExternalParams.OUT_CTR_NO));
+        agent.setOut_GSW_CHAIN_ID(parametersMap.get(ExternalParams.OUT_GSW_CHAIN_ID));
+        agent.setOut_GSW_CHAIN_ID_CUSTOM(parametersMap.get(ExternalParams.ID_TAREA));
+        
         return agent;
     }
 }
