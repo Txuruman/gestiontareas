@@ -27,9 +27,14 @@ public class Agent {
     private String interactionDirection;
     private String interactionType;
     private String out_GSW_CHAIN_ID;
-    private String out_clname;
-    private String out_GSW_CHAIN_ID_CUSTOM;
     private String out_ctr_no;
+    
+    //Calling List
+    private String out_clname; 
+    
+    //ID_TAREA
+    private String out_GSW_CHAIN_ID_CUSTOM;
+    
     
     
     public String getIdAgent() {

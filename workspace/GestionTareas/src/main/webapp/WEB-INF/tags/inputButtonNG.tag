@@ -8,7 +8,7 @@
 <%@ attribute name="ng_controller" required="false" description="Set up the AngularJS controller" %>
 <%@ attribute name="cells" required="false" description="Number of cells used from the 12 available" %>
 <%@ attribute name="fluid_wrapper" required="false" description="Defines if the button its in a fluid wrapper for not set width" %>
-
+<%@ attribute name="type" required="false" description="Type of input, button or submit" %>
 
 <c:if test="${button_type == 'primary'}">
     <c:set var="button_type" value="btn btn-primary"/>
@@ -29,7 +29,10 @@
 <c:if test="${fluid_wrapper != 'true'}">
     <div class="col-lg-${cells} col-md-${cells} col-sm-${cells} col-xs-${cells}">
 </c:if>
-    <input type="button" class="${button_type}" value="<spring:message code="${value}" />"
+<c:if test="${type != 'submit'}">
+	<c:set var="type" value="button"/>
+</c:if>
+    <input type="${type}" class="${button_type}" value="<spring:message code="${value}" />"
            <c:if test="${not empty ng_click}">
                ng-click="<c:out value="${ng_click}" />"
            </c:if>
