@@ -114,7 +114,7 @@ public class XmlServiceTest {
          */
 
         createTicket.getUser().setIdUser("A13003");
-        createTicket.getUser().setIdUsidCountry("01");
+        createTicket.getUser().setIdCountry("01");
         createTicket.getUser().setIdLanguage("ES");
         createTicket.getUser().setT("NOSESSION");
 
