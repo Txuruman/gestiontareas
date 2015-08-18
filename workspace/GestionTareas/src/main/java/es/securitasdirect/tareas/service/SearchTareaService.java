@@ -87,12 +87,12 @@ public class SearchTareaService {
                     applicationUser,
                     ccUserId,
                     filter,
-                    new ArrayList<String>(0),
+                    Arrays.asList(""),
                     getConfiguredCallingList(),
                     country
             );
 
-            LOGGER.debug("Search Tarea with filter {} returned {} results", filter);
+            LOGGER.debug("Search Tarea with filter {} returned {} result", filter,cclResponse.getOperationResult().getResultMessage());
 
              taskList = new ArrayList<Tarea>();
             for (int i=0; i<cclResponse.getColumnReturn().size();i++) {
@@ -102,54 +102,6 @@ public class SearchTareaService {
 
         }
         return taskList;
-    }
-
-
-    private List<Tarea> createDummy() {
-        LOGGER.warn("Creating dummy Tarea list");
-        List<Tarea> tareas = new ArrayList<Tarea>();
-        Tarea ejemploAviso = new TareaAviso();
-        ejemploAviso.setNumeroInstalacion("1234");
-        ejemploAviso.setEstado(1);
-        ejemploAviso.setTelefono("652696869");
-        ejemploAviso.setCallingList("CC_CA_IL_500");
-        ejemploAviso.setNumeroContrato("526369");
-        ejemploAviso.setCodigoCliente(500);
-        ejemploAviso.setFechaReprogramacion(new Date());
-        tareas.add(ejemploAviso);
-
-        Tarea ejemploTareaMantenimiento = new TareaMantenimiento();
-        ejemploTareaMantenimiento.setNumeroInstalacion("12345");
-        ejemploTareaMantenimiento.setEstado(2);
-        ejemploTareaMantenimiento.setTelefono("652696789");
-        ejemploTareaMantenimiento.setCallingList("CC_CA_IL_502");
-        ejemploTareaMantenimiento.setNumeroContrato("526370");
-        ejemploTareaMantenimiento.setCodigoCliente(501);
-        ejemploTareaMantenimiento.setFechaReprogramacion(new Date());
-        tareas.add(ejemploTareaMantenimiento);
-
-        Tarea ejemploTareaEncuestaMarketing = new MarketingSurveyTask();
-        ejemploTareaEncuestaMarketing.setNumeroInstalacion("123456");
-        ejemploTareaEncuestaMarketing.setEstado(3);
-        ejemploTareaEncuestaMarketing.setTelefono("652696478");
-        ejemploTareaEncuestaMarketing.setCallingList("CC_CA_IL_510");
-        ejemploTareaEncuestaMarketing.setNumeroContrato("526371");
-        ejemploTareaEncuestaMarketing.setCodigoCliente(502);
-        ejemploTareaEncuestaMarketing.setFechaReprogramacion(new Date());
-        tareas.add(ejemploTareaEncuestaMarketing);
-
-        Tarea ejemploTareaListadoAssistant = new TareaListadoAssistant();
-        ejemploTareaListadoAssistant.setNumeroInstalacion("1234567");
-        ejemploTareaListadoAssistant.setEstado(4);
-        ejemploTareaListadoAssistant.setTelefono("652696785");
-        ejemploTareaListadoAssistant.setCallingList("CC_CA_IL_512");
-        ejemploTareaListadoAssistant.setNumeroContrato("526372");
-        ejemploTareaListadoAssistant.setCodigoCliente(503);
-        ejemploTareaListadoAssistant.setFechaReprogramacion(new Date());
-        tareas.add(ejemploTareaListadoAssistant);
-
-        return tareas;
-
     }
 
 

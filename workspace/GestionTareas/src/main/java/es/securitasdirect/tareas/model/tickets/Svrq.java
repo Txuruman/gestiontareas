@@ -7,7 +7,7 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Svrq {
 
-    @XmlElementWrapper( name="LISTADE" )
+    @XmlElementWrapper( name="ITEMS" )
     @XmlElement(name = "item")
     List<Item> items;
 

@@ -31,10 +31,12 @@
                         </label>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+
                         <input type="text" name="searchTextInput" class="form-control" id="searchText" ng-model="searchText"
                                ng-minlength="6" ng-required="true" title="6 caracteres mínimo" pattern=".{6,}">
                         <span class="error" ng-show="searchForm.searchTextInput.$error.required"><spring:message code="searchTarea.error.required"/></span>
                         <span class="error" ng-show="searchForm.searchTextInput.$error.minlength"><spring:message code="searchTarea.error.minlength"/></span>
+
                     </div>
                     <!-- Boton Busqueda -->
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-left">
@@ -101,10 +103,11 @@
                         </td>
                         <td>{{ t.observaciones }}</td>
                         <td>{{ t.fechaReprogramacion | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                        <td><a ng-href="visortarea.htm?bp_out_INSTALACION={{t.numeroInstalacion}}&bp_agent=${pageContext.request.getParameter('AGENTELOGADO')}&bp_out_GSW_CHAIN_ID_CUSTOM={{t.idAviso}}&bp_out_clname={{t.callingList}}"
+                        <td><a ng-href="visortarea.htm?bp_out_INSTALACION={{t.numeroInstalacion}}&bp_agent=${pageContext.request.getParameter('AGENTELOGADO')}&bp_out_GSW_CHAIN_ID_CUSTOM={{t.id}}&bp_out_clname={{t.callingList}}"
                                class="btn btn-default" ><spring:message code="eti.buscartarea.btn.gestion"/></a></td>
                         <td><a href="#" class="btn btn-default" ng-click="openDelayModal()"><spring:message code="eti.buscartarea.btn.aplazar"/></a>
                         </td>
+                        <td>{{t}}</td>
                     </tr>
                 </table>
             </div>
