@@ -4,6 +4,7 @@ import es.securitasdirect.tareas.model.InstallationData;
 import es.securitasdirect.tareas.model.tareaexcel.TareaListadoAssistant;
 import es.securitasdirect.tareas.service.InstallationService;
 import es.securitasdirect.tareas.service.QueryTareaService;
+import es.securitasdirect.tareas.web.controller.AgentController;
 import es.securitasdirect.tareas.web.controller.TaskController;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
 import es.securitasdirect.tareas.web.controller.dto.request.exceltask.listadoassistanttask.DiscardListAssistantTaskRequest;
@@ -13,6 +14,7 @@ import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
 import es.securitasdirect.tareas.web.controller.dto.support.DummyResponseGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -33,9 +35,13 @@ public class ListAssitantTaskController extends TaskController {
     private DummyResponseGenerator dummyResponseGenerator;
     @Inject
     private InstallationService installationDataService;
+    @Autowired
+    private AgentController agentController;
+
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ListAssitantTaskController.class);
 
+    /*
     @RequestMapping(value = "/gettarea", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody TareaResponse getListAssistantTask(
             @RequestParam(value = "ccUserId", required = true) String ccUserId,
@@ -54,6 +60,7 @@ public class ListAssitantTaskController extends TaskController {
         }
         return response;
     }
+    */
 
 
     @RequestMapping(value = "/aplazar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -84,67 +91,46 @@ public class ListAssitantTaskController extends TaskController {
 
     @RequestMapping(value = "/getInstallationAndTask", method = {RequestMethod.GET}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody TareaResponse getInstallationAndTask(
-            @RequestParam(value = "installationId", required = true) String installationId, //TODO QUITAR ESTE PARAMETRO
-            @RequestParam(value = "ccUserId", required = true) String ccUserId,
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
     ) {
 
-        LOGGER.debug("Get Notification task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}",ccUserId, callingList, tareaId);
+        LOGGER.debug("Get Notification task for params: \ncallingList:{}\ntareaId:{}", callingList, tareaId);
         TareaResponse response = new TareaResponse();
-        try {
-            //Buscar Tarea
-            TareaListadoAssistant task = (TareaListadoAssistant)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-            if (task!=null) {
-                response.setTarea(task);
-                //Buscamos la instalación
-                if (task.getNumeroInstalacion()!=null) {
-                    InstallationData installationData = installationDataService.getInstallationData(task.getNumeroInstalacion());
-                    if (installationData!=null) {
-                        response.setInstallationData(installationData);
+        if (agentController.isLogged()) {
+            try {
+                //Buscar Tarea
+                TareaListadoAssistant task = (TareaListadoAssistant)queryTareaService.queryTarea(
+                        agentController.getAgent().getIdAgent(),
+                        agentController.getAgent().getAgentCountryJob(),
+                        agentController.getAgent().getDesktopDepartment()
+                        , callingList, tareaId);
+                if (task!=null) {
+                    response.setTarea(task);
+                    //Buscamos la instalación
+                    if (task.getNumeroInstalacion()!=null) {
+                        InstallationData installationData = installationDataService.getInstallationData(task.getNumeroInstalacion());
+                        if (installationData!=null) {
+                            response.setInstallationData(installationData);
+                        } else {
+                            response.danger("getTask.noInstallation");
+                        }
                     } else {
                         response.danger("getTask.noInstallation");
                     }
                 } else {
-                    response.danger("getTask.noInstallation");
+                    response.danger("getTask.notFound");
                 }
-            } else {
-                response.danger("getTask.notFound");
+            } catch (Exception e) {
+                LOGGER.error(e.getMessage(),e);
+                processException(e);
             }
-        } catch (Exception e) {
-            LOGGER.error(e.getMessage(),e);
-            processException(e);
+        } else {
+            response.danger("agent.notLoggedIn");
         }
+
         return response;
 
 
-        /*
-        TareaResponse response = new TareaResponse();
-        String TASK_SERVICE_MESSAGE = "listAssistantTask.getTask";
-        LOGGER.debug("Get maintenance task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
-        try{
-            TareaListadoAssistant listAssistantTask = (TareaListadoAssistant) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-            TareaResponse tareaResponse = processSuccessTask(listAssistantTask, TASK_SERVICE_MESSAGE);
-            response.addMessages(tareaResponse.getMessages());
-            response.setTarea(tareaResponse.getTarea());
-            LOGGER.debug("List assistant task obtained from service: \n{}", listAssistantTask);
-        }catch(Exception e){
-            TareaResponse tareaResponse = processException(e, TASK_SERVICE_MESSAGE);
-            response.addMessages(tareaResponse.getMessages());
-        }
-        LOGGER.debug("Get installation data for params: \ninstallationId: {}", installationId);
-        String INSTALLATION_SERVICE_MESSAGE = "installationData";
-        try{
-            InstallationData installationData = installationDataService.getInstallationData(installationId);
-            TareaResponse installationResponse = processSuccessInstallation(installationData);
-            LOGGER.debug("Installation data obtained from service: \n{}", installationData);
-            response.addMessages(installationResponse.getMessages());
-            response.setInstallationData(installationResponse.getInstallationData());
-        }catch(Exception e){
-            TareaResponse tareaResponse = processException(e,INSTALLATION_SERVICE_MESSAGE);
-            response.addMessages(tareaResponse.getMessages());
-        }
-        return response;
-        */
     }
 }
