@@ -10,14 +10,14 @@
     position: relative;
     zoom: 1;
 }
-input[type="submit"]{
-	-moz-border-radius: 4px;
-	-webkit-border-radius: 4px;
-    border-radius:4px !important;
-    behavior: url("PIE.htc");"src/main/webapp/resources/css/PIE.htc"
-    position: relative;
-    zoom: 1;
-}
+/* input[type="submit"]{ */
+/* 	-moz-border-radius: 4px; */
+/* 	-webkit-border-radius: 4px; */
+/*     border-radius:4px !important; */
+/*     behavior: url("PIE.htc"); */
+/*     position: relative; */
+/*     zoom: 1; */
+/* } */
 li[tab],.pagination a{
 	cursor:pointer;
 }
