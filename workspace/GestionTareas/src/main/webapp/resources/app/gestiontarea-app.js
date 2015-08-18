@@ -74,7 +74,7 @@ function convertDateStringsToDates(input) {
         var match;
         // Check for string properties which look like dates.
         // TODO: Improve this regex to better match ISO 8601 date strings.
-        if (typeof value === "string" && (match = value.match(regexIso8601)) && value.length>4) {
+        if (typeof value === "string" && value.length>4 && (match = value.match(regexIso8601)) ) {
             // Assume that Date.parse can parse ISO 8601 strings, or has been shimmed in older browsers to do so.
             //console.log("Transformando fecha",value);
             var milliseconds = Date.parse(match[0]);
