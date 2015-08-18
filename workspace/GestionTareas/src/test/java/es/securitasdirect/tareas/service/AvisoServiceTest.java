@@ -1,31 +1,13 @@
 package es.securitasdirect.tareas.service;
 
-import com.webservice.CCLIntegration;
-import com.webservice.CclResponse;
-import es.securitasdirect.tareas.model.Tarea;
-import es.securitasdirect.tareas.model.TareaAviso;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.wso2.ws.dataservice.DataServiceFault;
-import org.wso2.ws.dataservice.GetAvisobyIdResult;
-import org.wso2.ws.dataservice.SPAIOTAREAS2PortType;
-import org.wso2.ws.dataservice.SPAVISOSOPERACIONESPortType;
 
-import javax.annotation.Resource;
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Arrays;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsNull.notNullValue;
 
 /**
  * Test del Servicio de Aviso
@@ -38,14 +20,6 @@ public class AvisoServiceTest {
 
     @Inject
     protected AvisoService avisoService;
-
-    //@Inject
-    //private CCLIntegration cclIntegration;
-    @Inject
-    private TareaServiceTools tareaServiceTools;
-    @Resource(name = "applicationUser")
-    private String applicationUser;
-
 
     /**
      *
@@ -69,42 +43,10 @@ public class AvisoServiceTest {
         String idCountry = "1";
         String idLanguage = "ES";
 
-
-
-
-//         String callingList = "CL_CCT_ATT_Averia_Test";
-//         String callingList = "CL_CCT_ATC_CRA";
-//         String callingList = "CL_CCT_ATC_Recla";
-//         String callingList = "CL_CCT_ATT_Averia_Cam";
-//         String callingList = "CL_CCT_ATT_Averia_FastI";
-//         String callingList = "CL_CCT_ATT_Averia_FastII";
-//         String callingList = "CL_CCT_ATT_Averia_Iridium";
-//         String callingList = "CL_CCT_ATT_Averia_Oldclass";
-//         String callingList = "CL_CCT_ATT_Averia_SDM";
-//         String callingList = "CL_CCT_ATT_Camaras";
-//         String callingList = "CL_CCT_BO";
-//         String callingList = "CL_CCT_BO_Recla";
-//         String callingList = "CL_CCT_GI_Robo1";
-//         String callingList = "CL_CCT_GI_Robo2";
-//         String callingList = "CL_CCT_Ingles_ATC";
-//         String callingList = "CL_CCT_Ingles_ATT";
-//         String callingList = "CL_CCT_ODC";
-
-            avisoService.createTicket(
-                    idUser,
-                    idCountry,
-                    idLanguage);
-            //LOGGER.info("Tarea: {}", tarea);
-
-
-
-
+        avisoService.createTicket(
+                idUser,
+                idCountry,
+                idLanguage);
     }
-
-
-
-
-    @Resource(name = "callingListToModel")
-    private Map<String, List<String>> callingListToModel;
 
 }
