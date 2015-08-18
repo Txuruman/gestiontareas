@@ -22,44 +22,38 @@ public abstract class BaseController {
 
     @Inject
     protected MessageUtil messageUtil;
-    @Inject
-    protected TareaService tareaService;
 
+
+    /**
+     * Procesa una excepción y añade el texto de error como respuesta del mensaje
+     * @param exception
+     * @return
+     */
     protected BaseResponse processException(Exception exception) {
-        LOGGER.error("Error sent in BaseResponse {}" , exception.getMessage());
+        LOGGER.error("Server error {}" , exception.getMessage());
         BaseResponse response = new BaseResponse();
         response.danger(exception.getMessage());
         return response;
     }
 
+    /**
+     * Procesa una excepción , añade el mensaje y los datos de la excepción.
+     * @param exception
+     * @param funcMsgParam
+     * @return
+     */
     protected BaseResponse processException(Exception exception, String funcMsgParam){
         String funcMsg = funcMsgParam + ".error";
         BaseResponse response = new BaseResponse();
-        if(funcMsg!=null && !funcMsg.isEmpty()){
-            String localizedMessage = messageUtil.getProperty(funcMsg);
+        if(funcMsgParam!=null && !funcMsgParam.isEmpty()){
+            String localizedMessage = messageUtil.getProperty(funcMsg + ".error");
             if(localizedMessage!=null && !localizedMessage.isEmpty()){
                 response.danger(localizedMessage);
             }else{
-                response.warning("Localized message not found");
-                response.danger(funcMsg);
+                response.danger("Localized message not found for " + funcMsg + ".error" );
             }
         }
-        LOGGER.error(funcMsg);
-        if(exception instanceof DataServiceFault){
-            DataServiceFault dataServiceFault = (DataServiceFault) exception;
-            StringBuilder sb = new StringBuilder();
-            sb.append("Error in data service: ")
-                    .append("FaultInfo:").append(dataServiceFault.getFaultInfo())
-                    .append("Message:").append(dataServiceFault.getMessage());
-            response.danger(sb.toString());
-            sb.append("\n").append(dataServiceFault.toString());
-            LOGGER.error(sb.toString());
-        }else{
-            StringBuilder sb = new StringBuilder();
-            sb.append("Error sent in response: ").append(exception.getMessage()).append(" - ").append(exception.toString()).append(" - ").append(exception);
-            response.danger(sb.toString());
-            LOGGER.error(sb.toString().replace(" - ", "\n"));
-        }
+
         return response;
     }
 

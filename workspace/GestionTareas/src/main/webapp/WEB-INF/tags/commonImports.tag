@@ -18,6 +18,8 @@ display: none !important;
 <script src="${pageContext.request.contextPath}/resources/bower_components/ie8compatibility/angular.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/ui-bootstrap-tpls-0.13.0.js"></script>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"/>
+<link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/loading-bar.min.css' type='text/css' media='all' />
+ <script type='text/javascript' src='${pageContext.request.contextPath}/resources/js/loading-bar.min.js'></script>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/custom.css"/>
 <!-- Angular JS Scripts -->
 <script src="${pageContext.request.contextPath}/resources/app/gestiontarea-app.js"></script>

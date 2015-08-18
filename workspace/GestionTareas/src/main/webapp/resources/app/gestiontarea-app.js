@@ -1,4 +1,4 @@
-var app = angular.module("myApp", ['ui.bootstrap']);
+var app = angular.module("myApp", ['ui.bootstrap','angular-loading-bar']);
 
 
 // Controlador de la ventana modal de aplazar
@@ -30,11 +30,12 @@ app.controller('DelayModalInstanceCtrl', function ($scope, $modalInstance, $log)
 
 
 // Configure the $httpProvider by adding our date transformer
-app.config(["$httpProvider", function ($httpProvider) {
+app.config(['cfpLoadingBarProvider','$httpProvider', function (cfpLoadingBarProvider,$httpProvider) {
     $httpProvider.defaults.transformResponse.push(function(responseData){
         convertDateStringsToDates(responseData);
         return responseData;
     });
+    cfpLoadingBarProvider.includeSpinner = false;
 }]);
 
 /* Directiva para que funcionen las modales en IE8
