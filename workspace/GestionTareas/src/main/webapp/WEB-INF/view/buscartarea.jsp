@@ -31,8 +31,7 @@
                         </label>
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                        <input type="text" class="form-control" id="searchText" ng-model="searchText" required value=""
-                               ng-minlength="6">
+                        <input type="text" class="form-control" id="searchText" ng-model="searchText" required value="" >
                     </div>
                     <!-- Boton Busqueda -->
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 text-left">

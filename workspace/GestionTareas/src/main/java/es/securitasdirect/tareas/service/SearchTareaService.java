@@ -87,12 +87,12 @@ public class SearchTareaService {
                     applicationUser,
                     ccUserId,
                     filter,
-                    new ArrayList<String>(0),
+                    Arrays.asList(""),
                     getConfiguredCallingList(),
                     country
             );
 
-            LOGGER.debug("Search Tarea with filter {} returned {} results", filter);
+            LOGGER.debug("Search Tarea with filter {} returned {} result", filter,cclResponse.getOperationResult());
 
              taskList = new ArrayList<Tarea>();
             for (int i=0; i<cclResponse.getColumnReturn().size();i++) {
