@@ -43,6 +43,7 @@ public abstract class BaseController {
      * @return
      */
     protected BaseResponse processException(Exception exception, String funcMsgParam){
+        LOGGER.error(exception.getMessage(),exception);
         BaseResponse response = new BaseResponse();
         if(funcMsgParam!=null && !funcMsgParam.isEmpty()){
             try {

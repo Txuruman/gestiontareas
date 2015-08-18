@@ -16,7 +16,11 @@ public interface TaskServiceParams {
     public static String TAREA_COMMONS_PERSONA_CONTACTO = "NOMBRE";
     public static String TAREA_COMMONS_INSTALACION = "INSTALACION";
     public static String TAREA_COMMONS_TELEFONO = "CONTACT_INFO";
-
+    public static String TAREA_COMMONS_ESTADO = "RECORD_STATUS";
+    public static String TAREA_COMMONS_CALLING_LIST = "CALLING_LIST";
+    public static String TAREA_COMMONS_N_CONTRATO = "CTR_NO";
+    public static String TAREA_COMMONS_ID = "CHAIN_ID";
+    public static String TAREA_COMMONS_FECHA_REPROGRAMACION = "DEAL_SCHED_TIME";
     /**
      * Generales
      */
@@ -32,8 +36,8 @@ public interface TaskServiceParams {
     public static String LIST_ASSISTANT_TASK_INS_NUMERO_INSTALACION = "INSTALACION";
     public static String LIST_ASSISTANT_TASK_INS_PERSONA_CONTACTO = "NOMBRE";
     public static String LIST_ASSISTANT_TASK_INS_TELEFONO = "CONTACT_INFO";
-    public static String LIST_ASSISTANT_TASK_CALLING_LIST = "CALLING_LIST";
-    public static String LIST_ASSISTANT_TASK_N_CONTRATO = "CTR_NO";
+
+
 
     public static String LIST_ASSISTANT_TASK_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 

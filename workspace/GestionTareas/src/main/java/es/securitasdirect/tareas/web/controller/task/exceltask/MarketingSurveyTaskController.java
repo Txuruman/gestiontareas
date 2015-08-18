@@ -83,6 +83,14 @@ public class MarketingSurveyTaskController extends TaskController {
         return response;
     }
 
+    /**
+     * http://localhost:8080/gestiontareas/marketingsurveytask/getInstallationAndTask?installationId=111111&ccUserId=12187&callingList=CL_CCT_XLS_ENCUESTAS_MKT&tareaId=1
+     * @param installationId
+     * @param ccUserId
+     * @param callingList
+     * @param tareaId
+     * @return
+     */
     @RequestMapping(value = "/getInstallationAndTask", method = {RequestMethod.GET}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody TareaResponse getInstallationAndTask(
             @RequestParam(value = "installationId", required = true) String installationId,
