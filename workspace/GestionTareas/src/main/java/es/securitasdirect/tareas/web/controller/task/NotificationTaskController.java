@@ -137,7 +137,7 @@ public class NotificationTaskController extends TaskController {
     public
     @ResponseBody
     BaseResponse postpone(@RequestBody PostponeNotificationTaskRequest request) {
-        return super.delayTask(request.getTask(), request.getRecallType(), request.getDelayDate(), "notificationtask.postpone");
+        return super.delayTask(request.getTask(), request.getRecallType(), request.getDelayDate());
     }
 
     @RequestMapping(value = "/atras", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
