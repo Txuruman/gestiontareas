@@ -29,16 +29,16 @@ public abstract class TaskController extends BaseController{
      * @param delayDate
      * @return
      */
-    public BaseResponse delayTask(Tarea task, String recallType, Date delayDate, String message) {
+    public BaseResponse delayTask(Tarea task, String recallType, Date delayDate) {
         LOGGER.debug("Aplazando tarea {} TODO ", task ,delayDate, recallType);
         BaseResponse response = new BaseResponse();
         //Llamada al servicio para aplazar
         try {
-            //TODO PENDIENTE
+
             boolean ok = tareaService.delayTask(null,null,null,null,null,null,null );
-            response = super.processSuccessMessages(ok, message);
+            response = super.processSuccessMessages(ok, "PENDIENTE");
         } catch (Exception e) {
-            response = processException(e, message);
+            response = processException(e, "PENDIENTE");
         }
         LOGGER.debug("Aplazamiento de tarea\nResponse:{}", response);
         return response;

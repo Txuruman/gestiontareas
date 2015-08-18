@@ -70,11 +70,8 @@ public class KeyboxTaskController extends TaskController {
 
 
     @RequestMapping(value = "/aplazar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody BaseResponse finalizar(@RequestBody PostponeKeyboxTaskRequest request) {
-        LOGGER.debug("Aplazar de keybox:\nRequest: {}", request);
-        BaseResponse response = dummyResponseGenerator.dummyFinalizeSuccess();
-        LOGGER.debug("Aplazada tarea de keybox:\nResponse: {}",response);
-        return response;
+    public @ResponseBody BaseResponse delay(@RequestBody PostponeKeyboxTaskRequest request) {
+        return delayTask(request.getTask(),request.getRecallType(),request.getDelayDate());
     }
 
 
