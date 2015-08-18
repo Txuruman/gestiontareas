@@ -5,8 +5,6 @@ import es.securitasdirect.tareas.model.tickets.operations.CreateTicket;
 import es.securitasdirect.tareas.support.XmlMarshaller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.wso2.ws.dataservice.SPAVISOSOPERACIONESPortType;
-import wsticketsv2.WsTickets;
 import wsticketsv2.WsTicketsSoap;
 
 import javax.inject.Inject;
@@ -26,8 +24,6 @@ public class AvisoService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AvisoService.class);
 
-    @Inject
-    protected SPAVISOSOPERACIONESPortType spAvisosOperaciones;
     @Inject
     protected WsTicketsSoap wsTickets;
     @Inject
