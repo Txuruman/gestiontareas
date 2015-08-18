@@ -11,7 +11,7 @@ public class User {
     @XmlAttribute
     String idUser;
     @XmlAttribute
-    String idUsidCountry;
+    String idCountry;
     @XmlAttribute
     String idLanguage;
     @XmlAttribute
@@ -25,12 +25,12 @@ public class User {
         this.idUser = idUser;
     }
 
-    public String getIdUsidCountryer() {
-        return idUsidCountry;
+    public String getIdCountry() {
+        return idCountry;
     }
 
-    public void setIdUsidCountry(String idUsidCountryer) {
-        this.idUsidCountry = idUsidCountryer;
+    public void setIdCountry(String idCountry) {
+        this.idCountry = idCountry;
     }
 
     public String getIdLanguage() {
