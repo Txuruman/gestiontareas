@@ -36,7 +36,7 @@ public interface ExternalParams {
 
     public static String AGENT_GROUP_OUT_SERVICE = "bp_agentGroupOutService";
 
-    public static String DESKTOP_DEP = "bp_desktopDepartment";
+    public static String DESKTOP_DEPARTMENT = "bp_desktopDepartment";
     
     public static String CALLING_LIST_MANAGED_DESK= "bp_callingListManagedDesktop";
     

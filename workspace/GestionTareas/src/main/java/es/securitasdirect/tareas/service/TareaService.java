@@ -150,7 +150,7 @@ public class TareaService {
         String contactInfo=null;
         String country=null;
 
-        cclIntegration.updateCallingListContact(ccIdentifier,applicationUser,ccUserId,filter,modifyValues,callingList,campaign,contactInfo,country)
+        cclIntegration.updateCallingListContact(ccIdentifier,applicationUser,ccUserId,filter,modifyValues,callingList,campaign,contactInfo,country);
 
                 return true;
     }

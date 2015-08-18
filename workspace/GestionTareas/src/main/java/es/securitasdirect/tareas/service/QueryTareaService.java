@@ -58,8 +58,6 @@ public class QueryTareaService {
 
         String filter               = "chain_id=" + id;
 
-        Tarea tarea;
-
         LOGGER.debug("Calling to service CallingList with values:\n ccIdentifier: {}\n applicationUser: {}\n ccUserId: {}\n filter: {}\n callingList: {}\n country: {}", desktopDepartment, applicationUser, ccUserId, filter, callingList, country);
         Map<String, String> responseMap = checkCallingListContact(desktopDepartment,
                 applicationUser,
@@ -67,7 +65,7 @@ public class QueryTareaService {
                 filter,
                 callingList,
                 country);
-        tarea = tareaServiceTools.createTareaFromParameters(responseMap);
+        Tarea tarea = tareaServiceTools.createTareaFromParameters(responseMap);
         return tarea;
     }
 
