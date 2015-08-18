@@ -1,3 +1,12 @@
+<!--
+XSD Generator to use this XML example and generate a XSD
+XSD Generator : http://www.xmlforasp.net/CodeBank/System_Xml_Schema/BuildSchema/BuildXMLSchema.aspx
+
+
+Model Generator to create Java Classes from XSD : http://www.javaworld.com/article/2071784/enterprise-java/java-xml-mapping-made-easy-with-jaxb-2-0.html
+ c:\java\jdk1.6.0_45\bin\xjc.exe C:\AGS\TeamVision\GestionTareas\workspace\GestionTareas\src\test\resources\CreateTicketResponse.xsd  -p es.securitasdirect.tareas.model.tickets.responses -d C:\AGS\TeamVision\GestionTareas\workspace\GestionTareas\src\main\java
+
+-->
 <DATA>
     <USER idUser='A13003' idCountry='01' idLanguage='ES' t='NOSESSION'/>
     <TICKET numInst='731483' observ="Texto Aviso" codZIP="28033" closeTicket="1" dataAditional="" noteClose="" morDebt="0" typePanel="SDMF">
@@ -14,3 +23,5 @@
         </ITEMS>
     </SVRQ>
 </DATA>
+
+
