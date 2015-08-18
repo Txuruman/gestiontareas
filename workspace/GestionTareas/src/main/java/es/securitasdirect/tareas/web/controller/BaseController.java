@@ -43,14 +43,13 @@ public abstract class BaseController {
      * @return
      */
     protected BaseResponse processException(Exception exception, String funcMsgParam){
-        String funcMsg = funcMsgParam + ".error";
         BaseResponse response = new BaseResponse();
         if(funcMsgParam!=null && !funcMsgParam.isEmpty()){
-            String localizedMessage = messageUtil.getProperty(funcMsg + ".error");
-            if(localizedMessage!=null && !localizedMessage.isEmpty()){
+            try {
+                String localizedMessage = messageUtil.getProperty(funcMsgParam + ".error");
                 response.danger(localizedMessage);
-            }else{
-                response.danger("Localized message not found for " + funcMsg + ".error" );
+            } catch (Exception e) {
+                response.danger(e.getMessage());
             }
         }
 
