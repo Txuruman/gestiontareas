@@ -40,10 +40,10 @@ public class NotificationTaskController extends TaskController {
     private ExternalDataService externalDataService;
     @Inject
     private InstallationService installationDataService;
-    @Autowired  //TODO METER ESTO EN TODOS
+    @Autowired
     private AgentController agentController;
 
-    /* TODO COMENTAR TODOS LOS GETTASK
+    /*
     @RequestMapping(value = "/gettask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
@@ -71,19 +71,18 @@ public class NotificationTaskController extends TaskController {
     public
     @ResponseBody
     NotificationTaskResponse getInstallationAndTask(
-            @RequestParam(value = "installationId", required = true) String installationId,  //TODO QUITAR ESTE PARAMETRO
-            @RequestParam(value = "ccUserId", required = true) String ccUserId, //TODO QUITAR ESTE PARAMETRO
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
     ) {
+        LOGGER.debug("Get Notification task for params: \ncallingList:{}\ntareaId:{}", callingList, tareaId);
         NotificationTaskResponse response = new NotificationTaskResponse();
-        if (agentController.isLogged()) {  //TODO
+        if (agentController.isLogged()) {
             try {
                 //Buscar Tarea
                 TareaAviso task = (TareaAviso) queryTareaService.queryTarea(
-                        agentController.getAgent().getIdAgent(), //TODO
-                        agentController.getAgent().getAgentCountryJob(),//TODO
-                        agentController.getAgent().getDesktopDepartment()//TODO
+                        agentController.getAgent().getIdAgent(),
+                        agentController.getAgent().getAgentCountryJob(),
+                        agentController.getAgent().getDesktopDepartment()
                         , callingList, tareaId);
                 if (task != null) {
                     response.setTarea(task);
@@ -106,46 +105,10 @@ public class NotificationTaskController extends TaskController {
                 processException(e);
             }
         } else {
-            response.danger("agent.notLoggedIn"); //TODO
+            response.danger("agent.notLoggedIn");
         }
         return response;
 
-        /*
-
-        TareaAviso task = null;
-        String TASK_SERVICE_MESSAGE = "notificationTask.getTask";
-        try{
-            //Buscar Tarea
-            task = (TareaAviso)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-            TareaResponse taskResponse = processSuccessTask(task,TASK_SERVICE_MESSAGE);
-            response.addMessages(taskResponse.getMessages());
-            response.setTarea(taskResponse.getTarea());
-        }catch(Exception e){
-            response = new NotificationTaskResponse(processException(e, TASK_SERVICE_MESSAGE));
-        }
-        if(task!=null){
-            LOGGER.debug("Notification task obtained from service: \n{}", task);
-        }else{
-            LOGGER.debug("Failed to obtain notification task from service");
-        }
-        LOGGER.debug("Get installation data for params: \ninstallationId: {}", installationId);
-        InstallationData installationData = null;
-        String INSTALLATION_SERVICE_MESSAGE = "installationData";
-        try{
-            installationData = installationDataService.getInstallationData(installationId);
-            TareaResponse installationResponse = processSuccessInstallation(installationData);
-            response.addMessages(installationResponse.getMessages());
-            response.setInstallationData(installationResponse.getInstallationData());
-        }catch(Exception e){
-            response = new NotificationTaskResponse(processException(e, INSTALLATION_SERVICE_MESSAGE));
-        }
-        if(installationData!=null){
-            LOGGER.debug("Installation data obtained from service: \n{}", installationData);
-        }else{
-            LOGGER.debug("Failed to obtain installation data service.");
-        }
-        return response;
-        */
     }
 
 
