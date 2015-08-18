@@ -92,8 +92,8 @@ public class AvisoService {
         /* <ITEM></ITEM> */
         createItem.setIdItemIBS("");
         createItem.setCount("1");
-        createItem.setIdProblem("500");
-        createItem.setIdType("300");
+        createItem.setIdProblem("210");
+        createItem.setIdType("200");
         create_list_item.add(createItem);
 
 
@@ -101,7 +101,7 @@ public class AvisoService {
          * <USER></USER>
          */
         createTicket.getUser().setIdUser("I24311");
-        createTicket.getUser().setIdUsidCountry("1");
+        createTicket.getUser().setIdCountry("1");
         createTicket.getUser().setIdLanguage("ES");
         createTicket.getUser().setT("NOSESSION");
 
