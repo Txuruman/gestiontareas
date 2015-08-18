@@ -48,7 +48,7 @@ app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService, $modal
         $http({
             method: 'GET',
             url: 'keyboxtask/getInstallationAndTask',
-            params: {installationId: $scope.installationId, ccUserId: $scope.ccUserId, callingList: $scope.callingList, tareaId: $scope.tareaId}
+            params: {callingList: $scope.callingList, tareaId: $scope.tareaId}
         }).
             success(function (data, status, headers, config) {
                 //console.log("Loaded keybox task:",data.tarea);

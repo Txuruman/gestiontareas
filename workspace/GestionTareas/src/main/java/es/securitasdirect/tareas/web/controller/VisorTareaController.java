@@ -144,14 +144,10 @@ public class VisorTareaController extends TaskController {
             mv.addObject(SECUNDARIA, MANTENIMIENTO);
         }
         mv.addObject(TITULO, titulo);
-        assert parametersMap.get(ExternalParams.NUMERO_INSTALACION)!=null && !parametersMap.get(ExternalParams.NUMERO_INSTALACION).isEmpty();
-        mv.addObject("installationId", parametersMap.get(ExternalParams.NUMERO_INSTALACION));
         assert parametersMap.get(ExternalParams.CALLING_LIST)!=null && !parametersMap.get(ExternalParams.CALLING_LIST).isEmpty();
         mv.addObject("callingList", parametersMap.get(ExternalParams.CALLING_LIST));
         assert parametersMap.get(ExternalParams.ID_TAREA)!=null && !parametersMap.get(ExternalParams.ID_TAREA).isEmpty();
         mv.addObject("tareaId", parametersMap.get(ExternalParams.ID_TAREA));
-        assert parametersMap.get(ExternalParams.identificadorAgente)!=null && !parametersMap.get(ExternalParams.identificadorAgente).isEmpty();
-        mv.addObject("ccUserId", parametersMap.get(ExternalParams.identificadorAgente));
         return mv;
 
     }
@@ -207,7 +203,7 @@ public class VisorTareaController extends TaskController {
     }
 
 
-
+/*
     @RequestMapping(value = "/maintenancesurveytask/getMaintenanceSurveyTask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
@@ -367,4 +363,6 @@ public class VisorTareaController extends TaskController {
         }
         return response;
     }
+
+    */
 }

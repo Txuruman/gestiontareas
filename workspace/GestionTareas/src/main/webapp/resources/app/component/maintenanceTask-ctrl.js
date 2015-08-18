@@ -98,7 +98,7 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService, $
         $http({
             method: 'GET',
             url: 'maintenancetask/getInstallationAndTask',
-            params: {installationId: $scope.installationId, ccUserId: $scope.ccUserId, callingList: $scope.callingList, tareaId: $scope.tareaId}
+            params: {callingList: $scope.callingList, tareaId: $scope.tareaId}
         }).
             success(function (data, status, headers, config) {
                 //$log.debug("Loaded maintenance task:",data.tarea);

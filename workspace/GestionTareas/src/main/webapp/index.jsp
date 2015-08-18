@@ -17,7 +17,7 @@ Enlaces
     <li>
         Estando el agente disponible, le llega una interacción de tipo Tarea para gestionarla.
         <ul>
-            <li><a href="visortarea.htm?bp_agent=12187&bp_agentCountryJob=SPAIN&bp_callingListManagedDesktop=ATC_SPN&bp_out_GSW_CHAIN_ID_CUSTOM=2&bp_out_clname=CL_CCT_ATT_Averia_Test">Tarea Tipo Aviso (aviso:10267236)</a></li>
+            <li><a href="visortarea.htm?bp_agent=12187&bp_agentCountryJob=SPAIN&bp_callingListManagedDesktop=ATC_SPN&bp_out_GSW_CHAIN_ID_CUSTOM=1&bp_out_clname=CL_CCT_ATT_Averia_Test">Tarea Tipo Aviso (aviso:10267236)</a></li>
             <li><a href="visortarea.htm?bp_agent=12187&bp_agentCountryJob=SPAIN&bp_callingListManagedDesktop=ATC_SPN&bp_out_GSW_CHAIN_ID_CUSTOM=1&bp_out_clname=CL_TAREAS_DIY">Tarea Mantenimiento</a></li>
             <li>Tarea tipo Excel
                 <ul>

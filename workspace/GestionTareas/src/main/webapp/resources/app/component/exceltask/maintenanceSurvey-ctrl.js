@@ -54,7 +54,7 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,
             $http({
                 method: 'GET',
                 url: 'maintenancesurveytask/getInstallationAndTask',
-                params: {installationId: $scope.installationId, ccUserId: $scope.ccUserId, callingList: $scope.callingList, tareaId: $scope.tareaId}
+                params: {callingList: $scope.callingList, tareaId: $scope.tareaId}
             }).
                 success(function (data, status, headers, config) {
                     //$log.debug("Loaded maintenance survey task:" ,data.tarea);

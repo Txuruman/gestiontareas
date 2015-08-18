@@ -66,7 +66,7 @@ app.controller('marketingsurveytask-ctrl', function ($scope, $http, CommonServic
         $http({
             method: 'GET',
             url: 'marketingsurveytask/getInstallationAndTask',
-            params: {installationId: $scope.installationId, ccUserId: $scope.ccUserId, callingList: $scope.callingList, tareaId: $scope.tareaId}
+            params: {callingList: $scope.callingList, tareaId: $scope.tareaId}
         }).
             success(function (data, status, headers, config) {
                 //$log.debug("Loaded list assistant task:" ,data.tarea);

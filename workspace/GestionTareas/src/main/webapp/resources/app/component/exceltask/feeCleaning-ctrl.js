@@ -49,7 +49,7 @@ app.controller('feecleaningtask-ctrl', function ($scope, $http, CommonService, $
         $http({
             method: 'GET',
             url: 'feecleaningtask/getInstallationAndTask',
-            params: {installationId: $scope.installationId, ccUserId: $scope.ccUserId, callingList: $scope.callingList, tareaId: $scope.tareaId}
+            params: {callingList: $scope.callingList, tareaId: $scope.tareaId}
         }).
             success(function (data, status, headers, config) {
                 //$log.debug("Loaded fee cleaning task:",data.tarea);

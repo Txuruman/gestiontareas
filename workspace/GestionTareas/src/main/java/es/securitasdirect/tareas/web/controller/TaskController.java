@@ -34,7 +34,8 @@ public abstract class TaskController extends BaseController{
         BaseResponse response = new BaseResponse();
         //Llamada al servicio para aplazar
         try {
-            boolean ok = tareaService.aplazar(9);
+            //TODO PENDIENTE
+            boolean ok = tareaService.delayTask(null,null,null,null,null,null,null );
             response = super.processSuccessMessages(ok, message);
         } catch (Exception e) {
             response = processException(e, message);

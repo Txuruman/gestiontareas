@@ -12,14 +12,14 @@ import java.util.Date;
 public class Tarea {
 
     private interface TaskStatus {
-        public static final int NO_RECORD_STATUS_= 0;
-        public static final int READY_= 1;
-        public static final int RETRIEVED_= 2;
-        public static final int UPDATED_= 3;
-        public static final int STALE_= 4;
-        public static final int CANCELED_= 5;
-        public static final int AGENT_ERROR_= 6;
-        public static final int MISSED_CALLBACK_= 8;
+        public static final int NO_RECORD_STATUS_ = 0;
+        public static final int READY_ = 1;
+        public static final int RETRIEVED = 2; //EN MEMORIA
+        public static final int UPDATED = 3;
+        public static final int STALE_ = 4;
+        public static final int CANCELED_ = 5;
+        public static final int AGENT_ERROR_ = 6;
+        public static final int MISSED_CALLBACK = 8;
     }
 
     /**
@@ -39,10 +39,14 @@ public class Tarea {
      */
     protected String numeroContrato;
 
-    /** Calling list de la tarea, agrupa las tareas por tipos*/
+    /**
+     * Calling list de la tarea, agrupa las tareas por tipos
+     */
     protected String callingList;
 
-    /** Identificador de la tarea en la calling list, lo que se viene a llamar chain_id , junto con calling list hacen clave para las busquedas */
+    /**
+     * Identificador de la tarea en la calling list, lo que se viene a llamar chain_id , junto con calling list hacen clave para las busquedas
+     */
     protected Integer id;
 
     /** */
@@ -132,6 +136,9 @@ public class Tarea {
         this.personaContacto = personaContacto;
     }
 
+    public boolean isRetrieved() {
+        return this.estado!= null && this.estado==TaskStatus.RETRIEVED;
+    }
 
     @Override
     public String toString() {

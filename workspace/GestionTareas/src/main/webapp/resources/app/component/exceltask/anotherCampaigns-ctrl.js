@@ -52,7 +52,7 @@ app.controller('anotherCampaigns', function ($scope, $http, CommonService, $moda
         $http({
             method: 'GET',
             url: 'anothercampaignstask/getInstallationAndTask',
-            params: {installationId: $scope.installationId, ccUserId: $scope.ccUserId, callingList: $scope.callingList, tareaId: $scope.tareaId}
+            params: {callingList: $scope.callingList, tareaId: $scope.tareaId}
         }).
             success(function (data, status, headers, config) {
                 //$log.debug("Loaded fee cleaning task:",data.tarea);

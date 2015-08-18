@@ -46,28 +46,31 @@ public class QueryTareasServiceTest {
     @Resource(name = "applicationUser")
     private String applicationUser;
 
+    String ccUserId = "12187";
+    String country="SPAIN";
+    String desktopDepartment="ATC_SPN";
+
     /**
      * <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
-     <soapenv:Header/>
-     <soapenv:Body>
-     <web:checkCallingListContact>
-     <ccIdentifier>ATC_SPN</ccIdentifier>
-     <applicationUser>Tareas</applicationUser>
-     <ccUserId>12187</ccUserId>
-     <filter>chain_id=1</filter>
-     <returnData></returnData>
-     <callingList>CL_CCT_ATT_Averia_Test</callingList>
-     <country>SPAIN</country>
-     </web:checkCallingListContact>
-     </soapenv:Body>
-     </soapenv:Envelope>
+     * <soapenv:Header/>
+     * <soapenv:Body>
+     * <web:checkCallingListContact>
+     * <ccIdentifier>ATC_SPN</ccIdentifier>
+     * <applicationUser>Tareas</applicationUser>
+     * <ccUserId>12187</ccUserId>
+     * <filter>chain_id=1</filter>
+     * <returnData></returnData>
+     * <callingList>CL_CCT_ATT_Averia_Test</callingList>
+     * <country>SPAIN</country>
+     * </web:checkCallingListContact>
+     * </soapenv:Body>
+     * </soapenv:Envelope>
      */
     @Test
-    public void queryTareaAvisoTest(){
+    public void queryTareaAvisoTest() throws Exception {
 
 
-        String ccUserId             = "12187";
-        String id               = "1";
+        String id = "1";
         String callingList = "CL_CCT_ATT_Averia_Test";
 
 //         String callingList = "CL_CCT_ATT_Averia_Test";
@@ -88,61 +91,47 @@ public class QueryTareasServiceTest {
 //         String callingList = "CL_CCT_Ingles_ATT";
 //         String callingList = "CL_CCT_ODC";
 
-        try{
-            Tarea tarea = queryTareaService.queryTarea(
-                    ccUserId,
-                    callingList,
-                    id);
-            LOGGER.info("Tarea: {}", tarea);
-        }catch(Exception e){
-
-        }
-
+        Tarea tarea = queryTareaService.queryTarea(
+                ccUserId,country,desktopDepartment,
+                callingList,
+                id);
+        assertThat(tarea, notNullValue());
+        LOGGER.info("Tarea: {}", tarea);
 
 
     }
 
     @Test
-    public void queryTareaMantenimientoTest(){
-        String ccUserId             = "12187";
-        String filter               = "1";
+    public void queryTareaMantenimientoTest() throws Exception {
+        String filter = "1";
 
 
         String callingList = "CL_TAREAS_DIY";
 
         LOGGER.debug("Probando la tarea de tipo Mantenimiento");
 
-        try{
             Tarea tarea = queryTareaService.queryTarea(
-                    ccUserId,
+                    ccUserId,country,desktopDepartment,
                     callingList,
                     filter);
             LOGGER.info("Tarea: {}", tarea);
             assertThat(tarea, notNullValue());
-        }catch(Exception e){
-
-        }
     }
 
     @Test
-    public void queryTareaEncuestaMantenimientoTest(){
-        String ccUserId             = "12187";
-        String filter               = "1";
+    public void queryTareaEncuestaMantenimientoTest() throws Exception {
+        String filter = "1";
 
         String callingList = "CL_CCT_XLS_ENCUESTAS_MTOS";
 
         LOGGER.debug("Probando la tarea de tipo Encuesta Mantenimiento");
 
-        try{
             Tarea tarea = queryTareaService.queryTarea(
-                    ccUserId,
+                    ccUserId,country,desktopDepartment,
                     callingList,
                     filter);
             LOGGER.info("Tarea: {}", tarea);
             assertThat(tarea, notNullValue());
-        }catch(Exception e){
-
-        }
 
     }
 
@@ -152,15 +141,13 @@ public class QueryTareasServiceTest {
     </util:list>
     </entry>*/
     @Test
-    public void queryTareaEncuestaMarketingTest(){
-        String ccUserId             = "12187";
-        String filter               = "1";
+    public void queryTareaEncuestaMarketingTest() throws Exception {
+        String filter = "1";
         String callingList = "CL_CCT_XLS_ENCUESTAS_MKT";
 
         LOGGER.debug("Probando la tarea de tipo Encuesta Marketing");
 
 
-        try{
             Tarea tarea = queryTareaService.queryTarea(
                     ccUserId,
                     callingList,
@@ -168,9 +155,6 @@ public class QueryTareasServiceTest {
             );
             LOGGER.info("Tarea: {}", tarea);
             assertThat(tarea, notNullValue());
-        }catch(Exception e){
-
-        }
 
     }
 
@@ -182,15 +166,13 @@ public class QueryTareasServiceTest {
     </entry>
     */
     @Test
-    public void queryTareaKeyboxTest(){
-        String ccUserId             = "12187";
-        String filter               = "1";
+    public void queryTareaKeyboxTest() throws Exception {
+        String filter = "1";
         String callingList = "CL_CCT_XLS_KEYBOX";
 
         LOGGER.debug("Probando la tarea de tipo Keybox");
 
 
-        try{
             Tarea tarea = queryTareaService.queryTarea(
                     ccUserId,
                     callingList,
@@ -198,9 +180,6 @@ public class QueryTareasServiceTest {
             );
             LOGGER.info("Tarea: {}", tarea);
             assertThat(tarea, notNullValue());
-        }catch(Exception e){
-
-        }
 
     }
 
@@ -212,14 +191,12 @@ public class QueryTareasServiceTest {
     </entry>
     */
     @Test
-    public void queryTareaLimpiezaCuotaTest(){
-        String ccUserId             = "12187";
-        String filter               = "1";
+    public void queryTareaLimpiezaCuotaTest() throws Exception {
+        String filter = "1";
         String callingList = "CL_CCT_XLS_LIMPIEZA_CUOTA";
 
         LOGGER.debug("Probando la tarea de tipo Limpieza de Couta");
 
-        try{
             Tarea tarea = queryTareaService.queryTarea(
                     ccUserId,
                     callingList,
@@ -227,11 +204,9 @@ public class QueryTareasServiceTest {
             );
             LOGGER.info("Tarea: {}", tarea);
             assertThat(tarea, notNullValue());
-        }catch(Exception e){
-
-        }
 
     }
+
     /*
     <entry key="TareaListadoAssistant">
     <util:list list-class="java.util.ArrayList" value-type="java.lang.String">
@@ -240,25 +215,21 @@ public class QueryTareasServiceTest {
     </entry>
     */
     @Test
-    public void queryTareaListadoAssistantTest(){
-        String ccUserId             = "12187";
-        String filter               = "1";
+    public void queryTareaListadoAssistantTest() throws Exception {
+        String filter = "1";
         String callingList = "CL_CCT_XLS_ASSISTANT";
         LOGGER.debug("Probando la tarea de tipo Listado Assistant");
 
-        try{
             Tarea tarea = queryTareaService.queryTarea(
-                    ccUserId,
+                    ccUserId,country,desktopDepartment,
                     callingList,
                     filter
             );
             LOGGER.info("Tarea: {}", tarea);
             assertThat(tarea, notNullValue());
-        }catch(Exception e){
-
-        }
 
     }
+
     /*
     <entry key="TareaOtrasCampanas">
     <util:list list-class="java.util.ArrayList" value-type="java.lang.String">
@@ -267,32 +238,25 @@ public class QueryTareasServiceTest {
     </entry>
 */
     @Test
-    public void queryTareaOtrasCampanasTest(){
-        String ccUserId             = "12187";
-        String filter               = "1";
+    public void queryTareaOtrasCampanasTest() throws Exception {
+        String filter = "1";
         String callingList = "CL_CCT_XLS_ATC";
 
         LOGGER.debug("Probando la tarea de tipo Otras campañas");
 
-        try{
             Tarea tarea = queryTareaService.queryTarea(
-                    ccUserId,
+                    ccUserId,country,desktopDepartment,
                     callingList,
                     filter
             );
             LOGGER.info("Tarea: {}", tarea);
             assertThat(tarea, notNullValue());
-        }catch(Exception e){
-
-        }
 
     }
 
 
     @Resource(name = "callingListToModel")
     private Map<String, List<String>> callingListToModel;
-
-
 
 
 }

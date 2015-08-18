@@ -127,7 +127,7 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
         $http({
             method: 'GET',
             url: 'listassistanttask/getInstallationAndTask',
-            params: {installationId: $scope.installationId, ccUserId: $scope.ccUserId, callingList: $scope.callingList, tareaId: $scope.tareaId}
+            params: {callingList: $scope.callingList, tareaId: $scope.tareaId}
         }).
             success(function (data, status, headers, config) {
                 //$log.debug("Loaded list assistant task:",data.tarea);
