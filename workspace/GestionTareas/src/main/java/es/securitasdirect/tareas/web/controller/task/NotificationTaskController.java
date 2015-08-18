@@ -65,14 +65,14 @@ public class NotificationTaskController extends TaskController {
     @RequestMapping(value = "/getInstallationAndTask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    NotificationTaskResponse getInstallationAndTask(
+    TareaResponse getInstallationAndTask(
             @RequestParam(value = "installationId", required = true) String installationId,  //TODO QUITAR ESTE PARAMETRO
             @RequestParam(value = "ccUserId", required = true) String ccUserId,
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
     )  {
         LOGGER.debug("Get Notification task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}",ccUserId, callingList, tareaId);
-        NotificationTaskResponse response = new NotificationTaskResponse();
+        TareaResponse response = new TareaResponse();
         try {
             //Buscar Tarea
             TareaAviso task = (TareaAviso)queryTareaService.queryTarea(ccUserId, callingList, tareaId);
