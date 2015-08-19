@@ -12,7 +12,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
         var modalInstance = $modal.open({
             animation: false, //Indica si animamos el modal
             templateUrl: 'deplayModalContent.html', //HTML del modal
-            controllerVar: 'DelayModalInstanceCtrl',  //Referencia al controller especifico para el modal
+            controller: 'DelayModalInstanceCtrl',  //Referencia al controller especifico para el modal
             size: size,
             resolve: {
                 //Creo que esto es para pasar parametros al controller interno
@@ -244,21 +244,20 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     };
 
     $scope.aplazar = function (delayDate, recallType) {
-        //$log.info('Delay to ' + delayDate + ' with recallType ' + recallType + ' NotificationTask ' + JSON.stringify($scope.tarea));
+        //$log.info('Delay to ' + delayDate + ' with recallType ' + recallType + ' task ' + JSON.stringify($scope.tarea));
         if ($scope.tarea) {
-            var postponeNotificationTaskRequest = {
+            var postponeRequest = {
                 recallType: recallType,
-                delayDate: delayDate,
+                delayDate:  delayDate,
                 task: $scope.tarea
-
             };
 
-            //$log.info("JSON DE LO QUE SE MANDA   " + JSON.stringify(postponeNotificationTaskRequest));
+            //$log.info("Json of Request " + JSON.stringify(postponeRequest));
 
             $http({
                 method: 'PUT',
                 url: 'notificationtask/aplazar',
-                data: postponeNotificationTaskRequest
+                data: postponeRequest
             })
                 .success(function (data, status, headers, config) {
                     CommonService.processBaseResponse(data, status, headers, config);
@@ -370,8 +369,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     $scope.finalizar = function () {
         //$log.debug('Finalizar, tarea: ' + $scope.tarea);
         var finalizeNotificationTaskRequest = {
-            tarea: $scope.tarea,
-            prueba: 'Hola'
+            tarea: $scope.tarea
         };
         //$log.debug('Finalizar, request: ' + JSON.stringify(finalizeNotificationTaskRequest));
         $http({

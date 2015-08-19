@@ -69,6 +69,6 @@ public  class AgentController {
 
     /** Indica si el agente ha enviado suficiente información para considerarlo registado */
     public boolean isLogged(){
-        return agent.getAgentCountryJob()!=null && ! agent.getAgentCountryJob().isEmpty();
+        return agent!=null && agent.getAgentCountryJob()!=null && ! agent.getAgentCountryJob().isEmpty();
     }
 }

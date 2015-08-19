@@ -47,6 +47,33 @@ app.controller('taskSearch', function ($scope, $http, CommonService, $modal) {
                 //Boton cancelar del Modal
             });
         };
+        
+        $scope.aplazar = function (delayDate, recallType) {
+            //$log.info('Delay to ' + delayDate + ' with recallType ' + recallType + ' task ' + JSON.stringify($scope.tarea));
+            if ($scope.tarea) {
+                var postponeRequest = {
+                    recallType: recallType,
+                    delayDate:  delayDate,
+                    task: $scope.tarea
+                };
+
+                //$log.info("Json of Request " + JSON.stringify(postponeRequest));
+
+                $http({
+                    method: 'PUT',
+                    url: 'searchtarea/aplazar',
+                    data: postponeRequest
+                })
+                    .success(function (data, status, headers, config) {
+                        CommonService.processBaseResponse(data, status, headers, config);
+                    })
+                    .error(function (data, status, headers, config) {
+                        // called asynchronously if an error occurs
+                        // or server returns response with an error status.
+                        CommonService.processBaseResponse(data, status, headers, config);
+                    });
+            }
+        };
         //Ventana Aplazar - End
     };
 });

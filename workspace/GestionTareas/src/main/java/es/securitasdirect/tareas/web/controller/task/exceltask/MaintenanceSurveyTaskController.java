@@ -110,12 +110,12 @@ public class MaintenanceSurveyTaskController extends TaskController {
 
 
     @RequestMapping(value = "/aplazar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody BaseResponse aplazar(@RequestBody PostponeMaintenanceSurveyTaskRequest request) {
-        LOGGER.debug("Aplazar tarea de encuesta de mantenimiento:\nRequest: {}", request);
-        BaseResponse response = dummyResponseGenerator.dummyFinalizeSuccess();
-        LOGGER.debug("Aplazada tarea de encuesta de mantenimiento:\nResponse: {}",response);
-        return response;
+    public
+    @ResponseBody
+    BaseResponse postpone(@RequestBody PostponeMaintenanceSurveyTaskRequest request) {
+        return super.delayTask(request.getTask(), request.getRecallType(), request.getDelayDate());
     }
+
 
 
     @RequestMapping(value = "/descartar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})

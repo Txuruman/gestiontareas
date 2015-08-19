@@ -1,23 +1,35 @@
-.vertical-text{
-	-ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=6.123233995736766e-17, M12=1, M21=-1, M22=6.123233995736766e-17, SizingMethod='auto expand')";
-    left:-20px !important;
-    top:-95px !important;
-    color: rgb(42,100,150) !important;
-    -moz-border-radius: 4px;
-	-webkit-border-radius: 4px;
-    border-radius:4px !important;
-    behavior: url(PIE.htc);
-    position: relative;
-    zoom: 1;
-}
-/* input[type="submit"]{ */
-/* 	-moz-border-radius: 4px; */
-/* 	-webkit-border-radius: 4px; */
-/*     border-radius:4px !important; */
-/*     behavior: url("PIE.htc"); */
-/*     position: relative; */
-/*     zoom: 1; */
-/* } */
+.img-circle{behavior:url(resources/css/PIE.htc)}
+.img-rounded{behavior:url(resources/css/PIE.htc)}
+.img-thumbnail{behavior:url(resources/css/PIE.htc)}
+.table-bordered{behavior:url(resources/css/PIE.htc)}
+select,textarea,input,code,pre,kbd,pre{behavior:url(resources/css/PIE.htc)}
+.input-group-addon{behavior:url(resources/css/PIE.htc)}
+.btn{behavior:url(resources/css/PIE.htc)}
+.dropdown-menu{behavior:url(resources/css/PIE.htc)}
+.form-control{behavior:url(resources/css/PIE.htc)}
+/* .panel{behavior:url(resources/css/PIE.htc)} */
+.well{behavior:url(resources/css/PIE.htc)}
+.nav-tabs > li > a{behavior:url(resources/css/PIE.htc)}
+.nav-pills > li > a{behavior:url(resources/css/PIE.htc)}
+.navbar{behavior:url(resources/css/PIE.htc)}
+.navbar-nav > li > a{behavior:url(resources/css/PIE.htc)}
+.navbar-toggle{behavior:url(resources/css/PIE.htc)}
+.navbar-toggle .icon-bar{behavior:url(resources/css/PIE.htc)}
+.breadcrumb{behavior:url(resources/css/PIE.htc)}
+.pagination{behavior:url(resources/css/PIE.htc)}
+.pager li > a,.pager li > span{behavior:url(resources/css/PIE.htc)}
+.modal-content{behavior:url(resources/css/PIE.htc)}
+.tooltip-inner{behavior:url(resources/css/PIE.htc)}
+.popover{behavior:url(resources/css/PIE.htc)}
+.popover-title{behavior:url(resources/css/PIE.htc)}
+.alert{behavior:url(resources/css/PIE.htc)}
+.thumbnail,.img-thumbnail{behavior:url(resources/css/PIE.htc)}
+.label{behavior:url(resources/css/PIE.htc)}
+.badge{behavior:url(resources/css/PIE.htc)}
+.progress{behavior:url(resources/css/PIE.htc)}
+.carousel-indicators li{behavior:url(resources/css/PIE.htc)}
+.jumbotron{behavior:url(resources/css/PIE.htc)}
+
 li[tab],.pagination a{
 	cursor:pointer;
 }

@@ -94,14 +94,26 @@ public class TareasServiceTest {
         Tarea tarea = queryTareaService.queryTarea(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), callingList, idTarea);
 
         Date schedTime = new Date();
-        Integer recordType=5;
-        boolean ok = tareaService.delayTask(agent,tarea,
+        String recordType="5";
+        boolean ok = tareaService.delayTask(agent, tarea,
                 schedTime,
                 recordType);
 
         assertThat(ok, is(true));
+    }
 
 
+    @Test
+    public void finalizeTask() throws Exception {
+        Agent agent = DummyGenerator.getAgent();
+        String callingList = "CL_CCT_XLS_LIMPIEZA_CUOTA";
+        String idTarea = "2";
+        Tarea tarea = queryTareaService.queryTarea(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), callingList, idTarea);
+
+
+        boolean ok = tareaService.finalizeTask(agent,tarea                );
+
+        assertThat(ok, is(true));
     }
 
 

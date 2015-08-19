@@ -109,6 +109,53 @@ app.controller('marketingsurveytask-ctrl', function ($scope, $http, CommonServic
             //Boton cancelar del Modal
         });
     };
-    //Ventana Aplazar - End
+    $scope.aplazar = function (delayDate, recallType) {
+        //$log.info('Delay to ' + delayDate + ' with recallType ' + recallType + ' task ' + JSON.stringify($scope.tarea));
+        if ($scope.tarea) {
+            var postponeRequest = {
+                recallType: recallType,
+                delayDate:  delayDate,
+                task: $scope.tarea
+            };
 
+            //$log.info("Json of Request " + JSON.stringify(postponeRequest));
+
+            $http({
+                method: 'PUT',
+                url: 'marketingsurveytask/aplazar',
+                data: postponeRequest
+            })
+                .success(function (data, status, headers, config) {
+                    CommonService.processBaseResponse(data, status, headers, config);
+                })
+                .error(function (data, status, headers, config) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                    CommonService.processBaseResponse(data, status, headers, config);
+                });
+        }
+    };
+    //Ventana Aplazar - End
+    $scope.finalizar = function(){
+        //$log.debug("Finalizar Maintenance Survey task, task: ",$scope.tarea);
+        var finalizeMaintenanceSurveyTaskRequest = {
+            tarea:$scope.tarea
+        };
+        //$log("Finalizar Maintenance Survey Task, request: ", finalizeMaintenanceSurveyTaskRequest);
+        $http({
+            method: 'PUT',
+            url: 'marketingsurveytask/finalizar',
+            data: finalizeMaintenanceSurveyTaskRequest
+        })
+            .success(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data,status,headers,config);
+                //$log.debug("Finalized maintenance survey task");
+            })
+            .error(function (data, status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                CommonService.processBaseResponse(data,status,headers,config);
+                //$log.error("Error finalizing maintenance survey task");
+            });
+    };
 });

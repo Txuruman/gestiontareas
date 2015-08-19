@@ -42,13 +42,42 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
     };
 
 
+    $scope.aplazar = function (delayDate, recallType) {
+        $log.info('Delay to ' + delayDate + ' with recallType ' + recallType + ' NotificationTask ' + JSON.stringify($scope.tarea));
+        if ($scope.tarea) {
+            var postponeRequest = {
+                recallType: recallType,
+                delayDate:  delayDate ,
+                task: $scope.tarea
+            };
+
+            //$log.info("JSON DE LO QUE SE MANDA   " + JSON.stringify(postponeRequest));
+
+            $http({
+                method: 'PUT',
+                url: 'listassistanttask/aplazar',
+                data: postponeRequest
+            })
+                .success(function (data, status, headers, config) {
+                    CommonService.processBaseResponse(data, status, headers, config);
+                })
+                .error(function (data, status, headers, config) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                    CommonService.processBaseResponse(data, status, headers, config);
+                });
+        }
+    };
+/*
     $scope.aplazar = function(){
         //$log.debug("Postpone List Assistant task, task: ",$scope.tarea);
         var postponeListAssistantTaskRequest = {
             tarea:$scope.tarea,
             prueba:'Hola'
         };
-        //console.log("Postpone List Assistant Task, request: ", postponeListAssistantTaskRequest);
+
+        console.log("Postpone List Assistant Task, request: ", postponeListAssistantTaskRequest);
+
         $http({
             method: 'PUT',
             url: 'listassistanttask/aplazar',
@@ -65,7 +94,7 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
                 //$log.error("Error executing postpone");
             });
     };
-
+*/
     $scope.descartar = function(){
         //$log.debug("Discard List Assistant task, task: ", $scope.tarea);
         var discardListAssistantTaskRequest = {
@@ -93,8 +122,7 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
     $scope.finalizar = function(){
         //$log.debug("Finalizar List Assistant task, task: ",$scope.tarea);
         var finalizeListAssistantTaskRequest = {
-            tarea:$scope.tarea,
-            prueba:'Hola'
+            tarea:$scope.tarea
         };
         //$log.debug("Finalizar List Assistant Task, request: ",finalizeListAssistantTaskRequest);
         $http({

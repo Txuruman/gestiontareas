@@ -26,7 +26,7 @@
             <app:inputTextNG id="personaContacto" label="visortarea.personacontacto"
                              value="tarea.personaContacto" cells="6" readonly="false"/>
             <app:inputTextNG id="telefono" label="visortarea.telefono" value="tarea.telefono" cells="6"
-                             readonly="false" type="number"/>
+                             readonly="false" type="text"/>
 
         </div>
     </div>
