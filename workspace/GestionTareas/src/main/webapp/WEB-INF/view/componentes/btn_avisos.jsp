@@ -8,7 +8,10 @@
         <div class="row" align="right">
             <!-- Panel de botones - Seleccion de controlador -->
             <div class="container-fluid">
-                <app:inputButtonNG value="boton.Refrescar" button_type="default_disabled" ng_click="atras()" fluid_wrapper="true"/>
+            	<button type="button" class="btn btn-default[disabled]" title="Refrescar" ng-disabled="refeshDisabled" ng_click="atras()">
+			    	<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+           		</button>
+<%--                 <app:inputButtonNG value="boton.Refrescar" button_type="default_disabled" ng_click="atras()" fluid_wrapper="true" ng-disabled="$scope.refeshDisabled"/> --%>
                 <app:inputButtonNG value="boton.CrearMantenimiento" button_type="default" ng_click="crearmantenimiento()" fluid_wrapper="true"/>
                 <app:inputButtonNG value="boton.Aplazar" button_type="default" ng_click="openDelayModal()" fluid_wrapper="true"/>
                 <app:inputButtonNG value="boton.Descartar" button_type="default" ng_click="descartar()" fluid_wrapper="true"/>
