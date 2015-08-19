@@ -1,5 +1,6 @@
 package es.securitasdirect.tareas.support;
 
+import es.securitasdirect.tareas.model.tickets.responses.DATA;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
@@ -30,6 +31,11 @@ public class XmlMarshaller extends Jaxb2Marshaller {
         Object o = this.unmarshal(new StreamSource(reader));
         return o;
     }
+
+    public DATA unmarshalData(String xmlImput) {
+        return (DATA) unmarshalObject(xmlImput);
+    }
+
 
 //    public String marshal(final Certificadomedico graph) {
 //        return marshalObject(graph);

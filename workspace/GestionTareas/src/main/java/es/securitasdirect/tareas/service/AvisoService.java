@@ -2,6 +2,7 @@ package es.securitasdirect.tareas.service;
 
 import es.securitasdirect.tareas.model.tickets.*;
 import es.securitasdirect.tareas.model.tickets.operations.CreateTicket;
+import es.securitasdirect.tareas.model.tickets.responses.DATA;
 import es.securitasdirect.tareas.support.XmlMarshaller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -135,9 +136,10 @@ public class AvisoService {
 
 
         String xmlCreateTicket = xmlMarshaller.marshalObject(createTicket);
-
+        xmlCreateTicket=xmlCreateTicket.replaceAll("\n", "");
 
         String xmlResult = wsTickets.create(xmlCreateTicket);
+        DATA data = xmlMarshaller.unmarshalData(xmlResult);
 
         LOGGER.debug("xmlCreateTicket: {} xmlResult:{}", xmlCreateTicket,xmlResult);
     }
