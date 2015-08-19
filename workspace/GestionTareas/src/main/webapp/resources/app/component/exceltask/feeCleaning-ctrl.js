@@ -84,30 +84,33 @@ app.controller('feecleaningtask-ctrl', function ($scope, $http, CommonService, $
                 //$log.error("Error loading closint reason list");
             });
     };
+    $scope.aplazar = function (delayDate, recallType) {
+        //$log.info('Delay to ' + delayDate + ' with recallType ' + recallType + ' task ' + JSON.stringify($scope.tarea));
+        if ($scope.tarea) {
+            var postponeRequest = {
+                recallType: recallType,
+                delayDate:  delayDate,
+                task: $scope.tarea
+            };
 
-    $scope.aplazar = function(){
-        //$log.debug("Postpone Fee cleaning task, task: ",$scope.tarea);
-        var postponeFeeCleaningTaskRequest = {
-            tarea:$scope.tarea,
-            prueba:'Hola'
-        };
-        //$log.debug("Postpone Fee Cleaning Task, request: " ,postponeFeeCleaningTaskRequest);
-        $http({
-            method: 'PUT',
-            url: 'feecleaningtask/aplazar',
-            data: postponeFeeCleaningTaskRequest
-        })
-            .success(function (data, status, headers, config) {
-                CommonService.processBaseResponse(data,status,headers,config);
-                //$log.debug("Successful postpone fee cleaning task");
+            //$log.info("Json of Request " + JSON.stringify(postponeRequest));
+
+            $http({
+                method: 'PUT',
+                url: 'feecleaningtask/aplazar',
+                data: postponeRequest
             })
-            .error(function (data, status, headers, config) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-                CommonService.processBaseResponse(data,status,headers,config);
-                //$log.error("Error executing postpone for fee cleaning task");
-            });
+                .success(function (data, status, headers, config) {
+                    CommonService.processBaseResponse(data, status, headers, config);
+                })
+                .error(function (data, status, headers, config) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                    CommonService.processBaseResponse(data, status, headers, config);
+                });
+        }
     };
+
 
     $scope.descartar = function(){
         //$log.debug("Discard Fee Cleaning task, task: " ,$scope.tarea);

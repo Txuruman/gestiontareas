@@ -83,29 +83,31 @@ app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService, $modal
                 // or server returns response with an error status.
             });
     };
+    $scope.aplazar = function (delayDate, recallType) {
+        //$log.info('Delay to ' + delayDate + ' with recallType ' + recallType + ' task ' + JSON.stringify($scope.tarea));
+        if ($scope.tarea) {
+            var postponeRequest = {
+                recallType: recallType,
+                delayDate:  delayDate,
+                task: $scope.tarea
+            };
 
-    $scope.aplazar = function(){
-        //$log.debug("Postpone Keybox task, task: ", $scope.tarea);
-        var postponeKeyboxTaskRequest = {
-            tarea:$scope.tarea,
-            prueba:'Hola'
-        };
-        //$log.debug("Postpone Keybox Task, request: ",postponeKeyboxTaskRequest);
-        $http({
-            method: 'PUT',
-            url: 'keyboxtask/aplazar',
-            data: postponeKeyboxTaskRequest
-        })
-            .success(function (data, status, headers, config) {
-                CommonService.processBaseResponse(data,status,headers,config);
-                //$log.debug("Postponed keybox task");
+            //$log.info("Json of Request " + JSON.stringify(postponeRequest));
+
+            $http({
+                method: 'PUT',
+                url: 'keyboxtask/aplazar',
+                data: postponeRequest
             })
-            .error(function (data, status, headers, config) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-                CommonService.processBaseResponse(data,status,headers,config);
-                //$log.error("Error postponing keybox task");
-            });
+                .success(function (data, status, headers, config) {
+                    CommonService.processBaseResponse(data, status, headers, config);
+                })
+                .error(function (data, status, headers, config) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                    CommonService.processBaseResponse(data, status, headers, config);
+                });
+        }
     };
 
     $scope.descartar = function(){

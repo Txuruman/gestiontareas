@@ -73,29 +73,31 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,
                     //$log.error("Error loading maintenance survey task and/or installation data");
                 });
     };
+    $scope.aplazar = function (delayDate, recallType) {
+        //$log.info('Delay to ' + delayDate + ' with recallType ' + recallType + ' task ' + JSON.stringify($scope.tarea));
+        if ($scope.tarea) {
+            var postponeRequest = {
+                recallType: recallType,
+                delayDate:  delayDate,
+                task: $scope.tarea
+            };
 
-    $scope.aplazar = function(){
-        //$log.debug("Postpone Maintenance Survey task, task: ",$scope.tarea);
-        var postponeMaintenanceSurveyTaskRequest = {
-            tarea:$scope.tarea,
-            prueba:'Hola'
-        };
-        //$log.debug("Postpone Maintenance Survey Task, request: ", postponeMaintenanceSurveyTaskRequest);
-        $http({
-            method: 'PUT',
-            url: 'maintenancesurveytask/aplazar',
-            data: postponeMaintenanceSurveyTaskRequest
-        })
-            .success(function (data, status, headers, config) {
-                CommonService.processBaseResponse(data,status,headers,config);
-                //$log.debug("Postpone maintenance survey task done");
+            //$log.info("Json of Request " + JSON.stringify(postponeRequest));
+
+            $http({
+                method: 'PUT',
+                url: 'maintenancesurveytask/aplazar',
+                data: postponeRequest
             })
-            .error(function (data, status, headers, config) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-                CommonService.processBaseResponse(data,status,headers,config);
-                //$log.error("Error doing postpone to maintenance survey task");
-            });
+                .success(function (data, status, headers, config) {
+                    CommonService.processBaseResponse(data, status, headers, config);
+                })
+                .error(function (data, status, headers, config) {
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                    CommonService.processBaseResponse(data, status, headers, config);
+                });
+        }
     };
 
     $scope.descartar = function(){

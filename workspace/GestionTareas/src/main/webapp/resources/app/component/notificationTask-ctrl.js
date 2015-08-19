@@ -248,7 +248,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
         if ($scope.tarea) {
             var postponeRequest = {
                 recallType: recallType,
-                delayDate:  delayDate ,
+                delayDate:  delayDate,
                 task: $scope.tarea
             };
 
