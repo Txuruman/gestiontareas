@@ -1,5 +1,8 @@
 package es.securitasdirect.tareas.service;
 
+import es.securitasdirect.tareas.model.Agent;
+import es.securitasdirect.tareas.model.DummyGenerator;
+import es.securitasdirect.tareas.model.Tarea;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -8,6 +11,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.inject.Inject;
+import java.util.Date;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 
 /**
  * Test del Servicio de Aviso
@@ -53,7 +60,7 @@ public class AvisoServiceTest {
 
     @Test
     public void updateTicketTest() throws Exception{
-
+/*
         String idUser = "I24311";
         String idCountry = "1";
         String idLanguage = "ES";
@@ -62,6 +69,10 @@ public class AvisoServiceTest {
                 idUser,
                 idCountry,
                 idLanguage);
+                */
     }
+
+
+
 
 }
