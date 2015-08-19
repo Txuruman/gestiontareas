@@ -12,7 +12,7 @@ public class PostponeRequest {
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "CET") //TODO Falta la hora
     protected Date delayDate;
 
-    protected String recallType;
+    protected Integer recallType;
 
     public Date getDelayDate() {
         return delayDate;
@@ -22,11 +22,11 @@ public class PostponeRequest {
         this.delayDate = delayDate;
     }
 
-    public String getRecallType() {
+    public Integer getRecallType() {
         return recallType;
     }
 
-    public void setRecallType(String recallType) {
+    public void setRecallType(Integer recallType) {
         this.recallType = recallType;
     }
 

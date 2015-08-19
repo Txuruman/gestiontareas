@@ -1,5 +1,6 @@
 package es.securitasdirect.tareas.web.controller;
 
+import es.securitasdirect.tareas.model.Agent;
 import es.securitasdirect.tareas.model.InstallationData;
 import es.securitasdirect.tareas.model.Tarea;
 import es.securitasdirect.tareas.service.TareaService;
@@ -21,6 +22,8 @@ public abstract class TaskController extends BaseController{
     protected MessageUtil messageUtil;
     @Inject
     protected TareaService tareaService;
+    @Inject
+    protected AgentController agentController;
 
     /**
      * Procesamiento generico para aplazar una tarea
@@ -29,16 +32,23 @@ public abstract class TaskController extends BaseController{
      * @param delayDate
      * @return
      */
-    public BaseResponse delayTask(Tarea task, String recallType, Date delayDate) {
+    public BaseResponse delayTask(Tarea task, Integer recallType, Date delayDate) {
         LOGGER.debug("Aplazando tarea {} TODO ", task ,delayDate, recallType);
         BaseResponse response = new BaseResponse();
         //Llamada al servicio para aplazar
         try {
-
-            boolean ok = tareaService.delayTask(null,null,null,null,null,null,null );
-            response = super.processSuccessMessages(ok, "PENDIENTE");
+            //TODO PENDIENTE
+        	Agent agent=agentController.getAgent();
+            boolean ok = tareaService.delayTask(agent,task,delayDate,recallType);
+            if (ok) {
+            	response.info(messageUtil.getProperty("postpone.success"));
+			}else{
+				response.info(messageUtil.getProperty("postpone.error"));
+			}
+            
+            //response = super.processSuccessMessages(ok, message);
         } catch (Exception e) {
-            response = processException(e, "PENDIENTE");
+            response = processException(e);
         }
         LOGGER.debug("Aplazamiento de tarea\nResponse:{}", response);
         return response;

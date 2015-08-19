@@ -12,7 +12,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
         var modalInstance = $modal.open({
             animation: false, //Indica si animamos el modal
             templateUrl: 'deplayModalContent.html', //HTML del modal
-            controllerVar: 'DelayModalInstanceCtrl',  //Referencia al controller especifico para el modal
+            controller: 'DelayModalInstanceCtrl',  //Referencia al controller especifico para el modal
             size: size,
             resolve: {
                 //Creo que esto es para pasar parametros al controller interno

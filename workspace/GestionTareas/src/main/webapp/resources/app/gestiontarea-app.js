@@ -4,19 +4,19 @@ var app = angular.module("myApp", ['ui.bootstrap','angular-loading-bar']);
 // Controlador de la ventana modal de aplazar
 // Please note that $modalInstance represents a modal window (instance) dependency. It is not the same as the $modal service used above.
 app.controller('DelayModalInstanceCtrl', function ($scope, $modalInstance, $log) {
-
+	
+	$scope.withoutChanges=true;
     $scope.today = new Date();
     $scope.delayInfo = {
         delayDate: $scope.today,
-        delayTime: $scope.today,
-        recallType: ''
+        delayTime: $scope.today
     };
 
 
     $scope.ok = function () {
             //Llama a la función de result.then de DelayModalCtrl
-            if ($scope.delayDate && $scope.delayTime) {
-                $scope.delayDate.setHours($scope.delayTime.getHours(), $scope.delayTime.getMinutes(), 0, 0);
+            if ($scope.delayInfo.delayDate && $scope.delayInfo.delayTime) {
+                $scope.delayInfo.delayDate.setHours($scope.delayInfo.delayTime.getHours(), $scope.delayInfo.delayTime.getMinutes(), 0, 0);
             }
             //$log.debug("Selected delay info :" + $scope.delayInfo );
             $modalInstance.close($scope.delayInfo);
