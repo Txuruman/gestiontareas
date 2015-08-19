@@ -15,6 +15,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.jws.WebParam;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -38,12 +39,14 @@ public class TareaService {
     @Resource(name = "applicationUser")
     private String applicationUser;
 
+    //Dial_sched_time = dd/mm/aaaa hh:mm:ss
+    private SimpleDateFormat sdfSchedTime = new SimpleDateFormat("dd/MM/aaaa hh:mm:ss");
 
     @Resource(name = "datosCierreTareaAviso")
     protected Map<String, Map<Integer, String>> datosCierreTareaAviso;
 
     public boolean delayTask(Agent agent, Tarea tarea, Date schedTime, Integer recordType) throws Exception {
-        return  this.delayTask(agent.getIdAgent(),agent.getAgentCountryJob(),agent.getDesktopDepartment(),tarea.getCallingList(),tarea.getId().toString(),schedTime,recordType);
+        return this.delayTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCallingList(), tarea.getId().toString(), schedTime, recordType);
     }
 
     /**
@@ -67,7 +70,7 @@ public class TareaService {
         if (tarea != null) {
             //Si no está en memoria se puede ejecutar
             if (!tarea.isRetrieved()) {
-                ccdDelayTask(ccUserId,country,desktopDepartment,tarea.getCampana(), tarea.getTelefono(),tarea.getCallingList(),tarea.getId(),schedTime,recordType);
+                ccdDelayTask(ccUserId, country, desktopDepartment, tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId(), schedTime, recordType);
             } else {
                 LOGGER.warn("Can't delay task because is in Retrieved {}", tarea);
                 return false;
@@ -145,7 +148,7 @@ public class TareaService {
      * @param country           del agente
      * @param desktopDepartment alias ccIdentifier
      * @param callingList       calling list
-     * @param campaign       de la tarea
+     * @param campaign          de la tarea
      * @param contactInfo       contactInfo
      * @param idTarea           chain_id
      * @param schedTime
@@ -153,7 +156,7 @@ public class TareaService {
      * @return
      */
     private boolean ccdDelayTask(String ccUserId, String country, String desktopDepartment,
-                                  String campaign, String contactInfo,String callingList,
+                                 String campaign, String contactInfo, String callingList,
                                  Integer idTarea, Date schedTime, Integer recordType) {
 //        o	Record_status = 1 (ready)
 //        o	Dial_sched_time = dd/mm/aaaa hh:mm:ss
@@ -166,24 +169,24 @@ public class TareaService {
         List<java.lang.String> campaingns = Arrays.asList(campaign);
 
         List<net.java.dev.jaxb.array.StringArray> modifyValues = new ArrayList<net.java.dev.jaxb.array.StringArray>();
-        net.java.dev.jaxb.array.StringArray sa  = new net.java.dev.jaxb.array.StringArray();// RECORD_STATUS, DIAL_SHCED_TIME, RECORDTYPE
+        net.java.dev.jaxb.array.StringArray sa = new net.java.dev.jaxb.array.StringArray();// RECORD_STATUS, DIAL_SHCED_TIME, RECORDTYPE
         modifyValues.add(sa);
-        //        o	Record_status = 1 (ready)
-      //  sa.getItem().add("record_status");
-      //  sa.getItem().add("1");
-        //        o	Dial_sched_time = dd/mm/aaaa hh:mm:ss
-       sa.getItem().add("dial_sched_time");
-       sa.getItem().add("11/11/2015 11:11:11");
-        //        o	Recort_type = 5 (personal callback) / 6 (campaing callback)
-       // sa.getItem().add("record_type");
-      //  sa.getItem().add("5");
+        //   Record_status = 1 (ready)
+        sa.getItem().add("record_status");
+        sa.getItem().add("1");
+        //  Dial_sched_time = dd/mm/aaaa hh:mm:ss
+        sa.getItem().add("dial_sched_time");
+        sa.getItem().add(sdfSchedTime.format(schedTime));
+        // Recort_type = 5 (personal callback) / 6 (campaing callback)
+        sa.getItem().add("record_type");
+        sa.getItem().add("1");
 
         WsResponse wsResponse = cclIntegration.updateCallingListContact(desktopDepartment, applicationUser, ccUserId, filter, modifyValues, callingLists, campaingns, contactInfo, country);
 
-        if (wsResponse.getResultCode()==200){
+        if (wsResponse.getResultCode() == 200) {
             return true;
         } else {
-            LOGGER.error("Error calling updateCallingListContact {}-{}", wsResponse.getResultCode(),wsResponse.getResultMessage());
+            LOGGER.error("Error calling updateCallingListContact {}-{}", wsResponse.getResultCode(), wsResponse.getResultMessage());
             return false;
         }
 
