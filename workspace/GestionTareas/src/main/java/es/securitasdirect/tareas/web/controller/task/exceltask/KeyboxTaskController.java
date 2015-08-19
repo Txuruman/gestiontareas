@@ -68,12 +68,12 @@ public class KeyboxTaskController extends TaskController {
     }
     */
 
-
     @RequestMapping(value = "/aplazar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody BaseResponse delay(@RequestBody PostponeKeyboxTaskRequest request) {
-        return delayTask(request.getTask(),request.getRecallType(),request.getDelayDate());
+    public
+    @ResponseBody
+    BaseResponse postpone(@RequestBody PostponeKeyboxTaskRequest request) {
+        return super.delayTask(request.getTask(), request.getRecallType(), request.getDelayDate());
     }
-
 
     @RequestMapping(value = "/descartar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody BaseResponse finalizar(@RequestBody DiscardKeyboxTaskRequest request) {

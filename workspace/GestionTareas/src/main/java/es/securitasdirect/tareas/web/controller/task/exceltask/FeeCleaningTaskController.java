@@ -68,12 +68,12 @@ public class FeeCleaningTaskController extends TaskController {
     }
     */
 
+
     @RequestMapping(value = "/aplazar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody BaseResponse finalizar(@RequestBody PostponeFeeCleaningTaskRequest request) {
-        LOGGER.debug("Aplazando tarea de limpieza de cuotas:\nRequest: {}", request);
-        BaseResponse response = dummyResponseGenerator.dummyFinalizeSuccess();
-        LOGGER.debug("Aplazada tarea de limpieza de cuotas:\nResponse: {}",response);
-        return response;
+    public
+    @ResponseBody
+    BaseResponse postpone(@RequestBody PostponeFeeCleaningTaskRequest request) {
+        return super.delayTask(request.getTask(), request.getRecallType(), request.getDelayDate());
     }
 
 

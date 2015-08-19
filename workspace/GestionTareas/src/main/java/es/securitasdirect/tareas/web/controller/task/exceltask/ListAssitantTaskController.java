@@ -7,6 +7,7 @@ import es.securitasdirect.tareas.service.QueryTareaService;
 import es.securitasdirect.tareas.web.controller.AgentController;
 import es.securitasdirect.tareas.web.controller.TaskController;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
+import es.securitasdirect.tareas.web.controller.dto.request.exceltask.keyboxtask.PostponeKeyboxTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.exceltask.listadoassistanttask.DiscardListAssistantTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.exceltask.listadoassistanttask.FinalizeListAssistantTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.exceltask.listadoassistanttask.PostponeListAssistantTaskRequest;
@@ -41,36 +42,13 @@ public class ListAssitantTaskController extends TaskController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ListAssitantTaskController.class);
 
-    /*
-    @RequestMapping(value = "/gettarea", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody TareaResponse getListAssistantTask(
-            @RequestParam(value = "ccUserId", required = true) String ccUserId,
-            @RequestParam(value = "callingList", required = true) String callingList,
-            @RequestParam(value = "tareaId", required = true) String tareaId
-    ) {
-        TareaResponse response;
-        String SERVICE_MESSAGE = "listAssistantTask.getTask";
-        LOGGER.debug("Get list assistant task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
-        try{
-            TareaListadoAssistant tarea = (TareaListadoAssistant) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-            response = processSuccessTask(tarea, SERVICE_MESSAGE);
-            LOGGER.debug("List assistant task obtained from service: \n{}", tarea);
-        }catch(Exception e){
-            response = processException(e, SERVICE_MESSAGE);
-        }
-        return response;
-    }
-    */
-
 
     @RequestMapping(value = "/aplazar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody BaseResponse aplazar(@RequestBody PostponeListAssistantTaskRequest request) {
-        LOGGER.debug("Aplazando tarea de ListAssistant:\nRequest: {}", request);
-        BaseResponse response = dummyResponseGenerator.dummyCustomSuccess("commonexcel.postpone.success");
-        LOGGER.debug("Finalizando tarea de ListAssistant:\nResponse: {}",response);
-        return response;
+    public
+    @ResponseBody
+    BaseResponse postpone(@RequestBody PostponeListAssistantTaskRequest request) {
+        return super.delayTask(request.getTask(), request.getRecallType(), request.getDelayDate());
     }
-
 
     @RequestMapping(value = "/descartar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody BaseResponse descartar(@RequestBody DiscardListAssistantTaskRequest request) {

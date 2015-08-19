@@ -44,33 +44,13 @@ public class MarketingSurveyTaskController extends TaskController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MarketingSurveyTaskController.class);
 
-    /*
-    @RequestMapping(value = "/gettarea", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody TareaResponse getMarketingSurveyTask(
-            @RequestParam(value = "ccUserId", required = true) String ccUserId,
-            @RequestParam(value = "callingList", required = true) String callingList,
-            @RequestParam(value = "tareaId", required = true) String tareaId
-    ) {
-        String SERVICE_MESSAGE = "marketingSurveyTask.getTask";
-        LOGGER.debug("Get maintenance survey task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
-        TareaResponse response;
-        try{
-            MarketingSurveyTask tarea = (MarketingSurveyTask) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-            response = processSuccessTask(tarea,SERVICE_MESSAGE );
-            LOGGER.debug("Marketing survey task obtained from service: \n{}", tarea);
-        }catch(Exception e){
-            response = processException(e, SERVICE_MESSAGE);
-        }
-        return response;
-    }
-    */
+
 
     @RequestMapping(value = "/aplazar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody BaseResponse finalizar(@RequestBody PostponeMarketingSurveyTaskRequest request) {
-        LOGGER.debug("Aplazar tarea de encuesta de marketing:\nRequest: {}", request);
-        BaseResponse response = dummyResponseGenerator.dummyFinalizeSuccess();
-        LOGGER.debug("Aplazando tarea de encuesta de marketing:\nResponse: {}",response);
-        return response;
+    public
+    @ResponseBody
+    BaseResponse postpone(@RequestBody PostponeMarketingSurveyTaskRequest request) {
+        return super.delayTask(request.getTask(), request.getRecallType(), request.getDelayDate());
     }
 
 

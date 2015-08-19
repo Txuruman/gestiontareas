@@ -41,33 +41,12 @@ public class AnotherCampaignsTaskController extends TaskController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AnotherCampaignsTaskController.class);
 
-    /*
-    @RequestMapping(value = "/gettarea", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody TareaResponse getTarea(
-            @RequestParam(value = "ccUserId", required = true) String ccUserId,
-            @RequestParam(value = "callingList", required = true) String callingList,
-            @RequestParam(value = "tareaId", required = true) String tareaId
-    ) {
-        String SERVICE_MESSAGE = "anothercampaigntask.gettarea";
-        TareaResponse response;
-        LOGGER.debug("Get maintenance task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
-        try{
-            TareaOtrasCampanas tarea = (TareaOtrasCampanas) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-            response = processSuccessTask(tarea, SERVICE_MESSAGE);
-            LOGGER.debug("Another campaigns task obtained from service: \n{}", tarea);
-        }catch(Exception e){
-            response = processException(e, SERVICE_MESSAGE);
-        }
-        return response;
-    }
-    */
 
     @RequestMapping(value = "/aplazar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody BaseResponse finalizar(@RequestBody PostponeAnotherCampaignsTaskRequest request) {
-        LOGGER.debug("Finalizando tarea de otras campañas:\nRequest: {}", request);
-        BaseResponse response = dummyResponseGenerator.dummyFinalizeSuccess();
-        LOGGER.debug("Finalizando tarea de otras campañas:\nResponse: {}",response);
-        return response;
+    public
+    @ResponseBody
+    BaseResponse postpone(@RequestBody PostponeAnotherCampaignsTaskRequest request) {
+        return super.delayTask(request.getTask(), request.getRecallType(), request.getDelayDate());
     }
 
 

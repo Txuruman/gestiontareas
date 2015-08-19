@@ -9,10 +9,10 @@ import java.util.Date;
  */
 public class PostponeRequest {
 
-    @JsonFormat(pattern = "yyyy-MM-dd hh:mm", timezone = "CET")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     protected Date delayDate;
 
-    protected Integer recallType;
+    protected String recallType;
 
     public Date getDelayDate() {
         return delayDate;
@@ -22,11 +22,11 @@ public class PostponeRequest {
         this.delayDate = delayDate;
     }
 
-    public Integer getRecallType() {
+    public String getRecallType() {
         return recallType;
     }
 
-    public void setRecallType(Integer recallType) {
+    public void setRecallType(String recallType) {
         this.recallType = recallType;
     }
 

@@ -94,7 +94,7 @@ public class TareasServiceTest {
         Tarea tarea = queryTareaService.queryTarea(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), callingList, idTarea);
 
         Date schedTime = new Date();
-        Integer recordType=5;
+        String recordType="5";
         boolean ok = tareaService.delayTask(agent, tarea,
                 schedTime,
                 recordType);

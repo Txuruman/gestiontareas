@@ -32,12 +32,12 @@ public abstract class TaskController extends BaseController{
      * @param delayDate
      * @return
      */
-    public BaseResponse delayTask(Tarea task, Integer recallType, Date delayDate) {
-        LOGGER.debug("Aplazando tarea {} TODO ", task ,delayDate, recallType);
+    public BaseResponse delayTask(Tarea task, String recallType, Date delayDate) {
+        LOGGER.debug("Aplazando tarea {}  ", task ,delayDate, recallType);
         BaseResponse response = new BaseResponse();
         //Llamada al servicio para aplazar
         try {
-            //TODO PENDIENTE
+
         	Agent agent=agentController.getAgent();
             boolean ok = tareaService.delayTask(agent,task,delayDate,recallType);
             if (ok) {

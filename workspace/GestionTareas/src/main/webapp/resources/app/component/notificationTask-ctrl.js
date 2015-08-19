@@ -244,21 +244,20 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     };
 
     $scope.aplazar = function (delayDate, recallType) {
-        //$log.info('Delay to ' + delayDate + ' with recallType ' + recallType + ' NotificationTask ' + JSON.stringify($scope.tarea));
+        //$log.info('Delay to ' + delayDate + ' with recallType ' + recallType + ' task ' + JSON.stringify($scope.tarea));
         if ($scope.tarea) {
-            var postponeNotificationTaskRequest = {
+            var postponeRequest = {
                 recallType: recallType,
-                delayDate: new Date(delayDate),
+                delayDate:  delayDate ,
                 task: $scope.tarea
-
             };
 
-            //$log.info("JSON DE LO QUE SE MANDA   " + JSON.stringify(postponeNotificationTaskRequest));
+            //$log.info("Json of Request " + JSON.stringify(postponeRequest));
 
             $http({
                 method: 'PUT',
                 url: 'notificationtask/aplazar',
-                data: postponeNotificationTaskRequest
+                data: postponeRequest
             })
                 .success(function (data, status, headers, config) {
                     CommonService.processBaseResponse(data, status, headers, config);

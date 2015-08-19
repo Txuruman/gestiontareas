@@ -13,8 +13,6 @@ public class FinalizeNotificationTaskRequest extends BaseRequest {
 
     private TareaAviso task;
 
-    private String prueba;
-
     public FinalizeNotificationTaskRequest() {
     }
 
@@ -30,19 +28,11 @@ public class FinalizeNotificationTaskRequest extends BaseRequest {
         this.task = task;
     }
 
-    public String getPrueba() {
-        return prueba;
-    }
-
-    public void setPrueba(String prueba) {
-        this.prueba = prueba;
-    }
 
     @Override
     public String toString() {
         return "FinalizeNotificationTaskRequest{" +
                 "task=" + task +
-                ", prueba='" + prueba + '\'' +
                 '}';
     }
 }

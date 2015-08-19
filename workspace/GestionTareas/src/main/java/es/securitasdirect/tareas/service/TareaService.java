@@ -45,7 +45,7 @@ public class TareaService {
      * Aplazar: muestra un diálogo en modo modal para introducir la fecha y hora de la reprogramación,
      * indicando también si es para el propio agente o para el grupo de la Campaña.
      */
-    public boolean delayTask(Agent agent, Tarea tarea, Date schedTime, Integer recordType) throws Exception {
+    public boolean delayTask(Agent agent, Tarea tarea, Date schedTime, String recordType) throws Exception {
         return this.delayTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCallingList(), tarea.getId().toString(), schedTime, recordType);
     }
 
@@ -67,7 +67,7 @@ public class TareaService {
      */
     public boolean delayTask(String ccUserId, String country, String desktopDepartment,
                              String callingList,
-                             String idTarea, Date schedTime, Integer recordType) throws Exception {
+                             String idTarea, Date schedTime, String recordType) throws Exception {
         LOGGER.info("Delaying Task : {} {}", callingList, idTarea);
 
         //Consultar la tarea de nuevo
@@ -162,7 +162,7 @@ public class TareaService {
      */
     private boolean ccdDelayTask(String ccUserId, String country, String desktopDepartment,
                                  String campaign, String contactInfo, String callingList,
-                                 Integer idTarea, Date schedTime, Integer recordType) {
+                                 Integer idTarea, Date schedTime, String recordType) {
 
         String filter = "chain_id=" + idTarea;
 
@@ -182,7 +182,7 @@ public class TareaService {
         saTime.getItem().add(sdfSchedTime.format(schedTime));
         // Recort_type = 5 (personal callback) / 6 (campaing callback)
         saType.getItem().add("record_type");
-        saType.getItem().add(recordType.toString());
+        saType.getItem().add(recordType);
 
         modifyValues.add(saRecordStatus);
         modifyValues.add(saTime);
