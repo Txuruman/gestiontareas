@@ -135,7 +135,7 @@ public class AvisoService {
 
 
         String xmlCreateTicket = xmlMarshaller.marshalObject(createTicket);
-
+        xmlCreateTicket=xmlCreateTicket.replaceAll("\n", "");
 
         String xmlResult = wsTickets.create(xmlCreateTicket);
 
