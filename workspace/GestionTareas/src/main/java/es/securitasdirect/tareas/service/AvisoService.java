@@ -144,9 +144,13 @@ public class AvisoService {
         LOGGER.debug("xmlCreateTicket: {} xmlResult:{}", xmlCreateTicket,xmlResult);
     }
 
+    /**
+     * creacion del XML para actualizar un Aviso. Se hace a través de un WS disponible para la aplicación de Tickets.
+     */
+    public void updateTicket(String idUser, String idCountry, String idLanguage){
 
-    public void updateTicket(){
-        wsTickets.updateTicket("");
+
+
     }
 
     public void finalizeTicket(){
