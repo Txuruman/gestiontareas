@@ -59,6 +59,8 @@ public class Tarea {
     /** */
     protected Integer codigoCliente;
 
+    protected String  campana;
+
     /*
         TODO PENDIENTE: REVISAR QUÉ OTROS CAMPOS DE GENESYS HAY QUE TENER EN CUENTA
         (CONTRASTARLOS CON LOS DEL DOCUMENTO DPB140808_ENT_DISEÑO TÉCNICO CALLBACK ATC V1.4.DOCX)
@@ -138,6 +140,14 @@ public class Tarea {
 
     public boolean isRetrieved() {
         return this.estado!= null && this.estado==TaskStatus.RETRIEVED;
+    }
+
+    public String getCampana() {
+        return campana;
+    }
+
+    public void setCampana(String campana) {
+        this.campana = campana;
     }
 
     @Override

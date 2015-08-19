@@ -1,12 +1,11 @@
 package es.securitasdirect.tareas.service;
 
 import com.webservice.CCLIntegration;
-import es.securitasdirect.tareas.model.Tarea;
-import es.securitasdirect.tareas.model.TareaAviso;
-import es.securitasdirect.tareas.model.TareaExcel;
-import es.securitasdirect.tareas.model.TareaMantenimiento;
+import com.webservice.WsResponse;
+import es.securitasdirect.tareas.model.*;
 import es.securitasdirect.tareas.model.tareaexcel.*;
 import es.securitasdirect.tareas.web.controller.params.ExternalParams;
+import net.java.dev.jaxb.array.StringArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wso2.ws.dataservice.*;
@@ -36,10 +35,16 @@ public class TareaService {
     protected QueryTareaService queryTareaService;
     @Inject
     protected CCLIntegration cclIntegration;
+    @Resource(name = "applicationUser")
+    private String applicationUser;
 
 
     @Resource(name = "datosCierreTareaAviso")
     protected Map<String, Map<Integer, String>> datosCierreTareaAviso;
+
+    public boolean delayTask(Agent agent, Tarea tarea, Date schedTime, Integer recordType) throws Exception {
+        return  this.delayTask(agent.getIdAgent(),agent.getAgentCountryJob(),agent.getDesktopDepartment(),tarea.getCallingList(),tarea.getId().toString(),schedTime,recordType);
+    }
 
     /**
      * Aplazar: muestra un diálogo en modo modal para introducir la fecha y hora de la reprogramación,
@@ -53,8 +58,8 @@ public class TareaService {
      * o	Recort_type = 5 (personal callback) / 6 (campaing callback)
      */
     public boolean delayTask(String ccUserId, String country, String desktopDepartment,
-                           String callingList,
-                           String idTarea, Date schedTime, Integer recordType) throws Exception {
+                             String callingList,
+                             String idTarea, Date schedTime, Integer recordType) throws Exception {
         LOGGER.info("Delaying Task : {} {}", callingList, idTarea);
 
         //Consultar la tarea de nuevo
@@ -62,9 +67,9 @@ public class TareaService {
         if (tarea != null) {
             //Si no está en memoria se puede ejecutar
             if (!tarea.isRetrieved()) {
-             ccdDelayTask();//TODO VOY POR AQUI
+                ccdDelayTask(ccUserId,country,desktopDepartment,tarea.getCampana(), tarea.getTelefono(),tarea.getCallingList(),tarea.getId(),schedTime,recordType);
             } else {
-                LOGGER.warn("Can't delay task because is in Retrieved {}" , tarea);
+                LOGGER.warn("Can't delay task because is in Retrieved {}", tarea);
                 return false;
             }
 
@@ -133,25 +138,54 @@ public class TareaService {
     }
 
 
-    private boolean ccdDelayTask() {
+    /**
+     * Llamada al WS de delay
+     *
+     * @param ccUserId
+     * @param country           del agente
+     * @param desktopDepartment alias ccIdentifier
+     * @param callingList       calling list
+     * @param campaign       de la tarea
+     * @param contactInfo       contactInfo
+     * @param idTarea           chain_id
+     * @param schedTime
+     * @param recordType
+     * @return
+     */
+    private boolean ccdDelayTask(String ccUserId, String country, String desktopDepartment,
+                                  String campaign, String contactInfo,String callingList,
+                                 Integer idTarea, Date schedTime, Integer recordType) {
 //        o	Record_status = 1 (ready)
-//                o	Dial_sched_time = dd/mm/aaaa hh:mm:ss
+//        o	Dial_sched_time = dd/mm/aaaa hh:mm:ss
 //        o	Recort_type = 5 (personal callback) / 6 (campaing callback)
 
 
+        String filter = "chain_id=" + idTarea;
 
-        String ccIdentifier=null;
-        String applicationUser=null;
-        String ccUserId=null;
-        String filter=null;
-        List<net.java.dev.jaxb.array.StringArray> modifyValues=null;
-        List<java.lang.String> callingList=null;
-        List<java.lang.String> campaign=null;
-        String contactInfo=null;
-        String country=null;
+        List<java.lang.String> callingLists = Arrays.asList(callingList);
+        List<java.lang.String> campaingns = Arrays.asList(campaign);
 
-        cclIntegration.updateCallingListContact(ccIdentifier,applicationUser,ccUserId,filter,modifyValues,callingList,campaign,contactInfo,country);
+        List<net.java.dev.jaxb.array.StringArray> modifyValues = new ArrayList<net.java.dev.jaxb.array.StringArray>();
+        net.java.dev.jaxb.array.StringArray sa  = new net.java.dev.jaxb.array.StringArray();// RECORD_STATUS, DIAL_SHCED_TIME, RECORDTYPE
+        modifyValues.add(sa);
+        //        o	Record_status = 1 (ready)
+      //  sa.getItem().add("record_status");
+      //  sa.getItem().add("1");
+        //        o	Dial_sched_time = dd/mm/aaaa hh:mm:ss
+       sa.getItem().add("dial_sched_time");
+       sa.getItem().add("11/11/2015 11:11:11");
+        //        o	Recort_type = 5 (personal callback) / 6 (campaing callback)
+       // sa.getItem().add("record_type");
+      //  sa.getItem().add("5");
 
-                return true;
+        WsResponse wsResponse = cclIntegration.updateCallingListContact(desktopDepartment, applicationUser, ccUserId, filter, modifyValues, callingLists, campaingns, contactInfo, country);
+
+        if (wsResponse.getResultCode()==200){
+            return true;
+        } else {
+            LOGGER.error("Error calling updateCallingListContact {}-{}", wsResponse.getResultCode(),wsResponse.getResultMessage());
+            return false;
+        }
+
     }
 }

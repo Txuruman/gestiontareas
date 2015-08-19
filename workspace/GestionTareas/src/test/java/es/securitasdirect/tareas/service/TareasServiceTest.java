@@ -1,5 +1,8 @@
 package es.securitasdirect.tareas.service;
 
+import es.securitasdirect.tareas.model.Agent;
+import es.securitasdirect.tareas.model.DummyGenerator;
+import es.securitasdirect.tareas.model.Tarea;
 import es.securitasdirect.tareas.model.TareaAviso;
 import es.securitasdirect.tareas.model.external.Pair;
 import org.junit.Test;
@@ -14,6 +17,7 @@ import org.wso2.ws.dataservice.SPAIOTAREAS2PortType;
 import org.wso2.ws.dataservice.SPAVISOSOPERACIONESPortType;
 
 import javax.inject.Inject;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +42,10 @@ public class TareasServiceTest {
     protected SPAVISOSOPERACIONESPortType spAvisosOperaciones;
     @Inject
     protected SPAIOTAREAS2PortType spAioTareas2;
+    @Inject
+    protected TareaService tareaService;
+    @Inject
+    protected QueryTareaService queryTareaService;
 
 
     @Test
@@ -78,7 +86,23 @@ public class TareasServiceTest {
         assertThat(avisobyId, notNullValue());
     }
 
+    @Test
+    public void delayTask() throws Exception {
+        Agent agent = DummyGenerator.getAgent();
+        String callingList = "CL_CCT_XLS_LIMPIEZA_CUOTA";
+        String idTarea = "2";
+        Tarea tarea = queryTareaService.queryTarea(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), callingList, idTarea);
 
+        Date schedTime = new Date();
+        Integer recordType=5;
+        boolean ok = tareaService.delayTask(agent,tarea,
+                schedTime,
+                recordType);
+
+        assertThat(ok, is(true));
+
+
+    }
 
 
 }

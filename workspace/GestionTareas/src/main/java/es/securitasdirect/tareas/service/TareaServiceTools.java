@@ -416,6 +416,7 @@ public class TareaServiceTools {
         tarea.setCallingList(parameters.get(TaskServiceParams.TAREA_COMMONS_CALLING_LIST));
         tarea.setNumeroContrato(parameters.get(TaskServiceParams.TAREA_COMMONS_N_CONTRATO));
         tarea.setId(toIntegerFromMap(parameters.get(TaskServiceParams.TAREA_COMMONS_ID)));
+        tarea.setCampana(parameters.get(TaskServiceParams.TAREA_CAMPAIGN));
         tarea.setFechaReprogramacion(toDateFromMap(parameters.get(TaskServiceParams.TAREA_COMMONS_FECHA_REPROGRAMACION)));
         return tarea;
     }

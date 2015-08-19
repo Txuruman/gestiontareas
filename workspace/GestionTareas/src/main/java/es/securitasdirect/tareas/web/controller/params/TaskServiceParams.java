@@ -20,6 +20,7 @@ public interface TaskServiceParams {
     public static String TAREA_COMMONS_CALLING_LIST = "CALLING_LIST";
     public static String TAREA_COMMONS_N_CONTRATO = "CTR_NO";
     public static String TAREA_COMMONS_ID = "CHAIN_ID";
+    public static String TAREA_CAMPAIGN = "CAMPAIGN_ID";
     public static String TAREA_COMMONS_FECHA_REPROGRAMACION = "DEAL_SCHED_TIME";
     /**
      * Generales

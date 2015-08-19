@@ -216,5 +216,13 @@ public class DummyGenerator {
         tarea.setCodigoCliente(3);
         return tarea;
     }
+
+    public static Agent getAgent() {
+        Agent agent = new Agent();
+        agent.setAgentCountryJob("SPAIN");
+        agent.setIdAgent("12106");
+        agent.setDesktopDepartment("ATC_SP");
+        return agent;
+    }
 }
 
