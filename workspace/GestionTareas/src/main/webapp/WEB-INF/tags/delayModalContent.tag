@@ -15,8 +15,8 @@
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <select ng-model="delayInfo.recallType" ng-changed="{{ withoutChanges=false }}">
-                    <option value="5" selected>Personal</option>
-                    <option value="6">Campa&#241;a</option>
+                    <option value="5" selected><spring:message code='delay.personal'/></option>
+                    <option value="6"><spring:message code='delay.campaign'/></option>
                 </select>
             </div>
         </div>
