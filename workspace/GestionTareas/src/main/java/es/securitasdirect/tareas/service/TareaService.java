@@ -45,8 +45,17 @@ public class TareaService {
     @Resource(name = "datosCierreTareaAviso")
     protected Map<String, Map<Integer, String>> datosCierreTareaAviso;
 
+    /**
+     * Aplazar: muestra un diálogo en modo modal para introducir la fecha y hora de la reprogramación,
+     * indicando también si es para el propio agente o para el grupo de la Campaña.
+     */
     public boolean delayTask(Agent agent, Tarea tarea, Date schedTime, Integer recordType) throws Exception {
         return this.delayTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCallingList(), tarea.getId().toString(), schedTime, recordType);
+    }
+
+    public boolean finalizeTask(Agent agent,Tarea tarea) {
+        ccdFilanizeTask(agent.getIdAgent(),agent.getAgentCountryJob(),agent.getDesktopDepartment(),tarea.getCampana(),tarea.getTelefono(),tarea.getCallingList(),tarea.getId());
+        return true;
     }
 
     /**
@@ -158,10 +167,6 @@ public class TareaService {
     private boolean ccdDelayTask(String ccUserId, String country, String desktopDepartment,
                                  String campaign, String contactInfo, String callingList,
                                  Integer idTarea, Date schedTime, Integer recordType) {
-//        o	Record_status = 1 (ready)
-//        o	Dial_sched_time = dd/mm/aaaa hh:mm:ss
-//        o	Recort_type = 5 (personal callback) / 6 (campaing callback)
-
 
         String filter = "chain_id=" + idTarea;
 
@@ -179,16 +184,50 @@ public class TareaService {
         sa.getItem().add(sdfSchedTime.format(schedTime));
         // Recort_type = 5 (personal callback) / 6 (campaing callback)
         sa.getItem().add("record_type");
-        sa.getItem().add("1");
+        sa.getItem().add(recordType.toString());
+
 
         WsResponse wsResponse = cclIntegration.updateCallingListContact(desktopDepartment, applicationUser, ccUserId, filter, modifyValues, callingLists, campaingns, contactInfo, country);
 
         if (wsResponse.getResultCode() == 200) {
             return true;
         } else {
-            LOGGER.error("Error calling updateCallingListContact {}-{}", wsResponse.getResultCode(), wsResponse.getResultMessage());
+            LOGGER.error("Error calling updateCallingListContact to delay {}-{}", wsResponse.getResultCode(), wsResponse.getResultMessage());
             return false;
         }
 
+    }
+
+    /**
+     * Llamada al WS de finalizar
+     * @return
+     */
+    private boolean ccdFilanizeTask(String ccUserId, String country, String desktopDepartment,
+                                    String campaign, String contactInfo, String callingList,
+                                    Integer idTarea) {
+        String filter = "chain_id=" + idTarea;
+
+        List<java.lang.String> callingLists = Arrays.asList(callingList);
+        List<java.lang.String> campaingns = Arrays.asList(campaign);
+
+        List<net.java.dev.jaxb.array.StringArray> modifyValues = new ArrayList<net.java.dev.jaxb.array.StringArray>();
+        net.java.dev.jaxb.array.StringArray sa = new net.java.dev.jaxb.array.StringArray();// RECORD_STATUS, DIAL_SHCED_TIME, RECORDTYPE
+        modifyValues.add(sa);
+        //   o	Record_status = 3 (updated)
+        sa.getItem().add("record_status");
+        sa.getItem().add("3");
+        // o	Call_result = 0 (ok)
+        sa.getItem().add("call_result");
+        sa.getItem().add("0");
+
+
+        WsResponse wsResponse = cclIntegration.updateCallingListContact(desktopDepartment, applicationUser, ccUserId, filter, modifyValues, callingLists, campaingns, contactInfo, country);
+
+        if (wsResponse.getResultCode() == 200) {
+            return true;
+        } else {
+            LOGGER.error("Error calling updateCallingListContact to finalize {}-{}", wsResponse.getResultCode(), wsResponse.getResultMessage());
+            return false;
+        }
     }
 }

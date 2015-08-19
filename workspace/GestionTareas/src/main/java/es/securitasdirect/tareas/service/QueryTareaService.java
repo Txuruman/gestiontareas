@@ -47,8 +47,8 @@ public class QueryTareaService {
                             String callingList,
                             String id) throws Exception{
 
-        assert country!=null;
-        assert desktopDepartment!=null;
+        assert country!=null:"country es un parametro requerido";
+        assert desktopDepartment!=null:"desktopDepartment es un parametro requerido";
 
         String filter               = "chain_id=" + id;
 
