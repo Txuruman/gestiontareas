@@ -49,4 +49,19 @@ public class AvisoServiceTest {
                 idLanguage);
     }
 
+
+
+    @Test
+    public void updateTicketTest() throws Exception{
+
+        String idUser = "I24311";
+        String idCountry = "1";
+        String idLanguage = "ES";
+
+        avisoService.updateTicket(
+                idUser,
+                idCountry,
+                idLanguage);
+    }
+
 }
