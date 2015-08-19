@@ -27,15 +27,19 @@ public class CommonExcelTaskController extends BaseController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CommonExcelTaskController.class);
 
+    /**
+     * Tipos de cierre para tareas tipo excel
+     * @return
+     */
     @RequestMapping(value = "/getClosingReason", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
     PairListResponse getClosingReason() {
         String SERVICE_MESSAGE = "commonexcel.closingReasonList";
-        LOGGER.debug("Calling external data service: getClosingReason");
+        LOGGER.debug("Calling external data service: getExcelClosingReason");
         PairListResponse response;
         try{
-            List<Pair> closingReasonList = externalDataService.getClosingReason();
+            List<Pair> closingReasonList = externalDataService.getExcelClosingReason();
             response = new PairListResponse(processSuccessMessages(closingReasonList,SERVICE_MESSAGE));
             response.setPairList(closingReasonList);
             LOGGER.debug("Closing reason list: {}", closingReasonList);

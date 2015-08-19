@@ -1,18 +1,26 @@
 package es.securitasdirect.tareas.service;
 
+import com.webservice.CCLIntegration;
+import com.webservice.WsResponse;
+import es.securitasdirect.tareas.model.Agent;
+import es.securitasdirect.tareas.model.Tarea;
 import es.securitasdirect.tareas.model.tickets.*;
 import es.securitasdirect.tareas.model.tickets.operations.CreateTicket;
 import es.securitasdirect.tareas.model.tickets.responses.DATA;
 import es.securitasdirect.tareas.support.XmlMarshaller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.wso2.ws.dataservice.*;
 import wsticketsv2.WsTicketsSoap;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 
@@ -29,6 +37,15 @@ public class AvisoService {
     protected WsTicketsSoap wsTickets;
     @Inject
     protected XmlMarshaller xmlMarshaller;
+    @Inject
+    protected QueryTareaService queryTareaService;
+    @Inject
+    protected CCLIntegration cclIntegration;
+    @Inject
+    protected SPAVISOSOPERACIONESPortType spAvisosOperaciones;
+    @Resource(name = "applicationUser")
+    private String applicationUser;
+
 
     /**
      * creacion del XML para crear un Aviso. Se hace a través de un WS disponible para la aplicación de Tickets.
@@ -153,8 +170,72 @@ public class AvisoService {
 
     }
 
-    public void finalizeTicket(){
-        //wsTickets.finalizeTicket("");
+
+    public boolean delayTicket(Integer naviso, String gblidusr, String idaplaza, Date fhasta, String cnota) throws Exception {
+
+
+        try {
+            List<RowErrorAA> rowErrorAAs = spAvisosOperaciones.aplazarAviso(naviso, gblidusr, idaplaza, fhasta.toString(), cnota);
+            //TODO Debug para ver que devuelve y controlar si hay errores devolver
+            if (rowErrorAAs != null && !rowErrorAAs.isEmpty()) {
+                LOGGER.error("Error aplazando aviso {}", naviso);
+                return false;
+            }
+            } catch (DataServiceFault e) {
+                LOGGER.error("Error aplazando aviso", e);
+                return false;
+            }
+
+        return  true;
     }
+
+
+    public boolean reassignmentTicket(Integer naviso, String idempleado, String gblidusr) throws Exception {
+
+
+        try {
+            List<RowErrorRA> rowErrorRAs = spAvisosOperaciones.reasignarAviso(naviso, idempleado, gblidusr);
+            //TODO Debug para ver que devuelve y controlar si hay errores devolver
+            if (rowErrorRAs != null && !rowErrorRAs.isEmpty()) {
+                LOGGER.error("Error reasignando aviso {}", naviso);
+                return false;
+            }
+        } catch (DataServiceFault e) {
+            LOGGER.error("Error reasignando aviso", e);
+            return false;
+        }
+
+        return  true;
+    }
+
+
+    public boolean closeTicket(Integer naviso,
+                               String idmat,
+                               String cnota,
+                               String statusdest,
+                               Integer deuda,
+                               Integer idmante,
+                               Integer branch,
+                               Integer tcierre,
+                               String adicional) throws Exception {
+
+
+        try {
+            List<RowErrorCA> rowErrorCAs = spAvisosOperaciones.cerrarAviso(naviso, idmat, cnota, statusdest,
+                    deuda, idmante, branch, tcierre, adicional);
+            //TODO Debug para ver que devuelve y controlar si hay errores devolver
+            if (rowErrorCAs != null && !rowErrorCAs.isEmpty()) {
+                LOGGER.error("Error cerrando aviso {}", naviso);
+                return false;
+            }
+        } catch (DataServiceFault e) {
+            LOGGER.error("Error cerrando aviso", e);
+            return false;
+        }
+
+        return  true;
+    }
+
+
 
 }
