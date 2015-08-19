@@ -122,8 +122,7 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
     $scope.finalizar = function(){
         //$log.debug("Finalizar List Assistant task, task: ",$scope.tarea);
         var finalizeListAssistantTaskRequest = {
-            tarea:$scope.tarea,
-            prueba:'Hola'
+            tarea:$scope.tarea
         };
         //$log.debug("Finalizar List Assistant Task, request: ",finalizeListAssistantTaskRequest);
         $http({

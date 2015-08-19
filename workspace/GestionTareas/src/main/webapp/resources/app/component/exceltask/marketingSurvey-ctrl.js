@@ -136,5 +136,26 @@ app.controller('marketingsurveytask-ctrl', function ($scope, $http, CommonServic
         }
     };
     //Ventana Aplazar - End
-
+    $scope.finalizar = function(){
+        //$log.debug("Finalizar Maintenance Survey task, task: ",$scope.tarea);
+        var finalizeMaintenanceSurveyTaskRequest = {
+            tarea:$scope.tarea
+        };
+        //$log("Finalizar Maintenance Survey Task, request: ", finalizeMaintenanceSurveyTaskRequest);
+        $http({
+            method: 'PUT',
+            url: 'marketingsurveytask/finalizar',
+            data: finalizeMaintenanceSurveyTaskRequest
+        })
+            .success(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data,status,headers,config);
+                //$log.debug("Finalized maintenance survey task");
+            })
+            .error(function (data, status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                CommonService.processBaseResponse(data,status,headers,config);
+                //$log.error("Error finalizing maintenance survey task");
+            });
+    };
 });

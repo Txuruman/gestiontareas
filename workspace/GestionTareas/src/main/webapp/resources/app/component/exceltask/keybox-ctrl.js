@@ -137,8 +137,7 @@ app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService, $modal
     $scope.finalizar = function(){
         //$log.debug("Finalizar Keybox task, task: ",$scope.tarea);
         var finalizeKeyboxTaskRequest = {
-            tarea:$scope.tarea,
-            prueba:'Hola'
+            tarea:$scope.tarea
         };
         //$log.debug("Finalizar Keybox Task, request: " ,finalizeKeyboxTaskRequest);
         $http({

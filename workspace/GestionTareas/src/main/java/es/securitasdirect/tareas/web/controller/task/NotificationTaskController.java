@@ -190,7 +190,7 @@ public class NotificationTaskController extends TaskController {
     @RequestMapping(value = "/descartar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    BaseResponse discard(@RequestBody DiscardNotificationTaskRequest request) {
+    BaseResponse descartar(@RequestBody DiscardNotificationTaskRequest request) {
         LOGGER.debug("Descartar\nRequest: {}", request);
         BaseResponse response = new BaseResponse();
         if (true) {
@@ -205,7 +205,7 @@ public class NotificationTaskController extends TaskController {
     @RequestMapping(value = "/finalizar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    BaseResponse discard(@RequestBody FinalizeNotificationTaskRequest request) {
+    BaseResponse finalizar(@RequestBody FinalizeNotificationTaskRequest request) {
         LOGGER.debug("Finalizar\nRequest: {}", request);
         BaseResponse response = new BaseResponse();
         if (true) {
