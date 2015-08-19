@@ -3,9 +3,6 @@ package es.securitasdirect.tareas.service;
 import com.webservice.CCLIntegration;
 import com.webservice.WsResponse;
 import es.securitasdirect.tareas.model.*;
-import es.securitasdirect.tareas.model.tareaexcel.*;
-import es.securitasdirect.tareas.web.controller.params.ExternalParams;
-import net.java.dev.jaxb.array.StringArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wso2.ws.dataservice.*;
@@ -14,7 +11,6 @@ import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
-import javax.jws.WebParam;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -40,7 +36,7 @@ public class TareaService {
     private String applicationUser;
 
     //Dial_sched_time = dd/mm/aaaa hh:mm:ss
-    private SimpleDateFormat sdfSchedTime = new SimpleDateFormat("dd/MM/aaaa hh:mm:ss");
+    private SimpleDateFormat sdfSchedTime = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
 
     @Resource(name = "datosCierreTareaAviso")
     protected Map<String, Map<Integer, String>> datosCierreTareaAviso;
@@ -54,8 +50,8 @@ public class TareaService {
     }
 
     public boolean finalizeTask(Agent agent,Tarea tarea) {
-        ccdFilanizeTask(agent.getIdAgent(),agent.getAgentCountryJob(),agent.getDesktopDepartment(),tarea.getCampana(),tarea.getTelefono(),tarea.getCallingList(),tarea.getId());
-        return true;
+        boolean finalized = wsFilanizeTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId());
+        return finalized;
     }
 
     /**
@@ -174,18 +170,23 @@ public class TareaService {
         List<java.lang.String> campaingns = Arrays.asList(campaign);
 
         List<net.java.dev.jaxb.array.StringArray> modifyValues = new ArrayList<net.java.dev.jaxb.array.StringArray>();
-        net.java.dev.jaxb.array.StringArray sa = new net.java.dev.jaxb.array.StringArray();// RECORD_STATUS, DIAL_SHCED_TIME, RECORDTYPE
-        modifyValues.add(sa);
-        //   Record_status = 1 (ready)
-        sa.getItem().add("record_status");
-        sa.getItem().add("1");
-        //  Dial_sched_time = dd/mm/aaaa hh:mm:ss
-        sa.getItem().add("dial_sched_time");
-        sa.getItem().add(sdfSchedTime.format(schedTime));
-        // Recort_type = 5 (personal callback) / 6 (campaing callback)
-        sa.getItem().add("record_type");
-        sa.getItem().add(recordType.toString());
+        net.java.dev.jaxb.array.StringArray saRecordStatus = new net.java.dev.jaxb.array.StringArray();// RECORD_STATUS, DIAL_SHCED_TIME, RECORDTYPE
+        net.java.dev.jaxb.array.StringArray saTime = new net.java.dev.jaxb.array.StringArray();// RECORD_STATUS, DIAL_SHCED_TIME, RECORDTYPE
+        net.java.dev.jaxb.array.StringArray saType = new net.java.dev.jaxb.array.StringArray();// RECORD_STATUS, DIAL_SHCED_TIME, RECORDTYPE
 
+        //   Record_status = 1 (ready)
+        saRecordStatus.getItem().add("record_status");
+        saRecordStatus.getItem().add("1");
+        //  Dial_sched_time = dd/mm/aaaa hh:mm:ss
+        saTime.getItem().add("dial_sched_time");
+        saTime.getItem().add(sdfSchedTime.format(schedTime));
+        // Recort_type = 5 (personal callback) / 6 (campaing callback)
+        saType.getItem().add("record_type");
+        saType.getItem().add(recordType.toString());
+
+        modifyValues.add(saRecordStatus);
+        modifyValues.add(saTime);
+        modifyValues.add(saType);
 
         WsResponse wsResponse = cclIntegration.updateCallingListContact(desktopDepartment, applicationUser, ccUserId, filter, modifyValues, callingLists, campaingns, contactInfo, country);
 
@@ -202,7 +203,7 @@ public class TareaService {
      * Llamada al WS de finalizar
      * @return
      */
-    private boolean ccdFilanizeTask(String ccUserId, String country, String desktopDepartment,
+    private boolean wsFilanizeTask(String ccUserId, String country, String desktopDepartment,
                                     String campaign, String contactInfo, String callingList,
                                     Integer idTarea) {
         String filter = "chain_id=" + idTarea;
@@ -211,14 +212,16 @@ public class TareaService {
         List<java.lang.String> campaingns = Arrays.asList(campaign);
 
         List<net.java.dev.jaxb.array.StringArray> modifyValues = new ArrayList<net.java.dev.jaxb.array.StringArray>();
-        net.java.dev.jaxb.array.StringArray sa = new net.java.dev.jaxb.array.StringArray();// RECORD_STATUS, DIAL_SHCED_TIME, RECORDTYPE
-        modifyValues.add(sa);
+        net.java.dev.jaxb.array.StringArray saStatus = new net.java.dev.jaxb.array.StringArray();// RECORD_STATUS, DIAL_SHCED_TIME, RECORDTYPE
+        net.java.dev.jaxb.array.StringArray saResult = new net.java.dev.jaxb.array.StringArray();// RECORD_STATUS, DIAL_SHCED_TIME, RECORDTYPE
+        modifyValues.add(saStatus);
+        modifyValues.add(saResult);
         //   o	Record_status = 3 (updated)
-        sa.getItem().add("record_status");
-        sa.getItem().add("3");
+        saStatus.getItem().add("record_status");
+        saStatus.getItem().add("3");
         // o	Call_result = 0 (ok)
-        sa.getItem().add("call_result");
-        sa.getItem().add("0");
+        saResult.getItem().add("call_result");
+        saResult.getItem().add("0");
 
 
         WsResponse wsResponse = cclIntegration.updateCallingListContact(desktopDepartment, applicationUser, ccUserId, filter, modifyValues, callingLists, campaingns, contactInfo, country);

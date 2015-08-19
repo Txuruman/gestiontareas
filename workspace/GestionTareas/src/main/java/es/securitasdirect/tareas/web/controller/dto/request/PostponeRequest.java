@@ -9,7 +9,7 @@ import java.util.Date;
  */
 public class PostponeRequest {
 
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "CET") //TODO Falta la hora
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm", timezone = "CET")
     protected Date delayDate;
 
     protected Integer recallType;

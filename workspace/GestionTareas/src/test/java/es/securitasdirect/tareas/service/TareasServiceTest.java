@@ -107,7 +107,7 @@ public class TareasServiceTest {
     public void finalizeTask() throws Exception {
         Agent agent = DummyGenerator.getAgent();
         String callingList = "CL_CCT_XLS_LIMPIEZA_CUOTA";
-        String idTarea = "3";
+        String idTarea = "2";
         Tarea tarea = queryTareaService.queryTarea(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), callingList, idTarea);
 
 
