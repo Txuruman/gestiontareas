@@ -25,7 +25,7 @@ app.controller('taskSearch', function ($scope, $http, CommonService, $modal) {
         
       //Ventana Aplazar - Start
         //Abre la ventana, posibles tamaños '', 'sm', 'lg'
-        $scope.openDelayModal = function (size) {
+        $scope.openDelayModal = function (size,t) {
             var modalInstance = $modal.open({
                 animation: false, //Indica si animamos el modal
                 templateUrl: 'deplayModalContent.html', //HTML del modal
