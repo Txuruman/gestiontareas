@@ -11,7 +11,7 @@ import java.util.List;
 public class TareaAviso extends Tarea {
 
     /**
-     * Identificador de Aviso
+     * Identificador de Aviso, no confundir con Id Tarea
      */
     Integer idAviso;
     /**

@@ -56,10 +56,36 @@ public class ExternalDataService {
     /**
      * Call for closing reason query
      */
-    public List<Pair> getClosingReason() throws DataServiceFault{
+    /*
+    WS 20: Leer valores CIERRE de T.Excel
+        Descripción: Obtener la lista de valores para mostrar en un desplegable.
+        Web Service:
+        	POR DESARROLLAR
+
+
+        	Entradas: ninguna
+        	Salidas:
+        	Lista de tipos de Cierre, para mostrar en la lista de selección del campo “Cierre” de las Tareas de tipo Excel.
+        	Observaciones:
+        	Actualmente no hay ninguna Tabla que almacene los valores posibles. El motivo de desarrollar este web service es para facilitar su posible almacenamiento en un futuro en una tabla, aislando esta operativa del aplicativo de Tareas.
+        	Por lo tanto, simplemente devolverá esta lista de valores:
+        AVISO GESTIONADO
+        ILOCALIZADO
+        Compensación
+        ACUERDO CON CLIENTE
+        NO PROCEDE APERTURA
+        DESMONTAJE
+     */
+    public List<Pair> getExcelClosingReason() throws DataServiceFault{
         LOGGER.debug("Calling for closing reason query (for pull down combo)");
         //spAioTareas2.getMotivoCierre();
-        List<Pair> result = dummyPairListFor("Closing Reason");
+        List<Pair> result = new ArrayList<Pair>();
+        result.add(new Pair(1,"AVISO GESTIONADO"));
+        result.add(new Pair(2,"ILOCALIZADO"));
+        result.add(new Pair(3,"Compensación"));
+        result.add(new Pair(4,"ACUERDO CON CLIENTE"));
+        result.add(new Pair(5,"NO PROCEDE APERTURA"));
+        result.add(new Pair(6,"DESMONTAJE"));
         return result;
     }
 
@@ -67,6 +93,7 @@ public class ExternalDataService {
 
     /**es1dbusdss03v
      * Call for closing reason query
+     * TODO Esta sql que se ha puesto en el WSO2 no parece funcionar, nunca encuentra datos
      */
     public List<StringPair> getClosing(Integer idTipo, Integer idMotivo, Integer idGrp) throws DataServiceFault{
         LOGGER.debug("Calling for closing type list, params: idTipo: {}, idMotivo: {}, idGrp: {}", idTipo, idMotivo, idGrp);

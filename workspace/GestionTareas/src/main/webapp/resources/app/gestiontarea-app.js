@@ -208,7 +208,7 @@ app.service('CommonService', function ($rootScope, $log, $http, $timeout) {
     };
 
     this.suma = function (a) {
-        //console.log("Suma");
+        console.log("Suma");
         return a + a;
     };
 
