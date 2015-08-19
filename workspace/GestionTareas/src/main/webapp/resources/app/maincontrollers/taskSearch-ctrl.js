@@ -66,6 +66,7 @@ app.controller('taskSearch', function ($scope, $http, CommonService, $modal) {
                 })
                     .success(function (data, status, headers, config) {
                         CommonService.processBaseResponse(data, status, headers, config);
+                        $scope.searchTareaFromServer();
                     })
                     .error(function (data, status, headers, config) {
                         // called asynchronously if an error occurs
