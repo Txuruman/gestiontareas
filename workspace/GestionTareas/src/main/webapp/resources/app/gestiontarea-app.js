@@ -213,6 +213,7 @@ app.service('CommonService', function ($rootScope, $log, $http, $timeout) {
     };
 
 
+
     //Objeto global para almacenar
     $rootScope.vm = {
         //Variable global para mostrar mensajes
