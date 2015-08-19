@@ -146,13 +146,12 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService, $
     $scope.finalizar = function(){
         //$log.debug("Finalizing Maintenance task");
         var maintenanceTaskFinalizeRequest = {
-            tarea:$scope.tarea,
-            prueba:'Hola'
+            tarea:$scope.tarea
         };
         //$log.debug("Finalize Maintenance task ",maintenanceTaskFinalizeRequest);
         $http({
             method: 'PUT',
-            url: 'maintenancetask/finalize',
+            url: 'maintenancetask/finalizar',
             data: maintenanceTaskFinalizeRequest
         })
             .success(function (data, status, headers, config) {

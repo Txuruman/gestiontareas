@@ -142,7 +142,28 @@ app.controller('anotherCampaigns', function ($scope, $http, CommonService, $moda
     };
     //Ventana Aplazar - End
 
-
+    $scope.finalizar = function(){
+        //$log.debug("Finalizar Fee cleaning task, task: ",$scope.tarea);
+        var finalizeFeeCleaningTaskRequest = {
+            tarea:$scope.tarea
+        };
+        //$log.debug("Finalizar Fee Cleaning Task, request: ",finalizeFeeCleaningTaskRequest);
+        $http({
+            method: 'PUT',
+            url: 'anothercampaignstask/finalizar',
+            data: finalizeFeeCleaningTaskRequest
+        })
+            .success(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data,status,headers,config);
+                //$log.debug("Finalized fee cleaning task");
+            })
+            .error(function (data, status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                CommonService.processBaseResponse(data,status,headers,config);
+                //$log.error("Error finalizing fee cleaning task");
+            });
+    };
 
 
 

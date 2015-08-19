@@ -51,14 +51,14 @@ public class AnotherCampaignsTaskController extends TaskController {
 
 
     @RequestMapping(value = "/descartar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody BaseResponse finalizar(@RequestBody DiscardAnotherCampaignsTaskRequest request) {
+    public @ResponseBody BaseResponse descartar(@RequestBody DiscardAnotherCampaignsTaskRequest request) {
         LOGGER.debug("Finalizando tarea de otras campañas:\nRequest: {}", request);
         BaseResponse response = dummyResponseGenerator.dummyFinalizeSuccess();
         LOGGER.debug("Finalizando tarea de otras camapañas:\nResponse: {}",response);
         return response;
     }
 
-    @RequestMapping(value = "/finalize", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value = "/finalizar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody BaseResponse finalizar(@RequestBody FinalizeAnotherCampaignsTaskRequest request) {
         LOGGER.debug("Finalizando tarea de otras campañas:\nRequest: {}", request);
         BaseResponse response = dummyResponseGenerator.dummyFinalizeSuccess();

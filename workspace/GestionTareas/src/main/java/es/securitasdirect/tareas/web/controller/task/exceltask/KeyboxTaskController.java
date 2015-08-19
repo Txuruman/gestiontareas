@@ -76,7 +76,7 @@ public class KeyboxTaskController extends TaskController {
     }
 
     @RequestMapping(value = "/descartar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody BaseResponse finalizar(@RequestBody DiscardKeyboxTaskRequest request) {
+    public @ResponseBody BaseResponse descartar(@RequestBody DiscardKeyboxTaskRequest request) {
         LOGGER.debug("Descartar de keybox:\nRequest: {}", request);
         BaseResponse response = dummyResponseGenerator.dummyFinalizeSuccess();
         LOGGER.debug("Descartada tarea de keybox:\nResponse: {}",response);

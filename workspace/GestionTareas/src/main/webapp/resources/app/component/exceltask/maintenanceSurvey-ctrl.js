@@ -127,8 +127,7 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,
     $scope.finalizar = function(){
         //$log.debug("Finalizar Maintenance Survey task, task: ",$scope.tarea);
         var finalizeMaintenanceSurveyTaskRequest = {
-            tarea:$scope.tarea,
-            prueba:'Hola'
+            tarea:$scope.tarea
         };
         //$log("Finalizar Maintenance Survey Task, request: ", finalizeMaintenanceSurveyTaskRequest);
         $http({

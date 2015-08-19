@@ -139,8 +139,7 @@ app.controller('feecleaningtask-ctrl', function ($scope, $http, CommonService, $
     $scope.finalizar = function(){
         //$log.debug("Finalizar Fee cleaning task, task: ",$scope.tarea);
         var finalizeFeeCleaningTaskRequest = {
-            tarea:$scope.tarea,
-            prueba:'Hola'
+            tarea:$scope.tarea
         };
         //$log.debug("Finalizar Fee Cleaning Task, request: ",finalizeFeeCleaningTaskRequest);
         $http({
