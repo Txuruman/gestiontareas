@@ -9,7 +9,8 @@ app.controller('DelayModalInstanceCtrl', function ($scope, $modalInstance, $log)
     $scope.today = new Date();
     $scope.delayInfo = {
         delayDate: $scope.today,
-        delayTime: $scope.today
+        delayTime: $scope.today,
+        recallType: '5'
     };
 
 
