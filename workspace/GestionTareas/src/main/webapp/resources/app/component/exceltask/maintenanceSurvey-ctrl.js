@@ -1,33 +1,34 @@
 //Angular Maintenance Survey Controller start
 app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,$modal, $log) {
 
-    $scope.getTarea = function () {
-        //$log.debug("Loading Maintenance Survey Task...");
-        //$log.debug("Params: "
-        //+ " ccUserId: " + $scope.ccUserId
-        //+ " callingList: " + $scope.callingList
-        //+ " taskId: " + $scope.tareaId);
-        $http({method: 'GET',
-            url: '/maintenancesurveytask/gettarea',
-            params: {ccUserId: $scope.ccUserId, callingList: $scope.callingList, tareaId: $scope.tareaId}
-        }).
-            success(function (data, status, headers, config) {
-                CommonService.processBaseResponse(data, status, headers, config);
-                $scope.tarea = data.tarea;
-                //$log.debug("Loaded maintenance survey task: ", data.tarea)
-            }).
-            error(function (data, status, headers, config) {
-                CommonService.processBaseResponse(data, status, headers, config);
-                //$log.error("Error loading maintenance survey task");
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-            });
-       $scope.getClosingReason();
-    };
+//TODO:Borrar
+//    $scope.getTarea = function () {
+//        //$log.debug("Loading Maintenance Survey Task...");
+//        //$log.debug("Params: "
+//        //+ " ccUserId: " + $scope.ccUserId
+//        //+ " callingList: " + $scope.callingList
+//        //+ " taskId: " + $scope.tareaId);
+//        $http({method: 'GET',
+//            url: '/maintenancesurveytask/gettarea',
+//            params: {ccUserId: $scope.ccUserId, callingList: $scope.callingList, tareaId: $scope.tareaId}
+//        }).
+//            success(function (data, status, headers, config) {
+//                CommonService.processBaseResponse(data, status, headers, config);
+//                $scope.tarea = data.tarea;
+//                //$log.debug("Loaded maintenance survey task: ", data.tarea)
+//            }).
+//            error(function (data, status, headers, config) {
+//                CommonService.processBaseResponse(data, status, headers, config);
+//                //$log.error("Error loading maintenance survey task");
+//                // called asynchronously if an error occurs
+//                // or server returns response with an error status.
+//            });
+//       $scope.getClosingReason();
+//    };
 
     $scope.getClosingReason = function(){
         //$log.debug("Loading Excel Task Commons: Closing reason");
-        $http({method: 'GET', url: '/exceltaskcommon/getClosingReason'}).
+        $http({method: 'GET', url: 'exceltaskcommon/getClosingReason'}).
             success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
                 $scope.closingReasonList = data.pairList;
