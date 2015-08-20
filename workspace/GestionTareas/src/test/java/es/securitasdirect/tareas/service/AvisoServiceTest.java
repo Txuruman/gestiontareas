@@ -113,7 +113,6 @@ public class AvisoServiceTest {
 
         boolean ok = avisoService.closeTicket(naviso,
                 idmat,
-                cnota,
                 tcierre,
                 adicional,
                 finalizarDesdeCrearMantenimiento

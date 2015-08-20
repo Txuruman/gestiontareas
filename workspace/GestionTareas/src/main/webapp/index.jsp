@@ -33,7 +33,7 @@ Enlaces
     <li>
         Estando el agente sin interacción en curso, decide crear una Tarea o buscar una existente.<br/>
         <a href="searchtarea.htm?bp_agent=12187&bp_agentIBS=I24311&bp_agentCountryJob=SPAIN&bp_desktopDepartment=ATC_SPN">Buscar Tareas</a><br/>
-        <a href="creartarea.htm">Crear Tarea</a><br/>
+        <a href="visortarea/creartarea.htm">Crear Tarea</a><br/>
     </li>
     <li>
         Estando el agente con una interacción en curso, decide crear una Tarea o buscar una existente.<br/>

@@ -1,9 +1,6 @@
 package es.securitasdirect.tareas.service;
 
-import es.securitasdirect.tareas.model.Agent;
-import es.securitasdirect.tareas.model.DummyGenerator;
-import es.securitasdirect.tareas.model.Tarea;
-import es.securitasdirect.tareas.model.TareaAviso;
+import es.securitasdirect.tareas.model.*;
 import es.securitasdirect.tareas.model.external.Pair;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -114,6 +111,21 @@ public class TareasServiceTest {
         boolean ok = tareaService.finalizeTask(agent,tarea                );
 
         assertThat(ok, is(true));
+    }
+
+
+
+    @Test
+    public void createTask() throws Exception {
+
+        Agent agent = DummyGenerator.getAgent();
+        String callingList = "CL_TAREAS_DIY";
+        String idTarea = "1";
+        TareaMantenimiento tareaMantenimiento = (TareaMantenimiento)queryTareaService.queryTarea(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), callingList, idTarea);
+        assertThat(tareaMantenimiento, notNullValue());
+
+        tareaService.createTask(agent, tareaMantenimiento);
+
     }
 
 
