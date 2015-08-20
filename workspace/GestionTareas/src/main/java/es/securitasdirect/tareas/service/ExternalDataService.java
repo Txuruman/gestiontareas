@@ -102,33 +102,20 @@ public class ExternalDataService {
         	Internamente, el web service debe realizar la siguiente operativa.
         	En la tabla OPER, listar los IDGRP cuyo IDMATRICULA coincida con el Usuario (normalmente sólo habrá uno, pero puede haber varios)
         	En la tabla TCIERRE_MOTIVO, listar los IDTIPOCIERRE cuyo IDTIPO sea Tipo, y (IDMOTIVO esté vacío ó IDMOTIVO sea Motivo) y (IDGRP=0 ó IDGRP sea uno de los IDGRP obtenidos de la tabla OPER)
-        	SQL:
-        select TIPO.IDTIPOCIERRE, DESCRIP.DSTIPOCIERRE
-        from AVISOS_1..TCIERRE_MOTIVO TIPO, AVISOS_1..TIPOCIERRE DESCRIP
-        where TIPO.IDTIPOCIERRE = DESCRIP.IDTIPOCIERRE
-        and DESCRIP.VISIBLE=1
-        and (TIPO.IDTIPO = '' OR TIPO.IDTIPO = ?)
-        and (TIPO.IDMOTIVO = '' OR  TIPO.IDMOTIVO = ?)
-        AND (TIPO.IDGRP = '' OR TIPO.IDGRP = ?)
-             */
-    //TODO PENDIENTE VER QUE PASA CON EL AGENT IBS
+    */
     public List<StringPair> getNotificationClosing(Integer idTipo, Integer idMotivo, String agentIBS) throws DataServiceFault {
         LOGGER.debug("Calling for closing type list, params: idTipo: {}, idMotivo: {}, agentIBS: {}", idTipo, idMotivo, agentIBS);
         List<StringPair> result = new ArrayList<StringPair>();
-        if (idTipo != null && idMotivo != null && agentIBS != null) {                         //TODO REPASAR ESTE IdGRP
-            List<Tipocierre> wsResult = spAioTareas2.getTipoCierre(idTipo, idMotivo, Integer.valueOf(agentIBS));
+        if (idTipo != null && idMotivo != null && agentIBS != null) {
+            List<Tipocierre> wsResult = spAioTareas2.getTipoCierre(idTipo, idMotivo, agentIBS);
             LOGGER.debug("WS closing type list reponse: {}", wsResult);
             for (Tipocierre tipocierre : wsResult) {
                 result.add(new StringPair(tipocierre.getTipo(), tipocierre.getDescripcion()));
             }
-            LOGGER.debug("Closing type list reponse: {}", result);
         } else {
             LOGGER.warn("Not informed parameters for closing type list query, params: idTipo: {}, idMotivo: {}, idGrp: {}", idTipo, idMotivo, agentIBS);
         }
 
-        //todo temporal
-        result.add(new StringPair("1", "CLOSING " + new Random().nextInt()));
-        result.add(new StringPair("2", "CLOSING " + new Random().nextInt()));
         return result;
     }
 

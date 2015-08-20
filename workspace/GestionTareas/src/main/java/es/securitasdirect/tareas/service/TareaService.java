@@ -1,8 +1,11 @@
 package es.securitasdirect.tareas.service;
 
 import com.webservice.CCLIntegration;
+import com.webservice.CCLIntegrationService;
+import com.webservice.IclResponse;
 import com.webservice.WsResponse;
 import es.securitasdirect.tareas.model.*;
+import net.java.dev.jaxb.array.StringArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wso2.ws.dataservice.*;
@@ -43,6 +46,8 @@ public class TareaService {
     @Resource(name = "datosCierreTareaAviso")
     protected Map<String, Map<Integer, String>> datosCierreTareaAviso;
 
+
+
     /**
      * Aplazar: muestra un diálogo en modo modal para introducir la fecha y hora de la reprogramación,
      * indicando también si es para el propio agente o para el grupo de la Campaña.
@@ -60,13 +65,28 @@ public class TareaService {
     public boolean finalizeTask(Agent agent,Tarea tarea) {
         //1. Finalizar la Tarea
         boolean finalized = wsFilanizeTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId());
-        if (finalized) {
-            //2. Si la Tarea es de Tipo Aviso tendremos que finalizar el aviso
+        return finalized;
+    }
 
+    /**
+     * Finalizar la tarea de tipo Aviso, es distinto porque tiene que cancelar el aviso también
+     * @param agent
+     * @param tarea
+     * @return
+     */
+    public boolean finalizeNotificationTask(Agent agent,TareaAviso tarea) {
+        LOGGER.debug("Finalizando tarea Aviso {}" , tarea);
+        //1. Finalizar la Tarea
+        boolean finalized = wsFilanizeTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId());
+        if (finalized) {
+            //2. Finalizar el aviso
+            //TODO finalizadoDesdeMantenimiento
+            boolean finalizadoDesdeMantenimiento=false;
+            //finalized = avisoService.closeTicket(tarea.getIdAviso(),agent.getIdAgent(),tarea.getClosing(),tarea.getDatosAdicionalesCierre(),finalizadoDesdeMantenimiento);
         }
         return finalized;
     }
-    
+
     /**
      * Aplazar: muestra un diálogo en modo modal para introducir la fecha y hora de la reprogramación,
      * indicando también si es para el propio agente o para el grupo de la Campaña.
@@ -109,13 +129,31 @@ public class TareaService {
 
     }
 
-    public boolean createTask(Agent agent,TareaAviso tarea) {
+    public boolean createTask(Agent agent,TareaMantenimiento tarea) {
         LOGGER.debug("Creating task: {}", tarea);
-        boolean result;
+    public boolean createTask(Agent agent,TareaAviso tarea) {
+        LOGGER.debug("Creating task: {}", tarea);        boolean result;
         try {
-            //TODO Llamada WS crear tarea
-            //TODO establecer criterio de OK y KO
-            if (true) {
+            // TODO rellenar las variables
+            String ccIdentifier= agent.getAgentGroupSD();
+            String ccUserId = agent.getIdAgent();
+            List<StringArray> insertValues = new ArrayList<StringArray>();
+            String date = "";
+            String hour = "";
+            String dialRule = ""; // constante
+            String timeFrom = ""; // constante
+            String timeUntil = ""; // constante
+            String callingList = Constants.TAREA_MANTENIMIENTO; // constante
+            String campaing = Constants.TAREA_MANTENIMIENTO; // constante
+            List<StringArray> numbers = new ArrayList<StringArray>();
+            String country = agent.getAgentCountryJob();
+            String ctrNo = tareaMantenimiento.getNumeroInstalacion();
+            String isEquals = "true"; // constante
+            // Llamada WS crear tarea
+            IclResponse iclResponse = cclIntegration.insertCallingListContact(ccIdentifier, applicationUser, ccUserId, insertValues,
+                    date, hour, dialRule, timeFrom, timeUntil, callingList, campaing, numbers, country, ctrNo, isEquals);
+
+            if (iclResponse!= null && iclResponse.getOperationResult().getResultCode() ==  200) {
                 result = true;
             } else {
                 result = false;
