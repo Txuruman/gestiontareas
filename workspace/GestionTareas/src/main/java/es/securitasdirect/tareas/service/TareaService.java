@@ -148,7 +148,7 @@ public class TareaService {
             String country = agent.getAgentCountryJob();
             String ctrNo = tareaMantenimiento.getNumeroInstalacion();
             String isEquals = "true"; // constante
-            //TODO Llamada WS crear tarea
+            // Llamada WS crear tarea
             IclResponse iclResponse = cclIntegration.insertCallingListContact(ccIdentifier, applicationUser, ccUserId, insertValues,
                     date, hour, dialRule, timeFrom, timeUntil, callingList, campaing, numbers, country, ctrNo, isEquals);
             //TODO establecer criterio de OK y KO
