@@ -1,5 +1,5 @@
 //Another Campaigns ANGULARJS script START
-app.controller('anotherCampaigns', function ($scope, $http, CommonService, $modal, $log) {
+app.controller('anotherCampaigns', function ($scope, $http, CommonService, $modal, $log, $window) {
 
     $scope.getInstallationAndTask = function(){
         $scope.vm.appReady=false;
@@ -127,7 +127,13 @@ app.controller('anotherCampaigns', function ($scope, $http, CommonService, $moda
             });
     };
 
-
+    /**
+     * Método Descartar: Nos lleva a la página de buscar
+     * Variable _contextPath inicializada en commonImports
+     */
+    $scope.descartar=function(){
+    	$window.location.href= _contextPath + "/searchtarea.htm";
+    }
 
 
 });

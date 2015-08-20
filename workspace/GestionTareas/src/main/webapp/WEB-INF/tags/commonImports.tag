@@ -43,3 +43,7 @@ display: none !important;
 <!-- App angularjs -->
 <script src="${pageContext.request.contextPath}/resources/app/gestiontarea-app.js"></script>
 
+<script>
+	var _contextPath = "${pageContext.request.contextPath}";
+</script>
+
