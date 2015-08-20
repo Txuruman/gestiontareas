@@ -69,7 +69,7 @@ public class TareaService {
         }
         return finalized;
     }
-
+    
     /**
      * Aplazar: muestra un diálogo en modo modal para introducir la fecha y hora de la reprogramación,
      * indicando también si es para el propio agente o para el grupo de la Campaña.
