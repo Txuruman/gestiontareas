@@ -140,6 +140,12 @@ public class NotificationTaskController extends TaskController {
         return super.delayTask(request.getTask(), request.getRecallType(), request.getDelayDate());
     }
 
+    @RequestMapping(value = "/finalizar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public
+    @ResponseBody
+    BaseResponse finalizeTask(@RequestBody FinalizeNotificationTaskRequest request) {
+        return super.finalizeTask(request.getTask());
+    }
 
 
     @RequestMapping(value = "/atras", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -202,20 +208,6 @@ public class NotificationTaskController extends TaskController {
         return response;
     }
 
-    @RequestMapping(value = "/finalizar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public
-    @ResponseBody
-    BaseResponse finalizar(@RequestBody FinalizeNotificationTaskRequest request) {
-        LOGGER.debug("Finalizar\nRequest: {}", request);
-        BaseResponse response = new BaseResponse();
-        if (true) {
-            response.success(messageUtil.getProperty("notificationTask.finalize.success"));
-        } else {
-            response.danger(messageUtil.getProperty("notificationTask.finalize.error"));
-        }
-        LOGGER.debug("Finalización\nResponse:{}", response);
-        return response;
-    }
 
     private NotificationTaskResponse toNotificationTaskResponse(TareaAviso tarea,
                                                                 InstallationData installationData,

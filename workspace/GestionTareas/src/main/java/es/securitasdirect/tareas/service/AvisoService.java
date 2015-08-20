@@ -18,6 +18,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -50,7 +51,13 @@ public class AvisoService {
     /**
      * creacion del XML para crear un Aviso. Se hace a través de un WS disponible para la aplicación de Tickets.
      */
-    public void createTicket(String idUser, String idCountry, String idLanguage){
+    public void createTicket(Agent agent){
+
+        String idUser = agent.getIdAgent();
+        String idCountry = agent.getAgentCountryJob();
+        String idLanguage = agent.getCurrentLanguage();
+        String idReq = agent.getDesktopDepartment();
+
         /*
          * Estructura del XML
          */
@@ -70,67 +77,67 @@ public class AvisoService {
 
 
         /* <REQ></REQ> */
-        createReq.setIdReq("ATC");
-        createReq.setReqName("");
-        createReq.setReqLname1("");
-        createReq.setReqLname2("");
-        createReq.setReqCif("");
-        createReq.setReqEmpl("I24311");
+        createReq.setIdReq(idReq);
+        createReq.setReqName(""); // constante
+        createReq.setReqLname1(""); // constante
+        createReq.setReqLname2(""); // constante
+        createReq.setReqCif(""); // constante
+        createReq.setReqEmpl(idUser);
         /* <ASGTO></ASGTO>*/
-        createAsgto.setIdAsg("");
-        createAsgto.setIdUser("");
+        createAsgto.setIdAsg(""); // constante
+        createAsgto.setIdUser(idUser);
         /* <COMM></COMM>*/
-        createComm.setName("");
-        createComm.setlName1("");
-        createComm.setlName2("");
-        createComm.setInChannel("AUTO");
-        createComm.setValue("");
-        createComm.setComent("");
-        createComm.setOutChannel("");
-        createComm.setFrom("11");
-        createComm.setTo("18");
+        createComm.setName(""); // constante
+        createComm.setlName1(""); // constante
+        createComm.setlName2(""); // constante
+        createComm.setInChannel("TELF"); // constante
+        createComm.setValue(""); // TODO
+        createComm.setComent(""); // constante
+        createComm.setOutChannel(""); // constante
+        createComm.setFrom("00"); // TODO
+        createComm.setTo("23"); // TODO
         /* <OPCOD></OPCOD>*/
-        createOpcod.setCodKey1("200");
-        createOpcod.setCodKey2("210");
+        createOpcod.setCodKey1("200"); // TODO
+        createOpcod.setCodKey2("210"); // TODO
         /* <CLCOD></CLCOD>*/
-        createClcod.setCodKey3("");
-        createClcod.setCodKey4("");
+        createClcod.setCodKey3(""); // constante
+        createClcod.setCodKey4(""); // constante
 
         /* <ITEM></ITEM> */
-        createItem.setIdItemIBS("");
-        createItem.setCount("1");
-        createItem.setIdProblem("210");
-        createItem.setIdType("200");
+        createItem.setIdItemIBS(""); // constante
+        createItem.setCount("1");    // constante
+        createItem.setIdProblem("210"); // TODO
+        createItem.setIdType("200");    // TODO
         create_list_item.add(createItem);
 
         /* <ITEM></ITEM> */
-        createItem.setIdItemIBS("");
-        createItem.setCount("1");
-        createItem.setIdProblem("210");
-        createItem.setIdType("200");
+        createItem.setIdItemIBS(""); // constante
+        createItem.setCount("1");    // constante
+        createItem.setIdProblem("210"); // TODO
+        createItem.setIdType("200");    // TODO
         create_list_item.add(createItem);
 
 
         /*
          * <USER></USER>
          */
-        createTicket.getUser().setIdUser("I24311");
-        createTicket.getUser().setIdCountry("1");
-        createTicket.getUser().setIdLanguage("ES");
-        createTicket.getUser().setT("NOSESSION");
+        createTicket.getUser().setIdUser(idUser);
+        createTicket.getUser().setIdCountry(idCountry);
+        createTicket.getUser().setIdLanguage(idLanguage);
+        createTicket.getUser().setT("NOSESSION");  // constante
 
         /*
          *
          * <TICKET></TICKET>
          */
-        createTicket.getTicket().setNumInst("1606430");
-        createTicket.getTicket().setObserv("Texto Aviso");
-        createTicket.getTicket().setCodZIP("28030");
-        createTicket.getTicket().setCloseTicket("0");
-        createTicket.getTicket().setDataAditional("");
-        createTicket.getTicket().setNoteClose("");
-        createTicket.getTicket().setMorDebt("0");
-        createTicket.getTicket().setTypePanel("SDVFAST");
+        createTicket.getTicket().setNumInst("1606430"); // TODO
+        createTicket.getTicket().setObserv("Texto Aviso"); // TODO
+        createTicket.getTicket().setCodZIP("28030"); // TODO
+        createTicket.getTicket().setCloseTicket("0"); // constante
+        createTicket.getTicket().setDataAditional(""); // constante
+        createTicket.getTicket().setNoteClose(""); // constante
+        createTicket.getTicket().setMorDebt("0"); // constante
+        createTicket.getTicket().setTypePanel("SDVFAST"); // TODO
 
         /* <REQ></REQ>
          */
@@ -143,9 +150,9 @@ public class AvisoService {
         /*
          * <SVRQ></SVRQ>
          */
-        createTicket.getSvrq().setMakeSVRQ("0");
-        createTicket.getSvrq().setIdTec("");
-        createTicket.getSvrq().setInsBoli("0");
+        createTicket.getSvrq().setMakeSVRQ("0"); // constante
+        createTicket.getSvrq().setIdTec(""); // constante
+        createTicket.getSvrq().setInsBoli("0"); // constante
         createTicket.getSvrq().setItems(new ArrayList<Item>());
         createTicket.getSvrq().setItems(create_list_item);
 
@@ -164,70 +171,91 @@ public class AvisoService {
     /**
      * creacion del XML para actualizar un Aviso. Se hace a través de un WS disponible para la aplicación de Tickets.
      */
-    public void updateTicket(String idUser, String idCountry, String idLanguage){
+    public void updateTicket(Agent agent){
 
-
+        String idUser = agent.getIdAgent();
+        String idCountry = agent.getAgentCountryJob();
+        String idLanguage = agent.getCurrentLanguage();
+        String idReq = agent.getDesktopDepartment();
 
     }
 
+    /**
+     *
+     * @param naviso nº de aviso
+     * @param gblidusr matrícula del usuario: recibido de IWS en parámetro bp_agent
+     * @param idaplaza tipo de aplazamiento: si lo admite, dejarlo vacío. Si no, poner “APR”
+     * @param fhasta fecha a la que se aplaza dd/mm/aaaa
+     * @return
+     * @throws Exception
+     */
+    public boolean delayTicket(Integer naviso, String gblidusr, String idaplaza, String fhasta) throws Exception {
 
-    public boolean delayTicket(Integer naviso, String gblidusr, String idaplaza, Date fhasta, String cnota) throws Exception {
-
-
+        String cnota = ""; // constante
+        boolean  result = false;
         try {
-            List<RowErrorAA> rowErrorAAs = spAvisosOperaciones.aplazarAviso(naviso, gblidusr, idaplaza, fhasta.toString(), cnota);
+            List<RowErrorAA> rowErrorAAs = spAvisosOperaciones.aplazarAviso(naviso, gblidusr, idaplaza, fhasta, cnota);
             //TODO Debug para ver que devuelve y controlar si hay errores devolver
-            if (rowErrorAAs != null && !rowErrorAAs.isEmpty()) {
+            if(rowErrorAAs != null && rowErrorAAs.size()==1
+                    && ((RowErrorAA)((List)rowErrorAAs).get(0)).getReturnCode() != null
+                    && ((RowErrorAA)((List)rowErrorAAs).get(0)).getReturnCode().equals(new BigInteger("0"))   )
+            {
+                result = true;
+            } else if (rowErrorAAs != null && !rowErrorAAs.isEmpty()) {
                 LOGGER.error("Error aplazando aviso {}", naviso);
-                return false;
-            }
-            } catch (DataServiceFault e) {
-                LOGGER.error("Error aplazando aviso", e);
-                return false;
+                result = false;
             }
 
-        return  true;
-    }
-
-
-    public boolean reassignmentTicket(Integer naviso, String idempleado, String gblidusr) throws Exception {
-
-
-        try {
-            List<RowErrorRA> rowErrorRAs = spAvisosOperaciones.reasignarAviso(naviso, idempleado, gblidusr);
-            //TODO Debug para ver que devuelve y controlar si hay errores devolver
-            if (rowErrorRAs != null && !rowErrorRAs.isEmpty()) {
-                LOGGER.error("Error reasignando aviso {}", naviso);
-                return false;
-            }
         } catch (DataServiceFault e) {
-            LOGGER.error("Error reasignando aviso", e);
+            LOGGER.error("Error aplazando aviso", e);
             return false;
         }
+        return result;
 
-        return  true;
     }
 
 
+    /**
+     *
+     * @param naviso nº de aviso
+     * @param idmat matrícula del usuario: recibido de IWS en parámetro bp_agent
+     * @param cnota nota de cierre asociada a las observaciones del Aviso
+     * @param tcierre código del tipo de cierre, seleccionado por pantalla. Valor de la tabla TIPOCIERRE
+     * @param adicional datos adicionales de cierre, seleccionado por pantalla. Valor de la tabla DATOADICIONAL
+     * @param finalizarDesdeCrearMantenimiento valor de la tabla ESTADOS: “2” si se finaliza, “3” si se finaliza por crear un Mantenimiento
+     * @return
+     * @throws Exception
+     */
     public boolean closeTicket(Integer naviso,
                                String idmat,
                                String cnota,
-                               String statusdest,
-                               Integer deuda,
-                               Integer idmante,
-                               Integer branch,
                                Integer tcierre,
-                               String adicional) throws Exception {
+                               String adicional,
+                               boolean finalizarDesdeCrearMantenimiento) throws Exception {
 
+        Integer deuda=0; // constante
+        Integer idmante=0; // constante
+        Integer branch=0; // constante
 
+        // “2” si se finaliza 	“3” si se finaliza por crear un Mantenimiento
+        String statusdest = "2";
+        if(finalizarDesdeCrearMantenimiento) statusdest = "3";
+
+        boolean  result = false;
         try {
             List<RowErrorCA> rowErrorCAs = spAvisosOperaciones.cerrarAviso(naviso, idmat, cnota, statusdest,
                     deuda, idmante, branch, tcierre, adicional);
             //TODO Debug para ver que devuelve y controlar si hay errores devolver
+            if(rowErrorCAs != null && rowErrorCAs.size()==1
+                    && ((RowErrorCA)((List)rowErrorCAs).get(0)).getReturnCode() != null
+                    && ((RowErrorCA)((List)rowErrorCAs).get(0)).getReturnCode().equals(new BigInteger("0"))   )
+            {
+                result = true;
+            } else
             if (rowErrorCAs != null && !rowErrorCAs.isEmpty()) {
-                LOGGER.error("Error cerrando aviso {}", naviso);
-                return false;
-            }
+                    LOGGER.error("Error cerrando aviso {}", naviso);
+                    return false;
+             }
         } catch (DataServiceFault e) {
             LOGGER.error("Error cerrando aviso", e);
             return false;

@@ -12,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.inject.Inject;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -52,29 +53,18 @@ public class AvisoServiceTest {
     @Test
     public void createTicketTest() throws Exception {
 
-        String idUser = "I24311";
-        String idCountry = "1";
-        String idLanguage = "ES";
+        Agent agent = DummyGenerator.getAgent();
 
-        avisoService.createTicket(
-                idUser,
-                idCountry,
-                idLanguage);
+        avisoService.createTicket(agent);
     }
-
 
     @Test
     public void updateTicketTest() throws Exception {
-/*
-        String idUser = "I24311";
-        String idCountry = "1";
-        String idLanguage = "ES";
 
-        avisoService.updateTicket(
-                idUser,
-                idCountry,
-                idLanguage);
-                */
+        Agent agent = DummyGenerator.getAgent();
+
+        avisoService.updateTicket(agent);
+
     }
 
     @Test
@@ -82,43 +72,20 @@ public class AvisoServiceTest {
         Agent agent = DummyGenerator.getAgent();
         String callingList = "CL_CCT_ATT_Averia_Test";
         String idTarea = "1";
-        Tarea tarea = queryTareaService.queryTarea(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), callingList, idTarea);
+        TareaAviso tarea = (TareaAviso)queryTareaService.queryTarea(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), callingList, idTarea);
         assertThat(tarea, notNullValue());
 
-        Integer naviso = ((TareaAviso)tarea).getIdAviso();
-        String gblidusr = "1"; // TODO
-        String idaplaza = "2"; // TODO
-        // sumamos un día a la fecha actual para aplazar
-        Date fhasta = new Date();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(fhasta);
-        calendar.add(Calendar.DAY_OF_YEAR, 1);
-        fhasta = calendar.getTime();
-
-        String cnota = "3"; // TODO
-        boolean ok = avisoService.delayTicket(naviso, gblidusr, idaplaza, fhasta, cnota);
+        Integer naviso = tarea.getIdAviso();
+        String gblidusr = agent.getIdAgent();
+        String idaplaza = "";
+        Date fecha = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy' 'HH:mm:ss");
+        String fhasta =format.format(fecha);
+        boolean ok = avisoService.delayTicket(naviso, gblidusr, idaplaza, fhasta);
 
         assertThat(ok, is(true));
 
     }
-
-    @Test
-    public void reassignmentTicketTest() throws Exception {
-        Agent agent = DummyGenerator.getAgent();
-        String callingList = "CL_CCT_ATT_Averia_Test";
-        String idTarea = "1";
-        Tarea tarea = queryTareaService.queryTarea(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), callingList, idTarea);
-        assertThat(tarea, notNullValue());
-
-        Integer naviso = ((TareaAviso)tarea).getIdAviso();
-        String idempleado = "1"; // TODO
-        String gblidusr = "2";   // TODO
-        boolean ok = avisoService.reassignmentTicket(naviso, idempleado, gblidusr);
-
-        assertThat(ok, is(true));
-
-    }
-
 
     @Test
     public void closeTicketTest() throws Exception {
@@ -129,24 +96,20 @@ public class AvisoServiceTest {
         assertThat(tarea, notNullValue());
 
         Integer naviso = ((TareaAviso)tarea).getIdAviso();
-        String idmat = "1"; // TODO
-        String cnota = "2";   // TODO
-        String statusdest = "3"; // TODO
-        Integer deuda = new Integer("4"); // TODO
-        Integer idmante = new Integer("5"); // TODO
-        Integer branch = new Integer("6"); // TODO
-        Integer tcierre = new Integer("7"); // TODO
-        String adicional = "8"; // TODO
+        String idmat = agent.getIdAgent();
+        String cnota = ((TareaAviso)tarea).getObservaciones();
+        boolean finalizarDesdeCrearMantenimiento = false;
+        //Integer tcierre = Integer.parseInt(  ((TareaAviso)tarea).getClosing() );
+        Integer tcierre = 1; // TODO desde pantalla. Valor de la tabla TIPOCIERRE. llegan caracteres y no se puede convertir a entero.
+        String adicional = ((TareaAviso)tarea).getDatosAdicionalesCierre();
 
         boolean ok = avisoService.closeTicket(naviso,
                 idmat,
                 cnota,
-                statusdest,
-                deuda,
-                idmante,
-                branch,
                 tcierre,
-                adicional);
+                adicional,
+                finalizarDesdeCrearMantenimiento
+                );
 
         assertThat(ok, is(true));
 

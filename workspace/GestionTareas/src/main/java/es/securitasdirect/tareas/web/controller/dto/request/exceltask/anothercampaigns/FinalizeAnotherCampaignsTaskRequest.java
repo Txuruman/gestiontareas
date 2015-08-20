@@ -13,7 +13,6 @@ public class FinalizeAnotherCampaignsTaskRequest extends BaseRequest {
 
     private TareaOtrasCampanas task;
 
-    private String prueba;
 
     public FinalizeAnotherCampaignsTaskRequest() {
     }
@@ -30,19 +29,10 @@ public class FinalizeAnotherCampaignsTaskRequest extends BaseRequest {
         this.task = task;
     }
 
-    public String getPrueba() {
-        return prueba;
-    }
-
-    public void setPrueba(String prueba) {
-        this.prueba = prueba;
-    }
-
     @Override
     public String toString() {
         return "FinalizeAnotherCampaignsTaskRequest{" +
                 "task=" + task +
-                ", prueba='" + prueba + '\'' +
                 '}';
     }
 }

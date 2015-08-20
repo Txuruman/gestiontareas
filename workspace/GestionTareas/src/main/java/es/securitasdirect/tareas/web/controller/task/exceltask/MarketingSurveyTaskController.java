@@ -62,13 +62,14 @@ public class MarketingSurveyTaskController extends TaskController {
         return response;
     }
 
+
     @RequestMapping(value = "/finalizar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody BaseResponse finalizar(@RequestBody FinalizeMarketingSurveyTaskRequest request) {
-        LOGGER.debug("Finalizando tarea de encuesta de marketing:\nRequest: {}", request);
-        BaseResponse response = dummyResponseGenerator.dummyFinalizeSuccess();
-        LOGGER.debug("Finalizando tarea de encuesta de marketing:\nResponse: {}",response);
-        return response;
+    public
+    @ResponseBody
+    BaseResponse finalizeTask(@RequestBody FinalizeMarketingSurveyTaskRequest request) {
+        return super.finalizeTask(request.getTask());
     }
+
 
     /**
      * http://localhost:8080/gestiontareas/marketingsurveytask/getInstallationAndTask?installationId=111111&ccUserId=12187&callingList=CL_CCT_XLS_ENCUESTAS_MKT&tareaId=1

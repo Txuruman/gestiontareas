@@ -10,6 +10,7 @@ import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
 import es.securitasdirect.tareas.web.controller.dto.request.exceltask.maintenancesurvey.DiscardMaintenanceSurveyTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.exceltask.maintenancesurvey.FinalizeMaintenanceSurveyTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.exceltask.maintenancesurvey.PostponeMaintenanceSurveyTaskRequest;
+import es.securitasdirect.tareas.web.controller.dto.request.notificationtask.FinalizeNotificationTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
 import es.securitasdirect.tareas.web.controller.dto.support.DummyResponseGenerator;
 import org.slf4j.Logger;
@@ -126,13 +127,14 @@ public class MaintenanceSurveyTaskController extends TaskController {
         return response;
     }
 
+
     @RequestMapping(value = "/finalizar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody BaseResponse finalizar(@RequestBody FinalizeMaintenanceSurveyTaskRequest request) {
-        LOGGER.debug("Finalizar tarea de encuesta de mantenimiento:\nRequest: {}", request);
-        BaseResponse response = dummyResponseGenerator.dummyCustomSuccess("commonexcel.finalize.success");
-        LOGGER.debug("Finalizada tarea de encuesta de mantenimiento:\nResponse: {}",response);
-        return response;
+    public
+    @ResponseBody
+    BaseResponse finalizeTask(@RequestBody FinalizeMaintenanceSurveyTaskRequest request) {
+        return super.finalizeTask(request.getTask());
     }
+
 
 
 }

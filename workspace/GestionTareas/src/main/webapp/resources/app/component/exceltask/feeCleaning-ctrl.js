@@ -139,27 +139,28 @@ app.controller('feecleaningtask-ctrl', function ($scope, $http, CommonService, $
     };
 
     $scope.finalizar = function(){
-        //$log.debug("Finalizar Fee cleaning task, task: ",$scope.tarea);
-        var finalizeFeeCleaningTaskRequest = {
-            tarea:$scope.tarea
+        //$log.debug("Finalizar List Assistant task, task: ",$scope.tarea);
+        var finalizeRequest = {
+            task:$scope.tarea
         };
-        //$log.debug("Finalizar Fee Cleaning Task, request: ",finalizeFeeCleaningTaskRequest);
+        //$log.debug("Finalizar  Task, request: ",finalizeRequest);
         $http({
             method: 'PUT',
             url: 'feecleaningtask/finalizar',
-            data: finalizeFeeCleaningTaskRequest
+            data: finalizeRequest
         })
             .success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data,status,headers,config);
-                //$log.debug("Finalized fee cleaning task");
+                //$log.debug("Finalized task");
             })
             .error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data,status,headers,config);
-                //$log.error("Error finalizing fee cleaning task");
+                //$log.error("Error finalizing task");
             });
     };
+
 
     //Ventana Aplazar - Start
     //Abre la ventana, posibles tamaños '', 'sm', 'lg'

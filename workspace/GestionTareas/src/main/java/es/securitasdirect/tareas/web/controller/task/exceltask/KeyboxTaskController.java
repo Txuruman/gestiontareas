@@ -83,13 +83,14 @@ public class KeyboxTaskController extends TaskController {
         return response;
     }
 
+
     @RequestMapping(value = "/finalizar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody BaseResponse finalizar(@RequestBody FinalizeKeyboxTaskRequest request) {
-        LOGGER.debug("Finalizando tarea de keybox:\nRequest: {}", request);
-        BaseResponse response = dummyResponseGenerator.dummyFinalizeSuccess();
-        LOGGER.debug("Finalizada tarea de keybox:\nResponse: {}",response);
-        return response;
+    public
+    @ResponseBody
+    BaseResponse finalizeTask(@RequestBody FinalizeKeyboxTaskRequest request) {
+        return super.finalizeTask(request.getTask());
     }
+
 
     @RequestMapping(value = "/getInstallationAndTask", method = {RequestMethod.GET}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody TareaResponse getInstallationAndTask(

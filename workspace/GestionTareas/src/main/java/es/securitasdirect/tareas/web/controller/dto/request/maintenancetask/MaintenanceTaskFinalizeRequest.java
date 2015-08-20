@@ -12,28 +12,24 @@ import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class MaintenanceTaskFinalizeRequest extends BaseRequest {
 
-    private TareaMantenimiento tarea;
+    private TareaMantenimiento task;
 
     public MaintenanceTaskFinalizeRequest() {
     }
 
-    public MaintenanceTaskFinalizeRequest(TareaMantenimiento tarea) {
-        this.tarea = tarea;
+    public TareaMantenimiento getTask() {
+        return task;
     }
 
-    public TareaMantenimiento getTarea() {
-        return tarea;
+    public void setTask(TareaMantenimiento task) {
+        this.task = task;
     }
-
-    public void setTarea(TareaMantenimiento tarea) {
-        this.tarea = tarea;
-    }
-
 
     @Override
     public String toString() {
-        return "MaintenanceTaskFinalizeRequest{" +
-                "tarea=" + tarea +
-                '}';
+        final StringBuffer sb = new StringBuffer("MaintenanceTaskFinalizeRequest{");
+        sb.append("task=").append(task);
+        sb.append('}');
+        return sb.toString();
     }
 }

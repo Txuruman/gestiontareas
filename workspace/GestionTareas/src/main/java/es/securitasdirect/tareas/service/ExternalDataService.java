@@ -93,7 +93,6 @@ public class ExternalDataService {
 
     /**es1dbusdss03v
      * Call for closing reason query
-     * TODO Esta sql que se ha puesto en el WSO2 no parece funcionar, nunca encuentra datos
      */
     public List<StringPair> getClosing(Integer idTipo, Integer idMotivo, Integer idGrp) throws DataServiceFault{
         LOGGER.debug("Calling for closing type list, params: idTipo: {}, idMotivo: {}, idGrp: {}", idTipo, idMotivo, idGrp);

@@ -75,31 +75,19 @@ public class TareaService {
         if (tarea != null) {
             //Si no está en memoria se puede ejecutar
             if (!tarea.isRetrieved()) {
-                ccdDelayTask(ccUserId, country, desktopDepartment, tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId(), schedTime, recordType);
+                boolean delayed = ccdDelayTask(ccUserId, country, desktopDepartment, tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId(), schedTime, recordType);
+                if (!delayed) {
+                    return false;
+                } else {
+                    //TODO Si es de tipo Aviso aplazar el aviso
+                    // Invocará un web service para actualizar el Aviso.
+                    return true;
+                }
             } else {
                 LOGGER.warn("Can't delay task because is in Retrieved {}", tarea);
                 return false;
             }
 
-//            // Invocará un web service para actualizar el Aviso.
-//            Integer naviso = idAviso;
-//            String gblidusr = null; //TODO PENDIENTES
-//            String idaplaza = null; //TODO PENDIENTES
-//            String fhasta = null; //TODO PENDIENTES
-//            String cnota = null; //TODO PENDIENTES
-//
-//            try {
-//                List<RowErrorAA> rowErrorAAs = spAvisosOperaciones.aplazarAviso(naviso, gblidusr, idaplaza, fhasta, cnota);
-//                //TODO Debug para ver que devuelve y controlar si hay errores devolver
-//                if (rowErrorAAs != null && !rowErrorAAs.isEmpty()) {
-//                    LOGGER.error("Error aplazando aviso {}", idAviso);
-//                    return false;
-//                }
-//            } catch (DataServiceFault e) {
-//                LOGGER.error("Error aplazando aviso", e);
-//                return false;
-//            }
-            return true;
         } else {
             LOGGER.error("Can't find task to delay");
             //TODO CREAR EXCEPCIONES DE NEGOCIO
