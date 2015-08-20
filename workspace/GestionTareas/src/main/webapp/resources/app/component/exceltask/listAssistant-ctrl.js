@@ -51,7 +51,7 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
      */
     $scope.descartar=function(){
     	$window.location.href= _contextPath + "/searchtarea.htm";
-    }    
+    };
 
     
 //	Antiguo método descartar
