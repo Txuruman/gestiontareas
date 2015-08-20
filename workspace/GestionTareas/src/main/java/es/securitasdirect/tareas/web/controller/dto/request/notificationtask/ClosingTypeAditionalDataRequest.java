@@ -9,13 +9,13 @@ import es.securitasdirect.tareas.web.controller.dto.support.BaseRequest;
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class ClosingTypeAditionalDataRequest extends BaseRequest {
 
-    Integer closingTypeId;
+    private String closingTypeId;
 
-    public Integer getClosingTypeId() {
+    public String getClosingTypeId() {
         return closingTypeId;
     }
 
-    public void setClosingTypeId(Integer closingTypeId) {
+    public void setClosingTypeId(String closingTypeId) {
         this.closingTypeId = closingTypeId;
     }
 

@@ -4,7 +4,8 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import es.securitasdirect.tareas.web.controller.dto.support.BaseRequest;
 
 /**
- * Created by Javier Naval on 06/07/2015.
+ * Request para la consulta de Tipos de Cierre de Tarea Tipo Aviso.
+ * Recive el Tipo 1 y el Motivo 1
  */
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class ClosingTypeRequest extends BaseRequest {
@@ -13,15 +14,6 @@ public class ClosingTypeRequest extends BaseRequest {
 
     Integer reasonId;
 
-    Integer groupId;
-
-    public Integer getGroupId() {
-        return groupId;
-    }
-
-    public void setGroupId(Integer groupId) {
-        this.groupId = groupId;
-    }
 
     public Integer getIdType() {
         return idType;
@@ -44,7 +36,6 @@ public class ClosingTypeRequest extends BaseRequest {
         return "ClosingTypeRequest{" +
                 "idType=" + idType +
                 ", reasonId=" + reasonId +
-                ", groupId=" + groupId +
                 '}';
     }
 }
