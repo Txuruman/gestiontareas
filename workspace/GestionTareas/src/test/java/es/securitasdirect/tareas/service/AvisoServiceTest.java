@@ -54,14 +54,8 @@ public class AvisoServiceTest {
     public void createTicketTest() throws Exception {
 
         Agent agent = DummyGenerator.getAgent();
-        String idUser = agent.getIdAgent();
-        String idCountry = agent.getAgentCountryJob();
-        String idLanguage = agent.getCurrentLanguage();
 
-        avisoService.createTicket(
-                idUser,
-                idCountry,
-                idLanguage);
+        avisoService.createTicket(agent);
     }
 
     @Test
