@@ -52,6 +52,9 @@ public class AvisoService {
      * creacion del XML para crear un Aviso. Se hace a través de un WS disponible para la aplicación de Tickets.
      */
     public void createTicket(String idUser, String idCountry, String idLanguage){
+
+
+
         /*
          * Estructura del XML
          */
@@ -171,9 +174,18 @@ public class AvisoService {
 
     }
 
+    /**
+     *
+     * @param naviso nº de aviso
+     * @param gblidusr matrícula del usuario: recibido de IWS en parámetro bp_agent
+     * @param idaplaza tipo de aplazamiento: si lo admite, dejarlo vacío. Si no, poner “APR”
+     * @param fhasta fecha a la que se aplaza dd/mm/aaaa
+     * @return
+     * @throws Exception
+     */
+    public boolean delayTicket(Integer naviso, String gblidusr, String idaplaza, String fhasta) throws Exception {
 
-    public boolean delayTicket(Integer naviso, String gblidusr, String idaplaza, String fhasta, String cnota) throws Exception {
-
+        String cnota = ""; // constante
         boolean  result = false;
         try {
             List<RowErrorAA> rowErrorAAs = spAvisosOperaciones.aplazarAviso(naviso, gblidusr, idaplaza, fhasta, cnota);
@@ -183,8 +195,7 @@ public class AvisoService {
                     && ((RowErrorAA)((List)rowErrorAAs).get(0)).getReturnCode().equals(new BigInteger("0"))   )
             {
                 result = true;
-            } else
-            if (rowErrorAAs != null && !rowErrorAAs.isEmpty()) {
+            } else if (rowErrorAAs != null && !rowErrorAAs.isEmpty()) {
                 LOGGER.error("Error aplazando aviso {}", naviso);
                 result = false;
             }
@@ -197,44 +208,28 @@ public class AvisoService {
 
     }
 
-    /*
-    public boolean reassignmentTicket(Integer naviso, String idempleado, String gblidusr) throws Exception {
 
-        boolean  result = false;
-        try {
-            List<RowErrorRA> rowErrorRAs = spAvisosOperaciones.reasignarAviso(naviso, idempleado, gblidusr);
-            //TODO Debug para ver que devuelve y controlar si hay errores devolver
-            if(rowErrorRAs != null && rowErrorRAs.size()==1
-                    && ((RowErrorCA)((List)rowErrorRAs).get(0)).getReturnCode() != null
-                    && ((RowErrorCA)((List)rowErrorRAs).get(0)).getReturnCode().equals(new BigInteger("0"))   )
-            {
-                result = true;
-            } else
-
-            if (rowErrorRAs != null && !rowErrorRAs.isEmpty()) {
-                LOGGER.error("Error reasignando aviso {}", naviso);
-                return false;
-            }
-        } catch (DataServiceFault e) {
-            LOGGER.error("Error reasignando aviso", e);
-            return false;
-        }
-
-        return  true;
-    }
-    */
-
-
+    /**
+     *
+     * @param naviso nº de aviso
+     * @param idmat matrícula del usuario: recibido de IWS en parámetro bp_agent
+     * @param cnota nota de cierre asociada a las observaciones del Aviso
+     * @param tcierre código del tipo de cierre, seleccionado por pantalla. Valor de la tabla TIPOCIERRE
+     * @param adicional datos adicionales de cierre, seleccionado por pantalla. Valor de la tabla DATOADICIONAL
+     * @param finalizarDesdeCrearMantenimiento valor de la tabla ESTADOS: “2” si se finaliza, “3” si se finaliza por crear un Mantenimiento
+     * @return
+     * @throws Exception
+     */
     public boolean closeTicket(Integer naviso,
                                String idmat,
                                String cnota,
-                               //String statusdest,
-                               Integer deuda,
-                               Integer idmante,
-                               Integer branch,
                                Integer tcierre,
                                String adicional,
                                boolean finalizarDesdeCrearMantenimiento) throws Exception {
+
+        Integer deuda=0; // constante
+        Integer idmante=0; // constante
+        Integer branch=0; // constante
 
         // “2” si se finaliza 	“3” si se finaliza por crear un Mantenimiento
         String statusdest = "2";
