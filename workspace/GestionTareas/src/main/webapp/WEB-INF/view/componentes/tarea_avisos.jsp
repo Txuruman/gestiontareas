@@ -19,8 +19,8 @@
             <div class="spacer_t1"></div>
             <div class="row">
                 <app:inputTextNG id="requeridoPor" label="tareaAviso.requeridoPor" value="tarea.requeridoPor" cells="6" readonly="false"/>
-                <app:inputTextNG id="horarioDesde" label="tareaAviso.horarioDesde" value="tarea.horarioDesde" cells="3" readonly="false"/>
-                <app:inputTextNG id="horarioHasta" label="tareaAviso.horarioHasta" value="tarea.horarioHasta" cells="3" readonly="false"/>
+                <app:inputTextNG id="horarioDesde" label="tareaAviso.horarioDesde" value="tarea.horarioDesde" cells="3" readonly="false" ng_keypress="onlyNumber($event,true,tarea.horarioDesde.length)"/>
+                <app:inputTextNG id="horarioHasta" label="tareaAviso.horarioHasta" value="tarea.horarioHasta" cells="3" readonly="false" ng_keypress="onlyNumber($event,true,tarea.horarioHasta.length)"/>
             </div>
             <div class="spacer_t1"></div>
             <div class="row">
