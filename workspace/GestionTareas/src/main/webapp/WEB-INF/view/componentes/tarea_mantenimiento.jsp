@@ -22,9 +22,6 @@
                         <app:inputDate id="fechaEvento" label="tareamantenimiento.fechaEvento" value="tarea.fechaEvento"
                                          readonly="true" cells="6"/>
             </div>
-            <div class="row">
-                Fecha evento: {{tarea.fechaEvento}}
-            </div>
             <div class="spacer_t1"></div>
             <div class="row">
                         <app:inputTextNG id="ciudad" label="tareamantenimiento.ciudad" value="tarea.ciudad" readonly="true" cells="6"/>
@@ -34,9 +31,6 @@
             <div class="spacer_t1"></div>
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                    <div class="row">
-                            Tipo cancelacion: {{tarea.tipoCancelacion}}
-                    </div>
                     <div class="row">
                         <app:input id="cancelationTypeCombo" label="tareamantenimiento.tipoCancelacion">
                             <select ng-model="tarea.tipoCancelacion" convert-to-number class="form-control">

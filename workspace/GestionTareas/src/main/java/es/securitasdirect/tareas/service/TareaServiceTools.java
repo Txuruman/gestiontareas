@@ -110,6 +110,14 @@ public class TareaServiceTools {
         if (idAviso != null && idAviso != 0) {
             LOGGER.debug("Calling service for TareaAviso for ID: '{}'", idAviso);
             tarea = getTareaByIdAviso(idAviso);
+
+            //No utilizamos loadTareaCommons para tener cuidado de no sobreescribir datos de la consulta del AVISO con lo que tenemos en la TAREA
+            tarea.setCallingList(responseMap.get(TaskServiceParams.TAREA_COMMONS_CALLING_LIST));
+            tarea.setNumeroContrato(responseMap.get(TaskServiceParams.TAREA_COMMONS_N_CONTRATO));
+            tarea.setId(toIntegerFromMap(responseMap.get(TaskServiceParams.TAREA_COMMONS_ID)));
+            tarea.setCampana(responseMap.get(TaskServiceParams.TAREA_CAMPAIGN));
+            tarea.setFechaReprogramacion(toDateFromMap(responseMap.get(TaskServiceParams.TAREA_COMMONS_FECHA_REPROGRAMACION)));
+
         } else {
             LOGGER.warn("ID_AVISO (idaviso) or 0 not found in response map");
         }

@@ -25,7 +25,7 @@ app.controller('taskSearch', function ($scope, $http, CommonService, $modal) {
         
       //Ventana Aplazar - Start
         //Abre la ventana, posibles tamaños '', 'sm', 'lg'
-        $scope.openDelayModal = function (size) {
+        $scope.openDelayModal = function (size,t) {
             var modalInstance = $modal.open({
                 animation: false, //Indica si animamos el modal
                 templateUrl: 'deplayModalContent.html', //HTML del modal
@@ -66,6 +66,7 @@ app.controller('taskSearch', function ($scope, $http, CommonService, $modal) {
                 })
                     .success(function (data, status, headers, config) {
                         CommonService.processBaseResponse(data, status, headers, config);
+                        $scope.searchTareaFromServer();
                     })
                     .error(function (data, status, headers, config) {
                         // called asynchronously if an error occurs

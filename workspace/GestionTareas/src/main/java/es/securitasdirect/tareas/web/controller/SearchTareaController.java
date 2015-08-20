@@ -9,7 +9,11 @@ import es.securitasdirect.tareas.model.Tarea;
 import es.securitasdirect.tareas.service.QueryTareaService;
 import es.securitasdirect.tareas.service.SearchTareaService;
 import es.securitasdirect.tareas.web.controller.dto.SearchTareaResponse;
+import es.securitasdirect.tareas.web.controller.dto.request.PostponeGenericTaskRequest;
+import es.securitasdirect.tareas.web.controller.dto.request.PostponeRequest;
+import es.securitasdirect.tareas.web.controller.dto.request.notificationtask.PostponeNotificationTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.searchtask.SearchTaskRequest;
+import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
 import es.securitasdirect.tareas.web.controller.util.MessageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +29,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/searchtarea")
-public class SearchTareaController extends BaseController {
+public class SearchTareaController extends TaskController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SearchTareaController.class);
 
@@ -50,7 +54,13 @@ public class SearchTareaController extends BaseController {
         return mv;
     }
 
-
+    @RequestMapping(value = "/aplazar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public
+    @ResponseBody
+    BaseResponse postpone(@RequestBody PostponeGenericTaskRequest request) {
+        return super.delayTask(request.getTask(), request.getRecallType(), request.getDelayDate());
+    }
+    
     @RequestMapping(value = "/query", method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody

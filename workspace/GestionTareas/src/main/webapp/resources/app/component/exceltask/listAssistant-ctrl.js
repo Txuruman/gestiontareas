@@ -1,33 +1,9 @@
 //Controlador List Assistant - Start
 app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $modal, $log, $timeout) {
-    $scope.getTarea = function () {
-        //$log.debug("Loading List Assistant Task...")
-        //console.log("Params: "
-        //+ " ccUserId: " + $scope.ccUserId
-        //+ " callingList: " + $scope.callingList
-        //+ " taskId: " + $scope.tareaId);
-        $http({
-            method: 'GET',
-            url: '/listassistanttask/gettarea',
-            params: {ccUserId: $scope.ccUserId, callingList: $scope.callingList, tareaId: $scope.tareaId}
-        })
-            .success(function (data, status, headers, config) {
-                //$log.debug("ListAssistantTask: " ,data);
-                $scope.tarea = data.tarea;
-                CommonService.processBaseResponse(data, status, headers, config);
-            })
-            .error(function (data, status, headers, config) {
-                CommonService.processBaseResponse(data, status, headers, config);
-                //$log.error("Error loading list assistant task");
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-            });
-        $scope.getClosingReason();
-    };
 
     $scope.getClosingReason = function(){
         //$log.debug("Loading Excel Task Commons: Closing reason");
-        $http({method: 'GET', url: '/exceltaskcommon/getClosingReason'}).
+        $http({method: 'GET', url: 'exceltaskcommon/getClosingReason'}).
             success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
                 $scope.closingReasonList = data.pairList;
@@ -68,33 +44,7 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
                 });
         }
     };
-/*
-    $scope.aplazar = function(){
-        //$log.debug("Postpone List Assistant task, task: ",$scope.tarea);
-        var postponeListAssistantTaskRequest = {
-            tarea:$scope.tarea,
-            prueba:'Hola'
-        };
 
-        console.log("Postpone List Assistant Task, request: ", postponeListAssistantTaskRequest);
-
-        $http({
-            method: 'PUT',
-            url: 'listassistanttask/aplazar',
-            data: postponeListAssistantTaskRequest
-        })
-            .success(function (data, status, headers, config) {
-                //$log.debug("Postpone done");
-                CommonService.processBaseResponse(data,status,headers,config);
-            })
-            .error(function (data, status, headers, config) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-                CommonService.processBaseResponse(data,status,headers,config);
-                //$log.error("Error executing postpone");
-            });
-    };
-*/
     $scope.descartar = function(){
         //$log.debug("Discard List Assistant task, task: ", $scope.tarea);
         var discardListAssistantTaskRequest = {
