@@ -151,8 +151,8 @@ public class TareaService {
             // Llamada WS crear tarea
             IclResponse iclResponse = cclIntegration.insertCallingListContact(ccIdentifier, applicationUser, ccUserId, insertValues,
                     date, hour, dialRule, timeFrom, timeUntil, callingList, campaing, numbers, country, ctrNo, isEquals);
-            //TODO establecer criterio de OK y KO
-            if (true) {
+
+            if (iclResponse!= null && iclResponse.getOperationResult().getResultCode() ==  200) {
                 result = true;
             } else {
                 result = false;
