@@ -31,6 +31,8 @@ public class TareaService {
     @Inject
     protected QueryTareaService queryTareaService;
     @Inject
+    protected AvisoService avisoService;
+    @Inject
     protected CCLIntegration cclIntegration;
     @Resource(name = "applicationUser")
     private String applicationUser;
@@ -49,8 +51,19 @@ public class TareaService {
         return this.delayTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCallingList(), tarea.getId().toString(), schedTime, recordType);
     }
 
+    /**
+     * Finalizar la tarea
+     * @param agent
+     * @param tarea
+     * @return
+     */
     public boolean finalizeTask(Agent agent,Tarea tarea) {
+        //1. Finalizar la Tarea
         boolean finalized = wsFilanizeTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId());
+        if (finalized) {
+            //2. Si la Tarea es de Tipo Aviso tendremos que finalizar el aviso
+
+        }
         return finalized;
     }
 

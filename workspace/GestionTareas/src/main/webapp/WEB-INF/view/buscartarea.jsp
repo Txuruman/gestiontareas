@@ -14,7 +14,7 @@
 
 </head>
 <body>
-<div class="container" ng-controller="taskSearch">
+<div class="container" ng-controller="taskSearch" ng-init="searchText='${lastSearchTareaRequest.searchText}';searchOption='${lastSearchTareaRequest.searchOption}'">
 
     <app:messages/>
     <div class="row">
@@ -46,12 +46,12 @@
                     <app:wrapping cells="4">
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                             <input id="phone" class="radio-inline" type="radio" name="options" ng-model="searchOption"
-                                   value="phone" ng-checked="true">
+                                   value="phone" >
                             <label for="phone"><spring:message code="eti.buscartarea.form.radio.telefono1"/></label>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                             <input id="customer" class="radio-inline" type="radio" name="options" ng-model="searchOption"
-                                   value="customer" ng-checked="false">
+                                   value="customer">
                             <label for="customer"><spring:message code="eti.buscartarea.form.radio.cliente"/></label>
                         </div>
                     </app:wrapping>

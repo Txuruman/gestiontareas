@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@Scope(value="session", proxyMode= ScopedProxyMode.TARGET_CLASS)
+@Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 @RequestMapping("/searchtarea")
 public class SearchTareaController extends TaskController {
 
@@ -44,6 +44,7 @@ public class SearchTareaController extends TaskController {
     @Inject
     protected MessageUtil messageUtil;
 
+    protected SearchTaskRequest lastSearchTareaRequest;
 
     @RequestMapping
     public ModelAndView handleRequest(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
@@ -54,7 +55,8 @@ public class SearchTareaController extends TaskController {
         Map<String, String> parametersMap = createParameterMap(hsr);
         //Crear el objeto de sesion con los datos del agent
         Agent agent = agentController.loadAgentFromIWS(parametersMap);
-
+        //Enviar a la pantalla los datos de la ultima búsqueda
+        mv.addObject("lastSearchTareaRequest",lastSearchTareaRequest);
         return mv;
     }
 
@@ -64,11 +66,12 @@ public class SearchTareaController extends TaskController {
     BaseResponse postpone(@RequestBody PostponeGenericTaskRequest request) {
         return super.delayTask(request.getTask(), request.getRecallType(), request.getDelayDate());
     }
-    
+
     @RequestMapping(value = "/query", method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
     SearchTareaResponse query(@RequestBody SearchTaskRequest request) {
+        this.lastSearchTareaRequest = request;
         String SERVICE_MESSAGE = "searchTarea";
         LOGGER.debug("Searching Tareas text:{} option:{}", request.getSearchText(), request.getSearchOption());
         SearchTareaResponse response;
@@ -82,8 +85,8 @@ public class SearchTareaController extends TaskController {
                 List<Tarea> listaTareas;
                 if (request.getSearchOption().equals(SearchTaskRequest.TELEPHONE)) {
                     agentController.getAgent().getIdAgent();
-                            agentController.getAgent().getAgentCountryJob();
-                           ;
+                    agentController.getAgent().getAgentCountryJob();
+                    ;
                     listaTareas = searchTareaService.findByPhone(
                             agentController.getAgent().getDesktopDepartment(),
                             agentController.getAgent().getIdAgent(),

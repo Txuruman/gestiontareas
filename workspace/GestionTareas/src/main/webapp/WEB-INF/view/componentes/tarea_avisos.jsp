@@ -71,8 +71,8 @@
 	                        <option data-ng-repeat="k in closingList" value="{{k.id}}" ng-selected="k.id==tarea.closing">{{k.id +" - "+ k.value}}</option>
 	                    </select>
 	                </app:input>
-	                <app:input id="closing" label="notificationTask.closingAdditionalData" cells="0" readonly="false">
-	                    <select ng-model="tarea.closing" convert-to-number class="form-control" ng-change="refeshDisabled=false">
+	                <app:input id="closingAdditionalData" label="notificationTask.closingAdditionalData" cells="0" readonly="false">
+	                    <select ng-model="tarea.closingAdditionalData" convert-to-number class="form-control" ng-change="refeshDisabled=false">
 	                        <option data-ng-repeat="k in datosAdicionalesList" value="{{k.id}}" ng-selected="k.id==tarea.datosAdicionalesCierre">{{k.id +" - "+ k.value}}</option>
 	                    </select>
 	                </app:input>
