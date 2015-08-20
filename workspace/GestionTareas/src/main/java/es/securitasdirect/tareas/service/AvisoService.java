@@ -71,67 +71,67 @@ public class AvisoService {
 
 
         /* <REQ></REQ> */
-        createReq.setIdReq("ATC");
-        createReq.setReqName("");
-        createReq.setReqLname1("");
-        createReq.setReqLname2("");
-        createReq.setReqCif("");
-        createReq.setReqEmpl("I24311");
+        createReq.setIdReq("ATC"); // TODO parametro bp_destktopDepartment
+        createReq.setReqName(""); // constante
+        createReq.setReqLname1(""); // constante
+        createReq.setReqLname2(""); // constante
+        createReq.setReqCif(""); // constante
+        createReq.setReqEmpl(idUser);
         /* <ASGTO></ASGTO>*/
-        createAsgto.setIdAsg("");
-        createAsgto.setIdUser("");
+        createAsgto.setIdAsg(""); // constante
+        createAsgto.setIdUser(idUser);
         /* <COMM></COMM>*/
-        createComm.setName("");
-        createComm.setlName1("");
-        createComm.setlName2("");
-        createComm.setInChannel("AUTO");
-        createComm.setValue("");
-        createComm.setComent("");
-        createComm.setOutChannel("");
-        createComm.setFrom("11");
-        createComm.setTo("18");
+        createComm.setName(""); // constante
+        createComm.setlName1(""); // constante
+        createComm.setlName2(""); // constante
+        createComm.setInChannel("TELF"); // constante
+        createComm.setValue(""); // TODO
+        createComm.setComent(""); // constante
+        createComm.setOutChannel(""); // constante
+        createComm.setFrom("00"); // TODO
+        createComm.setTo("23"); // TODO
         /* <OPCOD></OPCOD>*/
-        createOpcod.setCodKey1("200");
-        createOpcod.setCodKey2("210");
+        createOpcod.setCodKey1("200"); // TODO
+        createOpcod.setCodKey2("210"); // TODO
         /* <CLCOD></CLCOD>*/
-        createClcod.setCodKey3("");
-        createClcod.setCodKey4("");
+        createClcod.setCodKey3(""); // constante
+        createClcod.setCodKey4(""); // constante
 
         /* <ITEM></ITEM> */
-        createItem.setIdItemIBS("");
-        createItem.setCount("1");
-        createItem.setIdProblem("210");
-        createItem.setIdType("200");
+        createItem.setIdItemIBS(""); // constante
+        createItem.setCount("1");    // constante
+        createItem.setIdProblem("210"); // TODO
+        createItem.setIdType("200");    // TODO
         create_list_item.add(createItem);
 
         /* <ITEM></ITEM> */
-        createItem.setIdItemIBS("");
-        createItem.setCount("1");
-        createItem.setIdProblem("210");
-        createItem.setIdType("200");
+        createItem.setIdItemIBS(""); // constante
+        createItem.setCount("1");    // constante
+        createItem.setIdProblem("210"); // TODO
+        createItem.setIdType("200");    // TODO
         create_list_item.add(createItem);
 
 
         /*
          * <USER></USER>
          */
-        createTicket.getUser().setIdUser("I24311");
-        createTicket.getUser().setIdCountry("1");
-        createTicket.getUser().setIdLanguage("ES");
-        createTicket.getUser().setT("NOSESSION");
+        createTicket.getUser().setIdUser(idUser);
+        createTicket.getUser().setIdCountry(idCountry);
+        createTicket.getUser().setIdLanguage(idLanguage);
+        createTicket.getUser().setT("NOSESSION");  // constante
 
         /*
          *
          * <TICKET></TICKET>
          */
-        createTicket.getTicket().setNumInst("1606430");
-        createTicket.getTicket().setObserv("Texto Aviso");
-        createTicket.getTicket().setCodZIP("28030");
-        createTicket.getTicket().setCloseTicket("0");
-        createTicket.getTicket().setDataAditional("");
-        createTicket.getTicket().setNoteClose("");
-        createTicket.getTicket().setMorDebt("0");
-        createTicket.getTicket().setTypePanel("SDVFAST");
+        createTicket.getTicket().setNumInst("1606430"); // TODO
+        createTicket.getTicket().setObserv("Texto Aviso"); // TODO
+        createTicket.getTicket().setCodZIP("28030"); // TODO
+        createTicket.getTicket().setCloseTicket("0"); // constante
+        createTicket.getTicket().setDataAditional(""); // constante
+        createTicket.getTicket().setNoteClose(""); // constante
+        createTicket.getTicket().setMorDebt("0"); // constante
+        createTicket.getTicket().setTypePanel("SDVFAST"); // TODO
 
         /* <REQ></REQ>
          */
@@ -144,9 +144,9 @@ public class AvisoService {
         /*
          * <SVRQ></SVRQ>
          */
-        createTicket.getSvrq().setMakeSVRQ("0");
-        createTicket.getSvrq().setIdTec("");
-        createTicket.getSvrq().setInsBoli("0");
+        createTicket.getSvrq().setMakeSVRQ("0"); // constante
+        createTicket.getSvrq().setIdTec(""); // constante
+        createTicket.getSvrq().setInsBoli("0"); // constante
         createTicket.getSvrq().setItems(new ArrayList<Item>());
         createTicket.getSvrq().setItems(create_list_item);
 
