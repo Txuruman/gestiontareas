@@ -33,7 +33,7 @@ public abstract class TaskController extends BaseController{
      * @return
      */
     public BaseResponse delayTask(Tarea task, String recallType, Date delayDate) {
-        LOGGER.debug("Aplazando tarea {}  ", task ,delayDate, recallType);
+        LOGGER.debug("Aplazando tarea {} {} {}  ", task ,delayDate, recallType);
         BaseResponse response = new BaseResponse();
         //Llamada al servicio para aplazar
         try {
@@ -51,6 +51,33 @@ public abstract class TaskController extends BaseController{
             response = processException(e);
         }
         LOGGER.debug("Aplazamiento de tarea\nResponse:{}", response);
+        return response;
+    }
+
+
+    /**
+     * Procesamiento generico para finalizar una tarea
+     * @param task
+     * @return
+     */
+    public BaseResponse finalizeTask(Tarea task) {
+        assert task!=null: "Es necesario el parametro de la tarea";
+        LOGGER.debug("Finalizando tarea {}  ", task);
+        BaseResponse response = new BaseResponse();
+        //Llamada al servicio para finalizar
+        try {
+
+            Agent agent=agentController.getAgent();
+            boolean ok = tareaService.finalizeTask(agent, task);
+            if (ok) {
+                response.info(messageUtil.getProperty("finalize.success"));
+            }else{
+                response.info(messageUtil.getProperty("finalize.error"));
+            }
+        } catch (Exception e) {
+            response = processException(e);
+        }
+        LOGGER.debug("Finalizado de tarea\nResponse:{}", response);
         return response;
     }
 

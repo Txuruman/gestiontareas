@@ -12,8 +12,6 @@ public class DiscardKeyboxTaskRequest extends BaseRequest {
 
     private KeyboxTask task;
 
-    private String prueba;
-
     public DiscardKeyboxTaskRequest() {
     }
 
@@ -29,19 +27,10 @@ public class DiscardKeyboxTaskRequest extends BaseRequest {
         this.task = task;
     }
 
-    public String getPrueba() {
-        return prueba;
-    }
-
-    public void setPrueba(String prueba) {
-        this.prueba = prueba;
-    }
-
     @Override
     public String toString() {
         return "DiscardKeyboxTaskRequest{" +
                 "task=" + task +
-                ", prueba='" + prueba + '\'' +
                 '}';
     }
 }

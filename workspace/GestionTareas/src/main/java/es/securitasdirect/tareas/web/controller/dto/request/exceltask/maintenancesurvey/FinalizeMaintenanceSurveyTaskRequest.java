@@ -14,8 +14,6 @@ public class FinalizeMaintenanceSurveyTaskRequest extends BaseRequest {
 
     private MaintenanceSurveyTask task;
 
-    private String prueba;
-
     public FinalizeMaintenanceSurveyTaskRequest() {
     }
 
@@ -31,19 +29,11 @@ public class FinalizeMaintenanceSurveyTaskRequest extends BaseRequest {
         this.task = task;
     }
 
-    public String getPrueba() {
-        return prueba;
-    }
-
-    public void setPrueba(String prueba) {
-        this.prueba = prueba;
-    }
 
     @Override
     public String toString() {
         return "FinalizeMaintenanceSurveyTaskRequest{" +
                 "task=" + task +
-                ", prueba='" + prueba + '\'' +
                 '}';
     }
 }

@@ -125,26 +125,27 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,
             });
     };
 
+
     $scope.finalizar = function(){
-        //$log.debug("Finalizar Maintenance Survey task, task: ",$scope.tarea);
-        var finalizeMaintenanceSurveyTaskRequest = {
-            tarea:$scope.tarea
+        //$log.debug("Finalizar task: ",$scope.tarea);
+        var finalizeRequest = {
+            task:$scope.tarea
         };
-        //$log("Finalizar Maintenance Survey Task, request: ", finalizeMaintenanceSurveyTaskRequest);
+        //$log.debug("Finalizar  Task, request: ",finalizeRequest);
         $http({
             method: 'PUT',
             url: 'maintenancesurveytask/finalizar',
-            data: finalizeMaintenanceSurveyTaskRequest
+            data: finalizeRequest
         })
             .success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data,status,headers,config);
-                //$log.debug("Finalized maintenance survey task");
+                //$log.debug("Finalized task");
             })
             .error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data,status,headers,config);
-                //$log.error("Error finalizing maintenance survey task");
+                //$log.error("Error finalizing task");
             });
     };
 

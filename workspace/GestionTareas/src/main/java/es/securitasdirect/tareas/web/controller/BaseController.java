@@ -33,9 +33,9 @@ public abstract class BaseController {
      * @return
      */
     protected BaseResponse processException(Exception exception) {
-        LOGGER.error("Server error {}" , exception.getMessage());
+        LOGGER.error("Server error {}" , exception.getMessage(),exception);
         BaseResponse response = new BaseResponse();
-        response.danger(exception.getMessage());
+        response.danger(messageUtil.getProperty("exception", exception.getMessage()));
         return response;
     }
 

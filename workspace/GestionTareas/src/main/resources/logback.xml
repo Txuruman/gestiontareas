@@ -35,6 +35,7 @@ See here for more details: http://gordondickens.com/wordpress/2013/03/27/sawing-
     <logger name="es.securitasdirect" level="debug"/>
     <logger name="org.apache.cxf" level="info"/>
     <logger name="javax.xml.stream" level="info"/>
+    <logger name="org.springframework.web" level="info"/>
 
     <!-- Uncomment and add your logger here:
      <logger name="org.springframework.samples.service.service" level="debug"/> -->

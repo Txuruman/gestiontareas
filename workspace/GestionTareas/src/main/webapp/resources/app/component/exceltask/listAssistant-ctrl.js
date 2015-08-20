@@ -69,26 +69,27 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
             });
     };
 
+
     $scope.finalizar = function(){
         //$log.debug("Finalizar List Assistant task, task: ",$scope.tarea);
-        var finalizeListAssistantTaskRequest = {
-            tarea:$scope.tarea
+        var finalizeRequest = {
+            task:$scope.tarea
         };
-        //$log.debug("Finalizar List Assistant Task, request: ",finalizeListAssistantTaskRequest);
+        //$log.debug("Finalizar  Task, request: ",finalizeRequest);
         $http({
             method: 'PUT',
             url: 'listassistanttask/finalizar',
-            data: finalizeListAssistantTaskRequest
+            data: finalizeRequest
         })
             .success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data,status,headers,config);
-                //$log.debug("Finalized list assistant task");
+                //$log.debug("Finalized task");
             })
             .error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data,status,headers,config);
-                //$log.error("Error finalizing list assistant task");
+                //$log.error("Error finalizing task");
             });
     };
 
