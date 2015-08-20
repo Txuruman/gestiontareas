@@ -18,6 +18,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -171,31 +172,45 @@ public class AvisoService {
     }
 
 
-    public boolean delayTicket(Integer naviso, String gblidusr, String idaplaza, Date fhasta, String cnota) throws Exception {
+    public boolean delayTicket(Integer naviso, String gblidusr, String idaplaza, String fhasta, String cnota) throws Exception {
 
-
+        boolean  result = false;
         try {
-            List<RowErrorAA> rowErrorAAs = spAvisosOperaciones.aplazarAviso(naviso, gblidusr, idaplaza, fhasta.toString(), cnota);
+            List<RowErrorAA> rowErrorAAs = spAvisosOperaciones.aplazarAviso(naviso, gblidusr, idaplaza, fhasta, cnota);
             //TODO Debug para ver que devuelve y controlar si hay errores devolver
+            if(rowErrorAAs != null && rowErrorAAs.size()==1
+                    && ((RowErrorAA)((List)rowErrorAAs).get(0)).getReturnCode() != null
+                    && ((RowErrorAA)((List)rowErrorAAs).get(0)).getReturnCode().equals(new BigInteger("0"))   )
+            {
+                result = true;
+            } else
             if (rowErrorAAs != null && !rowErrorAAs.isEmpty()) {
                 LOGGER.error("Error aplazando aviso {}", naviso);
-                return false;
-            }
-            } catch (DataServiceFault e) {
-                LOGGER.error("Error aplazando aviso", e);
-                return false;
+                result = false;
             }
 
-        return  true;
+        } catch (DataServiceFault e) {
+            LOGGER.error("Error aplazando aviso", e);
+            return false;
+        }
+        return result;
+
     }
 
-
+    /*
     public boolean reassignmentTicket(Integer naviso, String idempleado, String gblidusr) throws Exception {
 
-
+        boolean  result = false;
         try {
             List<RowErrorRA> rowErrorRAs = spAvisosOperaciones.reasignarAviso(naviso, idempleado, gblidusr);
             //TODO Debug para ver que devuelve y controlar si hay errores devolver
+            if(rowErrorRAs != null && rowErrorRAs.size()==1
+                    && ((RowErrorCA)((List)rowErrorRAs).get(0)).getReturnCode() != null
+                    && ((RowErrorCA)((List)rowErrorRAs).get(0)).getReturnCode().equals(new BigInteger("0"))   )
+            {
+                result = true;
+            } else
+
             if (rowErrorRAs != null && !rowErrorRAs.isEmpty()) {
                 LOGGER.error("Error reasignando aviso {}", naviso);
                 return false;
@@ -207,27 +222,39 @@ public class AvisoService {
 
         return  true;
     }
+    */
 
 
     public boolean closeTicket(Integer naviso,
                                String idmat,
                                String cnota,
-                               String statusdest,
+                               //String statusdest,
                                Integer deuda,
                                Integer idmante,
                                Integer branch,
                                Integer tcierre,
-                               String adicional) throws Exception {
+                               String adicional,
+                               boolean finalizarDesdeCrearMantenimiento) throws Exception {
 
+        // “2” si se finaliza 	“3” si se finaliza por crear un Mantenimiento
+        String statusdest = "2";
+        if(finalizarDesdeCrearMantenimiento) statusdest = "3";
 
+        boolean  result = false;
         try {
             List<RowErrorCA> rowErrorCAs = spAvisosOperaciones.cerrarAviso(naviso, idmat, cnota, statusdest,
                     deuda, idmante, branch, tcierre, adicional);
             //TODO Debug para ver que devuelve y controlar si hay errores devolver
+            if(rowErrorCAs != null && rowErrorCAs.size()==1
+                    && ((RowErrorCA)((List)rowErrorCAs).get(0)).getReturnCode() != null
+                    && ((RowErrorCA)((List)rowErrorCAs).get(0)).getReturnCode().equals(new BigInteger("0"))   )
+            {
+                result = true;
+            } else
             if (rowErrorCAs != null && !rowErrorCAs.isEmpty()) {
-                LOGGER.error("Error cerrando aviso {}", naviso);
-                return false;
-            }
+                    LOGGER.error("Error cerrando aviso {}", naviso);
+                    return false;
+             }
         } catch (DataServiceFault e) {
             LOGGER.error("Error cerrando aviso", e);
             return false;
