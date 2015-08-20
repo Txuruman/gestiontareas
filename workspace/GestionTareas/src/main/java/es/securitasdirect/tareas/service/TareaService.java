@@ -1,6 +1,7 @@
 package es.securitasdirect.tareas.service;
 
 import com.webservice.CCLIntegration;
+import com.webservice.CCLIntegrationService;
 import com.webservice.WsResponse;
 import es.securitasdirect.tareas.model.*;
 import org.slf4j.Logger;
@@ -34,6 +35,8 @@ public class TareaService {
     protected AvisoService avisoService;
     @Inject
     protected CCLIntegration cclIntegration;
+    @Inject
+    protected CCLIntegrationService cclIntegrationService;
     @Resource(name = "applicationUser")
     private String applicationUser;
 
@@ -114,6 +117,7 @@ public class TareaService {
         boolean result;
         try {
             //TODO Llamada WS crear tarea
+            //cclIntegrationService.insertCallingListContact();
             //TODO establecer criterio de OK y KO
             if (true) {
                 result = true;
