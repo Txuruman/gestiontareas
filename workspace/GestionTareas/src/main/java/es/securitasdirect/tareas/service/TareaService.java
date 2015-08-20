@@ -2,8 +2,10 @@ package es.securitasdirect.tareas.service;
 
 import com.webservice.CCLIntegration;
 import com.webservice.CCLIntegrationService;
+import com.webservice.IclResponse;
 import com.webservice.WsResponse;
 import es.securitasdirect.tareas.model.*;
+import net.java.dev.jaxb.array.StringArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wso2.ws.dataservice.*;
@@ -35,8 +37,6 @@ public class TareaService {
     protected AvisoService avisoService;
     @Inject
     protected CCLIntegration cclIntegration;
-    @Inject
-    protected CCLIntegrationService cclIntegrationService;
     @Resource(name = "applicationUser")
     private String applicationUser;
 
@@ -45,6 +45,8 @@ public class TareaService {
 
     @Resource(name = "datosCierreTareaAviso")
     protected Map<String, Map<Integer, String>> datosCierreTareaAviso;
+
+
 
     /**
      * Aplazar: muestra un diálogo en modo modal para introducir la fecha y hora de la reprogramación,
@@ -112,12 +114,28 @@ public class TareaService {
 
     }
 
-    public boolean createTask(Agent agent,TareaMantenimiento tarea) {
-        LOGGER.debug("Creating task: {}", tarea);
+    public boolean createTask(Agent agent,TareaMantenimiento tareaMantenimiento) {
+        LOGGER.debug("Creating task: {}", tareaMantenimiento);
         boolean result;
         try {
+            // TODO rellenar las variables
+            String ccIdentifier= agent.getAgentGroupSD();
+            String ccUserId = agent.getIdAgent();
+            List<StringArray> insertValues = new ArrayList<StringArray>();
+            String date = "";
+            String hour = "";
+            String dialRule = ""; // constante
+            String timeFrom = ""; // constante
+            String timeUntil = ""; // constante
+            String callingList = Constants.TAREA_MANTENIMIENTO; // constante
+            String campaing = Constants.TAREA_MANTENIMIENTO; // constante
+            List<StringArray> numbers = new ArrayList<StringArray>();
+            String country = agent.getAgentCountryJob();
+            String ctrNo = tareaMantenimiento.getNumeroInstalacion();
+            String isEquals = "true"; // constante
             //TODO Llamada WS crear tarea
-            //cclIntegrationService.insertCallingListContact();
+            IclResponse iclResponse = cclIntegration.insertCallingListContact(ccIdentifier, applicationUser, ccUserId, insertValues,
+                    date, hour, dialRule, timeFrom, timeUntil, callingList, campaing, numbers, country, ctrNo, isEquals);
             //TODO establecer criterio de OK y KO
             if (true) {
                 result = true;
