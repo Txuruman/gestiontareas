@@ -53,9 +53,10 @@ public class AvisoServiceTest {
     @Test
     public void createTicketTest() throws Exception {
 
-        String idUser = "I24311";
-        String idCountry = "1";
-        String idLanguage = "ES";
+        Agent agent = DummyGenerator.getAgent();
+        String idUser = agent.getIdAgent();
+        String idCountry = agent.getAgentCountryJob();
+        String idLanguage = agent.getCurrentLanguage();
 
         avisoService.createTicket(
                 idUser,
@@ -131,8 +132,6 @@ public class AvisoServiceTest {
         String idmat = agent.getIdAgent();
         String cnota = ((TareaAviso)tarea).getObservaciones();
         boolean finalizarDesdeCrearMantenimiento = false;
-        //String statusdest = "2";
-        //if(finalizarDesdeCrearMantenimiento) statusdest = "3";
         Integer deuda = 0;
         Integer idmante = 0;
         Integer branch = 0;
