@@ -92,14 +92,14 @@ public class AvisoService {
         createComm.setlName1(""); // constante
         createComm.setlName2(""); // constante
         createComm.setInChannel("TELF"); // constante
-        createComm.setValue(""); // TODO
+        createComm.setValue(tareaAviso.getTelefono());
         createComm.setComent(""); // constante
         createComm.setOutChannel(""); // constante
-        createComm.setFrom("00"); // TODO
-        createComm.setTo("23"); // TODO
+        createComm.setFrom(tareaAviso.getHorarioDesde());
+        createComm.setTo(tareaAviso.getHorarioHasta());
         /* <OPCOD></OPCOD>*/
-        createOpcod.setCodKey1("200"); // TODO
-        createOpcod.setCodKey2("210"); // TODO
+        createOpcod.setCodKey1(tareaAviso.getTipoAviso1());
+        createOpcod.setCodKey2(tareaAviso.getMotivo1());
         /* <CLCOD></CLCOD>*/
         createClcod.setCodKey3(""); // constante
         createClcod.setCodKey4(""); // constante
@@ -137,8 +137,8 @@ public class AvisoService {
          *
          * <TICKET></TICKET>
          */
-        createTicket.getTicket().setNumInst("1606430"); // TODO
-        createTicket.getTicket().setObserv("Texto Aviso"); // TODO
+        createTicket.getTicket().setNumInst(tareaAviso.getNumeroInstalacion());
+        createTicket.getTicket().setObserv(tareaAviso.getObservaciones());
         createTicket.getTicket().setCodZIP("28030"); // TODO
         createTicket.getTicket().setCloseTicket("0"); // constante
         createTicket.getTicket().setDataAditional(""); // constante
