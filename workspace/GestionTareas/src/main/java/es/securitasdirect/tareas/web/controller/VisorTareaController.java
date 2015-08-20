@@ -152,14 +152,6 @@ public class VisorTareaController extends TaskController {
 
     }
 
-    //MV DSE RESPUESTA PARA CREARTAREA EL MAPEO ESTA DENTRO DEL VISOR Y SE LLAMA ASÍ:
-    // visortarea/creartarea.htm <---- FIJARSE NO PONER LA BARRA (/) AL PRINCIPIO PARA EVITAR LLAMAR A LA RAIZ DEL SITIO Y NO DE LA APLICACION.
-
-    @RequestMapping("/creartarea.htm")
-    public ModelAndView HrCrearTarea(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
-        ModelAndView mv = new ModelAndView("creartarea");
-        return mv;
-    }
 
 
 
