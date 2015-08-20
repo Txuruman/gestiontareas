@@ -161,18 +161,6 @@ public class VisorTareaController extends TaskController {
         return mv;
     }
 
-    public void aplazar() {
-        //TODO Jesus me tienes que pasar el idAviso
-        LOGGER.debug("Aplazando tarea idAviso:{}", "xxxxxx");
-    }
-
-    public void llamar() {
-
-    }
-
-    public void finalizar() {
-
-    }
 
 
 }

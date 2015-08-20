@@ -1,5 +1,11 @@
-<ul class="nav nav-tabs nav-justified">
-    <%--<li class="${tecla1}"><a href="visortarea.htm">Tarea</a></li>--%>
-    <li class="${tecla2}"><a href="${pageContext.request.contextPath}/searchtarea.htm"><strong>Buscar tarea</strong></a></li>
-    <li class="${tecla3}"><a href="${pageContext.request.contextPath}/visortarea/creartarea.htm">Crear tarea</a></li>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="app" tagdir="/WEB-INF/tags" %> 
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<ul class="nav nav-tabs nav-justified"> 
+    <li class="${fn:contains(pageContext.request.servletPath,'buscar')?'activeTab':''}"><a href="${pageContext.request.contextPath}/searchtarea.htm">Buscar tarea</a></li>
+    <li class="${fn:contains(pageContext.request.servletPath,'crear')?'activeTab':''}"><a href="${pageContext.request.contextPath}/visortarea/creartarea.htm">Crear tarea </a></li>
 </ul>
