@@ -18,9 +18,10 @@
             </div>
             <div class="spacer_t1"></div>
             <div class="row">
-                <app:inputTextNG id="requeridoPor" label="tareaAviso.requeridoPor" value="tarea.requeridoPor" cells="6" readonly="true"/>
-                <app:inputTextNG id="horarioDesde" label="tareaAviso.horarioDesde" value="tarea.horarioDesde" cells="3" readonly="false"/>
-                <app:inputTextNG id="horarioHasta" label="tareaAviso.horarioHasta" value="tarea.horarioHasta" cells="3" readonly="false"/>
+                <app:inputTextNG id="requeridoPor" label="tareaAviso.requeridoPor" value="tarea.requeridoPor" cells="6" readonly="false"/>
+                <app:inputTextNG id="horarioDesde" label="tareaAviso.horarioDesde" value="tarea.horarioDesde" cells="3" readonly="false" ng_keypress="onlyNumber($event,true,tarea.horarioDesde.length)"/>
+                <app:inputTextNG id="horarioHasta" label="tareaAviso.horarioHasta" value="tarea.horarioHasta" cells="3" readonly="false" ng_keypress="onlyNumber($event,true,tarea.horarioHasta.length)"/>
+
             </div>
             <div class="spacer_t1"></div>
             <div class="row">
@@ -64,23 +65,25 @@
             <!-- row -->
             <div class="spacer_t1"></div>
             <div class="row">
-                <app:input id="closing" label="notificationtask.closing" cells="6" readonly="false">
-                    <select ng-model="tarea.closing" convert-to-number class="form-control" ng-change="refeshDisabled=false; ">
-                        <option data-ng-repeat="k in closingList" value="{{k.id}}" ng-selected="k.id==tarea.closing">{{k.id +" - "+ k.value}}</option>
-                    </select>
-                </app:input>
-                <app:input id="closing" label="notificationTask.closingAdditionalData" cells="6" readonly="false">
-                    <select ng-model="tarea.datosAdicionalesCierre" convert-to-number class="form-control" ng-change="refeshDisabled=false">
-                        <option data-ng-repeat="k in datosAdicionalesList" value="{{k.id}}" ng-selected="k.id==tarea.datosAdicionalesCierre">{{k.id +" - "+ k.value}}</option>
-                    </select>
-                </app:input>
+            	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+	                <app:input id="closing" label="notificationtask.closing" cells="0" readonly="false" >
+	                    <select ng-model="tarea.closing" convert-to-number class="form-control marginBottom5" ng-change="refeshDisabled=false;  ">
+	                        <option data-ng-repeat="k in closingList" value="{{k.id}}" ng-selected="k.id==tarea.closing">{{k.id +" - "+ k.value}}</option>
+	                    </select>
+	                </app:input>
+	                <app:input id="closing" label="notificationTask.closingAdditionalData" cells="0" readonly="false">
+	                    <select ng-model="tarea.closing" convert-to-number class="form-control" ng-change="refeshDisabled=false">
+	                        <option data-ng-repeat="k in datosAdicionalesList" value="{{k.id}}" ng-selected="k.id==tarea.datosAdicionalesCierre">{{k.id +" - "+ k.value}}</option>
+	                    </select>
+	                </app:input>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                	<app:textAreaNG id="observaciones" label="eti.visortarea.tareaavisos.form.label.observaciones" value="tarea.observaciones" cell_label="4" cell_input="8"/>
+                </div>
                 <!-- subrow -->
                 <div class="spacer_t1"></div>
             </div>
             <div class="spacer_t1"></div>
-            <div class="row">
-                <app:textAreaNG id="observaciones" label="eti.visortarea.tareaavisos.form.label.observaciones" value="tarea.observaciones" cell_label="2" cell_input="10"/>
-            </div>
             <div class="spacer_t2"></div>
         </div>
     </div>

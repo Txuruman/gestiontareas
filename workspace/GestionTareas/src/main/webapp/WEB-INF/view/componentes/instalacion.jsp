@@ -27,7 +27,7 @@
             <app:inputTextNG id="personaContacto" label="visortarea.personacontacto"
                              value="tarea.personaContacto" cells="6" readonly="false"/>
             <app:inputTextNG id="telefono" label="visortarea.telefono" value="tarea.telefono" cells="6"
-                             readonly="false" type="text"/>
+                             readonly="false" type="text"  ng_keypress="onlyNumber($event,false)" />
         </div>
         <!-- Datos de la Instalacion  - End -->
     </div>

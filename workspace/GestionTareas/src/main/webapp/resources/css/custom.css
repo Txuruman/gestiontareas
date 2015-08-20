@@ -156,3 +156,6 @@ span.error{
     color: rgb(235,0,0);
     font-weight: bold;
 }
+.marginBottom5{
+	margin-bottom:5px !important; 
+}

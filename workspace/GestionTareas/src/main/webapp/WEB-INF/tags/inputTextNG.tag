@@ -12,7 +12,7 @@
 <%@ attribute name="cell_label" required="false"  description="The maximun cells label in parent space" type="java.lang.Integer" %>
 <%@ attribute name="cell_input" required="false"  description="The maximun cells label in parent space" %>
 <%@ attribute name="type" required="false"  description="The maximun cells label in parent space" %>
-
+<%@ attribute name="ng_keypress" required="false"  description="KeyPress event" %>
 
 <c:if test="${cell_label == null}">
     <c:set var="cell_label" value="4"/>
@@ -49,10 +49,11 @@
                id="${id}"
                name="${id}"
                class="form-control input-custom-global"
-               ng-model="${value}"
+               ng-model="${value}" 
                maxlength="${maxlength}"
                pattern="${pattern}"
-               ${readonly=="true" ? "disabled" : ""}
-                />
+               <c:if test="${not empty ng_keypress}">
+               	ng-keypress="<c:out value="${ng_keypress}"/>"
+           		</c:if>  />
     </div>
 </div>
