@@ -64,7 +64,6 @@ public class AvisoServiceTest {
                 idLanguage);
     }
 
-
     @Test
     public void updateTicketTest() throws Exception {
 /*
@@ -93,32 +92,11 @@ public class AvisoServiceTest {
         Date fecha = new Date();
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy' 'HH:mm:ss");
         String fhasta =format.format(fecha);
-        String cnota = "texo nota";
-        boolean ok = avisoService.delayTicket(naviso, gblidusr, idaplaza, fhasta, cnota);
+        boolean ok = avisoService.delayTicket(naviso, gblidusr, idaplaza, fhasta);
 
         assertThat(ok, is(true));
 
     }
-
-    /*
-    @Test
-    public void reassignmentTicketTest() throws Exception {
-        Agent agent = DummyGenerator.getAgent();
-        String callingList = "CL_CCT_ATT_Averia_Test";
-        String idTarea = "1";
-        Tarea tarea = queryTareaService.queryTarea(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), callingList, idTarea);
-        assertThat(tarea, notNullValue());
-
-        Integer naviso = ((TareaAviso)tarea).getIdAviso();
-        String idempleado = "1"; // TODO
-        String gblidusr = "2";   // TODO
-        boolean ok = avisoService.reassignmentTicket(naviso, idempleado, gblidusr);
-
-        assertThat(ok, is(true));
-
-    }
-    */
-
 
     @Test
     public void closeTicketTest() throws Exception {
@@ -132,9 +110,6 @@ public class AvisoServiceTest {
         String idmat = agent.getIdAgent();
         String cnota = ((TareaAviso)tarea).getObservaciones();
         boolean finalizarDesdeCrearMantenimiento = false;
-        Integer deuda = 0;
-        Integer idmante = 0;
-        Integer branch = 0;
         //Integer tcierre = Integer.parseInt(  ((TareaAviso)tarea).getClosing() );
         Integer tcierre = 1; // TODO desde pantalla. Valor de la tabla TIPOCIERRE. llegan caracteres y no se puede convertir a entero.
         String adicional = ((TareaAviso)tarea).getDatosAdicionalesCierre();
@@ -142,10 +117,6 @@ public class AvisoServiceTest {
         boolean ok = avisoService.closeTicket(naviso,
                 idmat,
                 cnota,
-                //statusdest,
-                deuda,
-                idmante,
-                branch,
                 tcierre,
                 adicional,
                 finalizarDesdeCrearMantenimiento
