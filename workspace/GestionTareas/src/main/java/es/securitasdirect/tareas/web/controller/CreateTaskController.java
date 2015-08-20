@@ -1,5 +1,8 @@
 package es.securitasdirect.tareas.web.controller;
 
+import es.securitasdirect.tareas.model.Agent;
+import es.securitasdirect.tareas.model.DummyGenerator;
+import es.securitasdirect.tareas.model.TareaMantenimiento;
 import es.securitasdirect.tareas.service.TareaService;
 import es.securitasdirect.tareas.web.controller.dto.request.createtask.CreateMaintenanceRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.createtask.CreateTaskRequest;
@@ -40,7 +43,8 @@ public class CreateTaskController extends BaseController {
         BaseResponse response;
         try{
             LOGGER.debug("Create task request: {}", request);
-            boolean result = tareaService.createTask(request.getTask());
+            Agent agent = DummyGenerator.getAgent();
+            boolean result = tareaService.createTask(agent,  (TareaMantenimiento)request.getTask());
             LOGGER.debug("Created task result: {}", result);
             response = processSuccessMessages(result, SERVICE_MESSAGE);
         }catch(Exception e){
