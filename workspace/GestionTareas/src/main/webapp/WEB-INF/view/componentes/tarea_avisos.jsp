@@ -30,7 +30,7 @@
                     </select>
                 </app:input>
                 <app:input id="motivo1" label="eti.visortarea.form.label.reason" cells="6">
-                    <select  ng-model="tarea.motivo1" convert-to-number class="form-control" ng-change="refeshDisabled=false">
+                    <select  ng-model="tarea.motivo1" convert-to-number class="form-control" ng-change="refeshDisabled=false; getClosingList(tarea.tipoAviso1,tarea.tipoMotivo1,tarea.closing)">
                         <option data-ng-repeat="itemMotivo1 in motivoList1" value="{{itemMotivo1.id}}" ng-selected="itemMotivo1.id==tarea.motivo1" >{{itemMotivo1.id +" - "+ itemMotivo1.value}}</option>
                     </select>
                 </app:input>
@@ -65,12 +65,12 @@
             <div class="spacer_t1"></div>
             <div class="row">
                 <app:input id="closing" label="notificationtask.closing" cells="6" readonly="false">
-                    <select ng-model="tarea.closing" convert-to-number class="form-control" ng-change="refeshDisabled=false; getClosingAditionalDataList(tarea.closing)">
+                    <select ng-model="tarea.closing" convert-to-number class="form-control" ng-change="refeshDisabled=false; ">
                         <option data-ng-repeat="k in closingList" value="{{k.id}}" ng-selected="k.id==tarea.closing">{{k.id +" - "+ k.value}}</option>
                     </select>
                 </app:input>
                 <app:input id="closing" label="notificationTask.closingAdditionalData" cells="6" readonly="false">
-                    <select ng-model="tarea.closing" convert-to-number class="form-control" ng-change="refeshDisabled=false">
+                    <select ng-model="tarea.datosAdicionalesCierre" convert-to-number class="form-control" ng-change="refeshDisabled=false">
                         <option data-ng-repeat="k in datosAdicionalesList" value="{{k.id}}" ng-selected="k.id==tarea.datosAdicionalesCierre">{{k.id +" - "+ k.value}}</option>
                     </select>
                 </app:input>

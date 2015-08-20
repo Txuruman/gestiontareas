@@ -248,9 +248,6 @@ public class TareaServiceTools {
         tarea.setHorarioHasta(avisobyIdResult.getHasta().toString());//TODO FORMATO
         tarea.setDatosContacto(avisobyIdResult.getContacto());
 
-        tarea.setClosing("Campo desconocido en WS");
-        tarea.setDatosAdicionalesCierre("Campo desconocido en WS");
-
         return tarea;
     }
 
@@ -270,8 +267,8 @@ public class TareaServiceTools {
                 if (item != null) {
                     if (item.getCampo() != null && item.getValor() != null) {
                         responseMap.put(item.getCampo(), item.getValor());
-                    } else if (item.getCampo() != null && item.getValor() == null) {
-                        responseMap.put(item.getCampo(), ""); //TODO QUITAR
+                    } else if (item.getCampo() != null) {
+                        responseMap.put(item.getCampo(), null);
                     }
                 }
             }

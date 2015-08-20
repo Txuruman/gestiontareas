@@ -294,21 +294,19 @@
             </xs:complexType>
             <xs:element name="getClosingTypeAditionalData">
                 <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="closingTypeId" nillable="true" type="xs:string"/>
-                    </xs:sequence>
+                    <xs:sequence/>
                 </xs:complexType>
             </xs:element>
-            <xs:element name="TiposDatosAdicionalesTipoCierre" type="ns0:TiposDatosAdicionalesTipoCierre"/>
-            <xs:complexType name="TiposDatosAdicionalesTipoCierre">
+            <xs:element name="Entries" type="ns0:Entries"/>
+            <xs:complexType name="Entries">
                 <xs:sequence>
-                    <xs:element maxOccurs="unbounded" minOccurs="0" name="TipoDatosAdicionalesTipoCierre" type="ns0:TipoDatosAdicionalesTipoCierre"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="Entry" type="ns0:Entry"/>
                 </xs:sequence>
             </xs:complexType>
-            <xs:complexType name="TipoDatosAdicionalesTipoCierre">
+            <xs:complexType name="Entry">
                 <xs:sequence>
                     <xs:element name="id" nillable="true" type="xs:string"/>
-                    <xs:element name="valor" nillable="true" type="xs:string"/>
+                    <xs:element name="description" nillable="true" type="xs:string"/>
                 </xs:sequence>
             </xs:complexType>
             <xs:element name="getKey1DIY">
@@ -377,7 +375,7 @@
         <wsdl:part name="parameters" element="ns0:getClosingTypeAditionalData"/>
     </wsdl:message>
     <wsdl:message name="getClosingTypeAditionalDataResponse">
-        <wsdl:part name="parameters" element="ns0:TiposDatosAdicionalesTipoCierre"/>
+        <wsdl:part name="parameters" element="ns0:Entries"/>
     </wsdl:message>
     <wsdl:message name="getContractNumberRequest">
         <wsdl:part name="parameters" element="ns0:getContractNumber"/>
@@ -432,7 +430,7 @@
     </wsdl:message>
     <wsdl:portType name="SP_AIO_TAREAS2PortType">
         <wsdl:operation name="getTipoAviso">
-            <wsdl:documentation>Consulta tipos de aviso de la tabla VW_TIPOS</wsdl:documentation>
+            <wsdl:documentation>Consulta tipos de aviso de la tabla VW_TIPOS                                                                  &#xd;                                    </wsdl:documentation>
             <wsdl:input message="ns0:getTipoAvisoRequest" wsaw:Action="urn:getTipoAviso"/>
             <wsdl:output message="ns0:getTipoAvisoResponse" wsaw:Action="urn:getTipoAvisoResponse"/>
             <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:getTipoAvisoDataServiceFault"/>
@@ -472,7 +470,7 @@
             <wsdl:input message="ns0:setAvisoCargadoRequest" wsaw:Action="urn:setAvisoCargado"/>
         </wsdl:operation>
         <wsdl:operation name="getClosingTypeAditionalData">
-            <wsdl:documentation/>
+            <wsdl:documentation>Consulta de Tipos de Datos Adicionales de Cierre para Tareas tipo Aviso                             &#xd;                                    </wsdl:documentation>
             <wsdl:input message="ns0:getClosingTypeAditionalDataRequest" wsaw:Action="urn:getClosingTypeAditionalData"/>
             <wsdl:output message="ns0:getClosingTypeAditionalDataResponse" wsaw:Action="urn:getClosingTypeAditionalDataResponse"/>
             <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:getClosingTypeAditionalDataDataServiceFault"/>
@@ -512,9 +510,7 @@
             <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:getInstallationDataDataServiceFault"/>
         </wsdl:operation>
         <wsdl:operation name="getTipoMotivo">
-            <wsdl:documentation>
-                Obtiene los tipos de Motivo dependiendo del Tipo de Aviso
-            </wsdl:documentation>
+            <wsdl:documentation>Obtiene los tipos de Motivo dependiendo del Tipo de Aviso                                                                        &#xd;                                    </wsdl:documentation>
             <wsdl:input message="ns0:getTipoMotivoRequest" wsaw:Action="urn:getTipoMotivo"/>
             <wsdl:output message="ns0:getTipoMotivoResponse" wsaw:Action="urn:getTipoMotivoResponse"/>
             <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:getTipoMotivoDataServiceFault"/>
