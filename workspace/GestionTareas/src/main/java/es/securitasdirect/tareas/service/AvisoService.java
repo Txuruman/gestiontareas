@@ -4,6 +4,7 @@ import com.webservice.CCLIntegration;
 import com.webservice.WsResponse;
 import es.securitasdirect.tareas.model.Agent;
 import es.securitasdirect.tareas.model.Tarea;
+import es.securitasdirect.tareas.model.TareaAviso;
 import es.securitasdirect.tareas.model.tickets.*;
 import es.securitasdirect.tareas.model.tickets.operations.CreateTicket;
 import es.securitasdirect.tareas.model.tickets.responses.DATA;
@@ -51,7 +52,7 @@ public class AvisoService {
     /**
      * creacion del XML para crear un Aviso. Se hace a través de un WS disponible para la aplicación de Tickets.
      */
-    public void createTicket(Agent agent){
+    public void createTicket(Agent agent, TareaAviso tareaAviso){
 
         String idUser = agent.getIdAgent();
         String idCountry = agent.getAgentCountryJob();
@@ -106,17 +107,23 @@ public class AvisoService {
         /* <ITEM></ITEM> */
         createItem.setIdItemIBS(""); // constante
         createItem.setCount("1");    // constante
-        createItem.setIdProblem("210"); // TODO
-        createItem.setIdType("200");    // TODO
+        createItem.setIdProblem(tareaAviso.getMotivo1());
+        createItem.setIdType(tareaAviso.getTipoAviso1());
         create_list_item.add(createItem);
 
         /* <ITEM></ITEM> */
         createItem.setIdItemIBS(""); // constante
         createItem.setCount("1");    // constante
-        createItem.setIdProblem("210"); // TODO
-        createItem.setIdType("200");    // TODO
+        createItem.setIdProblem(tareaAviso.getMotivo2());
+        createItem.setIdType(tareaAviso.getTipoAviso2());
         create_list_item.add(createItem);
 
+        /* <ITEM></ITEM> */
+        createItem.setIdItemIBS(""); // constante
+        createItem.setCount("1");    // constante
+        createItem.setIdProblem(tareaAviso.getMotivo3());
+        createItem.setIdType(tareaAviso.getTipoAviso3());
+        create_list_item.add(createItem);
 
         /*
          * <USER></USER>
