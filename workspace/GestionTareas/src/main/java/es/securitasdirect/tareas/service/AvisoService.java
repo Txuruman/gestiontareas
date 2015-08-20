@@ -51,9 +51,12 @@ public class AvisoService {
     /**
      * creacion del XML para crear un Aviso. Se hace a través de un WS disponible para la aplicación de Tickets.
      */
-    public void createTicket(String idUser, String idCountry, String idLanguage){
+    public void createTicket(Agent agent){
 
-
+        String idUser = agent.getIdAgent();
+        String idCountry = agent.getAgentCountryJob();
+        String idLanguage = agent.getCurrentLanguage();
+        String idReq = agent.getDesktopDepartment();
 
         /*
          * Estructura del XML
@@ -74,7 +77,7 @@ public class AvisoService {
 
 
         /* <REQ></REQ> */
-        createReq.setIdReq("ATC"); // TODO parametro bp_destktopDepartment
+        createReq.setIdReq(idReq);
         createReq.setReqName(""); // constante
         createReq.setReqLname1(""); // constante
         createReq.setReqLname2(""); // constante
