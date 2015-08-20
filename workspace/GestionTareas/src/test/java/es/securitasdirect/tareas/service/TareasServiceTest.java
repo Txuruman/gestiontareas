@@ -120,7 +120,7 @@ public class TareasServiceTest {
 
         Agent agent = DummyGenerator.getAgent();
         String callingList = "CL_TAREAS_DIY";
-        String idTarea = "2";
+        String idTarea = "1";
         TareaMantenimiento tareaMantenimiento = (TareaMantenimiento)queryTareaService.queryTarea(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), callingList, idTarea);
         assertThat(tareaMantenimiento, notNullValue());
 
