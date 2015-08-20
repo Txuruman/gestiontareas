@@ -79,7 +79,7 @@
                     <xs:sequence>
                         <xs:element name="idtipo" nillable="true" type="xs:int"/>
                         <xs:element name="idmotivo" nillable="true" type="xs:int"/>
-                        <xs:element name="idgrp" nillable="true" type="xs:int"/>
+                        <xs:element name="idMatricula" nillable="true" type="xs:string"/>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>

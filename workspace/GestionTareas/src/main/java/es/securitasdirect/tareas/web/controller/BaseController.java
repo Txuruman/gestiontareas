@@ -68,7 +68,7 @@ public abstract class BaseController {
                     response.success(messageUtil.getProperty(msg + ".success"));
                     LOGGER.debug("Service {} - Response {}", msg, "Success");
                 } else {
-                    response.warning(messageUtil.getProperty(msg + ".notFound"));
+                    //response.warning(messageUtil.getProperty(msg + ".notFound"));
                     LOGGER.debug("Service {} - Response {}", msg, "Not Found");
                 }
             } else {

@@ -51,10 +51,12 @@ public  class AgentController {
             agent = new Agent();
             agent.setAgentCountryJob(parametersMap.get(ExternalParams.AGENT_COUTRY_JOB));
             agent.setDesktopDepartment(parametersMap.get(ExternalParams.DESKTOP_DEPARTMENT));
+            agent.setIdAgent(parametersMap.get(ExternalParams.identificadorAgente));
+            agent.setAgentIBS(parametersMap.get(ExternalParams.AGENT_IBS));
 
             agent.setAgentGroupOutService(parametersMap.get(ExternalParams.AGENT_GROUP_OUT_SERVICE));
             agent.setAgentGroupSD(parametersMap.get(ExternalParams.AGENT_GROUP_SD));
-            agent.setAgentIBS(parametersMap.get(ExternalParams.AGENT_IBS));
+
             agent.setAgentPlace(parametersMap.get(ExternalParams.AGENT_PLACE));
             agent.setAgentUserSD(parametersMap.get(ExternalParams.AGENT_USER_SD));
             agent.setAuth_connid(parametersMap.get(ExternalParams.AUTH_CONNID));
@@ -64,7 +66,7 @@ public  class AgentController {
             agent.setCallingListManagedDesktop(parametersMap.get(ExternalParams.CALLING_LIST_MANAGED_DESK));
             agent.setConnid(parametersMap.get(ExternalParams.CONN_ID));
             agent.setCurrentLanguage(parametersMap.get(ExternalParams.CURRENT_LANGUAGE));
-            agent.setIdAgent(parametersMap.get(ExternalParams.identificadorAgente));
+
             agent.setInteractionDirection(parametersMap.get(ExternalParams.INTERACTION_DIRECTION));
             agent.setInteractionType(parametersMap.get(ExternalParams.INTERACTION_TYPE));
 

@@ -68,6 +68,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 //$log.debug("SCOPE TAREA:", $scope.tarea);
                 //$log.debug("Get closing list params: " + $scope.tarea.tipoAviso1 + ", " + $scope.tarea.motivo1);
                 $scope.getClosingList($scope.tarea.tipoAviso1,  $scope.tarea.motivo1, $scope.tarea.closing );
+                $scope.getClosingAditionalDataList();
                 $scope.refeshDisabled=true;
             })
             .error(function (data, status, headers, config) {
@@ -95,8 +96,6 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 //$log.debug('Loaded Closing Type List Response', data);
                 $scope.closingList = data.pairList;
                 CommonService.processBaseResponse(data, status, headers, config);
-                $scope.getClosingAditionalDataList(closing);
-                
             })
             .error(function (data, status, headers, config) {
                 //$log.error("Error loading Closing Type List");

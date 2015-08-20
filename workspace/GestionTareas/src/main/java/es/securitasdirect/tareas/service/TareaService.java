@@ -65,13 +65,28 @@ public class TareaService {
     public boolean finalizeTask(Agent agent,Tarea tarea) {
         //1. Finalizar la Tarea
         boolean finalized = wsFilanizeTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId());
-        if (finalized) {
-            //2. Si la Tarea es de Tipo Aviso tendremos que finalizar el aviso
+        return finalized;
+    }
 
+    /**
+     * Finalizar la tarea de tipo Aviso, es distinto porque tiene que cancelar el aviso también
+     * @param agent
+     * @param tarea
+     * @return
+     */
+    public boolean finalizeNotificationTask(Agent agent,TareaAviso tarea) {
+        LOGGER.debug("Finalizando tarea Aviso {}" , tarea);
+        //1. Finalizar la Tarea
+        boolean finalized = wsFilanizeTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId());
+        if (finalized) {
+            //2. Finalizar el aviso
+            //TODO finalizadoDesdeMantenimiento
+            boolean finalizadoDesdeMantenimiento=false;
+            //finalized = avisoService.closeTicket(tarea.getIdAviso(),agent.getIdAgent(),tarea.getClosing(),tarea.getDatosAdicionalesCierre(),finalizadoDesdeMantenimiento);
         }
         return finalized;
     }
-    
+
     /**
      * Aplazar: muestra un diálogo en modo modal para introducir la fecha y hora de la reprogramación,
      * indicando también si es para el propio agente o para el grupo de la Campaña.

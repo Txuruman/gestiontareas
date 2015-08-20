@@ -49,7 +49,7 @@ public class CommonsController extends BaseController {
         PairListResponse response;
         try {
             tipoAvisoList = externalDataService.getNotificationType();
-            response = new PairListResponse(super.processSuccessMessages(tipoAvisoList, SERVICE_MESSAGE));
+            response = new PairListResponse();
             response.setPairList(tipoAvisoList);
             LOGGER.debug("Obtenida lista de tipos de tarea de aviso: {}", tipoAvisoList);
         } catch (Exception exc) {
@@ -59,6 +59,11 @@ public class CommonsController extends BaseController {
         return response;
     }
 
+    /**
+     * Lista de los tipos de cierre para la tarea tipo aviso
+     * @param closingTypeRequest
+     * @return
+     */
     @RequestMapping(value = "/getNotificationClosingList", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
@@ -68,9 +73,9 @@ public class CommonsController extends BaseController {
         StringPairListResponse response;
         try {
             LOGGER.debug("Getting closing type list for request: {}", closingTypeRequest);
-            closingList = externalDataService.getNotificationClosing(closingTypeRequest.getIdType(), closingTypeRequest.getReasonId(), agentController.getAgent().getAgentGroupSD());
+            closingList = externalDataService.getNotificationClosing(closingTypeRequest.getIdType(), closingTypeRequest.getReasonId(), agentController.getAgent().getAgentIBS());
             LOGGER.debug("Loaded closing type list {}", closingList);
-            response = new StringPairListResponse(super.processSuccessMessages(closingList, SERVICE_MESSAGE));
+            response = new StringPairListResponse();
             response.setPairList(closingList);
         } catch (Exception e) {
             LOGGER.error("Error in closing type list service request:");
@@ -95,7 +100,7 @@ public class CommonsController extends BaseController {
         PairListResponse response;
         try {
             closingListAditionalData = externalDataService.getDatosAdicionalesCierreTareaAviso();
-            response = new PairListResponse(super.processSuccessMessages(closingListAditionalData, SERVICE_MESSAGE));
+            response = new PairListResponse();
             response.setPairList(closingListAditionalData);
             LOGGER.debug("Closing aditional data list: {}", closingListAditionalData);
         } catch (Exception exc) {
@@ -107,6 +112,11 @@ public class CommonsController extends BaseController {
 
     }
 
+    /**
+     * Tipos para los combos de Tarea Tivo Aviso
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/getTypeReasonList", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
@@ -118,7 +128,7 @@ public class CommonsController extends BaseController {
             LOGGER.debug("Calling for get type reason list with request: {}", request);
             typeReasonList = externalDataService.getTypeReasonList(request.getIdType());
             LOGGER.debug("Type reason list: {}", typeReasonList);
-            response = new BigIntegerPairResponse(super.processSuccessMessages(typeReasonList, SERVICE_MESSAGE));
+            response = new BigIntegerPairResponse();
             response.setPairList(typeReasonList);
         } catch (Exception exc) {
             LOGGER.error("Error in type reason list request");

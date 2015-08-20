@@ -4,7 +4,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 
-<div ng-controller="notificationtask" ng-init="init()">
+<div ng-controller="notificationtask" ng-init="tarea={};init()">
     <jsp:include page="instalacion.jsp"/>
 
     <div class="panel panel-default">
@@ -31,7 +31,7 @@
                     </select>
                 </app:input>
                 <app:input id="motivo1" label="eti.visortarea.form.label.reason" cells="6">
-                    <select  ng-model="tarea.motivo1" convert-to-number class="form-control" ng-change="refeshDisabled=false; getClosingList(tarea.tipoAviso1,tarea.tipoMotivo1,tarea.closing)">
+                    <select  ng-model="tarea.motivo1" convert-to-number class="form-control" ng-change="refeshDisabled=false; getClosingList(tarea.tipoAviso1,tarea.motivo1,tarea.closing)">
                         <option data-ng-repeat="itemMotivo1 in motivoList1" value="{{itemMotivo1.id}}" ng-selected="itemMotivo1.id==tarea.motivo1" >{{itemMotivo1.id +" - "+ itemMotivo1.value}}</option>
                     </select>
                 </app:input>
