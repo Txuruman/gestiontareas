@@ -96,7 +96,7 @@ public class TareaService {
 
     }
 
-    public boolean createTask(Tarea tarea) {
+    public boolean createTask(Agent agent,TareaMantenimiento tarea) {
         LOGGER.debug("Creating task: {}", tarea);
         boolean result;
         try {
