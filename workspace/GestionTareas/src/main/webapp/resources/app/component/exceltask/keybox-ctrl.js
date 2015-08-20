@@ -137,27 +137,28 @@ app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService, $modal
     };
 
     $scope.finalizar = function(){
-        //$log.debug("Finalizar Keybox task, task: ",$scope.tarea);
-        var finalizeKeyboxTaskRequest = {
-            tarea:$scope.tarea
+        //$log.debug("Finalizar List Assistant task, task: ",$scope.tarea);
+        var finalizeRequest = {
+            task:$scope.tarea
         };
-        //$log.debug("Finalizar Keybox Task, request: " ,finalizeKeyboxTaskRequest);
+        //$log.debug("Finalizar  Task, request: ",finalizeRequest);
         $http({
             method: 'PUT',
             url: 'keyboxtask/finalizar',
-            data: finalizeKeyboxTaskRequest
+            data: finalizeRequest
         })
             .success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data,status,headers,config);
-                //$log.debug("Finalized keybox task");
+                //$log.debug("Finalized task");
             })
             .error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data,status,headers,config);
-                //$log.error("Error finalizing keybox task");
+                //$log.error("Error finalizing task");
             });
     };
+
 
     //Ventana Aplazar - Start
     //Abre la ventana, posibles tamaños '', 'sm', 'lg'

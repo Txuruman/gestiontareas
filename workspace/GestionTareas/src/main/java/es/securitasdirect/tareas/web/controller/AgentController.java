@@ -11,6 +11,7 @@ import es.securitasdirect.tareas.web.controller.util.MessageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,8 +22,12 @@ import javax.inject.Inject;
 import java.util.Date;
 import java.util.Map;
 
+/**
+ * Session controller para la información del agente.
+ * http://stackoverflow.com/questions/21286675/scope-session-is-not-active-for-the-current-thread-illegalstateexception-no
+ */
 @Controller
-@Scope("session")
+@Scope(value="session", proxyMode=ScopedProxyMode.TARGET_CLASS)
 @RequestMapping("/agent")
 public  class AgentController {
 
@@ -42,6 +47,7 @@ public  class AgentController {
     public Agent loadAgentFromIWS(Map<String, String> parametersMap) {
         //Se llama varias veces a cargar el agente, si ya está cargado no lo sobreescribimos
         if (!isLogged()) {
+            LOGGER.debug("Loading agen from params {}" ,parametersMap);
             agent = new Agent();
             agent.setAgentCountryJob(parametersMap.get(ExternalParams.AGENT_COUTRY_JOB));
             agent.setDesktopDepartment(parametersMap.get(ExternalParams.DESKTOP_DEPARTMENT));

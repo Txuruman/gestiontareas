@@ -58,12 +58,12 @@ public class ListAssitantTaskController extends TaskController {
         return response;
     }
 
+
     @RequestMapping(value = "/finalizar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody BaseResponse finalizar(@RequestBody FinalizeListAssistantTaskRequest request) {
-        LOGGER.debug("Finalizando tarea de ListAssistant:\nRequest: {}", request);
-        BaseResponse response = dummyResponseGenerator.dummyCustomSuccess("excelcommonfields.finalizes.success");
-        LOGGER.debug("Finalizando tarea de ListAssistant:\nResponse: {}",response);
-        return response;
+    public
+    @ResponseBody
+    BaseResponse finalizeTask(@RequestBody FinalizeListAssistantTaskRequest request) {
+        return super.finalizeTask(request.getTask());
     }
 
 

@@ -14,7 +14,6 @@ public class FinalizeFeeCleaningTaskRequest extends BaseRequest {
     private TareaLimpiezaCuota task;
 
     private String prueba;
-
     public FinalizeFeeCleaningTaskRequest() {
     }
 
@@ -42,7 +41,6 @@ public class FinalizeFeeCleaningTaskRequest extends BaseRequest {
     public String toString() {
         return "FinalizeMaintenanceSurveyTaskRequest{" +
                 "task=" + task +
-                ", prueba='" + prueba + '\'' +
                 '}';
     }
 }

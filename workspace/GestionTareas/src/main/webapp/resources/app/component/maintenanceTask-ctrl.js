@@ -19,7 +19,7 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService, $
     $scope.getDesplegableKey2 = function () {
         //$log.debug("Loading desplegable key2");
         if ($scope.tarea && $scope.tarea.key1) {
-            //$log.debug("Loading desplegable key2 for key1=" + $scope.tarea.key1);
+            // $log.debug("Loading desplegable key2 for key1=" + $scope.tarea.key1);
             $http({method: 'GET', url: 'maintenancetask/getDesplegableKey2', params: {key1: $scope.tarea.key1}}).
                 success(function (data, status, headers, config) {
                     $scope.key2List = data.pairList;
@@ -49,36 +49,6 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService, $
             });
     };
 
-
-    $scope.getTarea = function () {
-        $scope.vm.appReady=false;
-
-        //$log.debug("Loading MaintenanceTask...");
-        //console.log("Params: "
-        //+ " ccUserId: " + $scope.ccUserId
-        //+ " callingList: " + $scope.callingList
-        //+ " taskId: " + $scope.tareaId);
-        $http({
-            method: 'GET',
-            url: 'maintenancetask/gettarea',
-            params: {ccUserId: $scope.ccUserId, callingList: $scope.callingList, tareaId: $scope.tareaId}
-        }).
-            success(function (data, status, headers, config) {
-                //$log.debug("Loaded maintenance task:" + JSON.stringify(data.tarea));
-                $scope.tarea = data.tarea;
-                CommonService.processBaseResponse(data,status,headers,config);
-                $scope.getDesplegableKey1();
-                $scope.getDesplegableKey2();
-                $scope.vm.appReady=true;
-            }).
-            error(function (data, status, headers, config) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-                CommonService.processBaseResponse(data,status,headers,config);
-                $scope.vm.appReady=true;
-                //$log.error("Error loading maintenance task");
-            });
-    };
 
     $scope.init = function(){
         $scope.vm.appReady=false;
@@ -141,28 +111,32 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService, $
                 CommonService.processBaseResponse(data,status,headers,config);
                 //$log.error("Error creating maintenance task");
             });
-    }
+    };
+
+
 
     $scope.finalizar = function(){
-        //$log.debug("Finalizing Maintenance task");
-        var maintenanceTaskFinalizeRequest = {
-            tarea:$scope.tarea
+        //$log.debug("Finalizar task: ",$scope.tarea);
+        var finalizeRequest = {
+            task:$scope.tarea
         };
-        //$log.debug("Finalize Maintenance task ",maintenanceTaskFinalizeRequest);
+        //$log.debug("Finalizar  Task, request: ",finalizeRequest);
         $http({
             method: 'PUT',
             url: 'maintenancetask/finalizar',
-            data: maintenanceTaskFinalizeRequest
+            data: finalizeRequest
         })
             .success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data,status,headers,config);
-                //$log.debug("Finalized maintenance task");
+                //$log.debug("Finalized task");
             })
             .error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data,status,headers,config);
-                //$log.error("Error finalizing maintenance task");
+                //$log.error("Error finalizing task");
             });
-    }
+    };
+
+
 });

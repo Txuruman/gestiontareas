@@ -13,6 +13,9 @@ import es.securitasdirect.tareas.web.controller.dto.request.searchtask.SearchTas
 import es.securitasdirect.tareas.web.controller.util.MessageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
+@Scope(value="session", proxyMode= ScopedProxyMode.TARGET_CLASS)
 @RequestMapping("/searchtarea")
 public class SearchTareaController extends BaseController {
 
@@ -31,7 +35,7 @@ public class SearchTareaController extends BaseController {
 
     @Inject
     private SearchTareaService searchTareaService;
-    @Inject
+    @Autowired
     private AgentController agentController;
     @Inject
     protected MessageUtil messageUtil;

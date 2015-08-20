@@ -295,27 +295,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     }
 
     $scope.atras = function () {
-        //$log.debug('Atras, tarea: ' + JSON.stringify($scope.tarea));
-        var backNotificationTaskRequest = {
-            task: $scope.tarea,
-            prueba: 'Hola'
-        };
-        //$log.debug('Atras, request: ' + JSON.stringify(backNotificationTaskRequest));
-        $http({
-            method: 'PUT',
-            url: 'notificationtask/atras',
-            data: backNotificationTaskRequest
-        })
-            .success(function (data, status, headers, config) {
-                //$log.debug('Atras realizado, response: ' + JSON.stringify(data));
-                CommonService.processBaseResponse(data, status, headers, config);
-            })
-            .error(function (data, status, headers, config) {
-                //$log.debug('Error en la realización de atras, response: ' + JSON.stringify(data));
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-                CommonService.processBaseResponse(data, status, headers, config);
-            });
+        $scope.getInstallationAndTask();
     };
 
     $scope.crearmantenimiento = function () {
@@ -366,26 +346,28 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             });
     };
 
-    $scope.finalizar = function () {
-        //$log.debug('Finalizar, tarea: ' + $scope.tarea);
-        var finalizeNotificationTaskRequest = {
-            tarea: $scope.tarea
+
+
+    $scope.finalizar = function(){
+        //$log.debug("Finalizar task, task: ",$scope.tarea);
+        var finalizeRequest = {
+            task:$scope.tarea
         };
-        //$log.debug('Finalizar, request: ' + JSON.stringify(finalizeNotificationTaskRequest));
+        //$log.debug("Finalizar  Task, request: ",finalizeRequest);
         $http({
             method: 'PUT',
             url: 'notificationtask/finalizar',
-            data: finalizeNotificationTaskRequest
+            data: finalizeRequest
         })
             .success(function (data, status, headers, config) {
-                //$log.debug('Finalización realizada, response: ' + JSON.stringify(finalizeNotificationTaskRequest));
-                CommonService.processBaseResponse(data, status, headers, config);
+                CommonService.processBaseResponse(data,status,headers,config);
+                //$log.debug("Finalized task");
             })
             .error(function (data, status, headers, config) {
-                //$log.debug('Error al finalizar, request: ' + JSON.stringify(finalizeNotificationTaskRequest));
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
-                CommonService.processBaseResponse(data, status, headers, config);
+                CommonService.processBaseResponse(data,status,headers,config);
+                //$log.error("Error finalizing task");
             });
     };
 });

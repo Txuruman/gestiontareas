@@ -86,12 +86,12 @@ public class FeeCleaningTaskController extends TaskController {
     }
 
     @RequestMapping(value = "/finalizar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody BaseResponse finalizar(@RequestBody FinalizeFeeCleaningTaskRequest request) {
-        LOGGER.debug("Finalizando tarea de limpieza de cuotas:\nRequest: {}", request);
-        BaseResponse response = dummyResponseGenerator.dummyFinalizeSuccess();
-        LOGGER.debug("Finalizada tarea de limpieza de cuotas:\nResponse: {}",response);
-        return response;
+    public
+    @ResponseBody
+    BaseResponse finalizeTask(@RequestBody FinalizeFeeCleaningTaskRequest request) {
+        return super.finalizeTask(request.getTask());
     }
+
 
     @RequestMapping(value = "/getInstallationAndTask", method = {RequestMethod.GET}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody TareaResponse getInstallationAndTask(
