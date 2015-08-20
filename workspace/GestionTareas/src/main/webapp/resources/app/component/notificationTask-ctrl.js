@@ -67,12 +67,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 //$log.debug("Motivo lists: ",$scope.motivoList1,$scope.motivoList2,$scope.motivoList3);
                 //$log.debug("SCOPE TAREA:", $scope.tarea);
                 //$log.debug("Get closing list params: " + $scope.tarea.tipoAviso1 + ", " + $scope.tarea.motivo1);
-                var groupId; //Definir de donde se saca groupId, llamar desde html ng-change(tipo1 y motivo1)
-                $scope.getClosingList($scope.tarea.tipoAviso1,
-                    $scope.tarea.motivo1,
-                    $scope.tarea.closing,
-                    groupId
-                );
+                $scope.getClosingList($scope.tarea.tipoAviso1,  $scope.tarea.motivo1, $scope.tarea.closing );
                 $scope.refeshDisabled=true;
             })
             .error(function (data, status, headers, config) {
@@ -83,17 +78,17 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
         //$log.debug("NotificationTask loaded...");
     };
 
-    $scope.getClosingList = function(idType, reasonId, closing, groupId) {
-        //$log.debug("Load Closing Type List for params: "+ idType + ", " + reasonId);
+    //Consultar Combo de Cierre
+    $scope.getClosingList = function(idType, reasonId, closing) {
+        $log.debug("Load Closing Type List for params: "+ idType + ", " + reasonId);
         var closingTypeRequest = {
             idType: idType,
-            reasonId: reasonId,
-            groupId: groupId
+            reasonId: reasonId
         };
         //$log.debug("Load Closing Type List Request: ", closingTypeRequest);
         $http({
             method: 'PUT',
-            url: 'commons/getClosingList',
+            url: 'commons/getNotificationClosingList',
             data: closingTypeRequest
         })
             .success(function (data, status, headers, config) {
@@ -111,18 +106,13 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             });
     };
 
-    $scope.getClosingAditionalDataList = function(closingTypeId) {
-        //$log.debug("Load Closing Aditional Data List for param:", closingTypeId);
-        var closingAditionalDataRequest = {
-            closingTypeId: closingTypeId
-        };
+    $scope.getClosingAditionalDataList = function() {
+        $log.debug("Load Closing Aditional Data List " );
         $http({
-            method: 'PUT',
-            url: 'commons/getClosingAditionalDataList',
-            data: closingAditionalDataRequest
+            method: 'GET',
+            url: 'commons/getClosingAditionalDataList'
         })
             .success(function (data, status, headers, config) {
-                //$log.debug('Loaded Closing Aditional Data List', data);
                 $scope.datosAdicionalesList = data.pairList;
                 CommonService.processBaseResponse(data, status, headers, config);
                 
@@ -153,6 +143,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             });
     };
 
+    //Consulta Motivo 1
     $scope.getTypeReasonList1 = function(typeId,data, status, headers, config) {
         //$log.debug("Load Task Type Reason List");
         var taskTypeReasonRequest = {
@@ -176,6 +167,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             });
     };
 
+    //Consulta Motivo 2
     $scope.getTypeReasonList2 = function(typeId) {
         //$log.debug("Load Task Type Reason List");
         var taskTypeReasonRequest = {
@@ -199,6 +191,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             });
     };
 
+    //Consulta Motivo 3
     $scope.getTypeReasonList3 = function(typeId) {
         //$log.debug("Load Task Type Reason List");
         var taskTypeReasonRequest = {

@@ -54,14 +54,22 @@ public class AvisoServiceTest {
     public void createTicketTest() throws Exception {
 
         Agent agent = DummyGenerator.getAgent();
+        String callingList = "CL_CCT_ATT_Averia_Test";
+        String idTarea = "1";
+        TareaAviso tareaAviso = (TareaAviso)queryTareaService.queryTarea(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), callingList, idTarea);
+        assertThat(tareaAviso, notNullValue());
 
-        avisoService.createTicket(agent);
+        avisoService.createTicket(agent, tareaAviso);
     }
 
     @Test
     public void updateTicketTest() throws Exception {
 
         Agent agent = DummyGenerator.getAgent();
+        String callingList = "CL_CCT_ATT_Averia_Test";
+        String idTarea = "1";
+        TareaAviso tareaAviso = (TareaAviso)queryTareaService.queryTarea(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), callingList, idTarea);
+        assertThat(tareaAviso, notNullValue());
 
         avisoService.updateTicket(agent);
 
