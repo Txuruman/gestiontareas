@@ -171,9 +171,12 @@ public class AvisoService {
     /**
      * creacion del XML para actualizar un Aviso. Se hace a través de un WS disponible para la aplicación de Tickets.
      */
-    public void updateTicket(String idUser, String idCountry, String idLanguage){
+    public void updateTicket(Agent agent){
 
-
+        String idUser = agent.getIdAgent();
+        String idCountry = agent.getAgentCountryJob();
+        String idLanguage = agent.getCurrentLanguage();
+        String idReq = agent.getDesktopDepartment();
 
     }
 
