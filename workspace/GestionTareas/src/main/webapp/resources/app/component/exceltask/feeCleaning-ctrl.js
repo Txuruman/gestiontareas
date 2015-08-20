@@ -1,5 +1,5 @@
 //Fee cleaning ANGULARJS script START
-app.controller('feecleaningtask-ctrl', function ($scope, $http, CommonService, $modal, $log) {
+app.controller('feecleaningtask-ctrl', function ($scope, $http, CommonService, $modal, $log, $window) {
 //TODO: Borrar
 //    $scope.getTarea = function () {
 //        //$log.debug("Loading FeeCleaningTask...")
@@ -113,30 +113,38 @@ app.controller('feecleaningtask-ctrl', function ($scope, $http, CommonService, $
         }
     };
 
-
-    $scope.descartar = function(){
-        //$log.debug("Discard Fee Cleaning task, task: " ,$scope.tarea);
-        var discardFeeCleaningTaskRequest = {
-            tarea:$scope.tarea,
-            prueba:'Hola'
-        };
-        //$log.debug("Discard Fee Clenaning Task, request: ",discardFeeCleaningTaskRequest);
-        $http({
-            method: 'PUT',
-            url: 'feecleaningtask/descartar',
-            data: discardFeeCleaningTaskRequest
-        })
-            .success(function (data, status, headers, config) {
-                CommonService.processBaseResponse(data,status,headers,config);
-                //$log.debug("Discarded fee cleaning task");
-            })
-            .error(function (data, status, headers, config) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-                CommonService.processBaseResponse(data,status,headers,config);
-                //$log.error("Error discarding fee cleaning task");
-            });
-    };
+    /**
+     * Método Descartar: Nos lleva a la página de buscar
+     * Variable _contextPath inicializada en commonImports
+     */
+    $scope.descartar=function(){
+    	$window.location.href= _contextPath + "/searchtarea.htm";
+    }    
+    
+//Antiguo método descartar
+//    $scope.descartar = function(){
+//        //$log.debug("Discard Fee Cleaning task, task: " ,$scope.tarea);
+//        var discardFeeCleaningTaskRequest = {
+//            tarea:$scope.tarea,
+//            prueba:'Hola'
+//        };
+//        //$log.debug("Discard Fee Clenaning Task, request: ",discardFeeCleaningTaskRequest);
+//        $http({
+//            method: 'PUT',
+//            url: 'feecleaningtask/descartar',
+//            data: discardFeeCleaningTaskRequest
+//        })
+//            .success(function (data, status, headers, config) {
+//                CommonService.processBaseResponse(data,status,headers,config);
+//                //$log.debug("Discarded fee cleaning task");
+//            })
+//            .error(function (data, status, headers, config) {
+//                // called asynchronously if an error occurs
+//                // or server returns response with an error status.
+//                CommonService.processBaseResponse(data,status,headers,config);
+//                //$log.error("Error discarding fee cleaning task");
+//            });
+//    };
 
     $scope.finalizar = function(){
         //$log.debug("Finalizar List Assistant task, task: ",$scope.tarea);

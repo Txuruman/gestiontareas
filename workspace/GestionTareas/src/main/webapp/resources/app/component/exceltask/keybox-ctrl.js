@@ -1,5 +1,5 @@
 //Angular KeyboxTask controller
-app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService, $modal, $log) {
+app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService, $modal, $log, $window) {
 
 //TODO: Borrar
 //    $scope.getTarea = function () {
@@ -111,30 +111,39 @@ app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService, $modal
                 });
         }
     };
-
-    $scope.descartar = function(){
-        //$log.debug("Discard Keybox task, task: " ,$scope.tarea);
-        var discardKeyboxTaskRequest = {
-            tarea:$scope.tarea,
-            prueba:'Hola'
-        };
-        //$log.debug("Discard Keybox Task, request: ",discardKeyboxTaskRequest);
-        $http({
-            method: 'PUT',
-            url: 'keyboxtask/descartar',
-            data: discardKeyboxTaskRequest
-        })
-            .success(function (data, status, headers, config) {
-                CommonService.processBaseResponse(data,status,headers,config);
-                //$log.debug("Discarded keybox task");
-            })
-            .error(function (data, status, headers, config) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-                CommonService.processBaseResponse(data,status,headers,config);
-                //$log.error("Error discarding keybox task");
-            });
-    };
+    
+    /**
+     * Método Descartar: Nos lleva a la página de buscar
+     * Variable _contextPath inicializada en commonImports
+     */
+    $scope.descartar=function(){
+    	$window.location.href= _contextPath + "/searchtarea.htm";
+    }    
+    
+//Antiguo método descartar
+//    $scope.descartar = function(){
+//        //$log.debug("Discard Keybox task, task: " ,$scope.tarea);
+//        var discardKeyboxTaskRequest = {
+//            tarea:$scope.tarea,
+//            prueba:'Hola'
+//        };
+//        //$log.debug("Discard Keybox Task, request: ",discardKeyboxTaskRequest);
+//        $http({
+//            method: 'PUT',
+//            url: 'keyboxtask/descartar',
+//            data: discardKeyboxTaskRequest
+//        })
+//            .success(function (data, status, headers, config) {
+//                CommonService.processBaseResponse(data,status,headers,config);
+//                //$log.debug("Discarded keybox task");
+//            })
+//            .error(function (data, status, headers, config) {
+//                // called asynchronously if an error occurs
+//                // or server returns response with an error status.
+//                CommonService.processBaseResponse(data,status,headers,config);
+//                //$log.error("Error discarding keybox task");
+//            });
+//    };
 
     $scope.finalizar = function(){
         //$log.debug("Finalizar List Assistant task, task: ",$scope.tarea);

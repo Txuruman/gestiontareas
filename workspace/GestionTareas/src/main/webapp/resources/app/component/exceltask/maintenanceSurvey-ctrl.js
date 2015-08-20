@@ -1,5 +1,5 @@
 //Angular Maintenance Survey Controller start
-app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,$modal, $log) {
+app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,$modal, $log, $window) {
 
 //TODO:Borrar
 //    $scope.getTarea = function () {
@@ -101,29 +101,38 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,
         }
     };
 
-    $scope.descartar = function(){
-        //$log.debug("Discard Maintenance Survey task, task: ",$scope.tarea);
-        var discardMaintenanceSurveyTaskRequest = {
-            tarea:$scope.tarea,
-            prueba:'Hola'
-        };
-        //$log.debug("Discard List Assistant Task, request: " ,discardMaintenanceSurveyTaskRequest);
-        $http({
-            method: 'PUT',
-            url: 'maintenancesurveytask/descartar',
-            data: discardMaintenanceSurveyTaskRequest
-        })
-            .success(function (data, status, headers, config) {
-                CommonService.processBaseResponse(data,status,headers,config);
-                //$log.debug("Discarded maintenance survey task");
-            })
-            .error(function (data, status, headers, config) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-                CommonService.processBaseResponse(data,status,headers,config);
-                //$log.error("Error discarding maintenance survey task");
-            });
-    };
+    /**
+     * Método Descartar: Nos lleva a la página de buscar
+     * Variable _contextPath inicializada en commonImports
+     */
+    $scope.descartar=function(){
+    	$window.location.href= _contextPath + "/searchtarea.htm";
+    }    
+    
+//Antiguo método descartar    
+//    $scope.descartar = function(){
+//        //$log.debug("Discard Maintenance Survey task, task: ",$scope.tarea);
+//        var discardMaintenanceSurveyTaskRequest = {
+//            tarea:$scope.tarea,
+//            prueba:'Hola'
+//        };
+//        //$log.debug("Discard List Assistant Task, request: " ,discardMaintenanceSurveyTaskRequest);
+//        $http({
+//            method: 'PUT',
+//            url: 'maintenancesurveytask/descartar',
+//            data: discardMaintenanceSurveyTaskRequest
+//        })
+//            .success(function (data, status, headers, config) {
+//                CommonService.processBaseResponse(data,status,headers,config);
+//                //$log.debug("Discarded maintenance survey task");
+//            })
+//            .error(function (data, status, headers, config) {
+//                // called asynchronously if an error occurs
+//                // or server returns response with an error status.
+//                CommonService.processBaseResponse(data,status,headers,config);
+//                //$log.error("Error discarding maintenance survey task");
+//            });
+//    };
 
 
     $scope.finalizar = function(){

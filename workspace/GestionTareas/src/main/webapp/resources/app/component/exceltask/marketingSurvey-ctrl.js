@@ -1,4 +1,4 @@
-app.controller('marketingsurveytask-ctrl', function ($scope, $http, CommonService, $modal, $log) {
+app.controller('marketingsurveytask-ctrl', function ($scope, $http, CommonService, $modal, $log, $window) {
     //Angular Maintenance Survey Controller start
 
 //TODO:Borrar	
@@ -160,5 +160,13 @@ app.controller('marketingsurveytask-ctrl', function ($scope, $http, CommonServic
                 //$log.error("Error finalizing task");
             });
     };
-
+    
+    /**
+     * Método Descartar: Nos lleva a la página de buscar
+     * Variable _contextPath inicializada en commonImports
+     */
+    $scope.descartar=function(){
+    	$window.location.href= _contextPath + "/searchtarea.htm";
+    }    
+    
 });

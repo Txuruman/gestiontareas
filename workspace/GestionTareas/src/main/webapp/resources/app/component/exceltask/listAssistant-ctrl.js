@@ -1,5 +1,5 @@
 //Controlador List Assistant - Start
-app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $modal, $log, $timeout) {
+app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $modal, $log, $timeout, $window) {
 
     $scope.getClosingReason = function(){
         //$log.debug("Loading Excel Task Commons: Closing reason");
@@ -45,29 +45,39 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
         }
     };
 
-    $scope.descartar = function(){
-        //$log.debug("Discard List Assistant task, task: ", $scope.tarea);
-        var discardListAssistantTaskRequest = {
-            tarea:$scope.tarea,
-            prueba:'Hola'
-        };
-        //$log.debug("Discard List Assistant Task, request: " ,discardListAssistantTaskRequest);
-        $http({
-            method: 'PUT',
-            url: 'listassistanttask/descartar',
-            data: discardListAssistantTaskRequest
-        })
-            .success(function (data, status, headers, config) {
-                CommonService.processBaseResponse(data,status,headers,config);
-                //$log.debug("Discarded list assistant task");
-            })
-            .error(function (data, status, headers, config) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-                CommonService.processBaseResponse(data,status,headers,config);
-                //$log.error("Error discarding list assistant task");
-            });
-    };
+    /**
+     * Método Descartar: Nos lleva a la página de buscar
+     * Variable _contextPath inicializada en commonImports
+     */
+    $scope.descartar=function(){
+    	$window.location.href= _contextPath + "/searchtarea.htm";
+    }    
+
+    
+//	Antiguo método descartar
+//    $scope.descartar = function(){
+//        //$log.debug("Discard List Assistant task, task: ", $scope.tarea);
+//        var discardListAssistantTaskRequest = {
+//            tarea:$scope.tarea,
+//            prueba:'Hola'
+//        };
+//        //$log.debug("Discard List Assistant Task, request: " ,discardListAssistantTaskRequest);
+//        $http({
+//            method: 'PUT',
+//            url: 'listassistanttask/descartar',
+//            data: discardListAssistantTaskRequest
+//        })
+//            .success(function (data, status, headers, config) {
+//                CommonService.processBaseResponse(data,status,headers,config);
+//                //$log.debug("Discarded list assistant task");
+//            })
+//            .error(function (data, status, headers, config) {
+//                // called asynchronously if an error occurs
+//                // or server returns response with an error status.
+//                CommonService.processBaseResponse(data,status,headers,config);
+//                //$log.error("Error discarding list assistant task");
+//            });
+//    };
 
 
     $scope.finalizar = function(){

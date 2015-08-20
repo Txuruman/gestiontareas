@@ -1,4 +1,4 @@
-app.controller('notificationtask', function ($scope, $http, CommonService, $modal, $log) {
+app.controller('notificationtask', function ($scope, $http, CommonService, $modal, $log,$window) {
    
     $scope.logTarea = function () {
         //$log.debug("Tarea: " + $scope.tarea);
@@ -295,29 +295,38 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             });
     };
 
-    $scope.descartar = function () {
-        //$log.debug('Descartar ' + $scope.tarea);
-        var createMaintenanceNotificationTaskRequest = {
-            task: $scope.tarea,
-            prueba: 'Hola'
-        };
-        //$log.debug('Descartar, request: ' + JSON.stringify(createMaintenanceNotificationTaskRequest));
-        $http({
-            method: 'PUT',
-            url: 'notificationtask/descartar',
-            data: createMaintenanceNotificationTaskRequest
-        })
-            .success(function (data, status, headers, config) {
-                //$log.debug('Realización de descarte, response: ' + JSON.stringify(data));
-                CommonService.processBaseResponse(data, status, headers, config);
-            })
-            .error(function (data, status, headers, config) {
-                //$log.debug('Error en la realización del descarte, response: ' + JSON.stringify(data));
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-                CommonService.processBaseResponse(data, status, headers, config);
-            });
-    };
+    /**
+     * Método Descartar: Nos lleva a la página de buscar
+     * Variable _contextPath inicializada en commonImports
+     */
+    $scope.descartar=function(){
+    	$window.location.href= _contextPath + "/searchtarea.htm";
+    }    
+    
+//Antiguo método descartar
+//    $scope.descartar = function () {
+//        //$log.debug('Descartar ' + $scope.tarea);
+//        var createMaintenanceNotificationTaskRequest = {
+//            task: $scope.tarea,
+//            prueba: 'Hola'
+//        };
+//        //$log.debug('Descartar, request: ' + JSON.stringify(createMaintenanceNotificationTaskRequest));
+//        $http({
+//            method: 'PUT',
+//            url: 'notificationtask/descartar',
+//            data: createMaintenanceNotificationTaskRequest
+//        })
+//            .success(function (data, status, headers, config) {
+//                //$log.debug('Realización de descarte, response: ' + JSON.stringify(data));
+//                CommonService.processBaseResponse(data, status, headers, config);
+//            })
+//            .error(function (data, status, headers, config) {
+//                //$log.debug('Error en la realización del descarte, response: ' + JSON.stringify(data));
+//                // called asynchronously if an error occurs
+//                // or server returns response with an error status.
+//                CommonService.processBaseResponse(data, status, headers, config);
+//            });
+//    };
 
 
 
