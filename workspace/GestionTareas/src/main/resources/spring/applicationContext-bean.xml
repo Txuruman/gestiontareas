@@ -40,14 +40,19 @@
     </bean>
 
 
-    <util:list id="datosAdicionalesCierreTareaAviso" value-type="es.securitasdirect.tareas.model.external.Pair" list-class="java.util.ArrayList">
-        <bean class="es.securitasdirect.tareas.model.external.Pair">
+    <!-- Lista y valores del combo de Tipos de Cierre para Tareas de Tipo Mantenimiento -->
+    <util:list id="datosAdicionalesCierreTareaAviso" value-type="es.securitasdirect.tareas.model.external.DescriptionPair" list-class="java.util.ArrayList">
+        <bean class="es.securitasdirect.tareas.model.external.DescriptionPair">
             <property name="id" value="1" />
+            <!-- El value es la clave de internacionalizacion del fichero messages.properties -->
             <property name="value" value="Dato Adicional Cierre 1" />
+            <!-- El value es la clave de internacionalizacion del fichero messages.properties -->
+            <property name="description" value="Dato Adicional Cierre 1" />
         </bean>
-        <bean class="es.securitasdirect.tareas.model.external.Pair">
+        <bean class="es.securitasdirect.tareas.model.external.DescriptionPair">
             <property name="id" value="2" />
             <property name="value" value="Dato Adicional Cierre 2" />
+            <property name="description" value="Dato Adicional Cierre 1" />
         </bean>
     </util:list>
 
@@ -62,23 +67,6 @@
         </bean>
     </util:list>
 
-    <!-- TODO COMENTAR
-    La clave del primer mapa es el tipo de la tarea de Aviso
-    -->
-    <util:map id="datosCierreTareaAviso" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.util.Map">
-        <entry key="111">
-            <util:map map-class="java.util.HashMap" key-type="java.lang.Integer" value-type="java.lang.String">
-                <entry key="1" value="Dato  Cierre 1 tipo 111"/>
-                <entry key="2" value="Dato  Cierre 2 tipo 111"/>
-            </util:map>
-        </entry>
-        <entry key="222">
-            <util:map map-class="java.util.HashMap" key-type="java.lang.Integer" value-type="java.lang.String">
-                <entry key="1" value="Dato  Cierre 1 tipo 222"/>
-                <entry key="2" value="Dato  Cierre 2 tipo 222"/>
-            </util:map>
-        </entry>
-    </util:map>
 
     <!--
     TAREA_AVISO="TareaAviso"; -

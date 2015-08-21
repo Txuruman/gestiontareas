@@ -23,13 +23,13 @@ public class PairListResponse extends BaseResponse {
         }
     }
 
-    private List<Pair> pairList;
+    private List pairList;
 
-    public List<Pair> getPairList() {
+    public List getPairList() {
         return pairList;
     }
 
-    public void setPairList(List<Pair> pairList) {
+    public void setPairList(List pairList) {
         this.pairList = pairList;
     }
 

@@ -2,6 +2,7 @@ package es.securitasdirect.tareas.web.controller.task;
 
 import es.securitasdirect.tareas.model.InstallationData;
 import es.securitasdirect.tareas.model.TareaMantenimiento;
+import es.securitasdirect.tareas.model.external.DescriptionPair;
 import es.securitasdirect.tareas.model.external.Pair;
 import es.securitasdirect.tareas.service.ExternalDataService;
 import es.securitasdirect.tareas.service.InstallationService;
@@ -170,18 +171,26 @@ public class MaintenanceTaskController extends TaskController {
         return response;
     }
 
+    /**
+     * Consulta datos combo cierre específicos para Tarea Mantenimiento.
+     * @return
+     */
     @RequestMapping(value = "/getCancelationType", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
     PairListResponse getCancelationType(){
-        String SERVICE_MESSAGE = "maintenanceTask.cancelationTypeList";
         PairListResponse response;
         try{
-            List<Pair> cancelationTypeList = externalDataService.getCancelationType();
-            response = new PairListResponse(processSuccessMessages(cancelationTypeList, SERVICE_MESSAGE));
+            List<DescriptionPair> cancelationTypeList = externalDataService.getCancelationTypeMaintenanceTask();
+            //Internacinalización de los mensajes
+            for (DescriptionPair descriptionPair : cancelationTypeList) {
+                descriptionPair.setValue(messageUtil.getProperty(descriptionPair.getValue()));
+                descriptionPair.setDescription(messageUtil.getProperty(descriptionPair.getDescription()));
+            }
+            response = new PairListResponse();
             response.setPairList(cancelationTypeList);
         }catch(Exception e){
-            response = new PairListResponse(processException(e, SERVICE_MESSAGE));
+            response = new PairListResponse(processException(e));
         }
         return response;
     }

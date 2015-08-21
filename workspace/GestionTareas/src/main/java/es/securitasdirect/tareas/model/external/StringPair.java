@@ -1,7 +1,7 @@
 package es.securitasdirect.tareas.model.external;
 
 /**
- * Created by Javier Naval on 03/07/2015.
+ * Parejas de valores para combos
  */
 public class StringPair {
 
