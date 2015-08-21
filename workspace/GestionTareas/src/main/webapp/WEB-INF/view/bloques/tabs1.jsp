@@ -7,5 +7,5 @@
 
 <ul class="nav nav-tabs nav-justified"> 
     <li class="${fn:contains(pageContext.request.servletPath,'buscar')?'activeTab':''}"><a href="${pageContext.request.contextPath}/searchtarea.htm">Buscar tarea</a></li>
-    <li class="${fn:contains(pageContext.request.servletPath,'crear')?'activeTab':''}"><a href="${pageContext.request.contextPath}/visortarea/creartarea.htm">Crear tarea </a></li>
+    <li class="${fn:contains(pageContext.request.servletPath,'crear')?'activeTab':''}"><a href="${pageContext.request.contextPath}/createtask.htm">Crear tarea </a></li>
 </ul>

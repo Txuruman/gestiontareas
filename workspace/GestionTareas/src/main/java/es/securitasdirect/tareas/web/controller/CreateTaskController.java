@@ -2,6 +2,7 @@ package es.securitasdirect.tareas.web.controller;
 
 import es.securitasdirect.tareas.model.Agent;
 import es.securitasdirect.tareas.model.DummyGenerator;
+import es.securitasdirect.tareas.model.TareaAviso;
 import es.securitasdirect.tareas.model.TareaMantenimiento;
 import es.securitasdirect.tareas.service.TareaService;
 import es.securitasdirect.tareas.web.controller.dto.request.createtask.CreateMaintenanceRequest;
@@ -14,16 +15,19 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.wso2.ws.dataservice.DataServiceFault;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author
  */
 
 @Controller
-@RequestMapping("/createtask")
+@RequestMapping("/createtask.htm")
 public class CreateTaskController extends BaseController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CreateTaskController.class);
@@ -31,6 +35,19 @@ public class CreateTaskController extends BaseController {
     @Inject
     protected TareaService tareaService;
 
+    
+    
+    //MV DSE RESPUESTA PARA CREARTAREA EL MAPEO ESTA DENTRO DEL VISOR Y SE LLAMA ASÍ:
+    // visortarea/creartarea.htm <---- FIJARSE NO PONER LA BARRA (/) AL PRINCIPIO PARA EVITAR LLAMAR A LA RAIZ DEL SITIO Y NO DE LA APLICACION.
+
+    @RequestMapping
+    public ModelAndView HrCrearTarea(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
+        ModelAndView mv = new ModelAndView("creartarea");
+        return mv;
+    }
+
+    
+    
     /**
      *
      * @param request
@@ -44,7 +61,7 @@ public class CreateTaskController extends BaseController {
         try{
             LOGGER.debug("Create task request: {}", request);
             Agent agent = DummyGenerator.getAgent();
-            boolean result = tareaService.createTask( agent, (TareaMantenimiento)request.getTask());
+            boolean result = true;//TODO: Create task TareaAviso tareaService.createTask( agent, (TareaMantenimiento)request.getTask());
             LOGGER.debug("Created task result: {}", result);
             response = processSuccessMessages(result, SERVICE_MESSAGE);
         }catch(Exception e){

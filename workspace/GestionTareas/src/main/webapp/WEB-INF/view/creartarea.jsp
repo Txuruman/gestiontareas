@@ -26,37 +26,55 @@
                 <!-- row -->
                 <div class="spacer_t1"></div>
                 <div class="row">
-                    <app:inputTextNG id="requiredBy" value="createTaskModel.requiredBy" label="createtask.requiredby" cells="6" />
+                    <app:inputTextNG id="requiredBy" value="tarea.requeridoPor" label="createtask.requiredby" cells="6" />
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        <app:inputTextNG id="hourfrom" value="createTaskModel.hourFrom" cells="6" label="createtask.hour.from"/>
-                        <app:inputTextNG id="hourfrom" value="createTaskModel.hourTo" cells="6" label="createtask.hour.to"/>
+                        <app:inputTextNG id="horarioDesde" label="tareaAviso.horarioDesde" value="tarea.horarioDesde" cells="6"  ng_keypress="onlyNumber($event,true,tarea.horarioDesde.length)"/>
+                		<app:inputTextNG id="horarioHasta" label="tareaAviso.horarioHasta" value="tarea.horarioHasta" cells="6"  ng_keypress="onlyNumber($event,true,tarea.horarioHasta.length)"/>
                     </div>
                 </div>
                 <!-- row -->
                 <div class="spacer_t1"></div>
                 <div class="row">
                     <app:input id="tipoAviso1" label="createtask.type" cells="6">
-                        <select  ng-model="createTaskModel.type" convert-to-number class="form-control">
-                            <option data-ng-repeat="itemTipoAviso1 in tipoAvisoList" value="{{itemTipoAviso1.id}}" ng-selected="itemTipoAviso1.id==tarea.tipoAviso1" >{{itemTipoAviso1.value}}</option>
+                        <select  ng-model="tarea.tipoAviso1" convert-to-number class="form-control" ng-change="getTypeReasonList1(tarea.tipoAviso1)">
+                             <option data-ng-repeat="itemTipoAviso1 in tipoAvisoList" value="{{itemTipoAviso1.id}}" ng-selected="itemTipoAviso1.id==tarea.tipoAviso1">{{itemTipoAviso1.id +" - "+ itemTipoAviso1.value}}</option>
                         </select>
                     </app:input>
-
-
-                    <app:inputCombo id="reason1" value="createTaskModel.reason1" label="createtask.reason" cells="6"/>
+					<app:input id="motivo1" label="eti.visortarea.form.label.reason" cells="6">
+	                    <select  ng-model="tarea.motivo1" convert-to-number class="form-control" ng-change="refeshDisabled=false; getClosingList(tarea.tipoAviso1,tarea.tipoMotivo1,tarea.closing)">
+	                        <option data-ng-repeat="itemMotivo1 in motivoList1" value="{{itemMotivo1.id}}" ng-selected="itemMotivo1.id==tarea.motivo1" >{{itemMotivo1.id +" - "+ itemMotivo1.value}}</option>
+	                    </select>
+                	</app:input>
                 </div>
                 <div class="spacer_t1"></div>
                 <div class="row">
-                    <app:inputCombo id="type2" value="createTaskModel.type2" cells="6"/>
-                    <app:inputCombo id="reason2" value="createTaskModel.reason2" cells="6"/>
+                    <app:input id="tipoAviso2" cells="6">
+                    <select  ng-model="tarea.tipoAviso2" convert-to-number class="form-control" ng-change="refeshDisabled=false; getTypeReasonList2(tarea.tipoAviso2)">
+                        <option data-ng-repeat="itemTipoAviso2 in tipoAvisoList" value="{{itemTipoAviso2.id}}" ng-selected="itemTipoAviso2.id==tarea.tipoAviso2" >{{itemTipoAviso2.id +" - "+ itemTipoAviso2.value}}</option>
+                    </select>
+	                </app:input>
+	                <app:input id="motivo2" cells="6">
+	                    <select  ng-model="tarea.motivo2" convert-to-number class="form-control" ng-change="refeshDisabled=false">
+	                        <option data-ng-repeat="itemMotivo2 in motivoList2" value="{{itemMotivo2.id}}" ng-selected="itemMotivo2.id==tarea.motivo2" >{{itemMotivo2.id +" - "+ itemMotivo2.value}}</option>
+	                    </select>
+	                </app:input>
                 </div>
                 <div class="spacer_t1"></div>
                 <div class="row">
-                    <app:inputCombo id="type3" value="createTaskModel.type3" cells="6"/>
-                    <app:inputCombo id="reason3" value="createTaskModel.reason3" cells="6"/>
+                     <app:input id="tipoAviso3" cells="6">
+                    <select  ng-model="tarea.tipoAviso3" convert-to-number class="form-control" ng-change="refeshDisabled=false; getTypeReasonList3(tarea.tipoAviso3)">
+                        <option data-ng-repeat="k in tipoAvisoList" value="{{k.id}}" ng-selected="k.id==tarea.tipoAviso3" >{{k.id +" - "+ k.value}}</option>
+                    </select>
+	                </app:input>
+	                <app:input id="motivo3" cells="6">
+	                    <select  ng-model="tarea.motivo3" convert-to-number class="form-control" ng-change="refeshDisabled=false">
+	                        <option data-ng-repeat="k in motivoList3" value="{{k.id}}" ng-selected="k.id==tarea.motivo3" >{{k.id +" - "+ k.value}}</option>
+	                    </select>
+	                </app:input>
                 </div>
                 <div class="spacer_t1"></div>
                 <!-- row -->
-                <app:textAreaNG id="comment" value="createTaskModel.comment" label="createtask.comment" cell_label="2" cell_input="10"/>
+                <app:textAreaNG id="comment" value="tarea.observaciones" label="createtask.comment" cell_label="2" cell_input="10"/>
             </div>
         </div>
         <!-- row -->

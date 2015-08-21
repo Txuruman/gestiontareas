@@ -54,6 +54,9 @@
                pattern="${pattern}"
                <c:if test="${not empty ng_keypress}">
                	ng-keypress="<c:out value="${ng_keypress}"/>"
+           		</c:if>
+           		<c:if test="${not empty readonly}">
+               		readonly="<c:out value="${readonly}"/>"
            		</c:if>  />
     </div>
 </div>

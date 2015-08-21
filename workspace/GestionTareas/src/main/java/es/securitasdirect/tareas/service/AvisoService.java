@@ -228,23 +228,22 @@ public class AvisoService {
      */
     public boolean closeTicket(Integer idAviso,
                                String idAgente,
-                               String codTipoCierre,
+                               Integer codTipoCierre,
                                String codTipoCierreAdicional,
                                boolean finalizarDesdeCrearMantenimiento) throws Exception {
 
         Integer deuda = 0; // constante
         Integer idmante = 0; // constante
-        String branch = "0"; // constante
+        Integer branch = 0; // constante
         String nota = ""; // nota de cierre asociada a las observaciones del Aviso
 
         // “2” si se finaliza 	“3” si se finaliza por crear un Mantenimiento
-        Integer statusdest = finalizarDesdeCrearMantenimiento ? 2 : 3;
+        String statusdest = finalizarDesdeCrearMantenimiento ? "2" : "3";
 
         boolean result = false;
         try {
-            //TODO PORQUE EL CODIGO CIERRE ES STRING??? NOSOTROS TENEMOS NUMEROS
-            List<RowErrorCA> rowErrorCAs = spAvisosOperaciones.cerrarAviso(idAviso, idAgente,codTipoCierre, nota, statusdest,
-                    deuda, Integer.valueOf(codTipoCierreAdicional), idmante, branch );
+            List<RowErrorCA> rowErrorCAs = spAvisosOperaciones.cerrarAviso(idAviso, idAgente, nota, statusdest,
+                    deuda, idmante, branch, codTipoCierre, codTipoCierreAdicional);
             //TODO Debug para ver que devuelve y controlar si hay errores devolver
             if (rowErrorCAs != null && rowErrorCAs.size() == 1
                     && ((RowErrorCA) ((List) rowErrorCAs).get(0)).getReturnCode() != null
