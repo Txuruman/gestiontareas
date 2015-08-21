@@ -129,10 +129,8 @@ public class TareaService {
 
     }
 
-    public boolean createTask(Agent agent,TareaMantenimiento tarea) {
-        LOGGER.debug("Creating task: {}", tarea);
-    public boolean createTask(Agent agent,TareaAviso tarea) {
-        LOGGER.debug("Creating task: {}", tarea);        boolean result;
+    public boolean createTask(Agent agent,TareaMantenimiento tareaMantenimiento) {
+        LOGGER.debug("Creating task: {}", tareaMantenimiento);        boolean result;
         try {
             // TODO Tarea mantenimiento la crea un batch, el usuario desde pantalla crea tarea de aviso
             // TODO rellenar las variables
