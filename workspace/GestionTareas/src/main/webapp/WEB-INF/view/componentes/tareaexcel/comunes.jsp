@@ -6,14 +6,14 @@
 
 <div class="row">
     <div class="spacer_t2"></div>
-    <app:input id="closingReason" label="excelcommonfields.closingreason" cells="6" readonly="false">
-        <select ng-model="tarea.closingReason" convert-to-number class="form-control">
+    <app:input id="closingReason" label="excelcommonfields.closingreason" cells="6" >
+        <select ng-model="tarea.closingReason" convert-to-number class="form-control" required>
             <!-- ng-model="model.id" convert-to-number -->
             <option data-ng-repeat="k in closingReasonList" value="{{k.id}}" ng-selected="k.id==tarea.closingReason">
                 {{k.value}}
             </option>
         </select>
     </app:input>
-    <app:inputTextNG id="compensation" label="excelcommonfields.compensation" value="tarea.compensation" cells="6" readonly="false"/>
+    <app:inputTextNG id="compensation" label="excelcommonfields.compensation" value="tarea.compensation" cells="6" />
 </div>
 <div class="spacer_t1"></div>

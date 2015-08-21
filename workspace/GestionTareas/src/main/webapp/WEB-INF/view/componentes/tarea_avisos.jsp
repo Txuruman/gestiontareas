@@ -5,23 +5,55 @@
 
 
 <div ng-controller="notificationtask" ng-init="tarea={};init()">
-    <jsp:include page="instalacion.jsp"/>
+    <div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row">
+            <app:inputTextNG id="ninstalacion" label="visortarea.ninstalacion"
+                             value="tarea.numeroInstalacion" cells="6" cell_label="4" cell_input="8"
+                             readonly="true"/>
+            <app:inputTextNG id="panel" label="visortarea.panel" value="installationData.panel" cells="6"
+                             readonly="true"/>
+           
+        </div>
+
+        <div class="spacer_t1"></div>
+        <div class="row">
+             <app:inputTextNG id="titular" label="visortarea.titular" value="installationData.titular" cells="6"
+                             readonly="true"/>
+            <app:inputTextNG id="version" label="visortarea.version" value="installationData.version" cells="6"
+                             readonly="true" />
+        </div>
+
+        <div class="spacer_t1"></div>
+		<hr/>
+       <div class="row">
+            <app:inputTextNG id="aviso" label="tareaAviso.identificativoAvisoTarea" value="tarea.idAviso" cells="6" readonly="true"/>
+            <app:inputDate id="fechaCreacion" label="tareaAviso.fechaCreacion" value="tarea.fechaCreacion"  cells="6" readonly="true"/>
+       </div>
+       <div class="spacer_t1"></div>
+       <div class="row">
+       		<app:inputTextNG id="requeridoPor" label="tareaAviso.requeridoPor" value="tarea.requeridoPor" cells="6" readonly="false"/>
+       </div>
+        <!-- Datos de la Instalacion  - End -->
+    </div>
+</div>
 
     <div class="panel panel-default">
         <div class="panel-body">
             <div class="spacer_t2"></div>
-            <div class="row">
-                <app:inputTextNG id="aviso" label="tareaAviso.identificativoAvisoTarea" value="tarea.idAviso" cells="6" readonly="true"/>
-                <app:inputDate id="fechaCreacion" label="tareaAviso.fechaCreacion" value="tarea.fechaCreacion"  cells="6" readonly="true"/>
-            </div>
+             <div class="row">
+	            <app:inputTextNG id="personaContacto" label="visortarea.personacontacto"
+	                             value="tarea.personaContacto" cells="6" />
+	            <app:inputTextNG id="telefono" label="visortarea.telefono" value="tarea.telefono" cells="6"
+	                              type="text"  ng_keypress="onlyNumber($event,false)" />
+	        </div>
+            
             <div class="row">
             </div>
             <div class="spacer_t1"></div>
             <div class="row">
-                <app:inputTextNG id="requeridoPor" label="tareaAviso.requeridoPor" value="tarea.requeridoPor" cells="6" readonly="false"/>
-                <app:inputTextNG id="horarioDesde" label="tareaAviso.horarioDesde" value="tarea.horarioDesde" cells="3" readonly="false" ng_keypress="onlyNumber($event,true,tarea.horarioDesde.length)"/>
-                <app:inputTextNG id="horarioHasta" label="tareaAviso.horarioHasta" value="tarea.horarioHasta" cells="3" readonly="false" ng_keypress="onlyNumber($event,true,tarea.horarioHasta.length)"/>
-
+                <app:inputTextNG id="horarioDesde" label="tareaAviso.horarioDesde" value="tarea.horarioDesde" cells="6"  ng_keypress="onlyNumber($event,true,tarea.horarioDesde.length)"/>
+                <app:inputTextNG id="horarioHasta" label="tareaAviso.horarioHasta" value="tarea.horarioHasta" cells="6"  ng_keypress="onlyNumber($event,true,tarea.horarioHasta.length)"/>
             </div>
             <div class="spacer_t1"></div>
             <div class="row">

@@ -42,7 +42,7 @@
                     <div class="row">
                         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                         </div>
-                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9"
+                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
                             <app:inputTextNG id="telefono1" label="tareamantenimiento.telefono1" value="tarea.telefono1"
                                              readonly="false"/>
                         </div>
