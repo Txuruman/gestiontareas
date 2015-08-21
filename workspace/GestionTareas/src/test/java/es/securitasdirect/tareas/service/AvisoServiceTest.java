@@ -1,15 +1,13 @@
 package es.securitasdirect.tareas.service;
 
-import es.securitasdirect.tareas.model.Agent;
-import es.securitasdirect.tareas.model.DummyGenerator;
-import es.securitasdirect.tareas.model.Tarea;
-import es.securitasdirect.tareas.model.TareaAviso;
+import es.securitasdirect.tareas.model.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.wso2.ws.dataservice.GetInstallationDataInput;
 
 import javax.inject.Inject;
 import java.text.SimpleDateFormat;
@@ -33,7 +31,8 @@ public class AvisoServiceTest {
     protected AvisoService avisoService;
     @Inject
     protected QueryTareaService queryTareaService;
-
+    @Inject
+    protected InstallationService installationService;
 
     /**
      * <DATA>
@@ -54,12 +53,30 @@ public class AvisoServiceTest {
     public void createTicketTest() throws Exception {
 
         Agent agent = DummyGenerator.getAgent();
-        String callingList = "CL_CCT_ATT_Averia_Test";
-        String idTarea = "1";
-        TareaAviso tareaAviso = (TareaAviso)queryTareaService.queryTarea(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), callingList, idTarea);
-        assertThat(tareaAviso, notNullValue());
 
-        avisoService.createTicket(agent, tareaAviso);
+
+        TareaAviso tareaAviso = new TareaAviso();
+
+        tareaAviso.setTelefono("911234567");
+        tareaAviso.setHorarioDesde("10");
+        tareaAviso.setHorarioHasta("15");
+
+        tareaAviso.setMotivo1("200");
+        tareaAviso.setTipoAviso1("210");
+        tareaAviso.setMotivo2("200");
+        tareaAviso.setTipoAviso2("212");
+        tareaAviso.setMotivo3("200");
+        tareaAviso.setTipoAviso3("212");
+
+        tareaAviso.setNumeroInstalacion("1829827");
+        tareaAviso.setObservaciones("observaciones");
+
+
+
+
+        InstallationData  installationData = installationService.getInstallationData("1829827");
+
+        avisoService.createTicket(agent, tareaAviso, installationData);
     }
 
     @Test

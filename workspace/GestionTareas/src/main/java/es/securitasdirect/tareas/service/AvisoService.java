@@ -168,6 +168,7 @@ public class AvisoService {
         xmlCreateTicket = xmlCreateTicket.replaceAll("\n", "");
 
         String xmlResult = wsTickets.create(xmlCreateTicket);
+        //TODO Debug para ver que devuelve y controlar si hay errores devolver
         DATA data = xmlMarshaller.unmarshalData(xmlResult);
 
         LOGGER.debug("xmlCreateTicket: {} xmlResult:{}", xmlCreateTicket, xmlResult);
