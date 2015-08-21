@@ -61,7 +61,7 @@ public class CreateTaskController extends BaseController {
         try{
             LOGGER.debug("Create task request: {}", request);
             Agent agent = DummyGenerator.getAgent();
-            boolean result = tareaService.createTask( agent, (TareaAviso)request.getTask());
+            boolean result = true;//TODO: Create task TareaAviso tareaService.createTask( agent, (TareaMantenimiento)request.getTask());
             LOGGER.debug("Created task result: {}", result);
             response = processSuccessMessages(result, SERVICE_MESSAGE);
         }catch(Exception e){
