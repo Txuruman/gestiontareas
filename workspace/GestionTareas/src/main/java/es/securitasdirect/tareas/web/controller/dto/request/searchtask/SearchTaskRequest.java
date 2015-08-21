@@ -17,7 +17,8 @@ public class SearchTaskRequest extends BaseRequest {
     public static String CLIENT = "customer";
 
     private String searchText;
-    private String searchOption;
+    private String searchOption=TELEPHONE;
+
 
     public String getSearchText() {
         return searchText;

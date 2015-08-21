@@ -1,5 +1,6 @@
 package es.securitasdirect.tareas.web.controller.task;
 
+import es.securitasdirect.tareas.model.Agent;
 import es.securitasdirect.tareas.model.InstallationData;
 import es.securitasdirect.tareas.model.TareaAviso;
 import es.securitasdirect.tareas.model.external.Pair;
@@ -140,11 +141,31 @@ public class NotificationTaskController extends TaskController {
         return super.delayTask(request.getTask(), request.getRecallType(), request.getDelayDate());
     }
 
+    /**
+     * Finalización de Tarea tipo
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/finalizar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
     BaseResponse finalizeTask(@RequestBody FinalizeNotificationTaskRequest request) {
-        return super.finalizeTask(request.getTask());
+        LOGGER.debug("Finalizando tarea aviso {}  ", request.getTask());
+        BaseResponse response = new BaseResponse();
+        //Llamada al servicio para finalizar
+        try {
+            Agent agent=agentController.getAgent();
+            boolean ok = tareaService.finalizeNotificationTask(agent, request.getTask());
+            if (ok) {
+                response.info(messageUtil.getProperty("finalize.success"));
+            }else{
+                response.info(messageUtil.getProperty("finalize.error"));
+            }
+        } catch (Exception e) {
+            response = processException(e);
+        }
+        LOGGER.debug("Finalizado de tarea\nResponse:{}", response);
+        return response;
     }
 
 

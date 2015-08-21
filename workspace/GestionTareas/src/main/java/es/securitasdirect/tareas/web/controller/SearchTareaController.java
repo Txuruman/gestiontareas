@@ -44,7 +44,7 @@ public class SearchTareaController extends TaskController {
     @Inject
     protected MessageUtil messageUtil;
 
-    protected SearchTaskRequest lastSearchTareaRequest;
+    protected SearchTaskRequest lastSearchTareaRequest = new SearchTaskRequest();
 
     @RequestMapping
     public ModelAndView handleRequest(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {

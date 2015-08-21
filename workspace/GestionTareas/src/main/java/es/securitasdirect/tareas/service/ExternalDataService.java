@@ -8,6 +8,7 @@ import es.securitasdirect.tareas.model.TareaAviso;
 import es.securitasdirect.tareas.model.TareaExcel;
 import es.securitasdirect.tareas.model.TareaMantenimiento;
 import es.securitasdirect.tareas.model.external.BigIntegerPair;
+import es.securitasdirect.tareas.model.external.DescriptionPair;
 import es.securitasdirect.tareas.model.external.Pair;
 import es.securitasdirect.tareas.model.external.StringPair;
 import es.securitasdirect.tareas.model.tareaexcel.*;
@@ -33,10 +34,12 @@ public class ExternalDataService {
 
     @Inject
     protected SPAIOTAREAS2PortType spAioTareas2;
-    @Resource(name = "datosAdicionalesCierreTareaAviso")
-    protected List<Pair> datosAdicionalesCierreTareaAviso;
     @Resource(name = "datosAdicionalesCierreTareaExcel")
     protected List<Pair> datosCierreTareaExcel;
+
+    /** Datos cierre tarea mantenimiento configurados en spring */
+    @Resource(name = "datosCierreTareaMantenimiento")
+    protected List<DescriptionPair> datosCierreTareaMantenimiento;
 
     /**
      * Consulta de los valores para el combo Key1 de tareas de mantenimiento
@@ -221,8 +224,12 @@ public class ExternalDataService {
         return datosCierreTareaExcel;
     }
 
-    public List<Pair> getCancelationType() {
-        LOGGER.debug("Calling for cancelation type (for pull down combo)");
-        return dummyPairList();
+
+    /**
+     * Tipos de cierre para una tarea tipo mantenimiento
+     * @return
+     */
+    public List<DescriptionPair> getCancelationTypeMaintenanceTask() {
+        return datosCierreTareaMantenimiento;
     }
 }
