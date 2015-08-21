@@ -3,6 +3,7 @@ package es.securitasdirect.tareas.service;
 import com.webservice.CCLIntegration;
 import com.webservice.WsResponse;
 import es.securitasdirect.tareas.model.Agent;
+import es.securitasdirect.tareas.model.InstallationData;
 import es.securitasdirect.tareas.model.Tarea;
 import es.securitasdirect.tareas.model.TareaAviso;
 import es.securitasdirect.tareas.model.tickets.*;
@@ -52,7 +53,7 @@ public class AvisoService {
     /**
      * creacion del XML para crear un Aviso. Se hace a través de un WS disponible para la aplicación de Tickets.
      */
-    public void createTicket(Agent agent, TareaAviso tareaAviso) {
+    public void createTicket(Agent agent, TareaAviso tareaAviso, InstallationData installationData) {
         String idUser = agent.getIdAgent();
         String idCountry = agent.getAgentCountryJob();
         String idLanguage = agent.getCurrentLanguage();
@@ -138,12 +139,12 @@ public class AvisoService {
          */
         createTicket.getTicket().setNumInst(tareaAviso.getNumeroInstalacion());
         createTicket.getTicket().setObserv(tareaAviso.getObservaciones());
-        createTicket.getTicket().setCodZIP("28030"); // TODO
+        createTicket.getTicket().setCodZIP("28030"); // TODO InstallationData no tiene codigo postal
         createTicket.getTicket().setCloseTicket("0"); // constante
         createTicket.getTicket().setDataAditional(""); // constante
         createTicket.getTicket().setNoteClose(""); // constante
         createTicket.getTicket().setMorDebt("0"); // constante
-        createTicket.getTicket().setTypePanel("SDVFAST"); // TODO
+        createTicket.getTicket().setTypePanel(installationData.getPanel());
 
         /* <REQ></REQ>
          */
@@ -167,6 +168,7 @@ public class AvisoService {
         xmlCreateTicket = xmlCreateTicket.replaceAll("\n", "");
 
         String xmlResult = wsTickets.create(xmlCreateTicket);
+        //TODO Debug para ver que devuelve y controlar si hay errores devolver
         DATA data = xmlMarshaller.unmarshalData(xmlResult);
 
         LOGGER.debug("xmlCreateTicket: {} xmlResult:{}", xmlCreateTicket, xmlResult);

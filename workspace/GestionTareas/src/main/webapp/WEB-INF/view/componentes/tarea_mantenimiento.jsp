@@ -33,7 +33,7 @@
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                     <div class="row">
                         <app:input id="cancelationTypeCombo" label="tareamantenimiento.tipoCancelacion">
-                            <select ng-model="tarea.tipoCancelacion" convert-to-number class="form-control">
+                            <select ng-model="tarea.cancelationTypeList" convert-to-number class="form-control" ng-change="tarea.cancelationText=k.description">
                                 <option data-ng-repeat="k in cancelationTypeList" value="{{k.id}}" ng-selected="k.id==tarea.tipoCancelacion">{{k.value}}</option>
                             </select>
                         </app:input>
@@ -42,7 +42,7 @@
                     <div class="row">
                         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                         </div>
-                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9"
+                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
                             <app:inputTextNG id="telefono1" label="tareamantenimiento.telefono1" value="tarea.telefono1"
                                              readonly="false"/>
                         </div>

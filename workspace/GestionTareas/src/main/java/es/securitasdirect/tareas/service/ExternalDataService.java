@@ -39,6 +39,10 @@ public class ExternalDataService {
     @Resource(name = "datosCierreTareaMantenimiento")
     protected List<DescriptionPair> datosCierreTareaMantenimiento;
 
+
+    @Resource(name = "datosCierreTareaExcel")
+    protected List<Pair> datosCierreTareaExcel;
+
     /**
      * Consulta de los valores para el combo Key1 de tareas de mantenimiento
      */
@@ -78,16 +82,7 @@ public class ExternalDataService {
         DESMONTAJE
      */
     public List<Pair> getExcelClosingReason() throws DataServiceFault {
-        LOGGER.debug("Calling for closing reason query (for pull down combo)");
-        //spAioTareas2.getMotivoCierre();
-        List<Pair> result = new ArrayList<Pair>();
-        result.add(new Pair(1, "AVISO GESTIONADO"));
-        result.add(new Pair(2, "ILOCALIZADO"));
-        result.add(new Pair(3, "Compensación"));
-        result.add(new Pair(4, "ACUERDO CON CLIENTE"));
-        result.add(new Pair(5, "NO PROCEDE APERTURA"));
-        result.add(new Pair(6, "DESMONTAJE"));
-        return result;
+        return datosCierreTareaExcel;
     }
 
 
@@ -209,6 +204,10 @@ public class ExternalDataService {
      * @return
      */
     public List<DescriptionPair> getCancelationTypeMaintenanceTask() {
-        return datosCierreTareaMantenimiento;
+    	List<DescriptionPair> cancelationTypeList=new ArrayList<DescriptionPair>();
+    	for (DescriptionPair descriptionPair : datosCierreTareaMantenimiento) {
+    		cancelationTypeList.add(new DescriptionPair(descriptionPair));
+		}
+        return cancelationTypeList;
     }
 }

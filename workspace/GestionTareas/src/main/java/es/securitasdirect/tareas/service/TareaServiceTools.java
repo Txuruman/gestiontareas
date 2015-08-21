@@ -2,6 +2,7 @@ package es.securitasdirect.tareas.service;
 
 import com.webservice.CclResponse;
 import com.webservice.Item;
+import es.securitasdirect.tareas.exceptions.FrameworkException;
 import es.securitasdirect.tareas.model.*;
 import es.securitasdirect.tareas.model.tareaexcel.*;
 import es.securitasdirect.tareas.web.controller.params.TaskServiceParams;
@@ -186,6 +187,7 @@ public class TareaServiceTools {
                 avisobyId = spAioTareas2.getAvisobyId(idAviso);
             }catch (DataServiceFault dsf){
                 LOGGER.error("ERROR calling service for TareaAviso ID:'{}'", idAviso);
+                throw new FrameworkException(dsf);
             }
             if (avisobyId != null && !avisobyId.isEmpty()) {
                 Iterator<GetAvisobyIdResult> iterator = avisobyId.iterator();

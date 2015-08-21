@@ -31,6 +31,8 @@
     </context:component-scan>
     <!--<context:property-placeholder location="classpath*:database.properties,classpath*:hibernate.properties,classpath*:app-version.properties"/>-->
 
+    <!-- TODO COMENTAR -->
+    <!-- Valores para el campo DESPLEGABLE DE CIERRE , que se rellenarán en función del tipo de aviso    -->
 
     <!-- Usuario de aplicación definido para las llamadas a servicios utilizadas en el aplicativo -->
     <bean id="applicationUser" class="java.lang.String">
@@ -38,31 +40,52 @@
     </bean>
 
 
+
     <!-- Lista y valores del combo de Tipos de Cierre para Tareas de Tipo Mantenimiento -->
     <util:list id="datosCierreTareaMantenimiento" value-type="es.securitasdirect.tareas.model.external.DescriptionPair" list-class="java.util.ArrayList">
         <bean class="es.securitasdirect.tareas.model.external.DescriptionPair">
-            <property name="id" value="1" />
+            <property name="id" value="BTNDIY" />
             <!-- El value es la clave de internacionalizacion del fichero messages.properties -->
-            <property name="value" value="Dato Adicional Cierre 1" />
+            <property name="value" value="cancelationType.BTNDIY.text" />
             <!-- El value es la clave de internacionalizacion del fichero messages.properties -->
-            <property name="description" value="Dato Adicional Cierre 1" />
+            <property name="description" value="cancelationType.BTNDIY.description" />
         </bean>
         <bean class="es.securitasdirect.tareas.model.external.DescriptionPair">
-            <property name="id" value="2" />
-            <property name="value" value="Dato Adicional Cierre 2" />
-            <property name="description" value="Dato Adicional Cierre 1" />
+            <property name="id" value="BTNMTO" />
+            <property name="value" value="cancelationType.BTNMTO.text" />
+            <property name="description" value="cancelationType.BTNMTO.description" />
+        </bean>
+        <bean class="es.securitasdirect.tareas.model.external.DescriptionPair">
+            <property name="id" value="BTNERR" />
+            <property name="value" value="cancelationType.BTNERR.text" />
+            <property name="description" value="cancelationType.BTNERR.description" />
         </bean>
     </util:list>
 
 
+    <!--
+        Datos cierre para tareas tipo excel, debería venir por WS pero de momento está configurado por spring
+        -->
     <util:list id="datosCierreTareaExcel" value-type="es.securitasdirect.tareas.model.external.Pair" list-class="java.util.ArrayList">
         <bean class="es.securitasdirect.tareas.model.external.Pair">
             <property name="id" value="1" />
-            <property name="value" value="Dato Adicional Cierre Excel 1" />
+            <property name="value" value="AVISO GESTIONADO" />
         </bean>
         <bean class="es.securitasdirect.tareas.model.external.Pair">
             <property name="id" value="2" />
-            <property name="value" value="Dato Adicional Cierre Excel 2" />
+            <property name="value" value="Compensacion" />
+        </bean>
+        <bean class="es.securitasdirect.tareas.model.external.Pair">
+            <property name="id" value="3" />
+            <property name="value" value="ACUERDO CON CLIENTE" />
+        </bean>
+        <bean class="es.securitasdirect.tareas.model.external.Pair">
+            <property name="id" value="4" />
+            <property name="value" value="NO PROCEDE APERTURA" />
+        </bean>
+        <bean class="es.securitasdirect.tareas.model.external.Pair">
+            <property name="id" value="5" />
+            <property name="value" value="DESMONTAJE" />
         </bean>
     </util:list>
 

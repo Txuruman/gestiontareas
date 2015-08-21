@@ -17,6 +17,10 @@ public class PairListResponse extends BaseResponse {
 
     public PairListResponse(){}
 
+    public PairListResponse(List pairList) {
+        this.pairList = pairList;
+    }
+
     public PairListResponse(BaseResponse baseResponse){
         if(baseResponse!=null){
             super.setMessages(baseResponse.getMessages());
