@@ -54,8 +54,15 @@ public class AvisoService {
      * creacion del XML para crear un Aviso. Se hace a través de un WS disponible para la aplicación de Tickets.
      */
     public void createTicket(Agent agent, TareaAviso tareaAviso, InstallationData installationData) {
+
         String idUser = agent.getIdAgent();
+
+        // TODO Hacerlo por spring
         String idCountry = agent.getAgentCountryJob();
+        if("SPAIN".equals(agent.getAgentCountryJob())) idCountry = "1";
+        else if("PORTUGAL".equals(agent.getAgentCountryJob())) idCountry = "2";
+        else if("FRANCE".equals(agent.getAgentCountryJob())) idCountry = "3";
+
         String idLanguage = agent.getCurrentLanguage();
         String idReq = agent.getDesktopDepartment();
 
@@ -230,22 +237,23 @@ public class AvisoService {
      */
     public boolean closeTicket(Integer idAviso,
                                String idAgente,
-                               Integer codTipoCierre,
+                               String codTipoCierre,
                                String codTipoCierreAdicional,
                                boolean finalizarDesdeCrearMantenimiento) throws Exception {
 
         Integer deuda = 0; // constante
         Integer idmante = 0; // constante
-        Integer branch = 0; // constante
+        String branch = "0"; // constante
         String nota = ""; // nota de cierre asociada a las observaciones del Aviso
 
         // “2” si se finaliza 	“3” si se finaliza por crear un Mantenimiento
-        String statusdest = finalizarDesdeCrearMantenimiento ? "2" : "3";
+        Integer statusdest = finalizarDesdeCrearMantenimiento ? 2 : 3;
 
         boolean result = false;
         try {
-            List<RowErrorCA> rowErrorCAs = spAvisosOperaciones.cerrarAviso(idAviso, idAgente, nota, statusdest,
-                    deuda, idmante, branch, codTipoCierre, codTipoCierreAdicional);
+            //TODO SI el Integer.valueOf(codTipoCierreAdicional) es siempre integer pasarlo a integer
+            List<RowErrorCA> rowErrorCAs = spAvisosOperaciones.cerrarAviso(idAviso, idAgente, codTipoCierre, nota, statusdest,
+                    deuda, Integer.valueOf(codTipoCierreAdicional) ,idmante, branch   );
             //TODO Debug para ver que devuelve y controlar si hay errores devolver
             if (rowErrorCAs != null && rowErrorCAs.size() == 1
                     && ((RowErrorCA) ((List) rowErrorCAs).get(0)).getReturnCode() != null

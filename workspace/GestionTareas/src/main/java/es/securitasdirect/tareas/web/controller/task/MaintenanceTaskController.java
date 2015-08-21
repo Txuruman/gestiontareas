@@ -101,7 +101,7 @@ public class MaintenanceTaskController extends TaskController {
                         response.danger(messageUtil.getProperty("getTask.noInstallation"));
                     }
                 } else {
-                    response.danger("getTask.notFound");
+                    response.danger(messageUtil.getProperty("getTask.notFound"));
                 }
             } catch (Exception e) {
                 LOGGER.error(e.getMessage(),e);
@@ -143,14 +143,12 @@ public class MaintenanceTaskController extends TaskController {
     public
     @ResponseBody
     PairListResponse getDesplegableKey1() {
-        String SERVICE_MESSAGE = "maintenanceTask.getDesplegableKey1";
         PairListResponse response;
         try{
             List<Pair> desplegableKey1 = externalDataService.getDesplegableKey1();
-            response = new PairListResponse(processSuccessMessages(desplegableKey1,SERVICE_MESSAGE ));
-            response.setPairList(desplegableKey1);
+            response = new PairListResponse(desplegableKey1);
         }catch(Exception e){
-            response = new PairListResponse(processException(e, SERVICE_MESSAGE));
+            response = new PairListResponse(processException(e));
         }
         return response;
     }
@@ -159,14 +157,12 @@ public class MaintenanceTaskController extends TaskController {
     public
     @ResponseBody
     PairListResponse getDesplegableKey2(@RequestParam(value = "key1", required = true) Integer key1)  {
-        String SERVICE_MESSAGE =  "maintenanceTask.getDesplegableKey2";
         PairListResponse response;
         try{
             List<Pair> desplegableKey2 = externalDataService.getDesplegableKey2(key1);
-            response = new PairListResponse(processSuccessMessages(desplegableKey2,SERVICE_MESSAGE));
-            response.setPairList(desplegableKey2);
+            response = new PairListResponse(desplegableKey2);
         }catch(Exception e){
-            response = new PairListResponse(processException(e, SERVICE_MESSAGE));
+            response = new PairListResponse(processException(e));
         }
         return response;
     }

@@ -9684,22 +9684,23 @@
          <dat:CNOTA>?</dat:CNOTA>
       </dat:AplazarAviso>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:AplazarAviso"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="urn:CerrarAviso" name="CerrarAviso" bindingOperationName="CerrarAviso" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="932ce19f-6575-41f9-bf28-dad63436aeb0"><con:settings/><con:call name="Request 1" id="6fd6936f-c882-4408-ba88-f9ebc5710de0"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.2.144.63:9763/services/SP_AVISOS_OPERACIONES.SOAP11Endpoint/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dat="http://ws.wso2.org/dataservice">
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:AplazarAviso"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="urn:CerrarAviso" name="CerrarAviso" bindingOperationName="CerrarAviso" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="932ce19f-6575-41f9-bf28-dad63436aeb0"><con:settings/><con:call name="Request 1" id="6fd6936f-c882-4408-ba88-f9ebc5710de0"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.2.144.63:9763/services/SP_AVISOS_OPERACIONES.SOAP11Endpoint/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dat="http://ws.wso2.org/dataservice">
    <soapenv:Header/>
    <soapenv:Body>
       <dat:CerrarAviso>
-         <dat:NAVISO>?</dat:NAVISO>
-         <dat:IDMAT>?</dat:IDMAT>
-         <dat:TCIERRE>?</dat:TCIERRE>
-         <dat:CNOTA>?</dat:CNOTA>
-         <dat:STATUSDEST>?</dat:STATUSDEST>
-         <dat:DEUDA>?</dat:DEUDA>
-         <dat:ADICIONAL>?</dat:ADICIONAL>
-         <dat:IDMANTEN>?</dat:IDMANTEN>
-         <dat:BRANCH>?</dat:BRANCH>
+         <dat:NAVISO>10267531</dat:NAVISO>
+         <dat:IDMAT>M0OOS</dat:IDMAT>
+         <dat:TCIERRE>ILOC</dat:TCIERRE>
+         <dat:CNOTA></dat:CNOTA>
+         <dat:STATUSDEST>2</dat:STATUSDEST><!-- o 3 -->
+         <dat:DEUDA>0</dat:DEUDA>
+         <dat:ADICIONAL>10</dat:ADICIONAL>
+         <dat:IDMANTEN>0</dat:IDMANTEN>
+         <dat:BRANCH>0</dat:BRANCH>
       </dat:CerrarAviso>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:CerrarAviso"/></con:call></con:operation><con:operation isOneWay="false" action="urn:ReasignarAviso" name="ReasignarAviso" bindingOperationName="ReasignarAviso" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="4aaaab61-b3a8-48c5-b67c-2878e74304a0"><con:settings/><con:call name="Request 1" id="4f07f1f9-f2c7-4397-a0fb-1ad67707153a"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.2.144.63:9763/services/SP_AVISOS_OPERACIONES.SOAP11Endpoint/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dat="http://ws.wso2.org/dataservice">
+</soapenv:Envelope>
+]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:CerrarAviso"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="urn:ReasignarAviso" name="ReasignarAviso" bindingOperationName="ReasignarAviso" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="4aaaab61-b3a8-48c5-b67c-2878e74304a0"><con:settings/><con:call name="Request 1" id="4f07f1f9-f2c7-4397-a0fb-1ad67707153a"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.2.144.63:9763/services/SP_AVISOS_OPERACIONES.SOAP11Endpoint/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dat="http://ws.wso2.org/dataservice">
    <soapenv:Header/>
    <soapenv:Body>
       <dat:ReasignarAviso>

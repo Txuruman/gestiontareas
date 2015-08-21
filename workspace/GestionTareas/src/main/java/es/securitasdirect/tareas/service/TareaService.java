@@ -43,9 +43,6 @@ public class TareaService {
     //Dial_sched_time = dd/mm/aaaa hh:mm:ss
     private SimpleDateFormat sdfSchedTime = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
 
-    @Resource(name = "datosCierreTareaAviso")
-    protected Map<String, Map<Integer, String>> datosCierreTareaAviso;
-
 
 
     /**
@@ -77,13 +74,13 @@ public class TareaService {
     public boolean finalizeNotificationTask(Agent agent,TareaAviso tarea) {
         LOGGER.debug("Finalizando tarea Aviso {}" , tarea);
         //1. Finalizar la Tarea
-        boolean finalized = wsFilanizeTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId());
+        boolean finalized = wsFilanizeTask(agent.getAgentIBS(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId());
         if (finalized) {
             //2. Finalizar el aviso
             //TODO finalizadoDesdeMantenimiento
             boolean finalizadoDesdeMantenimiento=false;
             try {
-               // finalized = avisoService.closeTicket(tarea.getIdAviso(),agent.getIdAgent(),tarea.getClosing(),tarea.getDatosAdicionalesCierre(),finalizadoDesdeMantenimiento);
+                finalized = avisoService.closeTicket(tarea.getIdAviso(),agent.getAgentIBS(),tarea.getClosing(),tarea.getDatosAdicionalesCierre(),finalizadoDesdeMantenimiento);
                 finalized=true;
             } catch (Exception e) {
                 LOGGER.error("Error Closing Ticket.",e);

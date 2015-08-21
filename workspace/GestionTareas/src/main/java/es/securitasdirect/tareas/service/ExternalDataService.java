@@ -34,12 +34,14 @@ public class ExternalDataService {
 
     @Inject
     protected SPAIOTAREAS2PortType spAioTareas2;
-    @Resource(name = "datosAdicionalesCierreTareaExcel")
-    protected List<Pair> datosCierreTareaExcel;
 
     /** Datos cierre tarea mantenimiento configurados en spring */
     @Resource(name = "datosCierreTareaMantenimiento")
     protected List<DescriptionPair> datosCierreTareaMantenimiento;
+
+
+    @Resource(name = "datosCierreTareaExcel")
+    protected List<Pair> datosCierreTareaExcel;
 
     /**
      * Consulta de los valores para el combo Key1 de tareas de mantenimiento
@@ -80,16 +82,7 @@ public class ExternalDataService {
         DESMONTAJE
      */
     public List<Pair> getExcelClosingReason() throws DataServiceFault {
-        LOGGER.debug("Calling for closing reason query (for pull down combo)");
-        //spAioTareas2.getMotivoCierre();
-        List<Pair> result = new ArrayList<Pair>();
-        result.add(new Pair(1, "AVISO GESTIONADO"));
-        result.add(new Pair(2, "ILOCALIZADO"));
-        result.add(new Pair(3, "Compensación"));
-        result.add(new Pair(4, "ACUERDO CON CLIENTE"));
-        result.add(new Pair(5, "NO PROCEDE APERTURA"));
-        result.add(new Pair(6, "DESMONTAJE"));
-        return result;
+        return datosCierreTareaExcel;
     }
 
 
@@ -151,20 +144,6 @@ public class ExternalDataService {
         return result;
     }
 
-    /**
-     * Creation of pair dummy list for unknown services
-     *
-     * @return
-     */
-    public List<Pair> dummyPairList() {
-        LOGGER.warn("Creating dummy list for mock a unknown service");
-        List<Pair> dummyPairList = new ArrayList<Pair>();
-        dummyPairList.add(new Pair(1, "dummy1"));
-        dummyPairList.add(new Pair(2, "dummy2"));
-        dummyPairList.add(new Pair(3, "dummy3"));
-        dummyPairList.add(new Pair(4, "dummy4"));
-        return dummyPairList;
-    }
 
 
     /**
@@ -217,11 +196,6 @@ public class ExternalDataService {
         }
         LOGGER.debug("Closing type aditional data list reponse: {}", result);
         return result;
-    }
-
-
-    public List<Pair> getDatosCierreTareaExcel() {
-        return datosCierreTareaExcel;
     }
 
 
