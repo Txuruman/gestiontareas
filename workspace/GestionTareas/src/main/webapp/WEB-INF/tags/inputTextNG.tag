@@ -13,6 +13,7 @@
 <%@ attribute name="cell_input" required="false"  description="The maximun cells label in parent space" %>
 <%@ attribute name="type" required="false"  description="The maximun cells label in parent space" %>
 <%@ attribute name="ng_keypress" required="false"  description="KeyPress event" %>
+<%@ attribute name="form" required="false"  description="form of the input" %>
 
 <c:if test="${cell_label == null}">
     <c:set var="cell_label" value="4"/>
@@ -50,13 +51,25 @@
                name="${id}"
                class="form-control input-custom-global"
                ng-model="${value}" 
-               maxlength="${maxlength}"
-               pattern="${pattern}"
+               <c:if test="${not empty maxlength}">
+               		maxlength="${maxlength}"
+               </c:if>
+               <c:if test="${not empty pattern}">
+              		pattern="${pattern}"
+               </c:if>
                <c:if test="${not empty ng_keypress}">
-               	ng-keypress="<c:out value="${ng_keypress}"/>"
+               		ng-keypress="<c:out value="${ng_keypress}"/>"
            		</c:if>
            		<c:if test="${not empty readonly}">
                		readonly="<c:out value="${readonly}"/>"
-           		</c:if>  />
+           		</c:if>
+           		<c:if test="${not empty required}">
+           			ng-required="<c:out value="${required}"/>"
+           		</c:if>	
+           		  />
+           		<c:if test="${not empty required}">
+           			<span class="error" ng-show="formVisorTarea.${id}.$error.required"><spring:message code="error.notext"/></span>
+           		</c:if>	 
+           		  
     </div>
 </div>
