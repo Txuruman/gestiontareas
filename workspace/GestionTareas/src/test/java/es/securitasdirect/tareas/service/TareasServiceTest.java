@@ -69,14 +69,6 @@ public class TareasServiceTest {
         assertThat(datosAdicionalesCierreTareaAviso, notNullValue());
     }
 
-
-    @Test
-    public void datosCierreTareaExcel() {
-        List<Pair> datosCierreTareaExcel = externalDataService.getDatosCierreTareaExcel();
-        LOGGER.info("datosCierreTareaExcel {}", datosCierreTareaExcel);
-        assertThat(datosCierreTareaExcel, notNullValue());
-    }
-
     @Test
     public void directoWsgetAvisoById() throws DataServiceFault {
         List<GetAvisobyIdResult> avisobyId = spAioTareas2.getAvisobyId(10267236);
@@ -101,6 +93,19 @@ public class TareasServiceTest {
 
 
     @Test
+    public void finalizarTareaAviso() throws Exception {
+        //Cada vez que se ejecuta hay que cambiar la tarea porque no la contrará
+        Agent agent = DummyGenerator.getAgent();
+        TareaAviso tarea = (TareaAviso) queryTareaService.queryTarea(agent, "CL_CCT_ATC_CRA", "1");
+
+        tarea.setClosing("ILOC");
+        tarea.setDatosAdicionalesCierre("1");
+
+        boolean ok = tareaService.finalizeNotificationTask(agent, tarea);
+        assertThat(ok,is(true));
+    }
+
+    @Test
     public void finalizeTask() throws Exception {
         Agent agent = DummyGenerator.getAgent();
         String callingList = "CL_CCT_XLS_LIMPIEZA_CUOTA";
@@ -108,7 +113,7 @@ public class TareasServiceTest {
         Tarea tarea = queryTareaService.queryTarea(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), callingList, idTarea);
 
 
-        boolean ok = tareaService.finalizeTask(agent,tarea                );
+        boolean ok = tareaService.finalizeTask(agent,tarea );
 
         assertThat(ok, is(true));
     }

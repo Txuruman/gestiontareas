@@ -42,6 +42,18 @@ public class QueryTareaService {
     @Resource(name = "applicationUser")
     private String applicationUser;
 
+    /**
+     * Cibsykta de una única tarea.
+     * @param agent
+     * @param callingList
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    public Tarea queryTarea(Agent agent, String callingList,String id) throws Exception {
+        assert agent!=null:"El Agente es parametro requerido";
+        return queryTarea(agent.getAgentIBS(),agent.getAgentCountryJob(),agent.getDesktopDepartment(),callingList,id);
+    }
 
     public Tarea queryTarea(String ccUserId, String country, String desktopDepartment,
                             String callingList,

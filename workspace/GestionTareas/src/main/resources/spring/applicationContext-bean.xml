@@ -40,18 +40,7 @@
     </bean>
 
 
-    <util:list id="datosAdicionalesCierreTareaAviso" value-type="es.securitasdirect.tareas.model.external.Pair" list-class="java.util.ArrayList">
-        <bean class="es.securitasdirect.tareas.model.external.Pair">
-            <property name="id" value="1" />
-            <property name="value" value="Dato Adicional Cierre 1" />
-        </bean>
-        <bean class="es.securitasdirect.tareas.model.external.Pair">
-            <property name="id" value="2" />
-            <property name="value" value="Dato Adicional Cierre 2" />
-        </bean>
-    </util:list>
-    
-    
+
     <!-- Lista y valores del combo de Tipos de Cierre para Tareas de Tipo Mantenimiento -->
     <util:list id="datosCierreTareaMantenimiento" value-type="es.securitasdirect.tareas.model.external.DescriptionPair" list-class="java.util.ArrayList">
         <bean class="es.securitasdirect.tareas.model.external.DescriptionPair">
@@ -73,34 +62,32 @@
         </bean>
     </util:list>
 
-    <util:list id="datosAdicionalesCierreTareaExcel" value-type="es.securitasdirect.tareas.model.external.Pair" list-class="java.util.ArrayList">
+
+    <!--
+        Datos cierre para tareas tipo excel, debería venir por WS pero de momento está configurado por spring
+        -->
+    <util:list id="datosCierreTareaExcel" value-type="es.securitasdirect.tareas.model.external.Pair" list-class="java.util.ArrayList">
         <bean class="es.securitasdirect.tareas.model.external.Pair">
             <property name="id" value="1" />
-            <property name="value" value="Dato Adicional Cierre Excel 1" />
+            <property name="value" value="AVISO GESTIONADO" />
         </bean>
         <bean class="es.securitasdirect.tareas.model.external.Pair">
             <property name="id" value="2" />
-            <property name="value" value="Dato Adicional Cierre Excel 2" />
+            <property name="value" value="Compensacion" />
+        </bean>
+        <bean class="es.securitasdirect.tareas.model.external.Pair">
+            <property name="id" value="3" />
+            <property name="value" value="ACUERDO CON CLIENTE" />
+        </bean>
+        <bean class="es.securitasdirect.tareas.model.external.Pair">
+            <property name="id" value="4" />
+            <property name="value" value="NO PROCEDE APERTURA" />
+        </bean>
+        <bean class="es.securitasdirect.tareas.model.external.Pair">
+            <property name="id" value="5" />
+            <property name="value" value="DESMONTAJE" />
         </bean>
     </util:list>
-
-    <!-- TODO COMENTAR
-    La clave del primer mapa es el tipo de la tarea de Aviso
-    -->
-    <util:map id="datosCierreTareaAviso" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.util.Map">
-        <entry key="111">
-            <util:map map-class="java.util.HashMap" key-type="java.lang.Integer" value-type="java.lang.String">
-                <entry key="1" value="Dato  Cierre 1 tipo 111"/>
-                <entry key="2" value="Dato  Cierre 2 tipo 111"/>
-            </util:map>
-        </entry>
-        <entry key="222">
-            <util:map map-class="java.util.HashMap" key-type="java.lang.Integer" value-type="java.lang.String">
-                <entry key="1" value="Dato  Cierre 1 tipo 222"/>
-                <entry key="2" value="Dato  Cierre 2 tipo 222"/>
-            </util:map>
-        </entry>
-    </util:map>
 
     <!--
     TAREA_AVISO="TareaAviso"; -

@@ -221,6 +221,7 @@ public class DummyGenerator {
         Agent agent = new Agent();
         agent.setAgentCountryJob("SPAIN");
         agent.setIdAgent("12106");
+        agent.setAgentIBS("M0OOS");
         agent.setDesktopDepartment("ATC_SP");
         agent.setCurrentLanguage("ES");
         return agent;

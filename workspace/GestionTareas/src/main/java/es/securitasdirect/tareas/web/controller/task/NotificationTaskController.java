@@ -121,7 +121,7 @@ public class NotificationTaskController extends TaskController {
         PairListResponse response;
         List<Pair> closingList = null;
         try {
-            closingList = externalDataService.dummyPairList();
+
             response = new PairListResponse();
             response.setPairList(closingList);
             //processresponse
