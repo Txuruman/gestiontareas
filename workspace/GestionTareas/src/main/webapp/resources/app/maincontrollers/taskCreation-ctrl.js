@@ -38,7 +38,7 @@ app.controller('taskCreation', function ($scope, $http, CommonService, $modal, $
     $scope.createTask = function(){
         $scope.vm.appReady=false;
         //$log.debug("Creating task");
-        $scope.tarea.fechaCreacion=new Date();
+        //$scope.tarea.fechaCreacion=new Date();
         var createTaskRequest = {
         		task:$scope.tarea,
         	    installationData:$scope.installationData

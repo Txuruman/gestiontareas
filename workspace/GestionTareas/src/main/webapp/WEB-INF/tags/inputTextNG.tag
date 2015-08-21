@@ -50,13 +50,21 @@
                name="${id}"
                class="form-control input-custom-global"
                ng-model="${value}" 
-               maxlength="${maxlength}"
-               pattern="${pattern}"
+               <c:if test="${not empty maxlength}">
+               		maxlength="${maxlength}"
+               </c:if>
+               <c:if test="${not empty pattern}">
+              		pattern="${pattern}"
+               </c:if>
                <c:if test="${not empty ng_keypress}">
-               	ng-keypress="<c:out value="${ng_keypress}"/>"
+               		ng-keypress="<c:out value="${ng_keypress}"/>"
            		</c:if>
            		<c:if test="${not empty readonly}">
                		readonly="<c:out value="${readonly}"/>"
-           		</c:if>  />
+           		</c:if>
+           		<c:if test="${not empty required}">
+           			ng-required="<c:out value="${required}"/>"
+           		</c:if>	
+           		  />
     </div>
 </div>

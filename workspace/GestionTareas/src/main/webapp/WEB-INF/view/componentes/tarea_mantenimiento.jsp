@@ -47,8 +47,9 @@
                                              readonly="false"/>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                            <input type="button" class="btn btn-xs"
-                                   value="<spring:message code="tareamantenimiento.llamartelefono1"/>"/>
+                            <button type="button" class="btn btn-default btn-sm botonAbsolute" title="<spring:message code="tareamantenimiento.llamartelefono1"/>" ng-click="getIntallation()">
+                        			<span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
+               				 </button>
                         </div>
                     </div>
                     <div class="spacer_t1"></div>
@@ -60,8 +61,9 @@
                                              readonly="false"/>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                            <input type="button" class="btn btn-xs"
-                                   value="<spring:message code="tareamantenimiento.llamartelefono2"/>"/>
+                        	<button type="button" class="btn btn-default btn-sm botonAbsolute" title="<spring:message code="tareamantenimiento.llamartelefono2"/>" ng-click="getIntallation()">
+                        			<span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
+               				 </button>
                         </div>
                     </div>
                     <div class="spacer_t1"></div>
@@ -73,8 +75,9 @@
                                              readonly="false"/>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                            <input type="button" class="btn btn-xs"
-                                   value="<spring:message code="tareamantenimiento.llamartelefono3"/>"/>
+                             <button type="button" class="btn btn-default btn-sm botonAbsolute" title="<spring:message code="tareamantenimiento.llamartelefono3"/>" ng-click="getIntallation()">
+                        			<span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
+               				 </button>
                         </div>
                     </div>
                 </div>
