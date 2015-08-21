@@ -61,12 +61,13 @@ public class AvisoServiceTest {
         tareaAviso.setHorarioDesde("10");
         tareaAviso.setHorarioHasta("15");
 
-        tareaAviso.setMotivo1("200");
-        tareaAviso.setTipoAviso1("210");
-        tareaAviso.setMotivo2("200");
-        tareaAviso.setTipoAviso2("212");
-        tareaAviso.setMotivo3("200");
-        tareaAviso.setTipoAviso3("212");
+        tareaAviso.setTipoAviso1("200");
+        tareaAviso.setMotivo1("210");
+        tareaAviso.setTipoAviso2("200");
+        tareaAviso.setMotivo2("210");
+        tareaAviso.setTipoAviso3("200");
+        tareaAviso.setMotivo3("210");
+
 
         tareaAviso.setNumeroInstalacion("1829827");
         tareaAviso.setObservaciones("observaciones");
