@@ -222,6 +222,7 @@ public class DummyGenerator {
         agent.setAgentCountryJob("SPAIN");
         agent.setIdAgent("12106");
         agent.setDesktopDepartment("ATC_SP");
+        agent.setCurrentLanguage("ES");
         return agent;
     }
 }
