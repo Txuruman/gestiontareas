@@ -18,7 +18,7 @@
     </div>
     <app:messages/>
 
-    <div class="form-horizontal" role="form">
+    <form class="form-horizontal" role="form" name="formCreateTask">
         <div class="spacer_t2"></div>
         <jsp:include page="instalacion.jsp"/>
         <div class="panel panel-default">
@@ -26,10 +26,10 @@
                 <!-- row -->
                 <div class="spacer_t1"></div>
                 <div class="row">
-                    <app:inputTextNG id="requiredBy" value="tarea.requeridoPor" label="createtask.requiredby" cells="6" />
+                    <app:inputTextNG id="requiredBy" value="tarea.requeridoPor" required="true" label="createtask.requiredby" cells="6" />
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        <app:inputTextNG id="horarioDesde" label="tareaAviso.horarioDesde" value="tarea.horarioDesde" cells="6"  ng_keypress="onlyNumber($event,true,tarea.horarioDesde.length)"/>
-                		<app:inputTextNG id="horarioHasta" label="tareaAviso.horarioHasta" value="tarea.horarioHasta" cells="6"  ng_keypress="onlyNumber($event,true,tarea.horarioHasta.length)"/>
+                        <app:inputTextNG id="horarioDesde" label="tareaAviso.horarioDesde" required="true" value="tarea.horarioDesde" cells="6"  ng_keypress="onlyNumber($event,true,tarea.horarioDesde.length)"/>
+                		<app:inputTextNG id="horarioHasta" label="tareaAviso.horarioHasta" required="true" value="tarea.horarioHasta" cells="6"  ng_keypress="onlyNumber($event,true,tarea.horarioHasta.length)"/>
                     </div>
                 </div>
                 <!-- row -->
@@ -84,12 +84,12 @@
                 <div class="row" align="right">
                     <div class="container-fluid">
                         <app:inputButtonNG value="boton.CrearMantenimiento" button_type="default" ng_click="createMaintenance()" fluid_wrapper="true"/>
-                        <app:inputButtonNG button_type="primary" value="boton.Crear" ng_click="createTask()" fluid_wrapper="true"/>
+                        <app:inputButtonNG button_type="primary" type="submit" value="boton.Crear" ng_click="formCreateTask.$valid ? createTask() : null" fluid_wrapper="true"/>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 </div>
 <!-- ANGULARJS DIV END -->
 <!-- Container -->
