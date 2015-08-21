@@ -43,6 +43,6 @@
 </div>
 <!-- END ANGULARJS CONTROLLER DIV-->
 <!-- Scripts de angularjs -->
-
+${params}
 </body>
 </html>

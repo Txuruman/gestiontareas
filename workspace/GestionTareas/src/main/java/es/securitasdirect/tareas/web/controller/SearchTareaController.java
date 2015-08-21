@@ -57,6 +57,11 @@ public class SearchTareaController extends TaskController {
         Agent agent = agentController.loadAgentFromIWS(parametersMap);
         //Enviar a la pantalla los datos de la ultima búsqueda
         mv.addObject("lastSearchTareaRequest",lastSearchTareaRequest);
+
+        //TODO TEMPORAL, ELIMINAR
+        mv.addObject("params",parametersMap);
+
+
         return mv;
     }
 
