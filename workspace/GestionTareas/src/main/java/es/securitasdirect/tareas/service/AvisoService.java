@@ -65,6 +65,7 @@ public class AvisoService {
 
         String idLanguage = agent.getCurrentLanguage();
         String idReq = agent.getDesktopDepartment();
+        idReq = "ATC"; // TODO le llega ATC_SP y no encuentra datos
 
         /*
          * Estructura del XML
