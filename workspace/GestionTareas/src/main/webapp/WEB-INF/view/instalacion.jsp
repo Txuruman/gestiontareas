@@ -6,12 +6,14 @@
 <div class="panel panel-default">
     <div class="panel-body">
         <div class="row">
-            <app:wrapping cells="6">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <app:inputTextNG id="ninstalacion" label="createtask.installationnumber"
                                  value="tarea.numeroInstalacion"
-                                 readonly="true" cells="11"/>
-                <app:inputButtonNG button_type="xs" value="createtask.button.searchinstallation" cells="1" />
-            </app:wrapping>
+                                 cells="0" ng_keypress="($event.keyCode===13 && tarea.numeroInstalacion!='') ? getIntallation() : null"/>
+                <button type="button" class="btn btn-default btn-sm botonAbsolute" title="<spring:message code="boton.search"/>" ng-click="getIntallation()">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                </button>
+           </div>
             <app:inputTextNG id="titular" label="visortarea.titular" value="installationData.titular"  readonly="true" cells="6"/>
         </div>
         <div class="spacer_t1"></div>
@@ -24,9 +26,9 @@
         <div class="spacer_t1"></div>
         <div class="row">
             <app:inputTextNG id="personaContacto" label="visortarea.personacontacto"
-                             value="tarea.personaContacto" cells="6" readonly="false"/>
-            <app:inputTextNG id="telefono" label="visortarea.telefono" value="tarea.telefono" cells="6"
-                             readonly="false" type="text"/>
+                             value="installationData.personaContacto" cells="6" readonly="false"/>
+            <app:inputTextNG id="telefono" label="visortarea.telefono" value="installationData.telefono" cells="6"
+                             readonly="false" type="text"  ng_keypress="onlyNumber($event,false)" />
 
         </div>
     </div>
