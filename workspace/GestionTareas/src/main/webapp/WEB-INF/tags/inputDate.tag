@@ -49,7 +49,7 @@
                    id="${id}"
                    name="${id}"
                    class="form-control input-custom-global"
-                   ng-model=" ${value} | date: 'dd/MM/yyyy' "
+                   ng-model=" ${value} | date: 'dd/MM/yyyy - HH:mm:ss' "
                    ${readonly=='true' ? 'disabled' : ''}  />
         </c:if>
     </div>

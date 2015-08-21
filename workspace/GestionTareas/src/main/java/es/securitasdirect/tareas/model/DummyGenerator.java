@@ -223,6 +223,7 @@ public class DummyGenerator {
         agent.setIdAgent("12106");
         agent.setAgentIBS("M0OOS");
         agent.setDesktopDepartment("ATC_SP");
+        agent.setCurrentLanguage("ES");
         return agent;
     }
 }
