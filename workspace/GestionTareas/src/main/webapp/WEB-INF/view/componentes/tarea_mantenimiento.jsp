@@ -33,7 +33,7 @@
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                     <div class="row">
                         <app:input id="cancelationTypeCombo" label="tareamantenimiento.tipoCancelacion">
-                            <select ng-model="tarea.cancelationTypeList" convert-to-number class="form-control" ng-change="tarea.cancelationText=k.description">
+                            <select ng-model="tarea.cancelationTypeCombo" convert-to-number class="form-control" ng-change="asignarTextoCancelacion()">
                                 <option data-ng-repeat="k in cancelationTypeList" value="{{k.id}}" ng-selected="k.id==tarea.tipoCancelacion">{{k.value}}</option>
                             </select>
                         </app:input>

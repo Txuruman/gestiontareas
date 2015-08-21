@@ -41,7 +41,9 @@
         <textarea type="text" class="form-control custom-area" name="${id}" id="${id}"
                   maxlength="${maxlength}" rows="5"
                   ${readonly=='true'? 'disabled' : ''}
-                  ng-model="${value}">
+                  ng-model="${value}" 
+                  >
+                  
         </textarea>
     </div>
 

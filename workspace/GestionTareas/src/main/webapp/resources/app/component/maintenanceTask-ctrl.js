@@ -138,5 +138,12 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService, $
             });
     };
 
-
+    $scope.asignarTextoCancelacion=function(){
+    	for (var i = 0; i < $scope.cancelationTypeList.length; i++) {
+    		if($scope.cancelationTypeList[i].id==$scope.tarea.cancelationTypeCombo){
+    			$scope.tarea.cancelationText=$scope.cancelationTypeList[i].description;
+    		}
+		} 
+    	
+    }
 });
