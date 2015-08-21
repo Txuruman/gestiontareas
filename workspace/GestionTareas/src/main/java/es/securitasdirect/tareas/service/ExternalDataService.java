@@ -230,6 +230,10 @@ public class ExternalDataService {
      * @return
      */
     public List<DescriptionPair> getCancelationTypeMaintenanceTask() {
-        return datosCierreTareaMantenimiento;
+    	List<DescriptionPair> cancelationTypeList=new ArrayList<DescriptionPair>();
+    	for (DescriptionPair descriptionPair : datosCierreTareaMantenimiento) {
+    		cancelationTypeList.add(new DescriptionPair(descriptionPair));
+		}
+        return cancelationTypeList;
     }
 }

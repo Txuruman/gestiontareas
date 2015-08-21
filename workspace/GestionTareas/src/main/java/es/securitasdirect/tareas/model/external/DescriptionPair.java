@@ -6,8 +6,24 @@ package es.securitasdirect.tareas.model.external;
 public class DescriptionPair extends StringPair {
 
     private String description;
+    
+    public DescriptionPair(){
+    	super();
+    }
+    
+	public DescriptionPair(String description) {
+		super();
+		this.description = description;
+	}
 
-    public String getDescription() {
+	public DescriptionPair(DescriptionPair descriptionPair) {
+		this.setDescription(descriptionPair.getDescription());
+		this.setId(descriptionPair.getId());
+		this.setValue(descriptionPair.getValue());
+		// TODO Auto-generated constructor stub
+	}
+
+	public String getDescription() {
         return description;
     }
 
