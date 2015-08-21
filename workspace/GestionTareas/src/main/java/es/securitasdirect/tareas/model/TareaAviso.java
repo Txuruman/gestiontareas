@@ -54,12 +54,12 @@ public class TareaAviso extends Tarea {
     /** Horario hasta */
     private String horarioHasta;
     /**
-     * Motivo de Cierre
+     * Motivo de Cierre, tipo cadena por ejemplo 'ILOC'
      */
     String closing;
 
     /**
-     * Datos adicionales del cierre
+     * Datos adicionales del cierre. TODO Pasarlo a integer??
      */
     String datosAdicionalesCierre;
     /**
