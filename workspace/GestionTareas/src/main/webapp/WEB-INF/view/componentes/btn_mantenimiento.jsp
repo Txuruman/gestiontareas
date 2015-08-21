@@ -8,7 +8,6 @@
         <div class="row" align="right">
             <!-- Panel de botones - Seleccion de controlador -->
             <div class="container-fluid">
-                <app:inputButtonNG value="boton.Crear" button_type="default" ng_click="interactionCreateMaintenance()" fluid_wrapper="true" />
                 <app:inputButtonNG value="boton.Finalizar" button_type="primary" ng_click="finalizar()" fluid_wrapper="true"/>
             </div>
         </div>

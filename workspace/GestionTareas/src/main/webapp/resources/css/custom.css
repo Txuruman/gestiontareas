@@ -170,3 +170,7 @@ span.error{
 	position: absolute !important;
     z-index: 9 !important;
 }
+hr{
+	margin-top:5px !important;
+	margin-bottom:7px !important;
+}
