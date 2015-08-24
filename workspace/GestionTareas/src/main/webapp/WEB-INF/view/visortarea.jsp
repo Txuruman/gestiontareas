@@ -24,7 +24,7 @@
 <body>
 
 
-<div class="container" ng-controller="taskviewer-ctrl" ng-init="tareaId='${tareaId}';callingList='${callingList}';">
+<div class="visoTareaContainer" ng-controller="taskviewer-ctrl" ng-init="tareaId='${tareaId}';callingList='${callingList}';">
     <app:messages/>
 
     <div class="row">

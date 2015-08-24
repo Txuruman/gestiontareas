@@ -14,13 +14,13 @@
 
 </head>
 <body>
-<div class="container" ng-controller="taskSearch" ng-init="searchText='${lastSearchTareaRequest.searchText}';searchOption='${lastSearchTareaRequest.searchOption}'">
+<div class="visoTareaContainer" ng-controller="taskSearch" ng-init="searchText='${lastSearchTareaRequest.searchText}';searchOption='${lastSearchTareaRequest.searchOption}'">
 
     <app:messages/>
-    <div class="row">
+    <div class="row filaAjustada">
         <jsp:include page="bloques/tabs1.jsp"/>
     </div>
-    <div class="row panel">
+    <div class="row panel filaAjustada">
         <form class="form-horizontal" role="form" name="searchForm">
             <div class="panel panel-default panel-body">
                 <div class="row">
@@ -60,7 +60,7 @@
             </div>
 
             <div class="spacer_t2"></div>
-            <div class="row">
+            <div class="row filaAjustada">
                 <!-- Tabla de Tareas -->
                 <table class="table table-bordered"  >
                     <tr class="cabecillas">

@@ -43,7 +43,7 @@
             <div class="spacer_t2"></div>
              <div class="row">
 	            <app:inputTextNG id="personaContacto" label="visortarea.personacontacto"
-	                             value="tarea.personaContacto" cells="6" required="true"/>
+	                             value="tarea.personaContacto" cells="6" required="true" form="formVisorTarea"/>
 	            <app:inputTextNG id="telefono" label="visortarea.telefono" value="tarea.telefono" cells="6"
 	                              type="text"  ng_keypress="onlyNumber($event,false)" />
 	        </div>

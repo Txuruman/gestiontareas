@@ -20,8 +20,8 @@
 <%--</div>--%>
 
 
-<div ng-controller="MessagesController">
-    <div alert ng-repeat="msg in vm.serverMessages" type="{{msg.level}}" close="closeMessage($index)">{{msg.value}}</div>
+<div ng-controller="MessagesController" class="messageAlerts" class="messageAlerts">
+    <div alert ng-repeat="msg in vm.serverMessages" type="{{msg.level}}" close="closeMessage($index)" dismiss-on-timeout="4000">{{msg.value}}</div>
 </div>
 
 
