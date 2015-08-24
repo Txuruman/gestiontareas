@@ -115,6 +115,8 @@
     <!-- Dialogo Delay Modal -->
 	<app:delayModalContent/>
 </div>
+
+${params}
 </body>
 
 </html>

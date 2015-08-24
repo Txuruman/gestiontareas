@@ -89,7 +89,9 @@ public class AvisoServiceTest {
         TareaAviso tareaAviso = (TareaAviso)queryTareaService.queryTarea(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), callingList, idTarea);
         assertThat(tareaAviso, notNullValue());
 
-        avisoService.updateTicket(agent);
+        InstallationData  installationData = installationService.getInstallationData("1829827");
+
+        avisoService.updateTicket(agent, tareaAviso, installationData);
 
     }
 
