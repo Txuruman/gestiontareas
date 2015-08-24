@@ -15,6 +15,15 @@ Model Generator to create Java Classes from XSD : http://www.javaworld.com/artic
         <COMM name="" lName1="" lName2="" inChannel="AUTO" value="" coment="" outChannel="" from="0" to="0"/>
         <OPCOD codKey1="200" codKey2="210"/>
         <CLCOD codKey3="" codKey4="MANTEN"/>
+
+        <!-- Datos para la actualizacion-->
+        <CONTACTO nombre='' codforma='' desde='' hasta='' valor='' comentario='' />
+        <CODIFICATIONS>
+            <CODIF idType='500' idProblem='501' count='1' />
+            <CODIF idType='550' idProblem='552' count='1' />
+        </CODIFICATIONS>
+        <CLOSE closeTicket='0' dataAditional='' notaCierre='' />
+
     </TICKET>
     <SVRQ makeSVRQ="1" idTec="CUSTVER" insBoli="1">
         <ITEMS>
@@ -23,13 +32,7 @@ Model Generator to create Java Classes from XSD : http://www.javaworld.com/artic
         </ITEMS>
     </SVRQ>
 
-    <!-- Datos para la actualizacion-->
-    <CONTACTO nombre='' codforma='' desde='' hasta='' valor='' comentario='' />
-    <CODIFICATIONS>
-        <CODIF idType='500' idProblem='501' count='1' />
-        <CODIF idType='550' idProblem='552' count='1' />
-    </CODIFICATIONS>
-    <CLOSE closeTicket='0' dataAditional='' notaCierre='' />
+
 </DATA>
 
 
