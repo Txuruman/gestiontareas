@@ -4,7 +4,7 @@ XSD Generator : http://www.xmlforasp.net/CodeBank/System_Xml_Schema/BuildSchema/
 
 
 Model Generator to create Java Classes from XSD : http://www.javaworld.com/article/2071784/enterprise-java/java-xml-mapping-made-easy-with-jaxb-2-0.html
- c:\java\jdk1.6.0_45\bin\xjc.exe C:\AGS\TeamVision\GestionTareas\workspace\GestionTareas\src\test\resources\CreateTicketResponse.xsd  -p es.securitasdirect.tareas.model.tickets.responses -d C:\AGS\TeamVision\GestionTareas\workspace\GestionTareas\src\main\java
+ c:\java\jdk1.6.0_45\bin\xjc.exe C:\AGS\TeamVision\GestionTareas\workspace\GestionTareas\src\test\resources\CreateTicket.xsd -p es.securitasdirect.tareas.model.tickets.operations -d C:\AGS\TeamVision\GestionTareas\workspace\GestionTareas\src\main\java
 
 -->
 <DATA>
@@ -22,6 +22,14 @@ Model Generator to create Java Classes from XSD : http://www.javaworld.com/artic
             <item idType="200" idProblem="212" count="1" idItemIBS=""/>
         </ITEMS>
     </SVRQ>
+
+    <!-- Datos para la actualizacion-->
+    <CONTACTO nombre='' codforma='' desde='' hasta='' valor='' comentario='' />
+    <CODIFICATIONS>
+        <CODIF idType='500' idProblem='501' count='1' />
+        <CODIF idType='550' idProblem='552' count='1' />
+    </CODIFICATIONS>
+    <CLOSE closeTicket='0' dataAditional='' notaCierre='' />
 </DATA>
 
 
