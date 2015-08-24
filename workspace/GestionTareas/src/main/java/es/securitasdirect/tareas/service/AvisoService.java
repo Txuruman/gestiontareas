@@ -311,7 +311,7 @@ public class AvisoService {
         String xmlCreateTicket = xmlMarshaller.marshalObject(operateTicket);
         xmlCreateTicket = xmlCreateTicket.replaceAll("\n", "");
 
-        String xmlResult = wsTickets.create(xmlCreateTicket);
+        String xmlResult = wsTickets.updateTicket(xmlCreateTicket);
 
         DATA data = xmlMarshaller.unmarshalData(xmlResult);
 
