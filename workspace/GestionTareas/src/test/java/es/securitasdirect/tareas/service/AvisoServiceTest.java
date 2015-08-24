@@ -127,18 +127,17 @@ public class AvisoServiceTest {
         String idmat = agent.getIdAgent();
         String cnota = ((TareaAviso)tarea).getObservaciones();
         boolean finalizarDesdeCrearMantenimiento = false;
-        //Integer tcierre = Integer.parseInt(  ((TareaAviso)tarea).getClosing() );
-        Integer tcierre = 1; // TODO desde pantalla. Valor de la tabla TIPOCIERRE. llegan caracteres y no se puede convertir a entero.
-        String adicional = ((TareaAviso)tarea).getDatosAdicionalesCierre();
+        String tcierre = ((TareaAviso)tarea).getClosing();
+        Integer adicional = Integer.valueOf(((TareaAviso)tarea).getDatosAdicionalesCierre());
 
-//        boolean ok = avisoService.closeTicket(naviso,
-//                idmat,
-//                tcierre,
-//                adicional,
-//                finalizarDesdeCrearMantenimiento
-//                );
+        boolean ok = avisoService.closeTicket(naviso,
+                idmat,
+                tcierre,
+                adicional,
+                finalizarDesdeCrearMantenimiento
+                );
 
-//        assertThat(ok, is(true));
+        assertThat(ok, is(true));
 
     }
 
