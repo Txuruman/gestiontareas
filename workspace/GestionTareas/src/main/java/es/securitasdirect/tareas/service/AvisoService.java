@@ -316,7 +316,7 @@ public class AvisoService {
         DATA data = xmlMarshaller.unmarshalData(xmlResult);
 
 
-
+        // TODO EVALUAR RETORNO
         //LOGGER.debug("xmlCreateTicket: {} xmlResult:{}", xmlCreateTicket, xmlResult);
 
         //if(data.getERR() == null && data.getTICKET() != null && data.getTICKET().getNumTK() > 0) result = true;
