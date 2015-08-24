@@ -313,7 +313,7 @@ public class AvisoService {
         boolean result = false;
         try {
             List<RowErrorAA> rowErrorAAs = spAvisosOperaciones.aplazarAviso(naviso, gblidusr, idaplaza, fhasta, cnota);
-            //TODO Debug para ver que devuelve y controlar si hay errores devolver
+
             if (rowErrorAAs != null && rowErrorAAs.size() == 1
                     && ((RowErrorAA) ((List) rowErrorAAs).get(0)).getReturnCode() != null
                     && ((RowErrorAA) ((List) rowErrorAAs).get(0)).getReturnCode().equals(new BigInteger("0"))) {
@@ -344,7 +344,7 @@ public class AvisoService {
     public boolean closeTicket(Integer idAviso,
                                String idAgente,
                                String codTipoCierre,
-                               String codTipoCierreAdicional,
+                               Integer codTipoCierreAdicional,
                                boolean finalizarDesdeCrearMantenimiento) throws Exception {
 
         Integer deuda = 0; // constante
@@ -357,10 +357,10 @@ public class AvisoService {
 
         boolean result = false;
         try {
-            //TODO SI el Integer.valueOf(codTipoCierreAdicional) es siempre integer pasarlo a integer
+
             List<RowErrorCA> rowErrorCAs = spAvisosOperaciones.cerrarAviso(idAviso, idAgente, codTipoCierre, nota, statusdest,
-                    deuda, Integer.valueOf(codTipoCierreAdicional) ,idmante, branch   );
-            //TODO Debug para ver que devuelve y controlar si hay errores devolver
+                    deuda, codTipoCierreAdicional ,idmante, branch   );
+
             if (rowErrorCAs != null && rowErrorCAs.size() == 1
                     && ((RowErrorCA) ((List) rowErrorCAs).get(0)).getReturnCode() != null
                     && ((RowErrorCA) ((List) rowErrorCAs).get(0)).getReturnCode().equals(new BigInteger("0"))) {
