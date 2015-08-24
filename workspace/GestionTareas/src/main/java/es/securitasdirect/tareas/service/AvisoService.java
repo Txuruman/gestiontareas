@@ -53,8 +53,9 @@ public class AvisoService {
     /**
      * creacion del XML para crear un Aviso. Se hace a través de un WS disponible para la aplicación de Tickets.
      */
-    public void createTicket(Agent agent, TareaAviso tareaAviso, InstallationData installationData) {
+    public boolean createTicket(Agent agent, TareaAviso tareaAviso, InstallationData installationData) {
 
+        boolean result = false;
         String idUser = agent.getIdAgent();
 
         // TODO Hacerlo por spring
@@ -176,10 +177,14 @@ public class AvisoService {
         xmlCreateTicket = xmlCreateTicket.replaceAll("\n", "");
 
         String xmlResult = wsTickets.create(xmlCreateTicket);
-        //TODO Debug para ver que devuelve y controlar si hay errores devolver
+
         DATA data = xmlMarshaller.unmarshalData(xmlResult);
 
         LOGGER.debug("xmlCreateTicket: {} xmlResult:{}", xmlCreateTicket, xmlResult);
+
+        if(data.getERR() == null && data.getTICKET() != null && data.getTICKET().getNumTK() > 0) result = true;
+
+        return result;
     }
 
     /**
