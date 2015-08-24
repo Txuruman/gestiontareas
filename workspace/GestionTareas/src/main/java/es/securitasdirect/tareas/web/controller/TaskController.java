@@ -72,7 +72,7 @@ public abstract class TaskController extends BaseController{
             if (ok) {
                 response.info(messageUtil.getProperty("finalize.success"));
             }else{
-                response.info(messageUtil.getProperty("finalize.error"));
+                response.danger(messageUtil.getProperty("finalize.error"));
             }
         } catch (Exception e) {
             response = processException(e);
