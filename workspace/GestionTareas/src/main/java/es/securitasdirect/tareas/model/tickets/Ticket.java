@@ -71,6 +71,8 @@ public class Ticket {
 
     /* -------- ATRIBUTOS TICKET -------*/
     @XmlAttribute
+    private String numTicket;
+    @XmlAttribute
     private String numInst;
     @XmlAttribute
     private String observ;
@@ -86,6 +88,14 @@ public class Ticket {
     private String morDebt;
     @XmlAttribute
     private String typePanel;
+
+    public String getNumTicket() {
+        return numTicket;
+    }
+
+    public void setNumTicket(String numTicket) {
+        this.numTicket = numTicket;
+    }
     public String getNumInst() {
         return numInst;
     }
