@@ -128,7 +128,11 @@ public class AvisoServiceTest {
         String cnota = ((TareaAviso)tarea).getObservaciones();
         boolean finalizarDesdeCrearMantenimiento = false;
         String tcierre = ((TareaAviso)tarea).getClosing();
-        Integer adicional = Integer.valueOf(((TareaAviso)tarea).getDatosAdicionalesCierre());
+        Integer adicional = 0;
+        if( ((TareaAviso)tarea).getDatosAdicionalesCierre()  != null)
+        {
+            adicional = Integer.valueOf(((TareaAviso)tarea).getDatosAdicionalesCierre());
+        }
 
         boolean ok = avisoService.closeTicket(naviso,
                 idmat,
