@@ -84,8 +84,8 @@ public class AvisoServiceTest {
     public void updateTicketTest() throws Exception {
 
         Agent agent = DummyGenerator.getAgent();
-        String callingList = "CL_CCT_ATT_Averia_Test";
-        String idTarea = "1";
+        String callingList = "CL_CCT_ATC_CRA";
+        String idTarea = "3";
         TareaAviso tareaAviso = (TareaAviso)queryTareaService.queryTarea(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), callingList, idTarea);
         assertThat(tareaAviso, notNullValue());
 

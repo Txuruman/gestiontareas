@@ -1,4 +1,7 @@
-
+html, body{
+	max-width:1600px;
+	min-width:739px;
+}
 
 .spacer_t1 {
 	height: 5px;
@@ -173,4 +176,21 @@ span.error{
 hr{
 	margin-top:5px !important;
 	margin-bottom:7px !important;
+}
+.messageAlerts{
+    position: absolute !important;
+    width: 35% !important;
+/*     left: 0; */
+    top: 0 !important;
+    z-index: 10 !important;
+}
+.visoTareaContainer{
+	padding-left:5px;
+	padding-right:5px;
+}
+
+.filaAjustada{
+	margin-left:0 !important;
+	margin-right:0 !important;
+	padding-left:2px !important;	
 }

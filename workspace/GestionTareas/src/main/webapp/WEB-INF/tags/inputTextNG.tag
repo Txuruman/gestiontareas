@@ -68,7 +68,7 @@
            		</c:if>	
            		  />
            		<c:if test="${not empty required}">
-           			<span class="error" ng-show="formVisorTarea.${id}.$error.required"><spring:message code="error.notext"/></span>
+           			<span class="error" ng-show="${form}.${id}.$error.required"><spring:message code="error.notext"/></span>
            		</c:if>	 
            		  
     </div>

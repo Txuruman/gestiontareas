@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "DATA")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class OperateTicket {
+public class CreateTicket {
 
 
     /*
