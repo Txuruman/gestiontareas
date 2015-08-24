@@ -13,6 +13,7 @@
 <%@ attribute name="cell_input" required="false"  description="The maximun cells label in parent space" %>
 <%@ attribute name="type" required="false"  description="The maximun cells label in parent space" %>
 <%@ attribute name="ng_keypress" required="false"  description="KeyPress event" %>
+<%@ attribute name="form" required="false"  description="form of the input" %>
 
 <c:if test="${cell_label == null}">
     <c:set var="cell_label" value="4"/>
@@ -66,5 +67,9 @@
            			ng-required="<c:out value="${required}"/>"
            		</c:if>	
            		  />
+           		<c:if test="${not empty required}">
+           			<span class="error" ng-show="formVisorTarea.${id}.$error.required"><spring:message code="error.notext"/></span>
+           		</c:if>	 
+           		  
     </div>
 </div>

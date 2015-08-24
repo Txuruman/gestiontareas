@@ -33,7 +33,7 @@
         </div>
     </div>
     <div class="spacer_t2"></div>
-    <form class="form-horizontal" role="form">
+    <form class="form-horizontal" role="form" name="formVisorTarea">
         <!-- Include Tareas, dependiendo del tipo de tarea -->
         <div class="spacer_t3"></div>
         <%--TODO AQUI SE INCLUYE LA SECUNDARIA--%>
@@ -43,6 +43,6 @@
 </div>
 <!-- END ANGULARJS CONTROLLER DIV-->
 <!-- Scripts de angularjs -->
-
+${params}
 </body>
 </html>

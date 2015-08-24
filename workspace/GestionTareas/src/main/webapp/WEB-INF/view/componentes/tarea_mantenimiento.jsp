@@ -47,7 +47,7 @@
                                              readonly="false"/>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                            <button type="button" class="btn btn-default btn-sm botonAbsolute" title="<spring:message code="tareamantenimiento.llamartelefono1"/>" ng-click="getIntallation()">
+                            <button type="button" class="btn btn-default btn-sm botonAbsolute" title="<spring:message code="tareamantenimiento.llamartelefono1"/>">
                         			<span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
                				 </button>
                         </div>
@@ -61,7 +61,7 @@
                                              readonly="false"/>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                        	<button type="button" class="btn btn-default btn-sm botonAbsolute" title="<spring:message code="tareamantenimiento.llamartelefono2"/>" ng-click="getIntallation()">
+                        	<button type="button" class="btn btn-default btn-sm botonAbsolute" title="<spring:message code="tareamantenimiento.llamartelefono2"/>">
                         			<span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
                				 </button>
                         </div>
@@ -75,7 +75,7 @@
                                              readonly="false"/>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                             <button type="button" class="btn btn-default btn-sm botonAbsolute" title="<spring:message code="tareamantenimiento.llamartelefono3"/>" ng-click="getIntallation()">
+                             <button type="button" class="btn btn-default btn-sm botonAbsolute" title="<spring:message code="tareamantenimiento.llamartelefono3"/>">
                         			<span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
                				 </button>
                         </div>

@@ -94,7 +94,7 @@ public class MaintenanceSurveyTaskController extends TaskController {
                         response.danger(messageUtil.getProperty("getTask.noInstallation"));
                     }
                 } else {
-                    response.danger("getTask.notFound");
+                    response.danger(messageUtil.getProperty("getTask.notFound"));
                 }
             } catch (Exception e) {
                 LOGGER.error(e.getMessage(),e);

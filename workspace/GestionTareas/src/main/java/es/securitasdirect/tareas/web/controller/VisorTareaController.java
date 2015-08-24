@@ -148,6 +148,10 @@ public class VisorTareaController extends TaskController {
         mv.addObject("callingList", parametersMap.get(ExternalParams.CALLING_LIST));
         assert parametersMap.get(ExternalParams.ID_TAREA)!=null && !parametersMap.get(ExternalParams.ID_TAREA).isEmpty();
         mv.addObject("tareaId", parametersMap.get(ExternalParams.ID_TAREA));
+
+        //TODO TEMPORAL, ELIMINAR
+        mv.addObject("params",parametersMap);
+
         return mv;
 
     }

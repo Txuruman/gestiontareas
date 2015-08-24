@@ -54,7 +54,7 @@ public class TareaService {
     }
 
     /**
-     * Finalizar la tarea
+     * Finalizar la tarea, cualquier tipo menos TareaAviso
      * @param agent
      * @param tarea
      * @return
@@ -72,7 +72,7 @@ public class TareaService {
      * @return
      */
     public boolean finalizeNotificationTask(Agent agent,TareaAviso tarea) {
-        LOGGER.debug("Finalizando tarea Aviso {}" , tarea);
+        LOGGER.debug("Finalizando tarea Aviso {}", tarea);
         //1. Finalizar la Tarea
         boolean finalized = wsFilanizeTask(agent.getAgentIBS(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId());
         if (finalized) {
@@ -81,7 +81,6 @@ public class TareaService {
             boolean finalizadoDesdeMantenimiento=false;
             try {
                 finalized = avisoService.closeTicket(tarea.getIdAviso(),agent.getAgentIBS(),tarea.getClosing(),tarea.getDatosAdicionalesCierre(),finalizadoDesdeMantenimiento);
-                finalized=true;
             } catch (Exception e) {
                 LOGGER.error("Error Closing Ticket.",e);
                 finalized=false;
@@ -106,30 +105,31 @@ public class TareaService {
                              String idTarea, Date schedTime, String recordType) throws Exception {
         LOGGER.info("Delaying Task : {} {}", callingList, idTarea);
 
+        boolean delayed = false;
         //Consultar la tarea de nuevo
         Tarea tarea = queryTareaService.queryTarea(ccUserId, country, desktopDepartment, callingList, idTarea);
         if (tarea != null) {
             //Si no está en memoria se puede ejecutar
             if (!tarea.isRetrieved()) {
-                boolean delayed = ccdDelayTask(ccUserId, country, desktopDepartment, tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId(), schedTime, recordType);
-                if (!delayed) {
-                    return false;
-                } else {
-                    //TODO Si es de tipo Aviso aplazar el aviso
-                    // Invocará un web service para actualizar el Aviso.
-                    return true;
+                delayed = ccdDelayTask(ccUserId, country, desktopDepartment, tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId(), schedTime, recordType);
+                if (delayed && tarea instanceof TareaAviso) {
+                    //Si es de tipo Aviso hay que retrasar el aviso también
+
+                    //TODO PENDIENTE
+//                    delayed = avisoService.delayTicket(
+//                            ((TareaAviso) tarea).getIdAviso(),
+//                            ccUserId,
+//
+//                    );
                 }
             } else {
                 LOGGER.warn("Can't delay task because is in Retrieved {}", tarea);
-                return false;
             }
-
         } else {
             LOGGER.error("Can't find task to delay");
             //TODO CREAR EXCEPCIONES DE NEGOCIO
-            return false;
         }
-
+        return delayed;
     }
 
     public boolean createTask(Agent agent,TareaMantenimiento tareaMantenimiento) {
