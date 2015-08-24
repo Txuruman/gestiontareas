@@ -1,7 +1,7 @@
 package es.securitasdirect.tareas.service;
 
 import es.securitasdirect.tareas.model.tickets.*;
-import es.securitasdirect.tareas.model.tickets.operations.CreateTicket;
+import es.securitasdirect.tareas.model.tickets.operations.OperateTicket;
 import es.securitasdirect.tareas.support.XmlMarshaller;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,7 +44,7 @@ public class XmlServiceTest {
         /**
          * creacion del XML
          */
-        CreateTicket createTicket = new CreateTicket();
+        OperateTicket operateTicket = new OperateTicket();
         Req createReq = new Req();
         Asgto createAsgto = new Asgto();
         Comm createComm = new Comm();
@@ -55,9 +55,9 @@ public class XmlServiceTest {
         List create_list_item = new ArrayList();
 
 
-        createTicket.setTicket(new Ticket());
-        createTicket.setUser(new User());
-        createTicket.setSvrq(new Svrq());
+        operateTicket.setTicket(new Ticket());
+        operateTicket.setUser(new User());
+        operateTicket.setSvrq(new Svrq());
         //TODO VOY POR AQUI Y FALTA LA LISTA DE ITEMS
 
 
@@ -113,41 +113,41 @@ public class XmlServiceTest {
          * <USER></USER>
          */
 
-        createTicket.getUser().setIdUser("A13003");
-        createTicket.getUser().setIdCountry("01");
-        createTicket.getUser().setIdLanguage("ES");
-        createTicket.getUser().setT("NOSESSION");
+        operateTicket.getUser().setIdUser("A13003");
+        operateTicket.getUser().setIdCountry("01");
+        operateTicket.getUser().setIdLanguage("ES");
+        operateTicket.getUser().setT("NOSESSION");
 
         /*
          *
          * <TICKET></TICKET>
          */
-        createTicket.getTicket().setNumInst("731483");
-        createTicket.getTicket().setObserv("Texto Aviso");
-        createTicket.getTicket().setCodZIP("28033");
-        createTicket.getTicket().setCloseTicket("1");
-        createTicket.getTicket().setDataAditional("");
-        createTicket.getTicket().setNoteClose("");
-        createTicket.getTicket().setMorDebt("0");
-        createTicket.getTicket().setTypePanel("SDMF");
+        operateTicket.getTicket().setNumInst("731483");
+        operateTicket.getTicket().setObserv("Texto Aviso");
+        operateTicket.getTicket().setCodZIP("28033");
+        operateTicket.getTicket().setCloseTicket("1");
+        operateTicket.getTicket().setDataAditional("");
+        operateTicket.getTicket().setNoteClose("");
+        operateTicket.getTicket().setMorDebt("0");
+        operateTicket.getTicket().setTypePanel("SDMF");
             /* <REQ></REQ>
              */
-        createTicket.getTicket().setReq(createReq);
-        createTicket.getTicket().setAsgto(createAsgto);
-        createTicket.getTicket().setComm(createComm);
-        createTicket.getTicket().setOpcod(createOpcod);
-        createTicket.getTicket().setClcod(createClcod);
+        operateTicket.getTicket().setReq(createReq);
+        operateTicket.getTicket().setAsgto(createAsgto);
+        operateTicket.getTicket().setComm(createComm);
+        operateTicket.getTicket().setOpcod(createOpcod);
+        operateTicket.getTicket().setClcod(createClcod);
 
         /*
          * <SVRQ></SVRQ>
          */
 
-        createTicket.getSvrq().setMakeSVRQ("1");
-        createTicket.getSvrq().setIdTec("CUSTVER");
-        createTicket.getSvrq().setInsBoli("1");
+        operateTicket.getSvrq().setMakeSVRQ("1");
+        operateTicket.getSvrq().setIdTec("CUSTVER");
+        operateTicket.getSvrq().setInsBoli("1");
 
-        createTicket.getSvrq().setItems(new ArrayList<Item>());
-        createTicket.getSvrq().setItems(create_list_item);
+        operateTicket.getSvrq().setItems(new ArrayList<Item>());
+        operateTicket.getSvrq().setItems(create_list_item);
 
 
 
@@ -158,7 +158,7 @@ public class XmlServiceTest {
 
 
 
-        String xmlCreateTicket = xmlMarshaller.marshalObject(createTicket);
+        String xmlCreateTicket = xmlMarshaller.marshalObject(operateTicket);
         LOGGER.info("xmlCreateTicket: {}", xmlCreateTicket);
     }
 
