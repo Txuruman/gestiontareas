@@ -80,7 +80,7 @@ public class TareaService {
             //TODO finalizadoDesdeMantenimiento
             boolean finalizadoDesdeMantenimiento=false;
             try {
-                finalized = avisoService.closeTicket(tarea.getIdAviso(),agent.getAgentIBS(),tarea.getClosing(),tarea.getDatosAdicionalesCierre(),finalizadoDesdeMantenimiento);
+                finalized = avisoService.closeTicket(tarea.getIdAviso(),agent.getAgentIBS(),tarea.getClosing(),Integer.valueOf(tarea.getDatosAdicionalesCierre()),finalizadoDesdeMantenimiento);
             } catch (Exception e) {
                 LOGGER.error("Error Closing Ticket.",e);
                 finalized=false;
