@@ -14,6 +14,8 @@
 <%@ attribute name="type" required="false"  description="The maximun cells label in parent space" %>
 <%@ attribute name="ng_keypress" required="false"  description="KeyPress event" %>
 <%@ attribute name="form" required="false"  description="form of the input" %>
+<%@ attribute name="only" required="false"  description="only numbers inputText" %>
+<%@ attribute name="size" required="false"  description="only numbers inputText" %>
 
 <c:if test="${cell_label == null}">
     <c:set var="cell_label" value="4"/>
@@ -66,10 +68,16 @@
            		<c:if test="${not empty required}">
            			ng-required="<c:out value="${required}"/>"
            		</c:if>	
-           		  />
+           		<c:if test="${not empty only}">
+           			only-number
+           		</c:if>
+           		<c:if test="${not empty size}">
+           			number-size="<c:out value="${size}"/>"
+           		</c:if>		/>
+           		  
            		<c:if test="${not empty required}">
            			<span class="error" ng-show="${form}.${id}.$error.required"><spring:message code="error.notext"/></span>
-           		</c:if>	 
+           		</c:if> 	 
            		  
     </div>
 </div>
