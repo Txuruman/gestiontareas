@@ -217,25 +217,24 @@ public class AvisoService {
         operateTicket.setUSER(new OperateTicket.USER());
         operateTicket.setTICKET(new OperateTicket.TICKET());
 
-        OperateTicket.CODIFICATIONS.CODIF createCODIF = new OperateTicket.CODIFICATIONS.CODIF();
-        //List create_list_CODIF = new ArrayList();
-        OperateTicket.CODIFICATIONS codifications = new OperateTicket.CODIFICATIONS();
+        OperateTicket.TICKET.CODIFICATIONS.CODIF createCODIF = new OperateTicket.TICKET.CODIFICATIONS.CODIF();
+        OperateTicket.TICKET.CODIFICATIONS codifications = new OperateTicket.TICKET.CODIFICATIONS();
 
 
-        OperateTicket.CONTACTO contacto = new OperateTicket.CONTACTO();
+        OperateTicket.TICKET.CONTACTO contacto = new OperateTicket.TICKET.CONTACTO();
         contacto.setCodforma("");
         contacto.setComentario("");
         contacto.setDesde("");
         contacto.setHasta("");
         contacto.setNombre("");
         contacto.setValor("");
-        operateTicket.setCONTACTO(contacto);
+        operateTicket.getTICKET().setCONTACTO(contacto);
 
-        OperateTicket.CLOSE close = new OperateTicket.CLOSE();
+        OperateTicket.TICKET.CLOSE close = new OperateTicket.TICKET.CLOSE();
         close.setCloseTicket(0);
         close.setDataAditional("");
         close.setNotaCierre("");
-        operateTicket.setCLOSE(close);
+        operateTicket.getTICKET().setCLOSE(close);
 
         /* <CODIF></CODIF> */
         if(tareaAviso.getTipoAviso1() != null) {
@@ -261,14 +260,14 @@ public class AvisoService {
             codifications.getCODIF().add(createCODIF);
         }
 
-        operateTicket.setCODIFICATIONS(codifications);
+        operateTicket.getTICKET().setCODIFICATIONS(codifications);
 
         /*
          * <USER></USER>
          */
         operateTicket.getUSER().setIdUser(idUser);
         operateTicket.getUSER().setIdCountry(Integer.parseInt(idCountry));
-        operateTicket.getUSER().setIdLanguage(idLanguage);
+        operateTicket.getUSER().setIdLang(idLanguage);
         operateTicket.getUSER().setT("NOSESSION");  // constante
 
 
@@ -276,7 +275,7 @@ public class AvisoService {
          *
          * <TICKET></TICKET>
          */
-        //operateTicket.getTICKET().setNumTicket(tareaAviso.getIdAviso().toString());
+        operateTicket.getTICKET().setNumTicket(tareaAviso.getIdAviso());
         operateTicket.getTICKET().setNumInst(Integer.parseInt(tareaAviso.getNumeroInstalacion()));
         operateTicket.getTICKET().setObserv(tareaAviso.getObservaciones());
 
