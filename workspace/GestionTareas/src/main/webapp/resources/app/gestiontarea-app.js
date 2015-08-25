@@ -319,3 +319,27 @@ app.directive('jsonDate', function ($filter) {
         }
     }
 });
+
+/**
+ * Directiva para admitir sólo numeros en un input text
+ * podemos asignar una longitud máxima con el atributo number-size
+ */
+app.directive('onlyNumber', function() {
+    return {
+        restrict: 'A',
+        scope: {
+          numberSize: '='
+        },
+        link:function link(scope, element){
+        	element.keypress(function(event){
+        		if(event.keyCode<48 || event.keyCode>57){
+            		event.preventDefault();
+            		//element.parent().append("<div class='avisoInput'>Sólo números</div>");
+            	}
+            	if (element.val().length == scope.numberSize) {
+            		event.preventDefault();
+        		}
+        	})
+        }
+      }
+    });

@@ -45,14 +45,14 @@
 	            <app:inputTextNG id="personaContacto" label="visortarea.personacontacto"
 	                             value="tarea.personaContacto" cells="6" required="true" form="formVisorTarea"/>
 	            <app:inputTextNG id="telefono" label="visortarea.telefono" value="tarea.telefono" cells="6"
-	                              type="text"  ng_keypress="onlyNumber($event,false)" />
+	                              type="text"  only-number />
 	        </div>
             <div class="row">
             </div>
             <div class="spacer_t1"></div>
             <div class="row">
-                <app:inputTextNG id="horarioDesde" label="tareaAviso.horarioDesde" value="tarea.horarioDesde" cells="6"  ng_keypress="onlyNumber($event,true,tarea.horarioDesde.length)"/>
-                <app:inputTextNG id="horarioHasta" label="tareaAviso.horarioHasta" value="tarea.horarioHasta" cells="6"  ng_keypress="onlyNumber($event,true,tarea.horarioHasta.length)"/>
+                <app:inputTextNG id="horarioDesde" label="tareaAviso.horarioDesde" value="tarea.horarioDesde" cells="6"  only-number size="2"/>
+                <app:inputTextNG id="horarioHasta" label="tareaAviso.horarioHasta" value="tarea.horarioHasta" cells="6"  only-number size="2"/>
             </div>
             <div class="spacer_t1"></div>
             <div class="row">
