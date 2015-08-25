@@ -228,8 +228,8 @@ public class TareaServiceTools {
         TareaAviso tarea = new TareaAviso();
         //Datos instalacion - Se obtiene de la llamada al servicio de avisoById (mediante librería para WS)
         tarea.setNumeroInstalacion(avisobyIdResult.getInsNo());
-        tarea.setPersonaContacto(avisobyIdResult.getContacto());
-        tarea.setTelefono(avisobyIdResult.getValorFormaContacto());
+        tarea.setPersonaContacto(avisobyIdResult.getValorFormaContacto());
+        tarea.setTelefono(avisobyIdResult.getContacto());
 
         tarea.setIdAviso(avisobyIdResult.getIdaviso().intValue());
         tarea.setIdentificativoAvisoTarea(avisobyIdResult.getIdaviso().intValue());

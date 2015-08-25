@@ -84,8 +84,8 @@ public class AvisoServiceTest {
     public void updateTicketTest() throws Exception {
 
         Agent agent = DummyGenerator.getAgent();
-        String callingList = "CL_CCT_ATT_Averia_Test";
-        String idTarea = "1";
+        String callingList = "CL_CCT_ATC_CRA";
+        String idTarea = "3";
         TareaAviso tareaAviso = (TareaAviso)queryTareaService.queryTarea(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), callingList, idTarea);
         assertThat(tareaAviso, notNullValue());
 
@@ -98,8 +98,8 @@ public class AvisoServiceTest {
     @Test
     public void delayTicketTest() throws Exception {
         Agent agent = DummyGenerator.getAgent();
-        String callingList = "CL_CCT_ATT_Averia_Test";
-        String idTarea = "1";
+        String callingList = "CL_CCT_ATC_CRA";
+        String idTarea = "3";
         TareaAviso tarea = (TareaAviso)queryTareaService.queryTarea(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), callingList, idTarea);
         assertThat(tarea, notNullValue());
 
@@ -118,8 +118,8 @@ public class AvisoServiceTest {
     @Test
     public void closeTicketTest() throws Exception {
         Agent agent = DummyGenerator.getAgent();
-        String callingList = "CL_CCT_ATT_Averia_Test";
-        String idTarea = "1";
+        String callingList = "CL_CCT_ATC_CRA";
+        String idTarea = "3";
         Tarea tarea = queryTareaService.queryTarea(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), callingList, idTarea);
         assertThat(tarea, notNullValue());
 
@@ -127,18 +127,21 @@ public class AvisoServiceTest {
         String idmat = agent.getIdAgent();
         String cnota = ((TareaAviso)tarea).getObservaciones();
         boolean finalizarDesdeCrearMantenimiento = false;
-        //Integer tcierre = Integer.parseInt(  ((TareaAviso)tarea).getClosing() );
-        Integer tcierre = 1; // TODO desde pantalla. Valor de la tabla TIPOCIERRE. llegan caracteres y no se puede convertir a entero.
-        String adicional = ((TareaAviso)tarea).getDatosAdicionalesCierre();
+        String tcierre = ((TareaAviso)tarea).getClosing();
+        Integer adicional = 0;
+        if( ((TareaAviso)tarea).getDatosAdicionalesCierre()  != null)
+        {
+            adicional = Integer.valueOf(((TareaAviso)tarea).getDatosAdicionalesCierre());
+        }
 
-//        boolean ok = avisoService.closeTicket(naviso,
-//                idmat,
-//                tcierre,
-//                adicional,
-//                finalizarDesdeCrearMantenimiento
-//                );
+        boolean ok = avisoService.closeTicket(naviso,
+                idmat,
+                tcierre,
+                adicional,
+                finalizarDesdeCrearMantenimiento
+                );
 
-//        assertThat(ok, is(true));
+        assertThat(ok, is(true));
 
     }
 

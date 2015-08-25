@@ -5,6 +5,7 @@ import es.securitasdirect.tareas.model.Agent;
 import es.securitasdirect.tareas.model.InstallationData;
 import es.securitasdirect.tareas.model.TareaAviso;
 import es.securitasdirect.tareas.model.tickets.*;
+import es.securitasdirect.tareas.model.tickets.operations.CreateTicket;
 import es.securitasdirect.tareas.model.tickets.operations.OperateTicket;
 import es.securitasdirect.tareas.model.tickets.responses.DATA;
 import es.securitasdirect.tareas.support.XmlMarshaller;
@@ -67,7 +68,7 @@ public class AvisoService {
         /*
          * Estructura del XML
          */
-        OperateTicket operateTicket = new OperateTicket();
+        CreateTicket createTicket = new CreateTicket();
 
         Req createReq = new Req();
         Asgto createAsgto = new Asgto();
@@ -77,9 +78,9 @@ public class AvisoService {
         Item createItem = new Item();
         List create_list_item = new ArrayList();
 
-        operateTicket.setUser(new User());
-        operateTicket.setTicket(new Ticket());
-        operateTicket.setSvrq(new Svrq());
+        createTicket.setUser(new User());
+        createTicket.setTicket(new Ticket());
+        createTicket.setSvrq(new Svrq());
 
 
         /* <REQ></REQ> */
@@ -110,66 +111,72 @@ public class AvisoService {
         createClcod.setCodKey4(""); // constante
 
         /* <ITEM></ITEM> */
-        createItem.setIdItemIBS(""); // constante
-        createItem.setCount("1");    // constante
-        createItem.setIdProblem(tareaAviso.getMotivo1());
-        createItem.setIdType(tareaAviso.getTipoAviso1());
-        create_list_item.add(createItem);
+        if(tareaAviso.getTipoAviso1() != null) {
+            createItem.setIdItemIBS(""); // constante
+            createItem.setCount("1");    // constante
+            createItem.setIdProblem(tareaAviso.getMotivo1());
+            createItem.setIdType(tareaAviso.getTipoAviso1());
+            create_list_item.add(createItem);
+        }
 
         /* <ITEM></ITEM> */
-        createItem.setIdItemIBS(""); // constante
-        createItem.setCount("1");    // constante
-        createItem.setIdProblem(tareaAviso.getMotivo2());
-        createItem.setIdType(tareaAviso.getTipoAviso2());
-        create_list_item.add(createItem);
+        if(tareaAviso.getTipoAviso2() != null) {
+            createItem.setIdItemIBS(""); // constante
+            createItem.setCount("1");    // constante
+            createItem.setIdProblem(tareaAviso.getMotivo2());
+            createItem.setIdType(tareaAviso.getTipoAviso2());
+            create_list_item.add(createItem);
+        }
 
         /* <ITEM></ITEM> */
-        createItem.setIdItemIBS(""); // constante
-        createItem.setCount("1");    // constante
-        createItem.setIdProblem(tareaAviso.getMotivo3());
-        createItem.setIdType(tareaAviso.getTipoAviso3());
-        create_list_item.add(createItem);
+        if(tareaAviso.getTipoAviso3() != null) {
+            createItem.setIdItemIBS(""); // constante
+            createItem.setCount("1");    // constante
+            createItem.setIdProblem(tareaAviso.getMotivo3());
+            createItem.setIdType(tareaAviso.getTipoAviso3());
+            create_list_item.add(createItem);
+        }
 
         /*
          * <USER></USER>
          */
-        operateTicket.getUser().setIdUser(idUser);
-        operateTicket.getUser().setIdCountry(idCountry);
-        operateTicket.getUser().setIdLanguage(idLanguage);
-        operateTicket.getUser().setT("NOSESSION");  // constante
+        createTicket.getUser().setIdUser(idUser);
+        createTicket.getUser().setIdCountry(idCountry);
+        createTicket.getUser().setIdLanguage(idLanguage);
+        createTicket.getUser().setT("NOSESSION");  // constante
 
         /*
          *
          * <TICKET></TICKET>
          */
-        operateTicket.getTicket().setNumInst(tareaAviso.getNumeroInstalacion());
-        operateTicket.getTicket().setObserv(tareaAviso.getObservaciones());
-        operateTicket.getTicket().setCodZIP("28030"); // TODO InstallationData no tiene codigo postal
-        operateTicket.getTicket().setCloseTicket("0"); // constante
-        operateTicket.getTicket().setDataAditional(""); // constante
-        operateTicket.getTicket().setNoteClose(""); // constante
-        operateTicket.getTicket().setMorDebt("0"); // constante
-        operateTicket.getTicket().setTypePanel(installationData.getPanel());
+        createTicket.getTicket().setNumInst(tareaAviso.getNumeroInstalacion());
+        createTicket.getTicket().setObserv(tareaAviso.getObservaciones());
+        createTicket.getTicket().setCodZIP("28030"); // TODO InstallationData no tiene codigo postal
+        createTicket.getTicket().setCloseTicket("0"); // constante
+        createTicket.getTicket().setDataAditional(""); // constante
+        createTicket.getTicket().setNoteClose(""); // constante
+        createTicket.getTicket().setMorDebt("0"); // constante
+        createTicket.getTicket().setTypePanel(installationData.getPanel());
 
         /* <REQ></REQ>
          */
-        operateTicket.getTicket().setReq(createReq);
-        operateTicket.getTicket().setAsgto(createAsgto);
-        operateTicket.getTicket().setComm(createComm);
-        operateTicket.getTicket().setOpcod(createOpcod);
-        operateTicket.getTicket().setClcod(createClcod);
+        createTicket.getTicket().setReq(createReq);
+        createTicket.getTicket().setAsgto(createAsgto);
+        createTicket.getTicket().setComm(createComm);
+        createTicket.getTicket().setOpcod(createOpcod);
+        createTicket.getTicket().setClcod(createClcod);
 
         /*
          * <SVRQ></SVRQ>
          */
-        operateTicket.getSvrq().setMakeSVRQ("0"); // constante
-        operateTicket.getSvrq().setIdTec(""); // constante
-        operateTicket.getSvrq().setInsBoli("0"); // constante
-        operateTicket.getSvrq().setItems(new ArrayList<Item>());
-        operateTicket.getSvrq().setItems(create_list_item);
+        createTicket.getSvrq().setMakeSVRQ("0"); // constante
+        createTicket.getSvrq().setIdTec(""); // constante
+        createTicket.getSvrq().setInsBoli("0"); // constante
+        createTicket.getSvrq().setItems(new ArrayList<Item>());
+        createTicket.getSvrq().setItems(create_list_item);
 
 
-        String xmlCreateTicket = xmlMarshaller.marshalObject(operateTicket);
+        String xmlCreateTicket = xmlMarshaller.marshalObject(createTicket);
         xmlCreateTicket = xmlCreateTicket.replaceAll("\n", "");
 
         String xmlResult = wsTickets.create(xmlCreateTicket);
@@ -207,105 +214,72 @@ public class AvisoService {
          */
         OperateTicket operateTicket = new OperateTicket();
 
-        Req createReq = new Req();
-        Asgto createAsgto = new Asgto();
-        Comm createComm = new Comm();
-        Opcod createOpcod = new Opcod();
-        Clcod createClcod = new Clcod();
-        Item createItem = new Item();
-        List create_list_item = new ArrayList();
+        operateTicket.setUSER(new OperateTicket.USER());
+        operateTicket.setTICKET(new OperateTicket.TICKET());
 
-        operateTicket.setUser(new User());
-        operateTicket.setTicket(new Ticket());
-        operateTicket.setSvrq(new Svrq());
+        OperateTicket.CODIFICATIONS.CODIF createCODIF = new OperateTicket.CODIFICATIONS.CODIF();
+        //List create_list_CODIF = new ArrayList();
+        OperateTicket.CODIFICATIONS codifications = new OperateTicket.CODIFICATIONS();
 
 
-        /* <REQ></REQ> */
-        createReq.setIdReq(idReq);
-        createReq.setReqName(""); // constante
-        createReq.setReqLname1(""); // constante
-        createReq.setReqLname2(""); // constante
-        createReq.setReqCif(""); // constante
-        createReq.setReqEmpl(idUser);
-        /* <ASGTO></ASGTO>*/
-        createAsgto.setIdAsg(""); // constante
-        createAsgto.setIdUser(idUser);
-        /* <COMM></COMM>*/
-        createComm.setName(""); // constante
-        createComm.setlName1(""); // constante
-        createComm.setlName2(""); // constante
-        createComm.setInChannel("TELF"); // constante
-        createComm.setValue(tareaAviso.getTelefono());
-        createComm.setComent(""); // constante
-        createComm.setOutChannel(""); // constante
-        createComm.setFrom(tareaAviso.getHorarioDesde());
-        createComm.setTo(tareaAviso.getHorarioHasta());
-        /* <OPCOD></OPCOD>*/
-        createOpcod.setCodKey1(tareaAviso.getTipoAviso1());
-        createOpcod.setCodKey2(tareaAviso.getMotivo1());
-        /* <CLCOD></CLCOD>*/
-        createClcod.setCodKey3(""); // constante
-        createClcod.setCodKey4(""); // constante
+        OperateTicket.CONTACTO contacto = new OperateTicket.CONTACTO();
+        contacto.setCodforma("");
+        contacto.setComentario("");
+        contacto.setDesde("");
+        contacto.setHasta("");
+        contacto.setNombre("");
+        contacto.setValor("");
+        operateTicket.setCONTACTO(contacto);
 
-        /* <ITEM></ITEM> */
-        createItem.setIdItemIBS(""); // constante
-        createItem.setCount("1");    // constante
-        createItem.setIdProblem(tareaAviso.getMotivo1());
-        createItem.setIdType(tareaAviso.getTipoAviso1());
-        create_list_item.add(createItem);
+        OperateTicket.CLOSE close = new OperateTicket.CLOSE();
+        close.setCloseTicket(0);
+        close.setDataAditional("");
+        close.setNotaCierre("");
+        operateTicket.setCLOSE(close);
 
-        /* <ITEM></ITEM> */
-        createItem.setIdItemIBS(""); // constante
-        createItem.setCount("1");    // constante
-        createItem.setIdProblem(tareaAviso.getMotivo2());
-        createItem.setIdType(tareaAviso.getTipoAviso2());
-        create_list_item.add(createItem);
+        /* <CODIF></CODIF> */
+        if(tareaAviso.getTipoAviso1() != null) {
+            createCODIF.setCount(1);    // constante
+            createCODIF.setIdProblem(Integer.parseInt(tareaAviso.getMotivo1()));
+            createCODIF.setIdType(Integer.parseInt(tareaAviso.getTipoAviso1()));
+            codifications.getCODIF().add(createCODIF);
+        }
 
-        /* <ITEM></ITEM> */
-        createItem.setIdItemIBS(""); // constante
-        createItem.setCount("1");    // constante
-        createItem.setIdProblem(tareaAviso.getMotivo3());
-        createItem.setIdType(tareaAviso.getTipoAviso3());
-        create_list_item.add(createItem);
+        /* <CODIF></CODIF> */
+        if(tareaAviso.getTipoAviso2() != null) {
+            createCODIF.setCount(1);    // constante
+            createCODIF.setIdProblem(Integer.parseInt(tareaAviso.getMotivo2()));
+            createCODIF.setIdType(Integer.parseInt(tareaAviso.getTipoAviso2()));
+            codifications.getCODIF().add(createCODIF);
+        }
+
+        /* <CODIF></CODIF> */
+        if(tareaAviso.getTipoAviso3() != null) {
+            createCODIF.setCount(1);    // constante
+            createCODIF.setIdProblem(Integer.parseInt(tareaAviso.getMotivo3()));
+            createCODIF.setIdType(Integer.parseInt(tareaAviso.getTipoAviso3()));
+            codifications.getCODIF().add(createCODIF);
+        }
+
+        operateTicket.setCODIFICATIONS(codifications);
 
         /*
          * <USER></USER>
          */
-        operateTicket.getUser().setIdUser(idUser);
-        operateTicket.getUser().setIdCountry(idCountry);
-        operateTicket.getUser().setIdLanguage(idLanguage);
-        operateTicket.getUser().setT("NOSESSION");  // constante
+        operateTicket.getUSER().setIdUser(idUser);
+        operateTicket.getUSER().setIdCountry(Integer.parseInt(idCountry));
+        operateTicket.getUSER().setIdLanguage(idLanguage);
+        operateTicket.getUSER().setT("NOSESSION");  // constante
+
 
         /*
          *
          * <TICKET></TICKET>
          */
-        operateTicket.getTicket().setNumTicket(tareaAviso.getIdAviso().toString());
-        operateTicket.getTicket().setNumInst(tareaAviso.getNumeroInstalacion());
-        operateTicket.getTicket().setObserv(tareaAviso.getObservaciones());
-        operateTicket.getTicket().setCodZIP("28030"); // TODO InstallationData no tiene codigo postal
-        operateTicket.getTicket().setCloseTicket("0"); // constante
-        operateTicket.getTicket().setDataAditional(""); // constante
-        operateTicket.getTicket().setNoteClose(""); // constante
-        operateTicket.getTicket().setMorDebt("0"); // constante
-        operateTicket.getTicket().setTypePanel(installationData.getPanel());
+        //operateTicket.getTICKET().setNumTicket(tareaAviso.getIdAviso().toString());
+        operateTicket.getTICKET().setNumInst(Integer.parseInt(tareaAviso.getNumeroInstalacion()));
+        operateTicket.getTICKET().setObserv(tareaAviso.getObservaciones());
 
-        /* <REQ></REQ>
-         */
-        operateTicket.getTicket().setReq(createReq);
-        operateTicket.getTicket().setAsgto(createAsgto);
-        operateTicket.getTicket().setComm(createComm);
-        operateTicket.getTicket().setOpcod(createOpcod);
-        operateTicket.getTicket().setClcod(createClcod);
-
-        /*
-         * <SVRQ></SVRQ>
-         */
-        operateTicket.getSvrq().setMakeSVRQ("0"); // constante
-        operateTicket.getSvrq().setIdTec(""); // constante
-        operateTicket.getSvrq().setInsBoli("0"); // constante
-        operateTicket.getSvrq().setItems(new ArrayList<Item>());
-        operateTicket.getSvrq().setItems(create_list_item);
 
 
         String xmlCreateTicket = xmlMarshaller.marshalObject(operateTicket);
@@ -317,9 +291,9 @@ public class AvisoService {
 
 
         // TODO EVALUAR RETORNO
-        //LOGGER.debug("xmlCreateTicket: {} xmlResult:{}", xmlCreateTicket, xmlResult);
+        LOGGER.debug("xmlCreateTicket: {} xmlResult:{}", xmlCreateTicket, xmlResult);
 
-        //if(data.getERR() == null && data.getTICKET() != null && data.getTICKET().getNumTK() > 0) result = true;
+        if(data.getERR() != null && data.getERR().getCod() == -1) result = true;
 
         return result;
 
@@ -339,7 +313,7 @@ public class AvisoService {
         boolean result = false;
         try {
             List<RowErrorAA> rowErrorAAs = spAvisosOperaciones.aplazarAviso(naviso, gblidusr, idaplaza, fhasta, cnota);
-            //TODO Debug para ver que devuelve y controlar si hay errores devolver
+
             if (rowErrorAAs != null && rowErrorAAs.size() == 1
                     && ((RowErrorAA) ((List) rowErrorAAs).get(0)).getReturnCode() != null
                     && ((RowErrorAA) ((List) rowErrorAAs).get(0)).getReturnCode().equals(new BigInteger("0"))) {
@@ -370,7 +344,7 @@ public class AvisoService {
     public boolean closeTicket(Integer idAviso,
                                String idAgente,
                                String codTipoCierre,
-                               String codTipoCierreAdicional,
+                               Integer codTipoCierreAdicional,
                                boolean finalizarDesdeCrearMantenimiento) throws Exception {
 
         Integer deuda = 0; // constante
@@ -383,10 +357,10 @@ public class AvisoService {
 
         boolean result = false;
         try {
-            //TODO SI el Integer.valueOf(codTipoCierreAdicional) es siempre integer pasarlo a integer
+
             List<RowErrorCA> rowErrorCAs = spAvisosOperaciones.cerrarAviso(idAviso, idAgente, codTipoCierre, nota, statusdest,
-                    deuda, Integer.valueOf(codTipoCierreAdicional) ,idmante, branch   );
-            //TODO Debug para ver que devuelve y controlar si hay errores devolver
+                    deuda, codTipoCierreAdicional ,idmante, branch   );
+
             if (rowErrorCAs != null && rowErrorCAs.size() == 1
                     && ((RowErrorCA) ((List) rowErrorCAs).get(0)).getReturnCode() != null
                     && ((RowErrorCA) ((List) rowErrorCAs).get(0)).getReturnCode().equals(new BigInteger("0"))) {

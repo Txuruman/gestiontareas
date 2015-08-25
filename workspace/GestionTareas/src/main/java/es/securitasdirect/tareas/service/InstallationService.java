@@ -42,7 +42,7 @@ public class InstallationService {
             // Obtener la versión del panel
             GetInstallationDataInput getInstallationDataInput = new GetInstallationDataInput();
             getInstallationDataInput.setSIns(installationDataWS1.getSIns().intValue());
-            getInstallationDataInput.setSCtr(1); //TODO Numero contrato? no sirve para nada
+            getInstallationDataInput.setSCtr(installationDataWS1.getSIns().intValue()); //Como segundo parametro metemos también el número de instalación , parece que con eso devuelve datos de número de contrato
             installationDataWS2 = spAioTareas2.getInstallationData(getInstallationDataInput);
         }
 
