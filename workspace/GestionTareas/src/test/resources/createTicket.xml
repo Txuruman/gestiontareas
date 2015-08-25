@@ -8,8 +8,8 @@ Model Generator to create Java Classes from XSD : http://www.javaworld.com/artic
 
 -->
 <DATA>
-    <USER idUser='A13003' idCountry='01' idLanguage='ES' t='NOSESSION'/>
-    <TICKET numInst='731483' observ="Texto Aviso" codZIP="28033" closeTicket="1" dataAditional="" noteClose="" morDebt="0" typePanel="SDMF">
+    <USER idUser='A13003' idCountry='01' idLanguage='ES' idLang='es' t='NOSESSION'/>
+    <TICKET numTicket='11504305' numInst='731483' observ="Texto Aviso" codZIP="28033" closeTicket="1" dataAditional="" noteClose="" morDebt="0" typePanel="SDMF">
         <REQ idReq="GPD" reqName="" reqLname1="" reqLname2="" reqCif="" reqEmpl="A13003"/>
         <ASGTO idAsg="GPD" idUser=""/>
         <COMM name="" lName1="" lName2="" inChannel="AUTO" value="" coment="" outChannel="" from="0" to="0"/>
