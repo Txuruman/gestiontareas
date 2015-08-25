@@ -53,7 +53,7 @@ public class AvisoService {
     public boolean createTicket(Agent agent, TareaAviso tareaAviso, InstallationData installationData) {
 
         boolean result = false;
-        String idUser = agent.getIdAgent();
+        String idUser = agent.getAgentIBS();
 
         // TODO Hacer por spring
         String idCountry = agent.getAgentCountryJob();
@@ -196,7 +196,7 @@ public class AvisoService {
     public boolean updateTicket(Agent agent, TareaAviso tareaAviso, InstallationData installationData) {
 
         boolean result = false;
-        String idUser = agent.getIdAgent();
+        String idUser = agent.getAgentIBS();
 
         // TODO Hacer por spring
         String idCountry = agent.getAgentCountryJob();
