@@ -58,7 +58,11 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             .success(function (data, status, headers, config) {
                 //$log.debug('Loaded NotificationTask Data' + JSON.stringify(data));
                 CommonService.processBaseResponse(data, status, headers, config);
+                
                 $scope.tarea = data.tarea;
+                //clonamos el objeto tarea
+                $scope.tareaOriginal=angular.copy($scope.tarea);
+                
                 $scope.installationData = data.installationData;
                 $scope.getNotificationTypeList();
                 $scope.getTypeReasonList1($scope.tarea.tipoAviso1);
@@ -70,6 +74,9 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 $scope.getClosingList($scope.tarea.tipoAviso1,  $scope.tarea.motivo1, $scope.tarea.closing );
                 $scope.getClosingAditionalDataList();
                 $scope.refeshDisabled=true;
+                //Mensajes para los required de finalizar
+                $scope.closingADAlert=false;
+                $scope.closingAlert=false;
             })
             .error(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
@@ -217,6 +224,17 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     $scope.aplazar = function (delayDate, recallType) {
         //$log.info('Delay to ' + delayDate + ' with recallType ' + recallType + ' task ' + JSON.stringify($scope.tarea));
         if ($scope.tarea) {
+        	//Creamos dos objetos temporales, les quitamos los atributos y comparamos
+        	var temp1=angular.copy($scope.tarea);
+        	var temp2=angular.copy($scope.tareaOriginal);
+        	delete temp1.closingAdditionalData;
+        	delete temp2.closingAdditionalData;
+        	delete temp1.closing;
+        	delete temp2.closing;
+        	//Si son diferentes modificamos
+        	if (!angular.equals(temp1, temp2)) {
+        		$scope.modificar();
+			}
             var postponeRequest = {
                 recallType: recallType,
                 delayDate:  delayDate,
@@ -331,6 +349,10 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
 
     $scope.finalizar = function(){
         //$log.debug("Finalizar task, task: ",$scope.tarea);
+    	//Comparamos la tarea con el originar y si ha habido cambios modificamos.
+    	if (!angular.equals($scope.tarea, $scope.tareaOriginal)) {
+			$scope.modificar();
+		}
         var finalizeRequest = {
             task:$scope.tarea,
             installation:$scope.installationData
@@ -352,4 +374,15 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 //$log.error("Error finalizing task");
             });
     };
+    
+    //Mostramos los avisos para rellenar los combos de finalizar
+    $scope.muestraFinalizarRequired=function(){
+    	if($scope.tarea.closingAdditionalData==null){
+    		$scope.closingADAlert=true;
+    	}
+    	if($scope.tarea.closing==null){
+    		//TODO: No recibimos motivos de cierre del servidor
+    		//$scope.closingAlert=true;
+    	}
+    }
 });

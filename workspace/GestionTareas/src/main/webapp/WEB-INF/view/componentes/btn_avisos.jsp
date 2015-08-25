@@ -14,7 +14,8 @@
                 <app:inputButtonNG value="boton.CrearMantenimiento" type="submit" button_type="default" ng_click="formVisorTarea.$valid ? crearmantenimiento() : null" fluid_wrapper="true"/>
                 <app:inputButtonNG value="boton.Aplazar" button_type="default" ng_click="openDelayModal()" fluid_wrapper="true"/>
                 <app:inputButtonNG value="boton.Descartar" button_type="default" ng_click="descartar()" fluid_wrapper="true"/>
-                <app:inputButtonNG value="boton.Finalizar" type="submit" button_type="primary" ng_click="formVisorTarea.$valid ? finalizar() : null" fluid_wrapper="true"/>
+                <!-- Añadir condición cuando haya motivos de cierre :  && tarea.closing!=null -->
+                <app:inputButtonNG value="boton.Finalizar" type="submit" button_type="primary" ng_click="(formVisorTarea.$valid && tarea.closingAdditionalData!=null)? finalizar() : muestraFinalizarRequired()" fluid_wrapper="true"/>
             </div>
         </div>
     </div>
