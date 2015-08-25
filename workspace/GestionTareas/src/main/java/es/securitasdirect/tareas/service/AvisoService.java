@@ -289,10 +289,19 @@ public class AvisoService {
         DATA data = xmlMarshaller.unmarshalData(xmlResult);
 
 
-        // TODO EVALUAR RETORNO
+
         LOGGER.debug("xmlCreateTicket: {} xmlResult:{}", xmlCreateTicket, xmlResult);
 
-        if(data.getERR() != null && data.getERR().getCod() == -1) result = true;
+        /*
+        <DATA>
+         <TICKET numTK="11504305" msg="Aviso actualizado." />
+          <ERR>
+           <UPDATE cod="-1" desc="Ticket Actualizado con éxito" />
+         </ERR>
+        </DATA>
+         */
+
+        if(data.getERR() != null && data.getERR().getUPDATE().getCod() == -1) result = true;
 
         return result;
 
