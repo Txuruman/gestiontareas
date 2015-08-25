@@ -285,11 +285,11 @@ public class AvisoService {
         xmlCreateTicket = xmlCreateTicket.replaceAll("\n", "");
 
         String xmlResult = wsTickets.updateTicket(xmlCreateTicket);
-        // TODO
+
         DATA data = xmlMarshaller.unmarshalData(xmlResult);
 
 
-        // TODO EVALUAR RETORNO
+
         LOGGER.debug("xmlCreateTicket: {} xmlResult:{}", xmlCreateTicket, xmlResult);
 
         /*
@@ -301,7 +301,7 @@ public class AvisoService {
         </DATA>
          */
 
-        if(data.getERR() != null && data.getERR().getCod() == -1) result = true;
+        if(data.getERR() != null && data.getERR().getUPDATE().getCod() == -1) result = true;
 
         return result;
 
