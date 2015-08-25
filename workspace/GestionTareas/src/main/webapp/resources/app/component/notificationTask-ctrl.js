@@ -332,7 +332,8 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     $scope.finalizar = function(){
         //$log.debug("Finalizar task, task: ",$scope.tarea);
         var finalizeRequest = {
-            task:$scope.tarea
+            task:$scope.tarea,
+            installation:$scope.installationData
         };
         //$log.debug("Finalizar  Task, request: ",finalizeRequest);
         $http({
