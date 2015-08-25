@@ -4,6 +4,7 @@ import es.securitasdirect.tareas.model.Agent;
 import es.securitasdirect.tareas.model.InstallationData;
 import es.securitasdirect.tareas.model.TareaAviso;
 import es.securitasdirect.tareas.model.external.Pair;
+import es.securitasdirect.tareas.service.AvisoService;
 import es.securitasdirect.tareas.service.ExternalDataService;
 import es.securitasdirect.tareas.service.InstallationService;
 import es.securitasdirect.tareas.service.QueryTareaService;
@@ -41,6 +42,8 @@ public class NotificationTaskController extends TaskController {
     private ExternalDataService externalDataService;
     @Inject
     private InstallationService installationDataService;
+    @Inject
+    private AvisoService avisoService;
     @Autowired
     private AgentController agentController;
 
@@ -156,6 +159,7 @@ public class NotificationTaskController extends TaskController {
         try {
             Agent agent=agentController.getAgent();
             boolean ok = tareaService.finalizeNotificationTask(agent, request.getTask());
+
             if (ok) {
                 response.info(messageUtil.getProperty("finalize.success"));
             }else{
@@ -192,7 +196,11 @@ public class NotificationTaskController extends TaskController {
     BaseResponse modify(@RequestBody ModifyNotificationTaskRequest request) {
         LOGGER.debug("Modificar tarea\nRequest: {}", request);
         BaseResponse response = new BaseResponse();
-        if (true) {
+        Agent agent=agentController.getAgent();
+
+        boolean ok = avisoService.updateTicket(agent, request.getTask(), request.getInstallation());
+
+        if (ok) {
             response.success(messageUtil.getProperty("notificationTask.modify.success"));
         } else {
             response.danger(messageUtil.getProperty("notificationTask.modify.error"));

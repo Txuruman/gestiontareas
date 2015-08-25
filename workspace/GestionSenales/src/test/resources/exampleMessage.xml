@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<!--
+ Mensaje de ejemplo leido de la cola, se le ha cambiado el número de instalación porque 1555667 no lo encontraba
+-->
 <message>
     <entryDate>2015-06-26T13:11:07.579+02:00</entryDate>
         <CIBB>
-            <EVENTS MMV="20401" Modelo="Modelo Desconocido" Counter="00B" Ack="1" InsNumber="0" InsNumber_e="1555667" DataTime="1502091042" TypeProtocol="E">
+            <EVENTS MMV="20401" Modelo="Modelo Desconocido" Counter="00B" Ack="1" InsNumber="0" InsNumber_e="128360" DataTime="1502091042" TypeProtocol="E">
                 <EVENT id="UCB">
                     <type>2</type>
                     <ArmType value="Panel disarm"/>

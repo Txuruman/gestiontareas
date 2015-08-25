@@ -1,6 +1,4 @@
-<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
-                  xmlns:ns0="http://ws.wso2.org/dataservice" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-                  xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://ws.wso2.org/dataservice">
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:ns0="http://ws.wso2.org/dataservice" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://ws.wso2.org/dataservice">
     <wsdl:documentation/>
     <wsdl:types>
         <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://ws.wso2.org/dataservice">
@@ -13,6 +11,23 @@
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
+            <xs:element name="getTipoAviso">
+                <xs:complexType>
+                    <xs:sequence/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="tiposaviso" type="ns0:tiposaviso"/>
+            <xs:complexType name="tiposaviso">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="tipoaviso" type="ns0:tipoaviso"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="tipoaviso">
+                <xs:sequence>
+                    <xs:element name="tipo" nillable="true" type="xs:integer"/>
+                    <xs:element name="descripcion" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
             <xs:element name="getKeyData">
                 <xs:complexType>
                     <xs:sequence>
@@ -59,6 +74,46 @@
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
+            <xs:element name="getTipoCierre">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="idtipo" nillable="true" type="xs:int"/>
+                        <xs:element name="idmotivo" nillable="true" type="xs:int"/>
+                        <xs:element name="idMatricula" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="tiposcierre" type="ns0:tiposcierre"/>
+            <xs:complexType name="tiposcierre">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="tipocierre" type="ns0:tipocierre"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="tipocierre">
+                <xs:sequence>
+                    <xs:element name="tipo" nillable="true" type="xs:string"/>
+                    <xs:element name="descripcion" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="getTipoMotivo">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="idtipo" nillable="true" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="tiposmotivo" type="ns0:tiposmotivo"/>
+            <xs:complexType name="tiposmotivo">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="tipomotivo" type="ns0:tipomotivo"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="tipomotivo">
+                <xs:sequence>
+                    <xs:element name="id" nillable="true" type="xs:integer"/>
+                    <xs:element name="descripcion" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
             <xs:element name="inet_check_ins_no">
                 <xs:complexType>
                     <xs:sequence>
@@ -148,7 +203,7 @@
                     <xs:element ref="ns0:inet_check_ins_no_results"/>
                 </xs:sequence>
             </xs:complexType>
-            <xs:element name="getInstallationData">
+            <xs:element name="getInstallationDataInput">
                 <xs:complexType>
                     <xs:sequence>
                         <xs:element name="s_ins" nillable="true" type="xs:int"/>
@@ -159,10 +214,10 @@
             <xs:element name="getInsNoFromEmail">
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element name="email" nillable="true" type="xs:string"/>
                         <xs:element name="email1" nillable="true" type="xs:string"/>
                         <xs:element name="email2" nillable="true" type="xs:string"/>
                         <xs:element name="email3" nillable="true" type="xs:string"/>
+                        <xs:element name="email4" nillable="true" type="xs:string"/>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
@@ -237,6 +292,23 @@
                     <xs:element name="grupo" nillable="true" type="xs:string"/>
                 </xs:sequence>
             </xs:complexType>
+            <xs:element name="getClosingTypeAditionalData">
+                <xs:complexType>
+                    <xs:sequence/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="Entries" type="ns0:Entries"/>
+            <xs:complexType name="Entries">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="Entry" type="ns0:Entry"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="Entry">
+                <xs:sequence>
+                    <xs:element name="id" nillable="true" type="xs:string"/>
+                    <xs:element name="description" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
             <xs:element name="getKey1DIY">
                 <xs:complexType>
                     <xs:sequence/>
@@ -257,14 +329,20 @@
             </xs:complexType>
         </xs:schema>
     </wsdl:types>
+    <wsdl:message name="getTipoAvisoRequest">
+        <wsdl:part name="parameters" element="ns0:getTipoAviso"/>
+    </wsdl:message>
+    <wsdl:message name="getTipoAvisoResponse">
+        <wsdl:part name="parameters" element="ns0:tiposaviso"/>
+    </wsdl:message>
+    <wsdl:message name="DataServiceFault">
+        <wsdl:part name="parameters" element="ns0:DataServiceFault"/>
+    </wsdl:message>
     <wsdl:message name="getKey1DIYRequest">
         <wsdl:part name="parameters" element="ns0:getKey1DIY"/>
     </wsdl:message>
     <wsdl:message name="getKey1DIYResponse">
         <wsdl:part name="parameters" element="ns0:getKey1DIYResults"/>
-    </wsdl:message>
-    <wsdl:message name="DataServiceFault">
-        <wsdl:part name="parameters" element="ns0:DataServiceFault"/>
     </wsdl:message>
     <wsdl:message name="getInsNoFromEmailRequest">
         <wsdl:part name="parameters" element="ns0:getInsNoFromEmail"/>
@@ -292,6 +370,12 @@
     </wsdl:message>
     <wsdl:message name="setAvisoCargadoRequest">
         <wsdl:part name="parameters" element="ns0:setAvisoCargado"/>
+    </wsdl:message>
+    <wsdl:message name="getClosingTypeAditionalDataRequest">
+        <wsdl:part name="parameters" element="ns0:getClosingTypeAditionalData"/>
+    </wsdl:message>
+    <wsdl:message name="getClosingTypeAditionalDataResponse">
+        <wsdl:part name="parameters" element="ns0:Entries"/>
     </wsdl:message>
     <wsdl:message name="getContractNumberRequest">
         <wsdl:part name="parameters" element="ns0:getContractNumber"/>
@@ -321,10 +405,22 @@
         <wsdl:part name="parameters" element="ns0:setAvisoNoCargado"/>
     </wsdl:message>
     <wsdl:message name="getInstallationDataRequest">
-        <wsdl:part name="parameters" element="ns0:getInstallationData"/>
+        <wsdl:part name="parameters" element="ns0:getInstallationDataInput"/>
     </wsdl:message>
     <wsdl:message name="getInstallationDataResponse">
         <wsdl:part name="parameters" element="ns0:getInstallationDataResults"/>
+    </wsdl:message>
+    <wsdl:message name="getTipoMotivoRequest">
+        <wsdl:part name="parameters" element="ns0:getTipoMotivo"/>
+    </wsdl:message>
+    <wsdl:message name="getTipoMotivoResponse">
+        <wsdl:part name="parameters" element="ns0:tiposmotivo"/>
+    </wsdl:message>
+    <wsdl:message name="getTipoCierreRequest">
+        <wsdl:part name="parameters" element="ns0:getTipoCierre"/>
+    </wsdl:message>
+    <wsdl:message name="getTipoCierreResponse">
+        <wsdl:part name="parameters" element="ns0:tiposcierre"/>
     </wsdl:message>
     <wsdl:message name="inet_check_ctr_noRequest">
         <wsdl:part name="parameters" element="ns0:inet_check_ctr_no"/>
@@ -333,6 +429,12 @@
         <wsdl:part name="parameters" element="ns0:inet_check_ctr_no_results"/>
     </wsdl:message>
     <wsdl:portType name="SP_AIO_TAREAS2PortType">
+        <wsdl:operation name="getTipoAviso">
+            <wsdl:documentation>Consulta tipos de aviso de la tabla VW_TIPOS                                                                  &#xd;                                    </wsdl:documentation>
+            <wsdl:input message="ns0:getTipoAvisoRequest" wsaw:Action="urn:getTipoAviso"/>
+            <wsdl:output message="ns0:getTipoAvisoResponse" wsaw:Action="urn:getTipoAvisoResponse"/>
+            <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:getTipoAvisoDataServiceFault"/>
+        </wsdl:operation>
         <wsdl:operation name="getKey1DIY">
             <wsdl:documentation/>
             <wsdl:input message="ns0:getKey1DIYRequest" wsaw:Action="urn:getKey1DIY"/>
@@ -366,6 +468,12 @@
         <wsdl:operation name="setAvisoCargado">
             <wsdl:documentation/>
             <wsdl:input message="ns0:setAvisoCargadoRequest" wsaw:Action="urn:setAvisoCargado"/>
+        </wsdl:operation>
+        <wsdl:operation name="getClosingTypeAditionalData">
+            <wsdl:documentation>Consulta de Tipos de Datos Adicionales de Cierre para Tareas tipo Aviso                             &#xd;                                    </wsdl:documentation>
+            <wsdl:input message="ns0:getClosingTypeAditionalDataRequest" wsaw:Action="urn:getClosingTypeAditionalData"/>
+            <wsdl:output message="ns0:getClosingTypeAditionalDataResponse" wsaw:Action="urn:getClosingTypeAditionalDataResponse"/>
+            <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:getClosingTypeAditionalDataDataServiceFault"/>
         </wsdl:operation>
         <wsdl:operation name="getContractNumber">
             <wsdl:documentation/>
@@ -401,6 +509,18 @@
             <wsdl:output message="ns0:getInstallationDataResponse" wsaw:Action="urn:getInstallationDataResponse"/>
             <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:getInstallationDataDataServiceFault"/>
         </wsdl:operation>
+        <wsdl:operation name="getTipoMotivo">
+            <wsdl:documentation>Obtiene los tipos de Motivo dependiendo del Tipo de Aviso                                                                        &#xd;                                    </wsdl:documentation>
+            <wsdl:input message="ns0:getTipoMotivoRequest" wsaw:Action="urn:getTipoMotivo"/>
+            <wsdl:output message="ns0:getTipoMotivoResponse" wsaw:Action="urn:getTipoMotivoResponse"/>
+            <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:getTipoMotivoDataServiceFault"/>
+        </wsdl:operation>
+        <wsdl:operation name="getTipoCierre">
+            <wsdl:documentation/>
+            <wsdl:input message="ns0:getTipoCierreRequest" wsaw:Action="urn:getTipoCierre"/>
+            <wsdl:output message="ns0:getTipoCierreResponse" wsaw:Action="urn:getTipoCierreResponse"/>
+            <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:getTipoCierreDataServiceFault"/>
+        </wsdl:operation>
         <wsdl:operation name="inet_check_ctr_no">
             <wsdl:documentation/>
             <wsdl:input message="ns0:inet_check_ctr_noRequest" wsaw:Action="urn:inet_check_ctr_no"/>
@@ -410,6 +530,18 @@
     </wsdl:portType>
     <wsdl:binding name="SP_AIO_TAREAS2SOAP11Binding" type="ns0:SP_AIO_TAREAS2PortType">
         <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="getTipoAviso">
+            <soap:operation soapAction="urn:getTipoAviso" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
         <wsdl:operation name="getKey1DIY">
             <soap:operation soapAction="urn:getKey1DIY" style="document"/>
             <wsdl:input>
@@ -475,6 +607,18 @@
             <wsdl:input>
                 <soap:body use="literal"/>
             </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="getClosingTypeAditionalData">
+            <soap:operation soapAction="urn:getClosingTypeAditionalData" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
         </wsdl:operation>
         <wsdl:operation name="getContractNumber">
             <soap:operation soapAction="urn:getContractNumber" style="document"/>
@@ -542,6 +686,30 @@
                 <soap:fault use="literal" name="DataServiceFault"/>
             </wsdl:fault>
         </wsdl:operation>
+        <wsdl:operation name="getTipoMotivo">
+            <soap:operation soapAction="urn:getTipoMotivo" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="getTipoCierre">
+            <soap:operation soapAction="urn:getTipoCierre" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
         <wsdl:operation name="inet_check_ctr_no">
             <soap:operation soapAction="urn:inet_check_ctr_no" style="document"/>
             <wsdl:input>
@@ -557,6 +725,18 @@
     </wsdl:binding>
     <wsdl:binding name="SP_AIO_TAREAS2SOAP12Binding" type="ns0:SP_AIO_TAREAS2PortType">
         <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="getTipoAviso">
+            <soap12:operation soapAction="urn:getTipoAviso" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap12:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
         <wsdl:operation name="getKey1DIY">
             <soap12:operation soapAction="urn:getKey1DIY" style="document"/>
             <wsdl:input>
@@ -622,6 +802,18 @@
             <wsdl:input>
                 <soap12:body use="literal"/>
             </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="getClosingTypeAditionalData">
+            <soap12:operation soapAction="urn:getClosingTypeAditionalData" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap12:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
         </wsdl:operation>
         <wsdl:operation name="getContractNumber">
             <soap12:operation soapAction="urn:getContractNumber" style="document"/>
@@ -689,6 +881,30 @@
                 <soap12:fault use="literal" name="DataServiceFault"/>
             </wsdl:fault>
         </wsdl:operation>
+        <wsdl:operation name="getTipoMotivo">
+            <soap12:operation soapAction="urn:getTipoMotivo" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap12:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="getTipoCierre">
+            <soap12:operation soapAction="urn:getTipoCierre" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap12:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
         <wsdl:operation name="inet_check_ctr_no">
             <soap12:operation soapAction="urn:inet_check_ctr_no" style="document"/>
             <wsdl:input>
@@ -704,6 +920,15 @@
     </wsdl:binding>
     <wsdl:binding name="SP_AIO_TAREAS2HttpBinding" type="ns0:SP_AIO_TAREAS2PortType">
         <http:binding verb="POST"/>
+        <wsdl:operation name="getTipoAviso">
+            <http:operation location="getTipoAviso"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
         <wsdl:operation name="getKey1DIY">
             <http:operation location="getKey1DIY"/>
             <wsdl:input>
@@ -755,6 +980,15 @@
                 <mime:content type="text/xml" part="parameters"/>
             </wsdl:input>
         </wsdl:operation>
+        <wsdl:operation name="getClosingTypeAditionalData">
+            <http:operation location="getClosingTypeAditionalData"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
         <wsdl:operation name="getContractNumber">
             <http:operation location="getContractNumber"/>
             <wsdl:input>
@@ -799,6 +1033,24 @@
         </wsdl:operation>
         <wsdl:operation name="getInstallationData">
             <http:operation location="getInstallationData"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getTipoMotivo">
+            <http:operation location="getTipoMotivo"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getTipoCierre">
+            <http:operation location="getTipoCierre"/>
             <wsdl:input>
                 <mime:content type="text/xml" part="parameters"/>
             </wsdl:input>

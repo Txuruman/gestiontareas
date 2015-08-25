@@ -91,6 +91,10 @@ public class GestionSenalesMessagesTest {
     }
 
 
+    /**
+     * Test para mensajes que van bien
+     * @throws Exception
+     */
     @Test
     public void inWorkinHour() throws Exception {
         Message message = fileService.readMessage(exampleMessage.getFile());
