@@ -26,38 +26,40 @@
     <import resource="classpath:META-INF/cxf/cxf.xml"/>
     <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
 
-    <!--<cxf:bus>-->
-        <!--<cxf:inInterceptors>-->
-            <!--<ref bean="loggingInInterceptor"/>-->
-        <!--</cxf:inInterceptors>-->
-        <!--<cxf:outInterceptors>-->
-            <!--<ref bean="loggingOutInterceptor"/>-->
-        <!--</cxf:outInterceptors>-->
-        <!--<cxf:outFaultInterceptors>-->
-            <!--<ref bean="loggingOutInterceptor"/>-->
-        <!--</cxf:outFaultInterceptors>-->
-        <!--<cxf:inFaultInterceptors>-->
-            <!--<ref bean="loggingInInterceptor"/>-->
-        <!--</cxf:inFaultInterceptors>-->
-    <!--</cxf:bus>-->
 
-    <!--&lt;!&ndash; Web Services Cliente &ndash;&gt;-->
-    <!--<jaxws:client name="wsSPInstallationMonData"-->
-        <!--serviceClass="org.wso2.ws.dataservice.SPInstallationMonDataPortType"-->
-        <!--address="http://10.2.144.63:9763/services/SP_InstallationMonData?wsdl"-->
-        <!--/>-->
-    <!--&lt;!&ndash; TODO Parametro por JNDI, fichero configuracion????? &ndash;&gt;-->
+    <bean id="abstractLoggingInterceptor" abstract="true">
+        <property name="prettyLogging" value="true"/>
+    </bean>
+    <bean id="loggingInInterceptor" class="org.apache.cxf.interceptor.LoggingInInterceptor" parent="abstractLoggingInterceptor"/>
+    <bean id="loggingOutInterceptor" class="org.apache.cxf.interceptor.LoggingOutInterceptor" parent="abstractLoggingInterceptor"/>
 
-    <!--<jaxws:client name="wsSpAvisosOperaciones"-->
-                  <!--serviceClass="org.wso2.ws.dataservice.SPAVISOSOPERACIONESPortType"-->
-                  <!--address="http://10.2.144.63:9763/services/SP_AVISOS_OPERACIONES?wsdl"-->
-            <!--/>-->
-    <!-- TODO Parametro por JNDI, fichero configuracion????? -->
 
+    <cxf:bus>
+        <cxf:inInterceptors>
+            <ref bean="loggingInInterceptor"/>
+        </cxf:inInterceptors>
+        <cxf:outInterceptors>
+            <ref bean="loggingOutInterceptor"/>
+        </cxf:outInterceptors>
+        <cxf:outFaultInterceptors>
+            <ref bean="loggingOutInterceptor"/>
+        </cxf:outFaultInterceptors>
+        <cxf:inFaultInterceptors>
+            <ref bean="loggingInInterceptor"/>
+        </cxf:inFaultInterceptors>
+    </cxf:bus>
+
+    <!-- Web Services Cliente -->
 
     <jaxws:client name="wsSpAioTareas2"
                   serviceClass="org.wso2.ws.dataservice.SPAIOTAREAS2PortType"
                   address="http://10.2.144.63:9763/services/SP_AIO_TAREAS2?wsdl"
+            />
+    <!-- TODO Parametro por JNDI, fichero configuracion????? -->
+
+    <jaxws:client name="wsSPInstallationMonData"
+                  serviceClass="org.wso2.ws.dataservice.SPInstallationMonDataPortType"
+                  address="http://10.2.144.63:9763/services/SP_InstallationMonData?wsdl"
             />
     <!-- TODO Parametro por JNDI, fichero configuracion????? -->
 
