@@ -97,10 +97,14 @@ public class GestionSenalesServiceTest {
     }
 
 
+    /**
+     * Para probar que los WSDL estén bien, si hay errores de XML es porque las dos funciones en los WSDL de consulta de
+     * instalación se llaman igual y tienen distintos parametros, hay que editarlos a mano
+     */
     @Test
     public void getInstallation() throws DataServiceFault {
-        GetInstallationDataResult installationData = gestionSenalesService.getInstallationData(111111);
-        LOGGER.info("installationData: {}",installationData);
+        GestionSenalesService.MixedInstallationData mixedInstallationData = gestionSenalesService.getInstallationData(128360);
+        LOGGER.info("installationData: {}",mixedInstallationData);
     }
 
 }

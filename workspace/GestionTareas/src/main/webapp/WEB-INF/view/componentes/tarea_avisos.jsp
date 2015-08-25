@@ -98,14 +98,16 @@
             <div class="row">
             	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 	                <app:input id="closing" label="notificationtask.closing" cells="0" readonly="false" >
-	                    <select ng-model="tarea.closing" convert-to-number class="form-control marginBottom5" ng-change="refeshDisabled=false;  ">
+	                    <select ng-model="tarea.closing" convert-to-number class="form-control marginBottom5" ng-change="refeshDisabled=false; closingAlert=false; ">
 	                        <option data-ng-repeat="k in closingList" value="{{k.id}}" ng-selected="k.id==tarea.closing">{{k.id +" - "+ k.value}}</option>
 	                    </select>
+	                    <span class="error" ng-show="closingAlert"><spring:message code="error.notext"/></span>
 	                </app:input>
 	                <app:input id="closingAdditionalData" label="notificationTask.closingAdditionalData" cells="0" readonly="false">
-	                    <select ng-model="tarea.closingAdditionalData" convert-to-number class="form-control" ng-change="refeshDisabled=false">
+	                    <select ng-model="tarea.closingAdditionalData" convert-to-number class="form-control" ng-change="refeshDisabled=false; closingADAlert=false;">
 	                        <option data-ng-repeat="k in datosAdicionalesList" value="{{k.id}}" ng-selected="k.id==tarea.datosAdicionalesCierre">{{k.id +" - "+ k.value}}</option>
 	                    </select>
+	                    <span class="error" ng-show="closingADAlert"><spring:message code="error.notext"/></span>
 	                </app:input>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
