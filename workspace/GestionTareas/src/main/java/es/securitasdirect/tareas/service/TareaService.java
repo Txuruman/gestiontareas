@@ -44,7 +44,6 @@ public class TareaService {
     private SimpleDateFormat sdfSchedTime = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
 
 
-
     /**
      * Aplazar: muestra un diálogo en modo modal para introducir la fecha y hora de la reprogramación,
      * indicando también si es para el propio agente o para el grupo de la Campaña.
@@ -55,41 +54,53 @@ public class TareaService {
 
     /**
      * Finalizar la tarea, cualquier tipo menos TareaAviso
+     *
      * @param agent
      * @param tarea
      * @return
      */
-    public boolean finalizeTask(Agent agent,Tarea tarea) {
+    public boolean finalizeTask(Agent agent, Tarea tarea) throws Exception {
         //1. Finalizar la Tarea
-        boolean finalized = wsFilanizeTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId());
+        boolean finalized = false;
+
+        //Consultar la tarea de nuevo
+        tarea = queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
+        if (tarea != null) {
+            //Si no está en memoria se puede ejecutar
+            if (!tarea.isRetrieved()) {
+                //1. Finalizar la Tarea
+                finalized = wsFilanizeTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId());
+            } else {
+                LOGGER.warn("Can't finalize task because is in Retrieved state {}", tarea);
+            }
+        }
         return finalized;
     }
 
     /**
      * Finalizar la tarea de tipo Aviso, es distinto porque tiene que cancelar el aviso también
+     *
      * @param agent
      * @param tarea
      * @return
      */
-    public boolean finalizeNotificationTask(Agent agent,TareaAviso tarea) {
+    public boolean finalizeNotificationTask(Agent agent, TareaAviso tarea) {
         LOGGER.debug("Finalizando tarea Aviso {}", tarea);
         //1. Finalizar la Tarea
         boolean finalized = wsFilanizeTask(agent.getAgentIBS(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId());
         if (finalized) {
             //2. Finalizar el aviso
             //TODO finalizadoDesdeMantenimiento
-            boolean finalizadoDesdeMantenimiento=false;
+            boolean finalizadoDesdeMantenimiento = false;
             try {
                 Integer adicional = 0;
-                if( ((TareaAviso)tarea).getDatosAdicionalesCierre()  != null)
-                {
-                    adicional = Integer.valueOf(((TareaAviso)tarea).getDatosAdicionalesCierre());
+                if (((TareaAviso) tarea).getDatosAdicionalesCierre() != null) {
+                    adicional = Integer.valueOf(((TareaAviso) tarea).getDatosAdicionalesCierre());
                 }
-
-                finalized = avisoService.closeTicket(tarea.getIdAviso(),agent.getAgentIBS(),tarea.getClosing(),adicional,finalizadoDesdeMantenimiento);
+                finalized = avisoService.closeTicket(tarea.getIdAviso(), agent.getAgentIBS(), tarea.getClosing(), adicional, finalizadoDesdeMantenimiento);
             } catch (Exception e) {
-                LOGGER.error("Error Closing Ticket.",e);
-                finalized=false;
+                LOGGER.error("Error Closing Ticket.", e);
+                finalized = false;
             }
         }
         return finalized;
@@ -129,7 +140,7 @@ public class TareaService {
 //                    );
                 }
             } else {
-                LOGGER.warn("Can't delay task because is in Retrieved {}", tarea);
+                LOGGER.warn("Can't delay task because is in Retrieved state {}", tarea);
             }
         } else {
             LOGGER.error("Can't find task to delay");
@@ -138,29 +149,43 @@ public class TareaService {
         return delayed;
     }
 
-    public boolean createTask(Agent agent,TareaMantenimiento tareaMantenimiento) {
-        LOGGER.debug("Creating task: {}", tareaMantenimiento);        boolean result;
+    public boolean createTask(Agent agent, TareaMantenimiento tareaMantenimiento) {
+        LOGGER.debug("Creating task: {}", tareaMantenimiento);
+        boolean result;
         try {
             // TODO Tarea mantenimiento la crea un batch, el usuario desde pantalla crea tarea de aviso
             // TODO rellenar las variables
-            String ccIdentifier= agent.getAgentGroupSD();
+            String ccIdentifier = agent.getAgentGroupSD();
             String ccUserId = agent.getIdAgent();
 
             List<StringArray> insertValues = new ArrayList<StringArray>();
             StringArray stringArray = new StringArray();
-            stringArray.getItem().add("instalacion");stringArray.getItem().add(tareaMantenimiento.getNumeroInstalacion());
-            stringArray.getItem().add("contrato");stringArray.getItem().add(tareaMantenimiento.getNumeroContrato());
-            stringArray.getItem().add("nombre");stringArray.getItem().add(tareaMantenimiento.getPersonaContacto());
-            stringArray.getItem().add("telefono");stringArray.getItem().add(tareaMantenimiento.getTelefono());
-            stringArray.getItem().add("direccion");stringArray.getItem().add(tareaMantenimiento.getDireccion());
-            stringArray.getItem().add("ciudad");stringArray.getItem().add(tareaMantenimiento.getCiudad());
-            stringArray.getItem().add("panel");stringArray.getItem().add("valor"); // TODO
-            stringArray.getItem().add("version");stringArray.getItem().add("valor"); // TODO
-            stringArray.getItem().add("fechaevento");stringArray.getItem().add("valor"); // TODO
-            stringArray.getItem().add("horaevento");stringArray.getItem().add("valor"); // TODO
-            stringArray.getItem().add("telefono1");stringArray.getItem().add(tareaMantenimiento.getTelefono1());
-            stringArray.getItem().add("telefono2");stringArray.getItem().add(tareaMantenimiento.getTelefono2());
-            stringArray.getItem().add("telefono3");stringArray.getItem().add(tareaMantenimiento.getTelefono3());
+            stringArray.getItem().add("instalacion");
+            stringArray.getItem().add(tareaMantenimiento.getNumeroInstalacion());
+            stringArray.getItem().add("contrato");
+            stringArray.getItem().add(tareaMantenimiento.getNumeroContrato());
+            stringArray.getItem().add("nombre");
+            stringArray.getItem().add(tareaMantenimiento.getPersonaContacto());
+            stringArray.getItem().add("telefono");
+            stringArray.getItem().add(tareaMantenimiento.getTelefono());
+            stringArray.getItem().add("direccion");
+            stringArray.getItem().add(tareaMantenimiento.getDireccion());
+            stringArray.getItem().add("ciudad");
+            stringArray.getItem().add(tareaMantenimiento.getCiudad());
+            stringArray.getItem().add("panel");
+            stringArray.getItem().add("valor"); // TODO
+            stringArray.getItem().add("version");
+            stringArray.getItem().add("valor"); // TODO
+            stringArray.getItem().add("fechaevento");
+            stringArray.getItem().add("valor"); // TODO
+            stringArray.getItem().add("horaevento");
+            stringArray.getItem().add("valor"); // TODO
+            stringArray.getItem().add("telefono1");
+            stringArray.getItem().add(tareaMantenimiento.getTelefono1());
+            stringArray.getItem().add("telefono2");
+            stringArray.getItem().add(tareaMantenimiento.getTelefono2());
+            stringArray.getItem().add("telefono3");
+            stringArray.getItem().add(tareaMantenimiento.getTelefono3());
             insertValues.add(stringArray);
 
             String date = "21/08/2015"; // TODO
@@ -184,7 +209,7 @@ public class TareaService {
             IclResponse iclResponse = cclIntegration.insertCallingListContact(ccIdentifier, applicationUser, ccUserId, insertValues,
                     date, hour, dialRule, timeFrom, timeUntil, callingList, campaing, numbers, country, ctrNo, isEquals);
 
-            if (iclResponse!= null && iclResponse.getOperationResult().getResultCode() ==  200) {
+            if (iclResponse != null && iclResponse.getOperationResult().getResultCode() == 200) {
                 result = true;
             } else {
                 result = false;
@@ -271,11 +296,12 @@ public class TareaService {
 
     /**
      * Llamada al WS de finalizar
+     *
      * @return
      */
     private boolean wsFilanizeTask(String ccUserId, String country, String desktopDepartment,
-                                    String campaign, String contactInfo, String callingList,
-                                    Integer idTarea) {
+                                   String campaign, String contactInfo, String callingList,
+                                   Integer idTarea) {
         String filter = "chain_id=" + idTarea;
 
         List<java.lang.String> callingLists = Arrays.asList(callingList);
