@@ -157,19 +157,10 @@ public class NotificationTaskController extends TaskController {
         BaseResponse response = new BaseResponse();
         //Llamada al servicio para finalizar
         try {
-            boolean okModifAviso=false;
-            boolean ok = false;
-
             Agent agent=agentController.getAgent();
+            boolean ok = tareaService.finalizeNotificationTask(agent, request.getTask());
 
-            okModifAviso = avisoService.updateTicket(agent, request.getTask(), request.getInstallation());
-
-            if(okModifAviso) {
-                ok = tareaService.finalizeNotificationTask(agent, request.getTask());
-            }
-
-
-            if (okModifAviso && ok) {
+            if (ok) {
                 response.info(messageUtil.getProperty("finalize.success"));
             }else{
                 response.danger(messageUtil.getProperty("finalize.error"));
@@ -205,7 +196,11 @@ public class NotificationTaskController extends TaskController {
     BaseResponse modify(@RequestBody ModifyNotificationTaskRequest request) {
         LOGGER.debug("Modificar tarea\nRequest: {}", request);
         BaseResponse response = new BaseResponse();
-        if (true) {
+        Agent agent=agentController.getAgent();
+
+        boolean ok = avisoService.updateTicket(agent, request.getTask(), request.getInstallation());
+
+        if (ok) {
             response.success(messageUtil.getProperty("notificationTask.modify.success"));
         } else {
             response.danger(messageUtil.getProperty("notificationTask.modify.error"));
