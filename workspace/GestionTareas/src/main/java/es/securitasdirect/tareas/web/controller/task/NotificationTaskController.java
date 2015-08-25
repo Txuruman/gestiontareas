@@ -168,7 +168,6 @@ public class NotificationTaskController extends TaskController {
                 ok = tareaService.finalizeNotificationTask(agent, request.getTask());
             }
 
-
             if (okModifAviso && ok) {
                 response.info(messageUtil.getProperty("finalize.success"));
             }else{
