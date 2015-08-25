@@ -53,14 +53,13 @@ public class TareaService {
     }
 
     /**
-     * Finalizar la tarea, cualquier tipo menos TareaAviso
+     * Finalizar la tarea, cualquier tipo menos TareaAviso y Tarea Mantenimiento
      *
      * @param agent
      * @param tarea
      * @return
      */
     public boolean finalizeTask(Agent agent, Tarea tarea) throws Exception {
-        //1. Finalizar la Tarea
         boolean finalized = false;
 
         //Consultar la tarea de nuevo
@@ -78,8 +77,37 @@ public class TareaService {
     }
 
     /**
-     * Finalizar la tarea de tipo Aviso, es distinto porque tiene que cancelar el aviso también
+     * Finalizar tarea de tipo Mantenimiento,    es distinto porque tiene que cancelar la señal IWS
      *
+     * Cancelar la señal de IWS al finalizar una Tarea de tipo Mantenimiento y en la gestión de señales, cuando está fuera de horario.
+     *
+     * TODO 6.	En Tarea de tipo Mantenimiento, al finalizar, ejecutar WS de grabar comlog de IBS con los datos de la pantalla.
+     *
+     * @param agent
+     * @param tarea
+     * @return
+     */
+    public boolean finalizeMaintenanceTask(Agent agent, TareaMantenimiento tarea) throws Exception {
+        boolean finalized = false;
+
+        //Consultar la tarea de nuevo
+        tarea = (TareaMantenimiento) queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
+        if (tarea != null) {
+            //Si no está en memoria se puede ejecutar
+            if (!tarea.isRetrieved()) {
+                //1. Finalizar la Tarea
+                finalized = wsFilanizeTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId());
+                //2. Cancelar la señal
+                closeIncidence(tarea.getNumeroInstalacion());
+            } else {
+                LOGGER.warn("Can't finalize task because is in Retrieved state {}", tarea);
+            }
+        }
+        return finalized;
+    }
+
+    /**
+     * Finalizar la tarea de tipo Aviso, es distinta al resto de tareas porque hay que llamar a cancelar
      * @param agent
      * @param tarea
      * @return
@@ -329,4 +357,25 @@ public class TareaService {
             return false;
         }
     }
+
+
+
+
+    /**
+     * Closes the incidence in IBS with the SpAioTareas2 WS
+     * @return
+     */
+    private boolean closeIncidence(String installationNumber) {
+        CloseIncBTNDIY closeIncInput = new CloseIncBTNDIY();
+        closeIncInput.setInsNo(installationNumber);
+        closeIncInput.setComment(""); //TODO COMENTARIO?????
+        try {
+            String closeIncBTNDIYResult = spAioTareas2.closeIncBTNDIY(closeIncInput);
+            LOGGER.debug("Closed Incidences for Installation {} with result {}",closeIncInput.getInsNo(),closeIncBTNDIYResult);
+        } catch (DataServiceFault dataServiceFault) {
+            LOGGER.error("Error closing Incidence",dataServiceFault);
+        }
+        return true;
+    }
+
 }
