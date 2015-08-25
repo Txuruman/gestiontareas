@@ -205,7 +205,7 @@ public class AvisoService {
         else if("FRANCE".equals(agent.getAgentCountryJob())) idCountry = "3";
 
         String idLanguage = agent.getCurrentLanguage();
-        idLanguage = "ES"; // TODO DESDE PANTALLA LLEGA A NULO y es requerido
+        idLanguage = "ES"; // TODO DESDE PANTALLA LLEGA A NULO y es requerido.
         String idReq = agent.getDesktopDepartment();
         idReq = "ATC"; // TODO le llega ATC_SP y no encuentra datos
 
@@ -236,6 +236,45 @@ public class AvisoService {
         close.setDataAditional("");
         close.setNotaCierre("");
         operateTicket.getTICKET().setCLOSE(close);
+
+        /* <REQ></REQ> */
+        OperateTicket.TICKET.REQ req = new OperateTicket.TICKET.REQ();
+        req.setIdReq(idReq);
+        req.setReqName(""); // constante
+        req.setReqLname1(""); // constante
+        req.setReqLname2(""); // constante
+        req.setReqCif(""); // constante
+        req.setReqEmpl(idUser);
+        /* <ASGTO></ASGTO>*/
+        OperateTicket.TICKET.ASGTO asgto = new OperateTicket.TICKET.ASGTO();
+        asgto.setIdAsg(""); // constante
+        asgto.setIdUser(idUser);
+        /* <COMM></COMM>*/
+        OperateTicket.TICKET.COMM comm = new OperateTicket.TICKET.COMM();
+        comm.setName(""); // constante
+        comm.setLName1(""); // constante
+        comm.setLName2(""); // constante
+        comm.setInChannel("TELF"); // constante
+        comm.setValue(tareaAviso.getTelefono());
+        comm.setComent(""); // constante
+        comm.setOutChannel(""); // constante
+        comm.setFrom(Integer.valueOf(tareaAviso.getHorarioDesde()));
+        comm.setTo(Integer.valueOf(tareaAviso.getHorarioHasta()));
+        /* <OPCOD></OPCOD>*/
+        OperateTicket.TICKET.OPCOD opcod = new OperateTicket.TICKET.OPCOD();
+        opcod.setCodKey1(Integer.valueOf(tareaAviso.getTipoAviso1()));
+        opcod.setCodKey2(Integer.valueOf(tareaAviso.getMotivo1()));
+        /* <CLCOD></CLCOD>*/
+        OperateTicket.TICKET.CLCOD clcod = new OperateTicket.TICKET.CLCOD();
+        clcod.setCodKey3(""); // constante
+        clcod.setCodKey4(""); // constante
+
+        operateTicket.getTICKET().setREQ(req);
+        operateTicket.getTICKET().setASGTO(asgto);
+        operateTicket.getTICKET().setCOMM(comm);
+        operateTicket.getTICKET().setOPCOD(opcod);
+        operateTicket.getTICKET().setCLCOD(clcod);
+
 
         /* <CODIF></CODIF> */
         if(tareaAviso.getTipoAviso1() != null) {
