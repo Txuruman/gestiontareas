@@ -292,6 +292,15 @@ public class AvisoService {
         // TODO EVALUAR RETORNO
         LOGGER.debug("xmlCreateTicket: {} xmlResult:{}", xmlCreateTicket, xmlResult);
 
+        /*
+        <DATA>
+         <TICKET numTK="11504305" msg="Aviso actualizado." />
+          <ERR>
+           <UPDATE cod="-1" desc="Ticket Actualizado con éxito" />
+         </ERR>
+        </DATA>
+         */
+
         if(data.getERR() != null && data.getERR().getCod() == -1) result = true;
 
         return result;
