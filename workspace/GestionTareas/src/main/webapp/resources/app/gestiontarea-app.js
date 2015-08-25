@@ -5,14 +5,13 @@ var app = angular.module("myApp", ['ui.bootstrap','angular-loading-bar']);
 // Please note that $modalInstance represents a modal window (instance) dependency. It is not the same as the $modal service used above.
 app.controller('DelayModalInstanceCtrl', function ($scope, $modalInstance, $log) {
 	
-	$scope.withoutChanges=true;
     $scope.today = new Date();
     $scope.delayInfo = {
         delayDate: $scope.today,
         delayTime: $scope.today,
         recallType: '5'
     };
-
+    //$scope.withoutChanges=true;
 
     $scope.ok = function () {
             //Llama a la función de result.then de DelayModalCtrl
@@ -28,7 +27,21 @@ app.controller('DelayModalInstanceCtrl', function ($scope, $modalInstance, $log)
             $modalInstance.dismiss('cancel');
     };
 });
+//Controlador de la ventana modal de descartar
+//Please note that $modalInstance represents a modal window (instance) dependency. It is not the same as the $modal service used above.
+app.controller('ContentModalCtrl', function ($scope, $modalInstance, $log) {
+	
+ $scope.ok = function () {
+         //Llama a la función de result.then de DelayModalCtrl
+         //$log.debug("Selected delay info :" + $scope.delayInfo );
+         $modalInstance.close();
+     };
 
+     $scope.cancel = function () {
+         //Llama a la funcion result.then de DelayModalCtrl
+         $modalInstance.dismiss('cancel');
+ };
+});
 
 // Configure the $httpProvider by adding our date transformer
 app.config(['cfpLoadingBarProvider','$httpProvider', function (cfpLoadingBarProvider,$httpProvider) {

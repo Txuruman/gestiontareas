@@ -21,7 +21,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             }
         });
 
-        //Funciones para recivir el cierre ok y el cancel
+        //Funciones para recibir el cierre ok y el cancel
         modalInstance.result.then(function (delayInfo) {
             //Boton Ok del modal
             $scope.aplazar(delayInfo.delayDate, delayInfo.recallType);
@@ -30,7 +30,42 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
         });
     };
     //Ventana Aplazar - End
-
+    $scope.openContentModal=function(size){
+    	if (!angular.equals($scope.tarea, $scope.tareaOriginal)) {
+	    	var modalInstance = $modal.open({
+	            animation: false, //Indica si animamos el modal
+	            templateUrl: 'ContentModal.html', //HTML del modal
+	            controller: 'ContentModalCtrl',  //Referencia al controller especifico para el modal
+	            size: size,
+	            resolve: {
+	                //Creo que esto es para pasar parametros al controller interno
+	                // items: function () {
+	                //     return $scope.items;
+	                // }
+	            }
+	        });
+	
+	        //Funciones para recibir el cierre ok y el cancel
+	        modalInstance.result.then(function () {
+	            //Boton Ok del modal
+	        	//Le mandamos la tarea sin los atributos de finalizar
+	        	var temp1=angular.copy($scope.tarea);
+	        	temp1.closingAdditionalData=null;
+	        	temp1.closing=null;
+	            $scope.modificar(temp1);
+	            //Si los atributos de finalizar no están nulos y hemos cambiado el tipo y el motivo 1 de la tarea --> Finalizamos y desmarcamos aviso de tarea
+	            if ($scope.tarea.closingAdditionalData!=null && $scope.tarea.closing!=null && !angular.equals($scope.tarea.tipoAviso1, $scope.tareaOriginal.tipoAviso1) && !angular.equals($scope.tarea.motivo1, $scope.tareaOriginal.motivo1)) {
+					$scope.finalizar();
+					//TODO: Desmarcar aviso de tarea (otro WS)
+				}
+	            $scope.descartar();
+	        }, function (param) {
+	          //Boton cancelar del Modal
+	        });
+    	}else{
+    		$scope.descartar();
+    	}
+    }
 
    $scope.init = function(){
         $scope.vm.appReady=false;
@@ -227,18 +262,18 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
         	//Creamos dos objetos temporales, les quitamos los atributos y comparamos
         	var temp1=angular.copy($scope.tarea);
         	var temp2=angular.copy($scope.tareaOriginal);
-        	delete temp1.closingAdditionalData;
-        	delete temp2.closingAdditionalData;
-        	delete temp1.closing;
-        	delete temp2.closing;
-        	//Si son diferentes modificamos
+        	temp1.closingAdditionalData=null;
+        	temp2.closingAdditionalData=null;
+        	temp1.closing=null;
+        	temp2.closing=null;
+        	//Si son diferentes modificamos, utilizamos el objeto temporal para no sobreescribir los atributos de finalizar
         	if (!angular.equals(temp1, temp2)) {
-        		$scope.modificar();
+        		$scope.modificar(temp1);
 			}
             var postponeRequest = {
                 recallType: recallType,
                 delayDate:  delayDate,
-                task: $scope.tarea
+                task: temp1
             };
 
             //$log.info("Json of Request " + JSON.stringify(postponeRequest));
@@ -260,10 +295,10 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
         }
     };
 
-    $scope.modificar = function () {
+    $scope.modificar = function (tarea) {
         //$log.debug('Modificar Tarea, tarea: ' + $scope.tarea);
         var modifyNotificationTaskRequest = {
-            task: $scope.tarea,
+            task: tarea,
             prueba: 'Hola'
         };
         //$log.debug('Modificar Tarea, request ' + JSON.stringify(modifyNotificationTaskRequest));
