@@ -24,12 +24,19 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <!-- row -->
+                <div class="row">
+		            <app:inputTextNG id="personaContacto" label="visortarea.personacontacto"
+		                             value="installationData.personaContacto" cells="6" />
+		            <app:inputTextNG id="telefono" label="visortarea.telefono" value="installationData.telefono" cells="6"
+		                             type="text"  only="true" />
+		
+		        </div>
                 <div class="spacer_t1"></div>
                 <div class="row">
                     <app:inputTextNG id="requiredBy" value="tarea.requeridoPor" form="formCreateTask" required="true" label="createtask.requiredby" cells="6" />
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        <app:inputTextNG id="horarioDesde" label="tareaAviso.horarioDesde" required="true" value="tarea.horarioDesde" cells="6"  ng_keypress="onlyNumber($event,true,tarea.horarioDesde.length)"/>
-                		<app:inputTextNG id="horarioHasta" label="tareaAviso.horarioHasta" required="true" value="tarea.horarioHasta" cells="6"  ng_keypress="onlyNumber($event,true,tarea.horarioHasta.length)"/>
+                        <app:inputTextNG id="horarioDesde" label="tareaAviso.horarioDesde" form="formCreateTask" required="true" value="tarea.horarioDesde" cells="6" only="true" size="2" /><!--  ng_keypress="onlyNumber($event,true,tarea.horarioDesde.length)"/> -->
+                		<app:inputTextNG id="horarioHasta" label="tareaAviso.horarioHasta" form="formCreateTask" required="true" value="tarea.horarioHasta" cells="6"  only="true" size="2"/>
                     </div>
                 </div>
                 <!-- row -->

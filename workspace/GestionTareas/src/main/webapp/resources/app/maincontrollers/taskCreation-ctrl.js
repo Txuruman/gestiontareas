@@ -203,18 +203,6 @@ app.controller('taskCreation', function ($scope, $http, CommonService, $modal, $
             });
     };
     /** Fin datos combos***/
-    
-    /**
-     * Método para que sólo se puedan poner números en el imput
-     * Si hora viene true haremos que sólo se puedan poner dos números
-     * Size es el tamaño, tiene que ser 2 como máximo
-     */
-    $scope.onlyNumber=function($event,hora,size){
-    	if($event.keyCode<48 || $event.keyCode>57){
-    		$event.preventDefault();
-    	}
-    	if (hora==true && size==2) {
-    		$event.preventDefault();
-		}
-    }
 });
+
+

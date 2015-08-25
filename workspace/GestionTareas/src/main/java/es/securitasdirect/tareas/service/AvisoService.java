@@ -53,7 +53,7 @@ public class AvisoService {
     public boolean createTicket(Agent agent, TareaAviso tareaAviso, InstallationData installationData) {
 
         boolean result = false;
-        String idUser = agent.getIdAgent();
+        String idUser = agent.getAgentIBS();
 
         // TODO Hacer por spring
         String idCountry = agent.getAgentCountryJob();
@@ -196,7 +196,7 @@ public class AvisoService {
     public boolean updateTicket(Agent agent, TareaAviso tareaAviso, InstallationData installationData) {
 
         boolean result = false;
-        String idUser = agent.getIdAgent();
+        String idUser = agent.getAgentIBS();
 
         // TODO Hacer por spring
         String idCountry = agent.getAgentCountryJob();
@@ -217,25 +217,24 @@ public class AvisoService {
         operateTicket.setUSER(new OperateTicket.USER());
         operateTicket.setTICKET(new OperateTicket.TICKET());
 
-        OperateTicket.CODIFICATIONS.CODIF createCODIF = new OperateTicket.CODIFICATIONS.CODIF();
-        //List create_list_CODIF = new ArrayList();
-        OperateTicket.CODIFICATIONS codifications = new OperateTicket.CODIFICATIONS();
+        OperateTicket.TICKET.CODIFICATIONS.CODIF createCODIF = new OperateTicket.TICKET.CODIFICATIONS.CODIF();
+        OperateTicket.TICKET.CODIFICATIONS codifications = new OperateTicket.TICKET.CODIFICATIONS();
 
 
-        OperateTicket.CONTACTO contacto = new OperateTicket.CONTACTO();
+        OperateTicket.TICKET.CONTACTO contacto = new OperateTicket.TICKET.CONTACTO();
         contacto.setCodforma("");
         contacto.setComentario("");
         contacto.setDesde("");
         contacto.setHasta("");
         contacto.setNombre("");
         contacto.setValor("");
-        operateTicket.setCONTACTO(contacto);
+        operateTicket.getTICKET().setCONTACTO(contacto);
 
-        OperateTicket.CLOSE close = new OperateTicket.CLOSE();
+        OperateTicket.TICKET.CLOSE close = new OperateTicket.TICKET.CLOSE();
         close.setCloseTicket(0);
         close.setDataAditional("");
         close.setNotaCierre("");
-        operateTicket.setCLOSE(close);
+        operateTicket.getTICKET().setCLOSE(close);
 
         /* <CODIF></CODIF> */
         if(tareaAviso.getTipoAviso1() != null) {
@@ -261,14 +260,14 @@ public class AvisoService {
             codifications.getCODIF().add(createCODIF);
         }
 
-        operateTicket.setCODIFICATIONS(codifications);
+        operateTicket.getTICKET().setCODIFICATIONS(codifications);
 
         /*
          * <USER></USER>
          */
         operateTicket.getUSER().setIdUser(idUser);
         operateTicket.getUSER().setIdCountry(Integer.parseInt(idCountry));
-        operateTicket.getUSER().setIdLanguage(idLanguage);
+        operateTicket.getUSER().setIdLang(idLanguage);
         operateTicket.getUSER().setT("NOSESSION");  // constante
 
 
@@ -276,7 +275,7 @@ public class AvisoService {
          *
          * <TICKET></TICKET>
          */
-        //operateTicket.getTICKET().setNumTicket(tareaAviso.getIdAviso().toString());
+        operateTicket.getTICKET().setNumTicket(tareaAviso.getIdAviso());
         operateTicket.getTICKET().setNumInst(Integer.parseInt(tareaAviso.getNumeroInstalacion()));
         operateTicket.getTICKET().setObserv(tareaAviso.getObservaciones());
 
@@ -290,10 +289,19 @@ public class AvisoService {
         DATA data = xmlMarshaller.unmarshalData(xmlResult);
 
 
-        // TODO EVALUAR RETORNO
+
         LOGGER.debug("xmlCreateTicket: {} xmlResult:{}", xmlCreateTicket, xmlResult);
 
-        if(data.getERR() != null && data.getERR().getCod() == -1) result = true;
+        /*
+        <DATA>
+         <TICKET numTK="11504305" msg="Aviso actualizado." />
+          <ERR>
+           <UPDATE cod="-1" desc="Ticket Actualizado con éxito" />
+         </ERR>
+        </DATA>
+         */
+
+        if(data.getERR() != null && data.getERR().getUPDATE().getCod() == -1) result = true;
 
         return result;
 
@@ -313,7 +321,7 @@ public class AvisoService {
         boolean result = false;
         try {
             List<RowErrorAA> rowErrorAAs = spAvisosOperaciones.aplazarAviso(naviso, gblidusr, idaplaza, fhasta, cnota);
-            //TODO Debug para ver que devuelve y controlar si hay errores devolver
+
             if (rowErrorAAs != null && rowErrorAAs.size() == 1
                     && ((RowErrorAA) ((List) rowErrorAAs).get(0)).getReturnCode() != null
                     && ((RowErrorAA) ((List) rowErrorAAs).get(0)).getReturnCode().equals(new BigInteger("0"))) {
@@ -344,7 +352,7 @@ public class AvisoService {
     public boolean closeTicket(Integer idAviso,
                                String idAgente,
                                String codTipoCierre,
-                               String codTipoCierreAdicional,
+                               Integer codTipoCierreAdicional,
                                boolean finalizarDesdeCrearMantenimiento) throws Exception {
 
         Integer deuda = 0; // constante
@@ -357,10 +365,10 @@ public class AvisoService {
 
         boolean result = false;
         try {
-            //TODO SI el Integer.valueOf(codTipoCierreAdicional) es siempre integer pasarlo a integer
+
             List<RowErrorCA> rowErrorCAs = spAvisosOperaciones.cerrarAviso(idAviso, idAgente, codTipoCierre, nota, statusdest,
-                    deuda, Integer.valueOf(codTipoCierreAdicional) ,idmante, branch   );
-            //TODO Debug para ver que devuelve y controlar si hay errores devolver
+                    deuda, codTipoCierreAdicional ,idmante, branch   );
+
             if (rowErrorCAs != null && rowErrorCAs.size() == 1
                     && ((RowErrorCA) ((List) rowErrorCAs).get(0)).getReturnCode() != null
                     && ((RowErrorCA) ((List) rowErrorCAs).get(0)).getReturnCode().equals(new BigInteger("0"))) {

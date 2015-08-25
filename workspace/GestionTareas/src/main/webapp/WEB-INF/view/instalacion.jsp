@@ -23,14 +23,7 @@
             <app:inputTextNG id="version" label="visortarea.version" value="installationData.version" cells="6"
                              readonly="true"/>
         </div>
-        <div class="spacer_t1"></div>
-        <div class="row">
-            <app:inputTextNG id="personaContacto" label="visortarea.personacontacto"
-                             value="installationData.personaContacto" cells="6" readonly="false"/>
-            <app:inputTextNG id="telefono" label="visortarea.telefono" value="installationData.telefono" cells="6"
-                             readonly="false" type="text"  ng_keypress="onlyNumber($event,false)" />
-
-        </div>
+              
     </div>
 </div>
 <!-- Datos de la Instalacion  - End -->
