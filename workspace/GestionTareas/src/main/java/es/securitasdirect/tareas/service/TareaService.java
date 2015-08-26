@@ -510,13 +510,11 @@ public class TareaService {
 
         boolean result = false;
 
-        if(
-            ( tareaOriginal.getClosing() != null && tareaOriginal.getDatosAdicionalesCierre() != null )
-            &&
-            ( !tareaOriginal.getTipoAviso1().equals(tarea.getTipoAviso1()) || !tareaOriginal.getTipoAviso1().equals(tarea.getMotivo1()) )
-          )
-        {
-            return true;
+        if( tareaOriginal.getTipoAviso1() != null && !tareaOriginal.getTipoAviso1().equals("")
+         && tareaOriginal.getMotivo1() != null && !tareaOriginal.getMotivo1().equals("") ) {
+            if (!tareaOriginal.getTipoAviso1().equals(tarea.getTipoAviso1()) || !tareaOriginal.getMotivo1().equals(tarea.getMotivo1())) {
+                return true;
+            }
         }
 
         return result;
