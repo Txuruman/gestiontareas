@@ -482,17 +482,44 @@ public class TareaService {
         return true;
     }
 
-    public boolean saveTask(Agent agent, Tarea tarea, InstallationData installation) throws Exception {
+    public boolean saveTask(Agent agent, TareaAviso tarea, InstallationData installationData) throws Exception {
 
         boolean saved = false;
 
         if (tarea instanceof TareaAviso) {
 
-            boolean ok = avisoService.updateTicket(agent, (TareaAviso) tarea, installation);
+            boolean finalized=false;
+            boolean ok = avisoService.updateTicket(agent, (TareaAviso) tarea, installationData);
+
+            TareaAviso tareaOriginal = (TareaAviso) queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
+            if (!isTaskRequiresSaveModifications2(tareaOriginal, tarea)) {
+                // Finalizar Tarea
+                finalized = wsFilanizeTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId());
+                // TODO desmarcar Aviso de la Tarea (otro ws)
+            }
+            if(ok && finalized)
+            {
+                saved = true;
+            }
 
         }
 
         return saved;
+    }
+
+    private boolean isTaskRequiresSaveModifications2(TareaAviso tareaOriginal, TareaAviso tarea) {
+
+        boolean result = false;
+
+        if( tareaOriginal.getTipoAviso1() != null && !tareaOriginal.getTipoAviso1().equals("")
+         && tareaOriginal.getMotivo1() != null && !tareaOriginal.getMotivo1().equals("") ) {
+            if (!tareaOriginal.getTipoAviso1().equals(tarea.getTipoAviso1()) || !tareaOriginal.getMotivo1().equals(tarea.getMotivo1())) {
+                return true;
+            }
+        }
+
+        return result;
+
     }
 
 }
