@@ -4,6 +4,7 @@ import com.webservice.CCLIntegration;
 import com.webservice.IclResponse;
 import com.webservice.WsResponse;
 import es.securitasdirect.tareas.model.*;
+import es.securitasdirect.tareas.web.controller.params.TaskServiceParams;
 import net.java.dev.jaxb.array.StringArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -405,7 +406,7 @@ public class TareaService {
         saRecordStatus.getItem().add("record_status");
         saRecordStatus.getItem().add("1");
         //  Dial_sched_time = dd/mm/aaaa hh:mm:ss
-        saTime.getItem().add("dial_sched_time");
+        saTime.getItem().add( TaskServiceParams.TAREA_COMMONS_FECHA_REPROGRAMACION);
         saTime.getItem().add(sdfSchedTime.format(schedTime));
         // Recort_type = 5 (personal callback) / 6 (campaing callback)
         saType.getItem().add("record_type");
