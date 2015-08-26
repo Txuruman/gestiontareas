@@ -49,15 +49,15 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
 	        modalInstance.result.then(function () {
 	            //Boton Ok del modal
 	        	//Le mandamos la tarea sin los atributos de finalizar
-	        	var temp1=angular.copy($scope.tarea);
-	        	temp1.closingAdditionalData=null;
-	        	temp1.closing=null;
-	            $scope.modificar(temp1);
+//	        	var temp1=angular.copy($scope.tarea);
+//	        	temp1.closingAdditionalData=null;
+//	        	temp1.closing=null;
+	            $scope.modificar($scope.tarea);
 	            //Si los atributos de finalizar no están nulos y hemos cambiado el tipo y el motivo 1 de la tarea --> Finalizamos y desmarcamos aviso de tarea
-	            if ($scope.tarea.closingAdditionalData!=null && $scope.tarea.closing!=null && !angular.equals($scope.tarea.tipoAviso1, $scope.tareaOriginal.tipoAviso1) && !angular.equals($scope.tarea.motivo1, $scope.tareaOriginal.motivo1)) {
-					$scope.finalizar();
-					//TODO: Desmarcar aviso de tarea (otro WS)
-				}
+//	            if ($scope.tarea.closingAdditionalData!=null && $scope.tarea.closing!=null && !angular.equals($scope.tarea.tipoAviso1, $scope.tareaOriginal.tipoAviso1) && !angular.equals($scope.tarea.motivo1, $scope.tareaOriginal.motivo1)) {
+//					$scope.finalizar();
+//					//TODO: Desmarcar aviso de tarea (otro WS)
+//				}
 	            $scope.descartar();
 	        }, function (param) {
 	          //Boton cancelar del Modal
