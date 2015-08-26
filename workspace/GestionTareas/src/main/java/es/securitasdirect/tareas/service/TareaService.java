@@ -14,6 +14,7 @@ import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
+import javax.jws.WebParam;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -31,6 +32,8 @@ public class TareaService {
     protected SPAVISOSOPERACIONESPortType spAvisosOperaciones;
     @Inject
     protected SPAIOTAREAS2PortType spAioTareas2;
+    @Inject
+    protected SPIBSCommlogDataPortType wsIBSCommlog;
     @Inject
     protected QueryTareaService queryTareaService;
     @Inject
@@ -79,12 +82,13 @@ public class TareaService {
 
     /**
      * Finalizar tarea de tipo Mantenimiento,    es distinto porque tiene que cancelar la señal IWS
-     *
+     * <p/>
      * Cancelar la señal de IWS al finalizar una Tarea de tipo Mantenimiento y en la gestión de señales, cuando está fuera de horario.
-     *
-     * TODO 6.	En Tarea de tipo Mantenimiento, al finalizar, ejecutar WS de grabar comlog de IBS con los datos de la pantalla.
-     *
+     * <p/>
+     * TODO 6.	En Tarea de tipo Mantenimiento, al finalizar, ejecutar WS de grabar commlogs  de IBS con los datos de la pantalla.
+     * <p/>
      * //TODO Pendiente, cuando esté funcionando el Reporting de BI el dato Motivo de Cierre y Compensación deben de registrarse en la auditoria
+     *
      * @param agent
      * @param tarea
      * @return
@@ -102,6 +106,9 @@ public class TareaService {
                 //2. Cancelar la señal
                 closeIncidence(tarea.getNumeroInstalacion());
 
+                //3. En Tarea de tipo Mantenimiento, al finalizar, ejecutar WS de grabar commlogs  de IBS con los datos de la pantalla.
+                registerCommlog(tarea);
+
                 //TODO Pendiente, cuando esté funcionando el Reporting de BI el dato Motivo de Cierre y Compensación deben de registrarse en la auditoria
             } else {
                 LOGGER.warn("Can't finalize task because is in Retrieved state {}", tarea);
@@ -112,6 +119,7 @@ public class TareaService {
 
     /**
      * Finalizar la tarea de tipo Aviso, es distinta al resto de tareas porque hay que llamar a cancelar
+     *
      * @param agent
      * @param tarea
      * @return
@@ -166,7 +174,7 @@ public class TareaService {
                     delayed = false;
                     Date fecha = schedTime;
                     SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy' 'HH:mm:ss");
-                    String fHasta =format.format(fecha);
+                    String fHasta = format.format(fecha);
 
                     delayed = avisoService.delayTicket(
                             ((TareaAviso) tarea).getIdAviso(),
@@ -277,6 +285,61 @@ public class TareaService {
         return result;
     }
 
+    /**
+     * WS 27: Guardar commlogs en IBS.
+     *
+     * @return
+     */
+    protected boolean registerCommlog(TareaMantenimiento tarea) {
+        LOGGER.debug("Registering Commlog for task {}", tarea);
+        String insNo = tarea.getNumeroInstalacion();
+        String dealId = "0";//deal_id = 0  fijo
+        String source = "CT";  //CT  fijo
+        String key1 = tarea.getKey1() == null ? "" : tarea.getKey1().toString();
+        String key2 = tarea.getKey2() == null ? "" : tarea.getKey2().toString();
+        String key3 = ""; //	key3 =  vacío
+        String key4 = ""; //	key3 =  vacío
+        String media = "TEL"; //	media = TEL  fijo
+        String dir = "O"; //	dir = O  fijo
+        String resCode = "CERR"; //	res_code = CERR  fijo
+        String longtext = tarea.getTextoCancelacion();  //	texto = texto de la cancelación
+        String contactName = tarea.getPersonaContacto();  //	contact_name = persona de contacto
+        String contactPhone = tarea.getTelefono1();//TODO PENDIENTE	contact_phone = número de teléfono, del último llamado (entre los 3 que hay en la ventana). Si no ha pulsado ninguno, dejarlo vacío.
+        String userid = "ATOMIC"; //	userid = “ATOMIC”  fijo
+        List<CreateFullCommLogResult> fullCommLog;
+        try {
+             fullCommLog = wsIBSCommlog.createFullCommLog(insNo,
+                    dealId,
+                    source,
+                    key1,
+                    key2,
+                    key3,
+                    key4,
+                    media,
+                    dir,
+                    resCode,
+                    longtext,
+                    contactName,
+                    contactPhone,
+                    userid);
+        } catch (DataServiceFault e) {
+            LOGGER.error("Can't register CommLog {}",tarea, e);
+            return false;
+        }
+
+        if (fullCommLog==null || fullCommLog.isEmpty()) {
+            LOGGER.error("Error on CreateFullComLog the response is empty");
+            return false;
+        } else {
+            if (fullCommLog.get(0).getX().equals("0")) {
+                return true;
+            } else {
+                LOGGER.error("Error CrateFullComLog {}-{}", fullCommLog.get(0).getX(), fullCommLog.get(0).getComlogSComm());
+                return false;
+            }
+        }
+
+    }
 
     /**
      * Llamada al WS de delay
@@ -368,10 +431,9 @@ public class TareaService {
     }
 
 
-
-
     /**
      * Closes the incidence in IBS with the SpAioTareas2 WS
+     *
      * @return
      */
     private boolean closeIncidence(String installationNumber) {
@@ -380,9 +442,9 @@ public class TareaService {
         closeIncInput.setComment("");
         try {
             String closeIncBTNDIYResult = spAioTareas2.closeIncBTNDIY(closeIncInput);
-            LOGGER.debug("Closed Incidences for Installation {} with result {}",closeIncInput.getInsNo(),closeIncBTNDIYResult);
+            LOGGER.debug("Closed Incidences for Installation {} with result {}", closeIncInput.getInsNo(), closeIncBTNDIYResult);
         } catch (DataServiceFault dataServiceFault) {
-            LOGGER.error("Error closing Incidence",dataServiceFault);
+            LOGGER.error("Error closing Incidence", dataServiceFault);
         }
         return true;
     }

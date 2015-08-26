@@ -79,4 +79,10 @@
                   address="http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx?WSDL"
             />
     <!-- TODO Parametro por JNDI, fichero configuracion????? -->
+
+    <jaxws:client name="wsIBSCommlog"
+                  serviceClass="org.wso2.ws.dataservice.SPIBSCommlogDataPortType"
+                  address="http://10.2.144.63:9763/services/SP_IBSCommlogData?wsdl"
+            />
+    <!-- TODO Parametro por JNDI, fichero configuracion????? -->
 </beans>

@@ -14,6 +14,17 @@ public class FinalizeMaintenanceSurveyTaskRequest extends BaseRequest {
 
     private MaintenanceSurveyTask task;
 
+    /** Ultimo telefono al que se ha llamado pulsando en la pantalla al botón del telefono, o vacio si no se ha pulsado ninguno */
+    private String lastPhoneCalled;
+
+    public String getLastPhoneCalled() {
+        return lastPhoneCalled;
+    }
+
+    public void setLastPhoneCalled(String lastPhoneCalled) {
+        this.lastPhoneCalled = lastPhoneCalled;
+    }
+
     public FinalizeMaintenanceSurveyTaskRequest() {
     }
 
