@@ -24,8 +24,8 @@
 			<div class="spacer_t1"></div>
 	    </div>
 	    <div class="modal-footer">
-	        <button class="btn btn-primary" ng-click="ok()" ng-disabled="withoutChanges"><spring:message code='boton.ok'/></button>
-	        <button class="btn btn-warning" ng-click="cancel()"><spring:message code='boton.cancel'/></button>
+	        <button class="btn btn-primary" ng-click="ok()" ng-disabled="withoutChanges"><spring:message code='contentmodal.yes'/></button>
+	        <button class="btn btn-warning" ng-click="cancel()"><spring:message code='contentmodal.no'/></button>
 	    </div>
     </div>
 </div>

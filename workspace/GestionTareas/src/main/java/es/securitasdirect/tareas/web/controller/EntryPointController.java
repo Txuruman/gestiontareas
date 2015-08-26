@@ -82,7 +82,7 @@ public class EntryPointController extends TaskController {
         if (callingList != null && !callingList.isEmpty()) {
             //Con CallingList estamos Gestionando una tarea
             String tareaType = tareaServiceTools.getTaskTypeFromCallingList(callingList);
-            if (tareaType != null && tareaType.isEmpty()) {
+            if (tareaType != null && !tareaType.isEmpty()) {
                 //Redirect to the appropiate page
                 mv = loadModelAndViewForTarea(tareaType, parametersMap);
             } else {
