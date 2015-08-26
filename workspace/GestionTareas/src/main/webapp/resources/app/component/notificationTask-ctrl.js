@@ -260,20 +260,20 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
         //$log.info('Delay to ' + delayDate + ' with recallType ' + recallType + ' task ' + JSON.stringify($scope.tarea));
         if ($scope.tarea) {
         	//Creamos dos objetos temporales, nulleamos los atributos y comparamos
-        	var temp1=angular.copy($scope.tarea);
-        	var temp2=angular.copy($scope.tareaOriginal);
-        	temp1.datosAdicionalesCierre=null;
-        	temp2.datosAdicionalesCierre=null;
-        	temp1.closing=null;
-        	temp2.closing=null;
-        	//Si son diferentes modificamos, utilizamos el objeto temporal para no sobreescribir los atributos de finalizar
-        	if (!angular.equals(temp1, temp2)) {
-        		$scope.modificar(temp1);
-			}
+//        	var temp1=angular.copy($scope.tarea);
+//        	var temp2=angular.copy($scope.tareaOriginal);
+//        	temp1.datosAdicionalesCierre=null;
+//        	temp2.datosAdicionalesCierre=null;
+//        	temp1.closing=null;
+//        	temp2.closing=null;
+//        	//Si son diferentes modificamos, utilizamos el objeto temporal para no sobreescribir los atributos de finalizar
+//        	if (!angular.equals(temp1, temp2)) {
+//        		$scope.modificar(temp1);
+//			}
             var postponeRequest = {
                 recallType: recallType,
                 delayDate:  delayDate,
-                task: temp1
+                task: $scope.tarea
             };
 
             //$log.info("Json of Request " + JSON.stringify(postponeRequest));
