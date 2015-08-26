@@ -32,15 +32,15 @@ Enlaces
         </ul>
     <li>
         Estando el agente sin interacción en curso, decide crear una Tarea o buscar una existente.<br/>
-        <a href="searchtarea.htm?bp_agent=12187&bp_agentIBS=M0OOS&bp_agentCountryJob=SPAIN&bp_desktopDepartment=ATC_SPN">Buscar Tareas</a><br/>
+        <a href="entry?bp_agent=12187&bp_agentIBS=M0OOS&bp_agentCountryJob=SPAIN&bp_desktopDepartment=ATC_SPN">Buscar Tareas</a><br/>
         <a href="createtask.htm">Crear Tarea</a><br/>
     </li>
     <li>
         Estando el agente con una interacción en curso, decide crear una Tarea o buscar una existente.<br/>
         <ul>
-            <li><a href="createtask.htm?bp_agent=12187&bp_agentIBS=I24311&bp_agentCountryJob=SPAIN&bp_desktopDepartment=ATC_SPN&bp_out_instalacion=111111">Crear Tarea</a></li>
-            <li><a href="searchtarea.htm?bp_agent=12187&bp_agentIBS=I24311&bp_agentCountryJob=SPAIN&bp_desktopDepartment=ATC_SPN&bp_out_instalacion=111111">Buscar Tareas (Instalación con Tareas)</a></li>
-            <li><a href="searchtarea.htm?bp_agent=12187&bp_agentIBS=I24311&bp_agentCountryJob=SPAIN&bp_desktopDepartment=ATC_SPN&bp_out_instalacion=111111">Buscar Tareas (Instalación sin Tareas)</a></li>        </ul>
+            <li><a href="entry?bp_agent=12187&bp_agentIBS=I24311&bp_agentCountryJob=SPAIN&bp_desktopDepartment=ATC_SPN&bp_out_instalacion=111111">Crear Tarea</a></li>
+            <li><a href="entry?bp_agent=12187&bp_agentIBS=I24311&bp_agentCountryJob=SPAIN&bp_desktopDepartment=ATC_SPN&bp_out_instalacion=1599716">Buscar Tareas (Instalación con Tareas)</a></li>
+            <li><a href="entry?bp_agent=12187&bp_agentIBS=I24311&bp_agentCountryJob=SPAIN&bp_desktopDepartment=ATC_SPN&bp_out_instalacion=111111">Buscar Tareas (Instalación sin Tareas)</a></li>        </ul>
 
     </li>
 </ul>
