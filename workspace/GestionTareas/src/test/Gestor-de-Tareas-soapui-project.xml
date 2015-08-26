@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project activeEnvironment="Default" name="Gestor de Tareas" resourceRoot="" soapui-version="5.0.0" abortOnError="false" runType="SEQUENTIAL" id="31083d5d-16b2-42ca-bf6b-b47bb5f2f5e8" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="SP_InstallationMonDataSOAP12Binding" type="wsdl" bindingName="{http://ws.wso2.org/dataservice}SP_InstallationMonDataSOAP12Binding" soapVersion="1_2" anonymous="optional" definition="http://10.2.144.63:9763/services/SP_InstallationMonData?wsdl" id="b0e82c02-4f15-428b-9988-e6d1615143f6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.actions.iface.tools.axis2.Axis2WSDL2CodeAction@values-local"><![CDATA[<xml-fragment xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project activeEnvironment="Default" name="Gestor de Tareas" resourceRoot="" soapui-version="5.2.0" abortOnError="false" runType="SEQUENTIAL" id="31083d5d-16b2-42ca-bf6b-b47bb5f2f5e8" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="SP_InstallationMonDataSOAP12Binding" type="wsdl" bindingName="{http://ws.wso2.org/dataservice}SP_InstallationMonDataSOAP12Binding" soapVersion="1_2" anonymous="optional" definition="http://10.2.144.63:9763/services/SP_InstallationMonData?wsdl" id="b0e82c02-4f15-428b-9988-e6d1615143f6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.actions.iface.tools.axis2.Axis2WSDL2CodeAction@values-local"><![CDATA[<xml-fragment xmlns:con="http://eviware.com/soapui/config">
   <con:entry key="test-case" value="true"/>
   <con:entry key="adb writeClasses" value="false"/>
   <con:entry key="namespace mapping" value="&lt;xml-fragment/>"/>
@@ -7458,7 +7458,7 @@
 </soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:getInstallationContacts"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="urn:getInstallationData" name="getInstallationData" bindingOperationName="getInstallationData" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="9f54b94c-b6b1-452e-b2a5-549c80ddc970"><con:settings/><con:call name="Request 1" id="0972dfdd-2933-4bc6-b604-ad248df3976b"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.2.144.63:9763/services/SP_InstallationMonData.SOAP11Endpoint/</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Body>
     <getInstallationData xmlns="http://ws.wso2.org/dataservice">
-      <ins_no>128360</ins_no>
+      <ins_no>111111</ins_no>
     </getInstallationData>
   </soap:Body>
 </soap:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:getInstallationData"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="urn:getInstaller" name="getInstaller" bindingOperationName="getInstaller" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="91a17845-37a9-4810-9ad0-cf7b1aa2d40c"><con:settings/><con:call name="Request 1" id="748036b7-3fe6-44fb-a88f-55413113c995"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.2.144.63:9763/services/SP_InstallationMonData.SOAP11Endpoint/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dat="http://ws.wso2.org/dataservice">
@@ -8938,8 +8938,8 @@
 </soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:getInsNoFromEmail"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="urn:getInstallationData" name="getInstallationData" bindingOperationName="getInstallationData" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="a5e7181f-d02e-4395-90c5-9b68571b1c06"><con:settings/><con:call name="Request 1" id="85b186a3-7bd0-4adc-8617-6b8ba15e4861"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.2.144.63:9763/services/SP_AIO_TAREAS2.SOAP11Endpoint/</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Body>
     <getInstallationData xmlns="http://ws.wso2.org/dataservice">
-      <s_ins>128360</s_ins>
-      <s_ctr>128360</s_ctr>
+      <s_ins>70578</s_ins>
+      <s_ctr>7</s_ctr>
     </getInstallationData>
   </soap:Body>
 </soap:Envelope>
@@ -9673,34 +9673,33 @@
       <http:address location="https://10.2.144.63:9443/services/SP_AVISOS_OPERACIONES.SecureHTTPEndpoint/"/>
     </wsdl:port>
   </wsdl:service>
-</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://10.2.144.63:9763/services/SP_AVISOS_OPERACIONES.SOAP11Endpoint/</con:endpoint><con:endpoint>https://10.2.144.63:9443/services/SP_AVISOS_OPERACIONES.SecureSOAP11Endpoint/</con:endpoint><con:endpoint>local:///services/SP_AVISOS_OPERACIONES.LOCALSOAP11Endpoint/</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:AplazarAviso" name="AplazarAviso" bindingOperationName="AplazarAviso" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="327eec23-28c4-4d89-a615-efa82b35a463"><con:settings/><con:call name="Request 1" id="67e541a7-e1cb-466d-857e-a136ab380832"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.2.144.63:9763/services/SP_AVISOS_OPERACIONES.SOAP11Endpoint/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dat="http://ws.wso2.org/dataservice">
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://10.2.144.63:9763/services/SP_AVISOS_OPERACIONES.SOAP11Endpoint/</con:endpoint><con:endpoint>https://10.2.144.63:9443/services/SP_AVISOS_OPERACIONES.SecureSOAP11Endpoint/</con:endpoint><con:endpoint>local:///services/SP_AVISOS_OPERACIONES.LOCALSOAP11Endpoint/</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:AplazarAviso" name="AplazarAviso" bindingOperationName="AplazarAviso" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="327eec23-28c4-4d89-a615-efa82b35a463"><con:settings/><con:call name="Request 1" id="67e541a7-e1cb-466d-857e-a136ab380832"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.2.144.63:9763/services/SP_AVISOS_OPERACIONES.SOAP11Endpoint/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dat="http://ws.wso2.org/dataservice">
    <soapenv:Header/>
    <soapenv:Body>
       <dat:AplazarAviso>
-         <dat:NAVISO>?</dat:NAVISO>
-         <dat:GBLIDUSR>?</dat:GBLIDUSR>
-         <dat:IDAPLAZA>?</dat:IDAPLAZA>
-         <dat:FHASTA>?</dat:FHASTA>
-         <dat:CNOTA>?</dat:CNOTA>
+         <dat:NAVISO>11501688</dat:NAVISO>
+         <dat:GBLIDUSR>12106</dat:GBLIDUSR>
+         <dat:IDAPLAZA></dat:IDAPLAZA>
+         <dat:FHASTA>23/09/2015 12:12:00</dat:FHASTA>
+         <dat:CNOTA>4444</dat:CNOTA>
       </dat:AplazarAviso>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:AplazarAviso"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="urn:CerrarAviso" name="CerrarAviso" bindingOperationName="CerrarAviso" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="932ce19f-6575-41f9-bf28-dad63436aeb0"><con:settings/><con:call name="Request 1" id="6fd6936f-c882-4408-ba88-f9ebc5710de0"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.2.144.63:9763/services/SP_AVISOS_OPERACIONES.SOAP11Endpoint/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dat="http://ws.wso2.org/dataservice">
    <soapenv:Header/>
    <soapenv:Body>
       <dat:CerrarAviso>
-         <dat:NAVISO>10267531</dat:NAVISO>
-         <dat:IDMAT>M0OOS</dat:IDMAT>
-         <dat:TCIERRE>ILOC</dat:TCIERRE>
-         <dat:CNOTA></dat:CNOTA>
-         <dat:STATUSDEST>2</dat:STATUSDEST><!-- o 3 -->
+         <dat:NAVISO>11501688</dat:NAVISO>
+         <dat:IDMAT>12106</dat:IDMAT>
+         <dat:TCIERRE>10</dat:TCIERRE>
+         <dat:CNOTA>a</dat:CNOTA>
+         <dat:STATUSDEST>2</dat:STATUSDEST>
          <dat:DEUDA>0</dat:DEUDA>
-         <dat:ADICIONAL>10</dat:ADICIONAL>
+         <dat:ADICIONAL>AL10</dat:ADICIONAL>
          <dat:IDMANTEN>0</dat:IDMANTEN>
-         <dat:BRANCH>0</dat:BRANCH>
+         <dat:BRANCH></dat:BRANCH>
       </dat:CerrarAviso>
    </soapenv:Body>
-</soapenv:Envelope>
-]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:CerrarAviso"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="urn:ReasignarAviso" name="ReasignarAviso" bindingOperationName="ReasignarAviso" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="4aaaab61-b3a8-48c5-b67c-2878e74304a0"><con:settings/><con:call name="Request 1" id="4f07f1f9-f2c7-4397-a0fb-1ad67707153a"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.2.144.63:9763/services/SP_AVISOS_OPERACIONES.SOAP11Endpoint/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dat="http://ws.wso2.org/dataservice">
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:CerrarAviso"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="urn:ReasignarAviso" name="ReasignarAviso" bindingOperationName="ReasignarAviso" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="4aaaab61-b3a8-48c5-b67c-2878e74304a0"><con:settings/><con:call name="Request 1" id="4f07f1f9-f2c7-4397-a0fb-1ad67707153a"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.2.144.63:9763/services/SP_AVISOS_OPERACIONES.SOAP11Endpoint/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dat="http://ws.wso2.org/dataservice">
    <soapenv:Header/>
    <soapenv:Body>
       <dat:ReasignarAviso>
@@ -12445,13 +12444,13 @@
    <soapenv:Body>
       <web:checkCallingListContact>
          <!--Optional:-->
-         <ccIdentifier>ATC_SPN</ccIdentifier>
+         <ccIdentifier>ATC_SP</ccIdentifier>
          <!--Optional:-->
          <applicationUser>Tareas</applicationUser>
          <!--Optional:-->
          <ccUserId>12187</ccUserId>
          <!--Optional:-->
-         <filter>CONTACT_INFO='699590908'</filter>
+         <filter>CONTACT_INFO='999999'</filter>
          <returnData/>
          <!--Optional:-->
            <callingList>CL_CCT_ATT_Averia_Test</callingList>
@@ -12481,7 +12480,7 @@
          <country>SPAIN</country>
       </web:checkCallingListContact>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/checkCallingListContactRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="BusquedaTareas  Cliente"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/checkCallingListContactRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="BusquedaTareas  Cliente" id="4600f3a4-57e3-4bb0-b4b9-b5c7fd92ffd8"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
    <soapenv:Header/>
    <soapenv:Body>
       <web:checkCallingListContact>
@@ -13019,46 +13018,58 @@
          <agentGroup>?</agentGroup>
       </web:insertAgentActionDesktopUTC>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/insertAgentActionDesktopUTCRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="insertCallingListContact" bindingOperationName="insertCallingListContact" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="105a4588-63c3-44be-84b9-aeb011949ffd"><con:settings/><con:call name="Request 1" id="3a157a07-615e-4b27-8089-7f572481f061"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/insertAgentActionDesktopUTCRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="insertCallingListContact" bindingOperationName="insertCallingListContact" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="105a4588-63c3-44be-84b9-aeb011949ffd"><con:settings/><con:call name="Request 1" id="3a157a07-615e-4b27-8089-7f572481f061"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
    <soapenv:Header/>
    <soapenv:Body>
       <web:insertCallingListContact>
          <!--Optional:-->
-         <ccIdentifier>?</ccIdentifier>
+         <ccIdentifier>ATC_SPN</ccIdentifier>
          <!--Optional:-->
-         <applicationUser>?</applicationUser>
+         <applicationUser>Tareas</applicationUser>
          <!--Optional:-->
-         <ccUserId>?</ccUserId>
+         <ccUserId>12106</ccUserId>
          <!--Zero or more repetitions:-->
          <insertValues>
             <!--Zero or more repetitions:-->
-            <item>?</item>
+            <item>instalacion</item><item>valor</item>
+            <item>contrato</item><item>valor</item>            
+            <item>nombre</item><item>valor</item>            
+            <item>telefono</item><item>911234567</item>            
+            <item>direccion</item><item>valor</item>            
+            <item>ciudad</item><item>valor</item>            
+            <item>panel</item><item>valor</item>            
+            <item>version</item><item>valor</item>            
+            <item>fechaevento</item><item>valor</item>            
+            <item>horaevento</item><item>valor</item>            
+            <item>telefono1</item><item>911234567</item>            
+            <item>telefono2</item><item>911234567</item>            
+            <item>telefono3</item><item>911234567</item>            
          </insertValues>
          <!--Optional:-->
-         <date>?</date>
+         <date>20/08/2015</date>
          <!--Optional:-->
-         <hour>?</hour>
+         <hour>1</hour>
          <!--Optional:-->
-         <dial_rule>?</dial_rule>
+         <dial_rule></dial_rule>
          <!--Optional:-->
-         <timeFrom>?</timeFrom>
+         <timeFrom></timeFrom>
          <!--Optional:-->
-         <timeUntil>?</timeUntil>
+         <timeUntil></timeUntil>
          <!--Optional:-->
-         <callingList>?</callingList>
+         <callingList>CL_TAREAS_DIY</callingList>
          <!--Optional:-->
-         <campaign>?</campaign>
+         <campaign>CL_TAREAS_DIY</campaign>
          <!--Zero or more repetitions:-->
          <numbers>
             <!--Zero or more repetitions:-->
-            <item>?</item>
+            <item>911234567</item>
          </numbers>
          <!--Optional:-->
-         <country>?</country>
+         <country>SPAIN</country>
          <!--Optional:-->
-         <ctrNo>?</ctrNo>
+         <ctrNo>1</ctrNo>
          <!--Optional:-->
-         <isEquals>?</isEquals>
+         <isEquals>true</isEquals>
       </web:insertCallingListContact>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/insertCallingListContactRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="" name="insertCallingListContactNumber" bindingOperationName="insertCallingListContactNumber" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="7580855f-5f7e-4e21-8318-24dde322db05"><con:settings/><con:call name="Request 1" id="bacabd22-1cb0-4ea3-8883-743b04591bf5"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
@@ -13348,19 +13359,19 @@
    <soapenv:Body>
       <web:sendSMS>
          <!--Optional:-->
-         <ccIdentifier>ATC_SPN</ccIdentifier>
+         <ccIdentifier></ccIdentifier>
          <!--Optional:-->
-         <applicationUser>Tareas</applicationUser>
+         <applicationUser></applicationUser>
          <!--Optional:-->
-         <ccUserId>M0OOS</ccUserId>
+         <ccUserId></ccUserId>
          <!--Optional:-->
-         <destination>+34696252991</destination>
+         <destination>696252991</destination>
          <!--Optional:-->
          <text>develpment</text>
          <!--Optional:-->
-         <account>PC_SMS_ATC</account>
+         <account></account>
          <!--Optional:-->
-         <country>SPAIN</country>
+         <country></country>
       </web:sendSMS>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/sendSMSRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="" name="startCampaign" bindingOperationName="startCampaign" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="48ad6e0b-b234-422a-ad7c-dd9d57ca641a"><con:settings/><con:call name="Request 1" id="1df6c1e7-be9e-43a9-93ee-b9afc6a1f334"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
@@ -13466,28 +13477,34 @@
          <country>?</country>
       </web:transferConsultationCallMKT>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/transferConsultationCallMKTRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="updateCallingListContact" bindingOperationName="updateCallingListContact" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="5089971c-ac90-43f1-a11f-7d32789a61b0"><con:settings/><con:call name="Request 1" id="34b9a930-4272-48b8-96c1-8d29b279b7df"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-  <soap:Body>
-    <ns2:updateCallingListContact xmlns:ns2="http://webservice.com/">
-      <ccIdentifier>ATC_SPN</ccIdentifier>
-      <applicationUser>Tareas</applicationUser>
-      <ccUserId>M0OOS</ccUserId>
-      <filter>chain_id=3</filter>
-      <modifyValues>
-        <item>record_status</item>
-        <item>3</item>
-      </modifyValues>
-      <modifyValues>
-        <item>call_result</item>
-        <item>0</item>
-      </modifyValues>
-      <callingList>CL_CCT_ATC_CRA</callingList>
-      <campaign>212</campaign>
-      <contactInfo>JORGE VENDRELL PILSA</contactInfo>
-      <country>SPAIN</country>
-    </ns2:updateCallingListContact>
-  </soap:Body>
-</soap:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/updateCallingListContactRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="" name="updateHistoric" bindingOperationName="updateHistoric" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="a253e537-c2d8-42e2-a27b-787698cb9768"><con:settings/><con:call name="Request 1" id="82e915d5-19ae-4b3a-8a87-e83cafebe45b"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/transferConsultationCallMKTRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="updateCallingListContact" bindingOperationName="updateCallingListContact" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="5089971c-ac90-43f1-a11f-7d32789a61b0"><con:settings/><con:call name="Request 1" id="34b9a930-4272-48b8-96c1-8d29b279b7df"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <web:updateCallingListContact>
+         <!--Optional:-->
+         <ccIdentifier>?</ccIdentifier>
+         <!--Optional:-->
+         <applicationUser>?</applicationUser>
+         <!--Optional:-->
+         <ccUserId>?</ccUserId>
+         <!--Optional:-->
+         <filter>?</filter>
+         <!--Zero or more repetitions:-->
+         <modifyValues>
+            <!--Zero or more repetitions:-->
+            <item>?</item>
+         </modifyValues>
+         <!--Zero or more repetitions:-->
+         <callingList>?</callingList>
+         <!--Zero or more repetitions:-->
+         <campaign>?</campaign>
+         <!--Optional:-->
+         <contactInfo>?</contactInfo>
+         <!--Optional:-->
+         <country>?</country>
+      </web:updateCallingListContact>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/updateCallingListContactRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="updateHistoric" bindingOperationName="updateHistoric" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="a253e537-c2d8-42e2-a27b-787698cb9768"><con:settings/><con:call name="Request 1" id="82e915d5-19ae-4b3a-8a87-e83cafebe45b"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
    <soapenv:Header/>
    <soapenv:Body>
       <web:updateHistoric>
@@ -13924,12 +13941,12 @@
       <http:address location="http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx"/>
     </wsdl:port>
   </wsdl:service>
-</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx</con:endpoint></con:endpoints><con:operation isOneWay="false" action="http://wsTicketsv2/Create" name="Create" bindingOperationName="Create" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="3ce8c6c8-5b6c-4983-b522-d2cda51b8f27"><con:settings/><con:call name="Request 1" id="c9fd8064-0557-4c4a-8743-7f8daa13ce9b"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wst="http://wsTicketsv2/">
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx</con:endpoint></con:endpoints><con:operation isOneWay="false" action="http://wsTicketsv2/Create" name="Create" bindingOperationName="Create" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="3ce8c6c8-5b6c-4983-b522-d2cda51b8f27"><con:settings/><con:call name="Request 1" id="c9fd8064-0557-4c4a-8743-7f8daa13ce9b"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wst="http://wsTicketsv2/">
    <soapenv:Header/>
    <soapenv:Body>
       <wst:Create>
          <!--Optional:-->
-         <wst:Info>?</wst:Info>
+         <wst:Info>&lt;DATA&gt;    &lt;USER idUser="12106" idCountry="1" idLanguage="ES" t="NOSESSION"/&gt;    &lt;TICKET numInst="1829827" observ="observaciones" codZIP="28030" closeTicket="0" dataAditional="" noteClose="" morDebt="0" typePanel="SDVFSW"&gt;        &lt;REQ idReq="ATC" reqName="" reqLname1="" reqLname2="" reqCif="" reqEmpl="12106"/&gt;        &lt;ASGTO idAsg="" idUser="12106"/&gt;        &lt;COMM name="" lName1="" lName2="" inChannel="TELF" value="911234567" coment="" outChannel="" from="10" to="15"/&gt;        &lt;OPCOD codKey1="200" codKey2="210"/&gt;        &lt;CLCOD codKey3="" codKey4=""/&gt;    &lt;/TICKET&gt;    &lt;SVRQ makeSVRQ="0" idTec="" insBoli="0"&gt;        &lt;ITEMS&gt;            &lt;item idType="200" idProblem="210" count="1" idItemIBS=""/&gt;            &lt;item idType="200" idProblem="210" count="1" idItemIBS=""/&gt;            &lt;item idType="200" idProblem="210" count="1" idItemIBS=""/&gt;        &lt;/ITEMS&gt;    &lt;/SVRQ&gt;&lt;/DATA&gt;</wst:Info>
       </wst:Create>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://wsTicketsv2/Create"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://wsTicketsv2/CreateXml" name="CreateXml" bindingOperationName="CreateXml" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="1bba798b-3bd0-45af-a4f6-b47408dd1854"><con:settings/><con:call name="Request 1" id="7fffdd2f-2053-471f-b3c9-9a48729b431f"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wst="http://wsTicketsv2/">
@@ -13944,12 +13961,12 @@
          </wst:XmlInfo>
       </wst:CreateXml>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://wsTicketsv2/CreateXml"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://wsTicketsv2/UpdateTicket" name="UpdateTicket" bindingOperationName="UpdateTicket" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="585caa02-3e8d-4b2f-8425-f68a19c215c3"><con:settings/><con:call name="Request 1" id="0b1c2942-40e3-4aa3-a8e2-027121166a45"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wst="http://wsTicketsv2/">
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://wsTicketsv2/CreateXml"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://wsTicketsv2/UpdateTicket" name="UpdateTicket" bindingOperationName="UpdateTicket" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="585caa02-3e8d-4b2f-8425-f68a19c215c3"><con:settings/><con:call name="Request 1" id="0b1c2942-40e3-4aa3-a8e2-027121166a45"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wst="http://wsTicketsv2/">
    <soapenv:Header/>
    <soapenv:Body>
       <wst:UpdateTicket>
          <!--Optional:-->
-         <wst:Info>?</wst:Info>
+         <wst:Info>&lt;DATA&gt;    &lt;USER idUser="I24311" idCountry="1" idLang="ES" t="NOSESSION"/&gt;    &lt;TICKET numTicket="11391191" numInst="249587" observ="abonada muy disgustada con sistema e incidencias en el tiempo,por continuas llamadas y faltas de mantenimiento. amenaza con denuncia por daños psicologicos y baja."&gt;        &lt;CONTACTO nombre="" codforma="" desde="" hasta="" valor="" comentario=""/&gt;        &lt;CODIFICATIONS&gt;            &lt;CODIF idType="9300" idProblem="9302" count="1"/&gt;        &lt;/CODIFICATIONS&gt;        &lt;CLOSE closeTicket="0" dataAditional="" notaCierre=""/&gt;    &lt;/TICKET&gt;&lt;/DATA&gt;</wst:Info>
       </wst:UpdateTicket>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://wsTicketsv2/UpdateTicket"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:RestService" wadlVersion="http://wadl.dev.java.net/2009/02" name="Gestion Tareas" type="rest" id="63ee2009-fb55-4974-a967-798bbef1b2cd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart=""/><con:endpoints><con:endpoint>http://localhost:8080</con:endpoint></con:endpoints><con:resource name="Testdate" path="/gestiontareas/notificationtask/aplazar" id="cf14baf7-44f5-4910-821b-71bab6fe7097"><con:settings/><con:parameters/><con:method name="Testdate" method="PUT" id="c4d8b236-d93d-4f4c-8724-bacdc392c72c"><con:settings/><con:parameters/><con:representation type="RESPONSE"><con:mediaType>application/json</con:mediaType><con:status>200</con:status><con:params/><con:element xmlns:tes="http://localhost/gestiontareas/notificationtask/testdate">tes:Response</con:element></con:representation><con:representation type="REQUEST"><con:mediaType>application/json</con:mediaType><con:params/></con:representation><con:representation type="FAULT"><con:mediaType>text/html;charset=utf-8</con:mediaType><con:status>400</con:status><con:params/><con:element>html</con:element></con:representation><con:request name="Request 1" mediaType="application/json" postQueryString="false" id="fb8e9ba6-f0da-4524-924f-ba3ce361c12c"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request>{"recallType":"1",

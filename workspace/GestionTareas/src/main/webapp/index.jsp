@@ -17,8 +17,8 @@ Enlaces
     <li>
         Estando el agente disponible, le llega una interacción de tipo Tarea para gestionarla.
         <ul>
-            <li><a href="entry?bp_agent=12187&bp_agentIBS=M0OOS&bp_agentCountryJob=SPAIN&bp_desktopDepartment=ATC_SPN&bp_out_GSW_CHAIN_ID_CUSTOM=4&bp_out_clname=CL_CCT_ATC_CRA">Tarea Tipo Aviso</a></li>
-            <li><a href="entry?bp_agent=12187&bp_agentIBS=M0OOS&bp_agentCountryJob=SPAIN&bp_desktopDepartment=ATC_SPN&bp_out_GSW_CHAIN_ID_CUSTOM=177301&bp_out_clname=CL_TAREAS_DIY">Tarea Mantenimiento</a></li>
+            <li><a href="entry?bp_agent=12187&bp_agentIBS=M0OOS&bp_agentCountryJob=SPAIN&bp_desktopDepartment=ATC_SPN&bp_out_GSW_CHAIN_ID_CUSTOM=6&bp_out_clname=CL_CCT_ATC_CRA">Tarea Tipo Aviso</a></li>
+            <li><a href="entry?bp_agent=12187&bp_agentIBS=M0OOS&bp_agentCountryJob=SPAIN&bp_desktopDepartment=ATC_SPN&bp_out_GSW_CHAIN_ID_CUSTOM=1&bp_out_clname=CL_TAREAS_DIY">Tarea Mantenimiento</a></li>
             <li>Tarea tipo Excel
                 <ul>
                     <li><a href="entry?bp_agent=12187&bp_agentIBS=M0OOS&bp_agentCountryJob=SPAIN&bp_desktopDepartment=ATC_SPN&bp_out_GSW_CHAIN_ID_CUSTOM=1&bp_out_clname=CL_CCT_XLS_ASSISTANT">Tarea Tipo Excel Listado Assistant</a></li>

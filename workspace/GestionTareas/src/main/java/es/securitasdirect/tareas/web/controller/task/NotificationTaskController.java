@@ -47,29 +47,7 @@ public class NotificationTaskController extends TaskController {
     @Autowired
     private AgentController agentController;
 
-    /*
-    @RequestMapping(value = "/gettask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public
-    @ResponseBody
-    TareaResponse getNotificationTask(
-            @RequestParam(value = "ccUserId", required = true) String ccUserId,
-            @RequestParam(value = "callingList", required = true) String callingList,
-            @RequestParam(value = "tareaId", required = true) String tareaId
-    ) {
-        String SERVICE_MESSAGE = "notificationTask.getTask";
-        LOGGER.debug("Get notification task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
-        TareaResponse response;
-        try {
-            TareaAviso task = (TareaAviso) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-            LOGGER.debug("Notification task obtained from service:");
-            response = super.processSuccessTask(task, SERVICE_MESSAGE);
-        } catch (Exception e) {
-            //EN el caso de obtener una excepción, se realiza el procesamiento de la excepción que añade los errores correspondientes, y se incluye en la respuesta.
-            response = new TareaResponse(processException(e, SERVICE_MESSAGE));
-        }
-        return response;
-    }*/
-
+   
 
     @RequestMapping(value = "/getInstallationAndTask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
@@ -175,20 +153,7 @@ public class NotificationTaskController extends TaskController {
 
 
 
-    @RequestMapping(value = "/atras", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public
-    @ResponseBody
-    BaseResponse modify(@RequestBody BackNotificationTaskRequest request) {
-        LOGGER.debug("Atrás\nRequest: {}", request);
-        BaseResponse response = new BaseResponse();
-        if (true) {
-            response.success(messageUtil.getProperty("notificationTask.back.success"));
-        } else {
-            response.danger(messageUtil.getProperty("notificationTask.back.error"));
-        }
-        LOGGER.debug("Atrás tarea de aviso\nResponse:{}", response);
-        return response;
-    }
+   
 
     @RequestMapping(value = "/modificar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
@@ -197,14 +162,12 @@ public class NotificationTaskController extends TaskController {
         LOGGER.debug("Modificar tarea\nRequest: {}", request);
         BaseResponse response = new BaseResponse();
         Agent agent=agentController.getAgent();
-
-        boolean ok = avisoService.updateTicket(agent, request.getTask(), request.getInstallation());
-
-        if (ok) {
-            response.success(messageUtil.getProperty("notificationTask.modify.success"));
-        } else {
-            response.danger(messageUtil.getProperty("notificationTask.modify.error"));
-        }
+      ///////  boolean ok=tareaService.saveTask(agent,request.getTask(), request.getInstallation());
+//        if (ok) {
+//            response.success(messageUtil.getProperty("notificationTask.modify.success"));
+//        } else {
+//            response.danger(messageUtil.getProperty("notificationTask.modify.error"));
+//        }
         LOGGER.debug("Modificación de tarea\nResponse:{}", response);
         return response;
     }

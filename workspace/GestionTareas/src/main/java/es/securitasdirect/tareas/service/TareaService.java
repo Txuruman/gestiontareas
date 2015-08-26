@@ -1,7 +1,6 @@
 package es.securitasdirect.tareas.service;
 
 import com.webservice.CCLIntegration;
-import com.webservice.CCLIntegrationService;
 import com.webservice.IclResponse;
 import com.webservice.WsResponse;
 import es.securitasdirect.tareas.model.*;
@@ -14,7 +13,6 @@ import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
-import javax.jws.WebParam;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -40,6 +38,8 @@ public class TareaService {
     protected AvisoService avisoService;
     @Inject
     protected CCLIntegration cclIntegration;
+    @Inject
+    protected InstallationService installationService;
     @Resource(name = "applicationUser")
     private String applicationUser;
 
@@ -124,26 +124,56 @@ public class TareaService {
      * @param tarea
      * @return
      */
-    public boolean finalizeNotificationTask(Agent agent, TareaAviso tarea) {
+    public boolean finalizeNotificationTask(Agent agent, TareaAviso tarea) throws Exception {
         LOGGER.debug("Finalizando tarea Aviso {}", tarea);
-        //1. Finalizar la Tarea
-        boolean finalized = wsFilanizeTask(agent.getAgentIBS(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId());
-        if (finalized) {
-            //2. Finalizar el aviso
-            //TODO finalizadoDesdeMantenimiento
-            boolean finalizadoDesdeMantenimiento = false;
-            try {
-                Integer adicional = 0;
-                if (((TareaAviso) tarea).getDatosAdicionalesCierre() != null) {
-                    adicional = Integer.valueOf(((TareaAviso) tarea).getDatosAdicionalesCierre());
-                }
-                finalized = avisoService.closeTicket(tarea.getIdAviso(), agent.getAgentIBS(), tarea.getClosing(), adicional, finalizadoDesdeMantenimiento);
-            } catch (Exception e) {
-                LOGGER.error("Error Closing Ticket.", e);
-                finalized = false;
+        //Buscamos los datos de la instalación de la tarea
+        InstallationData installationData = installationService.getInstallationData(tarea.getNumeroInstalacion());
+
+
+        //1. Modificar Aviso si hace falta por haber cambiado los datos. Comprobamos si la tarea que nos pasa el front difiere con la de la BBDD, si es asi modificamos
+        TareaAviso tareaOriginal = (TareaAviso) queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
+        if (!isTaskRequiresSaveModifications(tareaOriginal, tarea)) {
+            boolean modificado = avisoService.updateTicket(agent, tarea, installationData);
+            if (!modificado) {
+                LOGGER.error("Can't finalize NotificationTask because can't update Ticket");
+                return false;
             }
         }
-        return finalized;
+
+        //2. Finalizar el Aviso
+        boolean finalizadoDesdeMantenimiento = false;
+        try {
+            boolean finalizadoAviso = avisoService.closeTicket(tarea.getIdAviso(), agent.getAgentIBS(), tarea.getClosing(), Integer.valueOf(tarea.getDatosAdicionalesCierre()), finalizadoDesdeMantenimiento);
+            if (!finalizadoAviso) {
+                LOGGER.error("Can't finalize NotificationTask because can't close Ticket");
+                return false;
+            }
+        } catch (Exception e) {
+            LOGGER.error("Error Closing Ticket.", e);
+            return false;
+        }
+
+        //3. Finalizar la Tarea
+        boolean finalizadaTarea = true;//wsFilanizeTask(agent.getAgentIBS(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId());
+        if (!finalizadaTarea) {
+            LOGGER.error("Error finalizing Notification Task because can't finalize Task");
+            return false;
+        }
+
+        return true;
+
+    }
+
+    /**
+     * isTaskRequiresSaveModifications: Compara dos tareas
+     *
+     * @param t1
+     * @param t2
+     * @return
+     */
+
+    private boolean isTaskRequiresSaveModifications(TareaAviso t1, TareaAviso t2) {
+        return t1.equals(t2);
     }
 
     /**
@@ -308,7 +338,7 @@ public class TareaService {
         String userid = "ATOMIC"; //	userid = “ATOMIC”  fijo
         List<CreateFullCommLogResult> fullCommLog;
         try {
-             fullCommLog = wsIBSCommlog.createFullCommLog(insNo,
+            fullCommLog = wsIBSCommlog.createFullCommLog(insNo,
                     dealId,
                     source,
                     key1,
@@ -323,11 +353,11 @@ public class TareaService {
                     contactPhone,
                     userid);
         } catch (DataServiceFault e) {
-            LOGGER.error("Can't register CommLog {}",tarea, e);
+            LOGGER.error("Can't register CommLog {}", tarea, e);
             return false;
         }
 
-        if (fullCommLog==null || fullCommLog.isEmpty()) {
+        if (fullCommLog == null || fullCommLog.isEmpty()) {
             LOGGER.error("Error on CreateFullComLog the response is empty");
             return false;
         } else {
@@ -447,6 +477,19 @@ public class TareaService {
             LOGGER.error("Error closing Incidence", dataServiceFault);
         }
         return true;
+    }
+
+    public boolean saveTask(Agent agent, Tarea tarea, InstallationData installation) throws Exception {
+
+        boolean saved = false;
+
+        if (tarea instanceof TareaAviso) {
+
+            boolean ok = avisoService.updateTicket(agent, (TareaAviso) tarea, installation);
+
+        }
+
+        return saved;
     }
 
 }
