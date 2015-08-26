@@ -37,6 +37,8 @@ public class TareaService {
     protected AvisoService avisoService;
     @Inject
     protected CCLIntegration cclIntegration;
+    @Inject
+    protected InstallationService installationService;
     @Resource(name = "applicationUser")
     private String applicationUser;
 
@@ -116,12 +118,23 @@ public class TareaService {
      * @param tarea
      * @return
      */
-    public boolean finalizeNotificationTask(Agent agent, TareaAviso tarea) {
+    public boolean finalizeNotificationTask(Agent agent, TareaAviso tarea) throws Exception{
         LOGGER.debug("Finalizando tarea Aviso {}", tarea);
         //1. Finalizar la Tarea
-        boolean finalized = wsFilanizeTask(agent.getAgentIBS(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId());
+        boolean finalized = true;//wsFilanizeTask(agent.getAgentIBS(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId());
         if (finalized) {
-            //2. Finalizar el aviso
+        	 //2. Modificar
+            //Comprobamos si la tarea que nos pasa el front difiere con la de la BBDD, si es asi modificamos
+            TareaAviso tareaOriginal= (TareaAviso) queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
+            LOGGER.debug("Comparamos con la tarea de la BBDD {}", tareaOriginal);
+            if(!compareTask(tareaOriginal, tarea)){
+            	//Buscamos los datos de la instalación de la tarea
+            	InstallationData installationData= installationService.getInstallationData(tarea.getNumeroInstalacion());
+            	//Modificar
+            	boolean modificado=avisoService.updateTicket(agent, tarea, installationData);
+            	LOGGER.debug("Tarea modificada {}", modificado);
+            }
+            //3. Finalizar el aviso
             //TODO finalizadoDesdeMantenimiento
             boolean finalizadoDesdeMantenimiento = false;
             try {
@@ -129,7 +142,8 @@ public class TareaService {
                 if (((TareaAviso) tarea).getDatosAdicionalesCierre() != null) {
                     adicional = Integer.valueOf(((TareaAviso) tarea).getDatosAdicionalesCierre());
                 }
-                finalized = avisoService.closeTicket(tarea.getIdAviso(), agent.getAgentIBS(), tarea.getClosing(), adicional, finalizadoDesdeMantenimiento);
+    ////TODO SOLO DEBUG            finalized = avisoService.closeTicket(tarea.getIdAviso(), agent.getAgentIBS(), tarea.getClosing(), adicional, finalizadoDesdeMantenimiento);
+                finalized=true;//TODO SOLO DEBUG
             } catch (Exception e) {
                 LOGGER.error("Error Closing Ticket.", e);
                 finalized = false;
@@ -137,7 +151,17 @@ public class TareaService {
         }
         return finalized;
     }
-
+    
+    /**
+     * compareTask: Compara dos tareas
+     * @param TareaAviso t1
+     * @param TareaAviso t2
+     * @return
+     */
+    private boolean compareTask(TareaAviso t1, TareaAviso t2){
+    	return t1.equals(t2);
+    }
+    
     /**
      * Aplazar: muestra un diálogo en modo modal para introducir la fecha y hora de la reprogramación,
      * indicando también si es para el propio agente o para el grupo de la Campaña.

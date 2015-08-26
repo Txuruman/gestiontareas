@@ -166,5 +166,84 @@ public class Tarea {
         return sb.toString();
     }
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((callingList == null) ? 0 : callingList.hashCode());
+		result = prime * result + ((campana == null) ? 0 : campana.hashCode());
+		result = prime * result + ((codigoCliente == null) ? 0 : codigoCliente.hashCode());
+		result = prime * result + ((estado == null) ? 0 : estado.hashCode());
+		result = prime * result + ((fechaReprogramacion == null) ? 0 : fechaReprogramacion.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((numeroContrato == null) ? 0 : numeroContrato.hashCode());
+		result = prime * result + ((numeroInstalacion == null) ? 0 : numeroInstalacion.hashCode());
+		result = prime * result + ((personaContacto == null) ? 0 : personaContacto.hashCode());
+		result = prime * result + ((telefono == null) ? 0 : telefono.hashCode());
+		return result;
+	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Tarea other = (Tarea) obj;
+		if (callingList == null) {
+			if (other.callingList != null)
+				return false;
+		} else if (!callingList.equals(other.callingList))
+			return false;
+		if (campana == null) {
+			if (other.campana != null)
+				return false;
+		} else if (!campana.equals(other.campana))
+			return false;
+		if (codigoCliente == null) {
+			if (other.codigoCliente != null)
+				return false;
+		} else if (!codigoCliente.equals(other.codigoCliente))
+			return false;
+		if (estado == null) {
+			if (other.estado != null)
+				return false;
+		} else if (!estado.equals(other.estado))
+			return false;
+		if (fechaReprogramacion == null) {
+			if (other.fechaReprogramacion != null)
+				return false;
+		} else if (!fechaReprogramacion.equals(other.fechaReprogramacion))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (numeroContrato == null) {
+			if (other.numeroContrato != null)
+				return false;
+		} else if (!numeroContrato.equals(other.numeroContrato))
+			return false;
+		if (numeroInstalacion == null) {
+			if (other.numeroInstalacion != null)
+				return false;
+		} else if (!numeroInstalacion.equals(other.numeroInstalacion))
+			return false;
+		if (personaContacto == null) {
+			if (other.personaContacto != null)
+				return false;
+		} else if (!personaContacto.equals(other.personaContacto))
+			return false;
+		if (telefono == null) {
+			if (other.telefono != null)
+				return false;
+		} else if (!telefono.equals(other.telefono))
+			return false;
+		return true;
+	}
+
+    
 }

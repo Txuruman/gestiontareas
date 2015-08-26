@@ -298,8 +298,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     $scope.modificar = function (tarea) {
         //$log.debug('Modificar Tarea, tarea: ' + $scope.tarea);
         var modifyNotificationTaskRequest = {
-            task: tarea,
-            prueba: 'Hola'
+            task: tarea
         };
         //$log.debug('Modificar Tarea, request ' + JSON.stringify(modifyNotificationTaskRequest));
         $http({
@@ -385,9 +384,9 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     $scope.finalizar = function(){
         //$log.debug("Finalizar task, task: ",$scope.tarea);
     	//Comparamos la tarea con el originar y si ha habido cambios modificamos.
-    	if (!angular.equals($scope.tarea, $scope.tareaOriginal)) {
-			$scope.modificar();
-		}
+//    	if (!angular.equals($scope.tarea, $scope.tareaOriginal)) {
+//			$scope.modificar();
+//		}
         var finalizeRequest = {
             task:$scope.tarea,
             installation:$scope.installationData
