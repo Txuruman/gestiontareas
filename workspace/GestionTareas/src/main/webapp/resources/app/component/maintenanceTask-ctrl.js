@@ -118,7 +118,8 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService, $
     $scope.finalizar = function(){
         //$log.debug("Finalizar task: ",$scope.tarea);
         var finalizeRequest = {
-            task:$scope.tarea
+            task:$scope.tarea,
+            lastCalledPhone:$scope.lastCalledPhone
         };
         //$log.debug("Finalizar  Task, request: ",finalizeRequest);
         $http({

@@ -13,6 +13,11 @@ import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
 public class MaintenanceTaskFinalizeRequest extends BaseRequest {
 
     private TareaMantenimiento task;
+    
+    /**
+     * Último teléfono al que se ha llamado
+     */
+    private Integer lastCalledPhone;
 
     public MaintenanceTaskFinalizeRequest() {
     }
@@ -24,12 +29,20 @@ public class MaintenanceTaskFinalizeRequest extends BaseRequest {
     public void setTask(TareaMantenimiento task) {
         this.task = task;
     }
+    
+    
+    public Integer getLastCalledPhone() {
+		return lastCalledPhone;
+	}
 
-    @Override
-    public String toString() {
-        final StringBuffer sb = new StringBuffer("MaintenanceTaskFinalizeRequest{");
-        sb.append("task=").append(task);
-        sb.append('}');
-        return sb.toString();
-    }
+	public void setLastCalledPhone(Integer lastCalledPhone) {
+		this.lastCalledPhone = lastCalledPhone;
+	}
+
+	@Override
+	public String toString() {
+		return "MaintenanceTaskFinalizeRequest [task=" + task + ", lastCalledPhone=" + lastCalledPhone + "]";
+	}
+
+	
 }
