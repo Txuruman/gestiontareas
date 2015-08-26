@@ -9,6 +9,7 @@
 <%@ attribute name="cells" required="false" description="Number of cells used from the 12 available" %>
 <%@ attribute name="fluid_wrapper" required="false" description="Defines if the button its in a fluid wrapper for not set width" %>
 <%@ attribute name="type" required="false" description="Type of input, button or submit" %>
+<%@ attribute name="ng_disabled" required="false" description="Button ng-disabled" %>
 
 <c:if test="${button_type == 'primary'}">
     <c:set var="button_type" value="btn btn-primary"/>
@@ -38,6 +39,9 @@
            </c:if>
             <c:if test="${not empty ng_controller}">
                 ng-click="<c:out value="${ng_controller}" />"
+            </c:if>
+            <c:if test="${not empty ng_disabled}">
+                ng-disabled="<c:out value="${ng_disabled}" />"
             </c:if>
         />
 <c:if test="${fluid_wrapper != 'true'}">
