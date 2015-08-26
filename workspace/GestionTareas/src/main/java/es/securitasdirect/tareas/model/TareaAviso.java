@@ -272,6 +272,159 @@ public class TareaAviso extends Tarea {
         sb.append('}');
         return sb.toString();
     }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((closing == null) ? 0 : closing.hashCode());
+		result = prime * result + ((datosAdicionalesCierre == null) ? 0 : datosAdicionalesCierre.hashCode());
+		result = prime * result + ((datosContacto == null) ? 0 : datosContacto.hashCode());
+		result = prime * result + ((estado == null) ? 0 : estado.hashCode());
+		result = prime * result + ((fechaCierre == null) ? 0 : fechaCierre.hashCode());
+		result = prime * result + ((fechaCreacion == null) ? 0 : fechaCreacion.hashCode());
+		result = prime * result + ((horarioDesde == null) ? 0 : horarioDesde.hashCode());
+		result = prime * result + ((horarioHasta == null) ? 0 : horarioHasta.hashCode());
+		result = prime * result + ((idAviso == null) ? 0 : idAviso.hashCode());
+		result = prime * result + ((identificativoAvisoTarea == null) ? 0 : identificativoAvisoTarea.hashCode());
+		result = prime * result + ((motivo1 == null) ? 0 : motivo1.hashCode());
+		result = prime * result + ((motivo2 == null) ? 0 : motivo2.hashCode());
+		result = prime * result + ((motivo3 == null) ? 0 : motivo3.hashCode());
+		result = prime * result + ((nota == null) ? 0 : nota.hashCode());
+		result = prime * result + ((numeroInstalacion == null) ? 0 : numeroInstalacion.hashCode());
+		result = prime * result + ((observaciones == null) ? 0 : observaciones.hashCode());
+		result = prime * result + ((requeridoPor == null) ? 0 : requeridoPor.hashCode());
+		result = prime * result + ((responsableCierre == null) ? 0 : responsableCierre.hashCode());
+		result = prime * result + ((tipoAviso1 == null) ? 0 : tipoAviso1.hashCode());
+		result = prime * result + ((tipoAviso2 == null) ? 0 : tipoAviso2.hashCode());
+		result = prime * result + ((tipoAviso3 == null) ? 0 : tipoAviso3.hashCode());
+		result = prime * result + ((titular == null) ? 0 : titular.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TareaAviso other = (TareaAviso) obj;
+		if (closing == null) {
+			if (other.closing != null)
+				return false;
+		} else if (!closing.equals(other.closing))
+			return false;
+		if (datosAdicionalesCierre == null) {
+			if (other.datosAdicionalesCierre != null)
+				return false;
+		} else if (!datosAdicionalesCierre.equals(other.datosAdicionalesCierre))
+			return false;
+		if (datosContacto == null) {
+			if (other.datosContacto != null)
+				return false;
+		} else if (!datosContacto.equals(other.datosContacto))
+			return false;
+		if (estado == null) {
+			if (other.estado != null)
+				return false;
+		} else if (!estado.equals(other.estado))
+			return false;
+		if (fechaCierre == null) {
+			if (other.fechaCierre != null)
+				return false;
+		} else if (!fechaCierre.equals(other.fechaCierre))
+			return false;
+		if (fechaCreacion == null) {
+			if (other.fechaCreacion != null)
+				return false;
+		} else if (!fechaCreacion.equals(other.fechaCreacion))
+			return false;
+		if (horarioDesde == null) {
+			if (other.horarioDesde != null)
+				return false;
+		} else if (!horarioDesde.equals(other.horarioDesde))
+			return false;
+		if (horarioHasta == null) {
+			if (other.horarioHasta != null)
+				return false;
+		} else if (!horarioHasta.equals(other.horarioHasta))
+			return false;
+		if (idAviso == null) {
+			if (other.idAviso != null)
+				return false;
+		} else if (!idAviso.equals(other.idAviso))
+			return false;
+		if (identificativoAvisoTarea == null) {
+			if (other.identificativoAvisoTarea != null)
+				return false;
+		} else if (!identificativoAvisoTarea.equals(other.identificativoAvisoTarea))
+			return false;
+		if (motivo1 == null) {
+			if (other.motivo1 != null)
+				return false;
+		} else if (!motivo1.equals(other.motivo1))
+			return false;
+		if (motivo2 == null) {
+			if (other.motivo2 != null)
+				return false;
+		} else if (!motivo2.equals(other.motivo2))
+			return false;
+		if (motivo3 == null) {
+			if (other.motivo3 != null)
+				return false;
+		} else if (!motivo3.equals(other.motivo3))
+			return false;
+		if (nota == null) {
+			if (other.nota != null)
+				return false;
+		} else if (!nota.equals(other.nota))
+			return false;
+		if (numeroInstalacion == null) {
+			if (other.numeroInstalacion != null)
+				return false;
+		} else if (!numeroInstalacion.equals(other.numeroInstalacion))
+			return false;
+		if (observaciones == null) {
+			if (other.observaciones != null)
+				return false;
+		} else if (!observaciones.equals(other.observaciones))
+			return false;
+		if (requeridoPor == null) {
+			if (other.requeridoPor != null)
+				return false;
+		} else if (!requeridoPor.equals(other.requeridoPor))
+			return false;
+		if (responsableCierre == null) {
+			if (other.responsableCierre != null)
+				return false;
+		} else if (!responsableCierre.equals(other.responsableCierre))
+			return false;
+		if (tipoAviso1 == null) {
+			if (other.tipoAviso1 != null)
+				return false;
+		} else if (!tipoAviso1.equals(other.tipoAviso1))
+			return false;
+		if (tipoAviso2 == null) {
+			if (other.tipoAviso2 != null)
+				return false;
+		} else if (!tipoAviso2.equals(other.tipoAviso2))
+			return false;
+		if (tipoAviso3 == null) {
+			if (other.tipoAviso3 != null)
+				return false;
+		} else if (!tipoAviso3.equals(other.tipoAviso3))
+			return false;
+		if (titular == null) {
+			if (other.titular != null)
+				return false;
+		} else if (!titular.equals(other.titular))
+			return false;
+		return true;
+	}
+    
+    
 }
 
 

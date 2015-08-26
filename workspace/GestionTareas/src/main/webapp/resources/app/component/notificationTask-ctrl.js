@@ -385,9 +385,9 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     $scope.finalizar = function(){
         //$log.debug("Finalizar task, task: ",$scope.tarea);
     	//Comparamos la tarea con el originar y si ha habido cambios modificamos.
-    	if (!angular.equals($scope.tarea, $scope.tareaOriginal)) {
-			$scope.modificar();
-		}
+//    	if (!angular.equals($scope.tarea, $scope.tareaOriginal)) {
+//			$scope.modificar();
+//		}
         var finalizeRequest = {
             task:$scope.tarea,
             installation:$scope.installationData
