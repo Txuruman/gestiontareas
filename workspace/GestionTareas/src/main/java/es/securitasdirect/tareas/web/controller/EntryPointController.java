@@ -1,18 +1,12 @@
 package es.securitasdirect.tareas.web.controller;
 
 import es.securitasdirect.tareas.model.*;
-import es.securitasdirect.tareas.model.external.Pair;
-import es.securitasdirect.tareas.model.tareaexcel.*;
 import es.securitasdirect.tareas.service.*;
-import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
-import es.securitasdirect.tareas.web.controller.dto.response.PairListResponse;
 import es.securitasdirect.tareas.web.controller.params.ExternalParams;
-import es.securitasdirect.tareas.web.controller.task.exceltask.CommonExcelTaskController;
 import es.securitasdirect.tareas.web.controller.util.MessageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,7 +18,7 @@ import java.util.*;
 
 /**
  * @author JAS
- * Controller para envíar a la página correspondiente según los parámetro recibidos
+ *         Controller para envíar a la página correspondiente según los parámetro recibidos
  */
 
 @Controller
@@ -32,7 +26,7 @@ import java.util.*;
 public class EntryPointController extends TaskController {
 
     @Autowired
-    protected  AgentController agentController;
+    protected AgentController agentController;
 
     //Funciona
 //    @Autowired
@@ -57,7 +51,7 @@ public class EntryPointController extends TaskController {
     @Inject
     private TareaServiceTools tareaServiceTools;
     @Inject
-    private SearchTareaService searchTarea;
+    private SearchTareaService searchTareaService;
     @Inject
     protected MessageUtil messageUtil;
 
@@ -70,52 +64,53 @@ public class EntryPointController extends TaskController {
      * @param hsr
      * @param hsr1
      * @return
-     * @throws Exception
-     *  si viene instalacion, consultanos si la instalacion tiene tareas
-     *  	si tiene tareas la pestaña activa es la de buscar, si no la de crear
-     *  si no viene instalacion la pestaña activa es buscar
-     *  en ambos casos vamos a la pestaña de buscar
+     * @throws Exception si viene instalacion, consultanos si la instalacion tiene tareas
+     *                   si tiene tareas la pestaña activa es la de buscar, si no la de crear
+     *                   si no viene instalacion la pestaña activa es buscar
+     *                   en ambos casos vamos a la pestaña de buscar
      */
     @RequestMapping
     public ModelAndView handleRequest(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
-    	Map<String, String> parametersMap = createParameterMap(hsr);
-    	//Crear el objeto de sesion con los datos del agent
+        Map<String, String> parametersMap = createParameterMap(hsr);
+        //Crear el objeto de sesion con los datos del agent
         Agent agent = agentController.loadAgentFromIWS(parametersMap);
         String callingList = parametersMap.get(ExternalParams.CALLING_LIST);
         String installation = parametersMap.get(ExternalParams.NUMERO_INSTALACION);
-        
-        if (callingList != null && callingList != "") {
+
+        ModelAndView mv = null;
+
+        if (callingList != null && !callingList.isEmpty()) {
+            //Con CallingList estamos Gestionando una tarea
             String tareaType = tareaServiceTools.getTaskTypeFromCallingList(callingList);
-            if (tareaType != null && tareaType !="") {
+            if (tareaType != null && tareaType.isEmpty()) {
                 //Redirect to the appropiate page
-                return loadModelAndViewForTarea(tareaType, parametersMap);
+                mv = loadModelAndViewForTarea(tareaType, parametersMap);
             } else {
                 LOGGER.error("The calling list " + callingList + " is not configured in the application.");
                 throw new Exception("The calling list " + callingList + " is not configured in the application.");
             }
-        } else if (installation!=null && installation!=""){
-        	//Comprobar si la instalacion tiene tareas, si las tiene buscar, sino crear
-        	//Indicamos que el filtro de búsqueda hace referencia al campo INSTALACION
-        	String filter="INSTALACION="+installation;
-        	List<Tarea> tareas=searchTarea.find(agent.getDesktopDepartment(), agent.getIdAgent(), agent.getAgentCountryJob(), filter);
-        	if(tareas.isEmpty()){
-        		ModelAndView mv = new ModelAndView("creartarea");
-        		return mv;
-        	}else{
-        		ModelAndView mv = new ModelAndView("buscartarea");
-            	return mv;
-        	}
-        	
-        }else{
-        	ModelAndView mv = new ModelAndView("buscartarea");
-        	return mv;
+        } else if (installation != null && !installation.isEmpty()) {
+            //Comprobar si la instalacion tiene tareas, si las tiene buscar, sino crear
+            List<Tarea> tareas = searchTareaService.findByInstallationNumber(agent, installation);
+            if (tareas == null || tareas.isEmpty()) {
+                mv = new ModelAndView("creartarea");
+            } else {
+                mv = new ModelAndView("buscartarea");
+                //TODO Jesus, hacer que la pantalla aparezca con los datos de instalación y resultados
+            }
+        } else {
+            //Sin tarea ni instalación vamos a buscar tarea
+            mv = new ModelAndView("buscartarea");
         }
-       
+
+        return mv;
     }
+
+
     /**
      * Mapea el tipo de tarea a sus páginas
      */
-    private ModelAndView loadModelAndViewForTarea(String tareaType,  Map<String, String> parametersMap ) {
+    private ModelAndView loadModelAndViewForTarea(String tareaType, Map<String, String> parametersMap) {
         assert tareaType != null;
 
         ModelAndView mv = new ModelAndView("visortarea");
@@ -147,19 +142,17 @@ public class EntryPointController extends TaskController {
             mv.addObject(SECUNDARIA, MANTENIMIENTO);
         }
         mv.addObject(TITULO, titulo);
-        assert parametersMap.get(ExternalParams.CALLING_LIST)!=null && !parametersMap.get(ExternalParams.CALLING_LIST).isEmpty();
+        assert parametersMap.get(ExternalParams.CALLING_LIST) != null && !parametersMap.get(ExternalParams.CALLING_LIST).isEmpty();
         mv.addObject("callingList", parametersMap.get(ExternalParams.CALLING_LIST));
-        assert parametersMap.get(ExternalParams.ID_TAREA)!=null && !parametersMap.get(ExternalParams.ID_TAREA).isEmpty();
+        assert parametersMap.get(ExternalParams.ID_TAREA) != null && !parametersMap.get(ExternalParams.ID_TAREA).isEmpty();
         mv.addObject("tareaId", parametersMap.get(ExternalParams.ID_TAREA));
 
         //TODO TEMPORAL, ELIMINAR
-        mv.addObject("params",parametersMap);
+        mv.addObject("params", parametersMap);
 
         return mv;
 
     }
-
-
 
 
 }

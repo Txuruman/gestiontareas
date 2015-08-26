@@ -56,7 +56,7 @@ public abstract class TaskController extends BaseController{
 
 
     /**
-     * Procesamiento generico para finalizar una tarea
+     * Procesamiento generico para finalizar una tarea. No usar para Aviso ni mantenimiento.
      * @param task
      * @return
      */

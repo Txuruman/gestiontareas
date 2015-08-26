@@ -3,6 +3,7 @@ package es.securitasdirect.tareas.service;
 
 import com.webservice.CCLIntegration;
 import com.webservice.CclResponse;
+import es.securitasdirect.tareas.model.Agent;
 import es.securitasdirect.tareas.model.Tarea;
 import es.securitasdirect.tareas.model.TareaAviso;
 import es.securitasdirect.tareas.model.TareaMantenimiento;
@@ -44,7 +45,19 @@ public class SearchTareaService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SearchTareaService.class);
 
-    public List<Tarea> findByPhone(String desktopDepartment,
+    public List<Tarea> findByPhone(Agent agent, String phone) {
+        return findByPhone(agent.getDesktopDepartment(),agent.getAgentIBS(),agent.getAgentCountryJob(),phone);
+    }
+
+    public List<Tarea> findByContractNumber(Agent agent, String ctrNo) {
+        return findByContractNumber(agent.getDesktopDepartment(), agent.getAgentIBS(), agent.getAgentCountryJob(), ctrNo);
+    }
+
+    public List<Tarea> findByInstallationNumber(Agent agent, String installationNumber) {
+        return findByInstallationNumber(agent.getDesktopDepartment(), agent.getAgentIBS(), agent.getAgentCountryJob(), installationNumber);
+    }
+
+    protected List<Tarea> findByPhone(String desktopDepartment,
                                    String ccUserId,
                                    String country,
                                    String phone) {
@@ -55,19 +68,31 @@ public class SearchTareaService {
                 "CONTACT_INFO='" + phone + "'");
     }
 
-    public List<Tarea> findByCustomer(String desktopDepartment,
+    public List<Tarea> findByContractNumber(String desktopDepartment,
                                       String ccUserId,
                                       String country,
-                                      String customer
+                                      String ctrNo
     ) {
-        LOGGER.debug("Search Task By Customer {}", customer);
+        LOGGER.debug("Search Task By Contract Number {}", ctrNo);
         return find(desktopDepartment,
                 ccUserId,
                 country,
-                "CTR_NO='" + customer + "'");
+                "CTR_NO='" + ctrNo + "'");
     }
 
-    public List<Tarea> find(String desktopDepartment,
+    protected List<Tarea> findByInstallationNumber(String desktopDepartment,
+                                      String ccUserId,
+                                      String country,
+                                      String installation
+    ) {
+        LOGGER.debug("Search Task By Installation Number {}", installation);
+        return find(desktopDepartment,
+                ccUserId,
+                country,
+                "INSTALACION='" + installation + "'");
+    }
+
+    protected List<Tarea> find(String desktopDepartment,
                             String ccUserId,
                             String country,
                             String filter) {
