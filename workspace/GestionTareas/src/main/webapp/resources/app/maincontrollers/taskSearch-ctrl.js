@@ -1,7 +1,6 @@
 app.controller('taskSearch', function ($scope, $http, CommonService, $modal) {
 	//Valor por defecto del radioButton de la búsqueda
 	$scope.searchOption="phone";
-	
     $scope.searchTareaFromServer = function () {
         //console.log('search Tareas ' + $scope.searchText +  ' ' + $scope.searchOption);
         var searchTaskRequest = {
@@ -22,7 +21,7 @@ app.controller('taskSearch', function ($scope, $http, CommonService, $modal) {
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data,status,headers,config);
             });
-        
+    };
       //Ventana Aplazar - Start
         //Abre la ventana, posibles tamaños '', 'sm', 'lg'
         $scope.openDelayModal = function (size,t) {
@@ -76,5 +75,13 @@ app.controller('taskSearch', function ($scope, $http, CommonService, $modal) {
             }
         };
         //Ventana Aplazar - End
-    };
+        
+        //Si de incio llega del servidor el número de contrato buscamos las tareas realcionadas y las mostramos
+        $scope.getByctrNo=function(ctrNo){
+        	if (ctrNo!=undefined && ctrNo!="") {
+        		$scope.searchText=ctrNo;
+        		$scope.searchOption="customer";	
+        		$scope.searchTareaFromServer();
+			}
+        }
 });

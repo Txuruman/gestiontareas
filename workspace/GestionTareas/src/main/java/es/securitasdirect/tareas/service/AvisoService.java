@@ -226,8 +226,8 @@ public class AvisoService {
         OperateTicket.TICKET.CONTACTO contacto = new OperateTicket.TICKET.CONTACTO();
         contacto.setCodforma("");
         contacto.setComentario("");
-        contacto.setDesde("");
-        contacto.setHasta("");
+        contacto.setDesde(tareaAviso.getHorarioDesde());
+        contacto.setHasta(tareaAviso.getHorarioHasta());
         contacto.setNombre("");
         contacto.setValor("");
         operateTicket.getTICKET().setCONTACTO(contacto);

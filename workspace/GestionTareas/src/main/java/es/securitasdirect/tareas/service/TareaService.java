@@ -163,13 +163,15 @@ public class TareaService {
                 delayed = ccdDelayTask(ccUserId, country, desktopDepartment, tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId(), schedTime, recordType);
                 if (delayed && tarea instanceof TareaAviso) {
                     //Si es de tipo Aviso hay que retrasar el aviso también
+                    delayed = false;
+                    Date fecha = schedTime;
+                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy' 'HH:mm:ss");
+                    String fHasta =format.format(fecha);
 
-                    //TODO PENDIENTE
-//                    delayed = avisoService.delayTicket(
-//                            ((TareaAviso) tarea).getIdAviso(),
-//                            ccUserId,
-//
-//                    );
+                    delayed = avisoService.delayTicket(
+                            ((TareaAviso) tarea).getIdAviso(),
+                            ccUserId, "", fHasta
+                    );
                 }
 
                 //TODO Pendiente, cuando esté funcionando el Reporting de BI el dato Motivo de Cierre y Compensación deben de registrarse en la auditoria

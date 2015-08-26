@@ -82,7 +82,7 @@ public class EntryPointController extends TaskController {
         if (callingList != null && !callingList.isEmpty()) {
             //Con CallingList estamos Gestionando una tarea
             String tareaType = tareaServiceTools.getTaskTypeFromCallingList(callingList);
-            if (tareaType != null && tareaType != "") {
+            if (tareaType != null && !tareaType.isEmpty()) {
                 //Redirect to the appropiate page
                 mv = loadModelAndViewForTarea(tareaType, parametersMap);
             } else {
@@ -95,8 +95,8 @@ public class EntryPointController extends TaskController {
             if (tareas == null || tareas.isEmpty()) {
                 mv = new ModelAndView("creartarea");
             } else {
-                mv = new ModelAndView("buscartarea");
-                //TODO Jesus, hacer que la pantalla aparezca con los datos de instalación y resultados
+                //Se manda a la vista el número de contrato de la primera tarea
+            	mv = new ModelAndView("buscartarea", "ctrNo", tareas.get(0).getNumeroContrato());
             }
         } else {
             //Sin tarea ni instalación vamos a buscar tarea
