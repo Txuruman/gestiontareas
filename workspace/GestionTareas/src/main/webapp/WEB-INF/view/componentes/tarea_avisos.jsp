@@ -104,7 +104,7 @@
 	                    <span class="error" ng-show="closingAlert"><spring:message code="error.notext"/></span>
 	                </app:input>
 	                <app:input id="closingAdditionalData" label="notificationTask.closingAdditionalData" cells="0" readonly="false">
-	                    <select ng-model="tarea.closingAdditionalData" convert-to-number class="form-control" ng-change="refeshDisabled=false; closingADAlert=false;">
+	                    <select ng-model="tarea.datosAdicionalesCierre" convert-to-number class="form-control" ng-change="refeshDisabled=false; closingADAlert=false;">
 	                        <option data-ng-repeat="k in datosAdicionalesList" value="{{k.id}}" ng-selected="k.id==tarea.datosAdicionalesCierre">{{k.id +" - "+ k.value}}</option>
 	                    </select>
 	                    <span class="error" ng-show="closingADAlert"><spring:message code="error.notext"/></span>

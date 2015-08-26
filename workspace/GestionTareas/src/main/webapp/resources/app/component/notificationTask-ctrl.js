@@ -50,11 +50,11 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
 	            //Boton Ok del modal
 	        	//Le mandamos la tarea sin los atributos de finalizar
 //	        	var temp1=angular.copy($scope.tarea);
-//	        	temp1.closingAdditionalData=null;
+//	        	temp1.datosAdicionalesCierre=null;
 //	        	temp1.closing=null;
 	            $scope.modificar($scope.tarea);
 	            //Si los atributos de finalizar no están nulos y hemos cambiado el tipo y el motivo 1 de la tarea --> Finalizamos y desmarcamos aviso de tarea
-//	            if ($scope.tarea.closingAdditionalData!=null && $scope.tarea.closing!=null && !angular.equals($scope.tarea.tipoAviso1, $scope.tareaOriginal.tipoAviso1) && !angular.equals($scope.tarea.motivo1, $scope.tareaOriginal.motivo1)) {
+//	            if ($scope.tarea.datosAdicionalesCierre!=null && $scope.tarea.closing!=null && !angular.equals($scope.tarea.tipoAviso1, $scope.tareaOriginal.tipoAviso1) && !angular.equals($scope.tarea.motivo1, $scope.tareaOriginal.motivo1)) {
 //					$scope.finalizar();
 //					//TODO: Desmarcar aviso de tarea (otro WS)
 //				}
@@ -262,8 +262,8 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
         	//Creamos dos objetos temporales, nulleamos los atributos y comparamos
         	var temp1=angular.copy($scope.tarea);
         	var temp2=angular.copy($scope.tareaOriginal);
-        	temp1.closingAdditionalData=null;
-        	temp2.closingAdditionalData=null;
+        	temp1.datosAdicionalesCierre=null;
+        	temp2.datosAdicionalesCierre=null;
         	temp1.closing=null;
         	temp2.closing=null;
         	//Si son diferentes modificamos, utilizamos el objeto temporal para no sobreescribir los atributos de finalizar
@@ -411,7 +411,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     
     //Mostramos los avisos para rellenar los combos de finalizar
     $scope.muestraFinalizarRequired=function(){
-    	if($scope.tarea.closingAdditionalData==null){
+    	if($scope.tarea.datosAdicionalesCierre==null){
     		$scope.closingADAlert=true;
     	}
     	if($scope.tarea.closing==null){
