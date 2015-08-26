@@ -411,4 +411,17 @@ public class TareaService {
         return true;
     }
 
+    public boolean saveTask(Agent agent, Tarea tarea, InstallationData installation) throws Exception {
+
+        boolean saved = false;
+
+        if(tarea instanceof TareaAviso) {
+
+            boolean ok = avisoService.updateTicket(agent, (TareaAviso)tarea, installation);
+
+        }
+
+        return saved;
+    }
+
 }
