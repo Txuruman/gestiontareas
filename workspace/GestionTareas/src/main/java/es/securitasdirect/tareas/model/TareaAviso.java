@@ -276,8 +276,6 @@ public class TareaAviso extends Tarea {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((closing == null) ? 0 : closing.hashCode());
-		result = prime * result + ((datosAdicionalesCierre == null) ? 0 : datosAdicionalesCierre.hashCode());
 		result = prime * result + ((datosContacto == null) ? 0 : datosContacto.hashCode());
 		result = prime * result + ((estado == null) ? 0 : estado.hashCode());
 		result = prime * result + ((fechaCierre == null) ? 0 : fechaCierre.hashCode());
@@ -310,15 +308,7 @@ public class TareaAviso extends Tarea {
 		if (getClass() != obj.getClass())
 			return false;
 		TareaAviso other = (TareaAviso) obj;
-		if (closing == null) {
-			if (other.closing != null)
-				return false;
-		} else if (!closing.equals(other.closing))
-			return false;
-		if (datosAdicionalesCierre == null) {
-			if (other.datosAdicionalesCierre != null)
-				return false;
-		} else if (!datosAdicionalesCierre.equals(other.datosAdicionalesCierre))
+		if (!datosAdicionalesCierre.equals(other.datosAdicionalesCierre))
 			return false;
 		if (datosContacto == null) {
 			if (other.datosContacto != null)
