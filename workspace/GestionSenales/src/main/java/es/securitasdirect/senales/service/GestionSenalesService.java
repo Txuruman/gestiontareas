@@ -3,25 +3,23 @@ package es.securitasdirect.senales.service;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.webservice.CCLIntegration;
-import com.webservice.ClResponse;
 import com.webservice.IclResponse;
+import com.webservice.ReturnData;
+import com.webservice.WsResponse;
 import es.securitasdirect.senales.model.Message;
 import es.securitasdirect.senales.model.SignalMetadata;
 import es.securitasdirect.senales.model.SmsMessageLocation;
 import es.securitasdirect.senales.support.FileService;
+import net.java.dev.jaxb.array.StringArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
-import org.wso2.ws.dataservice.DataServiceFault;
-import org.wso2.ws.dataservice.GetInstallationDataResult;
-import org.wso2.ws.dataservice.SPAIOTAREAS2PortType;
+import org.wso2.ws.dataservice.*;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.inject.Named;
 import javax.inject.Singleton;
-import javax.jws.WebParam;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -107,7 +105,9 @@ public class GestionSenalesService {
     public static final String EMPTY = "";
 
     @Autowired
-    protected SPAIOTAREAS2PortType spAioTareas2;
+    protected SPAIOTAREAS2PortType wsSpAioTareas2;
+    @Autowired
+    protected SPInstallationMonDataPortType wsSPInstallationMonData;
     @Autowired
     protected CCLIntegration cclIntegration;
 
@@ -123,6 +123,27 @@ public class GestionSenalesService {
 
     @Resource
     protected Integer daysToDiscardOldMessages;
+    @Resource
+    protected String ccIdentifier;
+    @Resource
+    protected String applicationUser;
+    @Resource
+    protected String ccUserId;
+    @Resource
+    protected String callingList;
+    @Resource
+    protected String campaign;
+    @Resource
+    protected String country;
+    @Resource
+    protected String smsAccount;
+    @Resource
+    protected String smsTestPhone;
+
+    protected class MixedInstallationData {
+        public GetInstallationDataResult installationDataResultTareas;
+        public Mainstallationdataresult installationDataResultInstallation;
+    }
 
 //    @Inject
 //    protected SPInstallationMonDataPortType spInstallationMonData;
@@ -140,6 +161,12 @@ public class GestionSenalesService {
      */
     @Resource(name = "allowedQSignals")
     private Map<String, SignalMetadata> allowedQSignals;
+
+    /**
+     * Prefijo telefonico de los distintos paises para utiliza anteponiéndolo al número de telefono
+     */
+    @Resource(name="countryPhoneCodes")
+    private Map<String,String> countryPhoneCodes;
 
     /**
      * Map of sms messages locations
@@ -189,13 +216,13 @@ public class GestionSenalesService {
                 }
                 processedOk = true;
             } catch (Exception e) {
-                LOGGER.error("Error processing message {}", message,e);
+                LOGGER.error("Error processing message {}", message, e);
                 onError(message);
                 processedOk = false;
             }
             if (processedOk) {
                 markProcessed(message);
-            } //TODO Marcamos los errores como procesados? creo que no mejor que se controle por el scheduler cuando entran
+            } //Los mensajes con error no se marcan como procesados.
         }
 
     }
@@ -210,22 +237,25 @@ public class GestionSenalesService {
         // El campo a utilizar para obtener el resto de información antes de insertar el registro en Tareas será InsNumber_e.
         //Obtener instalacion
         Integer insNumberE = message.getCibb().getEVENTS().getInsNumberE();
-        GetInstallationDataResult installationData = getInstallationData(insNumberE);
+        MixedInstallationData installationData = getInstallationData(insNumberE);
 
-        //Obtener Calling List ,Una vez que se dispone de todos los datos, se pueden invocar los métodos de la capa CCL Obtener Calling List Tareas
-        ClResponse callingListANDCampaign = getCallingListANDCampaign(message);
-
-        if (installationData == null || callingListANDCampaign == null) {
-            LOGGER.error("Discarding message for lack of info. {}", message);
+        if (installationData == null) {
+            LOGGER.error("Discarding message because can't find installation {} of message {}", insNumberE, message);
         } else {
-            // Insertar contacto en calling list.
-            insertCallingListContact(message, installationData, callingListANDCampaign);
 
-            //TODO Procesarlo
-            if (new Random().nextBoolean() || true) {
-                throw new Exception("Error Procesando Mensaje " + message.toString());
+            //Nota, ya no hace falta, estos datoa van a ir constantes. Obtener Calling List ,Una vez que se dispone de todos los datos, se pueden invocar los métodos de la capa CCL Obtener Calling List Tareas
+            // // ClResponse callingListANDCampaign = getCallingListANDCampaign(message);
+
+
+            try {
+                // Insertar contacto en calling list. (	Una vez que se dispone de todos los datos, se pueden invocar los métodos de la capa CCL Obtener Calling List Tareas e Insertar contacto en calling list)
+                insertCallingListContact(message, installationData);
+                LOGGER.debug("Processed sucesfully Message {}", message);
+            } catch (Exception e) {
+                LOGGER.error("Error insertingCallingListContact {}", e.getMessage(), e);
+                throw e;
             }
-            LOGGER.debug("Processed sucesfully Message {}", message);
+
         }
     }
 
@@ -241,47 +271,93 @@ public class GestionSenalesService {
      * @param message
      */
     private void processMessageOutOfWorkingHours(Message message) throws DataServiceFault {
-        //TODO Enviar SMS y Cancelar
-
-        // Procesar el mensaje
         // El campo a utilizar para obtener el resto de información antes de insertar el registro en Tareas será InsNumber_e.
         Integer insNumberE = message.getCibb().getEVENTS().getInsNumberE();
-        GetInstallationDataResult installationData = getInstallationData(insNumberE);
-        String messageLanguageLocationKey = message.getLanguageLocationKey();
-        SmsMessageLocation smsMessageLocation = null;
-        if (messageLanguageLocationKey != null && !messageLanguageLocationKey.isEmpty()) {
-            smsMessageLocation = smsMessageLocationMap.get(messageLanguageLocationKey);
+
+        //Buscar Instalacion
+        MixedInstallationData installationData = getInstallationData(insNumberE);
+
+        //Envio del SMS al cliente
+        sendSMSOutOfWorkingHours(message, installationData);
+
+        //A continuación debe cancelar la incidencia en IBS, invocando un web service.
+        closeIncidence(installationData);
+    }
+
+    /**
+     * Closes the incidence in IBS with the SpAioTareas2 WS
+     * @return
+     */
+    private boolean closeIncidence(MixedInstallationData installationData) {
+        CloseIncBTNDIY closeIncInput = new CloseIncBTNDIY();
+        closeIncInput.setInsNo(installationData.installationDataResultTareas.getInsNo());
+        closeIncInput.setComment("");
+        try {
+            String closeIncBTNDIYResult = wsSpAioTareas2.closeIncBTNDIY(closeIncInput);
+            LOGGER.debug("Closed Incidences for Installation {} with result {}",closeIncInput.getInsNo(),closeIncBTNDIYResult);
+        } catch (DataServiceFault dataServiceFault) {
+            LOGGER.error("Error closing Incidence",dataServiceFault);
         }
-        //If smsMessageLocation is null, for not found message language location key in message location map or for not
-        if (smsMessageLocation == null) {
-            smsMessageLocation = smsMessageLocationMap.get(SmsMessageLocation.DEFAULT);
-        }
+        return true;
+    }
 
-        //TODO De donde obtener la localización del usuario.
-        //TODO Controlar que no tengamos tras obtener default sin definir los mensajes.
+    /**
+     * Sends the SMS throw the cclIntegration WS
+     * @param message
+     * @param mixedInstallationData
+     * @return
+     */
+    private boolean sendSMSOutOfWorkingHours(Message message, MixedInstallationData mixedInstallationData) {
+        ////Envio de SMS
 
-        String outOfWorkingHours = smsMessageLocation.getOutOfWorkingHours();
+        //Seleccionar el texto a enviar en el mensaje
+        String outOfWorkingHoursText = getSmsMessageText(message);
 
-        LOGGER.error("SMS sending not implemented, message to send: '{}'", outOfWorkingHours);
-
-        //TODO Parametros
-        String ccIdentifier = null;
-        String applicationUser = null;
-        String ccUserId = null;
+        //TODO Repasar Parametros
+        String ccIdentifier = this.ccIdentifier; //Configurado estatico en app
+        String applicationUser = this.applicationUser; //Configurado estatico en app
+        String ccUserId = this.ccUserId; //Configurado estatico en app
         String destination = null;
-        String text = ""; //TODO Sacarlo de configuracion por PAIS
-        String account = null;
-        String country = message.getCibb().getPROPS().getPais();
+        if (smsTestPhone!=null && !smsTestPhone.isEmpty()) {
+            destination = smsTestPhone;
+        } else {
+            destination = mixedInstallationData.installationDataResultInstallation.getTelefonoServicio();
+            if (destination==null || destination.isEmpty()) {
+                LOGGER.error("Can't send SMS to installation {} without phone", mixedInstallationData.installationDataResultInstallation.getInsNo());
+                return false;
+            }
+        }
+        String phoneCountry = "SPAIN"; //TODO PENDIENTE DE DEFINIR
+        if (destination!=null && !destination.startsWith("+")) {
+            String contryPrefix = countryPhoneCodes.get(phoneCountry);
+            if (contryPrefix==null) {
+                LOGGER.warn("Not configured phone prefix for country ",phoneCountry);
+            } else {
+                destination = contryPrefix+destination;
+            }
+        }
+        String text = outOfWorkingHoursText;
+        String account = smsAccount; //Configurado estatico en app
+        String country = this.country;  //Configurado estatico en app
 
-        cclIntegration.sendSMS(ccIdentifier,
+        LOGGER.debug("SMS sending  '{}'", destination, text);
+
+        WsResponse wsResponse = cclIntegration.sendSMS(ccIdentifier,
                 applicationUser,
                 ccUserId,
                 destination,
                 text,
                 account,
                 country);
+        ////Envio SMS End
 
-        //A continuación debe cancelar la incidencia en IBS, invocando un web service.
+        if (wsResponse.getResultCode()==200) {
+            return true;
+        } else {
+            LOGGER.error("Error sending SMS {}-{}", wsResponse.getResultCode(),wsResponse.getResultMessage());
+            return false;
+        }
+
     }
 
     /**
@@ -329,7 +405,8 @@ public class GestionSenalesService {
      */
 
     private void markProcessed(Message message) {
-        processed.put(message.getId(), message.getId());//TODO Guardar algo más interesante
+        processed.put(message.getId(), message.getId());
+        //Aqui podemos incluir lo que se quiera como información relevante.
     }
 
     /**
@@ -340,38 +417,6 @@ public class GestionSenalesService {
         fileService.writeMessage(message);
     }
 
-
-    /**
-     * Detallo a continuación el criterio de obtención de los datos que posteriormente se insertarán en los campos de la calling list y que se obtendrán de la señal y el webservice de tareas,
-     * tal y como SD transmitió a INDRA.
-     * <p/>
-     * No habrá dos chain_n sino un único registro y los teléfonos irán en campos de la calling list.
-     * Se han incluido los campos que son obligatorios para el IWS (ctr_no, clname, SEC_comment, notCallId).
-     * Al estar el ctr_no ya se utiliza un campo de CONTRATO.
-     * <p/>
-     * <p/>
-     * Columna de BD OCS	Origen del dato	Dato obtenido
-     * INSTALACION	WS Tareas	GetInstallationDataResults / ins_no
-     * CTR_NO	WS Tareas	GetInstallationDataResults / GetContractNumberResponse / ctr_no
-     * NOMBRE	WS Tareas	GetInstallationDataResults / fname + name
-     * DIRECCION	WS Tareas	GetInstallationDataResults / street1no2+street1+street1no1+street2
-     * CIUDAD	WS Tareas	GetInstallationDataResults / city
-     * PANEL	WS Tareas	GetInstallationDataResults / panel
-     * VERSION	WS Tareas	GetInstallationDataResults / versión
-     * TIPO_MANTENIMIENTO	N/A	Valor “DIY”
-     * TELEFONO1	WS Tareas	GetInstallationDataResults / phone1
-     * TELEFONO2	WS Tareas	GetInstallationDataResults / phone2
-     * TELEFONO3	WS Tareas	GetInstallationDataResults / phone3
-     * IDIOMA	WS Tareas	GetInstallationDataResults / skill  quedándose con los tres primeros caracteres que son los del idioma (A alemán, I inglés, E español)
-     * CLNAME	Config. CCL	Obtenido del getCallingListANDCampaing
-     * SEC_COMMENT	N/A	Vacío
-     * NOTCALLID	N/A	Concatenación de instalación_DIY_telefono1
-     * F_CREACION_TAREA	Señal	Fecha / Hora del evento en formato dd/mm/aaaa hh:mm:ss
-     * Atributo “DataTime” de la etiqueta EVENTS
-     */
-    private void insertInCallingList() {
-        //TODO cclIntegration.
-    }
 
     protected boolean isWorkingHours() {
         return isWorkingHours(new Date());
@@ -422,52 +467,49 @@ public class GestionSenalesService {
         }
     }
 
-    /**
-     * CCL Obtener Calling List Tareas llamando a CCDIntegrationService.getCallingListANDCampaign
-     * TODO Pendiente los parametros
-     */
-    protected ClResponse getCallingListANDCampaign(Message message) {
-        SignalMetadata signalMetadata = allowedQSignals.get(message.getType());
-
-        String ccIdentifier = "TAREAS";
-        String applicationUser = "TAREAS";
-        String ccUserId = "TAREAS";
-        String identifier = signalMetadata.getClId();  //Se obtiene el valor de este parametro de la configuración
-        String country = "SPAIN"; //TODO No funcinoa el valor de PAIS que hay en el XML, por ejemplo viene ESP en vez de SPAIN
-
-        ClResponse callingListANDCampaign = cclIntegration.getCallingListANDCampaign(ccIdentifier, applicationUser, ccUserId, identifier, country);
-
-        if (callingListANDCampaign != null) {
-            return callingListANDCampaign;
-        } else {
-            LOGGER.error("Can't find Calling List and Campaign for message {}", message);
-            return null;
-        }
-    }
-
 
     /**
-     * Obtiene los datos de instalacion
+     * Obtiene los datos de instalacion, consultamos los dos web services que hay de instalación porque algunos datos van por uno y otros por el otro
+     * - wsSpAioTareas2.getInstallationData
+     * -
      *
      * @param insNumberE
      * @return
      * @throws DataServiceFault
      */
-    protected GetInstallationDataResult getInstallationData(Integer insNumberE) throws DataServiceFault {
-        List<GetInstallationDataResult> installationData = spAioTareas2.getInstallationData(insNumberE, 1);//TODO Consultar que es el segundo parametro
-        if (installationData != null && !installationData.isEmpty()) {
-            return installationData.get(0);
+    protected MixedInstallationData getInstallationData(Integer insNumberE) throws DataServiceFault {
+        MixedInstallationData mixedInstallation = new MixedInstallationData();
+
+        //1. Consulta Instalacion
+        //Como segundo parametro metemos también el número de instalación , parece que con eso devuelve datos de número de contrato
+        GetInstallationDataInput queryInput = new GetInstallationDataInput();
+        queryInput.setSIns(insNumberE);
+        queryInput.setSCtr(insNumberE);
+        GetInstallationDataResults installationDataTareaResult = wsSpAioTareas2.getInstallationData(queryInput);
+        if (installationDataTareaResult != null && installationDataTareaResult != null && !installationDataTareaResult.getGetInstallationDataResult().isEmpty()) {
+            mixedInstallation.installationDataResultTareas = installationDataTareaResult.getGetInstallationDataResult().get(0);
         } else {
-            LOGGER.error("Can't find installation data for insNumber {}", insNumberE);
+            LOGGER.error("Can't find installation data for insNumber {} in wsSpAioTareas2", insNumberE);
             return null;
         }
+
+        //2.Consulta Instalacion
+        List<Mainstallationdataresult> wsSPInstallationMonDataInstallationData = wsSPInstallationMonData.getInstallationData(insNumberE.toString());
+        if (wsSPInstallationMonDataInstallationData != null && !wsSPInstallationMonDataInstallationData.isEmpty()) {
+            mixedInstallation.installationDataResultInstallation = wsSPInstallationMonDataInstallationData.get(0);
+        } else {
+            LOGGER.warn("Can't find installation data for insNumber {} in wsSPInstallationMonData", insNumberE);
+        }
+
+        return mixedInstallation;
     }
 
 
     /**
      * Insertar contacto en calling list. CCLIntegration.insertCallingListContact
+     * Documentación WS30 Diseño Técnico Tareas
      */
-    protected void insertCallingListContact(Message message, GetInstallationDataResult installationData, ClResponse callingListANDCampaign) {
+    protected void insertCallingListContact(Message message, MixedInstallationData mixedInstallationData) throws Exception {
         LOGGER.debug("Inserting calling list contact for {}", message);
         /*
 
@@ -491,22 +533,120 @@ public class GestionSenalesService {
         Atributo “DataTime” de la etiqueta EVENTS
          */
 
+        //Datos básicos
+        String ccIdentifier = this.ccIdentifier; //Configurado estatico en app
+        String applicationUser = this.applicationUser; //Configurado estatico en app
+        String ccUserId = this.ccUserId; //Configurado estatico en app
+        String date = null;  // date = vacío  para contactar en el momento
+        String hour = null;   // 	hour = vacío  para contactar en el momento
+        String dialRule = null;  //	dial rule = vacío
+        String timeFrom = null; //	timeFrom = vacío  tomará el de la campaña
+        String timeUntil = null;    // 	timeUntil = vacío  tomará el de la campaña
+        String callingList = this.callingList; //Configurado estatico en app
+        String campaign = this.campaign; //Configurado estatico en app
+        String country = this.country; //Configurado estatico en app
+        String ctrNo = null; //Numero de contrato de los datos de instalación
+        if (!(mixedInstallationData.installationDataResultTareas.getGetContractNumberResponse() == null || mixedInstallationData.installationDataResultTareas.getGetContractNumberResponse().getGetContractNumberResponses() == null || mixedInstallationData.installationDataResultTareas.getGetContractNumberResponse().getGetContractNumberResponses().isEmpty() || mixedInstallationData.installationDataResultTareas.getGetContractNumberResponse().getGetContractNumberResponses().get(0).getCtrNo() == null)) {
+            ctrNo = mixedInstallationData.installationDataResultTareas.getGetContractNumberResponse().getGetContractNumberResponses().get(0).getCtrNo();
+        }
+        String isEquals = "true";  // isEqual = true
 
-        String ccIdentifier = null;
-        String applicationUser = null;
-        String ccUserId = null;
-        List<net.java.dev.jaxb.array.StringArray> insertValues = null;
-        String date = null;
-        String hour = null;
-        String dialRule = null;
-        String timeFrom = null;
-        String timeUntil = null;
-        String callingList = null;
-        String campaign = null;
-        List<net.java.dev.jaxb.array.StringArray> numbers = null;
-        String country = null;
-        String ctrNo = null;
-        String isEquals = null;
+        //Mapa con los datos a insertar de Tarea
+        //        	insertValues= listas de campos y valores a insertar, por parejas:
+        //              <item>campo</item>
+        //              <item>valor</item>
+        //        Los valores son:
+        //              	Instalación = número de instalación (ins_no)
+        //              	Contrato = número de instalación (ctr_no)
+        //              	Nombre = Persona de contacto
+        //              	Teléfono = Phone 1 de la instalación
+        //              	Dirección = dirección de la instalación
+        //              	Ciudad = ciudad de la instalación
+        //              	Panel = panel de la instalación
+        //              	Versión = versión de la instalación
+        //              	Fecha evento = fecha actual (recepción de la señal)
+        //              	Hora evento = hora actual (recepción de la señal)
+        //              	Teléfono 1= Phone 1 del contacto 1 del plan de acción de la instalación
+        //              	Teléfono 2= Phone 1 del contacto 2 del plan de acción de la instalación
+        //              	Teléfono 3= Phone 2 de la instalación
+
+        List<net.java.dev.jaxb.array.StringArray> insertValues = new ArrayList<StringArray>();
+
+        //INSTALACION	WS Tareas	GetInstallationDataResults / ins_no
+        addStringArray(insertValues, "INSTALACION", mixedInstallationData.installationDataResultTareas.getInsNo());
+
+        //NOMBRE	WS Tareas	GetInstallationDataResults / fname + name
+        addStringArray(insertValues, "NOMBRE", mixedInstallationData.installationDataResultTareas.getFname() + mixedInstallationData.installationDataResultTareas.getName());
+
+        //DIRECCION	WS Tareas	GetInstallationDataResults / street1no2+street1+street1no1+street2
+        addStringArray(insertValues, "DIRECCION", mixedInstallationData.installationDataResultTareas.getStreet1() + mixedInstallationData.installationDataResultTareas.getStreet1() + mixedInstallationData.installationDataResultTareas.getStreet1No1() + mixedInstallationData.installationDataResultTareas.getStreet2());
+
+        //CIUDAD	WS Tareas	GetInstallationDataResults / city
+        addStringArray(insertValues, "CIUDAD", mixedInstallationData.installationDataResultTareas.getCity());
+
+        //PANEL	WS Tareas	GetInstallationDataResults / panel
+        addStringArray(insertValues, "PANEL", mixedInstallationData.installationDataResultTareas.getPanel());
+
+        //VERSION	WS Tareas	GetInstallationDataResults / versión
+        addStringArray(insertValues, "VERSION", mixedInstallationData.installationDataResultTareas.getVersion());
+
+        // TIPO_MANTENIMIENTO	N/A	Valor “DIY” //TODO QUE ES ESTO DA ERROR
+//        StringArray saTipoMantenimiento = new StringArray();
+//        insertValues.add(saTipoMantenimiento);
+//        saTipoMantenimiento.getItem().add("TIPO_MANTENIMIENTO");
+//        saTipoMantenimiento.getItem().add("DIY");
+
+        // TELEFONO1	WS Tareas	GetInstallationDataResults / phone1 TODO PENDIENTE REPASAR
+        if (mixedInstallationData.installationDataResultInstallation != null && mixedInstallationData.installationDataResultInstallation.getInstallationcontactsresults().getInstallationcontactsresult().size() > 0 && mixedInstallationData.installationDataResultInstallation.getInstallationcontactsresults().getInstallationcontactsresult().get(0) != null) {
+            addStringArray(insertValues, "TELEFONO1", mixedInstallationData.installationDataResultInstallation.getInstallationcontactsresults().getInstallationcontactsresult().get(0).getPH1());
+        }
+
+        // TELEFONO2	WS Tareas	GetInstallationDataResults / phone2 TODO PENDIENTE REPASAR
+        if (mixedInstallationData.installationDataResultInstallation != null && mixedInstallationData.installationDataResultInstallation.getInstallationcontactsresults().getInstallationcontactsresult().size() > 1 && mixedInstallationData.installationDataResultInstallation.getInstallationcontactsresults().getInstallationcontactsresult().get(1) != null) {
+            addStringArray(insertValues, "TELEFONO2", mixedInstallationData.installationDataResultInstallation.getInstallationcontactsresults().getInstallationcontactsresult().get(1).getPH1());
+        }
+
+        // TELEFONO3	WS Tareas	GetInstallationDataResults / phone3  TODO PENDIENTE REPASAR
+        if (mixedInstallationData.installationDataResultInstallation != null) {
+            addStringArray(insertValues, "TELEFONO3", mixedInstallationData.installationDataResultInstallation.getPhone());
+        }
+
+        // IDIOMA	WS Tareas	GetInstallationDataResults / skill  quedándose con los tres primeros caracteres que son los del idioma (A alemán, I inglés, E español)
+        StringArray saIdioma = new StringArray();
+        insertValues.add(saIdioma);
+        saIdioma.getItem().add("IDIOMA");
+        saIdioma.getItem().add(mixedInstallationData.installationDataResultTareas.getSkill().substring(2, 3));
+
+        // CLNAME	Config. CCL	Obtenido del getCallingListANDCampaing
+        StringArray saClName = new StringArray();
+        insertValues.add(saClName);
+        saClName.getItem().add("CLNAME");
+        saClName.getItem().add(this.callingList); //Configurado estatico en app);
+
+        //TODO FECHA EVENTO HORA EVENTO JNA
+//        	Fecha evento = fecha actual (recepción de la señal)
+//        	Hora evento = hora actual (recepción de la señal)
+
+
+        // SEC_COMMENT	N/A	Vacío
+        // NOTCALLID	N/A	Concatenación de instalación_DIY_telefono1
+        // F_CREACION_TAREA	Señal	Fecha / Hora del evento en formato dd/mm/aaaa hh:mm:ss
+        // Atributo “DataTime” de la etiqueta EVENTS
+
+
+        //Numeros de contacto
+        //        	numbers = teléfono de contacto (Phone 1 de la instalación), en el formato indicado: 3 <ítem> con los valores:
+        //        	Orden del teléfono: 0
+        //        	Tipo de contacto: 0: No Contact Type, 1: Home Phone, 2: Direct Bussiness Phone, 3: Bussiness whit ext, 4: Mobile, 5: Vacation Phone, 6: Pager, 7: Modem, 8: Voice Mail, 9: Pin Pager, 10: E-mail Address
+        //        	Valor del contacto: número de teléfono
+
+        List<net.java.dev.jaxb.array.StringArray> numbers = new ArrayList<StringArray>();
+        StringArray saNumber0 = new StringArray();
+        numbers.add(saNumber0);
+        saNumber0.getItem().add("0"); //Orden del teléfono: 0
+        // De donde sale este tipo de contacto. Lo dejamos estático como mobile
+        saNumber0.getItem().add("4"); //Tipo de contacto: 0: No Contact Type, 1: Home Phone, 2: Direct Bussiness Phone, 3: Bussiness whit ext, 4: Mobile, 5: Vacation Phone, 6: Pager, 7: Modem, 8: Voice Mail, 9: Pin Pager, 10: E-mail Address
+        saNumber0.getItem().add(mixedInstallationData.installationDataResultTareas.getPhone1()); //Valor del contacto: número de teléfono
 
 
         IclResponse iclResponse = cclIntegration.insertCallingListContact(
@@ -527,11 +667,50 @@ public class GestionSenalesService {
                 isEquals
         );
 
-        if (iclResponse == null) {
-            LOGGER.error("Can't insert calling list and campaign for {}", message);
+
+        if (iclResponse.getOperationResult().getResultCode() != 200) {
+            throw new Exception("Error in insertCallingList " + iclResponse.getOperationResult().getResultCode() + "-" + iclResponse.getOperationResult().getResultMessage());
         } else {
-            LOGGER.debug("Successfully inserted calling list and campaign for {}", message);
+            if (iclResponse.getReturnData() != null && !iclResponse.getReturnData().isEmpty()) {
+                for (ReturnData returnData : iclResponse.getReturnData()) {
+                    if (returnData != null && returnData.getOperationResult() != null && returnData.getOperationResult().getResultCode() != 200) {
+                        throw new Exception("Error in insertCallingList " + returnData.getOperationResult().getResultCode() + "-" + returnData.getOperationResult().getResultMessage());
+                    }
+                }
+            }
         }
     }
 
+    /**
+     * Obtiene el mensaje de texto a enviar al usuario
+     *
+     * @return
+     */
+    protected String getSmsMessageText(final Message message) {
+        String messageLanguageLocationKey = message.getLanguageLocationKey();
+        SmsMessageLocation smsMessageLocation = null;
+        if (messageLanguageLocationKey != null && !messageLanguageLocationKey.isEmpty()) {
+            smsMessageLocation = smsMessageLocationMap.get(messageLanguageLocationKey);
+        }
+        //If smsMessageLocation is null, for not found message language location key in message location map or for not
+        if (smsMessageLocation == null) {
+            smsMessageLocation = smsMessageLocationMap.get(SmsMessageLocation.DEFAULT);
+        }
+        String outOfWorkingHours = smsMessageLocation.getOutOfWorkingHours();
+        return outOfWorkingHours;
+    }
+
+    private List<net.java.dev.jaxb.array.StringArray> addStringArray(List<net.java.dev.jaxb.array.StringArray> list, String propertyName, Object propertyValue) {
+        StringArray sa = null;
+        if (propertyValue != null) {
+            String value = propertyValue.toString();
+            if (value != null && !value.isEmpty()) {
+                sa = new StringArray();
+                sa.getItem().add(propertyName);
+                sa.getItem().add(value);
+                list.add(sa);
+            }
+        }
+        return list;
+    }
 }

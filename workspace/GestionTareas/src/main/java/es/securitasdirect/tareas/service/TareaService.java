@@ -69,6 +69,7 @@ public class TareaService {
             if (!tarea.isRetrieved()) {
                 //1. Finalizar la Tarea
                 finalized = wsFilanizeTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId());
+                //2. TODO Pendiente, cuando esté funcionando el Reporting de BI el dato Motivo de Cierre y Compensación deben de registrarse en la auditoria
             } else {
                 LOGGER.warn("Can't finalize task because is in Retrieved state {}", tarea);
             }
@@ -83,6 +84,7 @@ public class TareaService {
      *
      * TODO 6.	En Tarea de tipo Mantenimiento, al finalizar, ejecutar WS de grabar comlog de IBS con los datos de la pantalla.
      *
+     * //TODO Pendiente, cuando esté funcionando el Reporting de BI el dato Motivo de Cierre y Compensación deben de registrarse en la auditoria
      * @param agent
      * @param tarea
      * @return
@@ -99,6 +101,8 @@ public class TareaService {
                 finalized = wsFilanizeTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId());
                 //2. Cancelar la señal
                 closeIncidence(tarea.getNumeroInstalacion());
+
+                //TODO Pendiente, cuando esté funcionando el Reporting de BI el dato Motivo de Cierre y Compensación deben de registrarse en la auditoria
             } else {
                 LOGGER.warn("Can't finalize task because is in Retrieved state {}", tarea);
             }
@@ -167,6 +171,9 @@ public class TareaService {
 //
 //                    );
                 }
+
+                //TODO Pendiente, cuando esté funcionando el Reporting de BI el dato Motivo de Cierre y Compensación deben de registrarse en la auditoria
+
             } else {
                 LOGGER.warn("Can't delay task because is in Retrieved state {}", tarea);
             }
@@ -368,7 +375,7 @@ public class TareaService {
     private boolean closeIncidence(String installationNumber) {
         CloseIncBTNDIY closeIncInput = new CloseIncBTNDIY();
         closeIncInput.setInsNo(installationNumber);
-        closeIncInput.setComment(""); //TODO COMENTARIO?????
+        closeIncInput.setComment("");
         try {
             String closeIncBTNDIYResult = spAioTareas2.closeIncBTNDIY(closeIncInput);
             LOGGER.debug("Closed Incidences for Installation {} with result {}",closeIncInput.getInsNo(),closeIncBTNDIYResult);

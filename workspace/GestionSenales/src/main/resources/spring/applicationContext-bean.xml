@@ -52,7 +52,6 @@
         2.1)  Un parámetro con el identificador para luego invocar el método de obtención de  calling list y campaña (XXX_SIGNAL_CL_ID). <EVENT id="UCB"> del XML
         2.2)  Otro parámetro para indicar el status permitido para la señal  (XXX_SIGNAL_STATUS).Donde XXX es el código de señal. <type>2</type> del XML.
     -->
-
     <util:map id="allowedQSignals" map-class="java.util.HashMap" key-type="java.lang.String" value-type="es.securitasdirect.senales.model.SignalMetadata">
         <entry key="ILS">
             <bean class="es.securitasdirect.senales.model.SignalMetadata">
@@ -87,6 +86,7 @@
         <constructor-arg value="Received message out of working hours, it will be pending to process"/>
     </bean>
 
+    <!-- Definición de los ensajes SMS para cada idioma -->
     <util:map id="smsLocation" map-class="java.util.HashMap" key-type="java.lang.String" value-type="es.securitasdirect.senales.model.SmsMessageLocation">
         <!-- Default language location values -->
         <entry key="DEF">
@@ -123,14 +123,30 @@
         </entry>
     </util:map>
 
-    <util:list id="tareaAvisoItems" list-class="java.util.ArrayList" value-type="java.lang.String">
-        <value>foo2@bar.com</value>
-        <value>foo3@bar.com</value>
-    </util:list>
+    <!-- Prefijo telefonico de los distintos paises para utiliza anteponiéndolo al número de telefono -->
+    <util:map id="countryPhoneCodes" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.String">
+        <entry key="SPAIN">
+            <bean class="java.lang.String">
+                <constructor-arg value="+34"/>
+            </bean>
+        </entry>
+        <entry key="FRANCE">
+            <bean class="java.lang.String">
+                <constructor-arg value="+33"/>
+            </bean>
+        </entry>
+    </util:map>
 
-    <!--<util:map id="callingListToModel2" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.util.ArrayList">-->
-    <!--<entry key="TareaAviso" value-ref="tareaAvisoItems" />-->
-    <!--</util:map>-->
+
+    <!-- TODO BORRAR ESTA BASURA -->
+    <!--<util:list id="tareaAvisoItems" list-class="java.util.ArrayList" value-type="java.lang.String">-->
+        <!--<value>foo2@bar.com</value>-->
+        <!--<value>foo3@bar.com</value>-->
+    <!--</util:list>-->
+
+    <!--&lt;!&ndash;<util:map id="callingListToModel2" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.util.ArrayList">&ndash;&gt;-->
+    <!--&lt;!&ndash;<entry key="TareaAviso" value-ref="tareaAvisoItems" />&ndash;&gt;-->
+    <!--&lt;!&ndash;</util:map>&ndash;&gt;-->
 
 
     <!-- Work hours definitions, when outside the work hour the SMS will be sent -->
@@ -154,5 +170,48 @@
     <bean id="daysToDiscardOldMessages" class="java.lang.Integer">
         <constructor-arg value="4"/>
     </bean>
+
+
+    <!-- Constantes para la llamada a insertCallingListContact para crear la tarea , WS30 Diseño Técnico Tareas -->
+
+    <!-- ccIdentifier=grupo del agente (ej.”ATC_SPN”)  recibido del IWS en el parámetro bp_desktopDepartment -->
+    <bean id="ccIdentifier" class="java.lang.String">
+        <constructor-arg value="ATC_SPN"/>
+    </bean>
+    <!--	applicationUser=”Tareas” -->
+    <bean id="applicationUser" class="java.lang.String">
+        <constructor-arg value="Tareas"/>
+    </bean>
+    <!-- 	ccUserId=agente  recibido en parámetro bp_agent  -->
+    <bean id="ccUserId" class="java.lang.String">
+        <constructor-arg value="M0OOS"/>
+    </bean>
+    <!-- 	callingList = “CL_TAREAS_DIY “ calling list única para este tipo de tareas -->
+    <bean id="callingList" class="java.lang.String">
+        <constructor-arg value="CL_TAREAS_DIY"/>
+    </bean>
+    <!--  	campaign = “C_TAREAS_DIY “ campaña única para este tipo de tareas -->
+    <bean id="campaign" class="java.lang.String">
+        <constructor-arg value="C_TAREAS_DIY"/>
+    </bean>
+    <!--   country=SPAIN  recibido del IWS en el parámetro bp_desktopDepartment -->
+    <bean id="country" class="java.lang.String">
+        <constructor-arg value="SPAIN"/>
+    </bean>
+    <!-- Account para el parametro account del envío del SMS -->
+    <bean id="smsAccount" class="java.lang.String">
+        <constructor-arg value="PC_SMS_ATC"/>
+    </bean>
+    <!-- Número de telefono para el envío de SMS para pruebas, sobreescribirá el telefono del cliente.
+     En producción dejarlo en blanco.-->
+    <bean id="smsTestPhone" class="java.lang.String">
+        <constructor-arg value="+34696252991"/>
+    </bean>
+
+
+
+
+
+
 
 </beans>
