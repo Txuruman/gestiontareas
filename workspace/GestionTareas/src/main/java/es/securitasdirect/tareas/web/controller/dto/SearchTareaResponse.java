@@ -14,9 +14,16 @@ public class SearchTareaResponse extends BaseResponse {
     public SearchTareaResponse(){
 
     }
+
+    public SearchTareaResponse(List<Tarea> taskList) {
+        this.taskList = taskList;
+    }
+
     public SearchTareaResponse(BaseResponse baseResponse){
         super.setMessages(baseResponse.getMessages());
     }
+
+
 
     private List<Tarea> taskList;
 

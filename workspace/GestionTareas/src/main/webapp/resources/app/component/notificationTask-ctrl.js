@@ -259,7 +259,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     $scope.aplazar = function (delayDate, recallType) {
         //$log.info('Delay to ' + delayDate + ' with recallType ' + recallType + ' task ' + JSON.stringify($scope.tarea));
         if ($scope.tarea) {
-        	//Creamos dos objetos temporales, les quitamos los atributos y comparamos
+        	//Creamos dos objetos temporales, nulleamos los atributos y comparamos
         	var temp1=angular.copy($scope.tarea);
         	var temp2=angular.copy($scope.tareaOriginal);
         	temp1.closingAdditionalData=null;

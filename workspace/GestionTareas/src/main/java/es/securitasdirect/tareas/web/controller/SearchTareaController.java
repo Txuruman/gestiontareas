@@ -93,21 +93,16 @@ public class SearchTareaController extends TaskController {
                     agentController.getAgent().getAgentCountryJob();
                     ;
                     listaTareas = searchTareaService.findByPhone(
-                            agentController.getAgent().getDesktopDepartment(),
-                            agentController.getAgent().getIdAgent(),
-                            agentController.getAgent().getAgentCountryJob(),
+                            agentController.getAgent() ,
                             request.getSearchText());
                 } else if (request.getSearchOption().equals(SearchTaskRequest.CLIENT)) {
-                    listaTareas = searchTareaService.findByCustomer(
-                            agentController.getAgent().getDesktopDepartment(),
-                            agentController.getAgent().getIdAgent(),
-                            agentController.getAgent().getAgentCountryJob(),
+                    listaTareas = searchTareaService.findByContractNumber(
+                            agentController.getAgent() ,
                             request.getSearchText());
                 } else {
                     listaTareas = new ArrayList<Tarea>();
                 }
-                response = new SearchTareaResponse(processSuccessMessages(listaTareas, SERVICE_MESSAGE));
-                response.setTaskList(listaTareas);
+                response = new SearchTareaResponse( listaTareas );
             } catch (Exception e) {
                 response = new SearchTareaResponse(processException(e, SERVICE_MESSAGE));
             }

@@ -1,5 +1,6 @@
 package es.securitasdirect.tareas.web.controller.task;
 
+import es.securitasdirect.tareas.model.Agent;
 import es.securitasdirect.tareas.model.InstallationData;
 import es.securitasdirect.tareas.model.TareaMantenimiento;
 import es.securitasdirect.tareas.model.external.DescriptionPair;
@@ -136,7 +137,24 @@ public class MaintenanceTaskController extends TaskController {
     public
     @ResponseBody
     BaseResponse finalizeTask(@RequestBody MaintenanceTaskFinalizeRequest request) {
-        return super.finalizeTask(request.getTask());
+        assert request.getTask()!=null: "Es necesario el parametro de la tarea";
+        LOGGER.debug("Finalizando tarea {}  ", request.getTask());
+        BaseResponse response = new BaseResponse();
+        //Llamada al servicio para finalizar
+        try {
+
+            Agent agent=agentController.getAgent();
+            boolean ok = tareaService.finalizeMaintenanceTask(agent, request.getTask());
+            if (ok) {
+                response.info(messageUtil.getProperty("finalize.success"));
+            }else{
+                response.danger(messageUtil.getProperty("finalize.error"));
+            }
+        } catch (Exception e) {
+            response = processException(e);
+        }
+        LOGGER.debug("Finalizado de tarea Response:{}", response);
+        return response;
     }
 
     @RequestMapping(value = "/getDesplegableKey1", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})

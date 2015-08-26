@@ -2,6 +2,7 @@ package es.securitasdirect.tareas.service;
 
 import com.webservice.CCLIntegration;
 import com.webservice.CclResponse;
+import es.securitasdirect.tareas.model.DummyGenerator;
 import es.securitasdirect.tareas.model.Tarea;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -65,11 +66,8 @@ public class SearchTareasServiceTest {
 
     @Test
     public void searchByCustomer(){
-        String ccIdentifier="ATC_SPN";
-        String ccUserId="12187";
         String customer="1234";
-        String country="SPAIN";
-        List<Tarea> tareaList = searchTareaService.findByCustomer(ccIdentifier, ccUserId,  country,customer);
+        List<Tarea> tareaList = searchTareaService.findByContractNumber(DummyGenerator.getAgent(),customer);
         assertThat(tareaList,notNullValue());
         for (Tarea tarea : tareaList) {
             LOGGER.info(tarea.toString());

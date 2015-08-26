@@ -40,8 +40,7 @@ public class CommonExcelTaskController extends BaseController {
         PairListResponse response;
         try{
             List<Pair> closingReasonList = externalDataService.getExcelClosingReason();
-            response = new PairListResponse(processSuccessMessages(closingReasonList,SERVICE_MESSAGE));
-            response.setPairList(closingReasonList);
+            response = new PairListResponse(closingReasonList);
             LOGGER.debug("Closing reason list: {}", closingReasonList);
         }catch(Exception e){
             response = new PairListResponse(processException(e,SERVICE_MESSAGE));
