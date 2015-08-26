@@ -272,7 +272,6 @@ public class TareaAviso extends Tarea {
         sb.append('}');
         return sb.toString();
     }
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -423,9 +422,9 @@ public class TareaAviso extends Tarea {
 			return false;
 		return true;
 	}
-    
-    
+  } 
 }
+
 
 
 
