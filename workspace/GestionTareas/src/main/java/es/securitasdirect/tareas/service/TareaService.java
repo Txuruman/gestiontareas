@@ -160,6 +160,8 @@ public class TareaService {
             return false;
         }
 
+        //TODO Pendiente, cuando esté funcionando el Reporting de BI el dato Motivo de Cierre y Compensación deben de registrarse en la auditoria
+
         return true;
 
     }
