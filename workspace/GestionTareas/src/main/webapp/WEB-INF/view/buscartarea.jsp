@@ -14,7 +14,7 @@
 
 </head>
 <body>
-<div class="visoTareaContainer" ng-controller="taskSearch" ng-init="searchText='${lastSearchTareaRequest.searchText}';searchOption='${lastSearchTareaRequest.searchOption}'; getByctrNo('${ctrNo}')">
+<div class="visoTareaContainer" ng-controller="taskSearch" ng-init="searchText='${lastSearchTareaRequest.searchText}';searchOption='${lastSearchTareaRequest.searchOption}';(searchOption===null || searchOption===undefined || searchOption==='') ? searchOption='phone' : null; getByctrNo('${ctrNo}')">
 
     <app:messages/>
     <div class="row filaAjustada">

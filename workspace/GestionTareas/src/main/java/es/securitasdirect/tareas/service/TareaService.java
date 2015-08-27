@@ -177,7 +177,50 @@ public class TareaService {
     private boolean isTaskRequiresSaveModifications(TareaAviso t1, TareaAviso t2) {
         return t1.equals(t2);
     }
+    
+    /**
+     * Función Aplazar específica para tareas de tipo aviso 
+     * @param agent
+     * @param tarea
+     * @param schedTime
+     * @param recordType
+     * @return
+     * @throws Exception
+     */
+    public boolean delayNotificationTask(Agent agent, TareaAviso tarea, Date schedTime, String recordType) throws Exception {
+    	 //Buscamos los datos de la instalación de la tarea
+        InstallationData installationData = installationService.getInstallationData(tarea.getNumeroInstalacion());
 
+        //1. Modificar Aviso si hace falta por haber cambiado los datos. Comprobamos si la tarea que nos pasa el front difiere con la de la BBDD, si es asi modificamos
+        TareaAviso tareaOriginal = (TareaAviso) queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
+        if (!isTaskRequiresSaveModifications(tareaOriginal, tarea)) {
+            boolean modificado = avisoService.updateTicket(agent, tarea, installationData);
+            if (!modificado) {
+                LOGGER.error("Can't finalize NotificationTask because can't update Ticket");
+                return false;
+            }
+        }
+        boolean delayed=false;
+        //Comprobamos que la tarea no esté en memoria, para ello volvemos a buscar
+        TareaAviso tarea2=(TareaAviso) queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
+        if (!tarea2.isRetrieved()) {
+        	delayed = ccdDelayTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea2.getCampana(), tarea2.getTelefono(), tarea2.getCallingList(), tarea2.getId(), schedTime, recordType);
+	    	 if (delayed && tarea instanceof TareaAviso) {
+	             //Si es de tipo Aviso hay que retrasar el aviso también
+	             delayed = false;
+	             Date fecha = schedTime;
+	             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy' 'HH:mm:ss");
+	             String fHasta = format.format(fecha);
+	
+	             delayed = avisoService.delayTicket(tarea.getIdAviso(),agent.getIdAgent(),"", fHasta);
+	    	 }
+	     } else {
+	    	 LOGGER.warn("Can't delay task because is in Retrieved state {}", tarea2);
+	     }
+    	return delayed;
+    }
+    
+    
     /**
      * Aplazar: muestra un diálogo en modo modal para introducir la fecha y hora de la reprogramación,
      * indicando también si es para el propio agente o para el grupo de la Campaña.
@@ -201,18 +244,18 @@ public class TareaService {
             //Si no está en memoria se puede ejecutar
             if (!tarea.isRetrieved()) {
                 delayed = ccdDelayTask(ccUserId, country, desktopDepartment, tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId(), schedTime, recordType);
-                if (delayed && tarea instanceof TareaAviso) {
-                    //Si es de tipo Aviso hay que retrasar el aviso también
-                    delayed = false;
-                    Date fecha = schedTime;
-                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy' 'HH:mm:ss");
-                    String fHasta = format.format(fecha);
-
-                    delayed = avisoService.delayTicket(
-                            ((TareaAviso) tarea).getIdAviso(),
-                            ccUserId, "", fHasta
-                    );
-                }
+//                if (delayed && tarea instanceof TareaAviso) {
+//                    //Si es de tipo Aviso hay que retrasar el aviso también
+//                    delayed = false;
+//                    Date fecha = schedTime;
+//                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy' 'HH:mm:ss");
+//                    String fHasta = format.format(fecha);
+//
+//                    delayed = avisoService.delayTicket(
+//                            ((TareaAviso) tarea).getIdAviso(),
+//                            ccUserId, "", fHasta
+//                    );
+//                }
 
                 //TODO Pendiente, cuando esté funcionando el Reporting de BI el dato Motivo de Cierre y Compensación deben de registrarse en la auditoria
 
