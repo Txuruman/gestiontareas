@@ -4,6 +4,7 @@ import com.webservice.CCLIntegration;
 import com.webservice.IclResponse;
 import com.webservice.WsResponse;
 import es.securitasdirect.tareas.model.*;
+import es.securitasdirect.tareas.web.controller.params.TaskServiceParams;
 import net.java.dev.jaxb.array.StringArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -448,7 +449,7 @@ public class TareaService {
         saRecordStatus.getItem().add("record_status");
         saRecordStatus.getItem().add("1");
         //  Dial_sched_time = dd/mm/aaaa hh:mm:ss
-        saTime.getItem().add("dial_sched_time");
+        saTime.getItem().add( TaskServiceParams.TAREA_COMMONS_FECHA_REPROGRAMACION);
         saTime.getItem().add(sdfSchedTime.format(schedTime));
         // Recort_type = 5 (personal callback) / 6 (campaing callback)
         saType.getItem().add("record_type");
@@ -530,34 +531,35 @@ public class TareaService {
 
         if (tarea instanceof TareaAviso) {
 
-            boolean finalized=false;
-            boolean ok = avisoService.updateTicket(agent, (TareaAviso) tarea, installationData);
-
             TareaAviso tareaOriginal = (TareaAviso) queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
-            if (!isTaskRequiresSaveModifications2(tareaOriginal, tarea)) {
+
+            boolean ok = false;
+            //if(isTaskRequiresSaveModifications(tareaOriginal, tarea)) {
+                ok = avisoService.updateTicket(agent, (TareaAviso) tarea, installationData);
+                saved = ok;
+            //}
+
+            boolean finalized=false;
+            if (isTaskRequiresFinalizeModifications(tarea)) {
                 // Finalizar Tarea
                 finalized = wsFilanizeTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId());
-                // TODO desarcar Aviso de la Tarea (otro ws)
+                saved = finalized;
+                // TODO desmarcar Aviso de la Tarea (otro ws)
             }
-            if(ok && finalized)
-            {
-                saved = true;
-            }
+
 
         }
 
         return saved;
     }
 
-    private boolean isTaskRequiresSaveModifications2(TareaAviso tareaOriginal, TareaAviso tarea) {
+    private boolean isTaskRequiresFinalizeModifications(TareaAviso tarea) {
 
         boolean result = false;
 
-        if( tareaOriginal.getTipoAviso1() != null && !tareaOriginal.getTipoAviso1().equals("")
-         && tareaOriginal.getMotivo1() != null && !tareaOriginal.getMotivo1().equals("") ) {
-            if (!tareaOriginal.getTipoAviso1().equals(tarea.getTipoAviso1()) || !tareaOriginal.getMotivo1().equals(tarea.getMotivo1())) {
-                return true;
-            }
+        if( tarea.getClosing() != null && !tarea.getClosing().equals("")
+         && tarea.getDatosAdicionalesCierre() != null && !tarea.getDatosAdicionalesCierre().equals("") ) {
+          return true;
         }
 
         return result;

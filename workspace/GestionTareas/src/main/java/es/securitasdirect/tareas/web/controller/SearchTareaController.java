@@ -46,24 +46,7 @@ public class SearchTareaController extends TaskController {
 
     protected SearchTaskRequest lastSearchTareaRequest = new SearchTaskRequest();
 
-    @RequestMapping
-    public ModelAndView handleRequest(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
-        ///Redirect to buscartarea.html
-        ModelAndView mv = new ModelAndView("buscartarea");
 
-        //Crear un mapa con los parámetros
-        Map<String, String> parametersMap = createParameterMap(hsr);
-        //Crear el objeto de sesion con los datos del agent
-        Agent agent = agentController.loadAgentFromIWS(parametersMap);
-        //Enviar a la pantalla los datos de la ultima búsqueda
-        mv.addObject("lastSearchTareaRequest",lastSearchTareaRequest);
-
-        //TODO TEMPORAL, ELIMINAR
-        mv.addObject("params",parametersMap);
-
-
-        return mv;
-    }
 
     @RequestMapping(value = "/aplazar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
@@ -110,4 +93,7 @@ public class SearchTareaController extends TaskController {
         return response;
     }
 
+    public SearchTaskRequest getLastSearchTareaRequest() {
+        return lastSearchTareaRequest;
+    }
 }

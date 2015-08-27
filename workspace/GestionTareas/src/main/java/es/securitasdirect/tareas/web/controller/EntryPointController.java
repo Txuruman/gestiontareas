@@ -53,6 +53,8 @@ public class EntryPointController extends TaskController {
     @Inject
     private SearchTareaService searchTareaService;
     @Inject
+    private SearchTareaController searchTareaController;
+    @Inject
     protected MessageUtil messageUtil;
 
 
@@ -94,6 +96,8 @@ public class EntryPointController extends TaskController {
             List<Tarea> tareas = searchTareaService.findByInstallationNumber(agent, installation);
             if (tareas == null || tareas.isEmpty()) {
                 mv = new ModelAndView("creartarea");
+                //Enviar a la pantalla los datos de la ultima búsqueda
+                mv.addObject("lastSearchTareaRequest",searchTareaController.getLastSearchTareaRequest());
             } else {
                 //Se manda a la vista el número de contrato de la primera tarea
             	mv = new ModelAndView("buscartarea", "ctrNo", tareas.get(0).getNumeroContrato());
@@ -101,6 +105,8 @@ public class EntryPointController extends TaskController {
         } else {
             //Sin tarea ni instalación vamos a buscar tarea
             mv = new ModelAndView("buscartarea");
+            //Enviar a la pantalla los datos de la ultima búsqueda
+            mv.addObject("lastSearchTareaRequest",searchTareaController.getLastSearchTareaRequest());
         }
 
         return mv;

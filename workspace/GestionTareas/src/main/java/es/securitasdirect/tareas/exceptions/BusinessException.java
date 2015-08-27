@@ -15,15 +15,7 @@ public class BusinessException extends RuntimeException {
 
     //Internacionalizar estos textos tal y como aparecen
 	public static enum ErrorCode {
-		DEFINICIONCERTIFICADOMEDICO_REPETIDO,
-        DEFINICIONCERTIFICADOADMINISTRATIVO_REPETIDO,
-        GESTORFIRMA_ERROR,
-        DEFINICION_FORMULARIO_DINAMICO,
-        CGCOM_SERVICE,
-        EMAIL_SERVICE,
-        JASPER_REPORTS,
-        COMPILE_JASPER_REPORTS,
-        NOTIFICACION_ELECTRONICA_SERVICE
+		ERROR_CREATE_SESSION_INFOPONT
     };
 	
 	private ErrorCode errorCode = null;

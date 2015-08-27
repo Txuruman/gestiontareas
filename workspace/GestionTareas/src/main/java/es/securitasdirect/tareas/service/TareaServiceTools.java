@@ -427,7 +427,10 @@ public class TareaServiceTools {
         tarea.setNumeroContrato(parameters.get(TaskServiceParams.TAREA_COMMONS_N_CONTRATO));
         tarea.setId(toIntegerFromMap(parameters.get(TaskServiceParams.TAREA_COMMONS_ID)));
         tarea.setCampana(parameters.get(TaskServiceParams.TAREA_CAMPAIGN));
-        tarea.setFechaReprogramacion(toDateFromMap(parameters.get(TaskServiceParams.TAREA_COMMONS_FECHA_REPROGRAMACION)));
+        //La fecha está en epoc http://www.epochconverter.com/
+        if (parameters.get(TaskServiceParams.TAREA_COMMONS_FECHA_REPROGRAMACION)!=null && !parameters.get(TaskServiceParams.TAREA_COMMONS_FECHA_REPROGRAMACION).isEmpty()) {
+            tarea.setFechaReprogramacion(new Date(Long.valueOf(parameters.get(TaskServiceParams.TAREA_COMMONS_FECHA_REPROGRAMACION)) * 1000));
+        }
         return tarea;
     }
 

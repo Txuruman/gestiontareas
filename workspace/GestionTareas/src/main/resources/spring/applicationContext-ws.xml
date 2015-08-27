@@ -85,4 +85,10 @@
                   address="http://10.2.144.63:9763/services/SP_IBSCommlogData?wsdl"
             />
     <!-- TODO Parametro por JNDI, fichero configuracion????? -->
+
+    <jaxws:client name="wsInfopoint"
+                  serviceClass="org.tempuri.FunSoap"
+                  address="http://es1preinfo01v/wsInfopoint/Fun.asmx?WSDL"
+            />
+    <!-- TODO Parametro por JNDI, fichero configuracion????? -->
 </beans>

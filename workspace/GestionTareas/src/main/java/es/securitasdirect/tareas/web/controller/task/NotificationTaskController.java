@@ -162,12 +162,19 @@ public class NotificationTaskController extends TaskController {
         LOGGER.debug("Modificar tarea\nRequest: {}", request);
         BaseResponse response = new BaseResponse();
         Agent agent=agentController.getAgent();
-      ///////  boolean ok=tareaService.saveTask(agent,request.getTask(), request.getInstallation());
-//        if (ok) {
-//            response.success(messageUtil.getProperty("notificationTask.modify.success"));
-//        } else {
-//            response.danger(messageUtil.getProperty("notificationTask.modify.error"));
-//        }
+        try {
+            boolean ok = tareaService.saveTask(agent, request.getTask(), request.getInstallation());
+            if (ok) {
+                response.success(messageUtil.getProperty("notificationTask.modify.success"));
+            } else {
+                response.danger(messageUtil.getProperty("notificationTask.modify.error"));
+            }
+        }
+        catch (Exception e) {
+          response = processException(e);
+        }
+
+
         LOGGER.debug("Modificación de tarea\nResponse:{}", response);
         return response;
     }
