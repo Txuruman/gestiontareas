@@ -272,35 +272,77 @@ public class TareaAviso extends Tarea {
 		sb.append('}');
 		return sb.toString();
 	}
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((datosContacto == null) ? 0 : datosContacto.hashCode());
-		result = prime * result + ((estado == null) ? 0 : estado.hashCode());
-		result = prime * result + ((fechaCierre == null) ? 0 : fechaCierre.hashCode());
-		result = prime * result + ((fechaCreacion == null) ? 0 : fechaCreacion.hashCode());
-		result = prime * result + ((horarioDesde == null) ? 0 : horarioDesde.hashCode());
-		result = prime * result + ((horarioHasta == null) ? 0 : horarioHasta.hashCode());
-		result = prime * result + ((idAviso == null) ? 0 : idAviso.hashCode());
-		result = prime * result + ((identificativoAvisoTarea == null) ? 0 : identificativoAvisoTarea.hashCode());
-		result = prime * result + ((motivo1 == null) ? 0 : motivo1.hashCode());
-		result = prime * result + ((motivo2 == null) ? 0 : motivo2.hashCode());
-		result = prime * result + ((motivo3 == null) ? 0 : motivo3.hashCode());
-		result = prime * result + ((nota == null) ? 0 : nota.hashCode());
-		result = prime * result + ((numeroInstalacion == null) ? 0 : numeroInstalacion.hashCode());
-		result = prime * result + ((observaciones == null) ? 0 : observaciones.hashCode());
-		result = prime * result + ((requeridoPor == null) ? 0 : requeridoPor.hashCode());
-		result = prime * result + ((responsableCierre == null) ? 0 : responsableCierre.hashCode());
-		result = prime * result + ((tipoAviso1 == null) ? 0 : tipoAviso1.hashCode());
-		result = prime * result + ((tipoAviso2 == null) ? 0 : tipoAviso2.hashCode());
-		result = prime * result + ((tipoAviso3 == null) ? 0 : tipoAviso3.hashCode());
-		result = prime * result + ((titular == null) ? 0 : titular.hashCode());
-		return result;
-	}
 
-	@Override
-	public boolean equals(Object obj) {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        TareaAviso that = (TareaAviso) o;
+
+        if (closing != null ? !closing.equals(that.closing) : that.closing != null) return false;
+        if (datosAdicionalesCierre != null ? !datosAdicionalesCierre.equals(that.datosAdicionalesCierre) : that.datosAdicionalesCierre != null)
+            return false;
+        if (datosContacto != null ? !datosContacto.equals(that.datosContacto) : that.datosContacto != null)
+            return false;
+        if (estado != null ? !estado.equals(that.estado) : that.estado != null) return false;
+        if (fechaCierre != null ? !fechaCierre.equals(that.fechaCierre) : that.fechaCierre != null) return false;
+        if (fechaCreacion != null ? !fechaCreacion.equals(that.fechaCreacion) : that.fechaCreacion != null)
+            return false;
+        if (horarioDesde != null ? !horarioDesde.equals(that.horarioDesde) : that.horarioDesde != null) return false;
+        if (horarioHasta != null ? !horarioHasta.equals(that.horarioHasta) : that.horarioHasta != null) return false;
+        if (idAviso != null ? !idAviso.equals(that.idAviso) : that.idAviso != null) return false;
+        if (identificativoAvisoTarea != null ? !identificativoAvisoTarea.equals(that.identificativoAvisoTarea) : that.identificativoAvisoTarea != null)
+            return false;
+        if (motivo1 != null ? !motivo1.equals(that.motivo1) : that.motivo1 != null) return false;
+        if (motivo2 != null ? !motivo2.equals(that.motivo2) : that.motivo2 != null) return false;
+        if (motivo3 != null ? !motivo3.equals(that.motivo3) : that.motivo3 != null) return false;
+        if (nota != null ? !nota.equals(that.nota) : that.nota != null) return false;
+        if (numeroInstalacion != null ? !numeroInstalacion.equals(that.numeroInstalacion) : that.numeroInstalacion != null)
+            return false;
+        if (observaciones != null ? !observaciones.equals(that.observaciones) : that.observaciones != null)
+            return false;
+        if (requeridoPor != null ? !requeridoPor.equals(that.requeridoPor) : that.requeridoPor != null) return false;
+        if (responsableCierre != null ? !responsableCierre.equals(that.responsableCierre) : that.responsableCierre != null)
+            return false;
+        if (tipoAviso1 != null ? !tipoAviso1.equals(that.tipoAviso1) : that.tipoAviso1 != null) return false;
+        if (tipoAviso2 != null ? !tipoAviso2.equals(that.tipoAviso2) : that.tipoAviso2 != null) return false;
+        if (tipoAviso3 != null ? !tipoAviso3.equals(that.tipoAviso3) : that.tipoAviso3 != null) return false;
+        if (titular != null ? !titular.equals(that.titular) : that.titular != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (idAviso != null ? idAviso.hashCode() : 0);
+        result = 31 * result + (tipoAviso1 != null ? tipoAviso1.hashCode() : 0);
+        result = 31 * result + (tipoAviso2 != null ? tipoAviso2.hashCode() : 0);
+        result = 31 * result + (tipoAviso3 != null ? tipoAviso3.hashCode() : 0);
+        result = 31 * result + (motivo1 != null ? motivo1.hashCode() : 0);
+        result = 31 * result + (motivo2 != null ? motivo2.hashCode() : 0);
+        result = 31 * result + (motivo3 != null ? motivo3.hashCode() : 0);
+        result = 31 * result + (observaciones != null ? observaciones.hashCode() : 0);
+        result = 31 * result + (identificativoAvisoTarea != null ? identificativoAvisoTarea.hashCode() : 0);
+        result = 31 * result + (numeroInstalacion != null ? numeroInstalacion.hashCode() : 0);
+        result = 31 * result + (titular != null ? titular.hashCode() : 0);
+        result = 31 * result + (requeridoPor != null ? requeridoPor.hashCode() : 0);
+        result = 31 * result + (datosContacto != null ? datosContacto.hashCode() : 0);
+        result = 31 * result + (fechaCreacion != null ? fechaCreacion.hashCode() : 0);
+        result = 31 * result + (estado != null ? estado.hashCode() : 0);
+        result = 31 * result + (horarioDesde != null ? horarioDesde.hashCode() : 0);
+        result = 31 * result + (horarioHasta != null ? horarioHasta.hashCode() : 0);
+        result = 31 * result + (closing != null ? closing.hashCode() : 0);
+        result = 31 * result + (datosAdicionalesCierre != null ? datosAdicionalesCierre.hashCode() : 0);
+        result = 31 * result + (fechaCierre != null ? fechaCierre.hashCode() : 0);
+        result = 31 * result + (nota != null ? nota.hashCode() : 0);
+        result = 31 * result + (responsableCierre != null ? responsableCierre.hashCode() : 0);
+        return result;
+    }
+
+    public boolean equalsSinDatosCierre(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -308,8 +350,6 @@ public class TareaAviso extends Tarea {
 		if (getClass() != obj.getClass())
 			return false;
 		TareaAviso other = (TareaAviso) obj;
-		if (!datosAdicionalesCierre.equals(other.datosAdicionalesCierre))
-			return false;
 		if (datosContacto == null) {
 			if (other.datosContacto != null)
 				return false;
@@ -412,6 +452,130 @@ public class TareaAviso extends Tarea {
 			return false;
 		return true;
 	}
+
+
+    public boolean equalsConDatosCierre(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        TareaAviso other = (TareaAviso) obj;
+        if (datosContacto == null) {
+            if (other.datosContacto != null)
+                return false;
+        } else if (!datosContacto.equals(other.datosContacto))
+            return false;
+        if (estado == null) {
+            if (other.estado != null)
+                return false;
+        } else if (!estado.equals(other.estado))
+            return false;
+        if (fechaCierre == null) {
+            if (other.fechaCierre != null)
+                return false;
+        } else if (!fechaCierre.equals(other.fechaCierre))
+            return false;
+        if (fechaCreacion == null) {
+            if (other.fechaCreacion != null)
+                return false;
+        } else if (!fechaCreacion.equals(other.fechaCreacion))
+            return false;
+        if (horarioDesde == null) {
+            if (other.horarioDesde != null)
+                return false;
+        } else if (!horarioDesde.equals(other.horarioDesde))
+            return false;
+        if (horarioHasta == null) {
+            if (other.horarioHasta != null)
+                return false;
+        } else if (!horarioHasta.equals(other.horarioHasta))
+            return false;
+        if (idAviso == null) {
+            if (other.idAviso != null)
+                return false;
+        } else if (!idAviso.equals(other.idAviso))
+            return false;
+        if (identificativoAvisoTarea == null) {
+            if (other.identificativoAvisoTarea != null)
+                return false;
+        } else if (!identificativoAvisoTarea.equals(other.identificativoAvisoTarea))
+            return false;
+        if (motivo1 == null) {
+            if (other.motivo1 != null)
+                return false;
+        } else if (!motivo1.equals(other.motivo1))
+            return false;
+        if (motivo2 == null) {
+            if (other.motivo2 != null)
+                return false;
+        } else if (!motivo2.equals(other.motivo2))
+            return false;
+        if (motivo3 == null) {
+            if (other.motivo3 != null)
+                return false;
+        } else if (!motivo3.equals(other.motivo3))
+            return false;
+        if (nota == null) {
+            if (other.nota != null)
+                return false;
+        } else if (!nota.equals(other.nota))
+            return false;
+        if (numeroInstalacion == null) {
+            if (other.numeroInstalacion != null)
+                return false;
+        } else if (!numeroInstalacion.equals(other.numeroInstalacion))
+            return false;
+        if (observaciones == null) {
+            if (other.observaciones != null)
+                return false;
+        } else if (!observaciones.equals(other.observaciones))
+            return false;
+        if (requeridoPor == null) {
+            if (other.requeridoPor != null)
+                return false;
+        } else if (!requeridoPor.equals(other.requeridoPor))
+            return false;
+        if (responsableCierre == null) {
+            if (other.responsableCierre != null)
+                return false;
+        } else if (!responsableCierre.equals(other.responsableCierre))
+            return false;
+        if (tipoAviso1 == null) {
+            if (other.tipoAviso1 != null)
+                return false;
+        } else if (!tipoAviso1.equals(other.tipoAviso1))
+            return false;
+        if (tipoAviso2 == null) {
+            if (other.tipoAviso2 != null)
+                return false;
+        } else if (!tipoAviso2.equals(other.tipoAviso2))
+            return false;
+        if (tipoAviso3 == null) {
+            if (other.tipoAviso3 != null)
+                return false;
+        } else if (!tipoAviso3.equals(other.tipoAviso3))
+            return false;
+        if (titular == null) {
+            if (other.titular != null)
+                return false;
+        } else if (!titular.equals(other.titular))
+            return false;
+        if (closing == null) {
+            if (other.closing != null)
+                return false;
+        } else if (!closing.equals(other.closing))
+            return false;
+        if (datosAdicionalesCierre == null) {
+            if (other.datosAdicionalesCierre != null)
+                return false;
+        } else if (!datosAdicionalesCierre.equals(other.datosAdicionalesCierre))
+            return false;
+
+        return true;
+    }
+
 } 
 
 
