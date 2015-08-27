@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:types>
+        <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+            <s:element name="ValidarSesion">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="Servidor" type="s:string" />
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="ValidarSesionResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="ValidarSesionResult" type="s:string" />
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="ValidarProceso">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="Servidor" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="Proceso" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="Usuario" type="s:string" />
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="ValidarProcesoResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="ValidarProcesoResult" type="s:string" />
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="ListaUserGrp">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="strIp" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="strUser" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="strGrp" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="strBusUser" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="strProc" type="s:string" />
+                        <s:element minOccurs="1" maxOccurs="1" name="intAdmin" type="s:int" />
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="ListaUserGrpResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="ListaUserGrpResult">
+                            <s:complexType mixed="true">
+                                <s:sequence>
+                                    <s:any />
+                                </s:sequence>
+                            </s:complexType>
+                        </s:element>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="createSession">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="idUser" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="logonUser" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="clientIp" type="s:string" />
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="createSessionResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="createSessionResult">
+                            <s:complexType mixed="true">
+                                <s:sequence>
+                                    <s:any />
+                                </s:sequence>
+                            </s:complexType>
+                        </s:element>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="closeSesion">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+                        <s:element minOccurs="0" maxOccurs="1" name="clientIp" type="s:string" />
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="closeSesionResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="closeSesionResult">
+                            <s:complexType mixed="true">
+                                <s:sequence>
+                                    <s:any />
+                                </s:sequence>
+                            </s:complexType>
+                        </s:element>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="string" nillable="true" type="s:string" />
+        </s:schema>
+    </wsdl:types>
+    <wsdl:message name="ValidarSesionSoapIn">
+        <wsdl:part name="parameters" element="tns:ValidarSesion" />
+    </wsdl:message>
+    <wsdl:message name="ValidarSesionSoapOut">
+        <wsdl:part name="parameters" element="tns:ValidarSesionResponse" />
+    </wsdl:message>
+    <wsdl:message name="ValidarProcesoSoapIn">
+        <wsdl:part name="parameters" element="tns:ValidarProceso" />
+    </wsdl:message>
+    <wsdl:message name="ValidarProcesoSoapOut">
+        <wsdl:part name="parameters" element="tns:ValidarProcesoResponse" />
+    </wsdl:message>
+    <wsdl:message name="ListaUserGrpSoapIn">
+        <wsdl:part name="parameters" element="tns:ListaUserGrp" />
+    </wsdl:message>
+    <wsdl:message name="ListaUserGrpSoapOut">
+        <wsdl:part name="parameters" element="tns:ListaUserGrpResponse" />
+    </wsdl:message>
+    <wsdl:message name="createSessionSoapIn">
+        <wsdl:part name="parameters" element="tns:createSession" />
+    </wsdl:message>
+    <wsdl:message name="createSessionSoapOut">
+        <wsdl:part name="parameters" element="tns:createSessionResponse" />
+    </wsdl:message>
+    <wsdl:message name="closeSesionSoapIn">
+        <wsdl:part name="parameters" element="tns:closeSesion" />
+    </wsdl:message>
+    <wsdl:message name="closeSesionSoapOut">
+        <wsdl:part name="parameters" element="tns:closeSesionResponse" />
+    </wsdl:message>
+    <wsdl:message name="ValidarSesionHttpGetIn">
+        <wsdl:part name="ticket" type="s:string" />
+        <wsdl:part name="Servidor" type="s:string" />
+    </wsdl:message>
+    <wsdl:message name="ValidarSesionHttpGetOut">
+        <wsdl:part name="Body" element="tns:string" />
+    </wsdl:message>
+    <wsdl:message name="ValidarProcesoHttpGetIn">
+        <wsdl:part name="ticket" type="s:string" />
+        <wsdl:part name="Servidor" type="s:string" />
+        <wsdl:part name="Proceso" type="s:string" />
+        <wsdl:part name="Usuario" type="s:string" />
+    </wsdl:message>
+    <wsdl:message name="ValidarProcesoHttpGetOut">
+        <wsdl:part name="Body" element="tns:string" />
+    </wsdl:message>
+    <wsdl:message name="ListaUserGrpHttpGetIn">
+        <wsdl:part name="strIp" type="s:string" />
+        <wsdl:part name="strUser" type="s:string" />
+        <wsdl:part name="strGrp" type="s:string" />
+        <wsdl:part name="strBusUser" type="s:string" />
+        <wsdl:part name="strProc" type="s:string" />
+        <wsdl:part name="intAdmin" type="s:string" />
+    </wsdl:message>
+    <wsdl:message name="ListaUserGrpHttpGetOut">
+        <wsdl:part name="Body" />
+    </wsdl:message>
+    <wsdl:message name="createSessionHttpGetIn">
+        <wsdl:part name="idUser" type="s:string" />
+        <wsdl:part name="logonUser" type="s:string" />
+        <wsdl:part name="clientIp" type="s:string" />
+    </wsdl:message>
+    <wsdl:message name="createSessionHttpGetOut">
+        <wsdl:part name="Body" />
+    </wsdl:message>
+    <wsdl:message name="closeSesionHttpGetIn">
+        <wsdl:part name="ticket" type="s:string" />
+        <wsdl:part name="clientIp" type="s:string" />
+    </wsdl:message>
+    <wsdl:message name="closeSesionHttpGetOut">
+        <wsdl:part name="Body" />
+    </wsdl:message>
+    <wsdl:message name="ValidarSesionHttpPostIn">
+        <wsdl:part name="ticket" type="s:string" />
+        <wsdl:part name="Servidor" type="s:string" />
+    </wsdl:message>
+    <wsdl:message name="ValidarSesionHttpPostOut">
+        <wsdl:part name="Body" element="tns:string" />
+    </wsdl:message>
+    <wsdl:message name="ValidarProcesoHttpPostIn">
+        <wsdl:part name="ticket" type="s:string" />
+        <wsdl:part name="Servidor" type="s:string" />
+        <wsdl:part name="Proceso" type="s:string" />
+        <wsdl:part name="Usuario" type="s:string" />
+    </wsdl:message>
+    <wsdl:message name="ValidarProcesoHttpPostOut">
+        <wsdl:part name="Body" element="tns:string" />
+    </wsdl:message>
+    <wsdl:message name="ListaUserGrpHttpPostIn">
+        <wsdl:part name="strIp" type="s:string" />
+        <wsdl:part name="strUser" type="s:string" />
+        <wsdl:part name="strGrp" type="s:string" />
+        <wsdl:part name="strBusUser" type="s:string" />
+        <wsdl:part name="strProc" type="s:string" />
+        <wsdl:part name="intAdmin" type="s:string" />
+    </wsdl:message>
+    <wsdl:message name="ListaUserGrpHttpPostOut">
+        <wsdl:part name="Body" />
+    </wsdl:message>
+    <wsdl:message name="createSessionHttpPostIn">
+        <wsdl:part name="idUser" type="s:string" />
+        <wsdl:part name="logonUser" type="s:string" />
+        <wsdl:part name="clientIp" type="s:string" />
+    </wsdl:message>
+    <wsdl:message name="createSessionHttpPostOut">
+        <wsdl:part name="Body" />
+    </wsdl:message>
+    <wsdl:message name="closeSesionHttpPostIn">
+        <wsdl:part name="ticket" type="s:string" />
+        <wsdl:part name="clientIp" type="s:string" />
+    </wsdl:message>
+    <wsdl:message name="closeSesionHttpPostOut">
+        <wsdl:part name="Body" />
+    </wsdl:message>
+    <wsdl:portType name="FunSoap">
+        <wsdl:operation name="ValidarSesion">
+            <wsdl:input message="tns:ValidarSesionSoapIn" />
+            <wsdl:output message="tns:ValidarSesionSoapOut" />
+        </wsdl:operation>
+        <wsdl:operation name="ValidarProceso">
+            <wsdl:input message="tns:ValidarProcesoSoapIn" />
+            <wsdl:output message="tns:ValidarProcesoSoapOut" />
+        </wsdl:operation>
+        <wsdl:operation name="ListaUserGrp">
+            <wsdl:input message="tns:ListaUserGrpSoapIn" />
+            <wsdl:output message="tns:ListaUserGrpSoapOut" />
+        </wsdl:operation>
+        <wsdl:operation name="createSession">
+            <wsdl:input message="tns:createSessionSoapIn" />
+            <wsdl:output message="tns:createSessionSoapOut" />
+        </wsdl:operation>
+        <wsdl:operation name="closeSesion">
+            <wsdl:input message="tns:closeSesionSoapIn" />
+            <wsdl:output message="tns:closeSesionSoapOut" />
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="FunSoap" type="tns:FunSoap">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+        <wsdl:operation name="ValidarSesion">
+            <soap:operation soapAction="http://tempuri.org/ValidarSesion" style="document" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ValidarProceso">
+            <soap:operation soapAction="http://tempuri.org/ValidarProceso" style="document" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ListaUserGrp">
+            <soap:operation soapAction="http://tempuri.org/ListaUserGrp" style="document" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="createSession">
+            <soap:operation soapAction="http://tempuri.org/createSession" style="document" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="closeSesion">
+            <soap:operation soapAction="http://tempuri.org/closeSesion" style="document" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="Fun">
+        <wsdl:port name="FunSoap" binding="tns:FunSoap">
+            <soap:address location="http://es1preinfo01v/wsInfopoint/Fun.asmx" />
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
