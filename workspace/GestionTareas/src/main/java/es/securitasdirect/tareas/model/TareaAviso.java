@@ -76,6 +76,11 @@ public class TareaAviso extends Tarea {
 	 */
 	String responsableCierre;
 
+    /**
+     * Telefono de la Tarea de Aviso, que puede ser distinto al telefono de la Tarea
+     */
+    private String telefonoAviso;
+
 	public String getHorarioDesde() {
 		return horarioDesde;
 	}
@@ -244,6 +249,14 @@ public class TareaAviso extends Tarea {
 		this.responsableCierre = responsableCierre;
 	}
 
+    public String getTelefonoAviso() {
+        return telefonoAviso;
+    }
+
+    public void setTelefonoAviso(String telefonoAviso) {
+        this.telefonoAviso = telefonoAviso;
+    }
+
 	@Override
 	public String toString() {
 		final StringBuffer sb = new StringBuffer("TareaAviso{");
@@ -269,6 +282,7 @@ public class TareaAviso extends Tarea {
 		sb.append(", fechaCierre=").append(fechaCierre);
 		sb.append(", nota='").append(nota).append('\'');
 		sb.append(", responsableCierre='").append(responsableCierre).append('\'');
+        sb.append(", telefonoAviso='").append(telefonoAviso).append('\'');
 		sb.append('}');
 		return sb.toString();
 	}
@@ -310,6 +324,7 @@ public class TareaAviso extends Tarea {
         if (tipoAviso2 != null ? !tipoAviso2.equals(that.tipoAviso2) : that.tipoAviso2 != null) return false;
         if (tipoAviso3 != null ? !tipoAviso3.equals(that.tipoAviso3) : that.tipoAviso3 != null) return false;
         if (titular != null ? !titular.equals(that.titular) : that.titular != null) return false;
+        if (telefonoAviso != null ? !telefonoAviso.equals(that.telefonoAviso) : that.telefonoAviso != null) return false;
 
         return true;
     }
@@ -339,6 +354,7 @@ public class TareaAviso extends Tarea {
         result = 31 * result + (fechaCierre != null ? fechaCierre.hashCode() : 0);
         result = 31 * result + (nota != null ? nota.hashCode() : 0);
         result = 31 * result + (responsableCierre != null ? responsableCierre.hashCode() : 0);
+        result = 31 * result + (telefonoAviso != null ? telefonoAviso.hashCode() : 0);
         return result;
     }
 
@@ -446,10 +462,16 @@ public class TareaAviso extends Tarea {
 		} else if (!tipoAviso3.equals(other.tipoAviso3))
 			return false;
 		if (titular == null) {
-			if (other.titular != null)
-				return false;
-		} else if (!titular.equals(other.titular))
-			return false;
+            if (other.titular != null)
+                return false;
+        } else if (!titular.equals(other.titular))
+            return false;
+        if (telefonoAviso == null) {
+            if (other.telefonoAviso != null)
+                return false;
+        } else if (!telefonoAviso.equals(other.telefonoAviso))
+            return false;
+
 		return true;
 	}
 
@@ -561,6 +583,11 @@ public class TareaAviso extends Tarea {
             if (other.titular != null)
                 return false;
         } else if (!titular.equals(other.titular))
+            return false;
+        if (telefonoAviso == null) {
+            if (other.telefonoAviso != null)
+                return false;
+        } else if (!telefonoAviso.equals(other.telefonoAviso))
             return false;
         if (closing == null) {
             if (other.closing != null)
