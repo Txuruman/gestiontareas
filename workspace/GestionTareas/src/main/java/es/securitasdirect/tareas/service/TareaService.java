@@ -211,6 +211,8 @@ public class TareaService {
             }
         }
         boolean delayed=false;
+
+        //2. Retrasar Tarea
         //Comprobamos que la tarea no esté en memoria, para ello volvemos a buscar
         TareaAviso tarea2=(TareaAviso) queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
         if (!tarea2.isRetrieved()) {
