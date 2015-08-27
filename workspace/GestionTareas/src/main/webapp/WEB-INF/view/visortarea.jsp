@@ -14,17 +14,13 @@
 <head>
     <title><spring:message code="${titulo}"/></title>
     <app:commonImports/>
-    <script src="${pageContext.request.contextPath}/resources/app/maincontrollers/taskViewer-ctrl.js"></script>
-
-
-
 </head>
 
 
 <body>
 
 
-<div class="visoTareaContainer" ng-controller="taskviewer-ctrl" ng-init="tareaId='${tareaId}';callingList='${callingList}';">
+<div class="visoTareaContainer" ng-init="tareaId='${tareaId}';callingList='${callingList}';">
     <app:messages/>
 
     <div class="row">

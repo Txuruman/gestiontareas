@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 
 @Controller
-@RequestMapping("/createtask.htm")
+@RequestMapping("/createtask")
 public class CreateTaskController extends BaseController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CreateTaskController.class);
