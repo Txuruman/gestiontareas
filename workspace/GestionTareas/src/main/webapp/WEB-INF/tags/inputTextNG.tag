@@ -16,6 +16,8 @@
 <%@ attribute name="form" required="false"  description="form of the input" %>
 <%@ attribute name="only" required="false"  description="only numbers inputText" %>
 <%@ attribute name="size" required="false"  description="only numbers inputText" %>
+<%@ attribute name="hour" required="false"  description="only numbers inputText" %>
+<%@ attribute name="ng_disabled" required="false"  description="input ng-disabled" %>
 
 <c:if test="${cell_label == null}">
     <c:set var="cell_label" value="4"/>
@@ -73,10 +75,16 @@
            		</c:if>
            		<c:if test="${not empty size}">
            			number-size="<c:out value="${size}"/>"
-           		</c:if>		/>
+           		</c:if>
+           		<c:if test="${not empty hour}">
+           			hour="<c:out value="${hour}"/>"
+           		</c:if>
+           		<c:if test="${not empty ng_disabled}">
+           			ng-disabled="<c:out value="${ng_disabled}"/>"
+           		</c:if>			/>
            		  
            		<c:if test="${not empty required}">
-           			<span class="error" ng-show="${form}.${id}.$error.required"><spring:message code="error.notext"/></span>
+           			<span class="error" ng-show="${form}.${id}.$error.required && mostrarAvisos!=false"><spring:message code="error.notext"/></span>
            		</c:if> 	 
            		  
     </div>

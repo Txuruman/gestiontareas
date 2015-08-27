@@ -341,17 +341,56 @@ app.directive('onlyNumber', function() {
     return {
         restrict: 'A',
         scope: {
-          numberSize: '='
+          numberSize: '=',
+          hour:'='
         },
         link:function link(scope, element){
         	element.keypress(function(event){
-        		if(event.keyCode<48 || event.keyCode>57){
-            		event.preventDefault();
-            		//element.parent().append("<div class='avisoInput'>Sólo números</div>");
-            	}
-            	if (element.val().length == scope.numberSize) {
-            		event.preventDefault();
+        		if (scope.hour==true) {				
+	        		if (element.val().length==0) {
+	        			if(event.keyCode<48 || event.keyCode>50){
+	        				event.preventDefault();
+	        			}
+					}else if (element.val().length==1) {
+						if (element.val()=="0") {
+							if(event.keyCode<48 || event.keyCode>57){
+		        				event.preventDefault();
+		        			}
+						}else if (element.val()=="1") {
+							if(event.keyCode<48 || event.keyCode>50){
+		        				event.preventDefault();
+		        			}
+						}else if (element.val()=="2") {
+							if(event.keyCode<48 || event.keyCode>51){
+		        				event.preventDefault();
+		        			}
+						}	
+					}else if (element.val().length==2) {
+						if(event.keyCode!=58){
+	        				event.preventDefault();
+	        			}
+					}else if (element.val().length==3){
+						if(event.keyCode<48 || event.keyCode>53){
+	        				event.preventDefault();
+	        			}
+					}else if (element.val().length==4){
+						if(event.keyCode<48 || event.keyCode>57){
+	        				event.preventDefault();
+	        			}
+					}else{
+						event.preventDefault();
+					}
+        		}else{
+        			if(event.keyCode<48 || event.keyCode>57){
+                		event.preventDefault();
+                		//element.parent().append("<div class='avisoInput'>Sólo números</div>");
+                	}
+                	if (element.val().length == scope.numberSize) {
+                		event.preventDefault();
+            		}
         		}
+        		element.focus();
+        		
         	})
         }
       }

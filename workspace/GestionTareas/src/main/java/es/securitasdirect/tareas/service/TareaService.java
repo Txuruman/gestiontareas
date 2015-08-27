@@ -280,7 +280,11 @@ public class TareaService {
         }
         return delayed;
     }
-
+    public boolean createTask(Agent agent, Tarea tarea) {
+    	LOGGER.debug("Creating task: {}", tarea);
+    	//TODO: Crear Tarea
+    	return true;
+    }
     public boolean createTask(Agent agent, TareaMantenimiento tareaMantenimiento) {
         LOGGER.debug("Creating task: {}", tareaMantenimiento);
         boolean result;
