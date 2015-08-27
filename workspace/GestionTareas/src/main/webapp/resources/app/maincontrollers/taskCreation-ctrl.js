@@ -46,7 +46,7 @@ app.controller('taskCreation', function ($scope, $http, CommonService, $modal, $
         //$log.debug("Creating task request: ",createTaskRequest);
         $http({
             method: 'PUT',
-            url: 'createtask.htm/createtask',
+            url: 'createtask/createtask',
             data: createTaskRequest
         })
             .success(function (data, status, headers, config) {

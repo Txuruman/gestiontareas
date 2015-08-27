@@ -103,7 +103,10 @@ public class GestionSenalesServiceTest {
      */
     @Test
     public void getInstallation() throws DataServiceFault {
-        GestionSenalesService.MixedInstallationData mixedInstallationData = gestionSenalesService.getInstallationData(128360);
+        GestionSenalesService.MixedInstallationData mixedInstallationData = gestionSenalesService.getInstallationData(1732839);
+        assertThat(mixedInstallationData,notNullValue());
+        assertThat(mixedInstallationData.installationDataResultInstallation,notNullValue());
+        assertThat(mixedInstallationData.installationDataResultTareas,notNullValue());
         LOGGER.info("installationData: {}",mixedInstallationData);
     }
 

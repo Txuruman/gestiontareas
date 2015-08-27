@@ -327,7 +327,10 @@ public class GestionSenalesService {
                 return false;
             }
         }
-        String phoneCountry = "SPAIN"; //TODO PENDIENTE DE DEFINIR
+
+        //Segun correo de Jesus:Otra cosa. Me ha dicho que en XML que llega de la señal está el país, para el envío del SMS.
+       // Eso incluye el prefijo del teléfono.
+        String phoneCountry = message.getLanguageLocationKey();
         if (destination!=null && !destination.startsWith("+")) {
             String contryPrefix = countryPhoneCodes.get(phoneCountry);
             if (contryPrefix==null) {
@@ -480,25 +483,30 @@ public class GestionSenalesService {
     protected MixedInstallationData getInstallationData(Integer insNumberE) throws DataServiceFault {
         MixedInstallationData mixedInstallation = new MixedInstallationData();
 
-        //1. Consulta Instalacion
-        //Como segundo parametro metemos también el número de instalación , parece que con eso devuelve datos de número de contrato
-        GetInstallationDataInput queryInput = new GetInstallationDataInput();
-        queryInput.setSIns(insNumberE);
-        queryInput.setSCtr(insNumberE);
-        GetInstallationDataResults installationDataTareaResult = wsSpAioTareas2.getInstallationData(queryInput);
-        if (installationDataTareaResult != null && installationDataTareaResult != null && !installationDataTareaResult.getGetInstallationDataResult().isEmpty()) {
-            mixedInstallation.installationDataResultTareas = installationDataTareaResult.getGetInstallationDataResult().get(0);
-        } else {
-            LOGGER.error("Can't find installation data for insNumber {} in wsSpAioTareas2", insNumberE);
-            return null;
-        }
 
-        //2.Consulta Instalacion
+        //1.Consulta Instalacion InstallationData
         List<Mainstallationdataresult> wsSPInstallationMonDataInstallationData = wsSPInstallationMonData.getInstallationData(insNumberE.toString());
         if (wsSPInstallationMonDataInstallationData != null && !wsSPInstallationMonDataInstallationData.isEmpty()) {
             mixedInstallation.installationDataResultInstallation = wsSPInstallationMonDataInstallationData.get(0);
         } else {
             LOGGER.warn("Can't find installation data for insNumber {} in wsSPInstallationMonData", insNumberE);
+            return null;
+        }
+
+        //2. Consulta Instalacion Tareas2
+        //Como segundo parametro metemos también el número de instalación , parece que con eso devuelve datos de número de contrato
+        GetInstallationDataInput queryInput = new GetInstallationDataInput();
+        if (mixedInstallation.installationDataResultInstallation.getSIns()!=null) {
+            queryInput.setSIns(mixedInstallation.installationDataResultInstallation.getSIns().intValue());
+            queryInput.setSCtr(mixedInstallation.installationDataResultInstallation.getSIns().intValue());
+            GetInstallationDataResults installationDataTareaResult = wsSpAioTareas2.getInstallationData(queryInput);
+            if (installationDataTareaResult != null && installationDataTareaResult != null && !installationDataTareaResult.getGetInstallationDataResult().isEmpty()) {
+                mixedInstallation.installationDataResultTareas = installationDataTareaResult.getGetInstallationDataResult().get(0);
+            } else {
+                LOGGER.error("Can't find installation data for insNumber {} in wsSpAioTareas2", insNumberE);
+            }
+        } else {
+            LOGGER.error("Can't find installation number from InstallationMonData");
         }
 
         return mixedInstallation;
