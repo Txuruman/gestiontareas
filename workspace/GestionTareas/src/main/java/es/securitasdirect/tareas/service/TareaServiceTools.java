@@ -114,11 +114,13 @@ public class TareaServiceTools {
 
             if (tarea!=null) {
                 //No utilizamos loadTareaCommons para tener cuidado de no sobreescribir datos de la consulta del AVISO con lo que tenemos en la TAREA
+                tarea.setTelefono(responseMap.get(TaskServiceParams.TAREA_COMMONS_TELEFONO));
                 tarea.setCallingList(responseMap.get(TaskServiceParams.TAREA_COMMONS_CALLING_LIST));
                 tarea.setNumeroContrato(responseMap.get(TaskServiceParams.TAREA_COMMONS_N_CONTRATO));
                 tarea.setId(toIntegerFromMap(responseMap.get(TaskServiceParams.TAREA_COMMONS_ID)));
                 tarea.setCampana(responseMap.get(TaskServiceParams.TAREA_CAMPAIGN));
                 tarea.setFechaReprogramacion(toDateFromMap(responseMap.get(TaskServiceParams.TAREA_COMMONS_FECHA_REPROGRAMACION)));
+
             } else {
                 LOGGER.error("Ticket not found by  id {}" , idAviso);
             }

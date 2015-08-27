@@ -99,7 +99,7 @@ public class AvisoService {
         createComm.setlName1(""); // constante
         createComm.setlName2(""); // constante
         createComm.setInChannel("TELF"); // constante
-        createComm.setValue(tareaAviso.getTelefono());
+        createComm.setValue(tareaAviso.getTelefonoAviso());
         createComm.setComent(""); // constante
         createComm.setOutChannel(""); // constante
         createComm.setFrom(tareaAviso.getHorarioDesde());
@@ -256,7 +256,7 @@ public class AvisoService {
         comm.setLName1(""); // constante
         comm.setLName2(""); // constante
         comm.setInChannel("TELF"); // constante
-        comm.setValue(tareaAviso.getTelefono());
+        comm.setValue(tareaAviso.getTelefonoAviso());
         comm.setComent(""); // constante
         comm.setOutChannel(""); // constante
         comm.setFrom(Integer.valueOf(tareaAviso.getHorarioDesde()));

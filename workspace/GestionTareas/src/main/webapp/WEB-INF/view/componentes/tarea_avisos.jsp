@@ -44,7 +44,7 @@
              <div class="row">
 	            <app:inputTextNG id="personaContacto" label="visortarea.personacontacto"
 	                             value="tarea.personaContacto" cells="6" required="true" form="formVisorTarea"/>
-	            <app:inputTextNG id="telefono" label="visortarea.telefono" value="tarea.telefono" cells="6"
+	            <app:inputTextNG id="telefono" label="visortarea.telefono" value="tarea.telefonoAviso" cells="6"
 	                              type="text"  only="true" />
 	        </div>
             <div class="row">
