@@ -219,7 +219,6 @@ public class AvisoService {
         operateTicket.setUSER(new OperateTicket.USER());
         operateTicket.setTICKET(new OperateTicket.TICKET());
 
-        OperateTicket.TICKET.CODIFICATIONS.CODIF createCODIF = new OperateTicket.TICKET.CODIFICATIONS.CODIF();
         OperateTicket.TICKET.CODIFICATIONS codifications = new OperateTicket.TICKET.CODIFICATIONS();
 
 
@@ -233,9 +232,10 @@ public class AvisoService {
         operateTicket.getTICKET().setCONTACTO(contacto);
 
         OperateTicket.TICKET.CLOSE close = new OperateTicket.TICKET.CLOSE();
-        close.setCloseTicket(0);
-        close.setDataAditional("");
-        close.setNotaCierre("");
+        //close.setCloseTicket(Integer.valueOf(tareaAviso.getClosing()));
+        close.setCloseTicket(0); // TODO no esta llegando a la pantalla los motivos de cierre
+        close.setDataAditional(tareaAviso.getDatosAdicionalesCierre());
+        close.setNotaCierre(tareaAviso.getObservaciones());
         operateTicket.getTICKET().setCLOSE(close);
 
         /* <REQ></REQ> */
@@ -279,6 +279,7 @@ public class AvisoService {
 
         /* <CODIF></CODIF> */
         if(tareaAviso.getTipoAviso1() != null) {
+            OperateTicket.TICKET.CODIFICATIONS.CODIF createCODIF = new OperateTicket.TICKET.CODIFICATIONS.CODIF();
             createCODIF.setCount(1);    // constante
             createCODIF.setIdProblem(Integer.parseInt(tareaAviso.getMotivo1()));
             createCODIF.setIdType(Integer.parseInt(tareaAviso.getTipoAviso1()));
@@ -287,6 +288,7 @@ public class AvisoService {
 
         /* <CODIF></CODIF> */
         if(tareaAviso.getTipoAviso2() != null) {
+            OperateTicket.TICKET.CODIFICATIONS.CODIF createCODIF = new OperateTicket.TICKET.CODIFICATIONS.CODIF();
             createCODIF.setCount(1);    // constante
             createCODIF.setIdProblem(Integer.parseInt(tareaAviso.getMotivo2()));
             createCODIF.setIdType(Integer.parseInt(tareaAviso.getTipoAviso2()));
@@ -295,6 +297,7 @@ public class AvisoService {
 
         /* <CODIF></CODIF> */
         if(tareaAviso.getTipoAviso3() != null) {
+            OperateTicket.TICKET.CODIFICATIONS.CODIF createCODIF = new OperateTicket.TICKET.CODIFICATIONS.CODIF();
             createCODIF.setCount(1);    // constante
             createCODIF.setIdProblem(Integer.parseInt(tareaAviso.getMotivo3()));
             createCODIF.setIdType(Integer.parseInt(tareaAviso.getTipoAviso3()));
