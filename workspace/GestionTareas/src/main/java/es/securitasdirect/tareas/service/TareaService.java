@@ -217,7 +217,7 @@ public class TareaService {
         TareaAviso tarea2=(TareaAviso) queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
         if (!tarea2.isRetrieved()) {
         	delayed = ccdDelayTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea2.getCampana(), tarea2.getTelefono(), tarea2.getCallingList(), tarea2.getId(), schedTime, recordType);
-	    	 if (delayed && tarea instanceof TareaAviso) {
+	    	 if (delayed) {
 	             //Si es de tipo Aviso hay que retrasar el aviso también
 	             delayed = false;
 	             Date fecha = schedTime;
