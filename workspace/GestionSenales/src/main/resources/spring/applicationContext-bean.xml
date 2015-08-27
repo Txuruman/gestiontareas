@@ -125,7 +125,7 @@
 
     <!-- Prefijo telefonico de los distintos paises para utiliza anteponiéndolo al número de telefono -->
     <util:map id="countryPhoneCodes" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.String">
-        <entry key="SPAIN">
+        <entry key="ESP">
             <bean class="java.lang.String">
                 <constructor-arg value="+34"/>
             </bean>
