@@ -39,6 +39,11 @@
         <constructor-arg value="Tareas"/>
     </bean>
 
+    <!-- Número de Proceso para consultar a Infopoint por los permisos para crear un mantenimiento -->
+    <bean id="processCodeCreateMaintenanceInfopoint" class="java.lang.String">
+        <constructor-arg value="829"/>
+    </bean>
+
 
 
     <!-- Lista y valores del combo de Tipos de Cierre para Tareas de Tipo Mantenimiento -->

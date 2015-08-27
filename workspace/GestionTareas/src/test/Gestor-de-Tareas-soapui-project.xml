@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project activeEnvironment="Default" name="Gestor de Tareas" resourceRoot="" soapui-version="5.2.0" abortOnError="false" runType="SEQUENTIAL" id="31083d5d-16b2-42ca-bf6b-b47bb5f2f5e8" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="SP_InstallationMonDataSOAP12Binding" type="wsdl" bindingName="{http://ws.wso2.org/dataservice}SP_InstallationMonDataSOAP12Binding" soapVersion="1_2" anonymous="optional" definition="http://10.2.144.63:9763/services/SP_InstallationMonData?wsdl" id="b0e82c02-4f15-428b-9988-e6d1615143f6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.actions.iface.tools.axis2.Axis2WSDL2CodeAction@values-local"><![CDATA[<xml-fragment xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project activeEnvironment="Default" name="Gestor de Tareas" resourceRoot="" soapui-version="5.0.0" abortOnError="false" runType="SEQUENTIAL" id="31083d5d-16b2-42ca-bf6b-b47bb5f2f5e8" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="SP_InstallationMonDataSOAP12Binding" type="wsdl" bindingName="{http://ws.wso2.org/dataservice}SP_InstallationMonDataSOAP12Binding" soapVersion="1_2" anonymous="optional" definition="http://10.2.144.63:9763/services/SP_InstallationMonData?wsdl" id="b0e82c02-4f15-428b-9988-e6d1615143f6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.actions.iface.tools.axis2.Axis2WSDL2CodeAction@values-local"><![CDATA[<xml-fragment xmlns:con="http://eviware.com/soapui/config">
   <con:entry key="test-case" value="true"/>
   <con:entry key="adb writeClasses" value="false"/>
   <con:entry key="namespace mapping" value="&lt;xml-fragment/>"/>
@@ -7458,7 +7458,7 @@
 </soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:getInstallationContacts"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="urn:getInstallationData" name="getInstallationData" bindingOperationName="getInstallationData" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="9f54b94c-b6b1-452e-b2a5-549c80ddc970"><con:settings/><con:call name="Request 1" id="0972dfdd-2933-4bc6-b604-ad248df3976b"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.2.144.63:9763/services/SP_InstallationMonData.SOAP11Endpoint/</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Body>
     <getInstallationData xmlns="http://ws.wso2.org/dataservice">
-      <ins_no>111111</ins_no>
+      <ins_no>128360</ins_no>
     </getInstallationData>
   </soap:Body>
 </soap:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:getInstallationData"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="urn:getInstaller" name="getInstaller" bindingOperationName="getInstaller" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="91a17845-37a9-4810-9ad0-cf7b1aa2d40c"><con:settings/><con:call name="Request 1" id="748036b7-3fe6-44fb-a88f-55413113c995"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.2.144.63:9763/services/SP_InstallationMonData.SOAP11Endpoint/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dat="http://ws.wso2.org/dataservice">
@@ -8938,8 +8938,8 @@
 </soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:getInsNoFromEmail"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="urn:getInstallationData" name="getInstallationData" bindingOperationName="getInstallationData" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="a5e7181f-d02e-4395-90c5-9b68571b1c06"><con:settings/><con:call name="Request 1" id="85b186a3-7bd0-4adc-8617-6b8ba15e4861"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.2.144.63:9763/services/SP_AIO_TAREAS2.SOAP11Endpoint/</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Body>
     <getInstallationData xmlns="http://ws.wso2.org/dataservice">
-      <s_ins>70578</s_ins>
-      <s_ctr>7</s_ctr>
+      <s_ins>128360</s_ins>
+      <s_ctr>128360</s_ctr>
     </getInstallationData>
   </soap:Body>
 </soap:Envelope>
@@ -9673,33 +9673,34 @@
       <http:address location="https://10.2.144.63:9443/services/SP_AVISOS_OPERACIONES.SecureHTTPEndpoint/"/>
     </wsdl:port>
   </wsdl:service>
-</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://10.2.144.63:9763/services/SP_AVISOS_OPERACIONES.SOAP11Endpoint/</con:endpoint><con:endpoint>https://10.2.144.63:9443/services/SP_AVISOS_OPERACIONES.SecureSOAP11Endpoint/</con:endpoint><con:endpoint>local:///services/SP_AVISOS_OPERACIONES.LOCALSOAP11Endpoint/</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:AplazarAviso" name="AplazarAviso" bindingOperationName="AplazarAviso" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="327eec23-28c4-4d89-a615-efa82b35a463"><con:settings/><con:call name="Request 1" id="67e541a7-e1cb-466d-857e-a136ab380832"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.2.144.63:9763/services/SP_AVISOS_OPERACIONES.SOAP11Endpoint/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dat="http://ws.wso2.org/dataservice">
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://10.2.144.63:9763/services/SP_AVISOS_OPERACIONES.SOAP11Endpoint/</con:endpoint><con:endpoint>https://10.2.144.63:9443/services/SP_AVISOS_OPERACIONES.SecureSOAP11Endpoint/</con:endpoint><con:endpoint>local:///services/SP_AVISOS_OPERACIONES.LOCALSOAP11Endpoint/</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:AplazarAviso" name="AplazarAviso" bindingOperationName="AplazarAviso" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="327eec23-28c4-4d89-a615-efa82b35a463"><con:settings/><con:call name="Request 1" id="67e541a7-e1cb-466d-857e-a136ab380832"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.2.144.63:9763/services/SP_AVISOS_OPERACIONES.SOAP11Endpoint/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dat="http://ws.wso2.org/dataservice">
    <soapenv:Header/>
    <soapenv:Body>
       <dat:AplazarAviso>
-         <dat:NAVISO>11501688</dat:NAVISO>
-         <dat:GBLIDUSR>12106</dat:GBLIDUSR>
-         <dat:IDAPLAZA></dat:IDAPLAZA>
-         <dat:FHASTA>23/09/2015 12:12:00</dat:FHASTA>
-         <dat:CNOTA>4444</dat:CNOTA>
+         <dat:NAVISO>?</dat:NAVISO>
+         <dat:GBLIDUSR>?</dat:GBLIDUSR>
+         <dat:IDAPLAZA>?</dat:IDAPLAZA>
+         <dat:FHASTA>?</dat:FHASTA>
+         <dat:CNOTA>?</dat:CNOTA>
       </dat:AplazarAviso>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:AplazarAviso"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="urn:CerrarAviso" name="CerrarAviso" bindingOperationName="CerrarAviso" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="932ce19f-6575-41f9-bf28-dad63436aeb0"><con:settings/><con:call name="Request 1" id="6fd6936f-c882-4408-ba88-f9ebc5710de0"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.2.144.63:9763/services/SP_AVISOS_OPERACIONES.SOAP11Endpoint/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dat="http://ws.wso2.org/dataservice">
    <soapenv:Header/>
    <soapenv:Body>
       <dat:CerrarAviso>
-         <dat:NAVISO>11501688</dat:NAVISO>
-         <dat:IDMAT>12106</dat:IDMAT>
-         <dat:TCIERRE>10</dat:TCIERRE>
-         <dat:CNOTA>a</dat:CNOTA>
-         <dat:STATUSDEST>2</dat:STATUSDEST>
+         <dat:NAVISO>10267531</dat:NAVISO>
+         <dat:IDMAT>M0OOS</dat:IDMAT>
+         <dat:TCIERRE>ILOC</dat:TCIERRE>
+         <dat:CNOTA></dat:CNOTA>
+         <dat:STATUSDEST>2</dat:STATUSDEST><!-- o 3 -->
          <dat:DEUDA>0</dat:DEUDA>
-         <dat:ADICIONAL>AL10</dat:ADICIONAL>
+         <dat:ADICIONAL>10</dat:ADICIONAL>
          <dat:IDMANTEN>0</dat:IDMANTEN>
-         <dat:BRANCH></dat:BRANCH>
+         <dat:BRANCH>0</dat:BRANCH>
       </dat:CerrarAviso>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:CerrarAviso"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="urn:ReasignarAviso" name="ReasignarAviso" bindingOperationName="ReasignarAviso" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="4aaaab61-b3a8-48c5-b67c-2878e74304a0"><con:settings/><con:call name="Request 1" id="4f07f1f9-f2c7-4397-a0fb-1ad67707153a"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.2.144.63:9763/services/SP_AVISOS_OPERACIONES.SOAP11Endpoint/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dat="http://ws.wso2.org/dataservice">
+</soapenv:Envelope>
+]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:CerrarAviso"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="urn:ReasignarAviso" name="ReasignarAviso" bindingOperationName="ReasignarAviso" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="4aaaab61-b3a8-48c5-b67c-2878e74304a0"><con:settings/><con:call name="Request 1" id="4f07f1f9-f2c7-4397-a0fb-1ad67707153a"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.2.144.63:9763/services/SP_AVISOS_OPERACIONES.SOAP11Endpoint/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dat="http://ws.wso2.org/dataservice">
    <soapenv:Header/>
    <soapenv:Body>
       <dat:ReasignarAviso>
@@ -12444,13 +12445,13 @@
    <soapenv:Body>
       <web:checkCallingListContact>
          <!--Optional:-->
-         <ccIdentifier>ATC_SP</ccIdentifier>
+         <ccIdentifier>ATC_SPN</ccIdentifier>
          <!--Optional:-->
          <applicationUser>Tareas</applicationUser>
          <!--Optional:-->
          <ccUserId>12187</ccUserId>
          <!--Optional:-->
-         <filter>CONTACT_INFO='999999'</filter>
+         <filter>CONTACT_INFO='699590908'</filter>
          <returnData/>
          <!--Optional:-->
            <callingList>CL_CCT_ATT_Averia_Test</callingList>
@@ -12480,7 +12481,7 @@
          <country>SPAIN</country>
       </web:checkCallingListContact>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/checkCallingListContactRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="BusquedaTareas  Cliente" id="4600f3a4-57e3-4bb0-b4b9-b5c7fd92ffd8"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/checkCallingListContactRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="BusquedaTareas  Cliente"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
    <soapenv:Header/>
    <soapenv:Body>
       <web:checkCallingListContact>
@@ -13018,58 +13019,46 @@
          <agentGroup>?</agentGroup>
       </web:insertAgentActionDesktopUTC>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/insertAgentActionDesktopUTCRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="insertCallingListContact" bindingOperationName="insertCallingListContact" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="105a4588-63c3-44be-84b9-aeb011949ffd"><con:settings/><con:call name="Request 1" id="3a157a07-615e-4b27-8089-7f572481f061"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/insertAgentActionDesktopUTCRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="insertCallingListContact" bindingOperationName="insertCallingListContact" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="105a4588-63c3-44be-84b9-aeb011949ffd"><con:settings/><con:call name="Request 1" id="3a157a07-615e-4b27-8089-7f572481f061"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
    <soapenv:Header/>
    <soapenv:Body>
       <web:insertCallingListContact>
          <!--Optional:-->
-         <ccIdentifier>ATC_SPN</ccIdentifier>
+         <ccIdentifier>?</ccIdentifier>
          <!--Optional:-->
-         <applicationUser>Tareas</applicationUser>
+         <applicationUser>?</applicationUser>
          <!--Optional:-->
-         <ccUserId>12106</ccUserId>
+         <ccUserId>?</ccUserId>
          <!--Zero or more repetitions:-->
          <insertValues>
             <!--Zero or more repetitions:-->
-            <item>instalacion</item><item>valor</item>
-            <item>contrato</item><item>valor</item>            
-            <item>nombre</item><item>valor</item>            
-            <item>telefono</item><item>911234567</item>            
-            <item>direccion</item><item>valor</item>            
-            <item>ciudad</item><item>valor</item>            
-            <item>panel</item><item>valor</item>            
-            <item>version</item><item>valor</item>            
-            <item>fechaevento</item><item>valor</item>            
-            <item>horaevento</item><item>valor</item>            
-            <item>telefono1</item><item>911234567</item>            
-            <item>telefono2</item><item>911234567</item>            
-            <item>telefono3</item><item>911234567</item>            
+            <item>?</item>
          </insertValues>
          <!--Optional:-->
-         <date>20/08/2015</date>
+         <date>?</date>
          <!--Optional:-->
-         <hour>1</hour>
+         <hour>?</hour>
          <!--Optional:-->
-         <dial_rule></dial_rule>
+         <dial_rule>?</dial_rule>
          <!--Optional:-->
-         <timeFrom></timeFrom>
+         <timeFrom>?</timeFrom>
          <!--Optional:-->
-         <timeUntil></timeUntil>
+         <timeUntil>?</timeUntil>
          <!--Optional:-->
-         <callingList>CL_TAREAS_DIY</callingList>
+         <callingList>?</callingList>
          <!--Optional:-->
-         <campaign>CL_TAREAS_DIY</campaign>
+         <campaign>?</campaign>
          <!--Zero or more repetitions:-->
          <numbers>
             <!--Zero or more repetitions:-->
-            <item>911234567</item>
+            <item>?</item>
          </numbers>
          <!--Optional:-->
-         <country>SPAIN</country>
+         <country>?</country>
          <!--Optional:-->
-         <ctrNo>1</ctrNo>
+         <ctrNo>?</ctrNo>
          <!--Optional:-->
-         <isEquals>true</isEquals>
+         <isEquals>?</isEquals>
       </web:insertCallingListContact>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/insertCallingListContactRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="" name="insertCallingListContactNumber" bindingOperationName="insertCallingListContactNumber" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="7580855f-5f7e-4e21-8318-24dde322db05"><con:settings/><con:call name="Request 1" id="bacabd22-1cb0-4ea3-8883-743b04591bf5"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
@@ -13359,19 +13348,19 @@
    <soapenv:Body>
       <web:sendSMS>
          <!--Optional:-->
-         <ccIdentifier></ccIdentifier>
+         <ccIdentifier>ATC_SPN</ccIdentifier>
          <!--Optional:-->
-         <applicationUser></applicationUser>
+         <applicationUser>Tareas</applicationUser>
          <!--Optional:-->
-         <ccUserId></ccUserId>
+         <ccUserId>M0OOS</ccUserId>
          <!--Optional:-->
-         <destination>696252991</destination>
+         <destination>+34696252991</destination>
          <!--Optional:-->
          <text>develpment</text>
          <!--Optional:-->
-         <account></account>
+         <account>PC_SMS_ATC</account>
          <!--Optional:-->
-         <country></country>
+         <country>SPAIN</country>
       </web:sendSMS>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/sendSMSRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="" name="startCampaign" bindingOperationName="startCampaign" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="48ad6e0b-b234-422a-ad7c-dd9d57ca641a"><con:settings/><con:call name="Request 1" id="1df6c1e7-be9e-43a9-93ee-b9afc6a1f334"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
@@ -13477,34 +13466,28 @@
          <country>?</country>
       </web:transferConsultationCallMKT>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/transferConsultationCallMKTRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="updateCallingListContact" bindingOperationName="updateCallingListContact" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="5089971c-ac90-43f1-a11f-7d32789a61b0"><con:settings/><con:call name="Request 1" id="34b9a930-4272-48b8-96c1-8d29b279b7df"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <web:updateCallingListContact>
-         <!--Optional:-->
-         <ccIdentifier>?</ccIdentifier>
-         <!--Optional:-->
-         <applicationUser>?</applicationUser>
-         <!--Optional:-->
-         <ccUserId>?</ccUserId>
-         <!--Optional:-->
-         <filter>?</filter>
-         <!--Zero or more repetitions:-->
-         <modifyValues>
-            <!--Zero or more repetitions:-->
-            <item>?</item>
-         </modifyValues>
-         <!--Zero or more repetitions:-->
-         <callingList>?</callingList>
-         <!--Zero or more repetitions:-->
-         <campaign>?</campaign>
-         <!--Optional:-->
-         <contactInfo>?</contactInfo>
-         <!--Optional:-->
-         <country>?</country>
-      </web:updateCallingListContact>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/updateCallingListContactRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="updateHistoric" bindingOperationName="updateHistoric" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="a253e537-c2d8-42e2-a27b-787698cb9768"><con:settings/><con:call name="Request 1" id="82e915d5-19ae-4b3a-8a87-e83cafebe45b"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/transferConsultationCallMKTRequest"/></con:call></con:operation><con:operation isOneWay="false" action="" name="updateCallingListContact" bindingOperationName="updateCallingListContact" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="5089971c-ac90-43f1-a11f-7d32789a61b0"><con:settings/><con:call name="Request 1" id="34b9a930-4272-48b8-96c1-8d29b279b7df"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Body>
+    <ns2:updateCallingListContact xmlns:ns2="http://webservice.com/">
+      <ccIdentifier>ATC_SPN</ccIdentifier>
+      <applicationUser>Tareas</applicationUser>
+      <ccUserId>M0OOS</ccUserId>
+      <filter>chain_id=3</filter>
+      <modifyValues>
+        <item>record_status</item>
+        <item>3</item>
+      </modifyValues>
+      <modifyValues>
+        <item>call_result</item>
+        <item>0</item>
+      </modifyValues>
+      <callingList>CL_CCT_ATC_CRA</callingList>
+      <campaign>212</campaign>
+      <contactInfo>JORGE VENDRELL PILSA</contactInfo>
+      <country>SPAIN</country>
+    </ns2:updateCallingListContact>
+  </soap:Body>
+</soap:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://webservice.com/CCLIntegration/updateCallingListContactRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="" name="updateHistoric" bindingOperationName="updateHistoric" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="a253e537-c2d8-42e2-a27b-787698cb9768"><con:settings/><con:call name="Request 1" id="82e915d5-19ae-4b3a-8a87-e83cafebe45b"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://webservice.com/">
    <soapenv:Header/>
    <soapenv:Body>
       <web:updateHistoric>
@@ -13941,12 +13924,12 @@
       <http:address location="http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx"/>
     </wsdl:port>
   </wsdl:service>
-</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx</con:endpoint></con:endpoints><con:operation isOneWay="false" action="http://wsTicketsv2/Create" name="Create" bindingOperationName="Create" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="3ce8c6c8-5b6c-4983-b522-d2cda51b8f27"><con:settings/><con:call name="Request 1" id="c9fd8064-0557-4c4a-8743-7f8daa13ce9b"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wst="http://wsTicketsv2/">
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx</con:endpoint></con:endpoints><con:operation isOneWay="false" action="http://wsTicketsv2/Create" name="Create" bindingOperationName="Create" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="3ce8c6c8-5b6c-4983-b522-d2cda51b8f27"><con:settings/><con:call name="Request 1" id="c9fd8064-0557-4c4a-8743-7f8daa13ce9b"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wst="http://wsTicketsv2/">
    <soapenv:Header/>
    <soapenv:Body>
       <wst:Create>
          <!--Optional:-->
-         <wst:Info>&lt;DATA&gt;    &lt;USER idUser="12106" idCountry="1" idLanguage="ES" t="NOSESSION"/&gt;    &lt;TICKET numInst="1829827" observ="observaciones" codZIP="28030" closeTicket="0" dataAditional="" noteClose="" morDebt="0" typePanel="SDVFSW"&gt;        &lt;REQ idReq="ATC" reqName="" reqLname1="" reqLname2="" reqCif="" reqEmpl="12106"/&gt;        &lt;ASGTO idAsg="" idUser="12106"/&gt;        &lt;COMM name="" lName1="" lName2="" inChannel="TELF" value="911234567" coment="" outChannel="" from="10" to="15"/&gt;        &lt;OPCOD codKey1="200" codKey2="210"/&gt;        &lt;CLCOD codKey3="" codKey4=""/&gt;    &lt;/TICKET&gt;    &lt;SVRQ makeSVRQ="0" idTec="" insBoli="0"&gt;        &lt;ITEMS&gt;            &lt;item idType="200" idProblem="210" count="1" idItemIBS=""/&gt;            &lt;item idType="200" idProblem="210" count="1" idItemIBS=""/&gt;            &lt;item idType="200" idProblem="210" count="1" idItemIBS=""/&gt;        &lt;/ITEMS&gt;    &lt;/SVRQ&gt;&lt;/DATA&gt;</wst:Info>
+         <wst:Info>?</wst:Info>
       </wst:Create>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://wsTicketsv2/Create"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://wsTicketsv2/CreateXml" name="CreateXml" bindingOperationName="CreateXml" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="1bba798b-3bd0-45af-a4f6-b47408dd1854"><con:settings/><con:call name="Request 1" id="7fffdd2f-2053-471f-b3c9-9a48729b431f"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wst="http://wsTicketsv2/">
@@ -13961,14 +13944,654 @@
          </wst:XmlInfo>
       </wst:CreateXml>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://wsTicketsv2/CreateXml"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://wsTicketsv2/UpdateTicket" name="UpdateTicket" bindingOperationName="UpdateTicket" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="585caa02-3e8d-4b2f-8425-f68a19c215c3"><con:settings/><con:call name="Request 1" id="0b1c2942-40e3-4aa3-a8e2-027121166a45"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wst="http://wsTicketsv2/">
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://wsTicketsv2/CreateXml"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://wsTicketsv2/UpdateTicket" name="UpdateTicket" bindingOperationName="UpdateTicket" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="585caa02-3e8d-4b2f-8425-f68a19c215c3"><con:settings/><con:call name="Request 1" id="0b1c2942-40e3-4aa3-a8e2-027121166a45"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wst="http://wsTicketsv2/">
    <soapenv:Header/>
    <soapenv:Body>
       <wst:UpdateTicket>
          <!--Optional:-->
-         <wst:Info>&lt;DATA&gt;    &lt;USER idUser="I24311" idCountry="1" idLang="ES" t="NOSESSION"/&gt;    &lt;TICKET numTicket="11391191" numInst="249587" observ="abonada muy disgustada con sistema e incidencias en el tiempo,por continuas llamadas y faltas de mantenimiento. amenaza con denuncia por daños psicologicos y baja."&gt;        &lt;CONTACTO nombre="" codforma="" desde="" hasta="" valor="" comentario=""/&gt;        &lt;CODIFICATIONS&gt;            &lt;CODIF idType="9300" idProblem="9302" count="1"/&gt;        &lt;/CODIFICATIONS&gt;        &lt;CLOSE closeTicket="0" dataAditional="" notaCierre=""/&gt;    &lt;/TICKET&gt;&lt;/DATA&gt;</wst:Info>
+         <wst:Info>?</wst:Info>
       </wst:UpdateTicket>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://wsTicketsv2/UpdateTicket"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:RestService" wadlVersion="http://wadl.dev.java.net/2009/02" name="Gestion Tareas" type="rest" id="63ee2009-fb55-4974-a967-798bbef1b2cd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart=""/><con:endpoints><con:endpoint>http://localhost:8080</con:endpoint></con:endpoints><con:resource name="Testdate" path="/gestiontareas/notificationtask/aplazar" id="cf14baf7-44f5-4910-821b-71bab6fe7097"><con:settings/><con:parameters/><con:method name="Testdate" method="PUT" id="c4d8b236-d93d-4f4c-8724-bacdc392c72c"><con:settings/><con:parameters/><con:representation type="RESPONSE"><con:mediaType>application/json</con:mediaType><con:status>200</con:status><con:params/><con:element xmlns:tes="http://localhost/gestiontareas/notificationtask/testdate">tes:Response</con:element></con:representation><con:representation type="REQUEST"><con:mediaType>application/json</con:mediaType><con:params/></con:representation><con:representation type="FAULT"><con:mediaType>text/html;charset=utf-8</con:mediaType><con:status>400</con:status><con:params/><con:element>html</con:element></con:representation><con:request name="Request 1" mediaType="application/json" postQueryString="false" id="fb8e9ba6-f0da-4524-924f-ba3ce361c12c"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request>{"recallType":"1",
 "delayDate":"2015-07-22T11:36:14.777Z",
-"task":{"numeroInstalacion":"1606430","estado":"0","personaContacto":"ALEJANDRO","numeroContrato":null,"callingList":null,"telefono":"607148751","fechaReprogramacion":null,"codigoCliente":null,"idAviso":11501688,"tipoAviso1":"500","tipoAviso2":"550","tipoAviso3":"560","motivo1":"501","motivo2":"552","motivo3":"561","observaciones":"ROBO","identificativoAvisoTarea":11501688,"titular":"URBASER SA","requeridoPor":"CRA - M15196","datosContacto":"ALEJANDRO","fechaCreacion":"2015-02-19T00:00:00.000Z","horarioDesde":"11","horarioHasta":"17","closing":"Campo desconocido en WS","datosAdicionalesCierre":"Campo desconocido en WS","fechaCierre":null,"nota":null,"responsableCierre":null}}</con:request><con:originalUri>http://localhost/gestiontareas/notificationtask/testdate</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/><con:parameterOrder/></con:request></con:method></con:resource></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
+"task":{"numeroInstalacion":"1606430","estado":"0","personaContacto":"ALEJANDRO","numeroContrato":null,"callingList":null,"telefono":"607148751","fechaReprogramacion":null,"codigoCliente":null,"idAviso":11501688,"tipoAviso1":"500","tipoAviso2":"550","tipoAviso3":"560","motivo1":"501","motivo2":"552","motivo3":"561","observaciones":"ROBO","identificativoAvisoTarea":11501688,"titular":"URBASER SA","requeridoPor":"CRA - M15196","datosContacto":"ALEJANDRO","fechaCreacion":"2015-02-19T00:00:00.000Z","horarioDesde":"11","horarioHasta":"17","closing":"Campo desconocido en WS","datosAdicionalesCierre":"Campo desconocido en WS","fechaCierre":null,"nota":null,"responsableCierre":null}}</con:request><con:originalUri>http://localhost/gestiontareas/notificationtask/testdate</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/><con:parameterOrder/></con:request></con:method></con:resource></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="FunSoap" type="wsdl" bindingName="{http://tempuri.org/}FunSoap" soapVersion="1_1" anonymous="optional" definition="http://es1preinfo01v/wsInfopoint/Fun.asmx?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.actions.iface.tools.cxf.CXFAction@values-local"><![CDATA[<xml-fragment xmlns:con="http://eviware.com/soapui/config">
+  <con:entry key="EXSH" value="false"/>
+  <con:entry key="Java Args" value=""/>
+  <con:entry key="Class Folder" value=""/>
+  <con:entry key="Exclude namespaces" value="&lt;xml-fragment/>"/>
+  <con:entry key="build.xml" value="false"/>
+  <con:entry key="Bindings" value=""/>
+  <con:entry key="Implementation" value="false"/>
+  <con:entry key="Server" value="false"/>
+  <con:entry key="Tool Args" value=""/>
+  <con:entry key="Output Packages" value="&lt;xml-fragment/>"/>
+  <con:entry key="All Code" value="false"/>
+  <con:entry key="Use cached WSDL" value="false"/>
+  <con:entry key="DEX" value="true"/>
+  <con:entry key="Validate WSDL" value="false"/>
+  <con:entry key="Output Directory" value="c:\temp\fun"/>
+  <con:entry key="Compile" value="false"/>
+  <con:entry key="WSDL" value="http://es1preinfo01v/wsInfopoint/Fun.asmx?wsdl"/>
+  <con:entry key="DNS" value="true"/>
+  <con:entry key="Catalog" value=""/>
+  <con:entry key="Package" value="co.fun"/>
+  <con:entry key="Client" value="false"/>
+</xml-fragment>]]></con:setting></con:settings><con:definitionCache/><con:endpoints><con:endpoint>http://es1preinfo01v/wsInfopoint/Fun.asmx</con:endpoint></con:endpoints><con:operation isOneWay="false" action="http://tempuri.org/closeSesion" name="closeSesion" bindingOperationName="closeSesion" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1preinfo01v/wsInfopoint/Fun.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <tem:closeSesion>
+         <!--Optional:-->
+         <tem:ticket>0EB3B493A79055B4496D2A4985749DF316D95DC8D65225600BDCB7A979E9AA2EBA352CAE29D6DA9C81F8E00FF01C3C8F042C406F8F43C613A84A4F25A828E8DEC27B98B57AAF9AA8902595EEAE2A87DD4FC2793F6F2203E2A24273EA5B0208BD</tem:ticket>
+         <!--Optional:-->
+         <tem:clientIp>0.0.0.0</tem:clientIp>
+      </tem:closeSesion>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/closeSesion"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://tempuri.org/createSession" name="createSession" bindingOperationName="createSession" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1preinfo01v/wsInfopoint/Fun.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <tem:createSession>
+         <!--Optional:-->
+         <tem:idUser>M0OOS</tem:idUser>
+         <!--Optional:-->
+         <tem:logonUser></tem:logonUser>
+         <!--Optional:-->
+         <tem:clientIp>0.0.0.0</tem:clientIp>
+      </tem:createSession>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/createSession"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://tempuri.org/ListaUserGrp" name="ListaUserGrp" bindingOperationName="ListaUserGrp" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1preinfo01v/wsInfopoint/Fun.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <tem:ListaUserGrp>
+         <!--Optional:-->
+         <tem:strIp>?</tem:strIp>
+         <!--Optional:-->
+         <tem:strUser>?</tem:strUser>
+         <!--Optional:-->
+         <tem:strGrp>?</tem:strGrp>
+         <!--Optional:-->
+         <tem:strBusUser>?</tem:strBusUser>
+         <!--Optional:-->
+         <tem:strProc>?</tem:strProc>
+         <tem:intAdmin>?</tem:intAdmin>
+      </tem:ListaUserGrp>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/ListaUserGrp"/></con:call></con:operation><con:operation isOneWay="false" action="http://tempuri.org/ValidarProceso" name="ValidarProceso" bindingOperationName="ValidarProceso" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1preinfo01v/wsInfopoint/Fun.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <tem:ValidarProceso>
+         <!--Optional:-->
+         <tem:ticket>0D9CCA8F048980E26BE81E9C1B1E4F1A22ED52A21E6A8E27D2AA6C25C181E7BDE27F5A24A9E2E08CE899F13863394E93305264A445897BCBEB3502509F6874FE783772E25D09D7E1F9B7E4C85B823D73FB0AA0EFCD9B0794706A2D5DA380628F</tem:ticket>
+         <!--Optional:-->
+         <tem:Servidor>0.0.0.0</tem:Servidor>
+         <!--Optional:-->
+         <tem:Proceso>829</tem:Proceso>
+         <!--Optional:-->
+         <tem:Usuario>DF1512</tem:Usuario>
+      </tem:ValidarProceso>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/ValidarProceso"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://tempuri.org/ValidarSesion" name="ValidarSesion" bindingOperationName="ValidarSesion" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1preinfo01v/wsInfopoint/Fun.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <tem:ValidarSesion>
+         <!--Optional:-->
+         <tem:ticket>D71C23721BFB764F2E3075812F9145C2B9114FFC4B3952DE99B85252E301360723EC04D843D7615562516917D3D6D5CD0A5A5EE8FFA28FAB15E3321499CC0C7634C28FAB0B39ADAE5BFFF1B03109B09BB38E7899711792910F157D760A3578FE</tem:ticket>
+         <!--Optional:-->
+         <tem:Servidor>0.0.0.0</tem:Servidor>
+      </tem:ValidarSesion>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/ValidarSesion"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="FunSoap12" type="wsdl" bindingName="{http://tempuri.org/}FunSoap12" soapVersion="1_2" anonymous="optional" definition="http://es1preinfo01v/wsInfopoint/Fun.asmx?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://es1preinfo01v/wsInfopoint/Fun.asmx?wsdl"><con:part><con:url>http://es1preinfo01v/wsInfopoint/Fun.asmx?wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://tempuri.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="ValidarSesion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Servidor" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ValidarSesionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ValidarSesionResult" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ValidarProceso">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Servidor" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Proceso" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="Usuario" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ValidarProcesoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ValidarProcesoResult" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListaUserGrp">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strIp" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="strUser" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="strGrp" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="strBusUser" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="strProc" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="intAdmin" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListaUserGrpResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListaUserGrpResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any/>
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="createSession">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="idUser" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="logonUser" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="clientIp" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="createSessionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="createSessionResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any/>
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="closeSesion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="clientIp" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="closeSesionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="closeSesionResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any/>
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string"/>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ValidarSesionSoapIn">
+    <wsdl:part name="parameters" element="tns:ValidarSesion"/>
+  </wsdl:message>
+  <wsdl:message name="ValidarSesionSoapOut">
+    <wsdl:part name="parameters" element="tns:ValidarSesionResponse"/>
+  </wsdl:message>
+  <wsdl:message name="ValidarProcesoSoapIn">
+    <wsdl:part name="parameters" element="tns:ValidarProceso"/>
+  </wsdl:message>
+  <wsdl:message name="ValidarProcesoSoapOut">
+    <wsdl:part name="parameters" element="tns:ValidarProcesoResponse"/>
+  </wsdl:message>
+  <wsdl:message name="ListaUserGrpSoapIn">
+    <wsdl:part name="parameters" element="tns:ListaUserGrp"/>
+  </wsdl:message>
+  <wsdl:message name="ListaUserGrpSoapOut">
+    <wsdl:part name="parameters" element="tns:ListaUserGrpResponse"/>
+  </wsdl:message>
+  <wsdl:message name="createSessionSoapIn">
+    <wsdl:part name="parameters" element="tns:createSession"/>
+  </wsdl:message>
+  <wsdl:message name="createSessionSoapOut">
+    <wsdl:part name="parameters" element="tns:createSessionResponse"/>
+  </wsdl:message>
+  <wsdl:message name="closeSesionSoapIn">
+    <wsdl:part name="parameters" element="tns:closeSesion"/>
+  </wsdl:message>
+  <wsdl:message name="closeSesionSoapOut">
+    <wsdl:part name="parameters" element="tns:closeSesionResponse"/>
+  </wsdl:message>
+  <wsdl:message name="ValidarSesionHttpGetIn">
+    <wsdl:part name="ticket" type="s:string"/>
+    <wsdl:part name="Servidor" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="ValidarSesionHttpGetOut">
+    <wsdl:part name="Body" element="tns:string"/>
+  </wsdl:message>
+  <wsdl:message name="ValidarProcesoHttpGetIn">
+    <wsdl:part name="ticket" type="s:string"/>
+    <wsdl:part name="Servidor" type="s:string"/>
+    <wsdl:part name="Proceso" type="s:string"/>
+    <wsdl:part name="Usuario" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="ValidarProcesoHttpGetOut">
+    <wsdl:part name="Body" element="tns:string"/>
+  </wsdl:message>
+  <wsdl:message name="ListaUserGrpHttpGetIn">
+    <wsdl:part name="strIp" type="s:string"/>
+    <wsdl:part name="strUser" type="s:string"/>
+    <wsdl:part name="strGrp" type="s:string"/>
+    <wsdl:part name="strBusUser" type="s:string"/>
+    <wsdl:part name="strProc" type="s:string"/>
+    <wsdl:part name="intAdmin" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="ListaUserGrpHttpGetOut">
+    <wsdl:part name="Body"/>
+  </wsdl:message>
+  <wsdl:message name="createSessionHttpGetIn">
+    <wsdl:part name="idUser" type="s:string"/>
+    <wsdl:part name="logonUser" type="s:string"/>
+    <wsdl:part name="clientIp" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="createSessionHttpGetOut">
+    <wsdl:part name="Body"/>
+  </wsdl:message>
+  <wsdl:message name="closeSesionHttpGetIn">
+    <wsdl:part name="ticket" type="s:string"/>
+    <wsdl:part name="clientIp" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="closeSesionHttpGetOut">
+    <wsdl:part name="Body"/>
+  </wsdl:message>
+  <wsdl:message name="ValidarSesionHttpPostIn">
+    <wsdl:part name="ticket" type="s:string"/>
+    <wsdl:part name="Servidor" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="ValidarSesionHttpPostOut">
+    <wsdl:part name="Body" element="tns:string"/>
+  </wsdl:message>
+  <wsdl:message name="ValidarProcesoHttpPostIn">
+    <wsdl:part name="ticket" type="s:string"/>
+    <wsdl:part name="Servidor" type="s:string"/>
+    <wsdl:part name="Proceso" type="s:string"/>
+    <wsdl:part name="Usuario" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="ValidarProcesoHttpPostOut">
+    <wsdl:part name="Body" element="tns:string"/>
+  </wsdl:message>
+  <wsdl:message name="ListaUserGrpHttpPostIn">
+    <wsdl:part name="strIp" type="s:string"/>
+    <wsdl:part name="strUser" type="s:string"/>
+    <wsdl:part name="strGrp" type="s:string"/>
+    <wsdl:part name="strBusUser" type="s:string"/>
+    <wsdl:part name="strProc" type="s:string"/>
+    <wsdl:part name="intAdmin" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="ListaUserGrpHttpPostOut">
+    <wsdl:part name="Body"/>
+  </wsdl:message>
+  <wsdl:message name="createSessionHttpPostIn">
+    <wsdl:part name="idUser" type="s:string"/>
+    <wsdl:part name="logonUser" type="s:string"/>
+    <wsdl:part name="clientIp" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="createSessionHttpPostOut">
+    <wsdl:part name="Body"/>
+  </wsdl:message>
+  <wsdl:message name="closeSesionHttpPostIn">
+    <wsdl:part name="ticket" type="s:string"/>
+    <wsdl:part name="clientIp" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="closeSesionHttpPostOut">
+    <wsdl:part name="Body"/>
+  </wsdl:message>
+  <wsdl:portType name="FunSoap">
+    <wsdl:operation name="ValidarSesion">
+      <wsdl:input message="tns:ValidarSesionSoapIn"/>
+      <wsdl:output message="tns:ValidarSesionSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarProceso">
+      <wsdl:input message="tns:ValidarProcesoSoapIn"/>
+      <wsdl:output message="tns:ValidarProcesoSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="ListaUserGrp">
+      <wsdl:input message="tns:ListaUserGrpSoapIn"/>
+      <wsdl:output message="tns:ListaUserGrpSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="createSession">
+      <wsdl:input message="tns:createSessionSoapIn"/>
+      <wsdl:output message="tns:createSessionSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="closeSesion">
+      <wsdl:input message="tns:closeSesionSoapIn"/>
+      <wsdl:output message="tns:closeSesionSoapOut"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="FunHttpGet">
+    <wsdl:operation name="ValidarSesion">
+      <wsdl:input message="tns:ValidarSesionHttpGetIn"/>
+      <wsdl:output message="tns:ValidarSesionHttpGetOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarProceso">
+      <wsdl:input message="tns:ValidarProcesoHttpGetIn"/>
+      <wsdl:output message="tns:ValidarProcesoHttpGetOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="ListaUserGrp">
+      <wsdl:input message="tns:ListaUserGrpHttpGetIn"/>
+      <wsdl:output message="tns:ListaUserGrpHttpGetOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="createSession">
+      <wsdl:input message="tns:createSessionHttpGetIn"/>
+      <wsdl:output message="tns:createSessionHttpGetOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="closeSesion">
+      <wsdl:input message="tns:closeSesionHttpGetIn"/>
+      <wsdl:output message="tns:closeSesionHttpGetOut"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="FunHttpPost">
+    <wsdl:operation name="ValidarSesion">
+      <wsdl:input message="tns:ValidarSesionHttpPostIn"/>
+      <wsdl:output message="tns:ValidarSesionHttpPostOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarProceso">
+      <wsdl:input message="tns:ValidarProcesoHttpPostIn"/>
+      <wsdl:output message="tns:ValidarProcesoHttpPostOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="ListaUserGrp">
+      <wsdl:input message="tns:ListaUserGrpHttpPostIn"/>
+      <wsdl:output message="tns:ListaUserGrpHttpPostOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="createSession">
+      <wsdl:input message="tns:createSessionHttpPostIn"/>
+      <wsdl:output message="tns:createSessionHttpPostOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="closeSesion">
+      <wsdl:input message="tns:closeSesionHttpPostIn"/>
+      <wsdl:output message="tns:closeSesionHttpPostOut"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="FunSoap" type="tns:FunSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="ValidarSesion">
+      <soap:operation soapAction="http://tempuri.org/ValidarSesion" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarProceso">
+      <soap:operation soapAction="http://tempuri.org/ValidarProceso" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListaUserGrp">
+      <soap:operation soapAction="http://tempuri.org/ListaUserGrp" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createSession">
+      <soap:operation soapAction="http://tempuri.org/createSession" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="closeSesion">
+      <soap:operation soapAction="http://tempuri.org/closeSesion" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="FunSoap12" type="tns:FunSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="ValidarSesion">
+      <soap12:operation soapAction="http://tempuri.org/ValidarSesion" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarProceso">
+      <soap12:operation soapAction="http://tempuri.org/ValidarProceso" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListaUserGrp">
+      <soap12:operation soapAction="http://tempuri.org/ListaUserGrp" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createSession">
+      <soap12:operation soapAction="http://tempuri.org/createSession" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="closeSesion">
+      <soap12:operation soapAction="http://tempuri.org/closeSesion" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="FunHttpGet" type="tns:FunHttpGet">
+    <http:binding verb="GET"/>
+    <wsdl:operation name="ValidarSesion">
+      <http:operation location="/ValidarSesion"/>
+      <wsdl:input>
+        <http:urlEncoded/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarProceso">
+      <http:operation location="/ValidarProceso"/>
+      <wsdl:input>
+        <http:urlEncoded/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListaUserGrp">
+      <http:operation location="/ListaUserGrp"/>
+      <wsdl:input>
+        <http:urlEncoded/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createSession">
+      <http:operation location="/createSession"/>
+      <wsdl:input>
+        <http:urlEncoded/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="closeSesion">
+      <http:operation location="/closeSesion"/>
+      <wsdl:input>
+        <http:urlEncoded/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="FunHttpPost" type="tns:FunHttpPost">
+    <http:binding verb="POST"/>
+    <wsdl:operation name="ValidarSesion">
+      <http:operation location="/ValidarSesion"/>
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarProceso">
+      <http:operation location="/ValidarProceso"/>
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListaUserGrp">
+      <http:operation location="/ListaUserGrp"/>
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createSession">
+      <http:operation location="/createSession"/>
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="closeSesion">
+      <http:operation location="/closeSesion"/>
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Fun">
+    <wsdl:port name="FunSoap" binding="tns:FunSoap">
+      <soap:address location="http://es1preinfo01v/wsInfopoint/Fun.asmx"/>
+    </wsdl:port>
+    <wsdl:port name="FunSoap12" binding="tns:FunSoap12">
+      <soap12:address location="http://es1preinfo01v/wsInfopoint/Fun.asmx"/>
+    </wsdl:port>
+    <wsdl:port name="FunHttpGet" binding="tns:FunHttpGet">
+      <http:address location="http://es1preinfo01v/wsInfopoint/Fun.asmx"/>
+    </wsdl:port>
+    <wsdl:port name="FunHttpPost" binding="tns:FunHttpPost">
+      <http:address location="http://es1preinfo01v/wsInfopoint/Fun.asmx"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://es1preinfo01v/wsInfopoint/Fun.asmx</con:endpoint></con:endpoints><con:operation isOneWay="false" action="http://tempuri.org/closeSesion" name="closeSesion" bindingOperationName="closeSesion" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1preinfo01v/wsInfopoint/Fun.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:tem="http://tempuri.org/">
+   <soap:Header/>
+   <soap:Body>
+      <tem:closeSesion>
+         <!--Optional:-->
+         <tem:ticket>?</tem:ticket>
+         <!--Optional:-->
+         <tem:clientIp>?</tem:clientIp>
+      </tem:closeSesion>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/FunSoap/closeSesionRequest"/></con:call></con:operation><con:operation isOneWay="false" action="http://tempuri.org/createSession" name="createSession" bindingOperationName="createSession" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1preinfo01v/wsInfopoint/Fun.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:tem="http://tempuri.org/">
+   <soap:Header/>
+   <soap:Body>
+      <tem:createSession>
+         <!--Optional:-->
+         <tem:idUser>?</tem:idUser>
+         <!--Optional:-->
+         <tem:logonUser>?</tem:logonUser>
+         <!--Optional:-->
+         <tem:clientIp>?</tem:clientIp>
+      </tem:createSession>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/FunSoap/createSessionRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://tempuri.org/ListaUserGrp" name="ListaUserGrp" bindingOperationName="ListaUserGrp" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1preinfo01v/wsInfopoint/Fun.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:tem="http://tempuri.org/">
+   <soap:Header/>
+   <soap:Body>
+      <tem:ListaUserGrp>
+         <!--Optional:-->
+         <tem:strIp>?</tem:strIp>
+         <!--Optional:-->
+         <tem:strUser>?</tem:strUser>
+         <!--Optional:-->
+         <tem:strGrp>?</tem:strGrp>
+         <!--Optional:-->
+         <tem:strBusUser>?</tem:strBusUser>
+         <!--Optional:-->
+         <tem:strProc>?</tem:strProc>
+         <tem:intAdmin>?</tem:intAdmin>
+      </tem:ListaUserGrp>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/FunSoap/ListaUserGrpRequest"/></con:call></con:operation><con:operation isOneWay="false" action="http://tempuri.org/ValidarProceso" name="ValidarProceso" bindingOperationName="ValidarProceso" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1preinfo01v/wsInfopoint/Fun.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:tem="http://tempuri.org/">
+   <soap:Header/>
+   <soap:Body>
+      <tem:ValidarProceso>
+         <!--Optional:-->
+         <tem:ticket>?</tem:ticket>
+         <!--Optional:-->
+         <tem:Servidor>?</tem:Servidor>
+         <!--Optional:-->
+         <tem:Proceso>?</tem:Proceso>
+         <!--Optional:-->
+         <tem:Usuario>?</tem:Usuario>
+      </tem:ValidarProceso>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/FunSoap/ValidarProcesoRequest"/></con:call></con:operation><con:operation isOneWay="false" action="http://tempuri.org/ValidarSesion" name="ValidarSesion" bindingOperationName="ValidarSesion" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1preinfo01v/wsInfopoint/Fun.asmx</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:tem="http://tempuri.org/">
+   <soap:Header/>
+   <soap:Body>
+      <tem:ValidarSesion>
+         <!--Optional:-->
+         <tem:ticket>?</tem:ticket>
+         <!--Optional:-->
+         <tem:Servidor>?</tem:Servidor>
+      </tem:ValidarSesion>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/FunSoap/ValidarSesionRequest"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:sensitiveInformation/></con:soapui-project>

@@ -2,6 +2,7 @@ package es.securitasdirect.tareas.web.controller;
 
 import es.securitasdirect.tareas.model.*;
 import es.securitasdirect.tareas.service.*;
+import es.securitasdirect.tareas.web.controller.dto.request.searchtask.SearchTaskRequest;
 import es.securitasdirect.tareas.web.controller.params.ExternalParams;
 import es.securitasdirect.tareas.web.controller.util.MessageUtil;
 import org.slf4j.Logger;
@@ -99,8 +100,12 @@ public class EntryPointController extends TaskController {
                 //Enviar a la pantalla los datos de la ultima búsqueda
                 mv.addObject("lastSearchTareaRequest",searchTareaController.getLastSearchTareaRequest());
             } else {
-                //Se manda a la vista el número de contrato de la primera tarea
-            	mv = new ModelAndView("buscartarea", "ctrNo", tareas.get(0).getNumeroContrato());
+                //Se prepara el lastSearchTareaRequest con los datos de la instalación para que realice la búsqueda de las tareas automáticamente
+            	SearchTaskRequest searchTaskRequest=new SearchTaskRequest();
+            	searchTaskRequest.setSearchText(tareas.get(0).getNumeroContrato());
+            	searchTaskRequest.setSearchOption(SearchTaskRequest.CLIENT);
+            	mv = new ModelAndView("buscartarea");
+            	mv.addObject("lastSearchTareaRequest",searchTaskRequest);
             }
         } else {
             //Sin tarea ni instalación vamos a buscar tarea

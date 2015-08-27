@@ -1,7 +1,5 @@
 app.controller('taskSearch', function ($scope, $http, CommonService, $modal) {
-	//Valor por defecto del radioButton de la búsqueda
-	$scope.searchOption="phone";
-    $scope.searchTareaFromServer = function () {
+	$scope.searchTareaFromServer = function () {
         //console.log('search Tareas ' + $scope.searchText +  ' ' + $scope.searchOption);
         var searchTaskRequest = {
             searchText: $scope.searchText,
@@ -25,13 +23,14 @@ app.controller('taskSearch', function ($scope, $http, CommonService, $modal) {
       //Ventana Aplazar - Start
         //Abre la ventana, posibles tamaños '', 'sm', 'lg'
         $scope.openDelayModal = function (size,t) {
+        	$scope.tareaActiva=t;
             var modalInstance = $modal.open({
                 animation: false, //Indica si animamos el modal
                 templateUrl: 'deplayModalContent.html', //HTML del modal
                 controller: 'DelayModalInstanceCtrl',  //Referencia al controller especifico para el modal
                 size: size,
                 resolve: {
-                    //Creo que esto es para pasar parametros al controller interno
+                	//Creo que esto es para pasar parametros al controller interno
                     // items: function () {
                     //     return $scope.items;
                     // }
@@ -49,11 +48,11 @@ app.controller('taskSearch', function ($scope, $http, CommonService, $modal) {
         
         $scope.aplazar = function (delayDate, recallType) {
             //$log.info('Delay to ' + delayDate + ' with recallType ' + recallType + ' task ' + JSON.stringify($scope.tarea));
-            if ($scope.tarea) {
+            if ($scope.tareaActiva) {
                 var postponeRequest = {
                     recallType: recallType,
                     delayDate:  delayDate,
-                    task: $scope.tarea
+                    task: $scope.tareaActiva
                 };
 
                 //$log.info("Json of Request " + JSON.stringify(postponeRequest));
@@ -76,11 +75,10 @@ app.controller('taskSearch', function ($scope, $http, CommonService, $modal) {
         };
         //Ventana Aplazar - End
         
-        //Si de incio llega del servidor el número de contrato buscamos las tareas realcionadas y las mostramos
-        $scope.getByctrNo=function(ctrNo){
-        	if (ctrNo!=undefined && ctrNo!="") {
-        		$scope.searchText=ctrNo;
-        		$scope.searchOption="customer";	
+        //Comprobamos si tenemos que realizar una búsqueda de inicio
+        $scope.getSearch=function(){
+        	//Realizamos la búsqueda cuando rebimos valores de inicio
+        	if ($scope.searchText!=null && $scope.searchText!="" && $scope.searchOption!=null && $scope.searchOption!="") {
         		$scope.searchTareaFromServer();
 			}
         }

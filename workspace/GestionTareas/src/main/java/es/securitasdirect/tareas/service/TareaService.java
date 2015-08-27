@@ -51,9 +51,14 @@ public class TareaService {
     /**
      * Aplazar: muestra un diálogo en modo modal para introducir la fecha y hora de la reprogramación,
      * indicando también si es para el propio agente o para el grupo de la Campaña.
+     * Comprueba si la tarea que llega es de tipo Aviso
      */
     public boolean delayTask(Agent agent, Tarea tarea, Date schedTime, String recordType) throws Exception {
-        return this.delayTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCallingList(), tarea.getId().toString(), schedTime, recordType);
+        if(tarea instanceof TareaAviso){
+        	return this.delayNotificationTask(agent, (TareaAviso)tarea, schedTime, recordType);
+        }else{
+        	return this.delayTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCallingList(), tarea.getId().toString(), schedTime, recordType);
+        }
     }
 
     /**
