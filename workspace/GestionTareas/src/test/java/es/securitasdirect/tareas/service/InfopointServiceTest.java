@@ -35,8 +35,27 @@ public class InfopointServiceTest {
 
 
     @Test
-    public void createSession() throws Exception {
-        infopointService.createSession("M0OOS", "0.0.0.0");
+    public void completeFlow() throws Exception {
+        String matriculaBuenaConPermisosParaCrearMantenimiento = "DF1512";
+        String codigoProcesoCrearMantenimiento = "829";
+        String session = infopointService.createSession(matriculaBuenaConPermisosParaCrearMantenimiento, "0.0.0.0");
+        LOGGER.info("Creada Session IP: {}" ,session);
+        assertThat(session, notNullValue());
+
+
+        boolean valid = infopointService.validateSession(session);
+        assertThat(valid, is(true));
+
+        boolean okAccess = infopointService.validarProceso(session, matriculaBuenaConPermisosParaCrearMantenimiento, codigoProcesoCrearMantenimiento);
+        assertThat(okAccess, is(true));
+
+        boolean notAccess = infopointService.validarProceso(session,matriculaBuenaConPermisosParaCrearMantenimiento,"12131");
+        assertThat(notAccess, is(false));
+
+
+        infopointService.closeSession(session);
+         valid = infopointService.validateSession(session);
+        assertThat(valid, is(false));
 
     }
 
