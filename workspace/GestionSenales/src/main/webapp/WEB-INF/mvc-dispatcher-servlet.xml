@@ -10,22 +10,5 @@
 
     <mvc:annotation-driven/>
 
-	<bean class="es.securitasdirect.senales.web.controller.validator.CustomerValidator" />
-	
- 	<!-- Register the Customer.properties -->
-	<bean id="messageSource"
-		class="org.springframework.context.support.ResourceBundleMessageSource">
-		<property name="basename" value="com/mkyong/customer/properties/Customer" />
-	</bean>
- 	
-	<bean id="viewResolver"
-	      class="org.springframework.web.servlet.view.InternalResourceViewResolver" >
-          <property name="prefix">
-              <value>/WEB-INF/pages/</value>
-           </property>
-          <property name="suffix">
-             <value>.jsp</value>
-          </property>
-    </bean>
 
 </beans>

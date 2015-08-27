@@ -51,8 +51,8 @@
             </div>
             <div class="spacer_t1"></div>
             <div class="row">
-                <app:inputTextNG id="horarioDesde" label="tareaAviso.horarioDesde" value="tarea.horarioDesde" cells="6"  only="true" size="2"/>
-                <app:inputTextNG id="horarioHasta" label="tareaAviso.horarioHasta" value="tarea.horarioHasta" cells="6"  only="true" size="2"/>
+                <app:inputTextNG id="horarioDesde" label="tareaAviso.horarioDesde" value="tarea.horarioDesde" cells="6"  />
+                <app:inputTextNG id="horarioHasta" label="tareaAviso.horarioHasta" value="tarea.horarioHasta" cells="6"  />
             </div>
             <div class="spacer_t1"></div>
             <div class="row">
