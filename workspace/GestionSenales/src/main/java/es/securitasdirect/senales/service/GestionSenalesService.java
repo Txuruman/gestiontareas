@@ -14,6 +14,7 @@ import net.java.dev.jaxb.array.StringArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.wso2.ws.dataservice.*;
 
 import javax.annotation.PostConstruct;
@@ -22,6 +23,7 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Servicio con la lógica principal para la gestión de señales.
@@ -140,6 +142,12 @@ public class GestionSenalesService {
     @Resource
     protected String smsTestPhone;
 
+    protected Date upTime = new Date();
+    protected AtomicInteger successfulMessages = new AtomicInteger();
+    protected AtomicInteger errorMessages = new AtomicInteger();
+    protected AtomicInteger inWorkingHoursMessages = new AtomicInteger();
+    protected AtomicInteger outWorkingHousMessages = new AtomicInteger();
+
     protected class MixedInstallationData {
         public GetInstallationDataResult installationDataResultTareas;
         public Mainstallationdataresult installationDataResultInstallation;
@@ -165,8 +173,8 @@ public class GestionSenalesService {
     /**
      * Prefijo telefonico de los distintos paises para utiliza anteponiéndolo al número de telefono
      */
-    @Resource(name="countryPhoneCodes")
-    private Map<String,String> countryPhoneCodes;
+    @Resource(name = "countryPhoneCodes")
+    private Map<String, String> countryPhoneCodes;
 
     /**
      * Map of sms messages locations
@@ -183,9 +191,19 @@ public class GestionSenalesService {
         //TODO CHECK Y LOG DE LA CONFIGURACON
     }
 
-    ///TODO  @Async
+
+    @Async
     public void onMessage(Message message) {
         processMessage(message);
+    }
+
+    /**
+     * Para los test unitarios, procesamiento síncrono para que el test no termine antes que el proceso.
+     *
+     * @param messsage
+     */
+    protected void onMessageSynchonous(Message messsage) {
+        processMessage(messsage);
     }
 
     /**
@@ -234,6 +252,8 @@ public class GestionSenalesService {
      * @param message
      */
     private void processMessageInWorkingHours(Message message) throws Exception {
+        inWorkingHoursMessages.incrementAndGet();
+
         // El campo a utilizar para obtener el resto de información antes de insertar el registro en Tareas será InsNumber_e.
         //Obtener instalacion
         Integer insNumberE = message.getCibb().getEVENTS().getInsNumberE();
@@ -251,7 +271,9 @@ public class GestionSenalesService {
                 // Insertar contacto en calling list. (	Una vez que se dispone de todos los datos, se pueden invocar los métodos de la capa CCL Obtener Calling List Tareas e Insertar contacto en calling list)
                 insertCallingListContact(message, installationData);
                 LOGGER.debug("Processed sucesfully Message {}", message);
+                successfulMessages.incrementAndGet();
             } catch (Exception e) {
+                errorMessages.incrementAndGet();
                 LOGGER.error("Error insertingCallingListContact {}", e.getMessage(), e);
                 throw e;
             }
@@ -271,6 +293,8 @@ public class GestionSenalesService {
      * @param message
      */
     private void processMessageOutOfWorkingHours(Message message) throws DataServiceFault {
+        outWorkingHousMessages.incrementAndGet();
+
         // El campo a utilizar para obtener el resto de información antes de insertar el registro en Tareas será InsNumber_e.
         Integer insNumberE = message.getCibb().getEVENTS().getInsNumberE();
 
@@ -281,11 +305,18 @@ public class GestionSenalesService {
         sendSMSOutOfWorkingHours(message, installationData);
 
         //A continuación debe cancelar la incidencia en IBS, invocando un web service.
-        closeIncidence(installationData);
+        boolean closeIncidence = closeIncidence(installationData);
+
+        if (closeIncidence) {
+            successfulMessages.incrementAndGet();
+        } else {
+            errorMessages.incrementAndGet();
+        }
     }
 
     /**
      * Closes the incidence in IBS with the SpAioTareas2 WS
+     *
      * @return
      */
     private boolean closeIncidence(MixedInstallationData installationData) {
@@ -294,15 +325,17 @@ public class GestionSenalesService {
         closeIncInput.setComment("");
         try {
             String closeIncBTNDIYResult = wsSpAioTareas2.closeIncBTNDIY(closeIncInput);
-            LOGGER.debug("Closed Incidences for Installation {} with result {}",closeIncInput.getInsNo(),closeIncBTNDIYResult);
+            LOGGER.debug("Closed Incidences for Installation {} with result {}", closeIncInput.getInsNo(), closeIncBTNDIYResult);
         } catch (DataServiceFault dataServiceFault) {
-            LOGGER.error("Error closing Incidence",dataServiceFault);
+            LOGGER.error("Error closing Incidence", dataServiceFault);
+            return false;
         }
         return true;
     }
 
     /**
      * Sends the SMS throw the cclIntegration WS
+     *
      * @param message
      * @param mixedInstallationData
      * @return
@@ -318,25 +351,25 @@ public class GestionSenalesService {
         String applicationUser = this.applicationUser; //Configurado estatico en app
         String ccUserId = this.ccUserId; //Configurado estatico en app
         String destination = null;
-        if (smsTestPhone!=null && !smsTestPhone.isEmpty()) {
+        if (smsTestPhone != null && !smsTestPhone.isEmpty()) {
             destination = smsTestPhone;
         } else {
             destination = mixedInstallationData.installationDataResultInstallation.getTelefonoServicio();
-            if (destination==null || destination.isEmpty()) {
+            if (destination == null || destination.isEmpty()) {
                 LOGGER.error("Can't send SMS to installation {} without phone", mixedInstallationData.installationDataResultInstallation.getInsNo());
                 return false;
             }
         }
 
         //Segun correo de Jesus:Otra cosa. Me ha dicho que en XML que llega de la señal está el país, para el envío del SMS.
-       // Eso incluye el prefijo del teléfono.
+        // Eso incluye el prefijo del teléfono.
         String phoneCountry = message.getLanguageLocationKey();
-        if (destination!=null && !destination.startsWith("+")) {
+        if (destination != null && !destination.startsWith("+")) {
             String contryPrefix = countryPhoneCodes.get(phoneCountry);
-            if (contryPrefix==null) {
-                LOGGER.warn("Not configured phone prefix for country ",phoneCountry);
+            if (contryPrefix == null) {
+                LOGGER.warn("Not configured phone prefix for country ", phoneCountry);
             } else {
-                destination = contryPrefix+destination;
+                destination = contryPrefix + destination;
             }
         }
         String text = outOfWorkingHoursText;
@@ -354,10 +387,10 @@ public class GestionSenalesService {
                 country);
         ////Envio SMS End
 
-        if (wsResponse.getResultCode()==200) {
+        if (wsResponse.getResultCode() == 200) {
             return true;
         } else {
-            LOGGER.error("Error sending SMS {}-{}", wsResponse.getResultCode(),wsResponse.getResultMessage());
+            LOGGER.error("Error sending SMS {}-{}", wsResponse.getResultCode(), wsResponse.getResultMessage());
             return false;
         }
 
@@ -496,7 +529,7 @@ public class GestionSenalesService {
         //2. Consulta Instalacion Tareas2
         //Como segundo parametro metemos también el número de instalación , parece que con eso devuelve datos de número de contrato
         GetInstallationDataInput queryInput = new GetInstallationDataInput();
-        if (mixedInstallation.installationDataResultInstallation.getSIns()!=null) {
+        if (mixedInstallation.installationDataResultInstallation.getSIns() != null) {
             queryInput.setSIns(mixedInstallation.installationDataResultInstallation.getSIns().intValue());
             queryInput.setSCtr(mixedInstallation.installationDataResultInstallation.getSIns().intValue());
             GetInstallationDataResults installationDataTareaResult = wsSpAioTareas2.getInstallationData(queryInput);
@@ -720,5 +753,26 @@ public class GestionSenalesService {
             }
         }
         return list;
+    }
+
+
+    public int getSuccessfulMessages() {
+        return successfulMessages.get();
+    }
+
+    public int getErrorMessages() {
+        return errorMessages.get();
+    }
+
+    public int getInWorkingHoursMessages() {
+        return inWorkingHoursMessages.get();
+    }
+
+    public int getOutWorkingHousMessages() {
+        return outWorkingHousMessages.get();
+    }
+
+    public Date getUpTime() {
+        return upTime;
     }
 }

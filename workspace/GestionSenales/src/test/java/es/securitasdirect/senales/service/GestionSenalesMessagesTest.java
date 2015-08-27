@@ -56,21 +56,21 @@ public class GestionSenalesMessagesTest {
     @Test
     public void veryOldMessage() throws Exception {
         Message message = fileService.readMessage(veryOldMessage.getFile());
-        gestionSenalesService.onMessage(message);
+        gestionSenalesService.onMessageSynchonous(message);
     }
 
     @Test
     public void notAllowedSignal() throws Exception {
         Message message = fileService.readMessage(notAllowedSignal.getFile());
         message.setEntryDate(new Date());//Para que no descarte por fecha
-        gestionSenalesService.onMessage(message);
+        gestionSenalesService.onMessageSynchonous(message);
     }
 
     @Test
     public void notAllowedSignalType() throws Exception {
         Message message = fileService.readMessage(notAllowedSignalType.getFile());
         message.setEntryDate(new Date());//Para que no descarte por fecha
-        gestionSenalesService.onMessage(message);
+        gestionSenalesService.onMessageSynchonous(message);
     }
 
     @Test
@@ -84,7 +84,7 @@ public class GestionSenalesMessagesTest {
         gestionSenalesService.endWorkHour=gestionSenalesService.startWorkHour;
         gestionSenalesService.endWorkMinute=gestionSenalesService.startWorkMinute;
 
-        gestionSenalesService.onMessage(message);
+        gestionSenalesService.onMessageSynchonous(message);
 
         gestionSenalesService.endWorkHour = previousEndWorkHour;
         gestionSenalesService.endWorkMinute = previousEndWorkMinute;
@@ -100,7 +100,7 @@ public class GestionSenalesMessagesTest {
         Message message = fileService.readMessage(exampleMessage.getFile());
         message.setEntryDate(new Date());
 
-        gestionSenalesService.onMessage(message);
+        gestionSenalesService.onMessageSynchonous(message);
 
     }
 
