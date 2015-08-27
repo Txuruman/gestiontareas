@@ -176,7 +176,11 @@ public class TareaService {
      */
 
     private boolean isTaskRequiresSaveModifications(TareaAviso t1, TareaAviso t2) {
-        return t1.equals(t2);
+        return t1.equalsSinDatosCierre(t2);
+    }
+
+    private boolean isTaskRequiresSaveModifications2(TareaAviso t1, TareaAviso t2) {
+        return t1.equalsConDatosCierre(t2);
     }
     
     /**
@@ -534,10 +538,10 @@ public class TareaService {
             TareaAviso tareaOriginal = (TareaAviso) queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
 
             boolean ok = false;
-            //if(isTaskRequiresSaveModifications(tareaOriginal, tarea)) {
+            if(!isTaskRequiresSaveModifications2(tareaOriginal, tarea)) {
                 ok = avisoService.updateTicket(agent, (TareaAviso) tarea, installationData);
                 saved = ok;
-            //}
+            }
 
             boolean finalized=false;
             if (isTaskRequiresFinalizeModifications(tarea)) {
@@ -557,8 +561,8 @@ public class TareaService {
 
         boolean result = false;
 
-        if( tarea.getClosing() != null && !tarea.getClosing().equals("")
-         && tarea.getDatosAdicionalesCierre() != null && !tarea.getDatosAdicionalesCierre().equals("") ) {
+        if( tarea.getClosing() != null && !tarea.getClosing().isEmpty()
+         && tarea.getDatosAdicionalesCierre() != null && !tarea.getDatosAdicionalesCierre().isEmpty() ) {
           return true;
         }
 
