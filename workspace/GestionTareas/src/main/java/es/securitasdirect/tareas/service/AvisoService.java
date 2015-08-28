@@ -99,7 +99,7 @@ public class AvisoService {
         createComm.setlName1(""); // constante
         createComm.setlName2(""); // constante
         createComm.setInChannel("TELF"); // constante
-        createComm.setValue(tareaAviso.getTelefonoAviso());
+        createComm.setValue((tareaAviso.getTelefonoAviso() != null) ? tareaAviso.getTelefonoAviso() : "");
         createComm.setComent(""); // constante
         createComm.setOutChannel(""); // constante
         createComm.setFrom(tareaAviso.getHorarioDesde());
@@ -151,7 +151,7 @@ public class AvisoService {
          * <TICKET></TICKET>
          */
         createTicket.getTicket().setNumInst(tareaAviso.getNumeroInstalacion());
-        createTicket.getTicket().setObserv(tareaAviso.getObservaciones());
+        createTicket.getTicket().setObserv((tareaAviso.getObservaciones() != null) ? tareaAviso.getObservaciones() : "");
         createTicket.getTicket().setCodZIP("28030"); // TODO InstallationData no tiene codigo postal
         createTicket.getTicket().setCloseTicket("0"); // constante
         createTicket.getTicket().setDataAditional(""); // constante
