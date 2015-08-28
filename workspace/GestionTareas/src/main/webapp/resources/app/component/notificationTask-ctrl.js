@@ -337,6 +337,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
           .success(function (data, status, headers, config) {
               //$log.debug('Agente obtenido: ' + JSON.stringify(data));
         	  $scope.agent=data.agent;
+              CommonService.processBaseResponse(data, status, headers, config);
         	  $scope.openMaintenaceWindow(data.agent);
         	  $scope.closeAgent();
               CommonService.processBaseResponse(data, status, headers, config);
@@ -350,6 +351,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     };
 
     $scope.openMaintenaceWindow=function(agent){
+        alert("vamos a abrir" + ("windowCreateMaintenanceFrame?InstallationNumber="+$scope.installationData.numeroInstalacion+"&PanelTypeId="+$scope.installationData.panel+"&TicketNumber="+$scope.tarea.idAviso+"&RequestedBy="+$scope.tarea.requeridoPor+"&Operator="+agent.agentIBS+"&ContactPerson="+$scope.installationData.personaContacto+"&ContactPhone="+$scope.installationData.telefono+"&Text="+$scope.tarea.observaciones+"&SessionToken="+agent.infopointSession+"&type="+$scope.tarea.tipoAviso1+"&motive="+$scope.tarea.motivo1));
     	//bp_agent=12187&bp_agentIBS=M0OOS&bp_agentCountryJob=SPAIN&bp_desktopDepartment=ATC_SPN&bp_out_GSW_CHAIN_ID_CUSTOM=1&bp_out_clname=CL_CCT_XLS_ASSISTANT
     	var resultado=window.showModalDialog("windowCreateMaintenanceFrame?InstallationNumber="+$scope.installationData.numeroInstalacion+"&PanelTypeId="+$scope.installationData.panel+"&TicketNumber="+$scope.tarea.idAviso+"&RequestedBy="+$scope.tarea.requeridoPor+"&Operator="+agent.agentIBS+"&ContactPerson="+$scope.installationData.personaContacto+"&ContactPhone="+$scope.installationData.telefono+"&Text="+$scope.tarea.observaciones+"&SessionToken="+agent.infopointSession+"&type="+$scope.tarea.tipoAviso1+"&motive="+$scope.tarea.motivo1);
     	//alert('Resultado :' + resultado);

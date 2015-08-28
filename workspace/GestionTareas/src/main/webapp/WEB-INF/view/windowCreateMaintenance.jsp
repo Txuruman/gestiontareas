@@ -28,6 +28,8 @@
 
     $(document).ready(function () {
 
+
+
         var parameters = {
             InstallationNumber : '${params.InstallationNumber}',
             Codifications: '${params.type}|${params.motive}|1|', //Tipo y motivo
@@ -40,7 +42,21 @@
             Text: '${params.Text}',
             SessionToken: '${params.SessionToken}'
         };
- 
+
+        //Prueba
+         <%--parameters = {--%>
+            <%--InstallationNumber : '1729318',--%>
+            <%--Codifications: '100|101|1|', //Tipo y motivo--%>
+            <%--PanelTypeId: 'SDVFAST',  //Tipo de panel de la instalacion--%>
+            <%--TicketNumber: '11493612',  //Numero de Aviso--%>
+            <%--RequestedBy: 'Asistencia Tecnica', // Campo Requerido por???--%>
+            <%--Operator: 'M0OOS',  //Matricula del Agente--%>
+            <%--ContactPerson: 'RUBEN',--%>
+            <%--ContactPhone: '636365884',--%>
+            <%--Text: 'falsa alarma',--%>
+            <%--SessionToken: '${params.SessionToken}'--%>
+        <%--};--%>
+
 
         <%--var jsString = {--%>
             <%--Codifications: codifications,--%>
@@ -57,10 +73,13 @@
         <%--};--%>
 
 
-        var jsonado = JSON.stringify(parameters);
+        var jsonado = JSON.stringify(parameters,null, 4);
         $("input[name='data']").val(jsonado);
     })
 </SCRIPT>
+
+
+2
 
 <FORM method='post' action='${externalCreateAppointmentUrl}' id='frmTOA' name='frmTOA' runat='server'>
     <INPUT type='text' name='data' value='' style="width: 1600px; margin:5px; padding: 3px; font-weight: bold">
