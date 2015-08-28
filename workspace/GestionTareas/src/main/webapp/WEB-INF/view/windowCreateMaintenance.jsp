@@ -57,13 +57,13 @@ Enlace Infopoint:
             Codifications: codifications,
 //            Codifications:'&lt;CODIFICATIONS&gt;&lt;/CODIFICATIONS&gt;',
             //Codifications:'<CODIFICATIONS></CODIFICATIONS>',
-            PanelTypeId: 'panelType',
-            TicketNumber: '11350758',
-            RequestedBy: 'HM',
-            Operator: 'operator',
-            ContactPerson: 'persona llamar',
-            ContactPhone: '696252991',
-            Text: 'text',
+            PanelTypeId: '${params.PanelTypeId}', //installationData.panel
+            TicketNumber: '${params.TicketNumber}', //tarea.idAviso
+            RequestedBy: '${params.RequestedBy}', //tarea.requeridoPor
+            Operator: '${params.Operator}', //agent.agentIBS
+            ContactPerson: '${params.ContactPerson}', //installationData.personaContacto
+            ContactPhone: '${params.ContactPhone}', //installationData.telefono
+            Text: '${params.Text}', //tarea.observaciones
             SessionToken: 'DB4DA3EDF77965766C8700D373DF30EFDE5124EA42282DB07447AE4AEA58DBEC53A0F6459EBDDCCF26CB6D80E686EC5765DB38A0B42B9DF15ED14AAB27DF58D6285C354540805C045A1C17FB208F9EC4C8AA810406BA706306FCFA73DDF614EB'
         };
 
@@ -97,7 +97,7 @@ Enlace Infopoint:
 </FORM>
 </BODY>
 <SCRIPT language='javascript'>
-     document.forms[0].submit();
+     //document.forms[0].submit();
 </SCRIPT>
 
 
