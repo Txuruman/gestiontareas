@@ -8938,8 +8938,8 @@
 </soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:getInsNoFromEmail"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="urn:getInstallationData" name="getInstallationData" bindingOperationName="getInstallationData" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="a5e7181f-d02e-4395-90c5-9b68571b1c06"><con:settings/><con:call name="Request 1" id="85b186a3-7bd0-4adc-8617-6b8ba15e4861"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.2.144.63:9763/services/SP_AIO_TAREAS2.SOAP11Endpoint/</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
   <soap:Body>
     <getInstallationData xmlns="http://ws.wso2.org/dataservice">
-      <s_ins>128360</s_ins>
-      <s_ctr>128360</s_ctr>
+      <s_ins>1732839</s_ins>
+      <s_ctr>1732839</s_ctr>
     </getInstallationData>
   </soap:Body>
 </soap:Envelope>

@@ -26,6 +26,7 @@ public class Agent {
     private String auth_signature;
     private String interactionDirection;
     private String interactionType;
+	private String infopointSession;
 
     public String getIdAgent() {
         return idAgent;
@@ -161,6 +162,14 @@ public class Agent {
 
 	public void setInteractionType(String interactionType) {
 		this.interactionType = interactionType;
+	}
+
+	public String getInfopointSession() {
+		return infopointSession;
+	}
+
+	public void setInfopointSession(String infopointSession) {
+		this.infopointSession = infopointSession;
 	}
 
 	@Override
