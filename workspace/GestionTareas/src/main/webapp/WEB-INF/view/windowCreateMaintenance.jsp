@@ -39,7 +39,8 @@
             ContactPhone: '${params.ContactPhone}',
             Text: '${params.Text}',
             SessionToken: '${params.SessionToken}'
-        }
+        };
+
 
         <%--var jsString = {--%>
             <%--Codifications: codifications,--%>
@@ -61,13 +62,10 @@
     })
 </SCRIPT>
 
-<BODY>
-${externalCreateAppointmentUrl}
 <FORM method='post' action='${externalCreateAppointmentUrl}' id='frmTOA' name='frmTOA' runat='server'>
     <INPUT type='text' name='data' value='' style="width: 1600px; margin:5px; padding: 3px; font-weight: bold">
-    <input type="submit"/>
 </FORM>
-</BODY>
+
 <SCRIPT language='javascript'>
     //Descomentar para que se haga el envio automático del formulario
        //document.forms[0].submit();

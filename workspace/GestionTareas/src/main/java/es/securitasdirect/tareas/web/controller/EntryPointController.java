@@ -207,11 +207,25 @@ public class EntryPointController extends TaskController {
      * @return
      * @throws Exception
      */
+    @RequestMapping("/windowCreateMaintenanceFrame")
+    public ModelAndView handleCreateMaintenanceFrameRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Map<String, String> parametersMap = createParameterMap(request);
+        ModelAndView mv = new ModelAndView("windowCreateMaintenanceFrame");
+        mv.addObject("params", parametersMap);
+        return mv;
+    }
+
+    /**
+     * Redirige a la página que abre la ventana modal de Crear Mantenimiento en la aplicación externa.
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/windowCreateMaintenace")
     public ModelAndView handleCreateMaintenanceRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
     	Map<String, String> parametersMap = createParameterMap(request);
     	ModelAndView mv = new ModelAndView("windowCreateMaintenance");
-    	mv.addObject("externalCreateAppointmentUrl",externalCreateAppointmentUrl);
     	mv.addObject("params", parametersMap);
         return mv;
     }

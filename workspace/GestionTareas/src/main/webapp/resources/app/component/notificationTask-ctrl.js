@@ -348,13 +348,15 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
               CommonService.processBaseResponse(data, status, headers, config);
           });
     };
+
     $scope.openMaintenaceWindow=function(agent){
     	//bp_agent=12187&bp_agentIBS=M0OOS&bp_agentCountryJob=SPAIN&bp_desktopDepartment=ATC_SPN&bp_out_GSW_CHAIN_ID_CUSTOM=1&bp_out_clname=CL_CCT_XLS_ASSISTANT
     	var resultado=window.showModalDialog("windowCreateMaintenace?InstallationNumber="+$scope.installationData.numeroInstalacion+"&PanelTypeId="+$scope.installationData.panel+"&TicketNumber="+$scope.tarea.idAviso+"&RequestedBy="+$scope.tarea.requeridoPor+"&Operator="+agent.agentIBS+"&ContactPerson="+$scope.installationData.personaContacto+"&ContactPhone="+$scope.installationData.telefono+"&Text="+$scope.tarea.observaciones+"&SessionToken="+agent.infopointSession+"&type="+$scope.tarea.tipoAviso1+"&motive="+$scope.tarea.motivo1);
     	//alert('Resultado :' + resultado);
     	//$scope.ventanaMantenimiento=window.open("windowCreateMaintenace?InstallationNumber="+$scope.installationData.numeroInstalacion+"&PanelTypeId="+$scope.installationData.panel+"&TicketNumber="+$scope.tarea.idAviso+"&RequestedBy="+$scope.tarea.requeridoPor+"&Operator="+agent.agentIBS+"&ContactPerson="+$scope.installationData.personaContacto+"&ContactPhone="+$scope.installationData.telefono+"&Text="+$scope.tarea.observaciones+"&SessionToken="+agent.infopointSession+"&type="+$scope.tarea.tipoAviso1+"&motive="+$scope.tarea.motivo1,"_blank","menubar=no, toolbar=no, resizable=yes, location=no, height=500, width=800, left=200");
     	//return true;
-    }
+    };
+
     $scope.closeAgent=function(){
     	$http({
             method: 'GET',
@@ -371,7 +373,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data, status, headers, config);
             });
-    }
+    };
     
     /**
      * Método Descartar: Nos lleva a la página de buscar
@@ -379,34 +381,8 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
      */
     $scope.descartar=function(){
     	$window.location.href= _contextPath + "/entry?bp_agent=12187&bp_agentIBS=M0OOS&bp_agentCountryJob=SPAIN&bp_desktopDepartment=ATC_SPN";
-    }    
+    };
     
-//Antiguo método descartar
-//    $scope.descartar = function () {
-//        //$log.debug('Descartar ' + $scope.tarea);
-//        var createMaintenanceNotificationTaskRequest = {
-//            task: $scope.tarea,
-//            prueba: 'Hola'
-//        };
-//        //$log.debug('Descartar, request: ' + JSON.stringify(createMaintenanceNotificationTaskRequest));
-//        $http({
-//            method: 'PUT',
-//            url: 'notificationtask/descartar',
-//            data: createMaintenanceNotificationTaskRequest
-//        })
-//            .success(function (data, status, headers, config) {
-//                //$log.debug('Realización de descarte, response: ' + JSON.stringify(data));
-//                CommonService.processBaseResponse(data, status, headers, config);
-//            })
-//            .error(function (data, status, headers, config) {
-//                //$log.debug('Error en la realización del descarte, response: ' + JSON.stringify(data));
-//                // called asynchronously if an error occurs
-//                // or server returns response with an error status.
-//                CommonService.processBaseResponse(data, status, headers, config);
-//            });
-//    };
-
-
 
     $scope.finalizar = function(){
         //$log.debug("Finalizar task, task: ",$scope.tarea);
