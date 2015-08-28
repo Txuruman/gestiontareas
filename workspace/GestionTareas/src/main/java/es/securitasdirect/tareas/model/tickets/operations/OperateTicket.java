@@ -831,7 +831,7 @@ public class OperateTicket {
         @XmlAttribute
         protected Integer codZIP;
         @XmlAttribute
-        protected Integer closeTicket;
+        protected String closeTicket;
         @XmlAttribute
         protected String dataAditional;
         @XmlAttribute
@@ -1137,7 +1137,7 @@ public class OperateTicket {
          *     {@link Integer }
          *     
          */
-        public Integer getCloseTicket() {
+        public String getCloseTicket() {
             return closeTicket;
         }
 
@@ -1149,7 +1149,7 @@ public class OperateTicket {
          *     {@link Integer }
          *     
          */
-        public void setCloseTicket(Integer value) {
+        public void setCloseTicket(String value) {
             this.closeTicket = value;
         }
 
