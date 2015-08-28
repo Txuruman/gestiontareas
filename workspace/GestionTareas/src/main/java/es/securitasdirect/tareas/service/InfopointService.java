@@ -50,8 +50,13 @@ public class InfopointService {
         return createSession(matricula, null);
     }
 
-    public void closeSession(String matricula) {
-        closeSession(matricula, null);
+    public void closeSession(String sessionCode) {
+        closeSession(sessionCode, null);
+    }
+
+    public void closeSession(Agent agent) {
+        closeSession(agent.getInfopointSession(),agent.getAuth_ipAddress());
+        agent.setInfopointSession(null);
     }
 
     public boolean validateSession(String sessionCode) {
@@ -62,16 +67,22 @@ public class InfopointService {
         return validarProceso(sessionCode, matricula, proceso, null);
     }
 
-    public String createSession(Agent agent) {
-        return createSession(agent.getAgentIBS(), agent.getAuth_ipAddress());
+    public boolean createSession(Agent agent) {
+        String session =  createSession(agent.getAgentIBS(), agent.getAuth_ipAddress());
+        agent.setInfopointSession(session);
+        return session!=null;
     }
 
     public boolean validarProceso(String sessionCode, Agent agent,String proceso) {
         return validarProceso(sessionCode, agent.getAgentIBS(), proceso, agent.getAuth_ipAddress());
     }
 
-    public boolean isAllowedCreateMaintenance(String sessionCode, Agent agent) {
-        return validarProceso(sessionCode,agent.getAgentIBS(),processCodeCreateMaintenanceInfopoint,agent.getAuth_ipAddress());
+    public boolean isAllowedCreateMaintenance( Agent agent) {
+        if (agent.getInfopointSession()!=null) {
+            return validarProceso(agent.getInfopointSession(), agent.getAgentIBS(), processCodeCreateMaintenanceInfopoint, agent.getAuth_ipAddress());
+        } else {
+            return false;
+        }
     }
 
     /**

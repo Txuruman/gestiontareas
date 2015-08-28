@@ -23,7 +23,6 @@ import java.util.*;
  */
 
 @Controller
-@RequestMapping("/entry")
 public class EntryPointController extends TaskController {
 
     @Autowired
@@ -72,7 +71,7 @@ public class EntryPointController extends TaskController {
      *                   si no viene instalacion la pestaña activa es buscar
      *                   en ambos casos vamos a la pestaña de buscar
      */
-    @RequestMapping
+    @RequestMapping("/entry")
     public ModelAndView handleRequest(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
         Map<String, String> parametersMap = createParameterMap(hsr);
         //Crear el objeto de sesion con los datos del agent
@@ -98,20 +97,20 @@ public class EntryPointController extends TaskController {
             if (tareas == null || tareas.isEmpty()) {
                 mv = new ModelAndView("creartarea");
                 //Enviar a la pantalla los datos de la ultima búsqueda
-                mv.addObject("lastSearchTareaRequest",searchTareaController.getLastSearchTareaRequest());
+                mv.addObject("lastSearchTareaRequest", searchTareaController.getLastSearchTareaRequest());
             } else {
                 //Se prepara el lastSearchTareaRequest con los datos de la instalación para que realice la búsqueda de las tareas automáticamente
-            	SearchTaskRequest searchTaskRequest=new SearchTaskRequest();
-            	searchTaskRequest.setSearchText(tareas.get(0).getNumeroContrato());
-            	searchTaskRequest.setSearchOption(SearchTaskRequest.CLIENT);
-            	mv = new ModelAndView("buscartarea");
-            	mv.addObject("lastSearchTareaRequest",searchTaskRequest);
+                SearchTaskRequest searchTaskRequest = new SearchTaskRequest();
+                searchTaskRequest.setSearchText(tareas.get(0).getNumeroContrato());
+                searchTaskRequest.setSearchOption(SearchTaskRequest.CLIENT);
+                mv = new ModelAndView("buscartarea");
+                mv.addObject("lastSearchTareaRequest", searchTaskRequest);
             }
         } else {
             //Sin tarea ni instalación vamos a buscar tarea
             mv = new ModelAndView("buscartarea");
             //Enviar a la pantalla los datos de la ultima búsqueda
-            mv.addObject("lastSearchTareaRequest",searchTareaController.getLastSearchTareaRequest());
+            mv.addObject("lastSearchTareaRequest", searchTareaController.getLastSearchTareaRequest());
         }
 
         return mv;
@@ -165,5 +164,35 @@ public class EntryPointController extends TaskController {
 
     }
 
+    @RequestMapping("/test")
+    public ModelAndView handleRequestTest(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
+        ModelAndView mv = new ModelAndView("test");
+
+        String codifications = "<CODIFICATIONS>\n" +
+                "  <CODIFICATION>\n" +
+                "       <IX>\n" +
+                "           Mandatory. An integer number that represents the codification index. \n" +
+                "           It must be preserved for further updates or modifications.\n" +
+                "       </IX>\n" +
+                "       <CALLTYPE>\n" +
+                "           Mandatory. Alphanumeric identifier for the reason of the appointment or activity.\n" +
+                "       </CALLTYPE>\n" +
+                "       <PROBLEM>\n" +
+                "           Mandatory. Alphanumeric identifier for the problem of the appointment or activity.\n" +
+                "           It is intrinsically linked to CALLTYPE.\n" +
+                "       </PROBLEM>\n" +
+                "       <CAUSE>\n" +
+                "           Optional, yet mandatory when finalizing appointments or activities.\n" +
+                "           Alphanumeric identifier for the real cause of the appointment or activity.                  </CAUSE>\n" +
+                "       <RESOLUTION>\n" +
+                "           Optional, yet mandatory when finalizing appointments or activities.\n" +
+                "           Alphanumeric identifier of the solution applied for the appointment or activity.            </RESOLUTION>\n" +
+                "       <ITEM ID=\"Item unique identifier\" \n" +
+                "             COUNT=\"Number of items that are part of the appointment or activity solution.\" />    </CODIFICATION>\n" +
+                "</CODIFICATIONS> ";
+
+        mv.addObject("codifications", codifications);
+        return mv;
+    }
 
 }

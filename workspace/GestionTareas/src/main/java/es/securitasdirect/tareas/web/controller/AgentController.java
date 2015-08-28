@@ -3,7 +3,9 @@ package es.securitasdirect.tareas.web.controller;
 import es.securitasdirect.tareas.model.Agent;
 import es.securitasdirect.tareas.model.InstallationData;
 import es.securitasdirect.tareas.model.Tarea;
+import es.securitasdirect.tareas.service.InfopointService;
 import es.securitasdirect.tareas.service.TareaService;
+import es.securitasdirect.tareas.web.controller.dto.AgentResponse;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
 import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
 import es.securitasdirect.tareas.web.controller.params.ExternalParams;
@@ -27,27 +29,30 @@ import java.util.Map;
  * http://stackoverflow.com/questions/21286675/scope-session-is-not-active-for-the-current-thread-illegalstateexception-no
  */
 @Controller
-@Scope(value="session", proxyMode=ScopedProxyMode.TARGET_CLASS)
+@Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 @RequestMapping("/agent")
-public  class AgentController {
+public class AgentController extends BaseController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AgentController.class);
 
     @Inject
     protected MessageUtil messageUtil;
+    @Inject
+    protected InfopointService infopointService;
 
     private Agent agent;
 
     @RequestMapping(value = "/get", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
-    @ResponseBody Agent getAgent() {
+    @ResponseBody
+    Agent getAgent() {
         return agent;
     }
 
     public Agent loadAgentFromIWS(Map<String, String> parametersMap) {
         //Se llama varias veces a cargar el agente, si ya está cargado no lo sobreescribimos
         if (!isLogged()) {
-            LOGGER.debug("Loading agen from params {}" ,parametersMap);
+            LOGGER.debug("Loading agen from params {}", parametersMap);
             agent = new Agent();
             agent.setAgentCountryJob(parametersMap.get(ExternalParams.AGENT_COUTRY_JOB));
             agent.setDesktopDepartment(parametersMap.get(ExternalParams.DESKTOP_DEPARTMENT));
@@ -75,8 +80,58 @@ public  class AgentController {
         return agent;
     }
 
-    /** Indica si el agente ha enviado suficiente información para considerarlo registado */
-    public boolean isLogged(){
-        return agent!=null && agent.getAgentCountryJob()!=null && ! agent.getAgentCountryJob().isEmpty();
+    /**
+     * Indica si el agente ha enviado suficiente información para considerarlo registado
+     */
+    public boolean isLogged() {
+        return agent != null && agent.getAgentCountryJob() != null && !agent.getAgentCountryJob().isEmpty();
+    }
+
+    @RequestMapping(value = "/prepareInfopointSession", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public
+    @ResponseBody
+    BaseResponse prepareInfopointSession() {
+        AgentResponse response = new AgentResponse();
+        response.setAgent(agent);
+
+        try {
+            //Si el agente no tiene session la creamos
+            if (agent.getInfopointSession() == null) {
+                infopointService.createSession(agent);
+            }
+
+            //Validamos que el agente tiene permisos de crear mantenimiento
+            if (infopointService.isAllowedCreateMaintenance(agent)) {
+                //El agente tiene permisos
+                response.info(messageUtil.getProperty("agent.sessionCreated"));
+            } else {
+                //No tiene permisos
+                response.danger(messageUtil.getProperty("agent.noCeatemaintenanceRight"));
+                //Quitamos la session del agente
+                infopointService.closeSession(agent);
+            }
+
+        } catch (Exception e) {
+            LOGGER.error("Error preparing Infopoint session", e);
+            return processException(e) ;
+        }
+        return response;
+    }
+
+    @RequestMapping(value = "/closeInfopointSession", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public
+    @ResponseBody
+    BaseResponse closeInfopointSession() {
+        AgentResponse response = new AgentResponse();
+        response.setAgent(agent);
+        try {
+            //Quitamos la session del agente
+            infopointService.closeSession(agent);
+            response.info(messageUtil.getProperty("agent.sessionClosed"));
+        } catch (Exception e){
+            LOGGER.error("Error closing Infopoint session", e);
+            return processException(e) ;
+        }
+        return response;
     }
 }
