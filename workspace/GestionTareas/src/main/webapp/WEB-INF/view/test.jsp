@@ -25,7 +25,7 @@
 <body>
 
 
-<input type="button" onclick="resultado=window.open('windowCreateMaintenace');alert('Resultado :' + resultado)" value="Window Mantenimiento" />
+<input type="button" onclick="resultado=window.showModalDialog('windowCreateMaintenace');alert('Resultado :' + resultado)" value="Window Mantenimiento" />
 
 <%--<!-- Acordeon -start -->--%>
 <%--<div ng-controller="AccordionDemoCtrl">--%>

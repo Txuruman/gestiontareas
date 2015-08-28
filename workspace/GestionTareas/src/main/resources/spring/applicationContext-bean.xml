@@ -44,6 +44,11 @@
         <constructor-arg value="829"/>
     </bean>
 
+    <!-- URL de la aplicación para crear los mantenimientos -->
+    <bean id="externalCreateAppointmentUrl" class="java.lang.String">
+        <constructor-arg value="http://es1infotest01v/FSMAppointmentManager/CreateAppointmentModal.aspx"/>
+    </bean>
+
 
 
     <!-- Lista y valores del combo de Tipos de Cierre para Tareas de Tipo Mantenimiento -->
@@ -95,14 +100,7 @@
     </util:list>
 
     <!--
-    TAREA_AVISO="TareaAviso"; -
-    TAREA_LISTADOASSISTANT="TareaListadoAssistant"; -
-    TAREA_ENCUESTAMANTENIMIENTO="TareaEncuestaMantenimiento";
-    TAREA_ENCUESTAMARKETING="TareaEncuestaMarketing";
-    TAREA_KEYBOX="TareaKeybox";
-    TAREA_LIMPIEZACUOTA="TareaLimpiezaCuota";
-    TAREA_OTRASCAMPANAS="TareaOtrasCampanas";
-    TAREA_MANTENIMIENTO="TareaMantenimiento";
+    Lista de las calling list utilizadas por la aplicación y el mapeo a
     -->
     <util:map id="callingListToModel" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.util.List" >
         <entry key="TareaAviso">
