@@ -43,6 +43,18 @@
             SessionToken: '${params.SessionToken}'
         };
 
+        //El que nos da problemas
+        //{    "InstallationNumber": "401808",
+        //   "Codifications": "100|199|1|",
+        //  "PanelTypeId": "SDMF",
+        //  "TicketNumber": "11351038",
+        // "RequestedBy": "MCEX - L57808",
+        //  "Operator": "M0OOS",
+        // "ContactPerson": "RUBEN123123",
+        //   "ContactPhone": "33333333",
+        // "Text": "",
+        // "SessionToken": ""}
+
         //Prueba
          <%--parameters = {--%>
             <%--InstallationNumber : '1729318',--%>

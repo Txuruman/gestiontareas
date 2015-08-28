@@ -31,9 +31,6 @@
     </context:component-scan>
     <!--<context:property-placeholder location="classpath*:database.properties,classpath*:hibernate.properties,classpath*:app-version.properties"/>-->
 
-    <!-- TODO COMENTAR -->
-    <!-- Valores para el campo DESPLEGABLE DE CIERRE , que se rellenarán en función del tipo de aviso    -->
-
     <!-- Usuario de aplicación definido para las llamadas a servicios utilizadas en el aplicativo -->
     <bean id="applicationUser" class="java.lang.String">
         <constructor-arg value="Tareas"/>
