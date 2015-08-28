@@ -29,17 +29,17 @@
     $(document).ready(function () {
 
         var parameters = {
-            InstallationNumber : 1729318,
-            Codifications: '100|101|1|', //Tipo y motivo
-            PanelTypeId: 'SDVFAST',  //Tipo de panel de la instalacion
-            TicketNumber: '11350758',  //Numero de Aviso
-            RequestedBy: 'Asistencia Tecnica', // Campo Requerido por???
-            Operator: 'M0OOS',  //Matricula del Agente
-            ContactPerson: 'Ruben',
-            ContactPhone: '696252991',
-            Text: 'text',
-            SessionToken: '70C483C562B496038C79C4D9EEF84C5A33BD867B7E5D7A400F5A8920402E9080E2A77BDF7F215E38EB1BDE3B27485D011FA8C7F5DD605D0703E1094CC2706F887024354289022062705ADDBAD0DC8A5D5F89113A2563A18C14E40259E7EE7605'
-
+            InstallationNumber : '${params.InstallationNumber}',
+            Codifications: '${params.type}|${params.motive}|1|', //Tipo y motivo
+            PanelTypeId: '${params.PanelTypeId}',  //Tipo de panel de la instalacion
+            TicketNumber: '${params.TicketNumber}',  //Numero de Aviso
+            RequestedBy: '${params.RequestedBy}', // Campo Requerido por???
+            Operator: '${params.Operator}',  //Matricula del Agente
+            ContactPerson: '${params.ContactPerson}',
+            ContactPhone: '${params.ContactPhone}',
+            Text: '${params.Text}',
+            SessionToken: '${params.SessionToken}'
+        }
 
         <%--var jsString = {--%>
             <%--Codifications: codifications,--%>
@@ -62,7 +62,7 @@
 </SCRIPT>
 
 <BODY>
-
+${externalCreateAppointmentUrl}
 <FORM method='post' action='${externalCreateAppointmentUrl}' id='frmTOA' name='frmTOA' runat='server'>
     <INPUT type='text' name='data' value='' style="width: 1600px; margin:5px; padding: 3px; font-weight: bold">
     <input type="submit"/>
