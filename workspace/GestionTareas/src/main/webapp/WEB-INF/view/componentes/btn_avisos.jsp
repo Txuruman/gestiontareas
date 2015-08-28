@@ -11,7 +11,7 @@
             	<button type="button" class="btn btn-default[disabled]" title="<spring:message code="boton.Refrescar" />" ng-disabled="refeshDisabled" ng_click="refrescar()">
 			    	<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
            		</button>
-                <app:inputButtonNG value="boton.CrearMantenimiento" type="submit" button_type="default" ng_click="formVisorTarea.$valid ? crearmantenimiento() : null" fluid_wrapper="true" ng_disabled="(tarea===undefined || tarea===null) ? true : false"/>
+                <app:inputButtonNG value="boton.CrearMantenimiento" type="submit" button_type="default" ng_click="formVisorTarea.$valid ? crearmantenimiento() : null" fluid_wrapper="true" /><!-- ng_disabled="(tarea===undefined || tarea===null) ? true : false"/>  -->
                 <app:inputButtonNG value="boton.Aplazar" button_type="default" ng_click="openDelayModal()" fluid_wrapper="true" ng_disabled="(tarea===undefined || tarea===null) ? true : false"/>
                 <app:inputButtonNG value="boton.Descartar" button_type="default" ng_click="openContentModal()" fluid_wrapper="true"/>
                 <!-- Añadir condición cuando haya motivos de cierre :  && tarea.closing!=null -->

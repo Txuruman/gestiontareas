@@ -63,8 +63,8 @@ public class EntryPointController extends TaskController {
     /**
      * Redirects the Main POST Request from IWS to the appropiate page for the Task
      *
-     * @param hsr
-     * @param hsr1
+     * @param request
+     * @param response
      * @return
      * @throws Exception si viene instalacion, consultanos si la instalacion tiene tareas
      *                   si tiene tareas la pestaña activa es la de buscar, si no la de crear
@@ -72,8 +72,8 @@ public class EntryPointController extends TaskController {
      *                   en ambos casos vamos a la pestaña de buscar
      */
     @RequestMapping("/entry")
-    public ModelAndView handleRequest(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
-        Map<String, String> parametersMap = createParameterMap(hsr);
+    public ModelAndView handleEntryRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Map<String, String> parametersMap = createParameterMap(request);
         //Crear el objeto de sesion con los datos del agent
         Agent agent = agentController.loadAgentFromIWS(parametersMap);
         String callingList = parametersMap.get(ExternalParams.CALLING_LIST);
@@ -165,7 +165,7 @@ public class EntryPointController extends TaskController {
     }
 
     @RequestMapping("/test")
-    public ModelAndView handleRequestTest(HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
+    public ModelAndView handleRequestTest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mv = new ModelAndView("test");
 
         String codifications = "<CODIFICATIONS>\n" +
@@ -195,4 +195,17 @@ public class EntryPointController extends TaskController {
         return mv;
     }
 
+
+    /**
+     * Redirige a la página que abre la ventana modal de Crear Mantenimiento en la aplicación externa.
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/windowCreateMaintenace")
+    public ModelAndView handleCreateMaintenanceRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        ModelAndView mv = new ModelAndView("windowCreateMaintenance");
+        return mv;
+    }
 }

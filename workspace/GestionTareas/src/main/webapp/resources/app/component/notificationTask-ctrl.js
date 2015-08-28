@@ -323,20 +323,59 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     };
 
     $scope.crearmantenimiento = function () {
+    	//Obtenemos el agente
+      $http({
+          method: 'GET',
+          url: 'agent/prepareInfopointSession'
+      })
+          .success(function (data, status, headers, config) {
+              $log.debug('Agente obtenido: ' + JSON.stringify(data));
+        	  $scope.agent=data.agent;
+        	  $scope.openMaintenaceWindow(data.agent);
+        	  $scope.closeAgent();
+              CommonService.processBaseResponse(data, status, headers, config);
+          })
+          .error(function (data, status, headers, config) {
+              //$log.debug('Error en la creación de mantenimiento, response: ' + JSON.stringify(data));
+              // called asynchronously if an error occurs
+              // or server returns response with an error status.
+              CommonService.processBaseResponse(data, status, headers, config);
+          });
         //$log.debug('Crear mantenimiento, tarea: ' + JSON.stringify($scope.tarea));
-        var createMaintenanceNotificationTaskRequest = {
-            task: $scope.tarea,
-            prueba: 'Hola'
-        };
-        //$log.debug('Crear mantenimiento, request: ' + JSON.stringify(createMaintenanceNotificationTaskRequest));
-        $http({
-            method: 'PUT',
-            url: 'notificationtask/crearmantenimiento',
-            data: createMaintenanceNotificationTaskRequest
+//        var createMaintenanceNotificationTaskRequest = {
+//            task: $scope.tarea,
+//            prueba: 'Hola'
+//        };
+//        //$log.debug('Crear mantenimiento, request: ' + JSON.stringify(createMaintenanceNotificationTaskRequest));
+//        $http({
+//            method: 'PUT',
+//            url: 'notificationtask/crearmantenimiento',
+//            data: createMaintenanceNotificationTaskRequest
+//        })
+//            .success(function (data, status, headers, config) {
+//                //$log.debug('Creación de mantenimiento realizada, response: ' + JSON.stringify(data));
+//                CommonService.processBaseResponse(data, status, headers, config);
+//            })
+//            .error(function (data, status, headers, config) {
+//                //$log.debug('Error en la creación de mantenimiento, response: ' + JSON.stringify(data));
+//                // called asynchronously if an error occurs
+//                // or server returns response with an error status.
+//                CommonService.processBaseResponse(data, status, headers, config);
+//            });
+    };
+    $scope.openMaintenaceWindow=function(agent){
+    	$scope.ventanaMantenimiento=window.open("windowCreateMaintenace","_blank","menubar=no, toolbar=no, resizable=yes, location=no, height=500, width=800, left=200");
+    	return true;
+    }
+    $scope.closeAgent=function(){
+    	$http({
+            method: 'GET',
+            url: 'agent/closeInfopointSession'
         })
             .success(function (data, status, headers, config) {
-                //$log.debug('Creación de mantenimiento realizada, response: ' + JSON.stringify(data));
-                CommonService.processBaseResponse(data, status, headers, config);
+              $log.debug('Agente obtenido: ' + data);
+          	  $scope.agent=data.agent;
+              CommonService.processBaseResponse(data, status, headers, config);
             })
             .error(function (data, status, headers, config) {
                 //$log.debug('Error en la creación de mantenimiento, response: ' + JSON.stringify(data));
@@ -344,8 +383,8 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data, status, headers, config);
             });
-    };
-
+    }
+    
     /**
      * Método Descartar: Nos lleva a la página de buscar
      * Variable _contextPath inicializada en commonImports

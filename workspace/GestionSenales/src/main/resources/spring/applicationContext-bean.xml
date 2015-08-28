@@ -57,10 +57,10 @@
             <bean class="es.securitasdirect.senales.model.SignalMetadata">
                 <property name="clId" value="DIY_TAREAS_BTN"/>
                 <property name="allowedStatus">
-                   <list value-type="java.lang.Integer">
-                       <value>1</value>
-                       <value>2</value>
-                   </list>
+                    <list value-type="java.lang.Integer">
+                        <value>1</value>
+                        <value>2</value>
+                    </list>
                 </property>
             </bean>
         </entry>
@@ -138,17 +138,6 @@
     </util:map>
 
 
-    <!-- TODO BORRAR ESTA BASURA -->
-    <!--<util:list id="tareaAvisoItems" list-class="java.util.ArrayList" value-type="java.lang.String">-->
-        <!--<value>foo2@bar.com</value>-->
-        <!--<value>foo3@bar.com</value>-->
-    <!--</util:list>-->
-
-    <!--&lt;!&ndash;<util:map id="callingListToModel2" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.util.ArrayList">&ndash;&gt;-->
-    <!--&lt;!&ndash;<entry key="TareaAviso" value-ref="tareaAvisoItems" />&ndash;&gt;-->
-    <!--&lt;!&ndash;</util:map>&ndash;&gt;-->
-
-
     <!-- Work hours definitions, when outside the work hour the SMS will be sent -->
 
     <!-- Eight o'clok in the morning -->
@@ -209,9 +198,15 @@
     </bean>
 
 
-
-
-
+    <!-- Servicio de estatus de la aplicación. Necesario para injectar todos los JMS Reader configurados. -->
+    <bean id="happyService" class="es.securitasdirect.senales.service.HappyService">
+        <property name="monitoredJmsReaders">
+            <!-- Injectar todos los JMS Reader que se quiera que se muestren por el Happy Service -->
+            <util:list value-type="es.securitasdirect.senales.reader.JMSReader">
+                <ref bean="jmsReaderPozuelo"/>
+            </util:list>
+        </property>
+    </bean>
 
 
 </beans>
