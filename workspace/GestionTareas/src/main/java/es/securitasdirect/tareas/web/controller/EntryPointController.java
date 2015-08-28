@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,6 +28,9 @@ public class EntryPointController extends TaskController {
 
     @Autowired
     protected AgentController agentController;
+
+    @Resource
+    protected String externalCreateAppointmentUrl;
 
     //Funciona
 //    @Autowired
@@ -203,9 +207,27 @@ public class EntryPointController extends TaskController {
      * @return
      * @throws Exception
      */
+    @RequestMapping("/windowCreateMaintenanceFrame")
+    public ModelAndView handleCreateMaintenanceFrameRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Map<String, String> parametersMap = createParameterMap(request);
+        ModelAndView mv = new ModelAndView("windowCreateMaintenanceFrame");
+        mv.addObject("params", parametersMap);
+        return mv;
+    }
+
+    /**
+     * Redirige a la página que abre la ventana modal de Crear Mantenimiento en la aplicación externa.
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/windowCreateMaintenace")
     public ModelAndView handleCreateMaintenanceRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        ModelAndView mv = new ModelAndView("windowCreateMaintenance");
+    	Map<String, String> parametersMap = createParameterMap(request);
+    	ModelAndView mv = new ModelAndView("windowCreateMaintenance");
+    	mv.addObject("externalCreateAppointmentUrl", externalCreateAppointmentUrl);
+    	mv.addObject("params", parametersMap);
         return mv;
     }
 }

@@ -17,7 +17,7 @@ Enlaces
     <li>
         Estando el agente disponible, le llega una interacción de tipo Tarea para gestionarla.
         <ul>
-            <li><a href="entry?bp_agent=12187&bp_agentIBS=M0OOS&bp_agentCountryJob=SPAIN&bp_desktopDepartment=ATC_SPN&bp_out_GSW_CHAIN_ID_CUSTOM=6&bp_out_clname=CL_CCT_ATC_CRA">Tarea Tipo Aviso</a></li>
+            <li><a href="entry?bp_agent=12187&bp_agentIBS=M0OOS&bp_agentCountryJob=SPAIN&bp_desktopDepartment=ATC_SPN&bp_out_GSW_CHAIN_ID_CUSTOM=0&bp_out_clname=CL_CCT_ATC_CRA">Tarea Tipo Aviso</a></li>
             <li><a href="entry?bp_agent=12187&bp_agentIBS=M0OOS&bp_agentCountryJob=SPAIN&bp_desktopDepartment=ATC_SPN&bp_out_GSW_CHAIN_ID_CUSTOM=1&bp_out_clname=CL_TAREAS_DIY">Tarea Mantenimiento</a></li>
             <li>Tarea tipo Excel
                 <ul>
@@ -31,17 +31,15 @@ Enlaces
             </li>
         </ul>
     <li>
-        Estando el agente sin interacción en curso, decide crear una Tarea o buscar una existente.<br/>
-        <a href="entry?bp_agent=12187&bp_agentIBS=M0OOS&bp_agentCountryJob=SPAIN&bp_desktopDepartment=ATC_SPN">Buscar Tareas</a><br/>
-        <a href="createtask">Crear Tarea</a><br/>
+        Estando el agente sin interacción en curso.<br/>
+        <a href="entry?bp_agent=12187&bp_agentIBS=M0OOS&bp_agentCountryJob=SPAIN&bp_desktopDepartment=ATC_SPN">Entrar</a><br/>
     </li>
     <li>
-        Estando el agente con una interacción en curso, decide crear una Tarea o buscar una existente.<br/>
+        Estando el agente con una interacción en curso.<br/>
         <ul>
-            <li><a href="entry?bp_agent=12187&bp_agentIBS=I24311&bp_agentCountryJob=SPAIN&bp_desktopDepartment=ATC_SPN&bp_out_instalacion=111111">Crear Tarea</a></li>
-            <li><a href="entry?bp_agent=12187&bp_agentIBS=I24311&bp_agentCountryJob=SPAIN&bp_desktopDepartment=ATC_SPN&bp_out_instalacion=1599716">Buscar Tareas (Instalación con Tareas)</a></li>
-            <li><a href="entry?bp_agent=12187&bp_agentIBS=I24311&bp_agentCountryJob=SPAIN&bp_desktopDepartment=ATC_SPN&bp_out_instalacion=111111">Buscar Tareas (Instalación sin Tareas)</a></li>        </ul>
-
+            <li><a href="entry?bp_agent=12187&bp_agentIBS=I24311&bp_agentCountryJob=SPAIN&bp_desktopDepartment=ATC_SPN&bp_out_instalacion=1599716">Entrar (Instalación con Tareas)</a></li>
+            <li><a href="entry?bp_agent=12187&bp_agentIBS=I24311&bp_agentCountryJob=SPAIN&bp_desktopDepartment=ATC_SPN&bp_out_instalacion=111111">Entrar (Instalación sin Tareas)</a></li>
+        </ul>
     </li>
 </ul>
 

@@ -10,22 +10,13 @@
 
     <app:commonImports/>
 
-    <script src="${pageContext.request.contextPath}/resources/app/maincontrollers/taskViewer-ctrl.js"></script>
-
-    <%--<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.css"/>--%>
-    <%--<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/custom.css"/>--%>
-    <%--<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/js/ui-bootstrap-tpls-0.13.0.js"/>--%>
-
-    <%--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.js"></script>--%>
-    <%--<script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.6.0/moment.min.js"></script>--%>
-
 
 </head>
 
 <body>
 
 
-<input type="button" onclick="resultado=window.open('windowCreateMaintenace');alert('Resultado :' + resultado)" value="Window Mantenimiento" />
+<input type="button" onclick="resultado=window.showModalDialog('windowCreateMaintenanceFrame');alert('Resultado :' + resultado)" value="Window Mantenimiento" />
 
 <%--<!-- Acordeon -start -->--%>
 <%--<div ng-controller="AccordionDemoCtrl">--%>

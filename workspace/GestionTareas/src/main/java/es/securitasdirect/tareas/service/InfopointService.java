@@ -213,10 +213,10 @@ public class InfopointService {
         String resultadoValidation = wsInfopoint.validarProceso(sessionCode, ip, proceso, matricula);
 
         if (resultadoValidation != null && !resultadoValidation.isEmpty() && !resultadoValidation.contains(textoError)) {
-            LOGGER.debug("User {} don't have access to process {} : {}", matricula, proceso, resultadoValidation);
+            LOGGER.debug("User {} has access to process {} : {}", matricula, proceso, resultadoValidation);
             return true;
         } else {
-            LOGGER.debug("User {} has access to process {} : {} ", matricula, proceso, resultadoValidation);
+            LOGGER.debug("User {} don't  have access to process {} : {} ", matricula, proceso, resultadoValidation);
             return false;
         }
     }

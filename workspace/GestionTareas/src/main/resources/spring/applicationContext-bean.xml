@@ -31,9 +31,6 @@
     </context:component-scan>
     <!--<context:property-placeholder location="classpath*:database.properties,classpath*:hibernate.properties,classpath*:app-version.properties"/>-->
 
-    <!-- TODO COMENTAR -->
-    <!-- Valores para el campo DESPLEGABLE DE CIERRE , que se rellenarán en función del tipo de aviso    -->
-
     <!-- Usuario de aplicación definido para las llamadas a servicios utilizadas en el aplicativo -->
     <bean id="applicationUser" class="java.lang.String">
         <constructor-arg value="Tareas"/>
@@ -42,6 +39,11 @@
     <!-- Número de Proceso para consultar a Infopoint por los permisos para crear un mantenimiento -->
     <bean id="processCodeCreateMaintenanceInfopoint" class="java.lang.String">
         <constructor-arg value="829"/>
+    </bean>
+
+    <!-- URL de la aplicación para crear los mantenimientos -->
+    <bean id="externalCreateAppointmentUrl" class="java.lang.String">
+        <constructor-arg value="http://es1infotest01v/FSMAppointmentManager/CreateAppointmentModal.aspx"/>
     </bean>
 
 
@@ -95,14 +97,7 @@
     </util:list>
 
     <!--
-    TAREA_AVISO="TareaAviso"; -
-    TAREA_LISTADOASSISTANT="TareaListadoAssistant"; -
-    TAREA_ENCUESTAMANTENIMIENTO="TareaEncuestaMantenimiento";
-    TAREA_ENCUESTAMARKETING="TareaEncuestaMarketing";
-    TAREA_KEYBOX="TareaKeybox";
-    TAREA_LIMPIEZACUOTA="TareaLimpiezaCuota";
-    TAREA_OTRASCAMPANAS="TareaOtrasCampanas";
-    TAREA_MANTENIMIENTO="TareaMantenimiento";
+    Lista de las calling list utilizadas por la aplicación y el mapeo a
     -->
     <util:map id="callingListToModel" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.util.List" >
         <entry key="TareaAviso">
