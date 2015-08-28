@@ -1,4 +1,7 @@
 app.controller('taskCreation', function ($scope, $http, CommonService, $modal, $log) {
+	//variabled para desabilitar los input de crear tarea si no se ha hecho la busqueda de la instalacion
+	$scope.installationNotSearched=true;
+	$scope.mostrarAvisos=false;
 	$scope.getIntallation = function () {
         //$log.debug('Loading NotificationTask');
         //$log.debug("Params: "
@@ -14,22 +17,18 @@ app.controller('taskCreation', function ($scope, $http, CommonService, $modal, $
             }
         })
             .success(function (data, status, headers, config) {
-                //$log.debug('Loaded NotificationTask Data' + JSON.stringify(data));
                 CommonService.processBaseResponse(data, status, headers, config);
-//                $scope.tarea = data.tarea;
                 $scope.installationData = data.installationData;
-//                $scope.getNotificationTypeList();
-//                $scope.getTypeReasonList1($scope.tarea.tipoAviso1);
-//                $scope.getTypeReasonList2($scope.tarea.tipoAviso2);
-//                $scope.getTypeReasonList3($scope.tarea.tipoAviso3);
-                //$log.debug("Motivo lists: ",$scope.motivoList1,$scope.motivoList2,$scope.motivoList3);
-                //$log.debug("SCOPE TAREA:", $scope.tarea);
-                //$log.debug("Get closing list params: " + $scope.tarea.tipoAviso1 + ", " + $scope.tarea.motivo1);
-//                $scope.getClosingList($scope.tarea.tipoAviso1,  $scope.tarea.motivo1, $scope.tarea.closing );
-//                $scope.refeshDisabled=true;
+                if ($scope.installationData==null || $scope.installationData==undefined || $scope.installationData=="") {
+                	$scope.installationNotSearched=true;
+				}else{
+					$scope.installationNotSearched=false;
+					$scope.mostrarAvisos=true;
+				}
             })
             .error(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
+                $scope.installationNotSearched=true;
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });

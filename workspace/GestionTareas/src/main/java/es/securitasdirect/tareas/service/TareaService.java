@@ -280,7 +280,20 @@ public class TareaService {
         }
         return delayed;
     }
-
+    
+    /**
+     * Crear el aviso desde la pantalla de crear tarea
+     */
+    public boolean createTask(Agent agent, Tarea tarea,InstallationData installationData) {
+    	LOGGER.debug("Creating task: {}", tarea);
+    	boolean creado=false;
+    	if (tarea instanceof TareaAviso) {
+    		creado = avisoService.createTicket(agent, (TareaAviso)tarea, installationData);
+		}
+    	
+    	//TODO: Crear Tarea
+    	return creado;
+    }
     public boolean createTask(Agent agent, TareaMantenimiento tareaMantenimiento) {
         LOGGER.debug("Creating task: {}", tareaMantenimiento);
         boolean result;

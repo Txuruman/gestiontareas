@@ -11,7 +11,7 @@
 <%@ attribute name="maxlength" required="false" description="The maximum number of characters allowed in the <input> element" %>
 <%@ attribute name="cell_label" required="false"  description="The maximun cells label in parent space" type="java.lang.Integer" %>
 <%@ attribute name="cell_input" required="false"  description="The maximun cells label in parent space" %>
-
+<%@ attribute name="ng_disabled" required="false"  description="input ng-disabled" %>
 
 
 <c:if test="${cell_label == null}">
@@ -42,6 +42,9 @@
                   maxlength="${maxlength}" rows="5"
                   ${readonly=='true'? 'disabled' : ''}
                   ng-model="${value}" 
+                  <c:if test="${not empty ng_disabled}">
+           			ng-disabled="<c:out value="${ng_disabled}"/>"
+           		</c:if>		
                   >
                   
         </textarea>

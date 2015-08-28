@@ -12,6 +12,7 @@ import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
 import es.securitasdirect.tareas.web.controller.dto.support.DummyResponseGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +35,8 @@ public class CreateTaskController extends BaseController {
 
     @Inject
     protected TareaService tareaService;
-
+    @Autowired
+    private AgentController agentController;
     
     
     //MV DSE RESPUESTA PARA CREARTAREA EL MAPEO ESTA DENTRO DEL VISOR Y SE LLAMA ASÍ:
@@ -60,8 +62,8 @@ public class CreateTaskController extends BaseController {
         BaseResponse response;
         try{
             LOGGER.debug("Create task request: {}", request);
-            Agent agent = DummyGenerator.getAgent();
-            boolean result = true;//TODO: Create task TareaAviso tareaService.createTask( agent, (TareaMantenimiento)request.getTask());
+            Agent agent = agentController.getAgent();
+            boolean result = tareaService.createTask(agent, request.getTask(), request.getInstallationData());
             LOGGER.debug("Created task result: {}", result);
             response = processSuccessMessages(result, SERVICE_MESSAGE);
         }catch(Exception e){
