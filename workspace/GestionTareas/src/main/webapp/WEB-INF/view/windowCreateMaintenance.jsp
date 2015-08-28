@@ -29,7 +29,7 @@
     $(document).ready(function () {
 
         var parameters = {
-            InstallationNumber : 1729318,
+            InstallationNumber: 1729318,
             Codifications: '100|101|1|', //Tipo y motivo
             PanelTypeId: 'SDVFAST',  //Tipo de panel de la instalacion
             TicketNumber: '11350758',  //Numero de Aviso
@@ -40,7 +40,7 @@
             Text: 'text',
             SessionToken: '70C483C562B496038C79C4D9EEF84C5A33BD867B7E5D7A400F5A8920402E9080E2A77BDF7F215E38EB1BDE3B27485D011FA8C7F5DD605D0703E1094CC2706F887024354289022062705ADDBAD0DC8A5D5F89113A2563A18C14E40259E7EE7605'
 
-
+        };
         <%--var jsString = {--%>
             <%--Codifications: codifications,--%>
 <%--//            Codifications:'&lt;CODIFICATIONS&gt;&lt;/CODIFICATIONS&gt;',--%>
@@ -61,8 +61,6 @@
     })
 </SCRIPT>
 
-<BODY>
-
 <FORM method='post' action='${externalCreateAppointmentUrl}' id='frmTOA' name='frmTOA' runat='server'>
     <INPUT type='text' name='data' value='' style="width: 1600px; margin:5px; padding: 3px; font-weight: bold">
     <input type="submit"/>
@@ -71,7 +69,7 @@
 <SCRIPT language='javascript'>
     //Descomentar para que se haga el envio automático del formulario
        //document.forms[0].submit();
-    setTimeout(function(){document.forms[0].submit();},3000);
+  //  setTimeout(function(){document.forms[0].submit();},3000);
 </SCRIPT>
 
 
