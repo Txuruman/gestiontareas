@@ -97,7 +97,7 @@ Enlace Infopoint:
 </FORM>
 </BODY>
 <SCRIPT language='javascript'>
-    // document.forms[0].submit();
+     document.forms[0].submit();
 </SCRIPT>
 
 

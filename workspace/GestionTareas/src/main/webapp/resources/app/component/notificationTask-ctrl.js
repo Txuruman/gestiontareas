@@ -364,7 +364,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
 //            });
     };
     $scope.openMaintenaceWindow=function(agent){
-    	$scope.ventanaMantenimiento=window.open("windowCreateMaintenace","_blank","menubar=no, toolbar=no, resizable=yes, location=no, height=500, width=500");
+    	$scope.ventanaMantenimiento=window.open("windowCreateMaintenace","_blank","menubar=no, toolbar=no, resizable=yes, location=no, height=500, width=800, left=200");
     	return true;
     }
     $scope.closeAgent=function(){
