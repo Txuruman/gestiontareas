@@ -123,7 +123,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
 
     //Consultar Combo de Cierre
     $scope.getClosingList = function(idType, reasonId, closing) {
-        $log.debug("Load Closing Type List for params: "+ idType + ", " + reasonId);
+        //$log.debug("Load Closing Type List for params: "+ idType + ", " + reasonId);
         var closingTypeRequest = {
             idType: idType,
             reasonId: reasonId
@@ -148,7 +148,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     };
 
     $scope.getClosingAditionalDataList = function() {
-        $log.debug("Load Closing Aditional Data List " );
+        //$log.debug("Load Closing Aditional Data List " );
         $http({
             method: 'GET',
             url: 'commons/getClosingAditionalDataList'
@@ -335,7 +335,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
           url: 'agent/prepareInfopointSession'
       })
           .success(function (data, status, headers, config) {
-              $log.debug('Agente obtenido: ' + JSON.stringify(data));
+              //$log.debug('Agente obtenido: ' + JSON.stringify(data));
         	  $scope.agent=data.agent;
         	  $scope.openMaintenaceWindow(data.agent);
         	  $scope.closeAgent();
@@ -359,7 +359,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             url: 'agent/closeInfopointSession'
         })
             .success(function (data, status, headers, config) {
-              $log.debug('Agente obtenido: ' + data);
+              //$log.debug('Agente obtenido: ' + data);
           	  $scope.agent=data.agent;
               CommonService.processBaseResponse(data, status, headers, config);
             })
