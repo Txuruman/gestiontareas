@@ -258,8 +258,8 @@ public class AvisoService {
         comm.setValue(tareaAviso.getTelefonoAviso());
         comm.setComent(""); // constante
         comm.setOutChannel(""); // constante
-        comm.setFrom(Integer.valueOf(tareaAviso.getHorarioDesde()));
-        comm.setTo(Integer.valueOf(tareaAviso.getHorarioHasta()));
+        comm.setFrom(tareaAviso.getHorarioDesde());
+        comm.setTo(tareaAviso.getHorarioHasta());
         /* <OPCOD></OPCOD>*/
         OperateTicket.TICKET.OPCOD opcod = new OperateTicket.TICKET.OPCOD();
         opcod.setCodKey1(Integer.valueOf(tareaAviso.getTipoAviso1()));
