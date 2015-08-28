@@ -53,8 +53,8 @@
                 <div class="row">
                     <app:inputTextNG id="requiredBy" value="tarea.requeridoPor" form="formCreateTask" required="true" label="createtask.requiredby" cells="6" ng_disabled="installationNotSearched"/>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        <app:inputTextNG id="horarioDesde" label="tareaAviso.horarioDesde" form="formCreateTask" required="true" value="tarea.horarioDesde" cells="6"  ng_disabled="installationNotSearched"/><!--  ng_keypress="onlyNumber($event,true,tarea.horarioDesde.length)"/> -->
-                		<app:inputTextNG id="horarioHasta" label="tareaAviso.horarioHasta" form="formCreateTask" required="true" value="tarea.horarioHasta" cells="6"  ng_disabled="installationNotSearched"/>
+                        <app:inputTextNG pattern="^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)$" id="horarioDesde" label="tareaAviso.horarioDesde" form="formCreateTask" required="true" value="tarea.horarioDesde" cells="6"  ng_disabled="installationNotSearched" hour="true"/><!--  ng_keypress="onlyNumber($event,true,tarea.horarioDesde.length)"/> -->
+                		<app:inputTextNG pattern="^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)$" id="horarioHasta" label="tareaAviso.horarioHasta" form="formCreateTask" required="true" value="tarea.horarioHasta" cells="6"  ng_disabled="installationNotSearched" hour="true"/>
                     </div>
                 </div>
                 <!-- row -->
