@@ -112,9 +112,7 @@ app.controller('taskCreation', function ($scope, $http, CommonService, $modal, $
           });
     };
     $scope.openMaintenaceWindow=function(agent){
-    	//bp_agent=12187&bp_agentIBS=M0OOS&bp_agentCountryJob=SPAIN&bp_desktopDepartment=ATC_SPN&bp_out_GSW_CHAIN_ID_CUSTOM=1&bp_out_clname=CL_CCT_XLS_ASSISTANT
-    	$scope.ventanaMantenimiento=window.open("windowCreateMaintenace?PanelTypeId="+$scope.installationData.panel+"&TicketNumber="+$scope.tarea.idAviso+"&RequestedBy="+$scope.tarea.requeridoPor+"&Operator="+agent.agentIBS+"&ContactPerson="+$scope.installationData.personaContacto+"&ContactPhone="+$scope.installationData.telefono+"&Text="+$scope.tarea.observaciones,"_blank","menubar=no, toolbar=no, resizable=yes, location=no, height=500, width=800, left=200");
-    	return true;
+    	var resultado=window.showModalDialog("windowCreateMaintenanceFrame?InstallationNumber="+$scope.installationData.numeroInstalacion+"&PanelTypeId="+$scope.installationData.panel+"&TicketNumber="+$scope.tarea.idAviso+"&RequestedBy="+$scope.tarea.requeridoPor+"&Operator="+agent.agentIBS+"&ContactPerson="+$scope.installationData.personaContacto+"&ContactPhone="+$scope.installationData.telefono+"&Text="+$scope.tarea.observaciones+"&SessionToken="+agent.infopointSession+"&type="+$scope.tarea.tipoAviso1+"&motive="+$scope.tarea.motivo1);	
     }
     $scope.closeAgent=function(){
     	$http({
