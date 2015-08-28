@@ -204,7 +204,7 @@ public class DATA {
         @XmlElement(name = "UPDATE", required = true)
         protected DATA.ERR.UPDATE update;
         @XmlAttribute
-        protected Integer cod;
+        protected String cod;
         @XmlAttribute
         protected String desc;
 
@@ -240,7 +240,7 @@ public class DATA {
          *     {@link Integer }
          *     
          */
-        public Integer getCod() {
+        public String getCod() {
             return cod;
         }
 
@@ -252,7 +252,7 @@ public class DATA {
          *     {@link Integer }
          *     
          */
-        public void setCod(Integer value) {
+        public void setCod(String value) {
             this.cod = value;
         }
 
