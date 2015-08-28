@@ -95,12 +95,11 @@
 
 <FORM method='post' action='${externalCreateAppointmentUrl}' id='frmTOA' name='frmTOA' runat='server'>
     <INPUT type='text' name='data' value='' style="width: 1600px; margin:5px; padding: 3px; font-weight: bold">
-    <input type="submit" />
 </FORM>
 
 <SCRIPT language='javascript'>
     //Descomentar para que se haga el envio automático del formulario
-       //document.forms[0].submit();
+        document.forms[0].submit();
    // setTimeout(function(){document.forms[0].submit();},3000);
 </SCRIPT>
 
