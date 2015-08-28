@@ -10,9 +10,8 @@
     <app:commonImports/>
 </head>
 
-
 <frameset>
-    <frame src="windowCreateMaintenace">
+    <frame src="windowCreateMaintenace?InstallationNumber=${params.InstallationNumber}&PanelTypeId=${params.type}&TicketNumber=${params.TicketNumber}&RequestedBy=${params.RequestedBy}&Operator=${params.Operator}&ContactPerson=${params.ContactPerson}&ContactPhone=${params.ContactPhone}&Text=${params.Text}&SessionToken=${params.SessionToken}&type=${params.type}&motive=${params.motive}">
 </frameset>
 
 </html>
