@@ -232,7 +232,7 @@ public class AvisoService {
         operateTicket.getTICKET().setCONTACTO(contacto);
 
         OperateTicket.TICKET.CLOSE close = new OperateTicket.TICKET.CLOSE();
-        close.setCloseTicket(Integer.valueOf(tareaAviso.getClosing()));
+        close.setCloseTicket(tareaAviso.getClosing());
         close.setDataAditional(tareaAviso.getDatosAdicionalesCierre());
         close.setNotaCierre(tareaAviso.getObservaciones());
         operateTicket.getTICKET().setCLOSE(close);
@@ -258,8 +258,8 @@ public class AvisoService {
         comm.setValue(tareaAviso.getTelefonoAviso());
         comm.setComent(""); // constante
         comm.setOutChannel(""); // constante
-        comm.setFrom(Integer.valueOf(tareaAviso.getHorarioDesde()));
-        comm.setTo(Integer.valueOf(tareaAviso.getHorarioHasta()));
+        comm.setFrom(tareaAviso.getHorarioDesde());
+        comm.setTo(tareaAviso.getHorarioHasta());
         /* <OPCOD></OPCOD>*/
         OperateTicket.TICKET.OPCOD opcod = new OperateTicket.TICKET.OPCOD();
         opcod.setCodKey1(Integer.valueOf(tareaAviso.getTipoAviso1()));

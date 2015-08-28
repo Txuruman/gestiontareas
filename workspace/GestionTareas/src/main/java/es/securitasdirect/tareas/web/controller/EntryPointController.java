@@ -209,8 +209,9 @@ public class EntryPointController extends TaskController {
      */
     @RequestMapping("/windowCreateMaintenace")
     public ModelAndView handleCreateMaintenanceRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        ModelAndView mv = new ModelAndView("windowCreateMaintenance");
-        mv.addObject("externalCreateAppointmentUrl",externalCreateAppointmentUrl);
+    	Map<String, String> parametersMap = createParameterMap(request);
+    	ModelAndView mv = new ModelAndView("windowCreateMaintenance");
+    	mv.addObject("params", parametersMap);
         return mv;
     }
 }

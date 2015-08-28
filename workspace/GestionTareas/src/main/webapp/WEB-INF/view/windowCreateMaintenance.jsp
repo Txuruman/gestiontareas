@@ -39,7 +39,21 @@
             ContactPhone: '696252991',
             Text: 'text',
             SessionToken: '70C483C562B496038C79C4D9EEF84C5A33BD867B7E5D7A400F5A8920402E9080E2A77BDF7F215E38EB1BDE3B27485D011FA8C7F5DD605D0703E1094CC2706F887024354289022062705ADDBAD0DC8A5D5F89113A2563A18C14E40259E7EE7605'
-        };
+
+
+        <%--var jsString = {--%>
+            <%--Codifications: codifications,--%>
+<%--//            Codifications:'&lt;CODIFICATIONS&gt;&lt;/CODIFICATIONS&gt;',--%>
+            <%--//Codifications:'<CODIFICATIONS></CODIFICATIONS>',--%>
+            <%--PanelTypeId: '${params.PanelTypeId}', //installationData.panel--%>
+            <%--TicketNumber: '${params.TicketNumber}', //tarea.idAviso--%>
+            <%--RequestedBy: '${params.RequestedBy}', //tarea.requeridoPor--%>
+            <%--Operator: '${params.Operator}', //agent.agentIBS--%>
+            <%--ContactPerson: '${params.ContactPerson}', //installationData.personaContacto--%>
+            <%--ContactPhone: '${params.ContactPhone}', //installationData.telefono--%>
+            <%--Text: '${params.Text}', //tarea.observaciones--%>
+            <%--SessionToken: 'DB4DA3EDF77965766C8700D373DF30EFDE5124EA42282DB07447AE4AEA58DBEC53A0F6459EBDDCCF26CB6D80E686EC5765DB38A0B42B9DF15ED14AAB27DF58D6285C354540805C045A1C17FB208F9EC4C8AA810406BA706306FCFA73DDF614EB'--%>
+        <%--};--%>
 
 
         var jsonado = JSON.stringify(parameters);

@@ -831,7 +831,7 @@ public class OperateTicket {
         @XmlAttribute
         protected Integer codZIP;
         @XmlAttribute
-        protected Integer closeTicket;
+        protected String closeTicket;
         @XmlAttribute
         protected String dataAditional;
         @XmlAttribute
@@ -1137,7 +1137,7 @@ public class OperateTicket {
          *     {@link Integer }
          *     
          */
-        public Integer getCloseTicket() {
+        public String getCloseTicket() {
             return closeTicket;
         }
 
@@ -1149,7 +1149,7 @@ public class OperateTicket {
          *     {@link Integer }
          *     
          */
-        public void setCloseTicket(Integer value) {
+        public void setCloseTicket(String value) {
             this.closeTicket = value;
         }
 
@@ -1430,7 +1430,7 @@ public class OperateTicket {
         public static class CLOSE {
 
             @XmlAttribute
-            protected Integer closeTicket;
+            protected String closeTicket;
             @XmlAttribute
             protected String dataAditional;
             @XmlAttribute
@@ -1444,7 +1444,7 @@ public class OperateTicket {
              *     {@link Integer }
              *     
              */
-            public Integer getCloseTicket() {
+            public String getCloseTicket() {
                 return closeTicket;
             }
 
@@ -1456,7 +1456,7 @@ public class OperateTicket {
              *     {@link Integer }
              *     
              */
-            public void setCloseTicket(Integer value) {
+            public void setCloseTicket(String value) {
                 this.closeTicket = value;
             }
 
@@ -1730,9 +1730,9 @@ public class OperateTicket {
             @XmlAttribute
             protected String outChannel;
             @XmlAttribute
-            protected Integer from;
+            protected String from;
             @XmlAttribute
-            protected Integer to;
+            protected String to;
 
             /**
              * Gets the value of the name property.
@@ -1910,7 +1910,7 @@ public class OperateTicket {
              *     {@link Integer }
              *     
              */
-            public Integer getFrom() {
+            public String getFrom() {
                 return from;
             }
 
@@ -1922,7 +1922,7 @@ public class OperateTicket {
              *     {@link Integer }
              *     
              */
-            public void setFrom(Integer value) {
+            public void setFrom(String value) {
                 this.from = value;
             }
 
@@ -1934,7 +1934,7 @@ public class OperateTicket {
              *     {@link Integer }
              *     
              */
-            public Integer getTo() {
+            public String getTo() {
                 return to;
             }
 
@@ -1946,7 +1946,7 @@ public class OperateTicket {
              *     {@link Integer }
              *     
              */
-            public void setTo(Integer value) {
+            public void setTo(String value) {
                 this.to = value;
             }
 

@@ -110,7 +110,7 @@
             <div class="panel-body">
                 <div class="row" align="right">
                     <div class="container-fluid">
-                        <app:inputButtonNG value="boton.CrearMantenimiento" button_type="default" ng_click="createMaintenance()" fluid_wrapper="true" ng_disabled="installationNotSearched"/>
+                        <app:inputButtonNG value="boton.CrearMantenimiento" button_type="default" ng_click="crearmantenimiento()" fluid_wrapper="true" ng_disabled="installationNotSearched"/>
                         <app:inputButtonNG button_type="primary" type="submit" value="boton.Crear" ng_click="formCreateTask.$valid ? createTask() : null" fluid_wrapper="true" ng_disabled="installationNotSearched"/>
                     </div>
                 </div>

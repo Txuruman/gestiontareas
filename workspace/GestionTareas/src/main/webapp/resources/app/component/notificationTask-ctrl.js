@@ -123,7 +123,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
 
     //Consultar Combo de Cierre
     $scope.getClosingList = function(idType, reasonId, closing) {
-        $log.debug("Load Closing Type List for params: "+ idType + ", " + reasonId);
+        //$log.debug("Load Closing Type List for params: "+ idType + ", " + reasonId);
         var closingTypeRequest = {
             idType: idType,
             reasonId: reasonId
@@ -148,7 +148,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     };
 
     $scope.getClosingAditionalDataList = function() {
-        $log.debug("Load Closing Aditional Data List " );
+        //$log.debug("Load Closing Aditional Data List " );
         $http({
             method: 'GET',
             url: 'commons/getClosingAditionalDataList'
@@ -321,22 +321,47 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     $scope.refrescar = function () {
         $scope.getInstallationAndTask();
     };
-
+    
+    /**
+     * Crear mantenimiento:
+     * 1. obtenemos el agente
+     * 2. llamamos a la nueva ventana pasandole los parametros
+     * 3. cerramos el agente
+     */
     $scope.crearmantenimiento = function () {
-        //$log.debug('Crear mantenimiento, tarea: ' + JSON.stringify($scope.tarea));
-        var createMaintenanceNotificationTaskRequest = {
-            task: $scope.tarea,
-            prueba: 'Hola'
-        };
-        //$log.debug('Crear mantenimiento, request: ' + JSON.stringify(createMaintenanceNotificationTaskRequest));
-        $http({
-            method: 'PUT',
-            url: 'notificationtask/crearmantenimiento',
-            data: createMaintenanceNotificationTaskRequest
+    	//Obtenemos el agente
+      $http({
+          method: 'GET',
+          url: 'agent/prepareInfopointSession'
+      })
+          .success(function (data, status, headers, config) {
+              //$log.debug('Agente obtenido: ' + JSON.stringify(data));
+        	  $scope.agent=data.agent;
+        	  $scope.openMaintenaceWindow(data.agent);
+        	  $scope.closeAgent();
+              CommonService.processBaseResponse(data, status, headers, config);
+          })
+          .error(function (data, status, headers, config) {
+              //$log.debug('Error en la creación de mantenimiento, response: ' + JSON.stringify(data));
+              // called asynchronously if an error occurs
+              // or server returns response with an error status.
+              CommonService.processBaseResponse(data, status, headers, config);
+          });
+    };
+    $scope.openMaintenaceWindow=function(agent){
+    	//bp_agent=12187&bp_agentIBS=M0OOS&bp_agentCountryJob=SPAIN&bp_desktopDepartment=ATC_SPN&bp_out_GSW_CHAIN_ID_CUSTOM=1&bp_out_clname=CL_CCT_XLS_ASSISTANT
+    	$scope.ventanaMantenimiento=window.open("windowCreateMaintenace?PanelTypeId="+$scope.installationData.panel+"&TicketNumber="+$scope.tarea.idAviso+"&RequestedBy="+$scope.tarea.requeridoPor+"&Operator="+agent.agentIBS+"&ContactPerson="+$scope.installationData.personaContacto+"&ContactPhone="+$scope.installationData.telefono+"&Text="+$scope.tarea.observaciones,"_blank","menubar=no, toolbar=no, resizable=yes, location=no, height=500, width=800, left=200");
+    	return true;
+    }
+    $scope.closeAgent=function(){
+    	$http({
+            method: 'GET',
+            url: 'agent/closeInfopointSession'
         })
             .success(function (data, status, headers, config) {
-                //$log.debug('Creación de mantenimiento realizada, response: ' + JSON.stringify(data));
-                CommonService.processBaseResponse(data, status, headers, config);
+              //$log.debug('Agente obtenido: ' + data);
+          	  $scope.agent=data.agent;
+              CommonService.processBaseResponse(data, status, headers, config);
             })
             .error(function (data, status, headers, config) {
                 //$log.debug('Error en la creación de mantenimiento, response: ' + JSON.stringify(data));
@@ -344,8 +369,8 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data, status, headers, config);
             });
-    };
-
+    }
+    
     /**
      * Método Descartar: Nos lleva a la página de buscar
      * Variable _contextPath inicializada en commonImports
