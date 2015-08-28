@@ -232,7 +232,7 @@ public class AvisoService {
         operateTicket.getTICKET().setCONTACTO(contacto);
 
         OperateTicket.TICKET.CLOSE close = new OperateTicket.TICKET.CLOSE();
-        close.setCloseTicket(Integer.valueOf(tareaAviso.getClosing()));
+        close.setCloseTicket(tareaAviso.getClosing());
         close.setDataAditional(tareaAviso.getDatosAdicionalesCierre());
         close.setNotaCierre(tareaAviso.getObservaciones());
         operateTicket.getTICKET().setCLOSE(close);
