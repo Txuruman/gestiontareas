@@ -103,7 +103,7 @@ public class AgentController extends BaseController {
             //Validamos que el agente tiene permisos de crear mantenimiento
             if (infopointService.isAllowedCreateMaintenance(agent)) {
                 //El agente tiene permisos
-                //TODO mensaje creada session infopoint?
+                response.info(messageUtil.getProperty("agent.sessionCreated"));
             } else {
                 //No tiene permisos
                 response.danger(messageUtil.getProperty("agent.noCeatemaintenanceRight"));
@@ -127,6 +127,7 @@ public class AgentController extends BaseController {
         try {
             //Quitamos la session del agente
             infopointService.closeSession(agent);
+            response.info(messageUtil.getProperty("agent.sessionClosed"));
         } catch (Exception e){
             LOGGER.error("Error closing Infopoint session", e);
             return processException(e) ;
