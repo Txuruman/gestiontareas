@@ -187,7 +187,11 @@ public class TareaService {
     private boolean isTaskRequiresSaveModifications2(TareaAviso t1, TareaAviso t2) {
         return t1.equalsConDatosCierre(t2);
     }
-    
+
+    private boolean isTaskRequiresSaveModifications3(TareaAviso t1, TareaAviso t2) {
+        return t1.equalsTipo1Motivo1(t2);
+    }
+
     /**
      * Función Aplazar específica para tareas de tipo aviso 
      * @param agent
@@ -565,7 +569,7 @@ public class TareaService {
 
             boolean finalized=false;
             // si ha cambiado Tipo1 o Motivo1
-            if (isTaskRequiresFinalizeModifications(tarea)) {
+            if(!isTaskRequiresSaveModifications3(tareaOriginal, tarea)) {
                 // Finalizar Tarea
                 finalized = wsFilanizeTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId());
                 saved = finalized;
