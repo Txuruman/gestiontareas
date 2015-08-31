@@ -45,7 +45,7 @@
 	            <app:inputTextNG id="personaContacto" label="visortarea.personacontacto"
 	                             value="tarea.personaContacto" cells="6" required="true" form="formVisorTarea"/>
 	            <app:inputTextNG id="telefono" label="visortarea.telefono" value="tarea.telefonoAviso" cells="6"
-	                              type="text"  only="true" />
+	                              type="text"  only="true" required="true" form="formVisorTarea" />
 	        </div>
             <div class="row">
             </div>
@@ -111,7 +111,7 @@
 	                </app:input>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                	<app:textAreaNG id="observaciones" label="eti.visortarea.tareaavisos.form.label.observaciones" value="tarea.observaciones" cell_label="4" cell_input="8"/>
+                	<app:textAreaNG required="true" form="formVisorTarea" id="observaciones" label="eti.visortarea.tareaavisos.form.label.observaciones" value="tarea.observaciones" cell_label="4" cell_input="8"/>
                 </div>
                 <!-- subrow -->
                 <div class="spacer_t1"></div>

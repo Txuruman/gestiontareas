@@ -69,7 +69,7 @@
 
 <SCRIPT language='javascript'>
     //Descomentar para que se haga el envio automático del formulario
-       //document.forms[0].submit();
+       document.forms[0].submit('${externalCreateAppointmentUrl}');
    // setTimeout(function(){document.forms[0].submit();},3000);
 </SCRIPT>
 

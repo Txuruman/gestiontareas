@@ -12,7 +12,7 @@
 <%@ attribute name="cell_label" required="false"  description="The maximun cells label in parent space" type="java.lang.Integer" %>
 <%@ attribute name="cell_input" required="false"  description="The maximun cells label in parent space" %>
 <%@ attribute name="ng_disabled" required="false"  description="input ng-disabled" %>
-
+<%@ attribute name="form" required="false"  description="form of the input" %>
 
 <c:if test="${cell_label == null}">
     <c:set var="cell_label" value="4"/>
@@ -44,10 +44,16 @@
                   ng-model="${value}" 
                   <c:if test="${not empty ng_disabled}">
            			ng-disabled="<c:out value="${ng_disabled}"/>"
-           		</c:if>		
+           		</c:if>	
+           			<c:if test="${not empty required}">
+           				required="<c:out value="${required}"/>"
+           			</c:if>
                   >
                   
         </textarea>
+        <c:if test="${not empty required}">
+        	<span class="error" ng-show="${form}.${id}.$error.required && mostrarAvisos!=false"><spring:message code="error.notext"/>  </span>
+        </c:if>
     </div>
 
 </div>
