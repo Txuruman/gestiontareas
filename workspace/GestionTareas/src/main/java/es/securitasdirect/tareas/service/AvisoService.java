@@ -232,8 +232,8 @@ public class AvisoService {
         operateTicket.getTICKET().setCONTACTO(contacto);
 
         OperateTicket.TICKET.CLOSE close = new OperateTicket.TICKET.CLOSE();
-        close.setCloseTicket(tareaAviso.getClosing());
-        close.setDataAditional(tareaAviso.getDatosAdicionalesCierre());
+        close.setCloseTicket(0); // constante
+        close.setDataAditional(""); // constante
         close.setNotaCierre(tareaAviso.getObservaciones());
         operateTicket.getTICKET().setCLOSE(close);
 
