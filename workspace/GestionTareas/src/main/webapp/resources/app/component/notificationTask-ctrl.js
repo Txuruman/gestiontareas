@@ -352,9 +352,10 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
 
     $scope.openMaintenaceWindow=function(agent){
     	//En IE8 hay que utilizar showdialog para poder ver los datos de vuelta, en Chome esta deprecado
-        prompt("aa","windowCreateMaintenanceFrame?InstallationNumber="+$scope.installationData.numeroInstalacion+"&PanelTypeId="+$scope.installationData.panel+"&TicketNumber="+$scope.tarea.idAviso+"&RequestedBy="+$scope.tarea.requeridoPor+"&Operator="+agent.agentIBS+"&ContactPerson="+$scope.tarea.personaContacto+"&ContactPhone="+$scope.tarea.telefonoAviso+"&Text="+$scope.tarea.observaciones+"&SessionToken="+agent.infopointSession+"&type="+$scope.tarea.tipoAviso1+"&motive="+$scope.tarea.motivo1);
+       // prompt("aa","windowCreateMaintenanceFrame?InstallationNumber="+$scope.installationData.numeroInstalacion+"&PanelTypeId="+$scope.installationData.panel+"&TicketNumber="+$scope.tarea.idAviso+"&RequestedBy="+$scope.tarea.requeridoPor+"&Operator="+agent.agentIBS+"&ContactPerson="+$scope.tarea.personaContacto+"&ContactPhone="+$scope.tarea.telefonoAviso+"&Text="+$scope.tarea.observaciones+"&SessionToken="+agent.infopointSession+"&type="+$scope.tarea.tipoAviso1+"&motive="+$scope.tarea.motivo1);
 		var resultado=window.showModalDialog("windowCreateMaintenanceFrame?InstallationNumber="+$scope.installationData.numeroInstalacion+"&PanelTypeId="+$scope.installationData.panel+"&TicketNumber="+$scope.tarea.idAviso+"&RequestedBy="+$scope.tarea.requeridoPor+"&Operator="+agent.agentIBS+"&ContactPerson="+$scope.installationData.personaContacto+"&ContactPhone="+$scope.installationData.telefono+"&Text="+$scope.tarea.observaciones+"&SessionToken="+agent.infopointSession+"&type="+$scope.tarea.tipoAviso1+"&motive="+$scope.tarea.motivo1);
-    	//$scope.ventanaMantenimiento=window.open("windowCreateMaintenace?InstallationNumber="+$scope.installationData.numeroInstalacion+"&PanelTypeId="+$scope.installationData.panel+"&TicketNumber="+$scope.tarea.idAviso+"&RequestedBy="+$scope.tarea.requeridoPor+"&Operator="+agent.agentIBS+"&ContactPerson="+$scope.installationData.personaContacto+"&ContactPhone="+$scope.installationData.telefono+"&Text="+$scope.tarea.observaciones+"&SessionToken="+agent.infopointSession+"&type="+$scope.tarea.tipoAviso1+"&motive="+$scope.tarea.motivo1,"_blank","menubar=no, toolbar=no, resizable=yes, location=no, height=500, width=800, left=200");
+    	$scope.finalizarMantenimiento(resultado);
+		//$scope.ventanaMantenimiento=window.open("windowCreateMaintenace?InstallationNumber="+$scope.installationData.numeroInstalacion+"&PanelTypeId="+$scope.installationData.panel+"&TicketNumber="+$scope.tarea.idAviso+"&RequestedBy="+$scope.tarea.requeridoPor+"&Operator="+agent.agentIBS+"&ContactPerson="+$scope.installationData.personaContacto+"&ContactPhone="+$scope.installationData.telefono+"&Text="+$scope.tarea.observaciones+"&SessionToken="+agent.infopointSession+"&type="+$scope.tarea.tipoAviso1+"&motive="+$scope.tarea.motivo1,"_blank","menubar=no, toolbar=no, resizable=yes, location=no, height=500, width=800, left=200");
     	//return true;
     };
 
@@ -423,4 +424,31 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     		//$scope.closingAlert=true;
     	}
     }
+    
+    //Finalizar mantenimiento al volver de la pantalla emergente
+    $scope.finalizarMantenimiento = function(resultado){
+        //$log.debug("Finalizar task: ",$scope.tarea);
+        var finalizeRequest = {
+            task:$scope.tarea,
+            lastCalledPhone:$scope.lastCalledPhone,
+            result:resultado
+        };
+        //$log.debug("Finalizar  Task, request: ",finalizeRequest);
+        $http({
+            method: 'PUT',
+            url: 'maintenancetask/finalizar',
+            data: finalizeRequest
+        })
+            .success(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data,status,headers,config);
+                //$log.debug("Finalized task");
+            })
+            .error(function (data, status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                CommonService.processBaseResponse(data,status,headers,config);
+                //$log.error("Error finalizing task");
+            });
+    };
+
 });
