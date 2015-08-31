@@ -225,12 +225,12 @@ public class AvisoService {
 
 
         OperateTicket.TICKET.CONTACTO contacto = new OperateTicket.TICKET.CONTACTO();
-        contacto.setCodforma("");
+        contacto.setCodforma("TELF"); // constante
         contacto.setComentario("");
         contacto.setDesde(tareaAviso.getHorarioDesde());
         contacto.setHasta(tareaAviso.getHorarioHasta());
-        contacto.setNombre("");
-        contacto.setValor("");
+        contacto.setNombre(tareaAviso.getPersonaContacto());
+        contacto.setValor((tareaAviso.getTelefonoAviso() != null) ? tareaAviso.getTelefonoAviso() : "");
         operateTicket.getTICKET().setCONTACTO(contacto);
 
         OperateTicket.TICKET.CLOSE close = new OperateTicket.TICKET.CLOSE();
@@ -257,7 +257,7 @@ public class AvisoService {
         comm.setLName1(""); // constante
         comm.setLName2(""); // constante
         comm.setInChannel("TELF"); // constante
-        comm.setValue(tareaAviso.getTelefonoAviso());
+        comm.setValue((tareaAviso.getTelefonoAviso() != null) ? tareaAviso.getTelefonoAviso() : "");
         comm.setComent(""); // constante
         comm.setOutChannel(""); // constante
         comm.setFrom(tareaAviso.getHorarioDesde());
