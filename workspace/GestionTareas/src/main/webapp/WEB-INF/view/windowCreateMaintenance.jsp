@@ -55,6 +55,9 @@
         // "Text": "",
         // "SessionToken": ""}
 
+        //Como abrirlo por url
+        //http://localhost:8080/gestiontareas/windowCreateMaintenanceFrame?InstallationNumber=401808&PanelTypeId=SDMF&TicketNumber=11351038&RequestedBy=MCEX%20-%20L57808&Operator=M0OOS&ContactPerson=asdf&ContactPhone=123&Text=asdf&SessionToken=3746E15A037D310E4D1F8C0A0056B95A7C3376F48AD25012C3EEDFC7F713CC781D06BA433A9F86E0F62836CCDEF9139F8225441A1BCF606516852CFB2873FB3D13FB1088EA3DA19E8135BE12DD148AAC30C2AF4CB74B55D869FA7CEAEC5C9D41&type=100&motive=199
+
         //Prueba
          <%--parameters = {--%>
             <%--InstallationNumber : '1729318',--%>
@@ -90,18 +93,13 @@
     })
 </SCRIPT>
 
-
-2
-
-<FORM method='post' action='${externalCreateAppointmentUrl}' id='frmTOA' name='frmTOA' runat='server'>
-    <INPUT type='text' name='data' value='' style="width: 1600px; margin:5px; padding: 3px; font-weight: bold">
+<!-- <FORM method="POST" action="${externalCreateAppointmentUrl}" id='frmTOA' name='frmTOA' runat='server'>
+    <INPUT type='hidden' name='data' value='' style="width: 1600px; margin:5px; padding: 3px; font-weight: bold"> -->
 </FORM>
 
 <SCRIPT language='javascript'>
     //Descomentar para que se haga el envio automático del formulario
-        document.forms[0].submit();
-   // setTimeout(function(){document.forms[0].submit();},3000);
-</SCRIPT>
+setTimeout(function(){document.forms[0].submit();},0);//Hay que hacerlo con timeout para que funciones el POST</SCRIPT>
 
 
 </body>
