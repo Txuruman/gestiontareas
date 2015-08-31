@@ -1430,7 +1430,7 @@ public class OperateTicket {
         public static class CLOSE {
 
             @XmlAttribute
-            protected String closeTicket;
+            protected Integer closeTicket;
             @XmlAttribute
             protected String dataAditional;
             @XmlAttribute
@@ -1444,7 +1444,7 @@ public class OperateTicket {
              *     {@link Integer }
              *     
              */
-            public String getCloseTicket() {
+            public Integer getCloseTicket() {
                 return closeTicket;
             }
 
@@ -1456,7 +1456,7 @@ public class OperateTicket {
              *     {@link Integer }
              *     
              */
-            public void setCloseTicket(String value) {
+            public void setCloseTicket(Integer value) {
                 this.closeTicket = value;
             }
 
