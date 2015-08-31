@@ -36,7 +36,7 @@ public class InfopointServiceTest {
 
     @Test
     public void completeFlow() throws Exception {
-        String matriculaBuenaConPermisosParaCrearMantenimiento = "DF1512";
+        String matriculaBuenaConPermisosParaCrearMantenimiento = "M0OOS";
         String codigoProcesoCrearMantenimiento = "829";
         String session = infopointService.createSession(matriculaBuenaConPermisosParaCrearMantenimiento, "0.0.0.0");
         LOGGER.info("Creada Session IP: {}" ,session);

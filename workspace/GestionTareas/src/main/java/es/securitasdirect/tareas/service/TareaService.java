@@ -564,6 +564,7 @@ public class TareaService {
             }
 
             boolean finalized=false;
+            // si ha cambiado Tipo1 o Motivo1
             if (isTaskRequiresFinalizeModifications(tarea)) {
                 // Finalizar Tarea
                 finalized = wsFilanizeTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId());
