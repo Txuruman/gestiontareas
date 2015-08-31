@@ -290,7 +290,7 @@ public class AvisoService {
         /* <CODIF></CODIF> */
         if(tareaAviso.getTipoAviso2() != null) {
             OperateTicket.TICKET.CODIFICATIONS.CODIF createCODIF = new OperateTicket.TICKET.CODIFICATIONS.CODIF();
-            createCODIF.setCount(1);    // constante
+            createCODIF.setCount(2);    // constante
             createCODIF.setIdProblem(Integer.parseInt(tareaAviso.getMotivo2()));
             createCODIF.setIdType(Integer.parseInt(tareaAviso.getTipoAviso2()));
             codifications.getCODIF().add(createCODIF);
@@ -299,7 +299,7 @@ public class AvisoService {
         /* <CODIF></CODIF> */
         if(tareaAviso.getTipoAviso3() != null) {
             OperateTicket.TICKET.CODIFICATIONS.CODIF createCODIF = new OperateTicket.TICKET.CODIFICATIONS.CODIF();
-            createCODIF.setCount(1);    // constante
+            createCODIF.setCount(3);    // constante
             createCODIF.setIdProblem(Integer.parseInt(tareaAviso.getMotivo3()));
             createCODIF.setIdType(Integer.parseInt(tareaAviso.getTipoAviso3()));
             codifications.getCODIF().add(createCODIF);
