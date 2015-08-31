@@ -14,7 +14,7 @@ public class MaintenanceTaskCreateRequest extends BaseRequest {
 
     private TareaMantenimiento tarea;
 
-    private String prueba;
+    private String result;
 
     public MaintenanceTaskCreateRequest() {
     }
@@ -32,18 +32,18 @@ public class MaintenanceTaskCreateRequest extends BaseRequest {
     }
 
     public String getPrueba() {
-        return prueba;
+        return result;
     }
 
-    public void setPrueba(String prueba) {
-        this.prueba = prueba;
+    public void setPrueba(String result) {
+        this.result = result;
     }
 
     @Override
     public String toString() {
         return "MaintenanceTaskCreateRequest{" +
                 "tarea=" + tarea +
-                ", prueba='" + prueba + '\'' +
+                ", result='" + result + '\'' +
                 '}';
     }
 }

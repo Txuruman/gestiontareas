@@ -18,6 +18,10 @@ public class MaintenanceTaskFinalizeRequest extends BaseRequest {
      * Último teléfono al que se ha llamado
      */
     private Integer lastCalledPhone;
+    /**
+     * Resultado de la ventana emergente de mantenimiento
+     */
+    private String result;
 
     public MaintenanceTaskFinalizeRequest() {
     }
@@ -38,11 +42,19 @@ public class MaintenanceTaskFinalizeRequest extends BaseRequest {
 	public void setLastCalledPhone(Integer lastCalledPhone) {
 		this.lastCalledPhone = lastCalledPhone;
 	}
+	
+	public String isResult() {
+		return result;
+	}
+
+	public void setResult(String result) {
+		this.result = result;
+	}
 
 	@Override
 	public String toString() {
-		return "MaintenanceTaskFinalizeRequest [task=" + task + ", lastCalledPhone=" + lastCalledPhone + "]";
+		return "MaintenanceTaskFinalizeRequest [task=" + task + ", lastCalledPhone=" + lastCalledPhone + ", result="
+				+ result + "]";
 	}
-
 	
 }

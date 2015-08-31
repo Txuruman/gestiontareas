@@ -93,8 +93,8 @@
     })
 </SCRIPT>
 
-<!-- <FORM method="POST" action="${externalCreateAppointmentUrl}" id='frmTOA' name='frmTOA' runat='server'>
-    <INPUT type='hidden' name='data' value='' style="width: 1600px; margin:5px; padding: 3px; font-weight: bold"> -->
+<FORM method="POST" action="${externalCreateAppointmentUrl}" id='frmTOA' name='frmTOA' runat='server'>
+    <INPUT type='hidden' name='data' value='' style="width: 1600px; margin:5px; padding: 3px; font-weight: bold"> 
 </FORM>
 
 <SCRIPT language='javascript'>
