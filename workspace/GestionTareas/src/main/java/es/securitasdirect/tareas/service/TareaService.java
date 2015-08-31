@@ -582,8 +582,8 @@ public class TareaService {
 
         boolean result = false;
 
-        if( tarea.getClosing() != null && !tarea.getClosing().isEmpty()
-         && tarea.getDatosAdicionalesCierre() != null && !tarea.getDatosAdicionalesCierre().isEmpty() ) {
+        if( tarea.getTipoAviso1() != null && !tarea.getTipoAviso1().isEmpty()
+         || tarea.getMotivo1() != null && !tarea.getDatosAdicionalesCierre().isEmpty() ) {
           return true;
         }
 
