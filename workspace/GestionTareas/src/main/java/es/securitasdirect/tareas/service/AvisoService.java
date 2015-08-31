@@ -209,6 +209,7 @@ public class AvisoService {
 
         String idLanguage = agent.getCurrentLanguage();
         idLanguage = "ES"; // TODO DESDE PANTALLA LLEGA A NULO y es requerido.
+        String idReq = agent.getDesktopDepartment();
 
 
         /*
