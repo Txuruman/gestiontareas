@@ -147,6 +147,24 @@ public class AvisoServiceTest {
 
     }
 
+    @Test
+    public void unmarkTicketTest() throws Exception {
+
+
+        Agent agent = DummyGenerator.getAgent();
+        String callingList = "CL_CCT_ATC_CRA";
+        String idTarea = "1";
+        Tarea tarea = queryTareaService.queryTarea(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), callingList, idTarea);
+        assertThat(tarea, notNullValue());
+
+        Integer naviso = ((TareaAviso)tarea).getIdAviso();
+
+
+        boolean ok = avisoService.unmarkTicket(naviso);
+
+        assertThat(ok, is(true));
+    }
+
 
 
 
