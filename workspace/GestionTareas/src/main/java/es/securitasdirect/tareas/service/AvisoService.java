@@ -43,8 +43,8 @@ public class AvisoService {
     protected CCLIntegration cclIntegration;
     @Inject
     protected SPAVISOSOPERACIONESPortType spAvisosOperaciones;
-    //@Inject
-    //protected SP_AIO_TAREAS2 sp_AIO_TAREAS2;
+    @Inject
+    protected SPAIOTAREAS2PortType spAIOTAREAS2PortType;
     @Resource(name = "applicationUser")
     private String applicationUser;
 
@@ -439,11 +439,14 @@ public class AvisoService {
     public boolean unmarkTicket(Integer naviso) throws Exception {
 
         boolean result = false;
-        /*
+
         try {
 
-            List<RowErrorAA> rowErrorAAs = sp_AIO_TAREAS2.setAvisoNoCargado(naviso);
+            //List<RowErrorAA> rowErrorAAs =
 
+            // TODO devuelve void
+            spAIOTAREAS2PortType.setAvisoNoCargado(naviso);
+/*
             if (rowErrorAAs != null && rowErrorAAs.size() == 1
                     && ((RowErrorAA) ((List) rowErrorAAs).get(0)).getReturnCode() != null
                     && ((RowErrorAA) ((List) rowErrorAAs).get(0)).getReturnCode().equals(new BigInteger("0"))) {
@@ -452,11 +455,13 @@ public class AvisoService {
                 LOGGER.error("Error desmarcando aviso {}", naviso);
                 result = false;
             }
-
-        } catch (DataServiceFault e) {
+*/
+        } catch (Exception e){
+        // TODO
+        //catch (DataServiceFault e) {
             LOGGER.error("Error desmarcando aviso", e);
             return false;
-        } */
+        }
         return result;
 
     }
