@@ -43,6 +43,8 @@ public class AvisoService {
     protected CCLIntegration cclIntegration;
     @Inject
     protected SPAVISOSOPERACIONESPortType spAvisosOperaciones;
+    @Inject
+    protected SPAIOTAREAS2PortType spAIOTAREAS2PortType;
     @Resource(name = "applicationUser")
     private String applicationUser;
 
@@ -223,17 +225,17 @@ public class AvisoService {
 
 
         OperateTicket.TICKET.CONTACTO contacto = new OperateTicket.TICKET.CONTACTO();
-        contacto.setCodforma("");
+        contacto.setCodforma("TELF"); // constante
         contacto.setComentario("");
         contacto.setDesde(tareaAviso.getHorarioDesde());
         contacto.setHasta(tareaAviso.getHorarioHasta());
-        contacto.setNombre("");
-        contacto.setValor("");
+        contacto.setNombre(tareaAviso.getPersonaContacto());
+        contacto.setValor((tareaAviso.getTelefonoAviso() != null) ? tareaAviso.getTelefonoAviso() : "");
         operateTicket.getTICKET().setCONTACTO(contacto);
 
         OperateTicket.TICKET.CLOSE close = new OperateTicket.TICKET.CLOSE();
-        close.setCloseTicket(tareaAviso.getClosing());
-        close.setDataAditional(tareaAviso.getDatosAdicionalesCierre());
+        close.setCloseTicket(0); // constante
+        close.setDataAditional(""); // constante
         close.setNotaCierre(tareaAviso.getObservaciones());
         operateTicket.getTICKET().setCLOSE(close);
 
@@ -255,7 +257,7 @@ public class AvisoService {
         comm.setLName1(""); // constante
         comm.setLName2(""); // constante
         comm.setInChannel("TELF"); // constante
-        comm.setValue(tareaAviso.getTelefonoAviso());
+        comm.setValue((tareaAviso.getTelefonoAviso() != null) ? tareaAviso.getTelefonoAviso() : "");
         comm.setComent(""); // constante
         comm.setOutChannel(""); // constante
         comm.setFrom(tareaAviso.getHorarioDesde());
@@ -288,7 +290,7 @@ public class AvisoService {
         /* <CODIF></CODIF> */
         if(tareaAviso.getTipoAviso2() != null) {
             OperateTicket.TICKET.CODIFICATIONS.CODIF createCODIF = new OperateTicket.TICKET.CODIFICATIONS.CODIF();
-            createCODIF.setCount(1);    // constante
+            createCODIF.setCount(2);    // constante
             createCODIF.setIdProblem(Integer.parseInt(tareaAviso.getMotivo2()));
             createCODIF.setIdType(Integer.parseInt(tareaAviso.getTipoAviso2()));
             codifications.getCODIF().add(createCODIF);
@@ -297,7 +299,7 @@ public class AvisoService {
         /* <CODIF></CODIF> */
         if(tareaAviso.getTipoAviso3() != null) {
             OperateTicket.TICKET.CODIFICATIONS.CODIF createCODIF = new OperateTicket.TICKET.CODIFICATIONS.CODIF();
-            createCODIF.setCount(1);    // constante
+            createCODIF.setCount(3);    // constante
             createCODIF.setIdProblem(Integer.parseInt(tareaAviso.getMotivo3()));
             createCODIF.setIdType(Integer.parseInt(tareaAviso.getTipoAviso3()));
             codifications.getCODIF().add(createCODIF);
@@ -428,5 +430,40 @@ public class AvisoService {
         return result;
     }
 
+
+    /**
+     * @param naviso   nº de aviso
+     * @return
+     * @throws Exception
+     */
+    public boolean unmarkTicket(Integer naviso) throws Exception {
+
+        boolean result = false;
+
+        try {
+
+            //List<RowErrorAA> rowErrorAAs =
+
+            // TODO devuelve void
+            spAIOTAREAS2PortType.setAvisoNoCargado(naviso);
+/*
+            if (rowErrorAAs != null && rowErrorAAs.size() == 1
+                    && ((RowErrorAA) ((List) rowErrorAAs).get(0)).getReturnCode() != null
+                    && ((RowErrorAA) ((List) rowErrorAAs).get(0)).getReturnCode().equals(new BigInteger("0"))) {
+                result = true;
+            } else if (rowErrorAAs != null && !rowErrorAAs.isEmpty()) {
+                LOGGER.error("Error desmarcando aviso {}", naviso);
+                result = false;
+            }
+*/
+        } catch (Exception e){
+        // TODO
+        //catch (DataServiceFault e) {
+            LOGGER.error("Error desmarcando aviso", e);
+            return false;
+        }
+        return result;
+
+    }
 
 }

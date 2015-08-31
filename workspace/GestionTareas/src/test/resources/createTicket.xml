@@ -22,7 +22,7 @@ Model Generator to create Java Classes from XSD : http://www.javaworld.com/artic
             <CODIF idType='500' idProblem='501' count='1' />
             <CODIF idType='550' idProblem='552' count='1' />
         </CODIFICATIONS>
-        <CLOSE closeTicket='ILOC' dataAditional='' notaCierre='' />
+        <CLOSE closeTicket='0' dataAditional='' notaCierre='' />
 
     </TICKET>
     <SVRQ makeSVRQ="1" idTec="CUSTVER" insBoli="1">

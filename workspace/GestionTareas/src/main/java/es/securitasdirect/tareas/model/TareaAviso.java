@@ -603,6 +603,28 @@ public class TareaAviso extends Tarea {
         return true;
     }
 
+    public boolean equalsTipo1Motivo1(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        TareaAviso other = (TareaAviso) obj;
+        if (motivo1 == null) {
+            if (other.motivo1 != null)
+                return false;
+        } else if (!motivo1.equals(other.motivo1))
+            return false;
+        if (tipoAviso1 == null) {
+            if (other.tipoAviso1 != null)
+                return false;
+        } else if (!tipoAviso1.equals(other.tipoAviso1))
+            return false;
+
+        return true;
+    }
+
 } 
 
 
