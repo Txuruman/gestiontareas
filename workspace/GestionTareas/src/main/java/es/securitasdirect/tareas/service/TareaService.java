@@ -558,7 +558,7 @@ public class TareaService {
             TareaAviso tareaOriginal = (TareaAviso) queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
 
             boolean ok = false;
-            if(!isTaskRequiresSaveModifications2(tareaOriginal, tarea)) {
+            if(!isTaskRequiresSaveModifications(tareaOriginal, tarea)) {
                 ok = avisoService.updateTicket(agent, (TareaAviso) tarea, installationData);
                 saved = ok;
             }
