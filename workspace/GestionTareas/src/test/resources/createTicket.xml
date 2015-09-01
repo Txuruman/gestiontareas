@@ -19,8 +19,8 @@ Model Generator to create Java Classes from XSD : http://www.javaworld.com/artic
         <!-- Datos para la actualizacion-->
         <CONTACTO nombre='' codforma='' desde='' hasta='' valor='' comentario='' />
         <CODIFICATIONS>
-            <CODIF idType='500' idProblem='501' count='1' />
-            <CODIF idType='550' idProblem='552' count='1' />
+            <CODIF idType='500' idProblem='501' count='1' idItemIBS=""/>
+            <CODIF idType='550' idProblem='552' count='1' idItemIBS=""/>
         </CODIFICATIONS>
         <CLOSE closeTicket='0' dataAditional='' notaCierre='' />
 
