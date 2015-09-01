@@ -166,7 +166,7 @@ app.controller('marketingsurveytask-ctrl', function ($scope, $http, CommonServic
      * Variable _contextPath inicializada en commonImports
      */
     $scope.descartar=function(){
-    	$window.location.href= _contextPath + "/entry?bp_agent=12187&bp_agentIBS=M0OOS&bp_agentCountryJob=SPAIN&bp_desktopDepartment=ATC_SPN";
+    	$window.location.href= _contextPath + "/entry?bp_agent=12187&bp_agentIBS=M0OOS&bp_agentCountryJob=SPAIN&bp_desktopDepartment=ATC";
     }    
     
 });
