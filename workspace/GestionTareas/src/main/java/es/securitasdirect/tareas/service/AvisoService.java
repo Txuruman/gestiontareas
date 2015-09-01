@@ -64,9 +64,8 @@ public class AvisoService {
         else if("FRANCE".equals(agent.getAgentCountryJob())) idCountry = "3";
 
         String idLanguage = agent.getCurrentLanguage();
-        idLanguage = "ES"; // TODO DESDE PANTALLA LLEGA A NULO y es requerido.
+        idLanguage = "ES"; // TODO EL AGENTE TIENE CURRENTLANGUAGE NULO y es requerido.
         String idReq = agent.getDesktopDepartment();
-        idReq = "ATC"; // TODO le llega ATC_SP y no encuentra datos
 
         /*
          * Estructura del XML
@@ -208,7 +207,7 @@ public class AvisoService {
         else if("FRANCE".equals(agent.getAgentCountryJob())) idCountry = "3";
 
         String idLanguage = agent.getCurrentLanguage();
-        idLanguage = "ES"; // TODO DESDE PANTALLA LLEGA A NULO y es requerido.
+        idLanguage = "ES"; // TODO EL AGENTE TIENE CURRENTLANGUAGE NULO y es requerido.
         String idReq = agent.getDesktopDepartment();
 
 
