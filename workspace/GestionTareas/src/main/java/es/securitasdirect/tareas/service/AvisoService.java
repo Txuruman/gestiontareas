@@ -282,24 +282,27 @@ public class AvisoService {
             createCODIF.setCount(1);    // constante
             createCODIF.setIdProblem(Integer.parseInt(tareaAviso.getMotivo1()));
             createCODIF.setIdType(Integer.parseInt(tareaAviso.getTipoAviso1()));
+            createCODIF.setIdItemIBS("");
             codifications.getCODIF().add(createCODIF);
         }
 
         /* <CODIF></CODIF> */
         if(tareaAviso.getTipoAviso2() != null) {
             OperateTicket.TICKET.CODIFICATIONS.CODIF createCODIF = new OperateTicket.TICKET.CODIFICATIONS.CODIF();
-            createCODIF.setCount(2);    // constante
+            createCODIF.setCount(1);    // constante
             createCODIF.setIdProblem(Integer.parseInt(tareaAviso.getMotivo2()));
             createCODIF.setIdType(Integer.parseInt(tareaAviso.getTipoAviso2()));
+            createCODIF.setIdItemIBS("");
             codifications.getCODIF().add(createCODIF);
         }
 
         /* <CODIF></CODIF> */
         if(tareaAviso.getTipoAviso3() != null) {
             OperateTicket.TICKET.CODIFICATIONS.CODIF createCODIF = new OperateTicket.TICKET.CODIFICATIONS.CODIF();
-            createCODIF.setCount(3);    // constante
+            createCODIF.setCount(1);    // constante
             createCODIF.setIdProblem(Integer.parseInt(tareaAviso.getMotivo3()));
             createCODIF.setIdType(Integer.parseInt(tareaAviso.getTipoAviso3()));
+            createCODIF.setIdItemIBS("");
             codifications.getCODIF().add(createCODIF);
         }
 
