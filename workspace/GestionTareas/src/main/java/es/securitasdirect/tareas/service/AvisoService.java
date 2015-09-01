@@ -250,16 +250,16 @@ public class AvisoService {
         asgto.setIdAsg(""); // constante
         asgto.setIdUser(idUser);
         /* <COMM></COMM>*/
-        OperateTicket.TICKET.COMM comm = new OperateTicket.TICKET.COMM();
-        comm.setName(""); // constante
-        comm.setLName1(""); // constante
-        comm.setLName2(""); // constante
-        comm.setInChannel("TELF"); // constante
-        comm.setValue((tareaAviso.getTelefonoAviso() != null) ? tareaAviso.getTelefonoAviso() : "");
-        comm.setComent(""); // constante
-        comm.setOutChannel(""); // constante
-        comm.setFrom(tareaAviso.getHorarioDesde());
-        comm.setTo(tareaAviso.getHorarioHasta());
+        //OperateTicket.TICKET.COMM comm = new OperateTicket.TICKET.COMM();
+        //comm.setName(""); // constante
+        //comm.setLName1(""); // constante
+        //comm.setLName2(""); // constante
+        //comm.setInChannel("TELF"); // constante
+        //comm.setValue((tareaAviso.getTelefonoAviso() != null) ? tareaAviso.getTelefonoAviso() : "");
+        //comm.setComent(""); // constante
+        //comm.setOutChannel(""); // constante
+        //comm.setFrom(tareaAviso.getHorarioDesde());
+        //comm.setTo(tareaAviso.getHorarioHasta());
         /* <OPCOD></OPCOD>*/
         OperateTicket.TICKET.OPCOD opcod = new OperateTicket.TICKET.OPCOD();
         opcod.setCodKey1(Integer.valueOf(tareaAviso.getTipoAviso1()));
@@ -271,7 +271,7 @@ public class AvisoService {
 
         operateTicket.getTICKET().setREQ(req);
         operateTicket.getTICKET().setASGTO(asgto);
-        operateTicket.getTICKET().setCOMM(comm);
+        //operateTicket.getTICKET().setCOMM(comm);
         operateTicket.getTICKET().setOPCOD(opcod);
         operateTicket.getTICKET().setCLCOD(clcod);
 
@@ -324,6 +324,12 @@ public class AvisoService {
         operateTicket.getTICKET().setNumTicket(tareaAviso.getIdAviso());
         operateTicket.getTICKET().setNumInst(Integer.parseInt(tareaAviso.getNumeroInstalacion()));
         operateTicket.getTICKET().setObserv(tareaAviso.getObservaciones());
+        operateTicket.getTICKET().setCodZIP(28030); // TODO InstallationData no tiene codigo postal
+        operateTicket.getTICKET().setCloseTicket(0); // constante
+        operateTicket.getTICKET().setDataAditional(""); // constante
+        operateTicket.getTICKET().setNoteClose(""); // constante
+        operateTicket.getTICKET().setMorDebt(0); // constante
+        operateTicket.getTICKET().setTypePanel(installationData.getPanel());
 
 
 
