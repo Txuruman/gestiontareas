@@ -439,21 +439,8 @@ public class AvisoService {
         boolean result = false;
 
         try {
-
-            //List<RowErrorAA> rowErrorAAs =
-
-            // TODO devuelve void
             spAIOTAREAS2PortType.setAvisoNoCargado(naviso);
-/*
-            if (rowErrorAAs != null && rowErrorAAs.size() == 1
-                    && ((RowErrorAA) ((List) rowErrorAAs).get(0)).getReturnCode() != null
-                    && ((RowErrorAA) ((List) rowErrorAAs).get(0)).getReturnCode().equals(new BigInteger("0"))) {
-                result = true;
-            } else if (rowErrorAAs != null && !rowErrorAAs.isEmpty()) {
-                LOGGER.error("Error desmarcando aviso {}", naviso);
-                result = false;
-            }
-*/
+            result = true; // TODO devuelve void
         } catch (Exception e){
         // TODO
         //catch (DataServiceFault e) {
