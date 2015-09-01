@@ -573,11 +573,10 @@ public class TareaService {
                 // Finalizar Tarea
                 finalized = wsFilanizeTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId());
                 saved = finalized;
-                // TODO desmarcar Aviso de la Tarea
-                //saved = avisoService.unmarkTicket(tarea.getIdAviso());
+                // desmarcar Aviso de la Tarea
+                saved = avisoService.unmarkTicket(tarea.getIdAviso());
             }
-
-
+            // TODO control de errores de los tres servicios
         }
 
         return saved;
