@@ -67,11 +67,11 @@ public class InstallationData {
         this.telefono = telefono;
     }
 
-    public String getCodigPostal() {
+    public String getCodigoPostal() {
         return codigoPostal;
     }
 
-    public void setCodigPostal(String codigoPostal) {
+    public void setCodigoPostal(String codigoPostal) {
         this.codigoPostal = codigoPostal;
     }
 
