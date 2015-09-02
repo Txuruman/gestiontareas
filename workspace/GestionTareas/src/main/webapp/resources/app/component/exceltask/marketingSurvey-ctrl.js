@@ -1,44 +1,6 @@
 app.controller('marketingsurveytask-ctrl', function ($scope, $http, CommonService, $modal, $log, $window) {
     //Angular Maintenance Survey Controller start
 
-//TODO:Borrar	
-//    $scope.getTarea = function () {
-//        //$log.debug("Loading Marketing Survey Task...")
-//        //$log.debug("Params: "
-//        //+ " ccUserId: " + $scope.ccUserId
-//        //+ " callingList: " + $scope.callingList
-//        //+ " taskId: " + $scope.tareaId);
-//        $http({method: 'GET',
-//            url: '/marketingsurveytask/gettarea',
-//            params: {ccUserId: $scope.ccUserId, callingList: $scope.callingList, tareaId: $scope.tareaId}
-//        }).
-//            success(function (data, status, headers, config) {
-//                CommonService.processBaseResponse(data, status, headers, config);
-//                $scope.tarea = data.tarea;
-//                //$log.debug("Loaded marketing survey task: ", data.tarea)
-//            }).
-//            error(function (data, status, headers, config) {
-//                CommonService.processBaseResponse(data, status, headers, config);
-//                // called asynchronously if an error occurs
-//                // or server returns response with an error status.
-//                //$log.debug("Error loading marketing survey task");
-//            });
-//
-//        //$log.debug("Loading Excel Task Commons: Closing reason");
-//        $http({method: 'GET', url: '/exceltaskcommon/getClosingReason'}).
-//            success(function (data, status, headers, config) {
-//                CommonService.processBaseResponse(data, status, headers, config);
-//                $scope.closingReasonList = data.pairList;
-//                //$log.debug("Loaded Excel Task Commons: Closing reason: ", data.pairList);
-//            }).
-//            error(function (data, status, headers, config) {
-//                CommonService.processBaseResponse(data, status, headers, config);
-//                // called asynchronously if an error occurs
-//                // or server returns response with an error status.
-//                //$log.error("Error loading closing reason");
-//            });
-//    };
-
 
     $scope.getClosingReason = function(){
         //$log.debug("Loading Excel Task Commons: Closing reason");
@@ -54,7 +16,7 @@ app.controller('marketingsurveytask-ctrl', function ($scope, $http, CommonServic
                 // or server returns response with an error status.
                 //$log.error("Error loading closing reason list");
             });
-    }
+    };
 
     $scope.getInstallationAndTask = function(){
         $scope.vm.appReady=false;
@@ -86,7 +48,8 @@ app.controller('marketingsurveytask-ctrl', function ($scope, $http, CommonServic
                 $scope.vm.appReady=true;
                 //$log.error("Error loading list assistant task and/or installation data");
             });
-    }
+    };
+
     //Ventana Aplazar - Start
     //Abre la ventana, posibles tamaños '', 'sm', 'lg'
     $scope.openDelayModal = function (size) {
@@ -166,7 +129,7 @@ app.controller('marketingsurveytask-ctrl', function ($scope, $http, CommonServic
      * Variable _contextPath inicializada en commonImports
      */
     $scope.descartar=function(){
-    	$window.location.href= _contextPath + "/entry?bp_agent=12187&bp_agentIBS=M0OOS&bp_agentCountryJob=SPAIN&bp_desktopDepartment=ATC";
+    	$window.location.href= _contextPath + "/entry";
     }    
     
 });

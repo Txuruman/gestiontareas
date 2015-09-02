@@ -396,6 +396,8 @@ public class AvisoService {
      * @param codTipoCierre                    código del tipo de cierre, seleccionado por pantalla. Valor de la tabla TIPOCIERRE
      * @param codTipoCierreAdicional           datos adicionales de cierre, seleccionado por pantalla. Valor de la tabla DATOADICIONAL
      * @param finalizarDesdeCrearMantenimiento valor de la tabla ESTADOS: “2” si se finaliza, “3” si se finaliza por crear un Mantenimiento
+     * @param idMantenimiento Identificador del mantenimiento creado desde la pantalla externa
+     *
      * @return
      * @throws Exception
      */
@@ -403,10 +405,11 @@ public class AvisoService {
                                String idAgente,
                                String codTipoCierre,
                                Integer codTipoCierreAdicional,
-                               boolean finalizarDesdeCrearMantenimiento) throws Exception {
+                               boolean finalizarDesdeCrearMantenimiento,
+                               Integer idMantenimiento ) throws Exception {
 
         Integer deuda = 0; // constante
-        Integer idmante = 0; // constante
+        Integer idmante =( idMantenimiento==null?0:idMantenimiento ); // TODO Repasar, la documentación dice utilizar un 0 constante
         String branch = "0"; // constante
         String nota = ""; // nota de cierre asociada a las observaciones del Aviso
 
@@ -417,7 +420,7 @@ public class AvisoService {
         try {
 
             List<RowErrorCA> rowErrorCAs = spAvisosOperaciones.cerrarAviso(idAviso, idAgente, codTipoCierre, nota, statusdest,
-                    deuda, codTipoCierreAdicional ,idmante, branch   );
+                    deuda, codTipoCierreAdicional, idmante, branch);
 
             if (rowErrorCAs != null && rowErrorCAs.size() == 1
                     && ((RowErrorCA) ((List) rowErrorCAs).get(0)).getReturnCode() != null
@@ -427,9 +430,9 @@ public class AvisoService {
                 LOGGER.error("Error cerrando aviso {}", idAviso);
                 result = false;
             }
-        } catch (DataServiceFault e) {
+        } catch (Exception e) {
             LOGGER.error("Error cerrando aviso", e);
-            result = false;
+            throw e;
         }
 
         return result;

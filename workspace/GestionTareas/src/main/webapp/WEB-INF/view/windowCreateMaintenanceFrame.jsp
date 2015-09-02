@@ -6,7 +6,7 @@
 
 <html data-ng-app="myApp">
 <head>
-    <title>Frame with Redirect Create Maintenance</title>
+    <title><spring:message code="titulo.crearteExternalMaintenence"/></title>
     <app:commonImports/>
 </head>
 

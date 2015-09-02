@@ -52,7 +52,7 @@ public class NotificationTaskController extends TaskController {
     @RequestMapping(value = "/getInstallationAndTask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    NotificationTaskResponse getInstallationAndTask(
+    BaseResponse getInstallationAndTask(
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
     ) {
@@ -66,7 +66,7 @@ public class NotificationTaskController extends TaskController {
                         agentController.getAgent().getAgentCountryJob(),
                         agentController.getAgent().getDesktopDepartment()
                         , callingList, tareaId);
-                if (task != null) {
+
                     response.setTarea(task);
                     //Buscamos la instalación
                     if (task.getNumeroInstalacion() != null) {
@@ -79,12 +79,10 @@ public class NotificationTaskController extends TaskController {
                     } else {
                         response.danger(messageUtil.getProperty("getTask.noInstallation"));
                     }
-                } else {
-                    response.danger(messageUtil.getProperty("getTask.notFound"));
-                }
+
             } catch (Exception e) {
                 LOGGER.error(e.getMessage(), e);
-                processException(e);
+                return processException(e);
             }
         } else {
             response.danger("agent.notLoggedIn");
@@ -123,7 +121,7 @@ public class NotificationTaskController extends TaskController {
     }
 
     /**
-     * Finalización de Tarea tipo
+     * Finalización de Tarea tipo Aviso
      * @param request
      * @return
      */
@@ -131,12 +129,27 @@ public class NotificationTaskController extends TaskController {
     public
     @ResponseBody
     BaseResponse finalizeTask(@RequestBody FinalizeNotificationTaskRequest request) {
-        LOGGER.debug("Finalizando tarea aviso {}  ", request.getTask());
+        LOGGER.debug("Finalizando tarea aviso {}  ", request);
         BaseResponse response = new BaseResponse();
+
+        //Validación de los datos de respuesta si se finaliza por Crear Mantenimiento
+        if (request.isFinalizedByCreateMaintenance()) {
+            if (request.getStatus()==null ) {
+                response.danger(messageUtil.getProperty("createMaintenance.response.unknown"));
+                return response;
+            } else  if (request.getStatus()!=0) { //Detectamos error en la respuesta , TODO Hay que ver que datos vienen en varios casos
+                response.danger(messageUtil.getProperty("createMaintenance.response.error",request.getStatus(), request.getMessage()));
+                return response;
+            }
+        }
+
+
+
+
         //Llamada al servicio para finalizar
         try {
             Agent agent=agentController.getAgent();
-            boolean ok = tareaService.finalizeNotificationTask(agent, request.getTask());
+            boolean ok = tareaService.finalizeNotificationTask(agent, request.getTask(),request.isFinalizedByCreateMaintenance(),request.getAppointmentNumber());
 
             if (ok) {
                 response.info(messageUtil.getProperty("finalize.success"));

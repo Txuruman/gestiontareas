@@ -3,6 +3,7 @@ package es.securitasdirect.tareas.service;
 import com.webservice.CCLIntegration;
 import com.webservice.CclResponse;
 import com.webservice.Item;
+import es.securitasdirect.tareas.exceptions.BusinessException;
 import es.securitasdirect.tareas.model.*;
 import es.securitasdirect.tareas.model.tareaexcel.*;
 import es.securitasdirect.tareas.web.controller.params.TaskServiceParams;
@@ -71,6 +72,12 @@ public class QueryTareaService {
                 filter,
                 callingList,
                 country);
+
+        if (responseMap==null) {
+            LOGGER.error("Can't find Task {}-{}", callingList, filter);
+            throw new BusinessException(BusinessException.ErrorCode.ERROR_FIND_TASK, callingList, filter);
+        }
+
         Tarea tarea = tareaServiceTools.createTareaFromParameters(responseMap);
         return tarea;
     }

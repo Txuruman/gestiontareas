@@ -2,6 +2,7 @@ package es.securitasdirect.tareas.service;
 
 import com.webservice.CclResponse;
 import com.webservice.Item;
+import es.securitasdirect.tareas.exceptions.BusinessException;
 import es.securitasdirect.tareas.exceptions.FrameworkException;
 import es.securitasdirect.tareas.model.*;
 import es.securitasdirect.tareas.model.tareaexcel.*;
@@ -35,11 +36,12 @@ public class TareaServiceTools {
 
     @Resource(name = "callingListToModel")
     private Map<String, List<String>> callingListToModel;
+
     /**
      * Returns the specific Tarea type from the response, mapping with a map configured in Spring
      */
     protected String getTaskTypeFromMap(Map<String, String> responseMap) {
-        if (responseMap==null) {
+        if (responseMap == null) {
             return null;
         } else {
             String callingList = responseMap.get(TASK_TYPE);
@@ -49,6 +51,7 @@ public class TareaServiceTools {
 
     /**
      * Returns the specific Tarea type from the calling list, mapping with a map configured in Spring
+     *
      * @param callingList
      * @return
      */
@@ -62,7 +65,7 @@ public class TareaServiceTools {
     }
 
 
-    public Tarea createTareaFromParameters(Map<String, String> responseMap){
+    public Tarea createTareaFromParameters(Map<String, String> responseMap) {
         Tarea tarea = null;
         if (responseMap != null) {
             String tipoTarea = getTaskTypeFromMap(responseMap);
@@ -85,10 +88,10 @@ public class TareaServiceTools {
                     tarea = createTareaMantenimientoFromParameters(responseMap);
                 }
 
-                if(tarea==null){
+                if (tarea == null) {
                     LOGGER.debug("Couldn´t create Tarea for map");
                 } else {
-                    LOGGER.debug("Loaded Task {} : {}", tipoTarea,tarea);
+                    LOGGER.debug("Loaded Task {} : {}", tipoTarea, tarea);
                 }
                 return tarea;
             } else {
@@ -112,20 +115,23 @@ public class TareaServiceTools {
             LOGGER.debug("Calling service for TareaAviso for ID: '{}'", idAviso);
             tarea = getTareaByIdAviso(idAviso);
 
-            if (tarea!=null) {
+            if (tarea != null) {
                 //No utilizamos loadTareaCommons para tener cuidado de no sobreescribir datos de la consulta del AVISO con lo que tenemos en la TAREA
                 tarea.setTelefono(responseMap.get(TaskServiceParams.TAREA_COMMONS_TELEFONO));
                 tarea.setCallingList(responseMap.get(TaskServiceParams.TAREA_COMMONS_CALLING_LIST));
                 tarea.setNumeroContrato(responseMap.get(TaskServiceParams.TAREA_COMMONS_N_CONTRATO));
                 tarea.setId(toIntegerFromMap(responseMap.get(TaskServiceParams.TAREA_COMMONS_ID)));
                 tarea.setCampana(responseMap.get(TaskServiceParams.TAREA_CAMPAIGN));
-                tarea.setFechaReprogramacion(toDateFromMap(responseMap.get(TaskServiceParams.TAREA_COMMONS_FECHA_REPROGRAMACION)));
+                //Fecha de Reprogramación viene en numerico formato EPOC, i.e:1440588300
+                tarea.setFechaReprogramacion(toDateEpocFromMap(responseMap.get(TaskServiceParams.TAREA_COMMONS_FECHA_REPROGRAMACION)));
 
             } else {
-                LOGGER.error("Ticket not found by  id {}" , idAviso);
+                LOGGER.error("Ticket not found by  id {}", idAviso);
+                throw new BusinessException(BusinessException.ErrorCode.ERROR_FIND_TICKET);
             }
         } else {
             LOGGER.warn("ID_AVISO (idaviso) or 0 not found in response map");
+            throw new BusinessException(BusinessException.ErrorCode.ERROR_FIND_TICKET);
         }
         return tarea;
     }
@@ -184,34 +190,34 @@ public class TareaServiceTools {
         TareaAviso tarea = null;
         if (idAviso != null && !idAviso.equals(0)) {
             List<GetAvisobyIdResult> avisobyId = null;
-            try{
+            try {
                 //Viene una lista de 3 avisos o menos, son todos el mismo, solo cambia los tipoAviso y tipoMotivo
                 avisobyId = spAioTareas2.getAvisobyId(idAviso);
-            }catch (DataServiceFault dsf){
+            } catch (DataServiceFault dsf) {
                 LOGGER.error("ERROR calling service for TareaAviso ID:'{}'", idAviso);
                 throw new FrameworkException(dsf);
             }
             if (avisobyId != null && !avisobyId.isEmpty()) {
                 Iterator<GetAvisobyIdResult> iterator = avisobyId.iterator();
                 List<TareaAviso> bloquesTareasAviso = new ArrayList<TareaAviso>();
-                while(iterator.hasNext()){
+                while (iterator.hasNext()) {
                     GetAvisobyIdResult avisobyIdResultItem = iterator.next();
                     bloquesTareasAviso.add(mapTareaAvisoFromWS(avisobyIdResultItem));
                 }
                 tarea = bloquesTareasAviso.get(0);
-                if(bloquesTareasAviso.size()>=2){
+                if (bloquesTareasAviso.size() >= 2) {
                     tarea.setTipoAviso2(bloquesTareasAviso.get(1).getTipoAviso1());
                     tarea.setMotivo2(bloquesTareasAviso.get(1).getMotivo1());
                 }
-                if(bloquesTareasAviso.size()>=3){
+                if (bloquesTareasAviso.size() >= 3) {
                     tarea.setTipoAviso3(bloquesTareasAviso.get(2).getTipoAviso1());
                     tarea.setMotivo3(bloquesTareasAviso.get(2).getMotivo1());
                 }
-                if(bloquesTareasAviso.size()>=4){
+                if (bloquesTareasAviso.size() >= 4) {
                     LOGGER.debug("No se esperan más de 3 tipos y motivos de aviso en la respuesta");
                 }
                 LOGGER.debug("Queried Aviso ({}): {}", idAviso, tarea);
-            }else{
+            } else {
                 LOGGER.debug("Queried Aviso not found ({}): {}", idAviso, tarea);
             }
         } else {
@@ -236,7 +242,7 @@ public class TareaServiceTools {
         tarea.setIdAviso(avisobyIdResult.getIdaviso().intValue());
         tarea.setIdentificativoAvisoTarea(avisobyIdResult.getIdaviso().intValue());
         tarea.setObservaciones(avisobyIdResult.getObservaciones());
-        tarea.setEstado(1); 
+        tarea.setEstado(1);
         tarea.setTitular(avisobyIdResult.getTitular());
         tarea.setFechaCreacion(toDateFromMap(avisobyIdResult.getFechaCreacion())); //TODO OJO PUEDE SER DISTINTO
 
@@ -267,7 +273,7 @@ public class TareaServiceTools {
      */
     public Map<String, String> loadCclResponseMap(CclResponse reponse, int position) {
         HashMap<String, String> responseMap = new HashMap<String, String>();
-        if (position>reponse.getColumnReturn().size()) {
+        if (position > reponse.getColumnReturn().size()) {
             return null;
         } else {
             for (Item item : reponse.getColumnReturn().get(position).getItem()) { //Recorre la lista, aunque no parezca una lista
@@ -283,9 +289,11 @@ public class TareaServiceTools {
         }
     }
 
-    /** Para los mapas que solo deberían tener una tarea */
+    /**
+     * Para los mapas que solo deberían tener una tarea
+     */
     public Map<String, String> loadCclUniqueResponseMap(CclResponse reponse) {
-        return loadCclResponseMap(reponse,0);
+        return loadCclResponseMap(reponse, 0);
     }
 
 
@@ -314,7 +322,7 @@ public class TareaServiceTools {
          --X--                  telefono2               TELEFONO2           (no viene en el modelo)
          */
         TareaMantenimiento tarea = new TareaMantenimiento();
-        loadTareaCommons(tarea,parameters);
+        loadTareaCommons(tarea, parameters);
         //INSTALLATION DATA FROM TASK
         tarea.setNumeroInstalacion(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_INS_NUMERO_INSTALACION));
         tarea.setPersonaContacto(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_INS_PERSONA_CONTACTO));
@@ -323,7 +331,8 @@ public class TareaServiceTools {
         //TAREA DATA
         tarea.setAgenteAsignado(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_AGENTEASIGNADO));
         tarea.setAgenteCierre(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_AGENTECIERRE));
-        tarea.setTextoCancelacion(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_TEXTO_CANCELACION));;
+        tarea.setTextoCancelacion(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_TEXTO_CANCELACION));
+        ;
         tarea.setCiudad(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_CIUDAD));
         tarea.setDireccion(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_DIRECCION));
         tarea.setFechaEvento(toDateFromMap(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_FECHAEVENTO), TaskServiceParams.TAREA_MANTENIMIENTO_FECHAEVENTO_DATE_FORMAT));
@@ -430,12 +439,11 @@ public class TareaServiceTools {
         tarea.setId(toIntegerFromMap(parameters.get(TaskServiceParams.TAREA_COMMONS_ID)));
         tarea.setCampana(parameters.get(TaskServiceParams.TAREA_CAMPAIGN));
         //La fecha está en epoc http://www.epochconverter.com/
-        if (parameters.get(TaskServiceParams.TAREA_COMMONS_FECHA_REPROGRAMACION)!=null && !parameters.get(TaskServiceParams.TAREA_COMMONS_FECHA_REPROGRAMACION).isEmpty()) {
+        if (parameters.get(TaskServiceParams.TAREA_COMMONS_FECHA_REPROGRAMACION) != null && !parameters.get(TaskServiceParams.TAREA_COMMONS_FECHA_REPROGRAMACION).isEmpty()) {
             tarea.setFechaReprogramacion(new Date(Long.valueOf(parameters.get(TaskServiceParams.TAREA_COMMONS_FECHA_REPROGRAMACION)) * 1000));
         }
         return tarea;
     }
-
 
 
     /**
@@ -443,9 +451,9 @@ public class TareaServiceTools {
      * Ejemplo de lo que devuelve Aviso Service: 2014-08-22T10:08:26.000+02:00
      */
     private Date toDateFromMap(String value, String dateFormatPattern) {
-        assert dateFormatPattern!=null;
-        Date fecha =null;
-        if (value!=null && !value.isEmpty()) {
+        assert dateFormatPattern != null;
+        Date fecha = null;
+        if (value != null && !value.isEmpty()) {
             SimpleDateFormat sdf = new SimpleDateFormat(dateFormatPattern);
             try {
                 fecha = sdf.parse(value);
@@ -460,17 +468,36 @@ public class TareaServiceTools {
         return fecha;
     }
 
-    protected Date toDateFromMap(String value){
+    protected Date toDateFromMap(String value) {
         String dateFormatPattern = TaskServiceParams.DEFAULT_DATE_FORMAT;
         return toDateFromMap(value, dateFormatPattern);
+    }
+
+    /**
+     * Fecha desde String cuando es un valor EPOC
+     *
+     * @param value
+     * @return
+     */
+    protected Date toDateEpocFromMap(String value) {
+        if (value == null || value.isEmpty()) {
+            return null;
+        } else {
+            try {
+                return new Date(Long.valueOf(value) * 1000);
+            } catch (Exception e) {
+                LOGGER.error("Can't parse EPOC date from value {}", value, e);
+                return null;
+            }
+        }
     }
 
     protected Integer toIntegerFromMap(String value) {
         Integer result = null;
         if (value != null && !value.isEmpty()) {
-            try{
+            try {
                 result = Integer.valueOf(value);
-            }catch(NumberFormatException numberFormatException){
+            } catch (NumberFormatException numberFormatException) {
                 LOGGER.error("No se pudo parsear a Integer el valor: '{}'\nMessage:{}\nException:{}", value, numberFormatException.getMessage(), numberFormatException);
                 result = null;
             }

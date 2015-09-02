@@ -67,7 +67,7 @@ public class AnotherCampaignsTaskController extends TaskController {
     }
 
     @RequestMapping(value = "/getInstallationAndTask", method = {RequestMethod.GET}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody TareaResponse getInstallationAndTask(
+    public @ResponseBody BaseResponse getInstallationAndTask(
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
     ) {
@@ -81,7 +81,7 @@ public class AnotherCampaignsTaskController extends TaskController {
                         agentController.getAgent().getAgentCountryJob(),
                         agentController.getAgent().getDesktopDepartment()
                         , callingList, tareaId);
-                if (task!=null) {
+
                     response.setTarea(task);
                     //Buscamos la instalación
                     if (task.getNumeroInstalacion()!=null) {
@@ -94,12 +94,10 @@ public class AnotherCampaignsTaskController extends TaskController {
                     } else {
                         response.danger(messageUtil.getProperty("getTask.noInstallation"));
                     }
-                } else {
-                    response.danger(messageUtil.getProperty("getTask.notFound"));
-                }
+
             } catch (Exception e) {
                 LOGGER.error(e.getMessage(),e);
-                processException(e);
+                return processException(e);
             }
         } else {
             response.danger("agent.notLoggedIn");

@@ -123,6 +123,11 @@ public class TareaService {
         return finalized;
     }
 
+    public boolean finalizeNotificationTask(Agent agent, TareaAviso tarea) throws Exception {
+        //Finalizar tarea como si no viene de matenimiento
+       return finalizeNotificationTask( agent,  tarea, false, null);
+    }
+
     /**
      * Finalizar la tarea de tipo Aviso, es distinta al resto de tareas porque hay que llamar a cancelar
      *
@@ -130,7 +135,7 @@ public class TareaService {
      * @param tarea
      * @return
      */
-    public boolean finalizeNotificationTask(Agent agent, TareaAviso tarea) throws Exception {
+    public boolean finalizeNotificationTask(Agent agent, TareaAviso tarea, boolean finalizadoDesdeMantenimiento, Integer idMantenimiento) throws Exception {
         LOGGER.debug("Finalizando tarea Aviso {}", tarea);
         //Buscamos los datos de la instalación de la tarea
         InstallationData installationData = installationService.getInstallationData(tarea.getNumeroInstalacion());
@@ -138,7 +143,7 @@ public class TareaService {
 
         //1. Modificar Aviso si hace falta por haber cambiado los datos. Comprobamos si la tarea que nos pasa el front difiere con la de la BBDD, si es asi modificamos
         TareaAviso tareaOriginal = (TareaAviso) queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
-        if (!isTaskRequiresSaveModifications(tareaOriginal, tarea)) {
+        if (isTaskRequiresSaveModifications(tareaOriginal, tarea)) {
             boolean modificado = avisoService.updateTicket(agent, tarea, installationData);
             if (!modificado) {
                 LOGGER.error("Can't finalize NotificationTask because can't update Ticket");
@@ -147,15 +152,9 @@ public class TareaService {
         }
 
         //2. Finalizar el Aviso
-        boolean finalizadoDesdeMantenimiento = false;
-        try {
-            boolean finalizadoAviso = avisoService.closeTicket(tarea.getIdAviso(), agent.getAgentIBS(), tarea.getClosing(), Integer.valueOf(tarea.getDatosAdicionalesCierre()), finalizadoDesdeMantenimiento);
-            if (!finalizadoAviso) {
-                LOGGER.error("Can't finalize NotificationTask because can't close Ticket");
-                return false;
-            }
-        } catch (Exception e) {
-            LOGGER.error("Error Closing Ticket.", e);
+        boolean finalizadoAviso = avisoService.closeTicket(tarea.getIdAviso(), agent.getAgentIBS(), tarea.getClosing(),tarea.getDatosAdicionalesCierre()==null?null:Integer.valueOf(tarea.getDatosAdicionalesCierre()),finalizadoDesdeMantenimiento , idMantenimiento);
+        if (!finalizadoAviso) {
+            LOGGER.error("Can't finalize NotificationTask because can't close Ticket");
             return false;
         }
 
@@ -181,15 +180,12 @@ public class TareaService {
      */
 
     private boolean isTaskRequiresSaveModifications(TareaAviso t1, TareaAviso t2) {
-        return t1.equalsSinDatosCierre(t2);
+        return !t1.equalsSinDatosCierre(t2);
     }
 
-    private boolean isTaskRequiresSaveModifications2(TareaAviso t1, TareaAviso t2) {
-        return t1.equalsConDatosCierre(t2);
-    }
 
-    private boolean isTaskRequiresSaveModifications3(TareaAviso t1, TareaAviso t2) {
-        return t1.equalsTipo1Motivo1(t2);
+    private boolean isChangedTipoOrMotivo(TareaAviso t1, TareaAviso t2) {
+        return !t1.equalsTipo1Motivo1(t2);
     }
 
     /**
@@ -207,7 +203,7 @@ public class TareaService {
 
         //1. Modificar Aviso si hace falta por haber cambiado los datos. Comprobamos si la tarea que nos pasa el front difiere con la de la BBDD, si es asi modificamos
         TareaAviso tareaOriginal = (TareaAviso) queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
-        if (!isTaskRequiresSaveModifications(tareaOriginal, tarea)) {
+        if (isTaskRequiresSaveModifications(tareaOriginal, tarea)) {
             boolean modificado = avisoService.updateTicket(agent, tarea, installationData);
             if (!modificado) {
                 LOGGER.error("Can't finalize NotificationTask because can't update Ticket");
@@ -562,7 +558,7 @@ public class TareaService {
             TareaAviso tareaOriginal = (TareaAviso) queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
 
             boolean ok = false;
-            if(!isTaskRequiresSaveModifications(tareaOriginal, tarea)) {
+            if(isTaskRequiresSaveModifications(tareaOriginal, tarea)) {
                 ok = avisoService.updateTicket(agent, (TareaAviso) tarea, installationData);
                 saved = ok;
                 if(!ok) {
@@ -572,7 +568,7 @@ public class TareaService {
 
             boolean finalized=false;
             // si ha cambiado Tipo1 o Motivo1
-            if(!isTaskRequiresSaveModifications3(tareaOriginal, tarea)) {
+            if(isChangedTipoOrMotivo(tareaOriginal, tarea)) {
                 // Finalizar Tarea
                 finalized = wsFilanizeTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId());
                 saved = finalized;

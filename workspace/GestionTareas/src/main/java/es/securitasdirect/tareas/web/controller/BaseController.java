@@ -1,5 +1,6 @@
 package es.securitasdirect.tareas.web.controller;
 
+import es.securitasdirect.tareas.exceptions.BusinessException;
 import es.securitasdirect.tareas.model.InstallationData;
 import es.securitasdirect.tareas.model.Tarea;
 import es.securitasdirect.tareas.model.external.Pair;
@@ -33,9 +34,25 @@ public abstract class BaseController {
      * @return
      */
     protected BaseResponse processException(Exception exception) {
-        LOGGER.error("Server error {}" , exception.getMessage(),exception);
-        BaseResponse response = new BaseResponse();
-        response.danger(messageUtil.getProperty("exception", exception.getMessage()));
+        return processException(new BaseResponse(), exception);
+    }
+
+    /**
+     * Procesa una excepción y añade el texto de error como respuesta del mensaje a una respuesta ya existente
+     * @param exception
+     * @return
+     */
+    protected BaseResponse processException(BaseResponse response, Exception exception) {
+        if (exception instanceof BusinessException) {
+            //Excepción de negocio
+            LOGGER.error("Business error {}" , exception.getMessage(),exception);
+            response.danger(messageUtil.getProperty(((BusinessException) exception).getErrorCode().toString(),((BusinessException) exception).getErrorParams()));
+        } else {
+            //Excepción General
+            LOGGER.error("Server error {}" , exception.getMessage(),exception);
+            response.danger(messageUtil.getProperty("exception", exception.getMessage()));
+        }
+
         return response;
     }
 
@@ -56,9 +73,10 @@ public abstract class BaseController {
                 response.danger(e.getMessage());
             }
         }
-
         return response;
     }
+
+
 
     protected BaseResponse processSuccessMessages(Object obj, String msg) {
         BaseResponse response = new BaseResponse();
