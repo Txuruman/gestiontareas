@@ -298,7 +298,8 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     $scope.modificar = function (tarea) {
         //$log.debug('Modificar Tarea, tarea: ' + $scope.tarea);
         var modifyNotificationTaskRequest = {
-            task: tarea
+            task: tarea,
+            installation:$scope.installationData
         };
         //$log.debug('Modificar Tarea, request ' + JSON.stringify(modifyNotificationTaskRequest));
         $http({
