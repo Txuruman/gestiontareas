@@ -565,6 +565,9 @@ public class TareaService {
             if(!isTaskRequiresSaveModifications(tareaOriginal, tarea)) {
                 ok = avisoService.updateTicket(agent, (TareaAviso) tarea, installationData);
                 saved = ok;
+                if(!ok) {
+                    LOGGER.error("Error calling avisoService.updateTicket to save {}-{}-{}", agent, (TareaAviso) tarea, installationData);
+                }
             }
 
             boolean finalized=false;
@@ -573,10 +576,20 @@ public class TareaService {
                 // Finalizar Tarea
                 finalized = wsFilanizeTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId());
                 saved = finalized;
-                // desmarcar Aviso de la Tarea
-                saved = avisoService.unmarkTicket(tarea.getIdAviso());
+
+                if(finalized) {
+                    // desmarcar Aviso de la Tarea
+                    saved = avisoService.unmarkTicket(tarea.getIdAviso());
+                    if(!saved) {
+                        LOGGER.error("Error calling avisoService.unmarkTicket to save {}", tarea.getIdAviso());
+                    }
+                }
+                else
+                {
+                    LOGGER.error("Error calling wsFilanizeTask to save {}-{}-{}-{}-{}-{}-{}", agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId());
+                }
+
             }
-            // TODO control de errores de los tres servicios
         }
 
         return saved;
