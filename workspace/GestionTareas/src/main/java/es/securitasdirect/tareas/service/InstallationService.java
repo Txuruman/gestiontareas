@@ -64,6 +64,7 @@ public class InstallationService {
             data.setTitular(mainstallationdataresult.getName());
             data.setPanel(mainstallationdataresult.getPanel());
             data.setTelefono(mainstallationdataresult.getPhone());
+            data.setCodigoPostal(mainstallationdataresult.getZip());
             if (installationData2!=null && !installationData2.getGetInstallationDataResult().isEmpty()) {
                 data.setVersion(installationData2.getGetInstallationDataResult().get(0).getVersion());
             }
