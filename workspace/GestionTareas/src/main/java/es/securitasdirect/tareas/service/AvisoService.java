@@ -63,8 +63,7 @@ public class AvisoService {
         else if("PORTUGAL".equals(agent.getAgentCountryJob())) idCountry = "2";
         else if("FRANCE".equals(agent.getAgentCountryJob())) idCountry = "3";
 
-        String idLanguage = agent.getCurrentLanguage();
-        idLanguage = "ES"; // TODO EL AGENTE TIENE CURRENTLANGUAGE NULO y es requerido.
+        String idLanguage = (agent.getCurrentLanguage() != null) ? agent.getCurrentLanguage() : "";
         String idReq = agent.getDesktopDepartment();
 
         /*
@@ -206,8 +205,7 @@ public class AvisoService {
         else if("PORTUGAL".equals(agent.getAgentCountryJob())) idCountry = "2";
         else if("FRANCE".equals(agent.getAgentCountryJob())) idCountry = "3";
 
-        String idLanguage = agent.getCurrentLanguage();
-        idLanguage = "ES"; // TODO EL AGENTE TIENE CURRENTLANGUAGE NULO y es requerido.
+        String idLanguage = (agent.getCurrentLanguage() != null) ? agent.getCurrentLanguage() : "";
         String idReq = agent.getDesktopDepartment();
 
 
