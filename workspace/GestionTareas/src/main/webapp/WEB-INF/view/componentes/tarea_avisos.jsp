@@ -51,8 +51,8 @@
             </div>
             <div class="spacer_t1"></div>
             <div class="row">
-                <app:inputTextNG pattern="^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)$" form="formVisorTarea" id="horarioDesde" label="tareaAviso.horarioDesde" value="tarea.horarioDesde" cells="6"  hour="true"/>
-                <app:inputTextNG pattern="^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)$" form="formVisorTarea" id="horarioHasta" label="tareaAviso.horarioHasta" value="tarea.horarioHasta" cells="6" hour="true" />
+                <app:inputTextNG pattern="^(?:(?:([01]?\d|2[0-3])))$" form="formVisorTarea" id="horarioDesde" label="tareaAviso.horarioDesde" value="tarea.horarioDesde" cells="6"  hour="true"/>
+                <app:inputTextNG pattern="^(?:(?:([01]?\d|2[0-3])))$" form="formVisorTarea" id="horarioHasta" label="tareaAviso.horarioHasta" value="tarea.horarioHasta" cells="6" hour="true" />
             </div>
             <div class="spacer_t1"></div>
             <div class="row">

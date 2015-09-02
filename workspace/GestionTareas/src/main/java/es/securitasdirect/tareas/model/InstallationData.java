@@ -17,6 +17,8 @@ public class InstallationData {
 
     private String telefono;
 
+    private String codigoPostal;
+
     public String getNumeroInstalacion() {
         return numeroInstalacion;
     }
@@ -65,6 +67,14 @@ public class InstallationData {
         this.telefono = telefono;
     }
 
+    public String getCodigoPostal() {
+        return codigoPostal;
+    }
+
+    public void setCodigoPostal(String codigoPostal) {
+        this.codigoPostal = codigoPostal;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("InstallationData{");
@@ -74,6 +84,7 @@ public class InstallationData {
         sb.append(", version='").append(version).append('\'');
         sb.append(", personaContacto='").append(personaContacto).append('\'');
         sb.append(", telefono='").append(telefono).append('\'');
+        sb.append(", codigoPostal='").append(codigoPostal).append('\'');
         sb.append('}');
         return sb.toString();
     }

@@ -152,7 +152,7 @@ public class AvisoService {
          */
         createTicket.getTicket().setNumInst(tareaAviso.getNumeroInstalacion());
         createTicket.getTicket().setObserv((tareaAviso.getObservaciones() != null) ? tareaAviso.getObservaciones() : "");
-        createTicket.getTicket().setCodZIP("28030"); // TODO InstallationData no tiene codigo postal
+        createTicket.getTicket().setCodZIP(installationData.getCodigoPostal());
         createTicket.getTicket().setCloseTicket("0"); // constante
         createTicket.getTicket().setDataAditional(""); // constante
         createTicket.getTicket().setNoteClose(""); // constante
@@ -322,7 +322,7 @@ public class AvisoService {
         operateTicket.getTICKET().setNumTicket(tareaAviso.getIdAviso());
         operateTicket.getTICKET().setNumInst(Integer.parseInt(tareaAviso.getNumeroInstalacion()));
         operateTicket.getTICKET().setObserv(tareaAviso.getObservaciones());
-        operateTicket.getTICKET().setCodZIP(28030); // TODO InstallationData no tiene codigo postal
+        operateTicket.getTICKET().setCodZIP(Integer.valueOf(installationData.getCodigoPostal()));
         operateTicket.getTICKET().setCloseTicket(0); // constante
         operateTicket.getTICKET().setDataAditional(""); // constante
         operateTicket.getTICKET().setNoteClose(""); // constante
