@@ -10,13 +10,34 @@
 
     <app:commonImports/>
 
-
+<script type="text/javascript">
+app.controller('testController', function ($scope) {
+	$scope.docallFunction=function(){
+		$scope.doCall=FunctionTarget("doCall", "P17001", {});
+	}
+});
+// window.onload=function(){
+// 	var prueba=FunctionTarget("doCall", 17001, {});
+// 	if(prueba!=undefined){
+// 		var jsonado = JSON.stringify(prueba,null, 4);
+// 		alert(jsonado);
+// 	}else{
+// 		alert(prueba);
+// 	}
+	
+// };
+</script>
 </head>
 
 <body>
+<div ng-controller="testController">
+<input type="button" ng-click="docallFunction()" value="dale">
 
+{{$scope.doCall}}
 
-<input type="button" onclick="resultado=window.showModalDialog('windowCreateMaintenanceFrame');alert('Resultado :' + resultado)" value="Window Mantenimiento" />
+</div>
+
+<!-- <input type="button" onclick="resultado=window.showModalDialog('windowCreateMaintenanceFrame');alert('Resultado :' + resultado)" value="Window Mantenimiento" /> -->
 
 <%--<!-- Acordeon -start -->--%>
 <%--<div ng-controller="AccordionDemoCtrl">--%>
