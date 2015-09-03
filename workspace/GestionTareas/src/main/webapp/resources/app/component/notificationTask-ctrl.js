@@ -1,7 +1,7 @@
 app.controller('notificationtask', function ($scope, $http, CommonService, $modal, $log, $window) {
 
     $scope.logTarea = function () {
-        //$log.debug("Tarea: " + $scope.tarea);
+        $log.debug("Tarea: " + $scope.tarea);
     };
 
 
@@ -74,12 +74,8 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     };
 
     $scope.getInstallationAndTask = function () {
-        //$log.debug('Loading NotificationTask');
-        //$log.debug("Params: "
-        //    + " installationId: " + $scope.installationId
-        //    + " ccUserId: " + $scope.ccUserId
-        //    + " callingList: " + $scope.callingList
-        //    + " taskId: " + $scope.tareaId);
+        $log.debug('Loading NotificationTask');
+
         $http({
             method: 'GET',
             url: 'notificationtask/getInstallationAndTask',
@@ -91,7 +87,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             }
         })
             .success(function (data, status, headers, config) {
-                //$log.debug('Loaded NotificationTask Data' + JSON.stringify(data));
+                $log.debug('Loaded NotificationTask Data' + JSON.stringify(data));
                 CommonService.processBaseResponse(data, status, headers, config);
 
                 $scope.tarea = data.tarea;
@@ -103,9 +99,9 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 $scope.getTypeReasonList1($scope.tarea.tipoAviso1);
                 $scope.getTypeReasonList2($scope.tarea.tipoAviso2);
                 $scope.getTypeReasonList3($scope.tarea.tipoAviso3);
-                //$log.debug("Motivo lists: ",$scope.motivoList1,$scope.motivoList2,$scope.motivoList3);
-                //$log.debug("SCOPE TAREA:", $scope.tarea);
-                //$log.debug("Get closing list params: " + $scope.tarea.tipoAviso1 + ", " + $scope.tarea.motivo1);
+                $log.debug("Motivo lists: ",$scope.motivoList1,$scope.motivoList2,$scope.motivoList3);
+                $log.debug("SCOPE TAREA:", $scope.tarea);
+                $log.debug("Get closing list params: " + $scope.tarea.tipoAviso1 + ", " + $scope.tarea.motivo1);
                 $scope.getClosingList($scope.tarea.tipoAviso1, $scope.tarea.motivo1, $scope.tarea.closing);
                 $scope.getClosingAditionalDataList();
                 $scope.refeshDisabled = true;
@@ -118,29 +114,29 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
-        //$log.debug("NotificationTask loaded...");
+        $log.debug("NotificationTask loaded...");
     };
 
     //Consultar Combo de Cierre
     $scope.getClosingList = function (idType, reasonId, closing) {
-        //$log.debug("Load Closing Type List for params: "+ idType + ", " + reasonId);
+        $log.debug("Load Closing Type List for params: "+ idType + ", " + reasonId);
         var closingTypeRequest = {
             idType: idType,
             reasonId: reasonId
         };
-        //$log.debug("Load Closing Type List Request: ", closingTypeRequest);
+        $log.debug("Load Closing Type List Request: ", closingTypeRequest);
         $http({
             method: 'PUT',
             url: 'commons/getNotificationClosingList',
             data: closingTypeRequest
         })
             .success(function (data, status, headers, config) {
-                //$log.debug('Loaded Closing Type List Response', data);
+                $log.debug('Loaded Closing Type List Response', data);
                 $scope.closingList = data.pairList;
                 CommonService.processBaseResponse(data, status, headers, config);
             })
             .error(function (data, status, headers, config) {
-                //$log.error("Error loading Closing Type List");
+                $log.error("Error loading Closing Type List");
                 CommonService.processBaseResponse(data, status, headers, config);
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
@@ -148,7 +144,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     };
 
     $scope.getClosingAditionalDataList = function () {
-        //$log.debug("Load Closing Aditional Data List " );
+        $log.debug("Load Closing Aditional Data List " );
         $http({
             method: 'GET',
             url: 'commons/getClosingAditionalDataList'
@@ -166,13 +162,13 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     };
 
     $scope.getNotificationTypeList = function () {
-        //$log.debug("Load Notification Type List");
+        $log.debug("Load Notification Type List");
         $http({
             method: 'GET',
             url: 'commons/getNotificationTypeList'
         })
             .success(function (data, status, headers, config) {
-                //$log.debug('Loaded Notification Type List', data);
+                $log.debug('Loaded Notification Type List', data);
                 $scope.tipoAvisoList = data.pairList;
                 CommonService.processBaseResponse(data, status, headers, config);
 
@@ -186,7 +182,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
 
     //Consulta Motivo 1
     $scope.getTypeReasonList1 = function (typeId, data, status, headers, config) {
-        //$log.debug("Load Task Type Reason List");
+        $log.debug("Load Task Type Reason List");
         var taskTypeReasonRequest = {
             idType: typeId
         };
@@ -196,7 +192,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             data: taskTypeReasonRequest
         })
             .success(function (data, status, headers, config) {
-                //$log.debug('Loaded Type Reason List', data);
+                $log.debug('Loaded Type Reason List', data);
                 $scope.motivoList1 = data.pairList;
                 CommonService.processBaseResponse(data, status, headers, config);
 
@@ -210,7 +206,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
 
     //Consulta Motivo 2
     $scope.getTypeReasonList2 = function (typeId) {
-        //$log.debug("Load Task Type Reason List");
+        $log.debug("Load Task Type Reason List");
         var taskTypeReasonRequest = {
             idType: typeId
         };
@@ -220,7 +216,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             data: taskTypeReasonRequest
         })
             .success(function (data, status, headers, config) {
-                //$log.debug('Loaded Type Reason List', data);
+                $log.debug('Loaded Type Reason List', data);
                 $scope.motivoList2 = data.pairList;
                 CommonService.processBaseResponse(data, status, headers, config);
 
@@ -234,7 +230,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
 
     //Consulta Motivo 3
     $scope.getTypeReasonList3 = function (typeId) {
-        //$log.debug("Load Task Type Reason List");
+        $log.debug("Load Task Type Reason List");
         var taskTypeReasonRequest = {
             idType: typeId
         };
@@ -244,7 +240,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             data: taskTypeReasonRequest
         })
             .success(function (data, status, headers, config) {
-                //$log.debug('Loaded Type Reason List', data);
+                $log.debug('Loaded Type Reason List', data);
                 $scope.motivoList3 = data.pairList;
                 CommonService.processBaseResponse(data, status, headers, config);
 
@@ -257,7 +253,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     };
 
     $scope.aplazar = function (delayDate, recallType) {
-        //$log.info('Delay to ' + delayDate + ' with recallType ' + recallType + ' task ' + JSON.stringify($scope.tarea));
+        $log.info('Delay to ' + delayDate + ' with recallType ' + recallType + ' task ' + JSON.stringify($scope.tarea));
         if ($scope.tarea) {
             //Creamos dos objetos temporales, nulleamos los atributos y comparamos
 //        	var temp1=angular.copy($scope.tarea);
@@ -276,7 +272,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 task: $scope.tarea
             };
 
-            //$log.info("Json of Request " + JSON.stringify(postponeRequest));
+            $log.info("Json of Request " + JSON.stringify(postponeRequest));
 
             $http({
                 method: 'PUT',
@@ -296,23 +292,23 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     };
 
     $scope.modificar = function (tarea) {
-        //$log.debug('Modificar Tarea, tarea: ' + $scope.tarea);
+        $log.debug('Modificar Tarea, tarea: ' + $scope.tarea);
         var modifyNotificationTaskRequest = {
             task: tarea,
             installation:$scope.installationData
         };
-        //$log.debug('Modificar Tarea, request ' + JSON.stringify(modifyNotificationTaskRequest));
+        $log.debug('Modificar Tarea, request ' + JSON.stringify(modifyNotificationTaskRequest));
         $http({
             method: 'PUT',
             url: 'notificationtask/modificar',
             data: modifyNotificationTaskRequest
         })
             .success(function (data, status, headers, config) {
-                //$log.debug('Modificación de la tarea realizada, response: ' + JSON.stringify(data));
+                $log.debug('Modificación de la tarea realizada, response: ' + JSON.stringify(data));
                 CommonService.processBaseResponse(data, status, headers, config);
             })
             .error(function (data, status, headers, config) {
-                //$log.debug('Error en la modificación de la tarea, response: ' + JSON.stringify(data));
+                $log.debug('Error en la modificación de la tarea, response: ' + JSON.stringify(data));
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data, status, headers, config);
@@ -336,14 +332,14 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             url: 'agent/prepareInfopointSession'
         })
             .success(function (data, status, headers, config) {
-                //$log.debug('Agente obtenido: ' + JSON.stringify(data));
+                $log.debug('Agente obtenido: ' + JSON.stringify(data));
                 $scope.agent = data.agent;
                 CommonService.processBaseResponse(data, status, headers, config);
                 $scope.openMaintenaceWindow(data.agent);
                 $scope.closeAgent();
             })
             .error(function (data, status, headers, config) {
-                //$log.debug('Error en la creación de mantenimiento, response: ' + JSON.stringify(data));
+                $log.debug('Error en la creación de mantenimiento, response: ' + JSON.stringify(data));
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data, status, headers, config);
@@ -357,7 +353,9 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
         var url = "windowCreateMaintenanceFrame?InstallationNumber=" + $scope.installationData.numeroInstalacion + "&PanelTypeId=" + $scope.installationData.panel + "&TicketNumber=" + $scope.tarea.idAviso + "&RequestedBy=" + $scope.tarea.requeridoPor + "&Operator=" + agent.agentIBS + "&ContactPerson=" + $scope.installationData.personaContacto + "&ContactPhone=" + $scope.installationData.telefono + "&Text=" + $scope.tarea.observaciones + "&SessionToken=" + agent.infopointSession + "&type=" + $scope.tarea.tipoAviso1 + "&motive=" + $scope.tarea.motivo1;
 
         var resultado = window.showModalDialog(url, null, "center:yes; resizable:yes; dialogWidth:900px; dialogHeight:700px;");
-        resultado='{"AppointmentNumber":"1234","Status":0,"Message":"correcto"}';
+
+        //TODO BOrrar, es para probar un resultado concreto
+        //resultado='{"AppointmentNumber":"1234","Status":0,"Message":"correcto"}';
 
         if (resultado) {
             $scope.finalizarDesdeMantenimiento(JSON.parse(resultado));
@@ -377,12 +375,12 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             url: 'agent/closeInfopointSession'
         })
             .success(function (data, status, headers, config) {
-                //$log.debug('Agente obtenido: ' + data);
+                $log.debug('Agente obtenido: ' + data);
                 $scope.agent = data.agent;
                 CommonService.processBaseResponse(data, status, headers, config);
             })
             .error(function (data, status, headers, config) {
-                //$log.debug('Error en la creación de mantenimiento, response: ' + JSON.stringify(data));
+                $log.debug('Error en la creación de mantenimiento, response: ' + JSON.stringify(data));
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data, status, headers, config);
@@ -402,7 +400,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
      * Finalizar desde el botón de finalizar
      */
     $scope.finalizar = function () {
-        //$log.debug("Finalizar task, task: ",$scope.tarea);
+        $log.debug("Finalizar task, task: ",$scope.tarea);
         //Comparamos la tarea con el originar y si ha habido cambios modificamos.
 //    	if (!angular.equals($scope.tarea, $scope.tareaOriginal)) {
 //			$scope.modificar();
@@ -411,7 +409,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             task: $scope.tarea,
             installation: $scope.installationData
         };
-        //$log.debug("Finalizar  Task, request: ",finalizeRequest);
+        $log.debug("Finalizar  Task, request: ",finalizeRequest);
         $http({
             method: 'PUT',
             url: 'notificationtask/finalizar',
@@ -419,24 +417,23 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
         })
             .success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
-                //$log.debug("Finalized task");
+                $log.debug("Finalized task");
             })
             .error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data, status, headers, config);
-                //$log.error("Error finalizing task");
+                $log.error("Error finalizing task");
             });
     };
 
-    //Mostramos los avisos para rellenar los combos de finalizar
+    //Mostramos los mensajes para rellenar los combos de finalizar
     $scope.muestraFinalizarRequired = function () {
         if ($scope.tarea.datosAdicionalesCierre == null) {
             $scope.closingADAlert = true;
         }
         if ($scope.tarea.closing == null) {
-            //TODO: No recibimos motivos de cierre del servidor
-            //$scope.closingAlert=true;
+            $scope.closingAlert=true;
         }
     };
 
@@ -448,7 +445,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
      */
         //Finalizar mantenimiento al volver de la pantalla emergente
     $scope.finalizarDesdeMantenimiento = function (resultado) {
-        //$log.debug("Finalizar task: ",$scope.tarea);
+        $log.debug("Finalizar task: ",$scope.tarea);
         var finalizeRequest = {
             task: $scope.tarea,
             lastCalledPhone: $scope.lastCalledPhone,
@@ -472,13 +469,13 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
         })
             .success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
-                //$log.debug("Finalized task");
+                $log.debug("Finalized task");
             })
             .error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data, status, headers, config);
-                //$log.error("Error finalizing task");
+                $log.error("Error finalizing task");
             });
     };
 

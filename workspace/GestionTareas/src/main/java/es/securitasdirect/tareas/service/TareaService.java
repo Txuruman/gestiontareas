@@ -159,7 +159,7 @@ public class TareaService {
         }
 
         //3. Finalizar la Tarea
-        boolean finalizadaTarea = true;//wsFilanizeTask(agent.getAgentIBS(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId());
+        boolean finalizadaTarea = wsFilanizeTask(agent.getAgentIBS(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId());
         if (!finalizadaTarea) {
             LOGGER.error("Error finalizing Notification Task because can't finalize Task");
             return false;

@@ -9700,7 +9700,21 @@
       </dat:CerrarAviso>
    </soapenv:Body>
 </soapenv:Envelope>
-]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:CerrarAviso"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="urn:ReasignarAviso" name="ReasignarAviso" bindingOperationName="ReasignarAviso" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="4aaaab61-b3a8-48c5-b67c-2878e74304a0"><con:settings/><con:call name="Request 1" id="4f07f1f9-f2c7-4397-a0fb-1ad67707153a"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.2.144.63:9763/services/SP_AVISOS_OPERACIONES.SOAP11Endpoint/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dat="http://ws.wso2.org/dataservice">
+]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:CerrarAviso"/><con:wsrmConfig version="1.2"/></con:call><con:call name="No funciona"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.2.144.63:9763/services/SP_AVISOS_OPERACIONES.SOAP11Endpoint/</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Body>
+    <CerrarAviso xmlns="http://ws.wso2.org/dataservice">
+      <NAVISO>11350281</NAVISO>
+      <IDMAT>M0OOS</IDMAT>
+      <TCIERRE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+      <CNOTA/>
+      <STATUSDEST>2</STATUSDEST>
+      <DEUDA>0</DEUDA>
+      <ADICIONAL xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+      <IDMANTEN>1234</IDMANTEN>
+      <BRANCH>0</BRANCH>
+    </CerrarAviso>
+  </soap:Body>
+</soap:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:CerrarAviso"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="urn:ReasignarAviso" name="ReasignarAviso" bindingOperationName="ReasignarAviso" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="4aaaab61-b3a8-48c5-b67c-2878e74304a0"><con:settings/><con:call name="Request 1" id="4f07f1f9-f2c7-4397-a0fb-1ad67707153a"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.2.144.63:9763/services/SP_AVISOS_OPERACIONES.SOAP11Endpoint/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dat="http://ws.wso2.org/dataservice">
    <soapenv:Header/>
    <soapenv:Body>
       <dat:ReasignarAviso>
@@ -14020,13 +14034,13 @@
    <soapenv:Body>
       <tem:ValidarProceso>
          <!--Optional:-->
-         <tem:ticket>0D9CCA8F048980E26BE81E9C1B1E4F1A22ED52A21E6A8E27D2AA6C25C181E7BDE27F5A24A9E2E08CE899F13863394E93305264A445897BCBEB3502509F6874FE783772E25D09D7E1F9B7E4C85B823D73FB0AA0EFCD9B0794706A2D5DA380628F</tem:ticket>
+         <tem:ticket>32F0185D58A8C6156925967E1475A8630B34CB4EBD563424441BDF33B9A43C4C65A4745744905706EFAFD039CFC8E37115BA4E9089BDB16F2906CA018D2DE305BC2A2BCAF6387C9818D8F71249FC7D05B2B5763ED873883F7DA38BD2039F99AD</tem:ticket>
          <!--Optional:-->
          <tem:Servidor>0.0.0.0</tem:Servidor>
          <!--Optional:-->
          <tem:Proceso>829</tem:Proceso>
          <!--Optional:-->
-         <tem:Usuario>DF1512</tem:Usuario>
+         <tem:Usuario>M0OOS</tem:Usuario>
       </tem:ValidarProceso>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/ValidarProceso"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="http://tempuri.org/ValidarSesion" name="ValidarSesion" bindingOperationName="ValidarSesion" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://es1preinfo01v/wsInfopoint/Fun.asmx</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
@@ -14034,7 +14048,7 @@
    <soapenv:Body>
       <tem:ValidarSesion>
          <!--Optional:-->
-         <tem:ticket>D71C23721BFB764F2E3075812F9145C2B9114FFC4B3952DE99B85252E301360723EC04D843D7615562516917D3D6D5CD0A5A5EE8FFA28FAB15E3321499CC0C7634C28FAB0B39ADAE5BFFF1B03109B09BB38E7899711792910F157D760A3578FE</tem:ticket>
+         <tem:ticket>25F671CDC834B42ABDB46EAFD215DB39AB498402953F1DC03A75971C3F7B21AA4D2B6E21440BA1D3FEC742770E527F9C7AAF406D6499BCD3056714E2C7C4CE1DAACD98A1FB89D555ACE795DDCD0E66658C5D02C808DC34E153978F2AB40E9728</tem:ticket>
          <!--Optional:-->
          <tem:Servidor>0.0.0.0</tem:Servidor>
       </tem:ValidarSesion>

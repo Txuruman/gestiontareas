@@ -1,6 +1,7 @@
 package es.securitasdirect.tareas.web.controller;
 
 import es.securitasdirect.tareas.model.*;
+import es.securitasdirect.tareas.model.happy.HappyData;
 import es.securitasdirect.tareas.service.*;
 import es.securitasdirect.tareas.web.controller.dto.request.searchtask.SearchTaskRequest;
 import es.securitasdirect.tareas.web.controller.params.ExternalParams;
@@ -8,6 +9,7 @@ import es.securitasdirect.tareas.web.controller.util.MessageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -31,6 +33,10 @@ public class EntryPointController extends TaskController {
 
     @Resource
     protected String externalCreateAppointmentUrl;
+
+    @Autowired
+    protected HappyService happyService;
+
 
     //Funciona
 //    @Autowired
@@ -112,9 +118,7 @@ public class EntryPointController extends TaskController {
             }
         } else {
             //Sin tarea ni instalación vamos a buscar tarea
-            mv = new ModelAndView("buscartarea");
-            //Enviar a la pantalla los datos de la ultima búsqueda
-            mv.addObject("lastSearchTareaRequest", searchTareaController.getLastSearchTareaRequest());
+           return searchTasks(request,response);
         }
 
         return mv;
@@ -171,37 +175,13 @@ public class EntryPointController extends TaskController {
     @RequestMapping("/test")
     public ModelAndView handleRequestTest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mv = new ModelAndView("test");
-
-        String codifications = "<CODIFICATIONS>\n" +
-                "  <CODIFICATION>\n" +
-                "       <IX>\n" +
-                "           Mandatory. An integer number that represents the codification index. \n" +
-                "           It must be preserved for further updates or modifications.\n" +
-                "       </IX>\n" +
-                "       <CALLTYPE>\n" +
-                "           Mandatory. Alphanumeric identifier for the reason of the appointment or activity.\n" +
-                "       </CALLTYPE>\n" +
-                "       <PROBLEM>\n" +
-                "           Mandatory. Alphanumeric identifier for the problem of the appointment or activity.\n" +
-                "           It is intrinsically linked to CALLTYPE.\n" +
-                "       </PROBLEM>\n" +
-                "       <CAUSE>\n" +
-                "           Optional, yet mandatory when finalizing appointments or activities.\n" +
-                "           Alphanumeric identifier for the real cause of the appointment or activity.                  </CAUSE>\n" +
-                "       <RESOLUTION>\n" +
-                "           Optional, yet mandatory when finalizing appointments or activities.\n" +
-                "           Alphanumeric identifier of the solution applied for the appointment or activity.            </RESOLUTION>\n" +
-                "       <ITEM ID=\"Item unique identifier\" \n" +
-                "             COUNT=\"Number of items that are part of the appointment or activity solution.\" />    </CODIFICATION>\n" +
-                "</CODIFICATIONS> ";
-
-        mv.addObject("codifications", codifications);
         return mv;
     }
 
 
     /**
      * Redirige a la página que abre la ventana modal de Crear Mantenimiento en la aplicación externa.
+     *
      * @param request
      * @param response
      * @return
@@ -217,6 +197,7 @@ public class EntryPointController extends TaskController {
 
     /**
      * Redirige a la página que abre la ventana modal de Crear Mantenimiento en la aplicación externa.
+     *
      * @param request
      * @param response
      * @return
@@ -224,10 +205,52 @@ public class EntryPointController extends TaskController {
      */
     @RequestMapping("/windowCreateMaintenace")
     public ModelAndView handleCreateMaintenanceRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-    	Map<String, String> parametersMap = createParameterMap(request);
-    	ModelAndView mv = new ModelAndView("windowCreateMaintenance");
-    	mv.addObject("externalCreateAppointmentUrl", externalCreateAppointmentUrl);
-    	mv.addObject("params", parametersMap);
+        Map<String, String> parametersMap = createParameterMap(request);
+        ModelAndView mv = new ModelAndView("windowCreateMaintenance");
+        mv.addObject("externalCreateAppointmentUrl", externalCreateAppointmentUrl);
+        mv.addObject("params", parametersMap);
         return mv;
+    }
+
+
+    /**
+     * Redirige a la página que abre la ventana modal de Crear Mantenimiento en la aplicación externa.
+     *
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/createtask")
+    public ModelAndView createtask(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        ModelAndView mv = new ModelAndView("creartarea");
+        return mv;
+    }
+
+
+    /**
+     * Redirige a la página que abre la ventana modal de Crear Mantenimiento en la aplicación externa.
+     *
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/search")
+    public ModelAndView searchTasks(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        ModelAndView mv = new ModelAndView("buscartarea");
+        //Enviar a la pantalla los datos de la ultima búsqueda
+        mv.addObject("lastSearchTareaRequest", searchTareaController.getLastSearchTareaRequest());
+        return mv;
+    }
+
+
+
+    @RequestMapping(value = "/happy", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public     @ResponseBody
+    HappyData getStatus() {
+        HappyData happyData = happyService.getHappyData();
+        LOGGER.debug("Returning happy data {}", happyData);
+        return happyData;
     }
 }

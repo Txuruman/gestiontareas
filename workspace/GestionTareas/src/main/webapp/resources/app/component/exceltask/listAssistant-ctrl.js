@@ -2,16 +2,16 @@
 app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $modal, $log, $timeout, $window) {
 
     $scope.getClosingReason = function(){
-        //$log.debug("Loading Excel Task Commons: Closing reason");
+        $log.debug("Loading Excel Task Commons: Closing reason");
         $http({method: 'GET', url: 'exceltaskcommon/getClosingReason'}).
             success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
                 $scope.closingReasonList = data.pairList;
-                //$log.debug("Closing reason list loaded", data.pairList);
+                $log.debug("Closing reason list loaded", data.pairList);
             }).
             error(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
-                //$log.error("Error loading closing reason list");
+                $log.error("Error loading closing reason list");
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
@@ -27,7 +27,7 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
                 task: $scope.tarea
             };
 
-            //$log.info("JSON DE LO QUE SE MANDA   " + JSON.stringify(postponeRequest));
+            $log.info("JSON DE LO QUE SE MANDA   " + JSON.stringify(postponeRequest));
 
             $http({
                 method: 'PUT',
@@ -56,12 +56,12 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
     
 //	Antiguo método descartar
 //    $scope.descartar = function(){
-//        //$log.debug("Discard List Assistant task, task: ", $scope.tarea);
+//        $log.debug("Discard List Assistant task, task: ", $scope.tarea);
 //        var discardListAssistantTaskRequest = {
 //            tarea:$scope.tarea,
 //            prueba:'Hola'
 //        };
-//        //$log.debug("Discard List Assistant Task, request: " ,discardListAssistantTaskRequest);
+//        $log.debug("Discard List Assistant Task, request: " ,discardListAssistantTaskRequest);
 //        $http({
 //            method: 'PUT',
 //            url: 'listassistanttask/descartar',
@@ -69,23 +69,23 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
 //        })
 //            .success(function (data, status, headers, config) {
 //                CommonService.processBaseResponse(data,status,headers,config);
-//                //$log.debug("Discarded list assistant task");
+//                $log.debug("Discarded list assistant task");
 //            })
 //            .error(function (data, status, headers, config) {
 //                // called asynchronously if an error occurs
 //                // or server returns response with an error status.
 //                CommonService.processBaseResponse(data,status,headers,config);
-//                //$log.error("Error discarding list assistant task");
+//                $log.error("Error discarding list assistant task");
 //            });
 //    };
 
 
     $scope.finalizar = function(){
-        //$log.debug("Finalizar List Assistant task, task: ",$scope.tarea);
+        $log.debug("Finalizar List Assistant task, task: ",$scope.tarea);
         var finalizeRequest = {
             task:$scope.tarea
         };
-        //$log.debug("Finalizar  Task, request: ",finalizeRequest);
+        $log.debug("Finalizar  Task, request: ",finalizeRequest);
         $http({
             method: 'PUT',
             url: 'listassistanttask/finalizar',
@@ -93,13 +93,13 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
         })
             .success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data,status,headers,config);
-                //$log.debug("Finalized task");
+                $log.debug("Finalized task");
             })
             .error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data,status,headers,config);
-                //$log.error("Error finalizing task");
+                $log.error("Error finalizing task");
             });
     };
 
@@ -107,8 +107,8 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
     $scope.getInstallationAndTask = function(){
         $scope.vm.appReady=false;
 
-        //console.log("Loading List Assistant Task...");
-        //console.log("Params: "
+        console.log("Loading List Assistant Task...");
+        console.log("Params: "
         //+ " installationId: " + $scope.installationId
         //+ " ccUserId: " + $scope.ccUserId
         //+ " callingList: " + $scope.callingList
@@ -119,7 +119,7 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
             params: {callingList: $scope.callingList, tareaId: $scope.tareaId}
         }).
             success(function (data, status, headers, config) {
-                //$log.debug("Loaded list assistant task:",data.tarea);
+                $log.debug("Loaded list assistant task:",data.tarea);
                 $scope.tarea = data.tarea;
                 $scope.installationData = data.installationData;
                 CommonService.processBaseResponse(data,status,headers,config);
@@ -130,10 +130,10 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data,status,headers,config);
-                //$log.debug("Error loading list assistant task:",data.tarea);
+                $log.debug("Error loading list assistant task:",data.tarea);
                 $scope.vm.appReady=true;
             });
-        //console.log("List assistant task loaded...")
+        console.log("List assistant task loaded...")
     }
 
 

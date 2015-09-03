@@ -45,8 +45,8 @@ public abstract class BaseController {
     protected BaseResponse processException(BaseResponse response, Exception exception) {
         if (exception instanceof BusinessException) {
             //Excepción de negocio
-            LOGGER.error("Business error {}" , exception.getMessage(),exception);
-            response.danger(messageUtil.getProperty(((BusinessException) exception).getErrorCode().toString(),((BusinessException) exception).getErrorParams()));
+            LOGGER.error("Business error {}" , ((BusinessException) exception).getErrorCode(),exception);
+            response.danger(messageUtil.getProperty(((BusinessException) exception).getErrorCode().toString(),((BusinessException) exception).getErrorParams()==null?null:((BusinessException) exception).getErrorParams().toArray()));
         } else {
             //Excepción General
             LOGGER.error("Server error {}" , exception.getMessage(),exception);

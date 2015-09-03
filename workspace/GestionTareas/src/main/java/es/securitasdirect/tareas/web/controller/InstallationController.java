@@ -37,40 +37,17 @@ public class InstallationController extends BaseController {
     @RequestMapping(value = "/query", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    InstallationDataResponse query(@RequestParam(value = "installationId", required = true) String installationId) {
+    BaseResponse query(@RequestParam(value = "installationId", required = true) String installationId) {
         LOGGER.debug("Get Installation data for installationId: {}", installationId);
         InstallationDataResponse installationDataResponse = new InstallationDataResponse();
         try{
             InstallationData installationData = installationService.getInstallationData(installationId);
-            LOGGER.debug("Loaded installation data: {}", installationData);
-            installationDataResponse = processSuccessInstallation(installationData);
-        }catch(Exception e){
-            LOGGER.debug("Error loading installation data");
-            installationDataResponse = this.processException(e);
-        }
-        return installationDataResponse;
-    }
-
-    /**
-     * Se informa con la instalacion obtenida y se informa la respuesta con dicha instalación y el mensaje correspondiente.
-     * @param installationData
-     * @return
-     */
-    public InstallationDataResponse processSuccessInstallation(InstallationData installationData) {
-        InstallationDataResponse installationDataResponse = new InstallationDataResponse();
-        LOGGER.info("Process installationData: {}", installationData);
-        if(installationData!=null) {
             installationDataResponse.setInstallationData(installationData);
-            installationDataResponse.success(messageUtil.getProperty("installationData.success"));
-        }else{
-            installationDataResponse.danger(messageUtil.getProperty("installationData.notFound"));
+        }catch(Exception e){
+            return processException(e);
         }
-        LOGGER.info("Installation Data Response: {}", installationDataResponse);
         return installationDataResponse;
     }
 
-    public InstallationDataResponse processException(Exception e){
-        String SERVICE_MESSAGE = "installationData";
-        return new InstallationDataResponse(super.processException(e, SERVICE_MESSAGE));
-    }
+
 }

@@ -82,37 +82,6 @@ public class QueryTareaService {
         return tarea;
     }
 
-    private void tareaToLog(String tipoTarea, Tarea tarea) {
-        if (tipoTarea != null) {
-            if (tipoTarea.equals(Constants.TAREA_AVISO)) {
-                TareaAviso castedTarea = (TareaAviso) tarea;
-                LOGGER.debug("Tarea - TareaAviso: {}", castedTarea);
-            } else if (tipoTarea.equals(Constants.TAREA_LISTADOASSISTANT)) {
-                TareaListadoAssistant castedTarea = (TareaListadoAssistant) tarea;
-                LOGGER.debug("Tarea - TareaListadoAssistant: {}", castedTarea);
-            } else if (tipoTarea.equals(Constants.TAREA_ENCUESTAMANTENIMIENTO)) {
-                MaintenanceSurveyTask castedTarea = (MaintenanceSurveyTask) tarea;
-                LOGGER.debug("Tarea - MaintenanceSurveyTask: {}", castedTarea);
-            } else if (tipoTarea.equals(Constants.TAREA_ENCUESTAMARKETING)) {
-                MarketingSurveyTask castedTarea = (MarketingSurveyTask) tarea;
-                LOGGER.debug("Tarea - MarketingSurveyTask: {}", castedTarea);
-            } else if (tipoTarea.equals(Constants.TAREA_KEYBOX)) {
-                KeyboxTask castedTarea = (KeyboxTask) tarea;
-                LOGGER.debug("Tarea - KeyboxTask: {}", castedTarea);
-            } else if (tipoTarea.equals(Constants.TAREA_LIMPIEZACUOTA)) {
-                TareaLimpiezaCuota castedTarea = (TareaLimpiezaCuota) tarea;
-                LOGGER.debug("Tarea - TareaLimpiezaCuota: {}", castedTarea);
-            } else if (tipoTarea.equals(Constants.TAREA_OTRASCAMPANAS)) {
-                TareaOtrasCampanas castedTarea = (TareaOtrasCampanas) tarea;
-                LOGGER.debug("Tarea - TareaOtrasCampanas: {}", castedTarea);
-            } else if (tipoTarea.equals(Constants.TAREA_MANTENIMIENTO)) {
-                TareaMantenimiento castedTarea = (TareaMantenimiento) tarea;
-                LOGGER.debug("Tarea - TareaMantenimiento: {}", castedTarea);
-            }
-        }
-    }
-
-
 
 
     private boolean cclResponseHasError(CclResponse response) {

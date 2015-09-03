@@ -2,7 +2,7 @@ app.controller('combo', function ($scope, $http) {
 
     /* EJEMPLO
     $scope.searchTareaFromServer = function () {
-        //console.log('search Tareas ' + $scope.searchText +  ' ' + $scope.searchOption);
+        console.log('search Tareas ' + $scope.searchText +  ' ' + $scope.searchOption);
         $http({
                 method: 'GET',
                 url: 'searchtarea/query',

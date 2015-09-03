@@ -127,11 +127,11 @@ public class TareaServiceTools {
 
             } else {
                 LOGGER.error("Ticket not found by  id {}", idAviso);
-                throw new BusinessException(BusinessException.ErrorCode.ERROR_FIND_TICKET);
+                throw new BusinessException(BusinessException.ErrorCode.ERROR_FIND_TICKET, idAviso.toString());
             }
         } else {
             LOGGER.warn("ID_AVISO (idaviso) or 0 not found in response map");
-            throw new BusinessException(BusinessException.ErrorCode.ERROR_FIND_TICKET);
+            throw new BusinessException(BusinessException.ErrorCode.ERROR_FIND_TICKET, "null");
         }
         return tarea;
     }
