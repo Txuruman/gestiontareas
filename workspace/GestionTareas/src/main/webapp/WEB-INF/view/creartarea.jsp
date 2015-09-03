@@ -33,21 +33,21 @@
 			                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 			                </button>
 			           </div>
-			            <app:inputTextNG id="titular" label="visortarea.titular" value="installationData.titular"  readonly="true" cells="6"/>
+			            <app:inputTextNG id="titular" label="visortarea.titular" value="installationData.titular"  readonly="true" cells="6" ng_disabled="installationNotSearched"/>
 			      </div>
 			      <div class="spacer_t1"></div>
 			      <div class="row">
 			        	<app:inputTextNG id="telefono" label="visortarea.telefono" value="installationData.telefono" cells="6"
 		                             type="text"  only="true" ng_disabled="installationNotSearched" form="formCreateTask" required="true"/>
 			            <app:inputTextNG id="panel" label="visortarea.panel" value="installationData.panel" cells="6"
-			                             readonly="true"/>  
+			                             readonly="true" ng_disabled="installationNotSearched"/>  
 			      </div>
 			      <div class="spacer_t1"></div>
                 <div class="row">
 		            <app:inputTextNG id="personaContacto" label="visortarea.personacontacto"
 		                             value="installationData.personaContacto" cells="6" ng_disabled="installationNotSearched" form="formCreateTask" required="true"/>
 		            <app:inputTextNG id="version" label="visortarea.version" value="installationData.version" cells="6"
-			                             readonly="true"/>		
+			                             readonly="true" ng_disabled="installationNotSearched"/>		
 		        </div>
                 <div class="spacer_t1"></div>
                 <div class="row">

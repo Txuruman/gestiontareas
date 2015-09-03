@@ -12,9 +12,23 @@
 
 <script type="text/javascript">
 app.controller('testController', function ($scope) {
-	$scope.doCall="Función vacia";
-	$scope.docallFunction=function(){
-		$scope.doCall=FunctionTarget("doCall", "P17001", {});
+	$scope.funcion="FunctionTarget";
+	$scope.doCallLog="";
+	$scope.param1="docall";
+	$scope.param2="P17001";
+	$scope.param3="{}";
+	$scope.doCallFunction=function(){
+		try {
+		var f=eval($scope.funcion);
+		var json = JSON.parse($scope.param3);
+		$scope.doCallLog="1. Iniciando Llamada \n";
+		$scope.doCallResult=f($scope.param1, $scope.param2, json);
+		$scope.doCallLog+= "2. Finalizada Llamada \n";
+		$scope.doCallLog+= "3. Resultado " + $scope.doCallResult + " \n";
+		} catch (err) {
+			$scope.doCallLog+= "ERROR: " + err.message + " \n";
+			$scope.doCallLog+= "ERROR DESC: " + err + " \n";
+		}
 	}
 });
 // window.onload=function(){
@@ -32,9 +46,13 @@ app.controller('testController', function ($scope) {
 
 <body>
 <div ng-controller="testController">
-<input type="button" ng-click="docallFunction()" value="dale">
+<input type="button" ng-click="doCallFunction()" value="dale">
+Función: <input type="text" ng-model="funcion"> </br>
+Parametro 1: <input type="text" ng-model="param1"> </br>
+Parametro 2: <input type="text" ng-model="param2"> </br>
+Parametro 3: <input type="text" ng-model="param3"> </br>
+DoCallLog: <textArea style="width:50%; height:500px">{{doCallLog}}</textArea>
 
-{{doCall}}
 
 </div>
 
