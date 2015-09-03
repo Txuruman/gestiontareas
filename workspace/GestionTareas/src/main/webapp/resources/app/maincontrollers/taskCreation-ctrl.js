@@ -2,8 +2,11 @@ app.controller('taskCreation', function ($scope, $http, CommonService, $modal, $
 	//variabled para desabilitar los input de crear tarea si no se ha hecho la busqueda de la instalacion
 	$scope.installationNotSearched=true;
 	$scope.mostrarAvisos=false;
-	$scope.getIntallation = function () {
+	$scope.getIntallation = function (event) {
         $log.debug('Loading NotificationTask');
+        if(event!=undefined){
+        	event.preventDefault();
+        }
         $http({
             method: 'GET',
             url: 'installation/query',
@@ -45,6 +48,9 @@ app.controller('taskCreation', function ($scope, $http, CommonService, $modal, $
         })
             .success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data,status,headers,config);
+                var inst=$scope.tarea.numeroInstalacion;
+                $scope.tarea={};
+                $scope.tarea.numeroInstalacion=inst;
                 $scope.vm.appReady=true;
             })
             .error(function (data, status, headers, config) {
