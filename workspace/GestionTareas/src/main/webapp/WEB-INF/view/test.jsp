@@ -12,6 +12,7 @@
 
 <script type="text/javascript">
 app.controller('testController', function ($scope) {
+	$scope.doCall="Función vacia";
 	$scope.docallFunction=function(){
 		$scope.doCall=FunctionTarget("doCall", "P17001", {});
 	}
@@ -33,7 +34,7 @@ app.controller('testController', function ($scope) {
 <div ng-controller="testController">
 <input type="button" ng-click="docallFunction()" value="dale">
 
-{{$scope.doCall}}
+{{doCall}}
 
 </div>
 
