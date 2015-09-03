@@ -81,8 +81,8 @@
     <!--<property name="qfcName" value="sd.reptef.reptefxacf" />-->
     <!--<property name="queueName" value="sd.reptef.telef_convmng_01" />-->
     <!--<property name="jndiUrl" value="t3://10.2.145.102:8011" />-->
-    <!--<property name="user" value=""/> -->
-    <!--<property name="pass" value=""/> -->
+    <!--<property name="user" value=""/>-->
+    <!--<property name="pass" value=""/>-->
     <!--</bean>-->
 
 

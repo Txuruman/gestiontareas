@@ -33,8 +33,11 @@ public class JMSReader implements MessageListener {
     private static String JNDI_FACTORY_WL = "weblogic.jndi.WLInitialContextFactory";
     private static String JNDI_FACTORY_JBOSS = "org.jboss.naming.remote.client.InitialContextFactory";
     private static String JNDI_FACTORY = JNDI_FACTORY_WL;
+    private static long RECONNECTION_DELAY = 5 * 60 * 1000;
 
-    /** Indica si el Reader se ha conectado a la cola correctametne */
+    /**
+     * Indica si el Reader se ha conectado a la cola correctametne
+     */
     private boolean readerStatusUp = false;
     private String readerStatusDescription;
 
@@ -60,19 +63,17 @@ public class JMSReader implements MessageListener {
     public JMSReader() {
     }
 
-
-    private InitialContext getInitialContext() throws NamingException {
-        Hashtable env = new Hashtable();
-        env.put(Context.INITIAL_CONTEXT_FACTORY, JNDI_FACTORY);
-        env.put(Context.PROVIDER_URL, jndiUrl);
-        if (user != null && !user.isEmpty() && pass != null && !pass.isEmpty()) {
-            env.put(javax.naming.Context.SECURITY_PRINCIPAL, user);
-            env.put(javax.naming.Context.SECURITY_CREDENTIALS, pass);
-        }
-        return new InitialContext(env);
+    @PostConstruct
+    protected void init() {
+        connect();
     }
 
-    @PostConstruct
+    @PreDestroy
+    protected void end() {
+        close();
+    }
+
+
     public void connect() {
         assert gestionSenalesService != null;
         LOGGER.info("JMSReader {} connecting :  \n\tJNDI Url: {}\n\t - QFC Name: {}\n\t - Queue name: {}\n\t - User: {}\n\t - Password: {}",
@@ -116,24 +117,41 @@ public class JMSReader implements MessageListener {
             consumer.setMessageListener(this);
 
             LOGGER.info("JMSReader {} : Successfully connected", aliasName);
-            readerStatusUp= true;
+            readerStatusUp = true;
+            readerStatusDescription="";
         } catch (Exception e) {
             LOGGER.error("Error connecting to JMS Queue {}: {}", aliasName, e.getMessage(), e);
-            readerStatusUp=false;
-            readerStatusDescription=e.getMessage();
-        }
+            //Try to close everything that could be open
+            close();
+            //Set this status after the close function
+            readerStatusUp = false;
+            readerStatusDescription = e.toString() + ". Will try to reconnect at " + new Date(System.currentTimeMillis() + RECONNECTION_DELAY).toString();
 
+            //Try to recconnect later
+            new Thread() {
+                @Override
+                public void run() {
+                    LOGGER.debug("Preparing reconnection to queue {}", aliasName);
+                    try {
+                        Thread.sleep(RECONNECTION_DELAY);
+                    } catch (InterruptedException e1) {
+                        LOGGER.debug("Interrupted exception will try reconnection now");
+                    }
+                    LOGGER.info("Trying reconnection to queue {} because of previous fail", aliasName);
+                    connect();
+                }
+            }.start();
+        }
     }
 
 
-    @PreDestroy
     public void close() {
         try {
             if (queueConnection != null) queueConnection.close();
             if (queueSession != null) queueSession.close();
             if (consumer != null) consumer.close();
-            readerStatusUp=false;
-            readerStatusDescription="Destroyed";
+            readerStatusUp = false;
+            readerStatusDescription = "Destroyed";
         } catch (Exception e) {
             LOGGER.error("JMSReader {} : Error closing JMS connections", aliasName, e);
         }
@@ -162,14 +180,14 @@ public class JMSReader implements MessageListener {
                     modelMessage.setEntryDate(new Date());
 
                     //TODO BORRAR ESTE LOG; solo es para coger mensajes de ejemplo
-                    LOGGER.info("JMSReader {} : Mensaje CIBB recivido\n\n\n\n\n\n{}\n\n\n\n\n\n\n\n", aliasName,jmsMessageText);
+                    LOGGER.info("JMSReader {} : Mensaje CIBB recivido\n\n\n\n\n\n{}\n\n\n\n\n\n\n\n", aliasName, jmsMessageText);
 
                 } catch (Exception e) {
                     LOGGER.error("JMSReader {} : Can't parse message content \n[{}]\n", aliasName, jmsMessageText, e);
-                    modelMessage=null;
+                    modelMessage = null;
                 }
 
-                if (modelMessage!=null) {
+                if (modelMessage != null) {
                     //Call Gestion Senales Message Service
                     gestionSenalesService.onMessage(modelMessage);
                 }
@@ -179,6 +197,17 @@ public class JMSReader implements MessageListener {
             LOGGER.error("JMSReader {} : Message received not from the correct type", aliasName);
         }
 
+    }
+
+    private InitialContext getInitialContext() throws NamingException {
+        Hashtable env = new Hashtable();
+        env.put(Context.INITIAL_CONTEXT_FACTORY, JNDI_FACTORY);
+        env.put(Context.PROVIDER_URL, jndiUrl);
+        if (user != null && !user.isEmpty() && pass != null && !pass.isEmpty()) {
+            env.put(javax.naming.Context.SECURITY_PRINCIPAL, user);
+            env.put(javax.naming.Context.SECURITY_CREDENTIALS, pass);
+        }
+        return new InitialContext(env);
     }
 
 
