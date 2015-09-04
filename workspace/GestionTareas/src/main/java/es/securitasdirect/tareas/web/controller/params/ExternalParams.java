@@ -51,6 +51,20 @@ public interface ExternalParams {
     public static String INTERACTION_DIRECTION = "bp_interactionDirection";
 
     public static String INTERACTION_TYPE= "bp_interactionType";
+    
+    
+    public static String PHONE_NUMBER= "bp_out_contact_info";
+    
+    public static String CAMPAIGN_NAME= "bp_out_GSW_CAMPAIGN_NAME";
+    
+    public static String RECORDID= "bp_out_GSW_RECORD_HANDLE";
+    
+    public static String CALL_BACK_TYPE = "Campaign";
+  
+    //public static String DATE_TIME= "date_time";
+  
+    
 
+    
 
 }
