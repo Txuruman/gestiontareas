@@ -107,8 +107,8 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
     $scope.getInstallationAndTask = function(){
         $scope.vm.appReady=false;
 
-        console.log("Loading List Assistant Task...");
-        console.log("Params: "
+        //console.log("Loading List Assistant Task...");
+        //console.log("Params: "
         //+ " installationId: " + $scope.installationId
         //+ " ccUserId: " + $scope.ccUserId
         //+ " callingList: " + $scope.callingList
