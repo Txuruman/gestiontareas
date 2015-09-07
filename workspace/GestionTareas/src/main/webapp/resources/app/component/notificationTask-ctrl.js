@@ -350,18 +350,29 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     $scope.openMaintenaceWindow = function (agent) {
         //En IE8 hay que utilizar showdialog para poder ver los datos de vuelta, en Chome esta deprecado
         // prompt("aa","windowCreateMaintenanceFrame?InstallationNumber="+$scope.installationData.numeroInstalacion+"&PanelTypeId="+$scope.installationData.panel+"&TicketNumber="+$scope.tarea.idAviso+"&RequestedBy="+$scope.tarea.requeridoPor+"&Operator="+agent.agentIBS+"&ContactPerson="+$scope.tarea.personaContacto+"&ContactPhone="+$scope.tarea.telefonoAviso+"&Text="+$scope.tarea.observaciones+"&SessionToken="+agent.infopointSession+"&type="+$scope.tarea.tipoAviso1+"&motive="+$scope.tarea.motivo1);
-        var url = "windowCreateMaintenanceFrame?InstallationNumber=" + $scope.installationData.numeroInstalacion + "&PanelTypeId=" + $scope.installationData.panel + "&TicketNumber=" + $scope.tarea.idAviso + "&RequestedBy=" + $scope.tarea.requeridoPor + "&Operator=" + agent.agentIBS + "&ContactPerson=" + $scope.tarea.personaContacto + "&ContactPhone=" + $scope.tarea.telefono + "&Text=" + $scope.tarea.observaciones + "&SessionToken=" + agent.infopointSession + "&type=" + $scope.tarea.tipoAviso1 + "&motive=" + $scope.tarea.motivo1;
+    	CreateMaintenanceAppRequest={
+    			installationData: $scope.installationData,
+    		    tareaAviso: $scope.tarea
+    	}
+    	$http.put('commons/getCreateMaintenanceApp',CreateMaintenanceAppRequest)
+    	.then(function(data, status, headers, config){
+    		CommonService.processBaseResponse(data, status, headers, config);
+    		var url = "windowCreateMaintenanceFrame"+data.data.app+"?InstallationNumber=" + $scope.installationData.numeroInstalacion + "&PanelTypeId=" + $scope.installationData.panel + "&TicketNumber=" + $scope.tarea.idAviso + "&RequestedBy=" + $scope.tarea.requeridoPor + "&Operator=" + agent.agentIBS + "&ContactPerson=" + $scope.tarea.personaContacto + "&ContactPhone=" + $scope.tarea.telefono + "&Text=" + $scope.tarea.observaciones + "&SessionToken=" + agent.infopointSession + "&type=" + $scope.tarea.tipoAviso1 + "&motive=" + $scope.tarea.motivo1;
 
-        var resultado = window.showModalDialog(url, null, "center:yes; resizable:yes; dialogWidth:900px; dialogHeight:700px;");
-alert(resultado);
-        //TODO BOrrar, es para probar un resultado concreto
-        //resultado='{"AppointmentNumber":"1234","Status":0,"Message":"correcto"}';
+            var resultado = window.showModalDialog(url, null, "center:yes; resizable:yes; dialogWidth:900px; dialogHeight:700px;");
+            alert(resultado);
+            //TODO BOrrar, es para probar un resultado concreto
+            //resultado='{"AppointmentNumber":"1234","Status":0,"Message":"correcto"}';
 
-        if (resultado) {
-            $scope.finalizarDesdeMantenimiento(JSON.parse(resultado));
-        } else {
-            $scope.finalizarDesdeMantenimiento(null);
-        }
+            if (resultado) {
+                $scope.finalizarDesdeMantenimiento(JSON.parse(resultado));
+            } else {
+                $scope.finalizarDesdeMantenimiento(null);
+            }
+    	},function(data, status, headers, config){
+    		CommonService.processBaseResponse(data, status, headers, config);
+    	});
+        
 
 
     };
