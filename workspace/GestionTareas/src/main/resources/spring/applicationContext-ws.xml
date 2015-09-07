@@ -91,4 +91,15 @@
                   address="http://es1preinfo01v/wsInfopoint/Fun.asmx?WSDL"
             />
     <!-- TODO Parametro por JNDI, fichero configuracion????? -->
+
+
+    <jaxws:client name="wsFSMSplitService"
+                  serviceClass="fsm.split.FSMSplitService"
+                  address="http://10.2.144.63:9763/services/FSMSplitService?WSDL"
+            />
+
+    <jaxws:client name="wsFSMDataServiceLight"
+                  serviceClass="org.wso2.ws.dataservice.FSMDataServiceLightPortType"
+                  address="http://10.2.144.63:9763/services/FSMDataServiceLight?wsdl"
+            />
 </beans>

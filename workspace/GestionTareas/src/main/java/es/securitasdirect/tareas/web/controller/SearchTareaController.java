@@ -58,7 +58,7 @@ public class SearchTareaController extends TaskController {
     @RequestMapping(value = "/query", method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    SearchTareaResponse query(@RequestBody SearchTaskRequest request) {
+    BaseResponse query(@RequestBody SearchTaskRequest request) {
         this.lastSearchTareaRequest = request;
         String SERVICE_MESSAGE = "searchTarea";
         LOGGER.debug("Searching Tareas text:{} option:{}", request.getSearchText(), request.getSearchOption());
@@ -71,10 +71,12 @@ public class SearchTareaController extends TaskController {
         } else {
             try {
                 List<Tarea> listaTareas;
-                if (request.getSearchOption().equals(SearchTaskRequest.TELEPHONE)) {
+                if (request.getSearchText()!=null && request.getSearchText().equalsIgnoreCase("ALLALL")) {
+                    listaTareas = searchTareaService.findAll( agentController.getAgent() );
+                } else if (request.getSearchOption().equals(SearchTaskRequest.TELEPHONE)) {
                     agentController.getAgent().getIdAgent();
                     agentController.getAgent().getAgentCountryJob();
-                    ;
+
                     listaTareas = searchTareaService.findByPhone(
                             agentController.getAgent() ,
                             request.getSearchText());
@@ -87,7 +89,7 @@ public class SearchTareaController extends TaskController {
                 }
                 response = new SearchTareaResponse( listaTareas );
             } catch (Exception e) {
-                response = new SearchTareaResponse(processException(e, SERVICE_MESSAGE));
+                return processException(e);
             }
         }
         return response;

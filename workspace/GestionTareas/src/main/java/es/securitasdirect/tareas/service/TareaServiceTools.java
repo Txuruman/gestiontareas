@@ -127,7 +127,9 @@ public class TareaServiceTools {
 
             } else {
                 LOGGER.error("Ticket not found by  id {}", idAviso);
-                throw new BusinessException(BusinessException.ErrorCode.ERROR_FIND_TICKET, idAviso.toString());
+                //TODO Descomentar, para pruebas está comentado para poder hacer busqueda completa
+                //throw new BusinessException(BusinessException.ErrorCode.ERROR_FIND_TICKET, idAviso.toString(),responseMap.get(TaskServiceParams.TAREA_COMMONS_CALLING_LIST),responseMap.get(TaskServiceParams.TAREA_COMMONS_ID));
+                return null;
             }
         } else {
             LOGGER.warn("ID_AVISO (idaviso) or 0 not found in response map");
@@ -438,10 +440,8 @@ public class TareaServiceTools {
         tarea.setNumeroContrato(parameters.get(TaskServiceParams.TAREA_COMMONS_N_CONTRATO));
         tarea.setId(toIntegerFromMap(parameters.get(TaskServiceParams.TAREA_COMMONS_ID)));
         tarea.setCampana(parameters.get(TaskServiceParams.TAREA_CAMPAIGN));
-        //La fecha está en epoc http://www.epochconverter.com/
-        if (parameters.get(TaskServiceParams.TAREA_COMMONS_FECHA_REPROGRAMACION) != null && !parameters.get(TaskServiceParams.TAREA_COMMONS_FECHA_REPROGRAMACION).isEmpty()) {
-            tarea.setFechaReprogramacion(new Date(Long.valueOf(parameters.get(TaskServiceParams.TAREA_COMMONS_FECHA_REPROGRAMACION)) * 1000));
-        }
+        //Fecha de Reprogramación viene en numerico formato EPOC, i.e:1440588300 http://www.epochconverter.com/
+        tarea.setFechaReprogramacion(toDateEpocFromMap(parameters.get(TaskServiceParams.TAREA_COMMONS_FECHA_REPROGRAMACION)));
         return tarea;
     }
 
@@ -474,7 +474,8 @@ public class TareaServiceTools {
     }
 
     /**
-     * Fecha desde String cuando es un valor EPOC
+     * Fecha desde String cuando es un valor EPOC.
+     * Le restamos dos horas porque lo que envian esta en UTC+2 Paris
      *
      * @param value
      * @return
@@ -484,7 +485,8 @@ public class TareaServiceTools {
             return null;
         } else {
             try {
-                return new Date(Long.valueOf(value) * 1000);
+                //Restamos dos horas
+                return new Date((Long.valueOf(value) - (2*60*60) ) * 1000 );
             } catch (Exception e) {
                 LOGGER.error("Can't parse EPOC date from value {}", value, e);
                 return null;

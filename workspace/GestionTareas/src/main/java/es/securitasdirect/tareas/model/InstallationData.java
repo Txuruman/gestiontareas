@@ -19,6 +19,13 @@ public class InstallationData {
 
     private String codigoPostal;
 
+    private String monitoringStatus;
+
+    /** Codigo de Grandes cuentas */
+    private String member;
+
+    private String clazz;
+
     public String getNumeroInstalacion() {
         return numeroInstalacion;
     }
@@ -75,16 +82,42 @@ public class InstallationData {
         this.codigoPostal = codigoPostal;
     }
 
+    public String getMonitoringStatus() {
+        return monitoringStatus;
+    }
+
+    public void setMonitoringStatus(String monitoringStatus) {
+        this.monitoringStatus = monitoringStatus;
+    }
+
+    public String getMember() {
+        return member;
+    }
+
+    public void setMember(String member) {
+        this.member = member;
+    }
+
+    public String getClazz() {
+        return clazz;
+    }
+
+    public void setClazz(String clazz) {
+        this.clazz = clazz;
+    }
+
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("InstallationData{");
-        sb.append("numeroInstalacion=").append(numeroInstalacion);
+        final StringBuffer sb = new StringBuffer("InstallationData{");
+        sb.append("numeroInstalacion='").append(numeroInstalacion).append('\'');
         sb.append(", titular='").append(titular).append('\'');
         sb.append(", panel='").append(panel).append('\'');
         sb.append(", version='").append(version).append('\'');
         sb.append(", personaContacto='").append(personaContacto).append('\'');
         sb.append(", telefono='").append(telefono).append('\'');
         sb.append(", codigoPostal='").append(codigoPostal).append('\'');
+        sb.append(", monitoringStatus='").append(monitoringStatus).append('\'');
+        sb.append(", member='").append(member).append('\'');
         sb.append('}');
         return sb.toString();
     }

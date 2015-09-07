@@ -32,7 +32,9 @@ public class EntryPointController extends TaskController {
     protected AgentController agentController;
 
     @Resource
-    protected String externalCreateAppointmentUrl;
+    protected String externalCreateAppointmentUrlTOA;
+    @Resource
+    protected String externalCreateAppointmentUrlMMS;
 
     @Autowired
     protected HappyService happyService;
@@ -180,34 +182,70 @@ public class EntryPointController extends TaskController {
 
 
     /**
-     * Redirige a la página que abre la ventana modal de Crear Mantenimiento en la aplicación externa.
+     * Redirige a la página que abre la ventana modal de Crear Mantenimiento en una aplicación externa u otra.
      *
      * @param request
      * @param response
      * @return
      * @throws Exception
      */
-    @RequestMapping("/windowCreateMaintenanceFrame")
-    public ModelAndView handleCreateMaintenanceFrameRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    @RequestMapping("/windowCreateMaintenanceFrameTOA")
+    public ModelAndView windowCreateMaintenanceFrameTOA(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, String> parametersMap = createParameterMap(request);
         ModelAndView mv = new ModelAndView("windowCreateMaintenanceFrame");
+        mv.addObject("windowCreateMaintenace","windowCreateMaintenaceTOA");
         mv.addObject("params", parametersMap);
         return mv;
     }
 
     /**
-     * Redirige a la página que abre la ventana modal de Crear Mantenimiento en la aplicación externa.
+     * Redirige a la página que abre la ventana modal de Crear Mantenimiento en una aplicación externa u otra.
      *
      * @param request
      * @param response
      * @return
      * @throws Exception
      */
-    @RequestMapping("/windowCreateMaintenace")
-    public ModelAndView handleCreateMaintenanceRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    @RequestMapping("/windowCreateMaintenanceFrameMMS")
+    public ModelAndView windowCreateMaintenanceFrameMMS(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Map<String, String> parametersMap = createParameterMap(request);
-        ModelAndView mv = new ModelAndView("windowCreateMaintenance");
-        mv.addObject("externalCreateAppointmentUrl", externalCreateAppointmentUrl);
+        ModelAndView mv = new ModelAndView("windowCreateMaintenanceFrame");
+        mv.addObject("windowCreateMaintenace","windowCreateMaintenaceMMS");
+        mv.addObject("params", parametersMap);
+        return mv;
+    }
+
+    /**
+     * Redirige a la página que abre la ventana modal de Crear Mantenimiento en la aplicación externa TOA
+     *
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/windowCreateMaintenaceTOA")
+    public ModelAndView windowCreateMaintenaceTOA(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Map<String, String> parametersMap = createParameterMap(request);
+        ModelAndView mv = new ModelAndView("windowCreateMaintenanceTOA");
+        mv.addObject("externalCreateAppointmentUrl", externalCreateAppointmentUrlTOA);
+        mv.addObject("params", parametersMap);
+        return mv;
+    }
+
+
+    /**
+     * Redirige a la página que abre la ventana modal de Crear Mantenimiento en la aplicación externa TOA
+     *
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/windowCreateMaintenaceMMS")
+    public ModelAndView windowCreateMaintenaceMMS(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Map<String, String> parametersMap = createParameterMap(request);
+        ModelAndView mv = new ModelAndView("windowCreateMaintenanceMMS");
+        mv.addObject("externalCreateAppointmentUrl", externalCreateAppointmentUrlMMS);
         mv.addObject("params", parametersMap);
         return mv;
     }

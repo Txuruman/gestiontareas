@@ -32,6 +32,8 @@ public class InstallationServiceTest {
     protected SPAIOTAREAS2PortType spAioTareas2;
     @Inject
     protected CCLIntegration cclIntegration;
+    @Inject
+    protected FSMDataServiceLightPortType fsmDataServiceLight;
 
 
     @Test
@@ -48,6 +50,12 @@ public class InstallationServiceTest {
         LOGGER.info(installationData.toString());
     }
 
+    @Test
+    public void testFsmDataServiceLight () throws DataServiceFault {
+        List<GetInstallationResult> installation = fsmDataServiceLight.getInstallation("111112");
+        assertThat(installation, notNullValue());
+        LOGGER.info(installation.toString());
+    }
 
     //DIRECTO WS
 //    @Test

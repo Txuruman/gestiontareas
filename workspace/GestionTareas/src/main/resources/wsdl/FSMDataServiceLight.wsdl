@@ -1,0 +1,504 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:ns0="http://ws.wso2.org/dataservice" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://ws.wso2.org/dataservice">
+    <wsdl:documentation/>
+    <wsdl:types>
+        <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://ws.wso2.org/dataservice">
+            <xs:element name="DataServiceFault" type="xs:string"/>
+            <xs:element name="REQUEST_STATUS" type="xs:string"/>
+            <xs:element name="DATA_SERVICE_RESPONSE">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:any minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getDatosTransmision">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="numinst" nillable="true" type="xs:string"/>
+                        <xs:element name="country" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getDatosTransmisionResults" type="ns0:getDatosTransmisionResults"/>
+            <xs:complexType name="getDatosTransmisionResults">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="getDatosTransmisionResult" type="ns0:getDatosTransmisionResult"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getDatosTransmisionResult">
+                <xs:sequence>
+                    <xs:element name="error" nillable="true" type="xs:integer"/>
+                    <xs:element name="version" nillable="true" type="xs:string"/>
+                    <xs:element name="panel" nillable="true" type="xs:string"/>
+                    <xs:element name="telefono1" nillable="true" type="xs:string"/>
+                    <xs:element name="tipoTelefono1" nillable="true" type="xs:string"/>
+                    <xs:element name="operador1" nillable="true" type="xs:string"/>
+                    <xs:element name="telefono2" nillable="true" type="xs:string"/>
+                    <xs:element name="tipoTelefono2" nillable="true" type="xs:string"/>
+                    <xs:element name="operador2" nillable="true" type="xs:string"/>
+                    <xs:element name="status" nillable="true" type="xs:string"/>
+                    <xs:element name="dtmf" nillable="true" type="xs:string"/>
+                    <xs:element name="correo" nillable="true" type="xs:string"/>
+                    <xs:element name="cidTransmisor" nillable="true" type="xs:string"/>
+                    <xs:element name="direccion" nillable="true" type="xs:string"/>
+                    <xs:element name="name" nillable="true" type="xs:string"/>
+                    <xs:element name="aka" nillable="true" type="xs:string"/>
+                    <xs:element name="panelType" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="getInstallation">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="INSNO" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getInstallationResults" type="ns0:getInstallationResults"/>
+            <xs:complexType name="getInstallationResults">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="getInstallationResult" type="ns0:getInstallationResult"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getInstallationResult">
+                <xs:sequence>
+                    <xs:element ref="ns0:installationfulldataresults"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="installationfulldataresults" type="ns0:installationfulldataresults"/>
+            <xs:complexType name="installationfulldataresults">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="installationfulldataresult" type="ns0:installationfulldataresult"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="installationfulldataresult">
+                <xs:sequence>
+                    <xs:element name="s_ins" nillable="true" type="xs:integer"/>
+                    <xs:element name="monstatus" nillable="true" type="xs:string"/>
+                    <xs:element name="numinst" nillable="true" type="xs:string"/>
+                    <xs:element name="installation_date" nillable="true" type="xs:string"/>
+                    <xs:element name="zip" nillable="true" type="xs:string"/>
+                    <xs:element name="province" nillable="true" type="xs:string"/>
+                    <xs:element name="city" nillable="true" type="xs:string"/>
+                    <xs:element name="street_name" nillable="true" type="xs:string"/>
+                    <xs:element name="cross_street" nillable="true" type="xs:string"/>
+                    <xs:element name="name" nillable="true" type="xs:string"/>
+                    <xs:element name="aka" nillable="true" type="xs:string"/>
+                    <xs:element name="subtype" nillable="true" type="xs:string"/>
+                    <xs:element name="latittude" nillable="true" type="xs:string"/>
+                    <xs:element name="longitude" nillable="true" type="xs:string"/>
+                    <xs:element name="coordindex" nillable="true" type="xs:string"/>
+                    <xs:element name="gsmpanel" nillable="true" type="xs:string"/>
+                    <xs:element name="instphone" nillable="true" type="xs:string"/>
+                    <xs:element name="fax" nillable="true" type="xs:string"/>
+                    <xs:element name="skill" nillable="true" type="xs:string"/>
+                    <xs:element name="panel_loc" nillable="true" type="xs:string"/>
+                    <xs:element name="telco_loc" nillable="true" type="xs:string"/>
+                    <xs:element name="panel_version" nillable="true" type="xs:string"/>
+                    <xs:element name="email" nillable="true" type="xs:string"/>
+                    <xs:element name="alid" nillable="true" type="xs:string"/>
+                    <xs:element name="panel_type" nillable="true" type="xs:string"/>
+                    <xs:element name="test_int" nillable="true" type="xs:string"/>
+                    <xs:element name="id_subtype" nillable="true" type="xs:string"/>
+                    <xs:element name="street_number" nillable="true" type="xs:string"/>
+                    <xs:element name="street_type" nillable="true" type="xs:string"/>
+                    <xs:element name="rest_address" nillable="true" type="xs:string"/>
+                    <xs:element name="surname1" nillable="true" type="xs:string"/>
+                    <xs:element name="surname2" nillable="true" type="xs:string"/>
+                    <xs:element name="miscno1" nillable="true" type="xs:string"/>
+                    <xs:element name="oldinst" nillable="true" type="xs:string"/>
+                    <xs:element name="class" nillable="true" type="xs:string"/>
+                    <xs:element ref="ns0:getdevicesfromzonesresults"/>
+                    <xs:element ref="ns0:inetcalllistgetcontresults"/>
+                    <xs:element ref="ns0:getlastcommlogresults"/>
+                    <xs:element ref="ns0:getlastmaintenancesresults"/>
+                    <xs:element ref="ns0:getbillinginformationresults"/>
+                    <xs:element ref="ns0:getservicesinformationresults"/>
+                    <xs:element ref="ns0:checkcustomerservicesresults"/>
+                    <xs:element ref="ns0:testqueueinformationresults"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="getdevicesfromzonesresults" type="ns0:getdevicesfromzonesresults"/>
+            <xs:complexType name="getdevicesfromzonesresults">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="getdevicesfromzonesresult" type="ns0:getdevicesfromzonesresult"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getdevicesfromzonesresult">
+                <xs:sequence>
+                    <xs:element name="Zone" nillable="true" type="xs:string"/>
+                    <xs:element name="TpZone" nillable="true" type="xs:string"/>
+                    <xs:element name="ZoneClass" nillable="true" type="xs:string"/>
+                    <xs:element name="Area" nillable="true" type="xs:string"/>
+                    <xs:element name="Detector" nillable="true" type="xs:string"/>
+                    <xs:element name="Text" nillable="true" type="xs:string"/>
+                    <xs:element name="Version" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="inetcalllistgetcontresults" type="ns0:inetcalllistgetcontresults"/>
+            <xs:complexType name="inetcalllistgetcontresults">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="inetcalllistgetcontresult" type="ns0:inetcalllistgetcontresult"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="inetcalllistgetcontresult">
+                <xs:sequence>
+                    <xs:element name="s_pc" nillable="true" type="xs:string"/>
+                    <xs:element name="s_cont" nillable="true" type="xs:string"/>
+                    <xs:element name="s_cix" nillable="true" type="xs:string"/>
+                    <xs:element name="passcard" nillable="true" type="xs:string"/>
+                    <xs:element name="passext" nillable="true" type="xs:string"/>
+                    <xs:element name="name" nillable="true" type="xs:string"/>
+                    <xs:element name="seq" nillable="true" type="xs:string"/>
+                    <xs:element name="phone1" nillable="true" type="xs:string"/>
+                    <xs:element name="phone2" nillable="true" type="xs:string"/>
+                    <xs:element name="phone3" nillable="true" type="xs:string"/>
+                    <xs:element name="pix" nillable="true" type="xs:string"/>
+                    <xs:element name="email1" nillable="true" type="xs:string"/>
+                    <xs:element name="email2" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="getlastcommlogresults" type="ns0:getlastcommlogresults"/>
+            <xs:complexType name="getlastcommlogresults">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="getlastcommlogresult" type="ns0:getlastcommlogresult"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getlastcommlogresult">
+                <xs:sequence>
+                    <xs:element name="Fecha_CommLog" nillable="true" type="xs:string"/>
+                    <xs:element name="Key1_CommLog" nillable="true" type="xs:string"/>
+                    <xs:element name="Key2_CommLog" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="getlastmaintenancesresults" type="ns0:getlastmaintenancesresults"/>
+            <xs:complexType name="getlastmaintenancesresults">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="getlastmaintenancesresult" type="ns0:getlastmaintenancesresult"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getlastmaintenancesresult">
+                <xs:sequence>
+                    <xs:element name="Mantenimiento" nillable="true" type="xs:integer"/>
+                    <xs:element name="Tipo_Mantenimiento" nillable="true" type="xs:string"/>
+                    <xs:element name="FechaInicio_Mantenimiento" nillable="true" type="xs:string"/>
+                    <xs:element name="FechaFin_Mantenimiento" nillable="true" type="xs:string"/>
+                    <xs:element name="Estado_Mantenimiento" nillable="true" type="xs:string"/>
+                    <xs:element name="MotivoCierre_Mantenimiento" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="getbillinginformationresults" type="ns0:getbillinginformationresults"/>
+            <xs:complexType name="getbillinginformationresults">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="getbillinginformationresult" type="ns0:getbillinginformationresult"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getbillinginformationresult">
+                <xs:sequence>
+                    <xs:element name="Instalacion" nillable="true" type="xs:string"/>
+                    <xs:element name="Contrato" nillable="true" type="xs:string"/>
+                    <xs:element name="Account" nillable="true" type="xs:string"/>
+                    <xs:element name="Nombre" nillable="true" type="xs:string"/>
+                    <xs:element name="Direccion" nillable="true" type="xs:string"/>
+                    <xs:element name="Nombre_Empresa" nillable="true" type="xs:string"/>
+                    <xs:element name="Actividad_Empresa" nillable="true" type="xs:string"/>
+                    <xs:element name="Fecha_Inst" nillable="true" type="xs:string"/>
+                    <xs:element name="GSM" nillable="true" type="xs:string"/>
+                    <xs:element name="Financiacion" nillable="true" type="xs:string"/>
+                    <xs:element name="Tipologia_Cliente" nillable="true" type="xs:string"/>
+                    <xs:element name="UltFactCuota" nillable="true" type="xs:string"/>
+                    <xs:element name="Fecha_UltFactCuota" nillable="true" type="xs:string"/>
+                    <xs:element name="Importe_UltFactCuota" nillable="true" type="xs:string"/>
+                    <xs:element name="cycle_period" nillable="true" type="xs:integer"/>
+                    <xs:element name="cycle_day" nillable="true" type="xs:integer"/>
+                    <xs:element name="tax_pf" nillable="true" type="xs:string"/>
+                    <xs:element name="ctr_stat" nillable="true" type="xs:string"/>
+                    <xs:element name="ESCMC" nillable="true" type="xs:string"/>
+                    <xs:element name="Tipocli" nillable="true" type="xs:string"/>
+                    <xs:element name="Pricelist" nillable="true" type="xs:string"/>
+                    <xs:element name="email_billing" nillable="true" type="xs:string"/>
+                    <xs:element ref="ns0:getpendinginvoicesresults"/>
+                    <xs:element ref="ns0:getoffersresults"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="getpendinginvoicesresults" type="ns0:getpendinginvoicesresults"/>
+            <xs:complexType name="getpendinginvoicesresults">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="getpendinginvoicesresult" type="ns0:getpendinginvoicesresult"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getpendinginvoicesresult">
+                <xs:sequence>
+                    <xs:element name="factura" nillable="true" type="xs:string"/>
+                    <xs:element name="fecha_factura" nillable="true" type="xs:string"/>
+                    <xs:element name="tipo_factura" nillable="true" type="xs:string"/>
+                    <xs:element name="balance_factura" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="getoffersresults" type="ns0:getoffersresults"/>
+            <xs:complexType name="getoffersresults">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="getoffersresult" type="ns0:getoffersresult"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getoffersresult">
+                <xs:sequence>
+                    <xs:element name="oferta" nillable="true" type="xs:string"/>
+                    <xs:element name="fecha_desde_oferta" nillable="true" type="xs:string"/>
+                    <xs:element name="fecha_hasta_oferta" nillable="true" type="xs:string"/>
+                    <xs:element name="importe_oferta" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="getservicesinformationresults" type="ns0:getservicesinformationresults"/>
+            <xs:complexType name="getservicesinformationresults">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="getservicesinformationresult" type="ns0:getservicesinformationresult"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getservicesinformationresult">
+                <xs:sequence>
+                    <xs:element name="Acuda" nillable="true" type="xs:string"/>
+                    <xs:element name="CCorriente" nillable="true" type="xs:string"/>
+                    <xs:element name="OpenClose" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="checkcustomerservicesresults" type="ns0:checkcustomerservicesresults"/>
+            <xs:complexType name="checkcustomerservicesresults">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="checkcustomerservicesresult" type="ns0:checkcustomerservicesresult"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="checkcustomerservicesresult">
+                <xs:sequence>
+                    <xs:element name="exist" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="testqueueinformationresults" type="ns0:testqueueinformationresults"/>
+            <xs:complexType name="testqueueinformationresults">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="testqueueinformationresult" type="ns0:testqueueinformationresult"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="testqueueinformationresult">
+                <xs:sequence>
+                    <xs:element name="s_ins" nillable="true" type="xs:integer"/>
+                    <xs:element name="st_tm" nillable="true" type="xs:string"/>
+                    <xs:element name="end_st" nillable="true" type="xs:string"/>
+                    <xs:element name="s_inc" nillable="true" type="xs:integer"/>
+                    <xs:element name="tp" nillable="true" type="xs:integer"/>
+                    <xs:element name="s_svrq" nillable="true" type="xs:integer"/>
+                    <xs:element name="s_pers" nillable="true" type="xs:integer"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="getMember">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="INSNO" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getMemberResults" type="ns0:getMemberResults"/>
+            <xs:complexType name="getMemberResults">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="getMemberResult" type="ns0:getMemberResult"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getMemberResult">
+                <xs:sequence>
+                    <xs:element ref="ns0:installationMemberResults"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="installationMemberResults" type="ns0:installationMemberResults"/>
+            <xs:complexType name="installationMemberResults">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="installationMember" type="ns0:installationMember"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="installationMember">
+                <xs:sequence>
+                    <xs:element name="br" nillable="true" type="xs:string"/>
+                    <xs:element name="sub_tp" nillable="true" type="xs:string"/>
+                    <xs:element name="phone1" nillable="true" type="xs:string"/>
+                    <xs:element name="phone2" nillable="true" type="xs:string"/>
+                    <xs:element name="zip" nillable="true" type="xs:string"/>
+                    <xs:element name="member" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="getDatosTransmisionRequest">
+        <wsdl:part name="parameters" element="ns0:getDatosTransmision"/>
+    </wsdl:message>
+    <wsdl:message name="getDatosTransmisionResponse">
+        <wsdl:part name="parameters" element="ns0:getDatosTransmisionResults"/>
+    </wsdl:message>
+    <wsdl:message name="DataServiceFault">
+        <wsdl:part name="parameters" element="ns0:DataServiceFault"/>
+    </wsdl:message>
+    <wsdl:message name="getMemberRequest">
+        <wsdl:part name="parameters" element="ns0:getMember"/>
+    </wsdl:message>
+    <wsdl:message name="getMemberResponse">
+        <wsdl:part name="parameters" element="ns0:getMemberResults"/>
+    </wsdl:message>
+    <wsdl:message name="getInstallationRequest">
+        <wsdl:part name="parameters" element="ns0:getInstallation"/>
+    </wsdl:message>
+    <wsdl:message name="getInstallationResponse">
+        <wsdl:part name="parameters" element="ns0:getInstallationResults"/>
+    </wsdl:message>
+    <wsdl:portType name="FSMDataServiceLightPortType">
+        <wsdl:operation name="getDatosTransmision">
+            <wsdl:documentation>Obtiene los datos de transmision &#xd;                                    </wsdl:documentation>
+            <wsdl:input message="ns0:getDatosTransmisionRequest" wsaw:Action="urn:getDatosTransmision"/>
+            <wsdl:output message="ns0:getDatosTransmisionResponse" wsaw:Action="urn:getDatosTransmisionResponse"/>
+            <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:getDatosTransmisionDataServiceFault"/>
+        </wsdl:operation>
+        <wsdl:operation name="getMember">
+            <wsdl:documentation/>
+            <wsdl:input message="ns0:getMemberRequest" wsaw:Action="urn:getMember"/>
+            <wsdl:output message="ns0:getMemberResponse" wsaw:Action="urn:getMemberResponse"/>
+            <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:getMemberDataServiceFault"/>
+        </wsdl:operation>
+        <wsdl:operation name="getInstallation">
+            <wsdl:documentation/>
+            <wsdl:input message="ns0:getInstallationRequest" wsaw:Action="urn:getInstallation"/>
+            <wsdl:output message="ns0:getInstallationResponse" wsaw:Action="urn:getInstallationResponse"/>
+            <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:getInstallationDataServiceFault"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="FSMDataServiceLightSOAP11Binding" type="ns0:FSMDataServiceLightPortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="getDatosTransmision">
+            <soap:operation soapAction="urn:getDatosTransmision" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="getMember">
+            <soap:operation soapAction="urn:getMember" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="getInstallation">
+            <soap:operation soapAction="urn:getInstallation" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="FSMDataServiceLightSOAP12Binding" type="ns0:FSMDataServiceLightPortType">
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="getDatosTransmision">
+            <soap12:operation soapAction="urn:getDatosTransmision" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap12:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="getMember">
+            <soap12:operation soapAction="urn:getMember" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap12:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="getInstallation">
+            <soap12:operation soapAction="urn:getInstallation" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap12:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="FSMDataServiceLightHttpBinding" type="ns0:FSMDataServiceLightPortType">
+        <http:binding verb="POST"/>
+        <wsdl:operation name="getDatosTransmision">
+            <http:operation location="getDatosTransmision"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getMember">
+            <http:operation location="getMember"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getInstallation">
+            <http:operation location="getInstallation"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="FSMDataServiceLight">
+        <wsdl:port name="SOAP11Endpoint" binding="ns0:FSMDataServiceLightSOAP11Binding">
+            <soap:address location="http://10.2.144.63:9763/services/FSMDataServiceLight.SOAP11Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="LOCALSOAP11Endpoint" binding="ns0:FSMDataServiceLightSOAP11Binding">
+            <soap:address location="local:///services/FSMDataServiceLight.LOCALSOAP11Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="SecureSOAP11Endpoint" binding="ns0:FSMDataServiceLightSOAP11Binding">
+            <soap:address location="https://10.2.144.63:9443/services/FSMDataServiceLight.SecureSOAP11Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="LOCALSOAP12Endpoint" binding="ns0:FSMDataServiceLightSOAP12Binding">
+            <soap12:address location="local:///services/FSMDataServiceLight.LOCALSOAP12Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="SecureSOAP12Endpoint" binding="ns0:FSMDataServiceLightSOAP12Binding">
+            <soap12:address location="https://10.2.144.63:9443/services/FSMDataServiceLight.SecureSOAP12Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="SOAP12Endpoint" binding="ns0:FSMDataServiceLightSOAP12Binding">
+            <soap12:address location="http://10.2.144.63:9763/services/FSMDataServiceLight.SOAP12Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="HTTPEndpoint" binding="ns0:FSMDataServiceLightHttpBinding">
+            <http:address location="http://10.2.144.63:9763/services/FSMDataServiceLight.HTTPEndpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="SecureHTTPEndpoint" binding="ns0:FSMDataServiceLightHttpBinding">
+            <http:address location="https://10.2.144.63:9443/services/FSMDataServiceLight.SecureHTTPEndpoint/"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

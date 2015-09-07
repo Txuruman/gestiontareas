@@ -1,13 +1,18 @@
 package es.securitasdirect.tareas.web.controller;
 
+import es.securitasdirect.tareas.model.InstallationData;
+import es.securitasdirect.tareas.model.TareaAviso;
 import es.securitasdirect.tareas.model.external.BigIntegerPair;
 import es.securitasdirect.tareas.model.external.Pair;
 import es.securitasdirect.tareas.model.external.StringPair;
 import es.securitasdirect.tareas.service.ExternalDataService;
+import es.securitasdirect.tareas.service.SplitService;
 import es.securitasdirect.tareas.web.controller.dto.request.notificationtask.ClosingTypeAditionalDataRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.notificationtask.ClosingTypeRequest;
+import es.securitasdirect.tareas.web.controller.dto.request.notificationtask.CreateMaintenanceAppRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.notificationtask.TypeReasonListRequest;
 import es.securitasdirect.tareas.web.controller.dto.response.BigIntegerPairResponse;
+import es.securitasdirect.tareas.web.controller.dto.response.CreateMaintenanceAppResponse;
 import es.securitasdirect.tareas.web.controller.dto.response.PairListResponse;
 import es.securitasdirect.tareas.web.controller.dto.response.StringPairListResponse;
 import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
@@ -35,9 +40,29 @@ public class CommonsController extends BaseController {
     private ExternalDataService externalDataService;
     @Autowired
     private AgentController agentController;
+    @Inject
+    protected SplitService splitService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CommonsController.class);
 
+    /**
+     * Devuelve el tipo de Crear mantenimiento que hay que abrir dependiendo de los datos.
+     * @param createMaintenanceAppRequest Tarea e Instalación
+     * @return TOA o MMS
+     */
+    @RequestMapping(value = "/getCreateMaintenanceApp", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public
+    @ResponseBody
+    BaseResponse getCreateMaintenanceApp(@RequestBody CreateMaintenanceAppRequest createMaintenanceAppRequest) {
+        try {
+            CreateMaintenanceAppResponse response = new CreateMaintenanceAppResponse();
+            String maintenanceApplication = splitService.getMaintenanceApplication(agentController.getAgent(), createMaintenanceAppRequest.getTareaAviso(), createMaintenanceAppRequest.getInstallationData());
+            response.setApp(maintenanceApplication);
+            return response;
+        } catch (Exception e) {
+            return processException(e);
+        }
+    }
 
     @RequestMapping(value = "/getNotificationTypeList", method = {RequestMethod.GET}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public

@@ -17,7 +17,9 @@ public class BusinessException extends RuntimeException {
 	public static enum ErrorCode {
 		ERROR_CREATE_SESSION_INFOPONT,
 		ERROR_FIND_TICKET,
-		ERROR_FIND_TASK
+		ERROR_FIND_TASK,
+		ERROR_FIND_INSTALLATION,
+		ERROR_SPLIT,
     };
 	
 	private ErrorCode errorCode = null;

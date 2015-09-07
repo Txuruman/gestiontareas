@@ -1,5 +1,6 @@
 package es.securitasdirect.tareas.service;
 
+import es.securitasdirect.tareas.exceptions.BusinessException;
 import es.securitasdirect.tareas.model.InstallationData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,9 +24,12 @@ public class InstallationService {
     protected SPInstallationMonDataPortType spInstallationMonData;
     @Inject
     protected SPAIOTAREAS2PortType spAioTareas2;
+    @Inject
+    protected FSMDataServiceLightPortType fsmDataServiceLight;
 
     /**
      * Obtiene los datos de una instalación por número de instalación, si no se encuentra devuelve null.
+     *
      * @param installationNumber
      * @return
      * @throws DataServiceFault
@@ -35,6 +39,8 @@ public class InstallationService {
         assert installationNumber != null;
         Mainstallationdataresult installationDataWS1 = null;
         GetInstallationDataResults installationDataWS2 = null;
+        InstallationMember installationDataWS3 = null;
+        Installationfulldataresult installationDataWS4 = null;
 
         List<Mainstallationdataresult> installationDataWS1List = spInstallationMonData.getInstallationData(installationNumber);
         if (installationDataWS1List != null && !installationDataWS1List.isEmpty()) {
@@ -44,28 +50,53 @@ public class InstallationService {
             getInstallationDataInput.setSIns(installationDataWS1.getSIns().intValue());
             getInstallationDataInput.setSCtr(installationDataWS1.getSIns().intValue()); //Como segundo parametro metemos también el número de instalación , parece que con eso devuelve datos de número de contrato
             installationDataWS2 = spAioTareas2.getInstallationData(getInstallationDataInput);
+        } else {
+            LOGGER.error("Can't find installation in SPAioTareas2");
+            throw new BusinessException(BusinessException.ErrorCode.ERROR_FIND_INSTALLATION);
         }
 
-        InstallationData installationData = createInstallationData(installationDataWS1, installationDataWS2);
+        List<GetMemberResult> memberList = fsmDataServiceLight.getMember(installationNumber);
+        if (memberList != null && !memberList.isEmpty() && memberList.get(0).getInstallationMemberResults() != null && memberList.get(0).getInstallationMemberResults().getInstallationMember() != null && !memberList.get(0).getInstallationMemberResults().getInstallationMember().isEmpty()) {
+            installationDataWS3 = memberList.get(0).getInstallationMemberResults().getInstallationMember().get(0);
+        } else {
+            LOGGER.error("Can't find installation in FsmDataServiceLight getMember");
+            throw new BusinessException(BusinessException.ErrorCode.ERROR_FIND_INSTALLATION);
+        }
+
+        List<GetInstallationResult> installationFSMList = fsmDataServiceLight.getInstallation(installationNumber);
+        if (installationFSMList != null && !installationFSMList.isEmpty() && !installationFSMList.get(0).getInstallationfulldataresults().getInstallationfulldataresult().isEmpty()) {
+              installationDataWS4 = installationFSMList.get(0).getInstallationfulldataresults().getInstallationfulldataresult().get(0);
+        } else {
+            LOGGER.error("Can't find installation in FsmDataServiceLight getInstallation");
+            throw new BusinessException(BusinessException.ErrorCode.ERROR_FIND_INSTALLATION);
+        }
+
+        InstallationData installationData = createInstallationData(installationDataWS1, installationDataWS2, installationDataWS3,  installationDataWS4);
         LOGGER.debug("getInstallationData({}) : {}", installationNumber, installationData);
         return installationData;
     }
 
 
-    private InstallationData createInstallationData (Mainstallationdataresult mainstallationdataresult,GetInstallationDataResults installationData2) {
-        if (mainstallationdataresult==null) {
+    private InstallationData createInstallationData(Mainstallationdataresult mainstallationdataresult, GetInstallationDataResults installationData2, InstallationMember installationData3, Installationfulldataresult installationDataWS4) {
+        if (mainstallationdataresult == null) {
             return null;
         } else {
             InstallationData data = new InstallationData();
-            //TODO Mapeo de atributos
+
+            data.setClazz (installationDataWS4.getClazz() );
+
+            data.setMember(installationData3.getMember());
+
             data.setPersonaContacto(mainstallationdataresult.getAliasName());
             data.setNumeroInstalacion(mainstallationdataresult.getInsNo());
+            data.setMonitoringStatus(mainstallationdataresult.getMonStat());
             data.setPersonaContacto(mainstallationdataresult.getAliasName());
             data.setTitular(mainstallationdataresult.getName());
             data.setPanel(mainstallationdataresult.getPanel());
             data.setTelefono(mainstallationdataresult.getPhone());
             data.setCodigoPostal(mainstallationdataresult.getZip());
-            if (installationData2!=null && !installationData2.getGetInstallationDataResult().isEmpty()) {
+
+            if (installationData2 != null && !installationData2.getGetInstallationDataResult().isEmpty()) {
                 data.setVersion(installationData2.getGetInstallationDataResult().get(0).getVersion());
             }
             return data;

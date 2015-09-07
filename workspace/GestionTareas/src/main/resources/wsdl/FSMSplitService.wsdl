@@ -1,0 +1,349 @@
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="urn:fsm:split" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" name="FSMSplitService" targetNamespace="urn:fsm:split">
+    <types>
+        <xsd:schema elementFormDefault="qualified" targetNamespace="urn:fsm:split">
+
+
+            <xsd:complexType name="split_response_t">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="result" type="xsd:string"/>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="description" type="xsd:string"/>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="split" type="xsd:boolean"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="checkSplit_response_t">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="result" type="xsd:string"/>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="description" type="xsd:string"/>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="split" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="CheckSplitByZip_t">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="country" type="xsd:string"/>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="zip_code" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="CheckSplit_t">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="country" type="xsd:string"/>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="app" type="xsd:string"/>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="zip_code" type="xsd:string"/>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="monitoring_status" type="xsd:string"/>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="member" type="xsd:string"/>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="splitclass" type="xsd:string"/>
+                    <xsd:element maxOccurs="1" minOccurs="0" name="gpd" type="xsd:int"/>
+                    <xsd:element maxOccurs="unbounded" minOccurs="0" name="codifications" type="tns:CodificationsType">
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="CheckSplitByCodification_t">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="country" type="xsd:string"/>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="call_type" type="xsd:string"/>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="problem" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="CheckSplitByTechnician_t">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="country" type="xsd:string"/>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="technician" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="CheckSplitByApplication_t">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="country" type="xsd:string"/>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="app" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="CheckSplitByService_t">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="country" type="xsd:string"/>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="service_request" type="xsd:int"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="CheckSplitByMonitoringStatus_t">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="country" type="xsd:string"/>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="monitoring_status" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="CheckSplitByMember_t">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="country" type="xsd:string"/>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="member" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:complexType name="CheckSplitByClass_t">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="country" type="xsd:string"/>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="splitclass" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <!-- ELEMENTS -->
+            <xsd:element name="CheckSplitByZip" type="tns:CheckSplitByZip_t"/>
+            <xsd:element name="CheckSplitByZip_response" type="tns:split_response_t"/>
+
+            <xsd:element name="CheckSplitByCodification" type="tns:CheckSplitByCodification_t"/>
+            <xsd:element name="CheckSplitByCodification_response" type="tns:split_response_t"/>
+
+            <xsd:element name="CheckSplitByTechnician" type="tns:CheckSplitByTechnician_t"/>
+            <xsd:element name="CheckSplitByTechnician_response" type="tns:split_response_t"/>
+
+            <xsd:element name="CheckSplitByApplication" type="tns:CheckSplitByApplication_t"/>
+            <xsd:element name="CheckSplitByApplication_response" type="tns:split_response_t"/>
+
+            <xsd:element name="CheckSplitByService" type="tns:CheckSplitByService_t"/>
+            <xsd:element name="CheckSplitByService_response" type="tns:split_response_t"/>
+
+            <xsd:element name="CheckSplit" type="tns:CheckSplit_t"/>
+            <xsd:element name="CheckSplit_response" type="tns:checkSplit_response_t"/>
+
+            <xsd:element name="CheckSplitByMonitoringStatus" type="tns:CheckSplitByMonitoringStatus_t"/>
+            <xsd:element name="CheckSplitByMonitoringStatus_response" type="tns:split_response_t"/>
+
+            <xsd:element name="CheckSplitByMember" type="tns:CheckSplitByMember_t"/>
+            <xsd:element name="CheckSplitByMember_response" type="tns:split_response_t"/>
+
+            <xsd:element name="CheckSplitByClass" type="tns:CheckSplitByClass_t"/>
+            <xsd:element name="CheckSplitByClass_response" type="tns:split_response_t"/>
+
+
+            <xsd:complexType name="CodificationsType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="call_type" type="xsd:string"/>
+                    <xsd:element maxOccurs="1" minOccurs="1" name="problem" type="xsd:string"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+
+        </xsd:schema>
+    </types>
+    <message name="CheckSplitByClass_m">
+        <part name="parameters" element="tns:CheckSplitByClass">
+        </part>
+    </message>
+    <message name="CheckSplit_response_m">
+        <part name="parameters" element="tns:CheckSplit_response">
+        </part>
+    </message>
+    <message name="CheckSplitByTechnician_m">
+        <part name="parameters" element="tns:CheckSplitByTechnician">
+        </part>
+    </message>
+    <message name="CheckSplitByMonitoringStatus_response_m">
+        <part name="parameters" element="tns:CheckSplitByMonitoringStatus_response">
+        </part>
+    </message>
+    <message name="CheckSplitByMonitoringStatus_m">
+        <part name="parameters" element="tns:CheckSplitByMonitoringStatus">
+        </part>
+    </message>
+    <message name="CheckSplitByCodification_m">
+        <part name="parameters" element="tns:CheckSplitByCodification">
+        </part>
+    </message>
+    <message name="CheckSplit_m">
+        <part name="parameters" element="tns:CheckSplit">
+        </part>
+    </message>
+    <message name="CheckSplitByMember_response_m">
+        <part name="parameters" element="tns:CheckSplitByMember_response">
+        </part>
+    </message>
+    <message name="CheckSplitByCodification_response_m">
+        <part name="parameters" element="tns:CheckSplitByCodification_response">
+        </part>
+    </message>
+    <message name="CheckSplitByApplication_response_m">
+        <part name="parameters" element="tns:CheckSplitByApplication_response">
+        </part>
+    </message>
+    <message name="CheckSplitByZip_response_m">
+        <part name="parameters" element="tns:CheckSplitByZip_response">
+        </part>
+    </message>
+    <message name="CheckSplitByTechnician_response_m">
+        <part name="parameters" element="tns:CheckSplitByTechnician_response">
+        </part>
+    </message>
+    <message name="CheckSplitByService_m">
+        <part name="parameters" element="tns:CheckSplitByService">
+        </part>
+    </message>
+    <message name="CheckSplitByZip_m">
+        <part name="parameters" element="tns:CheckSplitByZip">
+        </part>
+    </message>
+    <message name="CheckSplitByMember_m">
+        <part name="parameters" element="tns:CheckSplitByMember">
+        </part>
+    </message>
+    <message name="CheckSplitByService_response_m">
+        <part name="parameters" element="tns:CheckSplitByService_response">
+        </part>
+    </message>
+    <message name="CheckSplitByClass_response_m">
+        <part name="parameters" element="tns:CheckSplitByClass_response">
+        </part>
+    </message>
+    <message name="CheckSplitByApplication_m">
+        <part name="parameters" element="tns:CheckSplitByApplication">
+        </part>
+    </message>
+    <portType name="FSMSplitService">
+        <operation name="CheckSplitByMember">
+            <input message="tns:CheckSplitByMember_m">
+            </input>
+            <output message="tns:CheckSplitByMember_response_m">
+            </output>
+        </operation>
+        <operation name="CheckSplitByClass">
+            <input message="tns:CheckSplitByClass_m">
+            </input>
+            <output message="tns:CheckSplitByClass_response_m">
+            </output>
+        </operation>
+        <operation name="CheckSplitByZip">
+            <input message="tns:CheckSplitByZip_m">
+            </input>
+            <output message="tns:CheckSplitByZip_response_m">
+            </output>
+        </operation>
+        <operation name="CheckSplitByCodification">
+            <input message="tns:CheckSplitByCodification_m">
+            </input>
+            <output message="tns:CheckSplitByCodification_response_m">
+            </output>
+        </operation>
+        <operation name="CheckSplitByTechnician">
+            <input message="tns:CheckSplitByTechnician_m">
+            </input>
+            <output message="tns:CheckSplitByTechnician_response_m">
+            </output>
+        </operation>
+        <operation name="CheckSplitByApplication">
+            <input message="tns:CheckSplitByApplication_m">
+            </input>
+            <output message="tns:CheckSplitByApplication_response_m">
+            </output>
+        </operation>
+        <operation name="CheckSplitByService">
+            <input message="tns:CheckSplitByService_m">
+            </input>
+            <output message="tns:CheckSplitByService_response_m">
+            </output>
+        </operation>
+        <operation name="CheckSplit">
+            <input message="tns:CheckSplit_m">
+            </input>
+            <output message="tns:CheckSplit_response_m">
+            </output>
+        </operation>
+        <operation name="CheckSplitByMonitoringStatus">
+            <input message="tns:CheckSplitByMonitoringStatus_m">
+            </input>
+            <output message="tns:CheckSplitByMonitoringStatus_response_m">
+            </output>
+        </operation>
+    </portType>
+    <binding name="fsmsplit_binding" type="tns:FSMSplitService">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="CheckSplitByMember">
+            <soap:operation soapAction="FSMSplitService/CheckSplitByMember" style="document"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="CheckSplitByClass">
+            <soap:operation soapAction="FSMSplitService/CheckSplitByClass" style="document"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="CheckSplitByZip">
+            <soap:operation soapAction="FSMSplitService/CheckSplitByZip" style="document"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="CheckSplitByCodification">
+            <soap:operation soapAction="FSMSplitService/CheckSplitByCodification" style="document"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="CheckSplitByTechnician">
+            <soap:operation soapAction="FSMSplitService/CheckSplitByTechnician" style="document"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="CheckSplitByApplication">
+            <soap:operation soapAction="FSMSplitService/CheckSplitByApplication" style="document"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="CheckSplitByService">
+            <soap:operation soapAction="FSMSplitService/CheckSplitByService" style="document"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="CheckSplit">
+            <soap:operation soapAction="FSMSplitService/CheckSplit" style="document"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="CheckSplitByMonitoringStatus">
+            <soap:operation soapAction="FSMSplitService/CheckSplitByMonitoringStatus" style="document"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="FSMSplitService">
+        <port name="fsmsplit_interface" binding="tns:fsmsplit_binding">
+            <soap:address location="http://10.2.144.63:9763/services/FSMSplitService/"/>
+        </port>
+    </service>
+</definitions>

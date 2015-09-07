@@ -41,8 +41,13 @@
         <constructor-arg value="829"/>
     </bean>
 
-    <!-- URL de la aplicación para crear los mantenimientos -->
-    <bean id="externalCreateAppointmentUrl" class="java.lang.String">
+    <!-- URL de la aplicación para crear los mantenimientos en TOA -->
+    <bean id="externalCreateAppointmentUrlTOA" class="java.lang.String">
+        <constructor-arg value="http://es1infotest01v/FSMAppointmentManager/CreateAppointmentModal.aspx"/>
+    </bean>
+
+    <!-- URL de la aplicación para crear los mantenimientos en MMS -->
+    <bean id="externalCreateAppointmentUrlMMS" class="java.lang.String">
         <constructor-arg value="http://es1infotest01v/FSMAppointmentManager/CreateAppointmentModal.aspx"/>
     </bean>
 

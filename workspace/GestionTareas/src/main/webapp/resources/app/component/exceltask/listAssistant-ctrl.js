@@ -27,8 +27,6 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
                 task: $scope.tarea
             };
 
-            $log.info("JSON DE LO QUE SE MANDA   " + JSON.stringify(postponeRequest));
-
             $http({
                 method: 'PUT',
                 url: 'listassistanttask/aplazar',
@@ -53,33 +51,7 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
     	$window.location.href= _contextPath + "/entry";
     };
 
-    
-//	Antiguo método descartar
-//    $scope.descartar = function(){
-//        $log.debug("Discard List Assistant task, task: ", $scope.tarea);
-//        var discardListAssistantTaskRequest = {
-//            tarea:$scope.tarea,
-//            prueba:'Hola'
-//        };
-//        $log.debug("Discard List Assistant Task, request: " ,discardListAssistantTaskRequest);
-//        $http({
-//            method: 'PUT',
-//            url: 'listassistanttask/descartar',
-//            data: discardListAssistantTaskRequest
-//        })
-//            .success(function (data, status, headers, config) {
-//                CommonService.processBaseResponse(data,status,headers,config);
-//                $log.debug("Discarded list assistant task");
-//            })
-//            .error(function (data, status, headers, config) {
-//                // called asynchronously if an error occurs
-//                // or server returns response with an error status.
-//                CommonService.processBaseResponse(data,status,headers,config);
-//                $log.error("Error discarding list assistant task");
-//            });
-//    };
-
-
+     
     $scope.finalizar = function(){
         $log.debug("Finalizar List Assistant task, task: ",$scope.tarea);
         var finalizeRequest = {
@@ -104,37 +76,33 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
     };
 
 
-    $scope.getInstallationAndTask = function(){
-        $scope.vm.appReady=false;
+    $scope.getInstallationAndTask = function() {
+        $scope.vm.appReady = false;
 
-        console.log("Loading List Assistant Task...");
-        console.log("Params: "
-        //+ " installationId: " + $scope.installationId
-        //+ " ccUserId: " + $scope.ccUserId
-        //+ " callingList: " + $scope.callingList
-        //+ " taskId: " + $scope.tareaId);
+        $log.debug("Loading List Assistant Task...");
+
         $http({
             method: 'GET',
             url: 'listassistanttask/getInstallationAndTask',
             params: {callingList: $scope.callingList, tareaId: $scope.tareaId}
         }).
             success(function (data, status, headers, config) {
-                $log.debug("Loaded list assistant task:",data.tarea);
+                $log.debug("Loaded list assistant task:", data.tarea);
                 $scope.tarea = data.tarea;
                 $scope.installationData = data.installationData;
-                CommonService.processBaseResponse(data,status,headers,config);
+                CommonService.processBaseResponse(data, status, headers, config);
                 $scope.getClosingReason();
-                $scope.vm.appReady=true;
+                $scope.vm.appReady = true;
             }).
             error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
-                CommonService.processBaseResponse(data,status,headers,config);
-                $log.debug("Error loading list assistant task:",data.tarea);
-                $scope.vm.appReady=true;
+                CommonService.processBaseResponse(data, status, headers, config);
+                $log.debug("Error loading list assistant task:", data.tarea);
+                $scope.vm.appReady = true;
             });
-        console.log("List assistant task loaded...")
-    }
+        $log.debug("List assistant task loaded...")
+    };
 
 
     //Ventana Aplazar - Start

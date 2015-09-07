@@ -45,8 +45,12 @@ public class SearchTareaService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SearchTareaService.class);
 
+    public List<Tarea> findAll(Agent agent) {
+        return find(agent.getDesktopDepartment(), agent.getAgentIBS(), agent.getAgentCountryJob(), "chain_id>=0");
+    }
+
     public List<Tarea> findByPhone(Agent agent, String phone) {
-        return findByPhone(agent.getDesktopDepartment(),agent.getAgentIBS(),agent.getAgentCountryJob(),phone);
+        return findByPhone(agent.getDesktopDepartment(), agent.getAgentIBS(), agent.getAgentCountryJob(), phone);
     }
 
     public List<Tarea> findByContractNumber(Agent agent, String ctrNo) {
@@ -58,9 +62,9 @@ public class SearchTareaService {
     }
 
     protected List<Tarea> findByPhone(String desktopDepartment,
-                                   String ccUserId,
-                                   String country,
-                                   String phone) {
+                                      String ccUserId,
+                                      String country,
+                                      String phone) {
         LOGGER.debug("Search Task By Phone {}", phone);
         return find(desktopDepartment,
                 ccUserId,
@@ -69,9 +73,9 @@ public class SearchTareaService {
     }
 
     public List<Tarea> findByContractNumber(String desktopDepartment,
-                                      String ccUserId,
-                                      String country,
-                                      String ctrNo
+                                            String ccUserId,
+                                            String country,
+                                            String ctrNo
     ) {
         LOGGER.debug("Search Task By Contract Number {}", ctrNo);
         return find(desktopDepartment,
@@ -81,9 +85,9 @@ public class SearchTareaService {
     }
 
     protected List<Tarea> findByInstallationNumber(String desktopDepartment,
-                                      String ccUserId,
-                                      String country,
-                                      String installation
+                                                   String ccUserId,
+                                                   String country,
+                                                   String installation
     ) {
         LOGGER.debug("Search Task By Installation Number {}", installation);
         return find(desktopDepartment,
@@ -92,10 +96,19 @@ public class SearchTareaService {
                 "INSTALACION='" + installation + "'");
     }
 
+    /**
+     * Find Task by filter and agent info
+     *
+     * @param desktopDepartment
+     * @param ccUserId
+     * @param country
+     * @param filter
+     * @return
+     */
     protected List<Tarea> find(String desktopDepartment,
-                            String ccUserId,
-                            String country,
-                            String filter) {
+                               String ccUserId,
+                               String country,
+                               String filter) {
         List<Tarea> taskList = null;
         if (desktopDepartment == null || desktopDepartment.isEmpty()
                 || applicationUser == null || applicationUser.isEmpty()
@@ -118,11 +131,11 @@ public class SearchTareaService {
             );
 
 
-            LOGGER.debug("Search Tarea with filter {} returned {} result", filter,cclResponse.getOperationResult().getResultMessage());
+            LOGGER.debug("Search Tarea with filter {} returned {} result", filter, cclResponse.getOperationResult().getResultMessage());
 
-             taskList = new ArrayList<Tarea>();
-            for (int i=0; i<cclResponse.getColumnReturn().size();i++) {
-                Map<String, String> map = tareaServiceTools.loadCclResponseMap(cclResponse,i);
+            taskList = new ArrayList<Tarea>();
+            for (int i = 0; i < cclResponse.getColumnReturn().size(); i++) {
+                Map<String, String> map = tareaServiceTools.loadCclResponseMap(cclResponse, i);
                 taskList.add(tareaServiceTools.createTareaFromParameters(map));
             }
 

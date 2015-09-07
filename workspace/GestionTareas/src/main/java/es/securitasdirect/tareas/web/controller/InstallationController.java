@@ -40,13 +40,18 @@ public class InstallationController extends BaseController {
     BaseResponse query(@RequestParam(value = "installationId", required = true) String installationId) {
         LOGGER.debug("Get Installation data for installationId: {}", installationId);
         InstallationDataResponse installationDataResponse = new InstallationDataResponse();
-        try{
-            InstallationData installationData = installationService.getInstallationData(installationId);
-            installationDataResponse.setInstallationData(installationData);
-        }catch(Exception e){
-            return processException(e);
+        //No se debe de llamar con datos vacios
+        if (installationId==null || installationId.isEmpty()) {
+            return installationDataResponse;
+        } else {
+            try {
+                InstallationData installationData = installationService.getInstallationData(installationId);
+                installationDataResponse.setInstallationData(installationData);
+            } catch (Exception e) {
+                return processException(e);
+            }
+            return installationDataResponse;
         }
-        return installationDataResponse;
     }
 
 

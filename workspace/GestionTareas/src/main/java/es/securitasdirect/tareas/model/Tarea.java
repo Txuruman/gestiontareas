@@ -53,7 +53,7 @@ public class Tarea {
     protected String telefono;
 
     /** */
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "CET")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     protected Date fechaReprogramacion;
 
     /** */

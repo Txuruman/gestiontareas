@@ -549,6 +549,14 @@ public class TareaService {
         return true;
     }
 
+    /**
+     * Aqui se llega cuando alguien pulsa descartar.
+     * @param agent
+     * @param tarea
+     * @param installationData
+     * @return
+     * @throws Exception
+     */
     public boolean saveTask(Agent agent, TareaAviso tarea, InstallationData installationData) throws Exception {
 
         boolean saved = false;

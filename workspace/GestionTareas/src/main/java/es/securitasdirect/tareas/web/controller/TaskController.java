@@ -81,26 +81,7 @@ public abstract class TaskController extends BaseController{
         return response;
     }
 
-    /**
-     * Se informa con la tarea obtenida y la cadena correspondiente al mensaje de respuesta, salvo la última sección que se define aquí dependiendo del resultado.
-     * @param task
-     * @param s
-     * @return
-     */
-    public TareaResponse processSuccessTask(Tarea task, String s) {
-        return new TareaResponse(super.processSuccessMessages(task,s), task);
-    }
 
-    /**
-     * Se informa con la instalacion obtenida y se informa la respuesta con dicha instalación y el mensaje correspondiente.
-     * @param installationData
-     * @return
-     */
-    public TareaResponse processSuccessInstallation(InstallationData installationData) {
-        TareaResponse response = new TareaResponse(super.processSuccessMessages(installationData, "installationData"));
-        response.setInstallationData(installationData);
-        return response;
-    }
 
     public TareaResponse processException(Exception e, String msg){
         return new TareaResponse(super.processException(e, msg));
