@@ -12,6 +12,7 @@ import es.securitasdirect.tareas.web.controller.AgentController;
 import es.securitasdirect.tareas.web.controller.BaseController;
 import es.securitasdirect.tareas.web.controller.TaskController;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
+import es.securitasdirect.tareas.web.controller.dto.request.GetInstallationAndTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.notificationtask.*;
 import es.securitasdirect.tareas.web.controller.dto.response.NotificationTaskResponse;
 import es.securitasdirect.tareas.web.controller.dto.response.PairListResponse;
@@ -49,14 +50,14 @@ public class NotificationTaskController extends TaskController {
 
    
 
-    @RequestMapping(value = "/getInstallationAndTask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value = "/getInstallationAndTask", method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    BaseResponse getInstallationAndTask(
+    BaseResponse getInstallationAndTask(@RequestBody GetInstallationAndTaskRequest request,
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
     ) {
-        return super.getInstallationAndTask(callingList, tareaId);
+        return super.getInstallationAndTask(request.getCallingList(),request.getTaskId());
     }
 
 
