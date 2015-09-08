@@ -5,6 +5,7 @@ import java.util.Map;
 public class GetInstallationAndTaskRequest {
 	private String callingList;
 	private String taskId;
+	//Lista de todos los parametros que se reciven por post
 	private Map<String,String> params;
 	
 	public GetInstallationAndTaskRequest(String callingList, String taskId, Map<String, String> params) {

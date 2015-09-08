@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import java.util.Date;
+import java.util.Map;
 
 public abstract class TaskController extends BaseController {
 
@@ -87,7 +88,7 @@ public abstract class TaskController extends BaseController {
      * @param tareaId
      * @return
      */
-    public BaseResponse getInstallationAndTask(String callingList, String tareaId) {
+    public BaseResponse getInstallationAndTask(String callingList, String tareaId, Map<String, String> parameters) {
         LOGGER.debug("Get Notification task for params: \ncallingList:{}\ntareaId:{}", callingList, tareaId);
         TareaResponse response = new TareaResponse();
         if (agentController.isLogged()) {

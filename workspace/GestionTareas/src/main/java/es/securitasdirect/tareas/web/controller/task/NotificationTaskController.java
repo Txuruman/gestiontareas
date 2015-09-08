@@ -53,7 +53,7 @@ public class NotificationTaskController extends TaskController {
     public
     @ResponseBody
     BaseResponse getInstallationAndTask(@RequestBody GetInstallationAndTaskRequest request) {
-        return super.getInstallationAndTask(request.getCallingList(),request.getTaskId());
+        return super.getInstallationAndTask(request.getCallingList(),request.getTaskId(), request.getParams());
     }
 
 

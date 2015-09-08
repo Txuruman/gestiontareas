@@ -71,15 +71,17 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     $scope.getInstallationAndTask = function () {
 
         $log.debug('Loading NotificationTask');
-        var getInstallationAndTaskRequest={
-        		callingList: $scope.callingList,
-                taskId: $scope.tareaId,
-                params:mapParams
-        }
+        var getInstallationAndTaskRequest = {
+            callingList: $scope.callingList,
+            taskId: $scope.tareaId,
+            params: mapParams
+        };
+        $log.debug("LO QUE ENVIAMOS", getInstallationAndTaskRequest);
+
         $http({
             method: 'PUT',
             url: 'notificationtask/getInstallationAndTask',
-            params: getInstallationAndTaskRequest
+            data: getInstallationAndTaskRequest
         })
             .success(function (data, status, headers, config) {
                 $log.debug('Loaded NotificationTask Data' + JSON.stringify(data));
@@ -94,9 +96,6 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 $scope.getTypeReasonList1($scope.tarea.tipoAviso1);
                 $scope.getTypeReasonList2($scope.tarea.tipoAviso2);
                 $scope.getTypeReasonList3($scope.tarea.tipoAviso3);
-                $log.debug("Motivo lists: ", $scope.motivoList1, $scope.motivoList2, $scope.motivoList3);
-                $log.debug("SCOPE TAREA:", $scope.tarea);
-                $log.debug("Get closing list params: " + $scope.tarea.tipoAviso1 + ", " + $scope.tarea.motivo1);
                 $scope.getClosingList($scope.tarea.tipoAviso1, $scope.tarea.motivo1, $scope.tarea.closing);
                 $scope.getClosingAditionalDataList();
                 $scope.refeshDisabled = true;
@@ -364,27 +363,27 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                     "&ContactPhone=" + $scope.tarea.telefono +
                     "&Text=" + $scope.tarea.observaciones +
                     "&SessionToken=" + agent.infopointSession +
-                    "&type=" + $scope.tarea.tipoAviso1 + 
+                    "&type=" + $scope.tarea.tipoAviso1 +
                     "&motive=" + $scope.tarea.motivo1;
                 //Parametros para MMS
                 url += "&t=" + agent.infopointSession +
-                "&NINSTALACION=" + $scope.installationData.numeroInstalacion +
-                "&TIPOPANEL=" + $scope.installationData.panel +
-                "&PAIS=" + agent.agentCountryJob +
-                "&IDIOMA=" + agent.currentLanguage +
-                "&FINANCIACION=0" +
-                "&AVISO=" + $scope.tarea.idAviso +
-                "&MATRICULA=" + agent.agentIBS +
-                "&TIPOCIERRE=" + $scope.tarea.closing +
-                "&NOTACIERRE=" + $scope.tarea.nota +
-                "&STATUSDESTINO=3"+
-                	"&TIPODEUDA=PENDIENTE" +
-                "&DATOSADIC="  + $scope.tarea.datosAdicionalesCierre +
-            	"&REPNAME=" + $scope.tarea.requeridoPor +
-                	"&NOMBRE=" + $scope.installationData.personaContacto + 
-                	"&TELEFONO=" + $scope.installationData.telefono +
-                "&CALLTYPEPROBLEM=" + $scope.tarea.tipoAviso1+ "|" + $scope.tarea.motivo1 +"|1|" +
-            	"&TEXTO=" + $scope.tarea.observaciones;
+                    "&NINSTALACION=" + $scope.installationData.numeroInstalacion +
+                    "&TIPOPANEL=" + $scope.installationData.panel +
+                    "&PAIS=" + agent.agentCountryJob +
+                    "&IDIOMA=" + agent.currentLanguage +
+                    "&FINANCIACION=0" +
+                    "&AVISO=" + $scope.tarea.idAviso +
+                    "&MATRICULA=" + agent.agentIBS +
+                    "&TIPOCIERRE=" + $scope.tarea.closing +
+                    "&NOTACIERRE=" + $scope.tarea.nota +
+                    "&STATUSDESTINO=3" +
+                    "&TIPODEUDA=PENDIENTE" +
+                    "&DATOSADIC=" + $scope.tarea.datosAdicionalesCierre +
+                    "&REPNAME=" + $scope.tarea.requeridoPor +
+                    "&NOMBRE=" + $scope.installationData.personaContacto +
+                    "&TELEFONO=" + $scope.installationData.telefono +
+                    "&CALLTYPEPROBLEM=" + $scope.tarea.tipoAviso1 + "|" + $scope.tarea.motivo1 + "|1|" +
+                    "&TEXTO=" + $scope.tarea.observaciones;
                 var resultado = window.showModalDialog(url, null, "center:yes; resizable:yes; dialogWidth:900px; dialogHeight:700px;");
                 alert(resultado);
                 //TODO BOrrar, es para probar un resultado concreto
