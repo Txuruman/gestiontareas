@@ -369,12 +369,27 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                     "&ContactPhone=" + $scope.tarea.telefono +
                     "&Text=" + $scope.tarea.observaciones +
                     "&SessionToken=" + agent.infopointSession +
-                    "&type=" + $scope.tarea.tipoAviso1 +
-                    "&type22222222222222222222=" + $scope.tarea.tipoAviso1 +
+                    "&type=" + $scope.tarea.tipoAviso1 + 
                     "&motive=" + $scope.tarea.motivo1;
                 //Parametros para MMS
-                url += "&MATRICULA=" + agent.agentIBS ;
-
+                url += "&t=" + agent.infopointSession +
+                "&NINSTALACION=" + $scope.installationData.numeroInstalacion +
+                "&TIPOPANEL=" + $scope.installationData.panel +
+                "&PAIS=" + agent.agentCountryJob +
+                "&IDIOMA=" + agent.currentLanguage +
+                "&FINANCIACION=0" +
+                "&AVISO=" + $scope.tarea.idAviso +
+                "&MATRICULA=" + agent.agentIBS +
+                "&TIPOCIERRE=" + $scope.tarea.closing +
+                "&NOTACIERRE=" + $scope.tarea.nota +
+                "&STATUSDESTINO=3"+
+                	"&TIPODEUDA=PENDIENTE" +
+                "&DATOSADIC="  + $scope.tarea.datosAdicionalesCierre +
+            	"&REPNAME=" + $scope.tarea.requeridoPor +
+                	"&NOMBRE=" + $scope.installationData.personaContacto + 
+                	"&TELEFONO=" + $scope.installationData.telefono +
+                "&CALLTYPEPROBLEM=" + $scope.tarea.tipoAviso1+ "|" + $scope.tarea.motivo1 +"|1|" +
+            	"&TEXTO=" + $scope.tarea.observaciones;
                 var resultado = window.showModalDialog(url, null, "center:yes; resizable:yes; dialogWidth:900px; dialogHeight:700px;");
                 alert(resultado);
                 //TODO BOrrar, es para probar un resultado concreto
