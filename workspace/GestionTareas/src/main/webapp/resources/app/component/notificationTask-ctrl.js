@@ -82,32 +82,31 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             method: 'PUT',
             url: 'notificationtask/getInstallationAndTask',
             data: getInstallationAndTaskRequest
+        }).success(function (data, status, headers, config) {
+            $log.debug('Loaded NotificationTask Data' + JSON.stringify(data));
+            CommonService.processBaseResponse(data, status, headers, config);
+
+            $scope.tarea = data.tarea;
+            //clonamos el objeto tarea
+            $scope.tareaOriginal = angular.copy($scope.tarea);
+
+            $scope.installationData = data.installationData;
+            $scope.getNotificationTypeList();
+            $scope.getTypeReasonList1($scope.tarea.tipoAviso1);
+            $scope.getTypeReasonList2($scope.tarea.tipoAviso2);
+            $scope.getTypeReasonList3($scope.tarea.tipoAviso3);
+            $scope.getClosingList($scope.tarea.tipoAviso1, $scope.tarea.motivo1, $scope.tarea.closing);
+            $scope.getClosingAditionalDataList();
+            $scope.refeshDisabled = true;
+            //Mensajes para los required de finalizar
+            $scope.closingADAlert = false;
+            $scope.closingAlert = false;
         })
-            .success(function (data, status, headers, config) {
-                $log.debug('Loaded NotificationTask Data' + JSON.stringify(data));
-                CommonService.processBaseResponse(data, status, headers, config);
-
-                $scope.tarea = data.tarea;
-                //clonamos el objeto tarea
-                $scope.tareaOriginal = angular.copy($scope.tarea);
-
-                $scope.installationData = data.installationData;
-                $scope.getNotificationTypeList();
-                $scope.getTypeReasonList1($scope.tarea.tipoAviso1);
-                $scope.getTypeReasonList2($scope.tarea.tipoAviso2);
-                $scope.getTypeReasonList3($scope.tarea.tipoAviso3);
-                $scope.getClosingList($scope.tarea.tipoAviso1, $scope.tarea.motivo1, $scope.tarea.closing);
-                $scope.getClosingAditionalDataList();
-                $scope.refeshDisabled = true;
-                //Mensajes para los required de finalizar
-                $scope.closingADAlert = false;
-                $scope.closingAlert = false;
-            })
-            .error(function (data, status, headers, config) {
-                CommonService.processBaseResponse(data, status, headers, config);
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-            });
+        .error(function (data, status, headers, config) {
+            CommonService.processBaseResponse(data, status, headers, config);
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+        });
         $log.debug("NotificationTask loaded...");
     };
 

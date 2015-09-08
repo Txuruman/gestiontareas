@@ -61,26 +61,32 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService, $
 
         $log.debug("Loading MaintenanceTask...");
 
+        var getInstallationAndTaskRequest = {
+            callingList: $scope.callingList,
+            taskId: $scope.tareaId,
+            params: mapParams
+        };
+        $log.debug("LO QUE ENVIAMOS", getInstallationAndTaskRequest);
+
         $http({
-            method: 'GET',
+            method: 'PUT',
             url: 'maintenancetask/getInstallationAndTask',
-            params: {callingList: $scope.callingList, tareaId: $scope.tareaId}
+            data: getInstallationAndTaskRequest
+        }).success(function (data, status, headers, config) {
+            $log.debug("Loaded maintenance task:",data.tarea);
+            $log.debug("Loaded installation data:", data.installationData);
+            $scope.tarea = data.tarea;
+            $scope.installationData = data.installationData;
+            CommonService.processBaseResponse(data,status,headers,config);
+            $scope.getDesplegableKey1();
+            $scope.getCancelationType();
         }).
-            success(function (data, status, headers, config) {
-                $log.debug("Loaded maintenance task:",data.tarea);
-                $log.debug("Loaded installation data:", data.installationData);
-                $scope.tarea = data.tarea;
-                $scope.installationData = data.installationData;
-                CommonService.processBaseResponse(data,status,headers,config);
-                $scope.getDesplegableKey1();
-                $scope.getCancelationType();
-            }).
-            error(function (data, status, headers, config) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-                CommonService.processBaseResponse(data,status,headers,config);
-                $log.error("Error loading maintenance task");
-            });
+        error(function (data, status, headers, config) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+            CommonService.processBaseResponse(data,status,headers,config);
+            $log.error("Error loading maintenance task");
+        });
     };
 
 

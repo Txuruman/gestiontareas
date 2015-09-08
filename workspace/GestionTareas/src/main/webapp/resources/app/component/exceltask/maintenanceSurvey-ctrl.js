@@ -24,27 +24,33 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,
 
             $log.debug("Loading Maintenance Survey Task...");
 
+            var getInstallationAndTaskRequest = {
+                callingList: $scope.callingList,
+                taskId: $scope.tareaId,
+                params: mapParams
+            };
+            $log.debug("LO QUE ENVIAMOS", getInstallationAndTaskRequest);
+
             $http({
-                method: 'GET',
+                method: 'PUT',
                 url: 'maintenancesurveytask/getInstallationAndTask',
-                params: {callingList: $scope.callingList, tareaId: $scope.tareaId}
+                data: getInstallationAndTaskRequest
+            }).success(function (data, status, headers, config) {
+                $log.debug("Loaded maintenance survey task:" ,data.tarea);
+                $log.debug("Loaded installation data: ",data.installationData);
+                $scope.tarea = data.tarea;
+                $scope.installationData = data.installationData;
+                CommonService.processBaseResponse(data, status, headers, config);
+                $scope.getClosingReason();
+                $scope.vm.appReady = true;
             }).
-                success(function (data, status, headers, config) {
-                    $log.debug("Loaded maintenance survey task:" ,data.tarea);
-                    $log.debug("Loaded installation data: ",data.installationData);
-                    $scope.tarea = data.tarea;
-                    $scope.installationData = data.installationData;
-                    CommonService.processBaseResponse(data, status, headers, config);
-                    $scope.getClosingReason();
-                    $scope.vm.appReady = true;
-                }).
-                error(function (data, status, headers, config) {
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
-                    CommonService.processBaseResponse(data, status, headers, config);
-                    $scope.vm.appReady = true;
-                    $log.error("Error loading maintenance survey task and/or installation data");
-                });
+            error(function (data, status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                CommonService.processBaseResponse(data, status, headers, config);
+                $scope.vm.appReady = true;
+                $log.error("Error loading maintenance survey task and/or installation data");
+            });
     };
     $scope.aplazar = function (delayDate, recallType) {
         $log.info('Delay to ' + delayDate + ' with recallType ' + recallType + ' task ' + JSON.stringify($scope.tarea));

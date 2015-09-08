@@ -11,6 +11,7 @@ import es.securitasdirect.tareas.web.controller.AgentController;
 import es.securitasdirect.tareas.web.controller.BaseController;
 import es.securitasdirect.tareas.web.controller.TaskController;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
+import es.securitasdirect.tareas.web.controller.dto.request.GetInstallationAndTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.exceltask.keyboxtask.DiscardKeyboxTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.exceltask.keyboxtask.FinalizeKeyboxTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.exceltask.keyboxtask.PostponeKeyboxTaskRequest;
@@ -92,12 +93,10 @@ public class KeyboxTaskController extends TaskController {
     }
 
 
-    @RequestMapping(value = "/getInstallationAndTask", method = {RequestMethod.GET}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody BaseResponse getInstallationAndTask(
-            @RequestParam(value = "callingList", required = true) String callingList,
-            @RequestParam(value = "tareaId", required = true) String tareaId
-    )  {
-
-        return super.getInstallationAndTask(callingList, tareaId);
+    @RequestMapping(value = "/getInstallationAndTask", method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public
+    @ResponseBody
+    BaseResponse getInstallationAndTask(@RequestBody GetInstallationAndTaskRequest request) {
+        return super.getInstallationAndTask(request.getCallingList(),request.getTaskId(), request.getParams());
     }
 }

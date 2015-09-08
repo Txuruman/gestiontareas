@@ -7,27 +7,33 @@ app.controller('feecleaningtask-ctrl', function ($scope, $http, CommonService, $
 
         $log.debug("Loading Fee Cleaning Task...");
 
+        var getInstallationAndTaskRequest = {
+            callingList: $scope.callingList,
+            taskId: $scope.tareaId,
+            params: mapParams
+        };
+        $log.debug("LO QUE ENVIAMOS", getInstallationAndTaskRequest);
+
         $http({
-            method: 'GET',
+            method: 'PUT',
             url: 'feecleaningtask/getInstallationAndTask',
-            params: {callingList: $scope.callingList, tareaId: $scope.tareaId}
+            data: getInstallationAndTaskRequest
+        }).success(function (data, status, headers, config) {
+            $log.debug("Loaded fee cleaning task:",data.tarea);
+            $log.debug("Loaded isntallation data:",data.installationData);
+            $scope.tarea = data.tarea;
+            $scope.installationData = data.installationData;
+            CommonService.processBaseResponse(data,status,headers,config);
+            $scope.getClosingReason();
+            $scope.vm.appReady=true;
         }).
-            success(function (data, status, headers, config) {
-                $log.debug("Loaded fee cleaning task:",data.tarea);
-                $log.debug("Loaded isntallation data:",data.installationData);
-                $scope.tarea = data.tarea;
-                $scope.installationData = data.installationData;
-                CommonService.processBaseResponse(data,status,headers,config);
-                $scope.getClosingReason();
-                $scope.vm.appReady=true;
-            }).
-            error(function (data, status, headers, config) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-                CommonService.processBaseResponse(data,status,headers,config);
-                $scope.vm.appReady=true;
-                $log.error("Error loading installation and task");
-            });
+        error(function (data, status, headers, config) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+            CommonService.processBaseResponse(data,status,headers,config);
+            $scope.vm.appReady=true;
+            $log.error("Error loading installation and task");
+        });
     };
 
     $scope.getClosingReason = function(){

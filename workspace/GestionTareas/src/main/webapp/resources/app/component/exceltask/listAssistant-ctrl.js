@@ -81,26 +81,32 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
 
         $log.debug("Loading List Assistant Task...");
 
+        var getInstallationAndTaskRequest = {
+            callingList: $scope.callingList,
+            taskId: $scope.tareaId,
+            params: mapParams
+        };
+        $log.debug("LO QUE ENVIAMOS", getInstallationAndTaskRequest);
+
         $http({
-            method: 'GET',
+            method: 'PUT',
             url: 'listassistanttask/getInstallationAndTask',
-            params: {callingList: $scope.callingList, tareaId: $scope.tareaId}
+            data: getInstallationAndTaskRequest
+        }).success(function (data, status, headers, config) {
+            $log.debug("Loaded list assistant task:", data.tarea);
+            $scope.tarea = data.tarea;
+            $scope.installationData = data.installationData;
+            CommonService.processBaseResponse(data, status, headers, config);
+            $scope.getClosingReason();
+            $scope.vm.appReady = true;
         }).
-            success(function (data, status, headers, config) {
-                $log.debug("Loaded list assistant task:", data.tarea);
-                $scope.tarea = data.tarea;
-                $scope.installationData = data.installationData;
-                CommonService.processBaseResponse(data, status, headers, config);
-                $scope.getClosingReason();
-                $scope.vm.appReady = true;
-            }).
-            error(function (data, status, headers, config) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-                CommonService.processBaseResponse(data, status, headers, config);
-                $log.debug("Error loading list assistant task:", data.tarea);
-                $scope.vm.appReady = true;
-            });
+        error(function (data, status, headers, config) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+            CommonService.processBaseResponse(data, status, headers, config);
+            $log.debug("Error loading list assistant task:", data.tarea);
+            $scope.vm.appReady = true;
+        });
         $log.debug("List assistant task loaded...")
     };
 
