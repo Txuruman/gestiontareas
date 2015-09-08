@@ -1,10 +1,5 @@
 app.controller('notificationtask', function ($scope, $http, CommonService, $modal, $log, $window) {
 
-    $scope.logTarea = function () {
-        $log.debug("Tarea: " + $scope.tarea);
-    };
-
-
     //Ventana Aplazar - Start
     //Abre la ventana, posibles tamaños '', 'sm', 'lg'
     $scope.openDelayModal = function (size) {
@@ -74,14 +69,14 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     };
 
     $scope.getInstallationAndTask = function () {
+
         $log.debug('Loading NotificationTask');
 
         $http({
             method: 'GET',
             url: 'notificationtask/getInstallationAndTask',
             params: {
-                installationId: $scope.installationId,
-                ccUserId: $scope.ccUserId,
+                params:paramsMap,
                 callingList: $scope.callingList,
                 tareaId: $scope.tareaId
             }
