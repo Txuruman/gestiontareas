@@ -71,15 +71,15 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     $scope.getInstallationAndTask = function () {
 
         $log.debug('Loading NotificationTask');
-
+        var getInstallationAndTaskRequest={
+        		callingList: $scope.callingList,
+                taskId: $scope.tareaId,
+                params:mapParams
+        }
         $http({
-            method: 'GET',
+            method: 'PUT',
             url: 'notificationtask/getInstallationAndTask',
-            params: {
-                params:paramsMap,
-                callingList: $scope.callingList,
-                tareaId: $scope.tareaId
-            }
+            params: getInstallationAndTaskRequest
         })
             .success(function (data, status, headers, config) {
                 $log.debug('Loaded NotificationTask Data' + JSON.stringify(data));

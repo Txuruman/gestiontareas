@@ -26,7 +26,7 @@
         <c:forEach var="entry" items="${params}">
              ${entry.key}  : "<c:out value="${entry.value}"/>" ,
         </c:forEach>
-
+			debug : "0"
         };
 </script>
 
