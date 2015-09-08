@@ -83,11 +83,10 @@ public class TareasServiceTest {
 
         Date schedTime = new Date();
         String recordType="5";
-        boolean ok = tareaService.delayTask(agent, tarea,
+        tareaService.delayTask(agent, tarea,
                 schedTime,
                 recordType);
 
-        assertThat(ok, is(true));
     }
 
 

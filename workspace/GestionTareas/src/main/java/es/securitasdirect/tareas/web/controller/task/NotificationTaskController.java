@@ -47,7 +47,6 @@ public class NotificationTaskController extends TaskController {
     @Autowired
     private AgentController agentController;
 
-   
 
     @RequestMapping(value = "/getInstallationAndTask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
@@ -90,6 +89,7 @@ public class NotificationTaskController extends TaskController {
 
     /**
      * Finalización de Tarea tipo Aviso
+     *
      * @param request
      * @return
      */
@@ -102,26 +102,24 @@ public class NotificationTaskController extends TaskController {
 
         //Validación de los datos de respuesta si se finaliza por Crear Mantenimiento
         if (request.isFinalizedByCreateMaintenance()) {
-            if (request.getStatus()==null ) {
+            if (request.getStatus() == null) {
                 response.danger(messageUtil.getProperty("createMaintenance.response.unknown"));
                 return response;
-            } else  if (request.getStatus()!=0) { //Detectamos error en la respuesta , TODO Hay que ver que datos vienen en varios casos
-                response.danger(messageUtil.getProperty("createMaintenance.response.error",request.getStatus(), request.getMessage()));
+            } else if (request.getStatus() != 0) { //Detectamos error en la respuesta , TODO Hay que ver que datos vienen en varios casos
+                response.danger(messageUtil.getProperty("createMaintenance.response.error", request.getStatus(), request.getMessage()));
                 return response;
             }
         }
 
 
-
-
         //Llamada al servicio para finalizar
         try {
-            Agent agent=agentController.getAgent();
-            boolean ok = tareaService.finalizeNotificationTask(agent, request.getTask(),request.isFinalizedByCreateMaintenance(),request.getAppointmentNumber());
+            Agent agent = agentController.getAgent();
+            boolean ok = tareaService.finalizeNotificationTask(agent, request.getTask(), request.isFinalizedByCreateMaintenance(), request.getAppointmentNumber());
 
             if (ok) {
                 response.info(messageUtil.getProperty("finalize.success"));
-            }else{
+            } else {
                 response.danger(messageUtil.getProperty("finalize.error"));
             }
         } catch (Exception e) {
@@ -132,27 +130,18 @@ public class NotificationTaskController extends TaskController {
     }
 
 
-
-
-   
-
     @RequestMapping(value = "/modificar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
     BaseResponse modify(@RequestBody ModifyNotificationTaskRequest request) {
         LOGGER.debug("Modificar tarea\nRequest: {}", request);
         BaseResponse response = new BaseResponse();
-        Agent agent=agentController.getAgent();
+        Agent agent = agentController.getAgent();
         try {
-            boolean ok = tareaService.saveTask(agent, request.getTask(), request.getInstallation());
-            if (ok) {
-                response.success(messageUtil.getProperty("notificationTask.modify.success"));
-            } else {
-                response.danger(messageUtil.getProperty("notificationTask.modify.error"));
-            }
-        }
-        catch (Exception e) {
-          response = processException(e);
+            tareaService.saveTask(agent, request.getTask(), request.getInstallation());
+            response.success(messageUtil.getProperty("notificationTask.modify.success"));
+        } catch (Exception e) {
+            response = processException(e);
         }
 
 

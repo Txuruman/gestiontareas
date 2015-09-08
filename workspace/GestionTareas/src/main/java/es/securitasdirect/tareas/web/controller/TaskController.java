@@ -44,16 +44,9 @@ public abstract class TaskController extends BaseController {
         BaseResponse response = new BaseResponse();
         //Llamada al servicio para aplazar
         try {
-
             Agent agent = agentController.getAgent();
-            boolean ok = tareaService.delayTask(agent, task, delayDate, recallType);
-            if (ok) {
-                response.info(messageUtil.getProperty("postpone.success"));
-            } else {
-                response.info(messageUtil.getProperty("postpone.error"));
-            }
-
-            //response = super.processSuccessMessages(ok, message);
+            tareaService.delayTask(agent, task, delayDate, recallType);
+            response.info(messageUtil.getProperty("postpone.success"));
         } catch (Exception e) {
             response = processException(e);
         }

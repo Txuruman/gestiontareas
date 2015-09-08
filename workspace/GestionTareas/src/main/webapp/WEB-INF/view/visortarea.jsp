@@ -18,14 +18,19 @@
 </head>
 
 
-<body>
+<br>
 
+<script type="application/javascript">
+      //Inicialización de un mapa de parametros con todas las variables que se han pasado por post
+        var mapParams = {
+        <c:forEach var="entry" items="${params}">
+             ${entry.key}  : "<c:out value="${entry.value}"/>" ,
+        </c:forEach>
+
+        };
+</script>
 
 <div class="visoTareaContainer" ng-init="tareaId='${tareaId}';callingList='${callingList}';outContactInfo='${outContactInfo}';outCampaignName='${outCampaignName}';outClName='${outClName}';outRecordHandle='${outRecordHandle}';outAgentPlace='${outAgentPlace}';">
-
-    ng-init="tareaId='${tareaId}';callingList='${callingList}';outContactInfo='${outContactInfo}';outCampaignName='${outCampaignName}';outClName='${outClName}';outRecordHandle='${outRecordHandle}';outAgentPlace='${outAgentPlace}';"
-
-    ${params}
 
     <app:messages/>
 
@@ -38,13 +43,12 @@
     <form class="form-horizontal" role="form" name="formVisorTarea">
         <!-- Include Tareas, dependiendo del tipo de tarea -->
         <div class="spacer_t3"></div>
-        <%--TODO AQUI SE INCLUYE LA SECUNDARIA--%>
+        <%-- Aqui se incluye la pantalla secundaria de carga de Tarea--%>
         <jsp:include page="${secundaria}"/>
-        <!-- Include Tareas, end -->
     </form>
 </div>
 <!-- END ANGULARJS CONTROLLER DIV-->
 <!-- Scripts de angularjs -->
-${params}
+
 </body>
 </html>
