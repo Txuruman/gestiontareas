@@ -3,6 +3,8 @@ package es.securitasdirect.tareas.service;
 import com.webservice.CCLIntegration;
 import com.webservice.IclResponse;
 import com.webservice.WsResponse;
+import com.webservice.response.WSResponse;
+import es.securitasdirect.tareas.exceptions.BusinessException;
 import es.securitasdirect.tareas.model.*;
 import es.securitasdirect.tareas.web.controller.params.TaskServiceParams;
 import net.java.dev.jaxb.array.StringArray;
@@ -18,7 +20,10 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- *
+ * Los tres métodos del CCL a utilizar cuando la tarea está en memoria son:
+ * -cancelRecord
+ * -finalizeRecord
+ * -rescheduleRecord
  */
 @Named(value = "tareaService")
 @Singleton
@@ -44,6 +49,10 @@ public class TareaService {
     @Resource(name = "applicationUser")
     private String applicationUser;
 
+
+    //Esto es TEMPORAL debe de ser el cclIntegration TODO Eliminar y sustituir con cclIntegration
+    private localhost._8080.allinone_ccl_4_8_20150812.services.cclintegration.CCLIntegration cclIntegrationNew;
+
     //Dial_sched_time = dd/mm/aaaa hh:mm:ss
     private SimpleDateFormat sdfSchedTime = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
 
@@ -54,10 +63,10 @@ public class TareaService {
      * Comprueba si la tarea que llega es de tipo Aviso
      */
     public boolean delayTask(Agent agent, Tarea tarea, Date schedTime, String recordType) throws Exception {
-        if(tarea instanceof TareaAviso){
-        	return this.delayNotificationTask(agent, (TareaAviso)tarea, schedTime, recordType);
-        }else{
-        	return this.delayTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCallingList(), tarea.getId().toString(), schedTime, recordType);
+        if (tarea instanceof TareaAviso) {
+            return this.delayNotificationTask(agent, (TareaAviso) tarea, schedTime, recordType);
+        } else {
+            return this.delayTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCallingList(), tarea.getId().toString(), schedTime, recordType);
         }
     }
 
@@ -68,21 +77,22 @@ public class TareaService {
      * @param tarea
      * @return
      */
-    public boolean finalizeTask(Agent agent, Tarea tarea) throws Exception {
+    public boolean finalizeExcelTask(Agent agent, Tarea tarea) throws Exception {
         boolean finalized = false;
 
         //Consultar la tarea de nuevo
         tarea = queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
-        if (tarea != null) {
-            //Si no está en memoria se puede ejecutar
-            if (!tarea.isRetrieved()) {
-                //1. Finalizar la Tarea
-                finalized = wsFilanizeTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId());
-                //2. TODO Pendiente, cuando esté funcionando el Reporting de BI el dato Motivo de Cierre y Compensación deben de registrarse en la auditoria
-            } else {
-                LOGGER.warn("Can't finalize task because is in Retrieved state {}", tarea);
-            }
+
+        //Si no está en memoria se puede ejecutar
+        if (!isTareaInMemory(tarea)) {
+            //1. Finalizar la Tarea
+            wsFilanizeTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId());
+            //2. TODO Pendiente, cuando esté funcionando el Reporting de BI el dato Motivo de Cierre y Compensación deben de registrarse en la auditoria
+        } else {
+            //Finalizar un registro cuando está en memoria
+            wsFinalizeInMemoryTask(agent, tarea);
         }
+
         return finalized;
     }
 
@@ -97,18 +107,15 @@ public class TareaService {
      *
      * @param agent
      * @param tarea
-     * @return
      */
-    public boolean finalizeMaintenanceTask(Agent agent, TareaMantenimiento tarea) throws Exception {
-        boolean finalized = false;
-
+    public void finalizeMaintenanceTask(Agent agent, TareaMantenimiento tarea) throws Exception {
         //Consultar la tarea de nuevo
         tarea = (TareaMantenimiento) queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
         if (tarea != null) {
             //Si no está en memoria se puede ejecutar
-            if (!tarea.isRetrieved()) {
+            if (!isTareaInMemory(tarea)) {
                 //1. Finalizar la Tarea
-                finalized = wsFilanizeTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId());
+                wsFilanizeTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId());
                 //2. Cancelar la señal
                 closeIncidence(tarea.getNumeroInstalacion());
 
@@ -117,15 +124,15 @@ public class TareaService {
 
                 //TODO Pendiente, cuando esté funcionando el Reporting de BI el dato Motivo de Cierre y Compensación deben de registrarse en la auditoria
             } else {
-                LOGGER.warn("Can't finalize task because is in Retrieved state {}", tarea);
+                //Finalizar un registro cuando está en memoria
+                wsFinalizeInMemoryTask(agent, tarea);
             }
         }
-        return finalized;
     }
 
     public boolean finalizeNotificationTask(Agent agent, TareaAviso tarea) throws Exception {
         //Finalizar tarea como si no viene de matenimiento
-       return finalizeNotificationTask( agent,  tarea, false, null);
+        return finalizeNotificationTask(agent, tarea, false, null);
     }
 
     /**
@@ -142,8 +149,8 @@ public class TareaService {
 
 
         //1. Modificar Aviso si hace falta por haber cambiado los datos. Comprobamos si la tarea que nos pasa el front difiere con la de la BBDD, si es asi modificamos
-        TareaAviso tareaOriginal = (TareaAviso) queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
-        if (isTaskRequiresSaveModifications(tareaOriginal, tarea)) {
+        TareaAviso tareaRefrescada = (TareaAviso) queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
+        if (isTaskRequiresSaveModifications(tareaRefrescada, tarea)) {
             boolean modificado = avisoService.updateTicket(agent, tarea, installationData);
             if (!modificado) {
                 LOGGER.error("Can't finalize NotificationTask because can't update Ticket");
@@ -152,18 +159,19 @@ public class TareaService {
         }
 
         //2. Finalizar el Aviso
-        boolean finalizadoAviso = avisoService.closeTicket(tarea.getIdAviso(), agent.getAgentIBS(), tarea.getClosing(),tarea.getDatosAdicionalesCierre()==null?null:Integer.valueOf(tarea.getDatosAdicionalesCierre()),finalizadoDesdeMantenimiento , idMantenimiento);
+        boolean finalizadoAviso = avisoService.closeTicket(tarea.getIdAviso(), agent.getAgentIBS(), tarea.getClosing(), tarea.getDatosAdicionalesCierre() == null ? null : Integer.valueOf(tarea.getDatosAdicionalesCierre()), finalizadoDesdeMantenimiento, idMantenimiento);
         if (!finalizadoAviso) {
             LOGGER.error("Can't finalize NotificationTask because can't close Ticket");
             return false;
         }
 
         //3. Finalizar la Tarea
-        boolean finalizadaTarea = wsFilanizeTask(agent.getAgentIBS(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId());
-        if (!finalizadaTarea) {
-            LOGGER.error("Error finalizing Notification Task because can't finalize Task");
-            return false;
+        if (!isTareaInMemory(tareaRefrescada)) {
+            wsFilanizeTask(agent.getAgentIBS(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId());
+        } else {
+            wsFinalizeInMemoryTask(agent, tarea);
         }
+
 
         //TODO Pendiente, cuando esté funcionando el Reporting de BI el dato Motivo de Cierre y Compensación deben de registrarse en la auditoria
 
@@ -189,7 +197,8 @@ public class TareaService {
     }
 
     /**
-     * Función Aplazar específica para tareas de tipo aviso 
+     * Función Aplazar específica para tareas de tipo aviso
+     *
      * @param agent
      * @param tarea
      * @param schedTime
@@ -198,7 +207,7 @@ public class TareaService {
      * @throws Exception
      */
     public boolean delayNotificationTask(Agent agent, TareaAviso tarea, Date schedTime, String recordType) throws Exception {
-    	 //Buscamos los datos de la instalación de la tarea
+        //Buscamos los datos de la instalación de la tarea
         InstallationData installationData = installationService.getInstallationData(tarea.getNumeroInstalacion());
 
         //1. Modificar Aviso si hace falta por haber cambiado los datos. Comprobamos si la tarea que nos pasa el front difiere con la de la BBDD, si es asi modificamos
@@ -210,29 +219,29 @@ public class TareaService {
                 return false;
             }
         }
-        boolean delayed=false;
+        boolean delayed = false;
 
         //2. Retrasar Tarea
         //Comprobamos que la tarea no esté en memoria, para ello volvemos a buscar
-        TareaAviso tarea2=(TareaAviso) queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
-        if (!tarea2.isRetrieved()) {
-        	delayed = ccdDelayTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea2.getCampana(), tarea2.getTelefono(), tarea2.getCallingList(), tarea2.getId(), schedTime, recordType);
-	    	 if (delayed) {
-	             //Si es de tipo Aviso hay que retrasar el aviso también
-	             delayed = false;
-	             Date fecha = schedTime;
-	             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy' 'HH:mm:ss");
-	             String fHasta = format.format(fecha);
-	
-	             delayed = avisoService.delayTicket(tarea.getIdAviso(),agent.getIdAgent(),"", fHasta);
-	    	 }
-	     } else {
-	    	 LOGGER.warn("Can't delay task because is in Retrieved state {}", tarea2);
-	     }
-    	return delayed;
+        TareaAviso tareaRefrescada = (TareaAviso) queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
+        if (!isTareaInMemory(tareaRefrescada)) {
+            delayed = ccdDelayTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tareaRefrescada.getCampana(), tareaRefrescada.getTelefono(), tareaRefrescada.getCallingList(), tareaRefrescada.getId(), schedTime, recordType);
+            if (delayed) {
+                //Si es de tipo Aviso hay que retrasar el aviso también
+                delayed = false;
+                Date fecha = schedTime;
+                SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy' 'HH:mm:ss");
+                String fHasta = format.format(fecha);
+
+                delayed = avisoService.delayTicket(tarea.getIdAviso(), agent.getIdAgent(), "", fHasta);
+            }
+        } else {
+            LOGGER.warn("Can't delay task because is in Retrieved state {}", tareaRefrescada);
+        }
+        return delayed;
     }
-    
-    
+
+
     /**
      * Aplazar: muestra un diálogo en modo modal para introducir la fecha y hora de la reprogramación,
      * indicando también si es para el propio agente o para el grupo de la Campaña.
@@ -254,7 +263,7 @@ public class TareaService {
         Tarea tarea = queryTareaService.queryTarea(ccUserId, country, desktopDepartment, callingList, idTarea);
         if (tarea != null) {
             //Si no está en memoria se puede ejecutar
-            if (!tarea.isRetrieved()) {
+            if (!isTareaInMemory(tarea)) {
                 delayed = ccdDelayTask(ccUserId, country, desktopDepartment, tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId(), schedTime, recordType);
 //                if (delayed && tarea instanceof TareaAviso) {
 //                    //Si es de tipo Aviso hay que retrasar el aviso también
@@ -280,20 +289,21 @@ public class TareaService {
         }
         return delayed;
     }
-    
+
     /**
      * Crear el aviso desde la pantalla de crear tarea
      */
-    public boolean createTask(Agent agent, Tarea tarea,InstallationData installationData) {
-    	LOGGER.debug("Creating task: {}", tarea);
-    	boolean creado=false;
-    	if (tarea instanceof TareaAviso) {
-    		creado = avisoService.createTicket(agent, (TareaAviso)tarea, installationData);
-		}
-    	
-    	//TODO: Crear Tarea
-    	return creado;
+    public boolean createTask(Agent agent, Tarea tarea, InstallationData installationData) {
+        LOGGER.debug("Creating task: {}", tarea);
+        boolean creado = false;
+        if (tarea instanceof TareaAviso) {
+            creado = avisoService.createTicket(agent, (TareaAviso) tarea, installationData);
+        }
+
+        //TODO: Crear Tarea
+        return creado;
     }
+
     public boolean createTask(Agent agent, TareaMantenimiento tareaMantenimiento) {
         LOGGER.debug("Creating task: {}", tareaMantenimiento);
         boolean result;
@@ -473,7 +483,7 @@ public class TareaService {
         saRecordStatus.getItem().add("record_status");
         saRecordStatus.getItem().add("1");
         //  Dial_sched_time = dd/mm/aaaa hh:mm:ss
-        saTime.getItem().add( TaskServiceParams.TAREA_COMMONS_FECHA_REPROGRAMACION);
+        saTime.getItem().add(TaskServiceParams.TAREA_COMMONS_FECHA_REPROGRAMACION);
         saTime.getItem().add(sdfSchedTime.format(schedTime));
         // Recort_type = 5 (personal callback) / 6 (campaing callback)
         saType.getItem().add("record_type");
@@ -495,13 +505,13 @@ public class TareaService {
     }
 
     /**
-     * Llamada al WS de finalizar
+     * Llamada al WS de finalizar una Tarea cuando no está en memoria
      *
      * @return
      */
-    private boolean wsFilanizeTask(String ccUserId, String country, String desktopDepartment,
-                                   String campaign, String contactInfo, String callingList,
-                                   Integer idTarea) {
+    private void wsFilanizeTask(String ccUserId, String country, String desktopDepartment,
+                                String campaign, String contactInfo, String callingList,
+                                Integer idTarea) {
         String filter = "chain_id=" + idTarea;
 
         List<java.lang.String> callingLists = Arrays.asList(callingList);
@@ -523,10 +533,24 @@ public class TareaService {
         WsResponse wsResponse = cclIntegration.updateCallingListContact(desktopDepartment, applicationUser, ccUserId, filter, modifyValues, callingLists, campaingns, contactInfo, country);
 
         if (wsResponse.getResultCode() == 200) {
-            return true;
+            LOGGER.debug("Successfully finalized Task {}", idTarea);
         } else {
             LOGGER.error("Error calling updateCallingListContact to finalize {}-{}", wsResponse.getResultCode(), wsResponse.getResultMessage());
-            return false;
+            throw new BusinessException(BusinessException.ErrorCode.ERROR_FINALIZE_TASK, wsResponse.getResultCode() + "", wsResponse.getResultMessage());
+        }
+    }
+
+
+    /**
+     * Llamada al WS de finalizar una Tarea cuando está en memoria
+     */
+    private void wsFinalizeInMemoryTask(Agent agent, Tarea tarea) {
+        WSResponse wsResponse = cclIntegrationNew.finalizeRecord(tarea.getOutAgentPlace(), tarea.getOutCampaignName(), tarea.getOutClName(), Integer.valueOf(tarea.getOutRecordHandle()));
+        if (wsResponse.getResultCode() == 0) {
+            LOGGER.debug("Finalized successfully in memory task {}", tarea);
+        } else {
+            LOGGER.error("Error finalizing in memory task {} with error {} {} ", tarea, wsResponse.getResultCode(), wsResponse.getResultMessage());
+            throw new BusinessException(BusinessException.ErrorCode.ERROR_FINALIZE_TASK_INMEMORY, wsResponse.getResultCode() + "", wsResponse.getResultMessage());
         }
     }
 
@@ -551,6 +575,7 @@ public class TareaService {
 
     /**
      * Aqui se llega cuando alguien pulsa descartar.
+     *
      * @param agent
      * @param tarea
      * @param installationData
@@ -566,31 +591,24 @@ public class TareaService {
             TareaAviso tareaOriginal = (TareaAviso) queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
 
             boolean ok = false;
-            if(isTaskRequiresSaveModifications(tareaOriginal, tarea)) {
+            if (isTaskRequiresSaveModifications(tareaOriginal, tarea)) {
                 ok = avisoService.updateTicket(agent, (TareaAviso) tarea, installationData);
                 saved = ok;
-                if(!ok) {
+                if (!ok) {
                     LOGGER.error("Error calling avisoService.updateTicket to save {}-{}-{}", agent, (TareaAviso) tarea, installationData);
                 }
             }
 
-            boolean finalized=false;
+            boolean finalized = false;
             // si ha cambiado Tipo1 o Motivo1
-            if(isChangedTipoOrMotivo(tareaOriginal, tarea)) {
+            if (isChangedTipoOrMotivo(tareaOriginal, tarea)) {
                 // Finalizar Tarea
-                finalized = wsFilanizeTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId());
-                saved = finalized;
+                wsFilanizeTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId());
 
-                if(finalized) {
-                    // desmarcar Aviso de la Tarea
-                    saved = avisoService.unmarkTicket(tarea.getIdAviso());
-                    if(!saved) {
-                        LOGGER.error("Error calling avisoService.unmarkTicket to save {}", tarea.getIdAviso());
-                    }
-                }
-                else
-                {
-                    LOGGER.error("Error calling wsFilanizeTask to save {}-{}-{}-{}-{}-{}-{}", agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId());
+                // desmarcar Aviso de la Tarea
+                saved = avisoService.unmarkTicket(tarea.getIdAviso());
+                if (!saved) {
+                    LOGGER.error("Error calling avisoService.unmarkTicket to save {}", tarea.getIdAviso());
                 }
 
             }
@@ -603,13 +621,19 @@ public class TareaService {
 
         boolean result = false;
 
-        if( tarea.getTipoAviso1() != null && !tarea.getTipoAviso1().isEmpty()
-         || tarea.getMotivo1() != null && !tarea.getDatosAdicionalesCierre().isEmpty() ) {
-          return true;
+        if (tarea.getTipoAviso1() != null && !tarea.getTipoAviso1().isEmpty()
+                || tarea.getMotivo1() != null && !tarea.getDatosAdicionalesCierre().isEmpty()) {
+            return true;
         }
 
         return result;
 
+    }
+
+    private boolean isTareaInMemory(Tarea tarea) {
+        //TODO Para pruebas en desarrollo podemos hacer que la tarea esté en memoria de forma fija
+         if (true) return true;
+        return tarea.isRetrieved();
     }
 
 }

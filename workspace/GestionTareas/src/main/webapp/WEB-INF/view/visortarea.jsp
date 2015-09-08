@@ -25,6 +25,8 @@
 
     ng-init="tareaId='${tareaId}';callingList='${callingList}';outContactInfo='${outContactInfo}';outCampaignName='${outCampaignName}';outClName='${outClName}';outRecordHandle='${outRecordHandle}';outAgentPlace='${outAgentPlace}';"
 
+    ${params}
+
     <app:messages/>
 
     <div class="row">

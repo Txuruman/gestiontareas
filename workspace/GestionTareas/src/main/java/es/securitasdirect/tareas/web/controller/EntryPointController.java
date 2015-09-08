@@ -176,7 +176,6 @@ public class EntryPointController extends TaskController {
         mv.addObject("outAgentPlace", parametersMap.get(ExternalParams.AGENT_PLACE));
 
 
-
         //TODO TEMPORAL, ELIMINAR
         mv.addObject("params", parametersMap);
 
