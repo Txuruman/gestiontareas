@@ -16,7 +16,6 @@ import org.wso2.ws.dataservice.SPAVISOSOPERACIONESPortType;
 import javax.inject.Inject;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -113,9 +112,9 @@ public class TareasServiceTest {
         Tarea tarea = queryTareaService.queryTarea(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), callingList, idTarea);
 
 
-        boolean ok = tareaService.finalizeTask(agent,tarea );
+         tareaService.finalizeExcelTask(agent, tarea);
 
-        assertThat(ok, is(true));
+
     }
 
 

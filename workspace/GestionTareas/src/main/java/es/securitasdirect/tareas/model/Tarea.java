@@ -74,6 +74,7 @@ public class Tarea {
     private String outCampaignName;
     private String outClName;
     private String outRecordHandle;
+    private String outAgentPlace;
 
     public Integer getId() {
         return id;
@@ -189,6 +190,14 @@ public class Tarea {
 
     public void setOutRecordHandle(String outRecordHandle) {
         this.outRecordHandle = outRecordHandle;
+    }
+
+    public String getOutAgentPlace() {
+        return outAgentPlace;
+    }
+
+    public void setOutAgentPlace(String outAgentPlace) {
+        this.outAgentPlace = outAgentPlace;
     }
 
     @Override

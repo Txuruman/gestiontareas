@@ -47,7 +47,6 @@ public class MaintenanceTaskController extends TaskController {
     private AgentController agentController;
 
 
-
     private static final Logger LOGGER = LoggerFactory.getLogger(MaintenanceTaskController.class);
 
     /*
@@ -72,19 +71,21 @@ public class MaintenanceTaskController extends TaskController {
     */
 
     @RequestMapping(value = "/getInstallationAndTask", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody BaseResponse getInstallationAndTask(
-        @RequestParam(value = "callingList", required = true) String callingList,
-        @RequestParam(value = "tareaId", required = true) String tareaId
+    public
+    @ResponseBody
+    BaseResponse getInstallationAndTask(
+            @RequestParam(value = "callingList", required = true) String callingList,
+            @RequestParam(value = "tareaId", required = true) String tareaId
     ) {
         return super.getInstallationAndTask(callingList, tareaId);
     }
 
 
-
-
-    @RequestMapping(value = "/create", method = {RequestMethod.PUT}, consumes  = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody BaseResponse interactionCreateMaintenance(@RequestBody MaintenanceTaskCreateRequest peticion) {
-        LOGGER.debug("Creando tarea de mantenimiento:\nRequest: {}",peticion);
+    @RequestMapping(value = "/create", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public
+    @ResponseBody
+    BaseResponse interactionCreateMaintenance(@RequestBody MaintenanceTaskCreateRequest peticion) {
+        LOGGER.debug("Creando tarea de mantenimiento:\nRequest: {}", peticion);
         BaseResponse response = new BaseResponse();
         if (true) {
             response.success(messageUtil.getProperty("tareamantenimiento.create.success"));
@@ -100,19 +101,13 @@ public class MaintenanceTaskController extends TaskController {
     public
     @ResponseBody
     BaseResponse finalizeTask(@RequestBody MaintenanceTaskFinalizeRequest request) {
-        assert request.getTask()!=null: "Es necesario el parametro de la tarea";
+        assert request.getTask() != null : "Es necesario el parametro de la tarea";
         LOGGER.debug("Finalizando tarea {}  ", request.getTask());
         BaseResponse response = new BaseResponse();
         //Llamada al servicio para finalizar
         try {
-
-            Agent agent=agentController.getAgent();
-            boolean ok = tareaService.finalizeMaintenanceTask(agent, request.getTask());
-            if (ok) {
-                response.info(messageUtil.getProperty("finalize.success"));
-            }else{
-                response.danger(messageUtil.getProperty("finalize.error"));
-            }
+            tareaService.finalizeMaintenanceTask(agentController.getAgent(), request.getTask());
+            response.info(messageUtil.getProperty("finalize.success"));
         } catch (Exception e) {
             response = processException(e);
         }
@@ -125,10 +120,10 @@ public class MaintenanceTaskController extends TaskController {
     @ResponseBody
     PairListResponse getDesplegableKey1() {
         PairListResponse response;
-        try{
+        try {
             List<Pair> desplegableKey1 = externalDataService.getDesplegableKey1();
             response = new PairListResponse(desplegableKey1);
-        }catch(Exception e){
+        } catch (Exception e) {
             response = new PairListResponse(processException(e));
         }
         return response;
@@ -137,12 +132,12 @@ public class MaintenanceTaskController extends TaskController {
     @RequestMapping(value = "/getDesplegableKey2", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    PairListResponse getDesplegableKey2(@RequestParam(value = "key1", required = true) Integer key1)  {
+    PairListResponse getDesplegableKey2(@RequestParam(value = "key1", required = true) Integer key1) {
         PairListResponse response;
-        try{
+        try {
             List<Pair> desplegableKey2 = externalDataService.getDesplegableKey2(key1);
             response = new PairListResponse(desplegableKey2);
-        }catch(Exception e){
+        } catch (Exception e) {
             response = new PairListResponse(processException(e));
         }
         return response;
@@ -150,14 +145,15 @@ public class MaintenanceTaskController extends TaskController {
 
     /**
      * Consulta datos combo cierre específicos para Tarea Mantenimiento.
+     *
      * @return
      */
     @RequestMapping(value = "/getCancelationType", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    PairListResponse getCancelationType(){
+    PairListResponse getCancelationType() {
         PairListResponse response;
-        try{
+        try {
             List<DescriptionPair> cancelationTypeList = externalDataService.getCancelationTypeMaintenanceTask();
             //Internacinalización de los mensajes
             for (DescriptionPair descriptionPair : cancelationTypeList) {
@@ -166,7 +162,7 @@ public class MaintenanceTaskController extends TaskController {
             }
             response = new PairListResponse();
             response.setPairList(cancelationTypeList);
-        }catch(Exception e){
+        } catch (Exception e) {
             response = new PairListResponse(processException(e));
         }
         return response;

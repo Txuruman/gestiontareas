@@ -20,6 +20,8 @@ public class BusinessException extends RuntimeException {
 		ERROR_FIND_TASK,
 		ERROR_FIND_INSTALLATION,
 		ERROR_SPLIT,
+		ERROR_FINALIZE_TASK ,
+		ERROR_FINALIZE_TASK_INMEMORY,
     };
 	
 	private ErrorCode errorCode = null;
