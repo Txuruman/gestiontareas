@@ -158,13 +158,21 @@
         <param name="idtipo" sqlType="INTEGER"/>
     </query>
     <query id="getTipoCierre" useConfig="ES_SQL_AVISOS">
-        <sql>select TIPO.IDTIPOCIERRE, DESCRIP.DSTIPOCIERRE &#13;from AVISOS_1..TCIERRE_MOTIVO TIPO, AVISOS_1..TIPOCIERRE DESCRIP&#13;where TIPO.IDTIPOCIERRE = DESCRIP.IDTIPOCIERRE&#13;and DESCRIP.VISIBLE=1&#13;and TIPO.IDTIPO = ?&#13;and (TIPO.IDMOTIVO='' or TIPO.IDMOTIVO =?)</sql>
+        <sql>select TIPO.IDTIPOCIERRE, DESCRIP.DSTIPOCIERRE &#13;from AVISOS_1..TCIERRE_MOTIVO TIPO, AVISOS_1..TIPOCIERRE DESCRIP&#13;where TIPO.IDTIPOCIERRE = DESCRIP.IDTIPOCIERRE&#13;and DESCRIP.VISIBLE=1&#13;and (TIPO.IDTIPO = '' OR TIPO.IDTIPO = ?)&#13;and (TIPO.IDMOTIVO = '' OR  TIPO.IDMOTIVO = ?)&#13;AND (TIPO.IDGRP = 0 OR TIPO.IDGRP IN (select IDGRP from OPER where IDMATRICULA = ?))&#13;group by TIPO.IDTIPOCIERRE, DESCRIP.DSTIPOCIERRE</sql>
         <result element="tiposcierre" rowName="tipocierre">
             <element column="IDTIPOCIERRE" name="tipo" xsdType="string"/>
             <element column="DSTIPOCIERRE" name="descripcion" xsdType="string"/>
         </result>
         <param name="idtipo" sqlType="INTEGER"/>
         <param name="idmotivo" sqlType="INTEGER"/>
+        <param name="idMatricula" sqlType="STRING"/>
+    </query>
+    <query id="getClosingTypeAditionalData" useConfig="ES_SQL_AVISOS">
+        <sql>select IDTIPODATO,DSTIPODATO from DATOADICIONAL where BORRADO=0</sql>
+        <result element="Entries" rowName="Entry">
+            <element column="IDTIPODATO" name="id" xsdType="string"/>
+            <element column="DSTIPODATO" name="description" xsdType="string"/>
+        </result>
     </query>
     <operation name="inet_check_ins_no">
         <call-query href="inet_check_ins_no">
@@ -230,7 +238,7 @@
         </call-query>
     </operation>
     <operation name="getTipoAviso">
-        <description>Consulta tipos de aviso de la tabla VW_TIPOS                                                                                                       </description>
+        <description>Consulta tipos de aviso de la tabla VW_TIPOS                                                                  &#13;                                    </description>
         <call-query href="getTipoAviso"/>
     </operation>
     <operation name="getTipoMotivo">
@@ -240,10 +248,15 @@
         </call-query>
     </operation>
     <operation name="getTipoCierre">
-        <description>Lectura de los valores de tipo de cierre dependiendo de los valores de tipo de aviso y tipo de motivo.                                           </description>
         <call-query href="getTipoCierre">
             <with-param name="idtipo" query-param="idtipo"/>
             <with-param name="idmotivo" query-param="idmotivo"/>
+            <with-param name="idMatricula" query-param="idMatricula"/>
         </call-query>
     </operation>
+    <operation name="getClosingTypeAditionalData">
+        <description>Consulta de Tipos de Datos Adicionales de Cierre para Tareas tipo Aviso                             &#13;                                    </description>
+        <call-query href="getClosingTypeAditionalData"/>
+    </operation>
 </data>
+
