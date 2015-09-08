@@ -66,6 +66,15 @@ public class Tarea {
         (CONTRASTARLOS CON LOS DEL DOCUMENTO DPB140808_ENT_DISEÑO TÉCNICO CALLBACK ATC V1.4.DOCX)
      */
 
+    /*
+    Parametros que se reciven por POST y que se utilizarán para realizar operaciones con la tarea en memoria,
+    estos parametros no se cargan desde BBDD.
+     */
+    private String outContactInfo;
+    private String outCampaignName;
+    private String outClName;
+    private String outRecordHandle;
+
     public Integer getId() {
         return id;
     }
@@ -148,6 +157,38 @@ public class Tarea {
 
     public void setCampana(String campana) {
         this.campana = campana;
+    }
+
+    public String getOutContactInfo() {
+        return outContactInfo;
+    }
+
+    public void setOutContactInfo(String outContactInfo) {
+        this.outContactInfo = outContactInfo;
+    }
+
+    public String getOutCampaignName() {
+        return outCampaignName;
+    }
+
+    public void setOutCampaignName(String outCampaignName) {
+        this.outCampaignName = outCampaignName;
+    }
+
+    public String getOutClName() {
+        return outClName;
+    }
+
+    public void setOutClName(String outClName) {
+        this.outClName = outClName;
+    }
+
+    public String getOutRecordHandle() {
+        return outRecordHandle;
+    }
+
+    public void setOutRecordHandle(String outRecordHandle) {
+        this.outRecordHandle = outRecordHandle;
     }
 
     @Override

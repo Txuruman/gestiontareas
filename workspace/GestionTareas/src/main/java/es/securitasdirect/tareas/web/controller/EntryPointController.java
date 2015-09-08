@@ -88,7 +88,7 @@ public class EntryPointController extends TaskController {
         Map<String, String> parametersMap = createParameterMap(request);
         //Crear el objeto de sesion con los datos del agent
         Agent agent = agentController.loadAgentFromIWS(parametersMap);
-        String callingList = parametersMap.get(ExternalParams.CALLING_LIST);
+        String callingList = (parametersMap.get(ExternalParams.CALLING_LIST)!=null?parametersMap.get(ExternalParams.CALLING_LIST).trim():null);
         String installation = parametersMap.get(ExternalParams.NUMERO_INSTALACION);
 
         ModelAndView mv = null;
@@ -137,8 +137,7 @@ public class EntryPointController extends TaskController {
         String titulo = null;
 
         if (tareaType.equals(Constants.TAREA_AVISO)) {
-            titulo = "titulo.TareaAviso";
-            mv.addObject(SECUNDARIA, AVISO);
+            titulo = "titulo.TareaAviso";mv.addObject(SECUNDARIA, AVISO);
         } else if (tareaType.equals(Constants.TAREA_LISTADOASSISTANT)) {
             titulo = "titulo.TareaListadoAssistant";
             mv.addObject(SECUNDARIA, EXCEL_LISTADO_ASSISTANT);
@@ -162,10 +161,21 @@ public class EntryPointController extends TaskController {
             mv.addObject(SECUNDARIA, MANTENIMIENTO);
         }
         mv.addObject(TITULO, titulo);
+
+        // Parametros básicos para consultar una tarea
         assert parametersMap.get(ExternalParams.CALLING_LIST) != null && !parametersMap.get(ExternalParams.CALLING_LIST).isEmpty();
         mv.addObject("callingList", parametersMap.get(ExternalParams.CALLING_LIST));
         assert parametersMap.get(ExternalParams.ID_TAREA) != null && !parametersMap.get(ExternalParams.ID_TAREA).isEmpty();
         mv.addObject("tareaId", parametersMap.get(ExternalParams.ID_TAREA));
+
+        //Parametros que vienen por POST para poder trabajar con una tarea en memoria
+        mv.addObject("outContactInfo", parametersMap.get(ExternalParams.CONTACT_INFO));
+        mv.addObject("outCampaignName", parametersMap.get(ExternalParams.CAMPAIGN_NAME));
+        mv.addObject("outClName", parametersMap.get(ExternalParams.CALLING_LIST)==null?null:parametersMap.get(ExternalParams.CALLING_LIST).trim());
+        mv.addObject("outRecordHandle", parametersMap.get(ExternalParams.RECORD_HANDLE));
+        mv.addObject("outAgentPlace", parametersMap.get(ExternalParams.AGENT_PLACE));
+
+
 
         //TODO TEMPORAL, ELIMINAR
         mv.addObject("params", parametersMap);
