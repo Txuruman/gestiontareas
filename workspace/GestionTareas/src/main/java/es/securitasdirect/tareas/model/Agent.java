@@ -1,9 +1,5 @@
 package es.securitasdirect.tareas.model;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
-import org.springframework.stereotype.Component;
-
 //Esto funciona para meter un componente en la sesion
 //@Component
 //@Scope(value = "session",  proxyMode = ScopedProxyMode.TARGET_CLASS)

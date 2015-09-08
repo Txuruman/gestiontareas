@@ -281,7 +281,8 @@ public class TareaService {
                 //TODO Pendiente, cuando esté funcionando el Reporting de BI el dato Motivo de Cierre y Compensación deben de registrarse en la auditoria
 
             } else {
-                LOGGER.warn("Can't delay task because is in Retrieved state {}", tarea);
+               //Aplazar tarea en memoria TODO REPASAR DE DONDE SACAR EL AGENTE
+                wsDelayInMemoryTask(null,tarea); //TODO PARAMETROS
             }
         } else {
             LOGGER.error("Can't find task to delay");
@@ -545,15 +546,59 @@ public class TareaService {
      * Llamada al WS de finalizar una Tarea cuando está en memoria
      */
     private void wsFinalizeInMemoryTask(Agent agent, Tarea tarea) {
-        WSResponse wsResponse = cclIntegrationNew.finalizeRecord(tarea.getOutAgentPlace(), tarea.getOutCampaignName(), tarea.getOutClName(), Integer.valueOf(tarea.getOutRecordHandle()));
-        if (wsResponse.getResultCode() == 0) {
-            LOGGER.debug("Finalized successfully in memory task {}", tarea);
+        if (validateInMemoryParameters(agent,tarea)) {
+            WSResponse wsResponse = cclIntegrationNew.finalizeRecord(tarea.getOutAgentPlace(), tarea.getOutCampaignName(), tarea.getOutClName(), Integer.valueOf(tarea.getOutRecordHandle()));
+            if (wsResponse.getResultCode() == 0) {
+                LOGGER.debug("Finalized successfully in memory task {}", tarea);
+            } else {
+                LOGGER.error("Error finalizing in memory task {} with error {} {} ", tarea, wsResponse.getResultCode(), wsResponse.getResultMessage());
+                throw new BusinessException(BusinessException.ErrorCode.ERROR_FINALIZE_TASK_INMEMORY, wsResponse.getResultCode() + "", wsResponse.getResultMessage());
+            }
         } else {
-            LOGGER.error("Error finalizing in memory task {} with error {} {} ", tarea, wsResponse.getResultCode(), wsResponse.getResultMessage());
-            throw new BusinessException(BusinessException.ErrorCode.ERROR_FINALIZE_TASK_INMEMORY, wsResponse.getResultCode() + "", wsResponse.getResultMessage());
+            LOGGER.error("Can't finalize in memory task from a user that is not the owner.");
+            throw new BusinessException(BusinessException.ErrorCode.ERROR_FINALIZE_TASK);
         }
     }
 
+
+
+    /**
+     * Llamada al WS de Cancelar una Tarea cuando está en memoria
+     */
+    private void wsCanceInMemoryTask(Agent agent, Tarea tarea) {
+        if (validateInMemoryParameters(agent,tarea)) {
+            WSResponse wsResponse = cclIntegrationNew.cancelRecord(tarea.getOutContactInfo(), tarea.getOutClName());
+            if (wsResponse.getResultCode() == 0) {
+                LOGGER.debug("Canceled successfully in memory task {}", tarea);
+            } else {
+                LOGGER.error("Error cancelling in memory task {} with error {} {} ", tarea, wsResponse.getResultCode(), wsResponse.getResultMessage());
+                throw new BusinessException(BusinessException.ErrorCode.ERROR_FINALIZE_TASK_INMEMORY, wsResponse.getResultCode() + "", wsResponse.getResultMessage());
+            }
+        } else {
+            LOGGER.error("Can't Cancel in memory task from a user that is not the owner.");
+            throw new BusinessException(BusinessException.ErrorCode.ERROR_FINALIZE_TASK);
+        }
+    }
+
+
+    /**
+     * Llamada al WS de Aplazar una Tarea cuando está en memoria
+     */
+    private void wsDelayInMemoryTask(Agent agent, Tarea tarea) {
+        if (validateInMemoryParameters(agent,tarea)) {
+            WSResponse wsResponse = cclIntegrationNew.rescheduleRecord(tarea.getOutAgentPlace(),tarea.getOutCampaignName(),Integer.valueOf(tarea.getOutRecordHandle()),
+                    null,null);
+            if (wsResponse.getResultCode() == 0) {
+                LOGGER.debug("Delayed successfully in memory task {}", tarea);
+            } else {
+                LOGGER.error("Error delaying in memory task {} with error {} {} ", tarea, wsResponse.getResultCode(), wsResponse.getResultMessage());
+                throw new BusinessException(BusinessException.ErrorCode.ERROR_FINALIZE_TASK_INMEMORY, wsResponse.getResultCode() + "", wsResponse.getResultMessage());
+            }
+        } else {
+            LOGGER.error("Can't delay in memory task from a user that is not the owner.");
+            throw new BusinessException(BusinessException.ErrorCode.ERROR_FINALIZE_TASK);
+        }
+    }
 
     /**
      * Closes the incidence in IBS with the SpAioTareas2 WS
@@ -634,6 +679,18 @@ public class TareaService {
         //TODO Para pruebas en desarrollo podemos hacer que la tarea esté en memoria de forma fija
          if (true) return true;
         return tarea.isRetrieved();
+    }
+
+
+    /**
+     * Comprueba que los parametros de la tarea incluyen aquellos que permiten operar con la tarea en memoria
+     * @param agent
+     * @param tarea
+     * @return
+     */
+    private boolean validateInMemoryParameters(Agent agent,Tarea tarea)  {
+        return tarea.getOutRecordHandle()!=null
+                && tarea.getOutContactInfo()!=null && tarea.getOutClName()!= null;
     }
 
 }
