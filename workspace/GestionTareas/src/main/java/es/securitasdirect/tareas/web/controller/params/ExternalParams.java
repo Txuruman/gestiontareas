@@ -3,6 +3,26 @@ package es.securitasdirect.tareas.web.controller.params;
 /**
  * Constantes de los parametros que nos pasan desde la llamada, http.
  */
+
+/*
+Os paso los parámetros de cada uno de los nuevos métodos que llegan por post:
+•         cancel_record:
+o   phoneNumber - bp_out_contact_info
+o   campaignName - bp_out_GSW_CAMPAIGN_NAME
+•         finalize_record
+o   placeId - bp_agentPlace (hay que eliminar la P y confirmar que los places de los agentes siempre son P+extensión)
+o   campaignName - bp_out_GSW_CAMPAIGN_NAME
+o   callingList - bp_out_clname
+o   recordId – Tengo que investigar
+•         reschedule_record
+o   placeId - bp_agentPlace (hay que eliminar la P y confirmar que los places de los agentes siempre son P+extensión)
+o   campaignName - bp_out_GSW_CAMPAIGN_NAME
+o   recordId – Tengo que investigar
+o   callbackType – Puede ser Campaign o Personal (por ahora será Campaign).
+o   dateTime – Fecha de replanificación, el formato es el siguiente:
+  AAAA-MM-DDThh:mm:ss
+
+ */
 public interface ExternalParams {
 
     /*  	Identificador del agente  */
@@ -52,5 +72,10 @@ public interface ExternalParams {
 
     public static String INTERACTION_TYPE= "bp_interactionType";
 
+    public static String CONTACT_INFO= "bp_out_contact_info";
+
+    public static String CAMPAIGN_NAME= "bp_out_GSW_CAMPAIGN_NAME";
+
+    public static String RECORD_HANDLE= "bp_out_GSW_RECORD_HANDLE";
 
 }

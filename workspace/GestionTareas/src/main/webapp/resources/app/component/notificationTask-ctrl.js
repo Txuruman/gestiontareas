@@ -99,7 +99,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 $scope.getTypeReasonList1($scope.tarea.tipoAviso1);
                 $scope.getTypeReasonList2($scope.tarea.tipoAviso2);
                 $scope.getTypeReasonList3($scope.tarea.tipoAviso3);
-                $log.debug("Motivo lists: ",$scope.motivoList1,$scope.motivoList2,$scope.motivoList3);
+                $log.debug("Motivo lists: ", $scope.motivoList1, $scope.motivoList2, $scope.motivoList3);
                 $log.debug("SCOPE TAREA:", $scope.tarea);
                 $log.debug("Get closing list params: " + $scope.tarea.tipoAviso1 + ", " + $scope.tarea.motivo1);
                 $scope.getClosingList($scope.tarea.tipoAviso1, $scope.tarea.motivo1, $scope.tarea.closing);
@@ -119,7 +119,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
 
     //Consultar Combo de Cierre
     $scope.getClosingList = function (idType, reasonId, closing) {
-        $log.debug("Load Closing Type List for params: "+ idType + ", " + reasonId);
+        $log.debug("Load Closing Type List for params: " + idType + ", " + reasonId);
         var closingTypeRequest = {
             idType: idType,
             reasonId: reasonId
@@ -144,7 +144,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     };
 
     $scope.getClosingAditionalDataList = function () {
-        $log.debug("Load Closing Aditional Data List " );
+        $log.debug("Load Closing Aditional Data List ");
         $http({
             method: 'GET',
             url: 'commons/getClosingAditionalDataList'
@@ -295,7 +295,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
         $log.debug('Modificar Tarea, tarea: ' + $scope.tarea);
         var modifyNotificationTaskRequest = {
             task: tarea,
-            installation:$scope.installationData
+            installation: $scope.installationData
         };
         $log.debug('Modificar Tarea, request ' + JSON.stringify(modifyNotificationTaskRequest));
         $http({
@@ -350,29 +350,44 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     $scope.openMaintenaceWindow = function (agent) {
         //En IE8 hay que utilizar showdialog para poder ver los datos de vuelta, en Chome esta deprecado
         // prompt("aa","windowCreateMaintenanceFrame?InstallationNumber="+$scope.installationData.numeroInstalacion+"&PanelTypeId="+$scope.installationData.panel+"&TicketNumber="+$scope.tarea.idAviso+"&RequestedBy="+$scope.tarea.requeridoPor+"&Operator="+agent.agentIBS+"&ContactPerson="+$scope.tarea.personaContacto+"&ContactPhone="+$scope.tarea.telefonoAviso+"&Text="+$scope.tarea.observaciones+"&SessionToken="+agent.infopointSession+"&type="+$scope.tarea.tipoAviso1+"&motive="+$scope.tarea.motivo1);
-    	CreateMaintenanceAppRequest={
-    			installationData: $scope.installationData,
-    		    tareaAviso: $scope.tarea
-    	}
-    	$http.put('commons/getCreateMaintenanceApp',CreateMaintenanceAppRequest)
-    	.then(function(data, status, headers, config){
-    		CommonService.processBaseResponse(data, status, headers, config);
-    		var url = "windowCreateMaintenanceFrame"+data.data.app+"?InstallationNumber=" + $scope.installationData.numeroInstalacion + "&PanelTypeId=" + $scope.installationData.panel + "&TicketNumber=" + $scope.tarea.idAviso + "&RequestedBy=" + $scope.tarea.requeridoPor + "&Operator=" + agent.agentIBS + "&ContactPerson=" + $scope.tarea.personaContacto + "&ContactPhone=" + $scope.tarea.telefono + "&Text=" + $scope.tarea.observaciones + "&SessionToken=" + agent.infopointSession + "&type=" + $scope.tarea.tipoAviso1 + "&motive=" + $scope.tarea.motivo1;
+        CreateMaintenanceAppRequest = {
+            installationData: $scope.installationData,
+            tareaAviso: $scope.tarea
+        };
+        $http.put('commons/getCreateMaintenanceApp', CreateMaintenanceAppRequest)
+            .then(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data, status, headers, config);
+                var url = "windowCreateMaintenanceFrame" + data.data.app;
 
-            var resultado = window.showModalDialog(url, null, "center:yes; resizable:yes; dialogWidth:900px; dialogHeight:700px;");
-            alert(resultado);
-            //TODO BOrrar, es para probar un resultado concreto
-            //resultado='{"AppointmentNumber":"1234","Status":0,"Message":"correcto"}';
+                //Parametros para TOA
+                url += "?InstallationNumber=" + $scope.installationData.numeroInstalacion +
+                    "&PanelTypeId=" + $scope.installationData.panel +
+                    "&TicketNumber=" + $scope.tarea.idAviso +
+                    "&RequestedBy=" + $scope.tarea.requeridoPor +
+                    "&Operator=" + agent.agentIBS +
+                    "&ContactPerson=" + $scope.tarea.personaContacto +
+                    "&ContactPhone=" + $scope.tarea.telefono +
+                    "&Text=" + $scope.tarea.observaciones +
+                    "&SessionToken=" + agent.infopointSession +
+                    "&type=" + $scope.tarea.tipoAviso1 +
+                    "&type22222222222222222222=" + $scope.tarea.tipoAviso1 +
+                    "&motive=" + $scope.tarea.motivo1;
+                //Parametros para MMS
+                url += "&MATRICULA=" + agent.agentIBS ;
 
-            if (resultado) {
-                $scope.finalizarDesdeMantenimiento(JSON.parse(resultado));
-            } else {
-                $scope.finalizarDesdeMantenimiento(null);
-            }
-    	},function(data, status, headers, config){
-    		CommonService.processBaseResponse(data, status, headers, config);
-    	});
-        
+                var resultado = window.showModalDialog(url, null, "center:yes; resizable:yes; dialogWidth:900px; dialogHeight:700px;");
+                alert(resultado);
+                //TODO BOrrar, es para probar un resultado concreto
+                //resultado='{"AppointmentNumber":"1234","Status":0,"Message":"correcto"}';
+
+                if (resultado) {
+                    $scope.finalizarDesdeMantenimiento(JSON.parse(resultado));
+                } else {
+                    $scope.finalizarDesdeMantenimiento(null);
+                }
+            }, function (data, status, headers, config) {
+                CommonService.processBaseResponse(data, status, headers, config);
+            });
 
 
     };
@@ -411,7 +426,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
      * Finalizar desde el botón de finalizar
      */
     $scope.finalizar = function () {
-        $log.debug("Finalizar task, task: ",$scope.tarea);
+        $log.debug("Finalizar task, task: ", $scope.tarea);
         //Comparamos la tarea con el originar y si ha habido cambios modificamos.
 //    	if (!angular.equals($scope.tarea, $scope.tareaOriginal)) {
 //			$scope.modificar();
@@ -420,7 +435,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             task: $scope.tarea,
             installation: $scope.installationData
         };
-        $log.debug("Finalizar  Task, request: ",finalizeRequest);
+        $log.debug("Finalizar  Task, request: ", finalizeRequest);
         $http({
             method: 'PUT',
             url: 'notificationtask/finalizar',
@@ -444,7 +459,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             $scope.closingADAlert = true;
         }
         if ($scope.tarea.closing == null) {
-            $scope.closingAlert=true;
+            $scope.closingAlert = true;
         }
     };
 
@@ -456,7 +471,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
      */
         //Finalizar mantenimiento al volver de la pantalla emergente
     $scope.finalizarDesdeMantenimiento = function (resultado) {
-        $log.debug("Finalizar task: ",$scope.tarea);
+        $log.debug("Finalizar task: ", $scope.tarea);
         var finalizeRequest = {
             task: $scope.tarea,
             lastCalledPhone: $scope.lastCalledPhone,

@@ -5,6 +5,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
+    //TODO QUITAR??
     response.addHeader("Cache-Control", "no-cache");
     response.addHeader("Expires", "-1");
     response.addHeader("Pragma", "no-cache");
@@ -20,7 +21,10 @@
 <body>
 
 
-<div class="visoTareaContainer" ng-init="tareaId='${tareaId}';callingList='${callingList}';">
+<div class="visoTareaContainer" ng-init="tareaId='${tareaId}';callingList='${callingList}';outContactInfo='${outContactInfo}';outCampaignName='${outCampaignName}';outClName='${outClName}';outRecordHandle='${outRecordHandle}';outAgentPlace='${outAgentPlace}';">
+
+    ng-init="tareaId='${tareaId}';callingList='${callingList}';outContactInfo='${outContactInfo}';outCampaignName='${outCampaignName}';outClName='${outClName}';outRecordHandle='${outRecordHandle}';outAgentPlace='${outAgentPlace}';"
+
     <app:messages/>
 
     <div class="row">

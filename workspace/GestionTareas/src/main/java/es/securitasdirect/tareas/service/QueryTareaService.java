@@ -44,7 +44,7 @@ public class QueryTareaService {
     private String applicationUser;
 
     /**
-     * Cibsykta de una única tarea.
+     * Consulta de una única tarea.
      * @param agent
      * @param callingList
      * @param id

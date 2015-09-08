@@ -88,7 +88,7 @@ public class SplitService {
             if (new Random().nextBoolean()) {
                 return MMS;
             } else {
-                return TOA;
+                return MMS;
             }
         }
 
