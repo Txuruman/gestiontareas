@@ -82,41 +82,6 @@ public class MarketingSurveyTaskController extends TaskController {
             @RequestParam(value = "callingList", required = true) String callingList,
             @RequestParam(value = "tareaId", required = true) String tareaId
     ){
-
-        LOGGER.debug("Get Notification task for params: \ncallingList:{}\ntareaId:{}", callingList, tareaId);
-        TareaResponse response = new TareaResponse();
-        if (agentController.isLogged()) {
-            try {
-                //Buscar Tarea
-                MarketingSurveyTask task = (MarketingSurveyTask)queryTareaService.queryTarea(
-                        agentController.getAgent().getIdAgent(),
-                        agentController.getAgent().getAgentCountryJob(),
-                        agentController.getAgent().getDesktopDepartment()
-                        , callingList, tareaId);
-
-                    response.setTarea(task);
-                    //Buscamos la instalación
-                    if (task.getNumeroInstalacion()!=null) {
-                        InstallationData installationData = installationDataService.getInstallationData(task.getNumeroInstalacion());
-                        if (installationData!=null) {
-                            response.setInstallationData(installationData);
-                        } else {
-                            response.danger(messageUtil.getProperty("getTask.noInstallation"));
-                        }
-                    } else {
-                        response.danger(messageUtil.getProperty("getTask.noInstallation"));
-                    }
-
-            } catch (Exception e) {
-                LOGGER.error(e.getMessage(),e);
-                return processException(e);
-            }
-        } else {
-            response.danger("agent.notLoggedIn");
-        }
-
-        return response;
-
-
+        return super.getInstallationAndTask(callingList, tareaId);
     }
 }

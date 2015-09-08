@@ -3,12 +3,21 @@ package es.securitasdirect.tareas.web.controller;
 import es.securitasdirect.tareas.model.Agent;
 import es.securitasdirect.tareas.model.InstallationData;
 import es.securitasdirect.tareas.model.Tarea;
+import es.securitasdirect.tareas.model.tareaexcel.TareaOtrasCampanas;
+import es.securitasdirect.tareas.service.InstallationService;
+import es.securitasdirect.tareas.service.QueryTareaService;
 import es.securitasdirect.tareas.service.TareaService;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
 import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
+import es.securitasdirect.tareas.web.controller.dto.support.DummyResponseGenerator;
 import es.securitasdirect.tareas.web.controller.util.MessageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.wso2.ws.dataservice.DataServiceFault;
 
 import javax.inject.Inject;
@@ -24,6 +33,11 @@ public abstract class TaskController extends BaseController{
     protected TareaService tareaService;
     @Inject
     protected AgentController agentController;
+    @Inject
+    private QueryTareaService queryTareaService;
+    @Inject
+    private InstallationService installationDataService;
+
 
     /**
      * Procesamiento generico para aplazar una tarea
@@ -86,4 +100,43 @@ public abstract class TaskController extends BaseController{
     public TareaResponse processException(Exception e, String msg){
         return new TareaResponse(super.processException(e, msg));
     }
+
+    public BaseResponse getInstallationAndTask(String callingList, String tareaId) {
+        LOGGER.debug("Get Notification task for params: \ncallingList:{}\ntareaId:{}", callingList, tareaId);
+        TareaResponse response = new TareaResponse();
+        if (agentController.isLogged()) {
+            try {
+                //Buscar Tarea
+                Tarea task = queryTareaService.queryTarea(
+                        agentController.getAgent().getIdAgent(),
+                        agentController.getAgent().getAgentCountryJob(),
+                        agentController.getAgent().getDesktopDepartment()
+                        , callingList, tareaId);
+
+                response.setTarea(task);
+                //Buscamos la instalación
+                if (task.getNumeroInstalacion()!=null) {
+                    InstallationData installationData = installationDataService.getInstallationData(task.getNumeroInstalacion());
+                    if (installationData!=null) {
+                        response.setInstallationData(installationData);
+                    } else {
+                        response.danger(messageUtil.getProperty("getTask.noInstallation"));
+                    }
+                } else {
+                    response.danger(messageUtil.getProperty("getTask.noInstallation"));
+                }
+
+            } catch (Exception e) {
+                LOGGER.error(e.getMessage(),e);
+                return processException(e);
+            }
+        } else {
+            response.danger("agent.notLoggedIn");
+        }
+
+        return response;
+
+
+    }
+
 }
