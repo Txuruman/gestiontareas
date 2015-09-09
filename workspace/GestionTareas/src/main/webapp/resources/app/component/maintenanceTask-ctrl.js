@@ -149,4 +149,22 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService, $
 		} 
     	
     }
+    
+    $scope.doCall=function(phone){
+    	alert(phone);
+    	var phone="0999699590908";
+	    var e = window.external.DoCall(phone, 'myDoCallHandler', provideMockupObject());
+	    alert(JSON.stringify(e));
+				
+		var myDoCallHandler=function (eventName, connid) {
+			alert("myDoCallHandler");
+            newCallConnid = connid;
+		}
+		
+		var provideMockupObject=function() {
+			alert("provideMockupObject");
+            var o = {idProspect:'12345', task:'TAKE_RDV', comments:'These are the comments of my prospect', otherelement:'tatata'};
+            return JSON.stringify(o);
+		}
+    }
 });

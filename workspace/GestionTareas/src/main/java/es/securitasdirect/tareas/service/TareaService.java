@@ -293,6 +293,8 @@ public class TareaService {
         return creado;
     }
 
+    // TODO BORRARLA SI NO SE USA
+    /* se está utilizando en gestión de señales
     public boolean createTask(Agent agent, TareaMantenimiento tareaMantenimiento) {
         LOGGER.debug("Creating task: {}", tareaMantenimiento);
         boolean result;
@@ -364,6 +366,7 @@ public class TareaService {
         }
         return result;
     }
+    */
 
 
     public boolean createMaintenance(Tarea task) {
