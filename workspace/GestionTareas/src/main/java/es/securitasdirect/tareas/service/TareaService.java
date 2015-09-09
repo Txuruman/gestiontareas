@@ -80,7 +80,7 @@ public class TareaService {
      */
     public void finalizeExcelTask(Agent agent, Tarea tarea) throws Exception {
 
-        //Consultar la tarea de nuevo
+        //1. Consultar la tarea de nuevo
         Tarea tareaRefrescada = queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
 
         //Si no está en memoria se puede ejecutar
@@ -135,7 +135,7 @@ public class TareaService {
     }
 
     /**
-     * Finalizar la tarea de tipo Aviso, es distinta al resto de tareas porque hay que llamar a cancelar
+     * Finalizar la tarea de tipo Aviso, es distinta al resto de tareas porque hay que llamar a cancelar.
      *
      * @param agent
      * @param tarea
@@ -685,14 +685,12 @@ public class TareaService {
      * @return
      */
     private boolean isTareaInMemory(Tarea tarea) {
-        //TODO Para pruebas en desarrollo podemos hacer que la tarea esté en memoria de forma fija
-        if (true) return true;
         return tarea.isRetrieved();
     }
 
 
     /**
-     * Comprueba que los parametros de la tarea incluyen aquellos que permiten operar con la tarea en memoria
+     * Comprueba que los parametros de la tarea incluyen aquellos que permiten operar con la tarea en memoria.
      *
      * @param agent
      * @param tarea
