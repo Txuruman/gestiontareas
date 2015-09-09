@@ -151,11 +151,10 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService, $
     }
     
     $scope.doCall=function(phone){
+    	phone="0999"+phone;
     	alert(phone);
-    	var phone="0999699590908";
-	    var e = window.external.DoCall(phone, 'myDoCallHandler', provideMockupObject());
-	    alert(JSON.stringify(e));
-				
+    	phone="0999655738925";
+	    				
 		var myDoCallHandler=function (eventName, connid) {
 			alert("myDoCallHandler");
             newCallConnid = connid;
@@ -166,5 +165,7 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService, $
             var o = {idProspect:'12345', task:'TAKE_RDV', comments:'These are the comments of my prospect', otherelement:'tatata'};
             return JSON.stringify(o);
 		}
+		var e = window.external.DoCall(phone);
+	    alert(JSON.stringify(e));
     }
 });

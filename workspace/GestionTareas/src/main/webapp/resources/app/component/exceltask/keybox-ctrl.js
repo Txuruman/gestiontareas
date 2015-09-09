@@ -18,8 +18,8 @@ app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService, $modal
             url: 'keyboxtask/getInstallationAndTask',
             data: getInstallationAndTaskRequest
         }).success(function (data, status, headers, config) {
-            console.log("Loaded keybox task:",data.tarea);
-            console.log("Loaded installation data:",data.installationData);
+            //console.log("Loaded keybox task:",data.tarea);
+            //console.log("Loaded installation data:",data.installationData);
             $scope.tarea = data.tarea;
             $scope.installationData = data.installationData;
             CommonService.processBaseResponse(data,status,headers,config);
