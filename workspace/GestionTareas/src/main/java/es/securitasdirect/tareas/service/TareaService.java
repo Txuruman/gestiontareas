@@ -636,7 +636,7 @@ public class TareaService {
      * @return
      * @throws Exception
      */
-    public void saveTask(Agent agent, TareaAviso tarea, InstallationData installationData) throws Exception {
+    public void discardNotificationTask(Agent agent, TareaAviso tarea, InstallationData installationData) throws Exception {
 
 
         TareaAviso tareaOriginal = (TareaAviso) queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
