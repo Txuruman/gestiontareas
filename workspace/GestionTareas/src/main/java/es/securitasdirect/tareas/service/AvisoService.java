@@ -405,8 +405,8 @@ public class AvisoService {
                                Integer idMantenimiento ) throws Exception {
 
         Integer deuda = 0; // constante
-        Integer idmante =( idMantenimiento==null?0:idMantenimiento ); // TODO Repasar, la documentación dice utilizar un 0 constante
-        String branch = "0"; // constante
+        Integer idmante = 0; // constante
+        String branch = ""; // constante
         String nota = ""; // nota de cierre asociada a las observaciones del Aviso
 
         // “2” si se finaliza 	“3” si se finaliza por crear un Mantenimiento
@@ -448,7 +448,7 @@ public class AvisoService {
             spAIOTAREAS2PortType.setAvisoNoCargado(naviso);
             result = true; // TODO devuelve void
         } catch (Exception e){
-        // TODO
+        // TODO no devuelve la excepcion DataServiceFault
         //catch (DataServiceFault e) {
             LOGGER.error("Error desmarcando aviso", e);
             return false;
