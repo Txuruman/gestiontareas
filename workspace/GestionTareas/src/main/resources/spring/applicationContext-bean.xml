@@ -165,5 +165,29 @@
 
     </util:map>
 
+    <!--
+    Lista de los paises de AgentCountryJob que informa del CountryJob del Agente por ejemplo en AvisoService
+    -->
+    <util:map id="agentCountryJob" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.String" >
+        <entry key="SPAIN">
+            <value>1</value>
+        </entry>
+        <entry key="PORTUGAL">
+            <value>2</value>
+        </entry>
+        <entry key="FRANCE">
+            <value>3</value>
+        </entry>
+    </util:map>
+
+    <!--
+    Lista de los paises en formato corto
+    -->
+    <util:map id="mapCountryLongToCountryShort" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.String" >
+        <entry key="SPAIN">
+            <value>es</value>
+        </entry>
+    </util:map>
+
 
 </beans>
