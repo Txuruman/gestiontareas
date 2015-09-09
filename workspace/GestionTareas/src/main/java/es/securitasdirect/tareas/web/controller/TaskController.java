@@ -95,7 +95,7 @@ public abstract class TaskController extends BaseController {
         if (agentController.isLogged()) {
             try {
                 //Buscar Tarea
-                Tarea task = queryTareaService.queryTarea(agentController.getAgent()  , callingList, tareaId);
+                Tarea task = queryTareaService.queryTarea(agentController.getAgent()  , callingList, tareaId, parameters);
 
                 response.setTarea(task);
                 //Buscamos la instalación

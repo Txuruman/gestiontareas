@@ -524,11 +524,11 @@ public class TareaServiceTools {
      */
     public Tarea loadPostParametersInTask(Tarea tarea, Map<String, String> parameters) {
         if (parameters!=null) {
-            tarea.setOutAgentPlace(ExternalParams.AGENT_PLACE);
-            tarea.setOutCampaignName(ExternalParams.CAMPAIGN_NAME);
-            tarea.setOutClName(ExternalParams.CALLING_LIST);
-            tarea.setOutRecordHandle(ExternalParams.RECORD_HANDLE); //TODO PASAR A INTEGER
-            tarea.setOutAgentPlace(ExternalParams.AGENT_PLACE); //TODO HACER ALGO CON UNA "L"?????
+            tarea.setOutAgentPlace(parameters.get(ExternalParams.AGENT_PLACE));
+            tarea.setOutCampaignName(parameters.get(ExternalParams.CAMPAIGN_NAME));
+            tarea.setOutClName(parameters.get(ExternalParams.CALLING_LIST));
+            tarea.setOutRecordHandle(parameters.get(ExternalParams.RECORD_HANDLE)); //TODO PASAR A INTEGER
+            tarea.setOutAgentPlace(parameters.get(ExternalParams.AGENT_PLACE)); //TODO HACER ALGO CON UNA "L"?????
         }
         return tarea;
     }

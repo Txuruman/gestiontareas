@@ -274,7 +274,7 @@ public class TareaService {
             //TODO Pendiente, cuando esté funcionando el Reporting de BI el dato Motivo de Cierre y Compensación deben de registrarse en la auditoria
 
         } else {
-            //Aplazar tarea en memoria TODO REPASAR DE DONDE SACAR EL AGENTE
+            //Aplazar tarea en memoria
             wsDelayInMemoryTask(agent, tarea, schedTime, recordType);
         }
     }
@@ -688,6 +688,8 @@ public class TareaService {
      * @return
      */
     private boolean isTareaInMemory(Tarea tarea) {
+        //TODO TEMPORAL
+        if (true) return true;
         return tarea.isRetrieved();
     }
 
@@ -700,8 +702,10 @@ public class TareaService {
      * @return
      */
     private boolean validateInMemoryParameters(Agent agent, Tarea tarea) {
-        return tarea.getOutRecordHandle() != null
-                && tarea.getOutContactInfo() != null && tarea.getOutClName() != null;
+        return   tarea.getOutAgentPlace()!=null &&
+                        tarea.getOutCampaignName()!=null &&
+                        tarea.getOutClName()!=null &&
+                tarea.getOutRecordHandle() != null;
     }
 
 }

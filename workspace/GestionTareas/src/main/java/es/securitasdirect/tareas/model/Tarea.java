@@ -70,7 +70,6 @@ public class Tarea {
     Parametros que se reciven por POST y que se utilizarán para realizar operaciones con la tarea en memoria,
     estos parametros no se cargan desde BBDD.
      */
-    private String outContactInfo;
     private String outCampaignName;
     private String outClName;
     private String outRecordHandle;
@@ -160,13 +159,6 @@ public class Tarea {
         this.campana = campana;
     }
 
-    public String getOutContactInfo() {
-        return outContactInfo;
-    }
-
-    public void setOutContactInfo(String outContactInfo) {
-        this.outContactInfo = outContactInfo;
-    }
 
     public String getOutCampaignName() {
         return outCampaignName;
