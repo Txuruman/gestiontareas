@@ -20,7 +20,7 @@
 
 <br>
 
-<script type="application/javascript">
+<script type="text/javascript">
       //Inicialización de un mapa de parametros con todas las variables que se han pasado por post
         var mapParams = {
         <c:forEach var="entry" items="${params}">
