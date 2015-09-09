@@ -127,7 +127,7 @@ public class TareasServiceTest {
         TareaMantenimiento tareaMantenimiento = (TareaMantenimiento)queryTareaService.queryTarea(agent, callingList, idTarea);
         assertThat(tareaMantenimiento, notNullValue());
 
-        tareaService.createTask(agent, tareaMantenimiento);
+        //tareaService.createTask(agent, tareaMantenimiento);
 
     }
 
