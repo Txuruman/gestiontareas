@@ -11,7 +11,8 @@ import java.util.Map;
  */
 public class HappyData {
 
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    /* http://wiki.fasterxml.com/JacksonFAQDateHandling */
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss", timezone="CET")
     private Date upSince;
     protected  Integer successfulMessages;
     protected  Integer errorMessages;

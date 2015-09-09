@@ -204,6 +204,11 @@
             <!-- Injectar todos los JMS Reader que se quiera que se muestren por el Happy Service -->
             <util:list value-type="es.securitasdirect.senales.reader.JMSReader">
                 <ref bean="jmsReaderPozuelo"/>
+                <!--
+                <ref bean="jmsReaderYecora"/>
+                <ref bean="jmsReaderError1"/>
+                <ref bean="jmsReaderError2"/>
+                -->
             </util:list>
         </property>
     </bean>

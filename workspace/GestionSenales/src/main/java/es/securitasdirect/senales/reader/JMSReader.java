@@ -39,6 +39,10 @@ public class JMSReader implements MessageListener {
      * Indica si el Reader se ha conectado a la cola correctametne
      */
     private boolean readerStatusUp = false;
+    /**
+     * Indica si se ha solicitado la destrucción de este Reader, para controlar el hilo de reconexión.
+     */
+    private boolean readerDestroyed = false;
     private String readerStatusDescription;
 
     private String aliasName;
@@ -76,8 +80,12 @@ public class JMSReader implements MessageListener {
 
     public void connect() {
         assert gestionSenalesService != null;
-        LOGGER.info("JMSReader {} connecting :  \n\tJNDI Url: {}\n\t - QFC Name: {}\n\t - Queue name: {}\n\t - User: {}\n\t - Password: {}",
-                aliasName, jndiUrl, qfcName, queueName, user, pass);
+        if (user != null && pass != null) {
+            LOGGER.info("JMSReader {} connecting :  \n\t - JNDI Url: {}\n\t - QFC Name: {}\n\t - Queue name: {}\n\t - User: {}\n\t - Password: {}", aliasName, jndiUrl, qfcName, queueName, user, pass);
+        } else {
+            LOGGER.info("JMSReader {} connecting :  \n\t - JNDI Url: {}\n\t - QFC Name: {}\n\t - Queue name: {}\n", aliasName, jndiUrl, qfcName, queueName);
+        }
+
         try {
 
             LOGGER.info("JMSReader {} : Getting initial Context", aliasName);
@@ -118,7 +126,7 @@ public class JMSReader implements MessageListener {
 
             LOGGER.info("JMSReader {} : Successfully connected", aliasName);
             readerStatusUp = true;
-            readerStatusDescription="";
+            readerStatusDescription = "";
         } catch (Exception e) {
             LOGGER.error("Error connecting to JMS Queue {}: {}", aliasName, e.getMessage(), e);
             //Try to close everything that could be open
@@ -138,7 +146,8 @@ public class JMSReader implements MessageListener {
                         LOGGER.debug("Interrupted exception will try reconnection now");
                     }
                     LOGGER.info("Trying reconnection to queue {} because of previous fail", aliasName);
-                    connect();
+                    //Evitamos dejar el hilo colgado cuando se ha cerrado el Reader
+                    if (!readerDestroyed) connect();
                 }
             }.start();
         }
@@ -146,12 +155,15 @@ public class JMSReader implements MessageListener {
 
 
     public void close() {
+        LOGGER.debug("JMSReader {} closing.");
+        readerDestroyed = true;
+        readerStatusUp = false;
+        readerStatusDescription = "Destroyed";
+
         try {
             if (queueConnection != null) queueConnection.close();
             if (queueSession != null) queueSession.close();
             if (consumer != null) consumer.close();
-            readerStatusUp = false;
-            readerStatusDescription = "Destroyed";
         } catch (Exception e) {
             LOGGER.error("JMSReader {} : Error closing JMS connections", aliasName, e);
         }
@@ -203,10 +215,11 @@ public class JMSReader implements MessageListener {
         Hashtable env = new Hashtable();
         env.put(Context.INITIAL_CONTEXT_FACTORY, JNDI_FACTORY);
         env.put(Context.PROVIDER_URL, jndiUrl);
-        if (user != null && !user.isEmpty() && pass != null && !pass.isEmpty()) {
+        if (user != null && pass != null) {
             env.put(javax.naming.Context.SECURITY_PRINCIPAL, user);
             env.put(javax.naming.Context.SECURITY_CREDENTIALS, pass);
         }
+
         return new InitialContext(env);
     }
 
