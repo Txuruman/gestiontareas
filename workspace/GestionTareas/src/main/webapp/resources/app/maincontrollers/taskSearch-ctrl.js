@@ -1,6 +1,6 @@
 app.controller('taskSearch', function ($scope, $http, CommonService, $modal, $log ) {
 	$scope.searchTareaFromServer = function () {
-        console.log('search Tareas ' + $scope.searchText +  ' ' + $scope.searchOption);
+        //console.log('search Tareas ' + $scope.searchText +  ' ' + $scope.searchOption);
         var searchTaskRequest = {
             searchText: $scope.searchText,
             searchOption: $scope.searchOption
