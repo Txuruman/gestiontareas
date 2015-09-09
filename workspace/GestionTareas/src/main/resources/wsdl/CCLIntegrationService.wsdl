@@ -2,10 +2,10 @@
 <definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://webservice.com/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://webservice.com/" name="CCLIntegrationService">
     <types>
         <xsd:schema>
-            <xsd:import namespace="http://webservice.com/" schemaLocation="http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService?xsd=1"/>
+            <xsd:import namespace="http://webservice.com/" schemaLocation="http://10.2.145.137:8011/AllInOne_CCL_4_9_TeamVision/CCLIntegrationService?xsd=1"/>
         </xsd:schema>
         <xsd:schema>
-            <xsd:import namespace="http://jaxb.dev.java.net/array" schemaLocation="http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService?xsd=2"/>
+            <xsd:import namespace="http://jaxb.dev.java.net/array" schemaLocation="http://10.2.145.137:8011/AllInOne_CCL_4_9_TeamVision/CCLIntegrationService?xsd=2"/>
         </xsd:schema>
     </types>
     <message name="GTAOrquestacion">
@@ -151,6 +151,24 @@
     </message>
     <message name="webCallbackOrquestationResponse">
         <part name="parameters" element="tns:webCallbackOrquestationResponse"/>
+    </message>
+    <message name="rescheduleRecord">
+        <part name="parameters" element="tns:rescheduleRecord"/>
+    </message>
+    <message name="rescheduleRecordResponse">
+        <part name="parameters" element="tns:rescheduleRecordResponse"/>
+    </message>
+    <message name="cancelRecord">
+        <part name="parameters" element="tns:cancelRecord"/>
+    </message>
+    <message name="cancelRecordResponse">
+        <part name="parameters" element="tns:cancelRecordResponse"/>
+    </message>
+    <message name="finalizeRecord">
+        <part name="parameters" element="tns:finalizeRecord"/>
+    </message>
+    <message name="finalizeRecordResponse">
+        <part name="parameters" element="tns:finalizeRecordResponse"/>
     </message>
     <message name="transferConsultationCallMKT">
         <part name="parameters" element="tns:transferConsultationCallMKT"/>
@@ -392,6 +410,18 @@
     <message name="sendSMSResponse">
         <part name="parameters" element="tns:sendSMSResponse"/>
     </message>
+    <message name="makeCall">
+        <part name="parameters" element="tns:makeCall"/>
+    </message>
+    <message name="makeCallResponse">
+        <part name="parameters" element="tns:makeCallResponse"/>
+    </message>
+    <message name="rejectRecord">
+        <part name="parameters" element="tns:rejectRecord"/>
+    </message>
+    <message name="rejectRecordResponse">
+        <part name="parameters" element="tns:rejectRecordResponse"/>
+    </message>
     <portType name="CCLIntegration">
         <operation name="GTAOrquestacion">
             <input message="tns:GTAOrquestacion"/>
@@ -488,6 +518,18 @@
         <operation name="webCallbackOrquestation">
             <input message="tns:webCallbackOrquestation"/>
             <output message="tns:webCallbackOrquestationResponse"/>
+        </operation>
+        <operation name="rescheduleRecord">
+            <input message="tns:rescheduleRecord"/>
+            <output message="tns:rescheduleRecordResponse"/>
+        </operation>
+        <operation name="cancelRecord">
+            <input message="tns:cancelRecord"/>
+            <output message="tns:cancelRecordResponse"/>
+        </operation>
+        <operation name="finalizeRecord">
+            <input message="tns:finalizeRecord"/>
+            <output message="tns:finalizeRecordResponse"/>
         </operation>
         <operation name="transferConsultationCallMKT">
             <input message="tns:transferConsultationCallMKT"/>
@@ -648,6 +690,14 @@
         <operation name="sendSMS">
             <input message="tns:sendSMS"/>
             <output message="tns:sendSMSResponse"/>
+        </operation>
+        <operation name="makeCall">
+            <input message="tns:makeCall"/>
+            <output message="tns:makeCallResponse"/>
+        </operation>
+        <operation name="rejectRecord">
+            <input message="tns:rejectRecord"/>
+            <output message="tns:rejectRecordResponse"/>
         </operation>
     </portType>
     <binding name="CCLIntegrationPortBinding" type="tns:CCLIntegration">
@@ -868,6 +918,33 @@
                 <soap:body use="literal"/>
             </output>
         </operation>
+        <operation name="rescheduleRecord">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="cancelRecord">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="finalizeRecord">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
         <operation name="transferConsultationCallMKT">
             <soap:operation soapAction=""/>
             <input>
@@ -1228,10 +1305,28 @@
                 <soap:body use="literal"/>
             </output>
         </operation>
+        <operation name="makeCall">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="rejectRecord">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
     </binding>
     <service name="CCLIntegrationService">
         <port name="CCLIntegrationPort" binding="tns:CCLIntegrationPortBinding">
-            <soap:address location="http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService"/>
+            <soap:address location="http://10.2.145.137:8011/AllInOne_CCL_4_9_TeamVision/CCLIntegrationService"/>
         </port>
     </service>
 </definitions>

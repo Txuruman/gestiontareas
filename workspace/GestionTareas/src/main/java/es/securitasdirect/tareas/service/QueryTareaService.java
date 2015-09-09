@@ -59,13 +59,18 @@ public class QueryTareaService {
     }
 
     /**
-     * Consulta de una única tarea cuando no se tiene el mapa de parametros en recividos
+     * Consulta de una única tarea cuando no se tiene el mapa de parametros en recibidos
      *
 
      */
     public Tarea queryTarea(Agent agent, String callingList, String id) throws Exception {
         assert agent != null : "El Agente es parametro requerido";
         return queryTarea(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), callingList, id, null);
+    }
+
+    public Tarea queryTarea(Agent agent, String callingList, Integer id) throws Exception {
+        assert agent != null : "El Agente es parametro requerido";
+        return queryTarea(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), callingList, ""+id, null);
     }
 
 
