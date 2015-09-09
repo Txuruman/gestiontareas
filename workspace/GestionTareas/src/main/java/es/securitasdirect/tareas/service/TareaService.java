@@ -137,6 +137,18 @@ public class TareaService {
     /**
      * Finalizar la tarea de tipo Aviso, es distinta al resto de tareas porque hay que llamar a cancelar.
      *
+     *Si modifica campos y Finaliza:
+     * 1 modificar aviso
+     * 2 finalizar aviso
+     * 3 finaliza tarea
+     * 3.1 si está en memoria finalizar tarea ws ccl nuevo y cerrar interacción con javascript
+     * 3.2 si no está en  memoria finalizar tarea ws ccl antiguo y volver a la ventana de buscar
+     * Si no modifica campos y Finaliza:
+     * 1 finalizar aviso
+     * 2 finalizar tarea
+     * 3.1 si está en memoria finalizar tarea ws ccl nuevo y cerrar interacción con javascript
+     * 3.2 si no está en  memoria finalizar tarea ws ccl antiguo y volver a la ventana de buscar
+     *
      * @param agent
      * @param tarea
      * @return
@@ -197,6 +209,18 @@ public class TareaService {
 
     /**
      * Función Aplazar específica para tareas de tipo aviso
+     *
+     * Si no modifica campos y Aplaza:
+     * 1 Si cambia la fecha aplazar aviso
+     * 2 aplazar tarea
+     * 2.1 si está en memoria aplazar tarea ws ccl nuevo y cerrar interacción con javascript
+     * 2.2 si no está en  memoria aplazar tarea ws ccl antiguo y volver a la ventana de buscar
+     * Si modifica campos y Aplaza:
+     * 1 modificar aviso
+     * 2 si cambia la fecha aplazar aviso
+     * 3 aplazar tarea
+     * 3.1 si está en memoria aplazar tarea ws ccl nuevo y cerrar interacción con javascript
+     * 3.2 si no está en  memoria aplazar tarea ws ccl antiguo y volver a la ventana de buscar
      *
      * @param agent
      * @param tarea
@@ -630,6 +654,19 @@ public class TareaService {
      * Aqui se llega cuando alguien pulsa descartar.
      * Solo cuando es tarea de tipo aviso, para los demás no se hace nada más que volver a otra pantalla
      *
+     *
+     * Si no modifica campos y Descarta:
+     * 1.1 si está en memoria descartarla con el ws ccl nuevo y cerrar interacción con javascript
+     * 1.2 si no está en memoria volver a la ventana de buscar
+     * Si modifica campos y Descarta:
+     * 1 mensaje de confirmación de las modificaciones
+     * 2 modificar aviso
+     * 3 si ha cambiado Tipo1/Motivo1
+     * 3.1 Desmarcar aviso de la tarea
+     * 3.2 Finalizar tarea
+     * 3.2.1 si está en memoria finalizar tarea ws ccl nuevo y cerrar interacción con javascript
+     * 3.2.2 si no está en  memoria finalizar tarea ws ccl antiguo y volver a la ventana de buscar
+     *
      * @param agent
      * @param tarea
      * @param installationData
@@ -688,8 +725,6 @@ public class TareaService {
      * @return
      */
     private boolean isTareaInMemory(Tarea tarea) {
-        //TODO TEMPORAL
-        if (true) return true;
         return tarea.isRetrieved();
     }
 
