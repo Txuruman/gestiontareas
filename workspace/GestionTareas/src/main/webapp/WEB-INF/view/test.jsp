@@ -45,6 +45,17 @@ app.controller('testController', function ($scope) {
 </head>
 
 <body>
+
+JavaScript : <textarea id="jscode" ></textarea>
+<input type="button" onclick="eval( document.getElementById('jscode').value);"   value="Ejecuta"/>
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
 <div ng-controller="testController">
 <input type="button" ng-click="doCallFunction()" value="dale">
 Función: <input type="text" ng-model="funcion"> </br>
