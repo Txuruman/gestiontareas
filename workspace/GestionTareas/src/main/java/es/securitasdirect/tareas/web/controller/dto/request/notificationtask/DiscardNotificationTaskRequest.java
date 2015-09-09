@@ -1,6 +1,7 @@
 package es.securitasdirect.tareas.web.controller.dto.request.notificationtask;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import es.securitasdirect.tareas.model.InstallationData;
 import es.securitasdirect.tareas.model.Tarea;
 import es.securitasdirect.tareas.model.TareaAviso;
 import es.securitasdirect.tareas.web.controller.dto.support.BaseRequest;
@@ -12,6 +13,10 @@ import es.securitasdirect.tareas.web.controller.dto.support.BaseRequest;
 public class DiscardNotificationTaskRequest extends BaseRequest {
 
     private TareaAviso task;
+    private InstallationData installation;
+
+
+    private String prueba;
 
 
     public DiscardNotificationTaskRequest() {
@@ -29,10 +34,27 @@ public class DiscardNotificationTaskRequest extends BaseRequest {
         this.task = task;
     }
 
+    public InstallationData getInstallation() {
+        return installation;
+    }
+
+    public void setInstallation(InstallationData installation) {
+        this.installation = installation;
+    }
+
+    public String getPrueba() {
+        return prueba;
+    }
+
+    public void setPrueba(String prueba) {
+        this.prueba = prueba;
+    }
+
     @Override
     public String toString() {
-        return "DiscardNotificationTaskRequest{" +
-                "task=" + task +
+        return "ModifyNotificationTaskRequest{" +
+                "task=" + task + ", installation=" + installation +
+                ", prueba='" + prueba + '\'' +
                 '}';
     }
 }
