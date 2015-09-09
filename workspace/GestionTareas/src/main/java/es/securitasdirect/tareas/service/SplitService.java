@@ -88,7 +88,6 @@ public class SplitService {
             throw new FrameworkException(e);
         }
 
-if (true)         throw new BusinessException(BusinessException.ErrorCode.ERROR_SPLIT, "error temporal para pruebas de desarrollo");
 
         if (result.value == null || result.value.equalsIgnoreCase("NACK") || split.value == null || split.value.equalsIgnoreCase("ERROR")) {
             LOGGER.error("Error callong Split Service {} {} {}", result.value, split.value, description.value);

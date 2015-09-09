@@ -242,7 +242,7 @@ app.service('CommonService', function ($rootScope, $log, $http, $timeout) {
     /** Funcion para processar las respuestas del servidor, eg: processBaseResponse(data,status,headers,config);  */
     /* quitado this. */
     this.processBaseResponse = function (data, status, headers, config) {
-        console.log("Procesando BaseResponse....");
+        //console.log("Procesando BaseResponse....");
         if (data && data.messages) {
         	/**
         	 * For modificado para correcto funcionamiento en IE8

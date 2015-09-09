@@ -86,52 +86,7 @@ app.controller('taskCreation', function ($scope, $http, CommonService, $modal, $
 //                $scope.vm.appReady=true;
 //            });
 //    };
-    /**
-     * Crear mantenimiento:
-     * 1. obtenemos el agente
-     * 2. llamamos a la nueva ventana pasandole los parametros
-     * 3. cerramos el agente
-     */
-    $scope.crearmantenimiento = function () {
-    	//Obtenemos el agente
-      $http({
-          method: 'GET',
-          url: 'agent/prepareInfopointSession'
-      })
-          .success(function (data, status, headers, config) {
-              //$log.debug('Agente obtenido: ' + JSON.stringify(data));
-        	  $scope.agent=data.agent;
-        	  $scope.openMaintenaceWindow(data.agent);
-        	  $scope.closeAgent();
-              CommonService.processBaseResponse(data, status, headers, config);
-          })
-          .error(function (data, status, headers, config) {
-              //$log.debug('Error en la creación de mantenimiento, response: ' + JSON.stringify(data));
-              // called asynchronously if an error occurs
-              // or server returns response with an error status.
-              CommonService.processBaseResponse(data, status, headers, config);
-          });
-    };
-    $scope.openMaintenaceWindow=function(agent){
-    	var resultado=window.showModalDialog("windowCreateMaintenanceFrame?InstallationNumber="+$scope.installationData.numeroInstalacion+"&PanelTypeId="+$scope.installationData.panel+"&TicketNumber="+$scope.tarea.idAviso+"&RequestedBy="+$scope.tarea.requeridoPor+"&Operator="+agent.agentIBS+"&ContactPerson="+$scope.installationData.personaContacto+"&ContactPhone="+$scope.installationData.telefono+"&Text="+$scope.tarea.observaciones+"&SessionToken="+agent.infopointSession+"&type="+$scope.tarea.tipoAviso1+"&motive="+$scope.tarea.motivo1);	
-    }
-    $scope.closeAgent=function(){
-    	$http({
-            method: 'GET',
-            url: 'agent/closeInfopointSession'
-        })
-            .success(function (data, status, headers, config) {
-              //$log.debug('Agente obtenido: ' + data);
-          	  $scope.agent=data.agent;
-              CommonService.processBaseResponse(data, status, headers, config);
-            })
-            .error(function (data, status, headers, config) {
-                //$log.debug('Error en la creación de mantenimiento, response: ' + JSON.stringify(data));
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-                CommonService.processBaseResponse(data, status, headers, config);
-            });
-    }
+
     $scope.init = function(data, status, heathers, config) {
         $scope.vm.appReady=false;
         //$log.debug("Charging page, combo lists");

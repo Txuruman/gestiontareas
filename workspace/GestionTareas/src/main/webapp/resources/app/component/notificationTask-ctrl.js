@@ -349,53 +349,58 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
         };
         $http.put('commons/getCreateMaintenanceApp', CreateMaintenanceAppRequest)
             .then(function (data, status, headers, config) {
-                CommonService.processBaseResponse(data, status, headers, config);
-
-                alert("Lo que devuelve createMaintenance" + JSON.stringify(data));
+                //CommonService.processBaseResponse(data.data, status, headers, config);
+                
+                if (data.app===undefined) {
+                	CommonService.processBaseResponse(data.data, status, headers, config);
+				}
+                //alert("Lo que devuelve createMaintenance" + JSON.stringify(data));
                 //TODO Aqui hay que controlar la excepción
-               var url = "windowCreateMaintenanceFrame" + data.app;
-
-
-                //Parametros para TOA
-                url += "?InstallationNumber=" + $scope.installationData.numeroInstalacion +
-                    "&PanelTypeId=" + $scope.installationData.panel +
-                    "&TicketNumber=" + $scope.tarea.idAviso +
-                    "&RequestedBy=" + $scope.tarea.requeridoPor +
-                    "&Operator=" + agent.agentIBS +
-                    "&ContactPerson=" + $scope.tarea.personaContacto +
-                    "&ContactPhone=" + $scope.tarea.telefono +
-                    "&Text=" + $scope.tarea.observaciones +
-                    "&SessionToken=" + agent.infopointSession +
-                    "&type=" + $scope.tarea.tipoAviso1 +
-                    "&motive=" + $scope.tarea.motivo1;
-                //Parametros para MMS
-                url += "&t=" + agent.infopointSession +
-                    "&NINSTALACION=" + $scope.installationData.numeroInstalacion +
-                    "&TIPOPANEL=" + $scope.installationData.panel +
-                    "&PAIS=" + agent.agentCountryJob +
-                    "&IDIOMA=" + agent.currentLanguage +
-                    "&FINANCIACION=0" +
-                    "&AVISO=" + $scope.tarea.idAviso +
-                    "&MATRICULA=" + agent.agentIBS +
-                    "&TIPOCIERRE=" + $scope.tarea.closing +
-                    "&NOTACIERRE=" + $scope.tarea.nota +
-                    "&STATUSDESTINO=3" +
-                    "&TIPODEUDA=PENDIENTE" +
-                    "&DATOSADIC=" + $scope.tarea.datosAdicionalesCierre +
-                    "&REPNAME=" + $scope.tarea.requeridoPor +
-                    "&NOMBRE=" + $scope.installationData.personaContacto +
-                    "&TELEFONO=" + $scope.installationData.telefono +
-                    "&CALLTYPEPROBLEM=" + $scope.tarea.tipoAviso1 + "|" + $scope.tarea.motivo1 + "|1|" +
-                    "&TEXTO=" + $scope.tarea.observaciones;
-                var resultado = window.showModalDialog(url, null, "center:yes; resizable:yes; dialogWidth:900px; dialogHeight:700px;");
-                alert(resultado);
-                //TODO BOrrar, es para probar un resultado concreto
-                //resultado='{"AppointmentNumber":"1234","Status":0,"Message":"correcto"}';
-
-                if (resultado) {
-                    $scope.finalizarDesdeMantenimiento(JSON.parse(resultado));
-                } else {
-                    $scope.finalizarDesdeMantenimiento(null);
+                else{
+	               var url = "windowCreateMaintenanceFrame" + data.app;
+	
+	
+	                //Parametros para TOA
+	                url += "?InstallationNumber=" + $scope.installationData.numeroInstalacion +
+	                    "&PanelTypeId=" + $scope.installationData.panel +
+	                    "&TicketNumber=" + $scope.tarea.idAviso +
+	                    "&RequestedBy=" + $scope.tarea.requeridoPor +
+	                    "&Operator=" + agent.agentIBS +
+	                    "&ContactPerson=" + $scope.tarea.personaContacto +
+	                    "&ContactPhone=" + $scope.tarea.telefono +
+	                    "&Text=" + $scope.tarea.observaciones +
+	                    "&SessionToken=" + agent.infopointSession +
+	                    "&type=" + $scope.tarea.tipoAviso1 +
+	                    "&motive=" + $scope.tarea.motivo1;
+	                //Parametros para MMS
+	                url += "&t=" + agent.infopointSession +
+	                    "&NINSTALACION=" + $scope.installationData.numeroInstalacion +
+	                    "&TIPOPANEL=" + $scope.installationData.panel +
+	                    "&PAIS=" + agent.agentCountryJob +
+	                    "&IDIOMA=" + agent.currentLanguage +
+	                    "&FINANCIACION=0" +
+	                    "&AVISO=" + $scope.tarea.idAviso +
+	                    "&MATRICULA=" + agent.agentIBS +
+	                    "&TIPOCIERRE=" + $scope.tarea.closing +
+	                    "&NOTACIERRE=" + $scope.tarea.nota +
+	                    "&STATUSDESTINO=3" +
+	                    "&TIPODEUDA=PENDIENTE" +
+	                    "&DATOSADIC=" + $scope.tarea.datosAdicionalesCierre +
+	                    "&REPNAME=" + $scope.tarea.requeridoPor +
+	                    "&NOMBRE=" + $scope.installationData.personaContacto +
+	                    "&TELEFONO=" + $scope.installationData.telefono +
+	                    "&CALLTYPEPROBLEM=" + $scope.tarea.tipoAviso1 + "|" + $scope.tarea.motivo1 + "|1|" +
+	                    "&TEXTO=" + $scope.tarea.observaciones;
+	                var resultado = window.showModalDialog(url, null, "center:yes; resizable:yes; dialogWidth:900px; dialogHeight:700px;");
+	                alert(resultado);
+	                //TODO BOrrar, es para probar un resultado concreto
+	                //resultado='{"AppointmentNumber":"1234","Status":0,"Message":"correcto"}';
+	
+	                if (resultado) {
+	                    $scope.finalizarDesdeMantenimiento(JSON.parse(resultado));
+	                } else {
+	                    $scope.finalizarDesdeMantenimiento(null);
+	                }
                 }
             }, function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
