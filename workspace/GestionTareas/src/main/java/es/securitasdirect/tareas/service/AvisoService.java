@@ -22,6 +22,7 @@ import javax.inject.Singleton;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -47,6 +48,11 @@ public class AvisoService {
     protected SPAIOTAREAS2PortType spAIOTAREAS2PortType;
     @Resource(name = "applicationUser")
     private String applicationUser;
+    /**
+     * Maps de los paises de AgentCountryJob
+     */
+    @Resource(name = "agentCountryJob")
+    private Map<String, String> agentCountryJob;
 
 
     /**
@@ -57,12 +63,7 @@ public class AvisoService {
         boolean result = false;
         String idUser = agent.getAgentIBS();
 
-        // TODO Hacer por spring
-        String idCountry = agent.getAgentCountryJob();
-        if("SPAIN".equals(agent.getAgentCountryJob())) idCountry = "1";
-        else if("PORTUGAL".equals(agent.getAgentCountryJob())) idCountry = "2";
-        else if("FRANCE".equals(agent.getAgentCountryJob())) idCountry = "3";
-
+        String idCountry = agentCountryJob.get(agent.getAgentCountryJob());
         String idLanguage = (agent.getCurrentLanguage() != null) ? agent.getCurrentLanguage() : "";
         String idReq = agent.getDesktopDepartment();
 
@@ -199,12 +200,7 @@ public class AvisoService {
         boolean result = false;
         String idUser = agent.getAgentIBS();
 
-        // TODO Hacer por spring
-        String idCountry = agent.getAgentCountryJob();
-        if("SPAIN".equals(agent.getAgentCountryJob())) idCountry = "1";
-        else if("PORTUGAL".equals(agent.getAgentCountryJob())) idCountry = "2";
-        else if("FRANCE".equals(agent.getAgentCountryJob())) idCountry = "3";
-
+        String idCountry = agentCountryJob.get(agent.getAgentCountryJob());
         String idLanguage = (agent.getCurrentLanguage() != null) ? agent.getCurrentLanguage() : "";
         String idReq = agent.getDesktopDepartment();
 
