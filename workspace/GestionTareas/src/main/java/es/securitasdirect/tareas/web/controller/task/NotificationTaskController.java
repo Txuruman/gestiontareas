@@ -127,8 +127,8 @@ public class NotificationTaskController extends TaskController {
     @RequestMapping(value = "/descartaraviso", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    BaseResponse modify(@RequestBody ModifyNotificationTaskRequest request) {
-        LOGGER.debug("Modificar tarea\nRequest: {}", request);
+    BaseResponse discardNotificationTask(@RequestBody DiscardNotificationTaskRequest request) {
+        LOGGER.debug("Descartar tareaAviso\nRequest: {}", request);
         BaseResponse response = new BaseResponse();
         Agent agent = agentController.getAgent();
         try {
@@ -139,7 +139,7 @@ public class NotificationTaskController extends TaskController {
         }
 
 
-        LOGGER.debug("Modificación de tarea\nResponse:{}", response);
+        LOGGER.debug("Descartar tareaAviso\nResponse:{}", response);
         return response;
     }
 
