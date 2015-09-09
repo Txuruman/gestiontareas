@@ -3,18 +3,18 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,
 
 
     $scope.getClosingReason = function(){
-        $log.debug("Loading Excel Task Commons: Closing reason");
+        //$log.debug("Loading Excel Task Commons: Closing reason");
         $http({method: 'GET', url: 'exceltaskcommon/getClosingReason'}).
             success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
                 $scope.closingReasonList = data.pairList;
-                $log.debug("Loaded closing reason list", data.pairList)
+                //$log.debug("Loaded closing reason list", data.pairList)
             }).
             error(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
-                $log.error("Error loading closing reason");
+                //$log.error("Error loading closing reason");
             });
     };
 
@@ -22,22 +22,22 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,
     $scope.getInstallationAndTask = function() {
             $scope.vm.appReady = false;
 
-            $log.debug("Loading Maintenance Survey Task...");
+            //$log.debug("Loading Maintenance Survey Task...");
 
             var getInstallationAndTaskRequest = {
                 callingList: $scope.callingList,
                 taskId: $scope.tareaId,
                 params: mapParams
             };
-            $log.debug("LO QUE ENVIAMOS", getInstallationAndTaskRequest);
+            //$log.debug("LO QUE ENVIAMOS", getInstallationAndTaskRequest);
 
             $http({
                 method: 'PUT',
                 url: 'maintenancesurveytask/getInstallationAndTask',
                 data: getInstallationAndTaskRequest
             }).success(function (data, status, headers, config) {
-                $log.debug("Loaded maintenance survey task:" ,data.tarea);
-                $log.debug("Loaded installation data: ",data.installationData);
+                //$log.debug("Loaded maintenance survey task:" ,data.tarea);
+                //$log.debug("Loaded installation data: ",data.installationData);
                 $scope.tarea = data.tarea;
                 $scope.installationData = data.installationData;
                 CommonService.processBaseResponse(data, status, headers, config);
@@ -49,11 +49,11 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data, status, headers, config);
                 $scope.vm.appReady = true;
-                $log.error("Error loading maintenance survey task and/or installation data");
+                //$log.error("Error loading maintenance survey task and/or installation data");
             });
     };
     $scope.aplazar = function (delayDate, recallType) {
-        $log.info('Delay to ' + delayDate + ' with recallType ' + recallType + ' task ' + JSON.stringify($scope.tarea));
+        //$log.info('Delay to ' + delayDate + ' with recallType ' + recallType + ' task ' + JSON.stringify($scope.tarea));
         if ($scope.tarea) {
             var postponeRequest = {
                 recallType: recallType,
@@ -61,7 +61,7 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,
                 task: $scope.tarea
             };
 
-            $log.info("Json of Request " + JSON.stringify(postponeRequest));
+            //$log.info("Json of Request " + JSON.stringify(postponeRequest));
 
             $http({
                 method: 'PUT',
@@ -89,12 +89,12 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,
     
 //Antiguo método descartar    
 //    $scope.descartar = function(){
-//        $log.debug("Discard Maintenance Survey task, task: ",$scope.tarea);
+//        //$log.debug("Discard Maintenance Survey task, task: ",$scope.tarea);
 //        var discardMaintenanceSurveyTaskRequest = {
 //            tarea:$scope.tarea,
 //            prueba:'Hola'
 //        };
-//        $log.debug("Discard List Assistant Task, request: " ,discardMaintenanceSurveyTaskRequest);
+//        //$log.debug("Discard List Assistant Task, request: " ,discardMaintenanceSurveyTaskRequest);
 //        $http({
 //            method: 'PUT',
 //            url: 'maintenancesurveytask/descartar',
@@ -102,23 +102,23 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,
 //        })
 //            .success(function (data, status, headers, config) {
 //                CommonService.processBaseResponse(data,status,headers,config);
-//                $log.debug("Discarded maintenance survey task");
+//                //$log.debug("Discarded maintenance survey task");
 //            })
 //            .error(function (data, status, headers, config) {
 //                // called asynchronously if an error occurs
 //                // or server returns response with an error status.
 //                CommonService.processBaseResponse(data,status,headers,config);
-//                $log.error("Error discarding maintenance survey task");
+//                //$log.error("Error discarding maintenance survey task");
 //            });
 //    };
 
 
     $scope.finalizar = function(){
-        $log.debug("Finalizar task: ",$scope.tarea);
+        //$log.debug("Finalizar task: ",$scope.tarea);
         var finalizeRequest = {
             task:$scope.tarea
         };
-        $log.debug("Finalizar  Task, request: ",finalizeRequest);
+        //$log.debug("Finalizar  Task, request: ",finalizeRequest);
         $http({
             method: 'PUT',
             url: 'maintenancesurveytask/finalizar',
@@ -126,13 +126,13 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,
         })
             .success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data,status,headers,config);
-                $log.debug("Finalized task");
+                //$log.debug("Finalized task");
             })
             .error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data,status,headers,config);
-                $log.error("Error finalizing task");
+                //$log.error("Error finalizing task");
             });
     };
 

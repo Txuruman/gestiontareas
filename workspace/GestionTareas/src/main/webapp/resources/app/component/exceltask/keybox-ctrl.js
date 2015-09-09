@@ -4,14 +4,14 @@ app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService, $modal
     $scope.getInstallationAndTask = function(){
         $scope.vm.appReady=false;
 
-        $log.debug("Loading Keybox Task...");
+        //$log.debug("Loading Keybox Task...");
 
         var getInstallationAndTaskRequest = {
             callingList: $scope.callingList,
             taskId: $scope.tareaId,
             params: mapParams
         };
-        $log.debug("LO QUE ENVIAMOS", getInstallationAndTaskRequest);
+        //$log.debug("LO QUE ENVIAMOS", getInstallationAndTaskRequest);
 
         $http({
             method: 'PUT',
@@ -31,27 +31,27 @@ app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService, $modal
             // or server returns response with an error status.
             CommonService.processBaseResponse(data,status,headers,config);
             $scope.vm.appReady=true;
-            $log.error("Error loading keybox task and installation data");
+            //$log.error("Error loading keybox task and installation data");
         });
     };
 
     $scope.getClosingReason = function(){
-        $log.debug("Loading Excel Task Commons: Closing reason");
+        //$log.debug("Loading Excel Task Commons: Closing reason");
         $http({method: 'GET', url: 'exceltaskcommon/getClosingReason'}).
             success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
                 $scope.closingReasonList = data.pairList;
-                $log.debug("Closing reason list loaded");
+                //$log.debug("Closing reason list loaded");
             }).
             error(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
-                $log.error("Error loeading closing reason list");
+                //$log.error("Error loeading closing reason list");
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
     };
     $scope.aplazar = function (delayDate, recallType) {
-        $log.info('Delay to ' + delayDate + ' with recallType ' + recallType + ' task ' + JSON.stringify($scope.tarea));
+        //$log.info('Delay to ' + delayDate + ' with recallType ' + recallType + ' task ' + JSON.stringify($scope.tarea));
         if ($scope.tarea) {
             var postponeRequest = {
                 recallType: recallType,
@@ -59,7 +59,7 @@ app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService, $modal
                 task: $scope.tarea
             };
 
-            $log.info("Json of Request " + JSON.stringify(postponeRequest));
+            //$log.info("Json of Request " + JSON.stringify(postponeRequest));
 
             $http({
                 method: 'PUT',
@@ -87,12 +87,12 @@ app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService, $modal
     
 //Antiguo método descartar
 //    $scope.descartar = function(){
-//        $log.debug("Discard Keybox task, task: " ,$scope.tarea);
+//        //$log.debug("Discard Keybox task, task: " ,$scope.tarea);
 //        var discardKeyboxTaskRequest = {
 //            tarea:$scope.tarea,
 //            prueba:'Hola'
 //        };
-//        $log.debug("Discard Keybox Task, request: ",discardKeyboxTaskRequest);
+//        //$log.debug("Discard Keybox Task, request: ",discardKeyboxTaskRequest);
 //        $http({
 //            method: 'PUT',
 //            url: 'keyboxtask/descartar',
@@ -100,22 +100,22 @@ app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService, $modal
 //        })
 //            .success(function (data, status, headers, config) {
 //                CommonService.processBaseResponse(data,status,headers,config);
-//                $log.debug("Discarded keybox task");
+//                //$log.debug("Discarded keybox task");
 //            })
 //            .error(function (data, status, headers, config) {
 //                // called asynchronously if an error occurs
 //                // or server returns response with an error status.
 //                CommonService.processBaseResponse(data,status,headers,config);
-//                $log.error("Error discarding keybox task");
+//                //$log.error("Error discarding keybox task");
 //            });
 //    };
 
     $scope.finalizar = function(){
-        $log.debug("Finalizar List Assistant task, task: ",$scope.tarea);
+        //$log.debug("Finalizar List Assistant task, task: ",$scope.tarea);
         var finalizeRequest = {
             task:$scope.tarea
         };
-        $log.debug("Finalizar  Task, request: ",finalizeRequest);
+        //$log.debug("Finalizar  Task, request: ",finalizeRequest);
         $http({
             method: 'PUT',
             url: 'keyboxtask/finalizar',
@@ -123,13 +123,13 @@ app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService, $modal
         })
             .success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data,status,headers,config);
-                $log.debug("Finalized task");
+                //$log.debug("Finalized task");
             })
             .error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data,status,headers,config);
-                $log.error("Error finalizing task");
+                //$log.error("Error finalizing task");
             });
     };
 

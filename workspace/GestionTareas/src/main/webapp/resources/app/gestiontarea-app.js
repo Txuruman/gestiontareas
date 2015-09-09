@@ -18,7 +18,7 @@ app.controller('DelayModalInstanceCtrl', function ($scope, $modalInstance, $log)
             if ($scope.delayInfo.delayDate && $scope.delayInfo.delayTime) {
                 $scope.delayInfo.delayDate.setHours($scope.delayInfo.delayTime.getHours(), $scope.delayInfo.delayTime.getMinutes(), 0, 0);
             }
-            $log.debug("Selected delay info :" + $scope.delayInfo );
+            //$log.debug("Selected delay info :" + $scope.delayInfo );
             $modalInstance.close($scope.delayInfo);
         };
 
@@ -33,7 +33,7 @@ app.controller('ContentModalCtrl', function ($scope, $modalInstance, $log) {
 	
  $scope.ok = function () {
          //Llama a la función de result.then de DelayModalCtrl
-         $log.debug("Selected delay info :" + $scope.delayInfo );
+         //$log.debug("Selected delay info :" + $scope.delayInfo );
          $modalInstance.close();
      };
 
@@ -268,14 +268,14 @@ app.service('CommonService', function ($rootScope, $log, $http, $timeout) {
     };
 
     this.loadInstallationData = function(installationId,data, status, headers, config){
-        $log.debug("Search Installation. ID: " + installationId);
+        //$log.debug("Search Installation. ID: " + installationId);
         $http({
             method: 'GET',
             url: 'installation/query',
             params: {installationId: installationId}
         }).
             success(function (data, status, headers, config) {
-                $log.debug("Installation data found: " ,data.installationData);
+                //$log.debug("Installation data found: " ,data.installationData);
                 $rootScope.installationData = data.installationData;
                 service.processBaseResponse(data, status, headers, config);
             }).
@@ -283,9 +283,9 @@ app.service('CommonService', function ($rootScope, $log, $http, $timeout) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
                 service.processBaseResponse(data, status, headers, config);
-                $log.debug("Error in Installation data search");
+                //$log.debug("Error in Installation data search");
             });
-        $log.debug("Installation data loaded...")
+        //$log.debug("Installation data loaded...")
     }
 });
 

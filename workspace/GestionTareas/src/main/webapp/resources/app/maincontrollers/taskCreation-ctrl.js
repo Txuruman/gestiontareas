@@ -3,7 +3,7 @@ app.controller('taskCreation', function ($scope, $http, CommonService, $modal, $
 	$scope.installationNotSearched=true;
 	$scope.mostrarAvisos=false;
 	$scope.getIntallation = function (event) {
-        $log.debug('Loading NotificationTask');
+        //$log.debug('Loading NotificationTask');
         if(event!=undefined){
         	event.preventDefault();
         }
@@ -30,17 +30,17 @@ app.controller('taskCreation', function ($scope, $http, CommonService, $modal, $
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
-        $log.debug("NotificationTask loaded...");
+        //$log.debug("NotificationTask loaded...");
     };
     $scope.createTask = function(){
         $scope.vm.appReady=false;
-        $log.debug("Creating task");
+        //$log.debug("Creating task");
         //$scope.tarea.fechaCreacion=new Date();
         var createTaskRequest = {
         		task:$scope.tarea,
         	    installationData:$scope.installationData
         };
-        $log.debug("Creating task request: ",createTaskRequest);
+        //$log.debug("Creating task request: ",createTaskRequest);
         $http({
             method: 'PUT',
             url: 'createtask/createtask',
@@ -64,12 +64,12 @@ app.controller('taskCreation', function ($scope, $http, CommonService, $modal, $
 
 //    $scope.createMaintenance = function(){
 //        $scope.vm.appReady=false;
-//        $log.debug("Creating maintenance");
+//        //$log.debug("Creating maintenance");
 //        var createMaintenanceRequest = {
 //            tarea:$scope.task,
 //            prueba:'Hola'
 //        };
-//        $log.debug("Creating maintenance request: ", createMaintenanceRequest );
+//        //$log.debug("Creating maintenance request: ", createMaintenanceRequest );
 //        $http({
 //            method: 'PUT',
 //            url: '/createtask/createmaintenance',
@@ -99,14 +99,14 @@ app.controller('taskCreation', function ($scope, $http, CommonService, $modal, $
           url: 'agent/prepareInfopointSession'
       })
           .success(function (data, status, headers, config) {
-              $log.debug('Agente obtenido: ' + JSON.stringify(data));
+              //$log.debug('Agente obtenido: ' + JSON.stringify(data));
         	  $scope.agent=data.agent;
         	  $scope.openMaintenaceWindow(data.agent);
         	  $scope.closeAgent();
               CommonService.processBaseResponse(data, status, headers, config);
           })
           .error(function (data, status, headers, config) {
-              $log.debug('Error en la creación de mantenimiento, response: ' + JSON.stringify(data));
+              //$log.debug('Error en la creación de mantenimiento, response: ' + JSON.stringify(data));
               // called asynchronously if an error occurs
               // or server returns response with an error status.
               CommonService.processBaseResponse(data, status, headers, config);
@@ -121,12 +121,12 @@ app.controller('taskCreation', function ($scope, $http, CommonService, $modal, $
             url: 'agent/closeInfopointSession'
         })
             .success(function (data, status, headers, config) {
-              $log.debug('Agente obtenido: ' + data);
+              //$log.debug('Agente obtenido: ' + data);
           	  $scope.agent=data.agent;
               CommonService.processBaseResponse(data, status, headers, config);
             })
             .error(function (data, status, headers, config) {
-                $log.debug('Error en la creación de mantenimiento, response: ' + JSON.stringify(data));
+                //$log.debug('Error en la creación de mantenimiento, response: ' + JSON.stringify(data));
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data, status, headers, config);
@@ -134,12 +134,12 @@ app.controller('taskCreation', function ($scope, $http, CommonService, $modal, $
     }
     $scope.init = function(data, status, heathers, config) {
         $scope.vm.appReady=false;
-        $log.debug("Charging page, combo lists");
+        //$log.debug("Charging page, combo lists");
         $scope.getNotificationTypeList();
         //CommonService.getNotificationTypeList(data, status, heathers, config);
         //CommonService.getTypeReasonList(data, status, heathers, config);
         CommonService.loadInstallationData($scope.installationId,data, status, heathers, config);
-        $log.debug("Charging page, combo lists");
+        //$log.debug("Charging page, combo lists");
         $scope.vm.appReady=true;
     };
 
@@ -158,13 +158,13 @@ app.controller('taskCreation', function ($scope, $http, CommonService, $modal, $
      * Obtenemos los datos de los combos
      */
     $scope.getNotificationTypeList = function() {
-        $log.debug("Load Notification Type List");
+        //$log.debug("Load Notification Type List");
         $http({
             method: 'GET',
             url: 'commons/getNotificationTypeList'
         })
             .success(function (data, status, headers, config) {
-                $log.debug('Loaded Notification Type List', data);
+                //$log.debug('Loaded Notification Type List', data);
                 $scope.tipoAvisoList = data.pairList;
                 CommonService.processBaseResponse(data, status, headers, config);
                 
@@ -178,7 +178,7 @@ app.controller('taskCreation', function ($scope, $http, CommonService, $modal, $
 
     //Consulta Motivo 1
     $scope.getTypeReasonList1 = function(typeId,data, status, headers, config) {
-        $log.debug("Load Task Type Reason List");
+        //$log.debug("Load Task Type Reason List");
         var taskTypeReasonRequest = {
             idType: typeId
         };
@@ -188,7 +188,7 @@ app.controller('taskCreation', function ($scope, $http, CommonService, $modal, $
             data: taskTypeReasonRequest
         })
             .success(function (data, status, headers, config) {
-                $log.debug('Loaded Type Reason List', data);
+                //$log.debug('Loaded Type Reason List', data);
                 $scope.motivoList1 = data.pairList;
                 CommonService.processBaseResponse(data, status, headers, config);
                 
@@ -202,7 +202,7 @@ app.controller('taskCreation', function ($scope, $http, CommonService, $modal, $
 
     //Consulta Motivo 2
     $scope.getTypeReasonList2 = function(typeId) {
-        $log.debug("Load Task Type Reason List");
+        //$log.debug("Load Task Type Reason List");
         var taskTypeReasonRequest = {
             idType: typeId
         };
@@ -212,7 +212,7 @@ app.controller('taskCreation', function ($scope, $http, CommonService, $modal, $
             data: taskTypeReasonRequest
         })
             .success(function (data, status, headers, config) {
-                $log.debug('Loaded Type Reason List', data);
+                //$log.debug('Loaded Type Reason List', data);
                 $scope.motivoList2 = data.pairList;
                 CommonService.processBaseResponse(data, status, headers, config);
                 
@@ -226,7 +226,7 @@ app.controller('taskCreation', function ($scope, $http, CommonService, $modal, $
 
     //Consulta Motivo 3
     $scope.getTypeReasonList3 = function(typeId) {
-        $log.debug("Load Task Type Reason List");
+        //$log.debug("Load Task Type Reason List");
         var taskTypeReasonRequest = {
             idType: typeId
         };
@@ -236,7 +236,7 @@ app.controller('taskCreation', function ($scope, $http, CommonService, $modal, $
             data: taskTypeReasonRequest
         })
             .success(function (data, status, headers, config) {
-                $log.debug('Loaded Type Reason List', data);
+                //$log.debug('Loaded Type Reason List', data);
                 $scope.motivoList3 = data.pairList;
                 CommonService.processBaseResponse(data, status, headers, config);
                 

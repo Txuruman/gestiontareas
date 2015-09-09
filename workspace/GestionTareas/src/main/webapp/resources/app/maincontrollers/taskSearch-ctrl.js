@@ -47,7 +47,7 @@ app.controller('taskSearch', function ($scope, $http, CommonService, $modal, $lo
         };
         
         $scope.aplazar = function (delayDate, recallType) {
-            $log.info('Delay to ' + delayDate + ' with recallType ' + recallType + ' task ' + JSON.stringify($scope.tarea));
+            //$log.info('Delay to ' + delayDate + ' with recallType ' + recallType + ' task ' + JSON.stringify($scope.tarea));
             if ($scope.tareaActiva) {
                 var postponeRequest = {
                     recallType: recallType,
@@ -55,7 +55,7 @@ app.controller('taskSearch', function ($scope, $http, CommonService, $modal, $lo
                     task: $scope.tareaActiva
                 };
 
-                $log.info("Json of Request " + JSON.stringify(postponeRequest));
+                //$log.info("Json of Request " + JSON.stringify(postponeRequest));
 
                 $http({
                     method: 'PUT',
