@@ -2,6 +2,7 @@ package es.securitasdirect.tareas.service;
 
 import com.sun.org.apache.xerces.internal.dom.ElementNSImpl;
 import es.securitasdirect.tareas.exceptions.BusinessException;
+import es.securitasdirect.tareas.exceptions.FrameworkException;
 import es.securitasdirect.tareas.model.Agent;
 import es.securitasdirect.tareas.model.InstallationData;
 import es.securitasdirect.tareas.model.TareaAviso;
@@ -44,8 +45,8 @@ public class SplitService {
 
 
     public String getMaintenanceApplication(Agent agent, TareaAviso tareaAviso, InstallationData installationData) {
-
-        String country = agent.getAgentCountryJob();
+       //TODO DESCOMENTAR assert agent.getCurrentLanguage()!=null: "El campo currentLanguage del Agente es requerido";
+        String country = "es" ; ///agent.getCurrentLanguage();//Ejemplo, debe venir 'es', no 'SPAIN'
         String app = applicationUser;
         String zipCode = installationData.getCodigoPostal();
         String monitoringStatus = installationData.getMonitoringStatus();
@@ -80,18 +81,14 @@ public class SplitService {
         javax.xml.ws.Holder<String> description = new javax.xml.ws.Holder<String>();
         javax.xml.ws.Holder<String> split = new javax.xml.ws.Holder<String>();
 
-
-        wsFSMSplitService.checkSplit(country, app, zipCode, monitoringStatus, member, splitclass, gpd, codifications, result, description, split);
-
-        //TODO Temporal para desarrollo
-        if (true) {
-            if (new Random().nextBoolean()) {
-                return MMS;
-            } else {
-                return MMS;
-            }
+        try {
+            wsFSMSplitService.checkSplit(country, app, zipCode, monitoringStatus, member, splitclass, gpd, codifications, result, description, split);
+        } catch (Exception e) {
+            LOGGER.error("Error calling checkSplit", e);
+            throw new FrameworkException(e);
         }
 
+if (true)         throw new BusinessException(BusinessException.ErrorCode.ERROR_SPLIT, "error temporal para pruebas de desarrollo");
 
         if (result.value == null || result.value.equalsIgnoreCase("NACK") || split.value == null || split.value.equalsIgnoreCase("ERROR")) {
             LOGGER.error("Error callong Split Service {} {} {}", result.value, split.value, description.value);

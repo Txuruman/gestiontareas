@@ -71,7 +71,7 @@ public class TareaService {
         if (tarea instanceof TareaAviso) {
              this.delayNotificationTask(agent, (TareaAviso) tarea, schedTime, recordType);
         } else {
-             this.delayTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCallingList(), tarea.getId().toString(), schedTime, recordType);
+             this.delayOtherTask(agent, tarea.getCallingList(), tarea.getId().toString(), schedTime, recordType);
         }
     }
 
@@ -257,15 +257,15 @@ public class TareaService {
      * o	Dial_sched_time = dd/mm/aaaa hh:mm:ss
      * o	Recort_type = 5 (personal callback) / 6 (campaing callback)
      */
-    public void delayTask(String ccUserId, String country, String desktopDepartment,
+    public void delayOtherTask(Agent agent,
                              String callingList,
                              String idTarea, Date schedTime, String recordType) throws Exception {
         LOGGER.info("Delaying Task : {} {}", callingList, idTarea);
         //Consultar la tarea de nuevo
-        Tarea tarea = queryTareaService.queryTarea(ccUserId, country, desktopDepartment, callingList, idTarea);
+        Tarea tarea = queryTareaService.queryTarea(agent, callingList, idTarea);
         //Si no está en memoria se puede ejecutar
         if (!isTareaInMemory(tarea)) {
-            wsDelayTask(ccUserId, country, desktopDepartment, tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId(), schedTime, recordType);
+            wsDelayTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId(), schedTime, recordType);
 //                if (delayed && tarea instanceof TareaAviso) {
 //                    //Si es de tipo Aviso hay que retrasar el aviso también
 //                    delayed = false;
@@ -283,7 +283,7 @@ public class TareaService {
 
         } else {
             //Aplazar tarea en memoria TODO REPASAR DE DONDE SACAR EL AGENTE
-            wsDelayInMemoryTask(null, tarea, schedTime, recordType);
+            wsDelayInMemoryTask(agent, tarea, schedTime, recordType);
         }
     }
 

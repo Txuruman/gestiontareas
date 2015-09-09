@@ -6,6 +6,7 @@ import es.securitasdirect.tareas.exceptions.BusinessException;
 import es.securitasdirect.tareas.exceptions.FrameworkException;
 import es.securitasdirect.tareas.model.*;
 import es.securitasdirect.tareas.model.tareaexcel.*;
+import es.securitasdirect.tareas.web.controller.params.ExternalParams;
 import es.securitasdirect.tareas.web.controller.params.TaskServiceParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -513,5 +514,22 @@ public class TareaServiceTools {
         } else {
             return Float.valueOf(value);
         }
+    }
+
+    /**
+     * Carga parametros recibidos por POST en la tarea
+     * @param tarea
+     * @param parameters
+     * @return
+     */
+    public Tarea loadPostParametersInTask(Tarea tarea, Map<String, String> parameters) {
+        if (parameters!=null) {
+            tarea.setOutAgentPlace(ExternalParams.AGENT_PLACE);
+            tarea.setOutCampaignName(ExternalParams.CAMPAIGN_NAME);
+            tarea.setOutClName(ExternalParams.CALLING_LIST);
+            tarea.setOutRecordHandle(ExternalParams.RECORD_HANDLE); //TODO PASAR A INTEGER
+            tarea.setOutAgentPlace(ExternalParams.AGENT_PLACE); //TODO HACER ALGO CON UNA "L"?????
+        }
+        return tarea;
     }
 }

@@ -79,7 +79,7 @@ public class TareasServiceTest {
         Agent agent = DummyGenerator.getAgent();
         String callingList = "CL_CCT_XLS_LIMPIEZA_CUOTA";
         String idTarea = "2";
-        Tarea tarea = queryTareaService.queryTarea(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), callingList, idTarea);
+        Tarea tarea = queryTareaService.queryTarea(agent, callingList, idTarea);
 
         Date schedTime = new Date();
         String recordType="5";
@@ -108,7 +108,7 @@ public class TareasServiceTest {
         Agent agent = DummyGenerator.getAgent();
         String callingList = "CL_CCT_XLS_LIMPIEZA_CUOTA";
         String idTarea = "2";
-        Tarea tarea = queryTareaService.queryTarea(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), callingList, idTarea);
+        Tarea tarea = queryTareaService.queryTarea(agent, callingList, idTarea);
 
 
          tareaService.finalizeExcelTask(agent, tarea);
@@ -124,7 +124,7 @@ public class TareasServiceTest {
         Agent agent = DummyGenerator.getAgent();
         String callingList = "CL_TAREAS_DIY";
         String idTarea = "1";
-        TareaMantenimiento tareaMantenimiento = (TareaMantenimiento)queryTareaService.queryTarea(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), callingList, idTarea);
+        TareaMantenimiento tareaMantenimiento = (TareaMantenimiento)queryTareaService.queryTarea(agent, callingList, idTarea);
         assertThat(tareaMantenimiento, notNullValue());
 
         tareaService.createTask(agent, tareaMantenimiento);

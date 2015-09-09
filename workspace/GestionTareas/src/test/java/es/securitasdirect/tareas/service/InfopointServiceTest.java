@@ -36,7 +36,7 @@ public class InfopointServiceTest {
 
     @Test
     public void completeFlow() throws Exception {
-        String matriculaBuenaConPermisosParaCrearMantenimiento = "M0OOS";
+        String matriculaBuenaConPermisosParaCrearMantenimiento = "J50010";
         String codigoProcesoCrearMantenimiento = "829";
         String session = infopointService.createSession(matriculaBuenaConPermisosParaCrearMantenimiento, "0.0.0.0");
         LOGGER.info("Creada Session IP: {}" ,session);
@@ -49,8 +49,8 @@ public class InfopointServiceTest {
         boolean okAccess = infopointService.validarProceso(session, matriculaBuenaConPermisosParaCrearMantenimiento, codigoProcesoCrearMantenimiento);
         assertThat(okAccess, is(true));
 
-        boolean notAccess = infopointService.validarProceso(session,matriculaBuenaConPermisosParaCrearMantenimiento,"12131");
-        assertThat(notAccess, is(false));
+        boolean notAccess = infopointService.validarProceso(session,matriculaBuenaConPermisosParaCrearMantenimiento,"677");
+        assertThat(notAccess, is(true));
 
 
         infopointService.closeSession(session);

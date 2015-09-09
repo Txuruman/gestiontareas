@@ -350,7 +350,11 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
         $http.put('commons/getCreateMaintenanceApp', CreateMaintenanceAppRequest)
             .then(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
-                var url = "windowCreateMaintenanceFrame" + data.data.app;
+
+                alert("Lo que devuelve createMaintenance" + JSON.stringify(data));
+                //TODO Aqui hay que controlar la excepción
+               var url = "windowCreateMaintenanceFrame" + data.app;
+
 
                 //Parametros para TOA
                 url += "?InstallationNumber=" + $scope.installationData.numeroInstalacion +

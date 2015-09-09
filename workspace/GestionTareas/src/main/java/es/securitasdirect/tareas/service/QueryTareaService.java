@@ -45,25 +45,39 @@ public class QueryTareaService {
 
     /**
      * Consulta de una única tarea.
+     *
      * @param agent
      * @param callingList
      * @param id
+     * @param parameters      lista de parametros que se han pasado por post
      * @return
      * @throws Exception
      */
-    public Tarea queryTarea(Agent agent, String callingList,String id) throws Exception {
-        assert agent!=null:"El Agente es parametro requerido";
-        return queryTarea(agent.getAgentIBS(),agent.getAgentCountryJob(),agent.getDesktopDepartment(),callingList,id);
+    public Tarea queryTarea(Agent agent, String callingList, String id, Map<String, String> parameters) throws Exception {
+        assert agent != null : "El Agente es parametro requerido";
+        return queryTarea(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), callingList, id, parameters);
     }
 
-    public Tarea queryTarea(String ccUserId, String country, String desktopDepartment,
-                            String callingList,
-                            String id) throws Exception{
+    /**
+     * Consulta de una única tarea cuando no se tiene el mapa de parametros en recividos
+     *
 
-        assert country!=null:"country es un parametro requerido";
-        assert desktopDepartment!=null:"desktopDepartment es un parametro requerido";
+     */
+    public Tarea queryTarea(Agent agent, String callingList, String id) throws Exception {
+        assert agent != null : "El Agente es parametro requerido";
+        return queryTarea(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), callingList, id, null);
+    }
 
-        String filter               = "chain_id=" + id;
+
+    protected Tarea queryTarea(String ccUserId, String country, String desktopDepartment,
+                               String callingList,
+                               String id,
+                               Map<String, String> parameters) throws Exception {
+
+        assert country != null : "country es un parametro requerido";
+        assert desktopDepartment != null : "desktopDepartment es un parametro requerido";
+
+        String filter = "chain_id=" + id;
 
         LOGGER.debug("Calling to service CallingList with values:\n ccIdentifier: {}\n applicationUser: {}\n ccUserId: {}\n filter: {}\n callingList: {}\n country: {}", desktopDepartment, applicationUser, ccUserId, filter, callingList, country);
         Map<String, String> responseMap = checkCallingListContact(desktopDepartment,
@@ -73,15 +87,15 @@ public class QueryTareaService {
                 callingList,
                 country);
 
-        if (responseMap==null) {
+        if (responseMap == null) {
             LOGGER.error("Can't find Task {}-{}", callingList, filter);
             throw new BusinessException(BusinessException.ErrorCode.ERROR_FIND_TASK, callingList, filter);
         }
 
         Tarea tarea = tareaServiceTools.createTareaFromParameters(responseMap);
+        tarea = tareaServiceTools.loadPostParametersInTask(tarea, parameters);
         return tarea;
     }
-
 
 
     private boolean cclResponseHasError(CclResponse response) {
@@ -162,18 +176,6 @@ public class QueryTareaService {
         }
         return responseMap;
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }
