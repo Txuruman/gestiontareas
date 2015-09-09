@@ -47,7 +47,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
 //	        	var temp1=angular.copy($scope.tarea);
 //	        	temp1.datosAdicionalesCierre=null;
 //	        	temp1.closing=null;
-                $scope.modificar($scope.tarea);
+                $scope.descartaraviso($scope.tarea);
                 //Si los atributos de finalizar no están nulos y hemos cambiado el tipo y el motivo 1 de la tarea --> Finalizamos y desmarcamos aviso de tarea
 //	            if ($scope.tarea.datosAdicionalesCierre!=null && $scope.tarea.closing!=null && !angular.equals($scope.tarea.tipoAviso1, $scope.tareaOriginal.tipoAviso1) && !angular.equals($scope.tarea.motivo1, $scope.tareaOriginal.motivo1)) {
 //					$scope.finalizar();
@@ -284,16 +284,16 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
         }
     };
 
-    $scope.modificar = function (tarea) {
-        //$log.debug('Modificar Tarea, tarea: ' + $scope.tarea);
+    $scope.descartaraviso = function (tarea) {
+        //$log.debug('Descartar Tarea, tarea: ' + $scope.tarea);
         var modifyNotificationTaskRequest = {
             task: tarea,
             installation: $scope.installationData
         };
-        //$log.debug('Modificar Tarea, request ' + JSON.stringify(modifyNotificationTaskRequest));
+        //$log.debug('Descartar Tarea, request ' + JSON.stringify(modifyNotificationTaskRequest));
         $http({
             method: 'PUT',
-            url: 'notificationtask/modificar',
+            url: 'notificationtask/descartaraviso',
             data: modifyNotificationTaskRequest
         })
             .success(function (data, status, headers, config) {

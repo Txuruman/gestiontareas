@@ -80,7 +80,7 @@ public class TareaService {
      */
     public void finalizeExcelTask(Agent agent, Tarea tarea) throws Exception {
 
-        //Consultar la tarea de nuevo
+        //1. Consultar la tarea de nuevo
         Tarea tareaRefrescada = queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
 
         //Si no está en memoria se puede ejecutar
@@ -135,7 +135,7 @@ public class TareaService {
     }
 
     /**
-     * Finalizar la tarea de tipo Aviso, es distinta al resto de tareas porque hay que llamar a cancelar
+     * Finalizar la tarea de tipo Aviso, es distinta al resto de tareas porque hay que llamar a cancelar.
      *
      * @param agent
      * @param tarea
@@ -274,7 +274,7 @@ public class TareaService {
             //TODO Pendiente, cuando esté funcionando el Reporting de BI el dato Motivo de Cierre y Compensación deben de registrarse en la auditoria
 
         } else {
-            //Aplazar tarea en memoria TODO REPASAR DE DONDE SACAR EL AGENTE
+            //Aplazar tarea en memoria
             wsDelayInMemoryTask(agent, tarea, schedTime, recordType);
         }
     }
@@ -636,7 +636,7 @@ public class TareaService {
      * @return
      * @throws Exception
      */
-    public void saveTask(Agent agent, TareaAviso tarea, InstallationData installationData) throws Exception {
+    public void discardNotificationTask(Agent agent, TareaAviso tarea, InstallationData installationData) throws Exception {
 
 
         TareaAviso tareaOriginal = (TareaAviso) queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
@@ -688,22 +688,24 @@ public class TareaService {
      * @return
      */
     private boolean isTareaInMemory(Tarea tarea) {
-        //TODO Para pruebas en desarrollo podemos hacer que la tarea esté en memoria de forma fija
+        //TODO TEMPORAL
         if (true) return true;
         return tarea.isRetrieved();
     }
 
 
     /**
-     * Comprueba que los parametros de la tarea incluyen aquellos que permiten operar con la tarea en memoria
+     * Comprueba que los parametros de la tarea incluyen aquellos que permiten operar con la tarea en memoria.
      *
      * @param agent
      * @param tarea
      * @return
      */
     private boolean validateInMemoryParameters(Agent agent, Tarea tarea) {
-        return tarea.getOutRecordHandle() != null
-                && tarea.getOutContactInfo() != null && tarea.getOutClName() != null;
+        return   tarea.getOutAgentPlace()!=null &&
+                        tarea.getOutCampaignName()!=null &&
+                        tarea.getOutClName()!=null &&
+                tarea.getOutRecordHandle() != null;
     }
 
 }

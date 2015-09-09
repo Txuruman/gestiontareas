@@ -9,9 +9,7 @@ import es.securitasdirect.tareas.service.ExternalDataService;
 import es.securitasdirect.tareas.service.InstallationService;
 import es.securitasdirect.tareas.service.QueryTareaService;
 import es.securitasdirect.tareas.web.controller.AgentController;
-import es.securitasdirect.tareas.web.controller.BaseController;
 import es.securitasdirect.tareas.web.controller.TaskController;
-import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
 import es.securitasdirect.tareas.web.controller.dto.request.GetInstallationAndTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.notificationtask.*;
 import es.securitasdirect.tareas.web.controller.dto.response.NotificationTaskResponse;
@@ -23,10 +21,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.wso2.ws.dataservice.DataServiceFault;
 
 import javax.inject.Inject;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -128,22 +124,22 @@ public class NotificationTaskController extends TaskController {
     }
 
 
-    @RequestMapping(value = "/modificar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value = "/descartaraviso", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
     @ResponseBody
-    BaseResponse modify(@RequestBody ModifyNotificationTaskRequest request) {
-        LOGGER.debug("Modificar tarea\nRequest: {}", request);
+    BaseResponse discardNotificationTask(@RequestBody DiscardNotificationTaskRequest request) {
+        LOGGER.debug("Descartar tareaAviso\nRequest: {}", request);
         BaseResponse response = new BaseResponse();
         Agent agent = agentController.getAgent();
         try {
-            tareaService.saveTask(agent, request.getTask(), request.getInstallation());
+            tareaService.discardNotificationTask(agent, request.getTask(), request.getInstallation());
             response.success(messageUtil.getProperty("notificationTask.modify.success"));
         } catch (Exception e) {
             response = processException(e);
         }
 
 
-        LOGGER.debug("Modificación de tarea\nResponse:{}", response);
+        LOGGER.debug("Descartar tareaAviso\nResponse:{}", response);
         return response;
     }
 

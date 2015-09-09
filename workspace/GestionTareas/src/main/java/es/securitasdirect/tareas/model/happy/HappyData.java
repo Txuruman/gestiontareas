@@ -11,7 +11,8 @@ import java.util.Map;
  */
 public class HappyData {
 
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    /* http://wiki.fasterxml.com/JacksonFAQDateHandling */
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss", timezone="CET")
     private Date upSince;
     //Mapa con la lista de servicios y el estatus
     private Map<String, String> services;
