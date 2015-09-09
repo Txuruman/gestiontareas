@@ -167,16 +167,7 @@ public class EntryPointController extends TaskController {
         mv.addObject("callingList", parametersMap.get(ExternalParams.CALLING_LIST));
         assert parametersMap.get(ExternalParams.ID_TAREA) != null && !parametersMap.get(ExternalParams.ID_TAREA).isEmpty();
         mv.addObject("tareaId", parametersMap.get(ExternalParams.ID_TAREA));
-
         //Parametros que vienen por POST para poder trabajar con una tarea en memoria
-        mv.addObject("outContactInfo", parametersMap.get(ExternalParams.CONTACT_INFO));
-        mv.addObject("outCampaignName", parametersMap.get(ExternalParams.CAMPAIGN_NAME));
-        mv.addObject("outClName", parametersMap.get(ExternalParams.CALLING_LIST)==null?null:parametersMap.get(ExternalParams.CALLING_LIST).trim());
-        mv.addObject("outRecordHandle", parametersMap.get(ExternalParams.RECORD_HANDLE));
-        mv.addObject("outAgentPlace", parametersMap.get(ExternalParams.AGENT_PLACE));
-
-
-        //TODO TEMPORAL, ELIMINAR
         mv.addObject("params", parametersMap);
 
         return mv;

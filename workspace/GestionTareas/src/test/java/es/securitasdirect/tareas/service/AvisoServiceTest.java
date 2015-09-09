@@ -88,7 +88,7 @@ public class AvisoServiceTest {
 
         String callingList = "CL_CCT_ATC_CRA";
         String idTarea = "4";
-        TareaAviso tareaAviso = (TareaAviso)queryTareaService.queryTarea(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), callingList, idTarea);
+        TareaAviso tareaAviso = (TareaAviso)queryTareaService.queryTarea(agent , callingList, idTarea);
         assertThat(tareaAviso, notNullValue());
 
         InstallationData  installationData = installationService.getInstallationData("1829827");
@@ -102,7 +102,7 @@ public class AvisoServiceTest {
         Agent agent = DummyGenerator.getAgent();
         String callingList = "CL_CCT_ATC_CRA";
         String idTarea = "3";
-        TareaAviso tarea = (TareaAviso)queryTareaService.queryTarea(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), callingList, idTarea);
+        TareaAviso tarea = (TareaAviso)queryTareaService.queryTarea(agent , callingList, idTarea);
         assertThat(tarea, notNullValue());
 
         Integer naviso = tarea.getIdAviso();
@@ -122,7 +122,7 @@ public class AvisoServiceTest {
         Agent agent = DummyGenerator.getAgent();
         String callingList = "CL_CCT_ATC_CRA";
         String idTarea = "3";
-        Tarea tarea = queryTareaService.queryTarea(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), callingList, idTarea);
+        Tarea tarea = queryTareaService.queryTarea(agent , callingList, idTarea);
         assertThat(tarea, notNullValue());
 
         Integer naviso = ((TareaAviso)tarea).getIdAviso();
@@ -155,7 +155,7 @@ public class AvisoServiceTest {
         Agent agent = DummyGenerator.getAgent();
         String callingList = "CL_CCT_ATC_CRA";
         String idTarea = "1";
-        Tarea tarea = queryTareaService.queryTarea(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), callingList, idTarea);
+        Tarea tarea = queryTareaService.queryTarea(agent , callingList, idTarea);
         assertThat(tarea, notNullValue());
 
         Integer naviso = ((TareaAviso)tarea).getIdAviso();

@@ -82,6 +82,7 @@ public abstract class TaskController extends BaseController {
         return new TareaResponse(super.processException(e, msg));
     }
 
+
     /**
      * Consulta de la Tarea y su instalación, punto básico de entrada a la aplicación cuando se recive una tarea
      * @param callingList
@@ -94,11 +95,7 @@ public abstract class TaskController extends BaseController {
         if (agentController.isLogged()) {
             try {
                 //Buscar Tarea
-                Tarea task = queryTareaService.queryTarea(
-                        agentController.getAgent().getIdAgent(),
-                        agentController.getAgent().getAgentCountryJob(),
-                        agentController.getAgent().getDesktopDepartment()
-                        , callingList, tareaId);
+                Tarea task = queryTareaService.queryTarea(agentController.getAgent()  , callingList, tareaId);
 
                 response.setTarea(task);
                 //Buscamos la instalación

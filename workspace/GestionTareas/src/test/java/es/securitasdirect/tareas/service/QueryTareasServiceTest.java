@@ -2,6 +2,7 @@ package es.securitasdirect.tareas.service;
 
 import com.webservice.CCLIntegration;
 import com.webservice.CclResponse;
+import es.securitasdirect.tareas.model.DummyGenerator;
 import es.securitasdirect.tareas.model.Tarea;
 import es.securitasdirect.tareas.model.TareaAviso;
 import org.junit.Test;
@@ -89,8 +90,7 @@ public class QueryTareasServiceTest {
 //         String callingList = "CL_CCT_Ingles_ATT";
 //         String callingList = "CL_CCT_ODC";
 
-        Tarea tarea = queryTareaService.queryTarea(
-                ccUserId,country,desktopDepartment,
+        Tarea tarea = queryTareaService.queryTarea(DummyGenerator.getAgent(),
                 callingList,
                 id);
         assertThat(tarea, notNullValue());
@@ -109,7 +109,7 @@ public class QueryTareasServiceTest {
         LOGGER.debug("Probando la tarea de tipo Mantenimiento");
 
             Tarea tarea = queryTareaService.queryTarea(
-                    ccUserId,country,desktopDepartment,
+                    DummyGenerator.getAgent(),
                     callingList,
                     filter);
             LOGGER.info("Tarea: {}", tarea);
@@ -125,7 +125,7 @@ public class QueryTareasServiceTest {
         LOGGER.debug("Probando la tarea de tipo Encuesta Mantenimiento");
 
             Tarea tarea = queryTareaService.queryTarea(
-                    ccUserId,country,desktopDepartment,
+                    DummyGenerator.getAgent(),
                     callingList,
                     filter);
             LOGGER.info("Tarea: {}", tarea);
@@ -147,7 +147,7 @@ public class QueryTareasServiceTest {
 
 
             Tarea tarea = queryTareaService.queryTarea(
-                    ccUserId,country,desktopDepartment,
+                   DummyGenerator.getAgent(),
                     callingList,
                     filter
             );
@@ -172,7 +172,7 @@ public class QueryTareasServiceTest {
 
 
             Tarea tarea = queryTareaService.queryTarea(
-                    ccUserId,country,desktopDepartment,
+                   DummyGenerator.getAgent(),
                     callingList,
                     filter
             );
@@ -196,7 +196,7 @@ public class QueryTareasServiceTest {
         LOGGER.debug("Probando la tarea de tipo Limpieza de Couta");
 
             Tarea tarea = queryTareaService.queryTarea(
-                    ccUserId,country,desktopDepartment,
+                   DummyGenerator.getAgent(),
                     callingList,
                     filter
             );
@@ -219,7 +219,7 @@ public class QueryTareasServiceTest {
         LOGGER.debug("Probando la tarea de tipo Listado Assistant");
 
             Tarea tarea = queryTareaService.queryTarea(
-                    ccUserId,country,desktopDepartment,
+                   DummyGenerator.getAgent(),
                     callingList,
                     filter
             );
@@ -243,7 +243,7 @@ public class QueryTareasServiceTest {
         LOGGER.debug("Probando la tarea de tipo Otras campañas");
 
             Tarea tarea = queryTareaService.queryTarea(
-                    ccUserId,country,desktopDepartment,
+                   DummyGenerator.getAgent(),
                     callingList,
                     filter
             );

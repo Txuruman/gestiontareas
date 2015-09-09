@@ -22,6 +22,7 @@ import javax.inject.Singleton;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -47,6 +48,11 @@ public class AvisoService {
     protected SPAIOTAREAS2PortType spAIOTAREAS2PortType;
     @Resource(name = "applicationUser")
     private String applicationUser;
+    /**
+     * Maps de los paises de AgentCountryJob
+     */
+    @Resource(name = "agentCountryJob")
+    private Map<String, String> agentCountryJob;
 
 
     /**
@@ -57,12 +63,7 @@ public class AvisoService {
         boolean result = false;
         String idUser = agent.getAgentIBS();
 
-        // TODO Hacer por spring
-        String idCountry = agent.getAgentCountryJob();
-        if("SPAIN".equals(agent.getAgentCountryJob())) idCountry = "1";
-        else if("PORTUGAL".equals(agent.getAgentCountryJob())) idCountry = "2";
-        else if("FRANCE".equals(agent.getAgentCountryJob())) idCountry = "3";
-
+        String idCountry = agentCountryJob.get(agent.getAgentCountryJob());
         String idLanguage = (agent.getCurrentLanguage() != null) ? agent.getCurrentLanguage() : "";
         String idReq = agent.getDesktopDepartment();
 
@@ -199,12 +200,7 @@ public class AvisoService {
         boolean result = false;
         String idUser = agent.getAgentIBS();
 
-        // TODO Hacer por spring
-        String idCountry = agent.getAgentCountryJob();
-        if("SPAIN".equals(agent.getAgentCountryJob())) idCountry = "1";
-        else if("PORTUGAL".equals(agent.getAgentCountryJob())) idCountry = "2";
-        else if("FRANCE".equals(agent.getAgentCountryJob())) idCountry = "3";
-
+        String idCountry = agentCountryJob.get(agent.getAgentCountryJob());
         String idLanguage = (agent.getCurrentLanguage() != null) ? agent.getCurrentLanguage() : "";
         String idReq = agent.getDesktopDepartment();
 
@@ -409,8 +405,8 @@ public class AvisoService {
                                Integer idMantenimiento ) throws Exception {
 
         Integer deuda = 0; // constante
-        Integer idmante =( idMantenimiento==null?0:idMantenimiento ); // TODO Repasar, la documentación dice utilizar un 0 constante
-        String branch = "0"; // constante
+        Integer idmante = 0; // constante
+        String branch = ""; // constante
         String nota = ""; // nota de cierre asociada a las observaciones del Aviso
 
         // “2” si se finaliza 	“3” si se finaliza por crear un Mantenimiento
@@ -452,7 +448,7 @@ public class AvisoService {
             spAIOTAREAS2PortType.setAvisoNoCargado(naviso);
             result = true; // TODO devuelve void
         } catch (Exception e){
-        // TODO
+        // TODO no devuelve la excepcion DataServiceFault
         //catch (DataServiceFault e) {
             LOGGER.error("Error desmarcando aviso", e);
             return false;

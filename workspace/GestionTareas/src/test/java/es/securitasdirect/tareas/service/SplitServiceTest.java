@@ -39,12 +39,12 @@ public class SplitServiceTest {
     public void split() throws Exception {
         Agent agent = DummyGenerator.getAgent();
 
-        TareaAviso tareaAviso = (TareaAviso) queryTareaService.queryTarea(agent,"CL_CCT_ATC_CRA","0");
+        //TareaAviso tareaAviso = (TareaAviso) queryTareaService.queryTarea(agent,"CL_CCT_ATC_CRA","0");
+        TareaAviso tareaAviso = (TareaAviso) queryTareaService.queryTarea(agent,"CL_CCT_ATC_Recla","26");
         assertThat(tareaAviso,notNullValue());
 
         InstallationData installationData = installationService.getInstallationData(tareaAviso.getNumeroInstalacion());
         assertThat(installationData, notNullValue());
-
 
         splitService.getMaintenanceApplication(agent,tareaAviso, installationData);
     }
