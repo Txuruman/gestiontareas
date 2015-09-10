@@ -221,10 +221,10 @@ app.service('CommonService', function ($rootScope, $log, $http, $timeout) {
      * msg: mensaje a mostrar
      * tipo: debug, info, error
      * variable: variable a mostrar
-     * IE8: inicializada al principio, si abrimos con IE8 estará con valor true
+     * _IE8: inicializada al principio, si abrimos con IE8 estará con valor true
      */
     this.logger=function(msg, tipo, variable){
-    	if (IE8===false) {
+    	if (_IE8===false) {
     		if (variable!=undefined) {
         		$log[tipo](msg, variable);
     		}else{

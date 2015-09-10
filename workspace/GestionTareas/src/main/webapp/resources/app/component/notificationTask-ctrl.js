@@ -422,7 +422,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             url: 'agent/closeInfopointSession'
         })
             .success(function (data, status, headers, config) {
-            	CommonService.logger(('Agente obtenido: ' + data,"debug");
+            	CommonService.logger('Agente obtenido: ' + data,"debug");
                 $scope.agent = data.agent;
                 CommonService.processBaseResponse(data, status, headers, config);
             })
@@ -500,7 +500,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
      */
         //Finalizar mantenimiento al volver de la pantalla emergente
     $scope.finalizarDesdeMantenimiento = function (resultado) {
-    	CommonService.logger(("Finalizar task: ","debug", $scope.tarea);
+    	CommonService.logger("Finalizar task: ","debug", $scope.tarea);
         var finalizeRequest = {
             task: $scope.tarea,
             lastCalledPhone: $scope.lastCalledPhone,

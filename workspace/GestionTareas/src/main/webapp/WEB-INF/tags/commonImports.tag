@@ -5,7 +5,7 @@
 
 
 <script type="text/javascript">
-	var IE8=false;
+	var _IE8=false;
 </script>
 <!--[if IE 8]>
 <script src="${pageContext.request.contextPath}/resources/js/es5-shim.min.js"></script>
@@ -13,7 +13,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/respond.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/pie/PIE.js"></script>
 <script type="text/javascript">
-	IE8=true;
+	_IE8=true;
 </script>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/IE8custom.css"/>
 <![endif]-->
