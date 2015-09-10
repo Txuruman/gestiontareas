@@ -217,7 +217,9 @@ app.service('CommonService', function ($rootScope, $log, $http, $timeout) {
     var service=this;
 
 
-//    this.logger=function
+//    this.logger=function(msg, tipo){
+//    	return eval("$log."+tipo+"("+msg+");")
+//    }
 
     //Objeto global para almacenar
     $rootScope.vm = {
@@ -248,6 +250,7 @@ app.service('CommonService', function ($rootScope, $log, $http, $timeout) {
     	e = window.external.CloseInteractionPushPreview(mapParams.bp_auth_connid);
         alert(JSON.stringify(e));
     }
+    
     /** Funcion para processar las respuestas del servidor, eg: processBaseResponse(data,status,headers,config);  */
     /* quitado this. */
     this.processBaseResponse = function (data, status, headers, config) {
