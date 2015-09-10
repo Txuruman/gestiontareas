@@ -17,8 +17,11 @@ import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
@@ -510,6 +513,11 @@ public class TareaService {
                 GregorianCalendar c = new GregorianCalendar();
                 c.setTime(schedTime);
                 XMLGregorianCalendar date2 = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+                //Esto es necesario porque el formato es <dateTime>2015-09-10T19:19:19</dateTime>
+                date2.setMillisecond(DatatypeConstants.FIELD_UNDEFINED);
+                date2.setTimezone(DatatypeConstants.FIELD_UNDEFINED);
+
+
                 wsResponse = cclIntegration.rescheduleRecord(tarea.getOutAgentPlace(), tarea.getOutCampaignName(), Integer.valueOf(tarea.getOutRecordHandle()), recordType, date2);
             } catch (Exception e) {
                 LOGGER.error(e.getMessage(), e);
@@ -527,6 +535,24 @@ public class TareaService {
             LOGGER.error("Can't delay in memory task from a user that is not the owner.");
             throw new BusinessException(BusinessException.ErrorCode.ERROR_NOT_OWNER_TASK_INMEMORY);
         }
+    }
+
+
+    private XMLGregorianCalendar convertStringToXmlGregorian(String dateString)
+    {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            Date date = sdf.parse(dateString);
+            GregorianCalendar gc = (GregorianCalendar) GregorianCalendar.getInstance();
+            gc.setTime(date);
+
+            return DatatypeFactory.newInstance().newXMLGregorianCalendar(gc);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
     }
 
     /**
