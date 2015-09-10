@@ -20,7 +20,9 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -361,12 +363,12 @@ public class AvisoService {
      * @return
      * @throws Exception
      */
-    public boolean delayTicket(Integer naviso, String gblidusr, String idaplaza, String fhasta) throws Exception {
+    public boolean delayTicket(Integer naviso, String gblidusr, String idaplaza, Date fhasta) throws Exception {
 
         String cnota = ""; // constante
         boolean result = false;
         try {
-            List<RowErrorAA> rowErrorAAs = spAvisosOperaciones.aplazarAviso(naviso, gblidusr, idaplaza, fhasta, cnota);
+            List<RowErrorAA> rowErrorAAs = spAvisosOperaciones.aplazarAviso(naviso, gblidusr, idaplaza, new SimpleDateFormat("dd/MM/yyyy' 'HH:mm:ss").format(fhasta), cnota);
 
             if (rowErrorAAs != null && rowErrorAAs.size() == 1
                     && ((RowErrorAA) ((List) rowErrorAAs).get(0)).getReturnCode() != null

@@ -88,6 +88,9 @@ public class SearchTareaController extends TaskController {
                     listaTareas = new ArrayList<Tarea>();
                 }
                 response = new SearchTareaResponse( listaTareas );
+                if (listaTareas==null || listaTareas.isEmpty()) {
+                    response.info(messageUtil.getProperty("searchTarea.emptyResult"));
+                }
             } catch (Exception e) {
                 return processException(e);
             }

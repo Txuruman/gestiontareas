@@ -1,8 +1,6 @@
 package es.securitasdirect.tareas.service;
 
-import com.webservice.CCLIntegration;
 import es.securitasdirect.tareas.model.Agent;
-import es.securitasdirect.tareas.model.DummyGenerator;
 import es.securitasdirect.tareas.model.InstallationData;
 import es.securitasdirect.tareas.model.TareaAviso;
 import org.junit.Test;
@@ -11,10 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.wso2.ws.dataservice.*;
 
 import javax.inject.Inject;
-import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsNull.notNullValue;

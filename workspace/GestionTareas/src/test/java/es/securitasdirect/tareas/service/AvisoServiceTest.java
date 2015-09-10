@@ -7,11 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.wso2.ws.dataservice.GetInstallationDataInput;
 
 import javax.inject.Inject;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -109,9 +107,7 @@ public class AvisoServiceTest {
         String gblidusr = agent.getIdAgent();
         String idaplaza = "";
         Date fecha = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy' 'HH:mm:ss");
-        String fhasta =format.format(fecha);
-        boolean ok = avisoService.delayTicket(naviso, gblidusr, idaplaza, fhasta);
+        boolean ok = avisoService.delayTicket(naviso, gblidusr, idaplaza, fecha);
 
         assertThat(ok, is(true));
 

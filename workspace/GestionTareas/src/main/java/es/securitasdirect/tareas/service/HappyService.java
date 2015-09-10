@@ -29,12 +29,14 @@ public class HappyService {
     private static final String AIOTAREAS2_SERVICE = "AioTareas2";
     private static final String INSTALLATIONMONDATA_SERVICE = "spInstallationMonData";
     private static final String CCL_SERVICE = "CCLIntegration";
+    private static final String SECURITY = "Security";
     private static final String OK = "Ok";
     private static final String ERROR = "Error";
 
     @Resource
     protected String applicationUser ;
-
+    @Autowired
+    protected SecurityService securityService;
 
     protected Date upTime;
 
@@ -60,6 +62,13 @@ public class HappyService {
         //Up Time
         happyData.setUpSince(upTime);
 
+        //Security
+        try {
+            securityService.check();
+            happyData.addService(SECURITY,OK);
+        } catch (Throwable e) {
+            happyData.addService(SECURITY,ERROR, e.getMessage());
+        }
 
         //Web Services
         try {

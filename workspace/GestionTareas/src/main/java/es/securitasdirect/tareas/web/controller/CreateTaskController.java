@@ -1,27 +1,18 @@
 package es.securitasdirect.tareas.web.controller;
 
 import es.securitasdirect.tareas.model.Agent;
-import es.securitasdirect.tareas.model.DummyGenerator;
-import es.securitasdirect.tareas.model.TareaAviso;
-import es.securitasdirect.tareas.model.TareaMantenimiento;
 import es.securitasdirect.tareas.service.TareaService;
 import es.securitasdirect.tareas.web.controller.dto.request.createtask.CreateMaintenanceRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.createtask.CreateTaskRequest;
-import es.securitasdirect.tareas.web.controller.dto.response.PairListResponse;
 import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
-import es.securitasdirect.tareas.web.controller.dto.support.DummyResponseGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import org.wso2.ws.dataservice.DataServiceFault;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author

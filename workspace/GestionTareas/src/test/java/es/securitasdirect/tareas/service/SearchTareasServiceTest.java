@@ -1,8 +1,5 @@
 package es.securitasdirect.tareas.service;
 
-import com.webservice.CCLIntegration;
-import com.webservice.CclResponse;
-import es.securitasdirect.tareas.model.DummyGenerator;
 import es.securitasdirect.tareas.model.Tarea;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,10 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsNull.notNullValue;

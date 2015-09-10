@@ -1,12 +1,11 @@
-package es.securitasdirect.tareas.model;
+package es.securitasdirect.tareas.service;
 
+import es.securitasdirect.tareas.model.*;
 import es.securitasdirect.tareas.model.tareaexcel.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by Javier Naval on 03/07/2015.
@@ -154,7 +153,7 @@ public class DummyGenerator {
     }
 
 
-    public static TareaAviso  dummyNotificationTask() {
+    public static TareaAviso dummyNotificationTask() {
         LOGGER.debug("Creating dummy NotificationTask");
         TareaAviso tareaAviso = new TareaAviso();
         tareaAviso.setTelefono("DUMMY");

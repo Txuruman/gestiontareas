@@ -237,23 +237,19 @@ public class TareaService {
                 return false;
             }
         }
-        boolean delayed = false;
 
-        //2. Retrasar Tarea
-        //Comprobamos que la tarea no esté en memoria, para ello volvemos a buscar
+        //2. Aplazar Tarea Comprobamos que la tarea no esté en memoria, para ello volvemos a buscar
         if (!isTareaInMemory(tareaRefrescada)) {
-            wsDelayTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tareaRefrescada.getCampana(), tareaRefrescada.getTelefono(), tareaRefrescada.getCallingList(), tareaRefrescada.getId(), schedTime, recordType);
-
-            //Si es de tipo Aviso hay que retrasar el aviso también
-            delayed = false;
-            Date fecha = schedTime;
-            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy' 'HH:mm:ss");
-            String fHasta = format.format(fecha);
-            avisoService.delayTicket(tarea.getIdAviso(), agent.getIdAgent(), "", fHasta);
-
+            wsDelayTask(agent, tarea, schedTime, recordType);
         } else {
-            LOGGER.warn("Can't delay task because is in Retrieved state {}", tareaRefrescada);
+            //Aplazar tarea en memoria
+            wsDelayInMemoryTask(agent,tarea,schedTime,recordType);
+            //Finalizar tarea en memoria
+            wsFinalizeInMemoryTask(agent, tarea);
         }
+
+        //3. Aplazar el Aviso, Si es de tipo Aviso hay que retrasar el aviso también
+        boolean delayed = avisoService.delayTicket(tarea.getIdAviso(), agent.getIdAgent(), "", schedTime);
         return delayed;
     }
 
@@ -262,12 +258,6 @@ public class TareaService {
      * Aplazar: muestra un diálogo en modo modal para introducir la fecha y hora de la reprogramación,
      * indicando también si es para el propio agente o para el grupo de la Campaña.
      * <p/>
-     * 1 consulta la tarea de nuevo
-     * 2.1 si no está en  memoria se aplaza la tarea con cclIntegration.updateCallingListContact
-     * 2.2 si está en memoria
-     * 2.2.1 se aplaza la tarea con cclIntegration.rescheduleRecord
-     * 2.2.2 se finaliza la tarea con cclIntegration.updateCallingListContact
-     * <p/>
      * o	Record_status = 1 (ready)
      * o	Dial_sched_time = dd/mm/aaaa hh:mm:ss
      * o	Recort_type = 5 (personal callback) / 6 (campaing callback)
@@ -275,31 +265,18 @@ public class TareaService {
     public void delayOtherTask(Agent agent,
                                Tarea tarea, Date schedTime, String recordType) throws Exception {
         LOGGER.info("Delaying Task : {} {} {}",   schedTime,recordType,tarea);
+
         //Consultar la tarea de nuevo
         Tarea tareaRefrescada = queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId());
-        //Si no está en memoria se puede ejecutar
+
         if (!isTareaInMemory(tareaRefrescada)) {
-            wsDelayTask(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), tarea.getCampana(), tarea.getTelefono(), tarea.getCallingList(), tarea.getId(), schedTime, recordType);
-//                if (delayed && tarea instanceof TareaAviso) {
-//                    //Si es de tipo Aviso hay que retrasar el aviso también
-//                    delayed = false;
-//                    Date fecha = schedTime;
-//                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy' 'HH:mm:ss");
-//                    String fHasta = format.format(fecha);
-//
-//                    delayed = avisoService.delayTicket(
-//                            ((TareaAviso) tarea).getIdAviso(),
-//                            ccUserId, "", fHasta
-//                    );
-//                }
-
+            wsDelayTask(agent, tarea, schedTime, recordType);
             //TODO Pendiente, cuando esté funcionando el Reporting de BI el dato Motivo de Cierre y Compensación deben de registrarse en la auditoria
-
         } else {
             //Aplazar tarea en memoria
             wsDelayInMemoryTask(agent, tarea, schedTime, recordType);
             //Finalizar tarea en memoria
-            wsFilanizeTask(agent, tarea);
+            wsFinalizeInMemoryTask(agent, tarea);
         }
     }
 
@@ -316,81 +293,6 @@ public class TareaService {
         //TODO: Crear Tarea
         return creado;
     }
-
-    // TODO BORRARLA SI NO SE USA
-    /* se está utilizando en gestión de señales
-    public boolean createTask(Agent agent, TareaMantenimiento tareaMantenimiento) {
-        LOGGER.debug("Creating task: {}", tareaMantenimiento);
-        boolean result;
-        try {
-            // TODO Tarea mantenimiento la crea un batch, el usuario desde pantalla crea tarea de aviso
-            // TODO rellenar las variables
-            String ccIdentifier = agent.getAgentGroupSD();
-            String ccUserId = agent.getIdAgent();
-
-            List<StringArray> insertValues = new ArrayList<StringArray>();
-            StringArray stringArray = new StringArray();
-            stringArray.getItem().add("instalacion");
-            stringArray.getItem().add(tareaMantenimiento.getNumeroInstalacion());
-            stringArray.getItem().add("contrato");
-            stringArray.getItem().add(tareaMantenimiento.getNumeroContrato());
-            stringArray.getItem().add("nombre");
-            stringArray.getItem().add(tareaMantenimiento.getPersonaContacto());
-            stringArray.getItem().add("telefono");
-            stringArray.getItem().add(tareaMantenimiento.getTelefono());
-            stringArray.getItem().add("direccion");
-            stringArray.getItem().add(tareaMantenimiento.getDireccion());
-            stringArray.getItem().add("ciudad");
-            stringArray.getItem().add(tareaMantenimiento.getCiudad());
-            stringArray.getItem().add("panel");
-            stringArray.getItem().add("valor"); // TODO
-            stringArray.getItem().add("version");
-            stringArray.getItem().add("valor"); // TODO
-            stringArray.getItem().add("fechaevento");
-            stringArray.getItem().add("valor"); // TODO
-            stringArray.getItem().add("horaevento");
-            stringArray.getItem().add("valor"); // TODO
-            stringArray.getItem().add("telefono1");
-            stringArray.getItem().add(tareaMantenimiento.getTelefono1());
-            stringArray.getItem().add("telefono2");
-            stringArray.getItem().add(tareaMantenimiento.getTelefono2());
-            stringArray.getItem().add("telefono3");
-            stringArray.getItem().add(tareaMantenimiento.getTelefono3());
-            insertValues.add(stringArray);
-
-            String date = "21/08/2015"; // TODO
-            String hour = "08:34:00"; // TODO
-            String dialRule = ""; // constante
-            String timeFrom = ""; // constante
-            String timeUntil = ""; // constante
-            String callingList = Constants.TAREA_MANTENIMIENTO; // constante
-            String campaing = Constants.TAREA_MANTENIMIENTO; // constante
-
-            List<StringArray> numbers = new ArrayList<StringArray>();
-            StringArray stringArray2 = new StringArray();
-            stringArray2.getItem().add(tareaMantenimiento.getTelefono1());
-            numbers.add(stringArray2);
-
-            String country = agent.getAgentCountryJob();
-            String ctrNo = tareaMantenimiento.getNumeroInstalacion();
-            String isEquals = "true"; // constante
-
-            // Llamada WS crear tarea
-            IclResponse iclResponse = cclIntegration.insertCallingListContact(ccIdentifier, applicationUser, ccUserId, insertValues,
-                    date, hour, dialRule, timeFrom, timeUntil, callingList, campaing, numbers, country, ctrNo, isEquals);
-
-            if (iclResponse != null && iclResponse.getOperationResult().getResultCode() == 200) {
-                result = true;
-            } else {
-                result = false;
-            }
-        } catch (Exception e) {
-            LOGGER.error("Error creating task: {}", e);
-            result = false;
-        }
-        return result;
-    }
-    */
 
 
     public boolean createMaintenance(Tarea task) {
@@ -470,20 +372,20 @@ public class TareaService {
     /**
      * Llamada al WS de delay
      *
-     * @param ccUserId
-     * @param country           del agente
-     * @param desktopDepartment alias ccIdentifier
-     * @param callingList       calling list
-     * @param campaign          de la tarea
-     * @param contactInfo       contactInfo
-     * @param idTarea           chain_id
+
      * @param schedTime
      * @param recordType
      * @return
      */
-    private void wsDelayTask(String ccUserId, String country, String desktopDepartment,
-                             String campaign, String contactInfo, String callingList,
-                             Integer idTarea, Date schedTime, String recordType) {
+    private void wsDelayTask(Agent agent, Tarea tarea , Date schedTime, String recordType) {
+
+        String ccUserId = agent.getIdAgent();
+        String country = agent.getAgentCountryJob();
+        String desktopDepartment = agent.getDesktopDepartment();
+        String campaign = tarea.getCampana();
+        String contactInfo = tarea.getTelefono();
+        String callingList = tarea.getCallingList();
+        Integer idTarea= tarea.getId();
 
         String filter = "chain_id=" + idTarea;
 

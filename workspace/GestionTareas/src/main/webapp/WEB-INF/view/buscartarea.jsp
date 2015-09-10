@@ -117,7 +117,7 @@
 </div>
 
 ${params}
-<a href="test">TEST</a>
+<%--<a href="test">TEST</a>--%>
 </body>
 
 </html>

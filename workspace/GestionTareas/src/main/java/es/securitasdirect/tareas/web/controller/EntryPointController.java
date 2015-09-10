@@ -38,6 +38,8 @@ public class EntryPointController extends TaskController {
 
     @Autowired
     protected HappyService happyService;
+    @Autowired
+    protected SecurityService securityService;
 
 
     //Funciona
@@ -88,6 +90,11 @@ public class EntryPointController extends TaskController {
         Map<String, String> parametersMap = createParameterMap(request);
         //Crear el objeto de sesion con los datos del agent
         Agent agent = agentController.loadAgentFromIWS(parametersMap);
+
+
+        //Validate security, se hace para todas las operaciones
+        securityService.validateAuthenticationRequest(parametersMap.get(ExternalParams.AUTH_SIGNATURE),parametersMap.get(ExternalParams.AUTH_REQUEST_DATE), parametersMap.get(ExternalParams.AUTH_IPADDRESS), parametersMap.get(ExternalParams.AUTH_CONNID));
+
         String callingList = (parametersMap.get(ExternalParams.CALLING_LIST)!=null?parametersMap.get(ExternalParams.CALLING_LIST).trim():null);
         String installation = parametersMap.get(ExternalParams.NUMERO_INSTALACION);
 
