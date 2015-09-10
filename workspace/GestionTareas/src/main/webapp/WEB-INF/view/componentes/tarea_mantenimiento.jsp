@@ -3,7 +3,31 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="app" tagdir="/WEB-INF/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<script type="text/javascript">
+//  $(document).ready(function(){
+// 	var newCallConnid = null;
+   	  
+// 	$("button[name='papallama']").click(function() {
+// 		var phone = "0999655738925";
+// 		alert(phone);
+// 		e = window.external.DoCall(phone, 'myDoCallHandler', provideMockupObject());
+// 		alert(JSON.stringify(e));
+// 	});
+   	  
+//    	function myDoCallHandler(eventName, connid) {
+//    			newCallConnid = connid;
+//    			alert("alberto!:"+eventName+": "+newCallConnid+": ");
+//    	}
 
+//    	function provideMockupObject() {
+//    			var o = {idProspect:'12345', task:'TAKE_RDV', comments:'These are the comments of my prospect', otherelement:'tatata'};
+//    			params = JSON.stringify(o);
+//    			return JSON.stringify(o);
+//    	}
+// })
+
+
+</script>
 <div ng-controller="maintenancetask-ctrl" ng-init="init()">
     <jsp:include page="instalacion.jsp"/>
     <div class="panel panel-default">
@@ -47,7 +71,7 @@
                                              readonly="false"/>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                            <button type="button" class="btn btn-default btn-sm botonAbsolute" title="<spring:message code="tareamantenimiento.llamartelefono1"/>" ng-click="lastCalledPhone=tarea.telefono1" name="papallama">
+                            <button type="button" class="btn btn-default btn-sm botonAbsolute" title="<spring:message code="tareamantenimiento.llamartelefono1"/>" ng-click="lastCalledPhone=tarea.telefono1; doCall(tarea.telefono1);" name="papallama">
                         			<span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
                				 </button>
                         </div>
@@ -61,7 +85,7 @@
                                              readonly="false"/>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                        	<button type="button" class="btn btn-default btn-sm botonAbsolute" title="<spring:message code="tareamantenimiento.llamartelefono2"/>" ng-click="lastCalledPhone=tarea.telefono2">
+                        	<button type="button" class="btn btn-default btn-sm botonAbsolute" title="<spring:message code="tareamantenimiento.llamartelefono2"/>" ng-click="lastCalledPhone=tarea.telefono2; doCall(tarea.telefono2);">
                         			<span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
                				 </button>
                         </div>
@@ -75,7 +99,7 @@
                                              readonly="false"/>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                             <button type="button" class="btn btn-default btn-sm botonAbsolute" title="<spring:message code="tareamantenimiento.llamartelefono3"/>" ng-click="lastCalledPhone=tarea.telefono3">
+                             <button type="button" class="btn btn-default btn-sm botonAbsolute" title="<spring:message code="tareamantenimiento.llamartelefono3"/>" ng-click="lastCalledPhone=tarea.telefono3; doCall(tarea.telefono3);">
                         			<span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
                				 </button>
                         </div>

@@ -151,21 +151,22 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService, $
     }
     
     $scope.doCall=function(phone){
-    	phone="0999"+phone;
-    	alert(phone);
-    	phone="0999655738925";
-	    				
-		var myDoCallHandler=function (eventName, connid) {
-			alert("myDoCallHandler");
-            newCallConnid = connid;
-		}
-		
-		var provideMockupObject=function() {
-			alert("provideMockupObject");
-            var o = {idProspect:'12345', task:'TAKE_RDV', comments:'These are the comments of my prospect', otherelement:'tatata'};
-            return JSON.stringify(o);
-		}
-		var e = window.external.DoCall(phone);
-	    alert(JSON.stringify(e));
+    	var newCallConnid = null;
+    	
+    	function myDoCallHandler(eventName, connid) {
+	   			newCallConnid = connid;
+	   			alert("alberto!:"+eventName+": "+newCallConnid+": ");
+	   	}
+	
+	   	function provideMockupObject() {
+	   			var o = {idProspect:'12345', task:'TAKE_RDV', comments:'These are the comments of my prospect', otherelement:'tatata'};
+	   			params = JSON.stringify(o);
+	   			return JSON.stringify(o);
+	   	}
+	   	
+	   	phone = "0999"+phone;
+		alert(phone);
+		e = window.external.DoCall(phone, 'myDoCallHandler', provideMockupObject());
+		alert(JSON.stringify(e));
     }
 });
