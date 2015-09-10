@@ -6,6 +6,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <ul class="nav nav-tabs nav-justified"> 
-    <li class="${fn:contains(pageContext.request.servletPath,'buscar')?'activeTab':''}"><a href="${pageContext.request.contextPath}/search">Buscar tarea</a></li>
-    <li class="${fn:contains(pageContext.request.servletPath,'crear')?'activeTab':''}"><a href="${pageContext.request.contextPath}/createtask">Crear tarea </a></li>
+    <li class="${fn:contains(pageContext.request.servletPath,'buscar')?'activeTab':''}"><a href="${pageContext.request.contextPath}/search"><spring:message code="tab.buscartarea.title"/></a></li>
+    <li class="${fn:contains(pageContext.request.servletPath,'crear')?'activeTab':''}"><a href="${pageContext.request.contextPath}/createtask"><spring:message code="tab.searchTarea.title"/></a></li>
 </ul>

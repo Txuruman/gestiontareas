@@ -435,7 +435,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
      * Variable _contextPath inicializada en commonImports
      */
     $scope.descartar = function () {
-        $window.location.href = _contextPath + "/entry";
+        $window.location.href = _contextPath + "/search";
     };
 
 
