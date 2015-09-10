@@ -90,7 +90,7 @@ function convertDateStringsToDates(input) {
         // TODO: Improve this regex to better match ISO 8601 date strings.
         if (typeof value === "string" && value.length>4 && (match = value.match(regexIso8601)) ) {
             // Assume that Date.parse can parse ISO 8601 strings, or has been shimmed in older browsers to do so.
-            //console.log("Transformando fecha",value);
+            //$log.debug("Transformando fecha",value);
             var milliseconds = Date.parse(match[0]);
             if (!isNaN(milliseconds)) {
                 input[key] = new Date(milliseconds);
@@ -217,7 +217,7 @@ app.service('CommonService', function ($rootScope, $log, $http, $timeout) {
     var service=this;
 
 
-
+//    this.logger=function
 
     //Objeto global para almacenar
     $rootScope.vm = {
@@ -242,7 +242,7 @@ app.service('CommonService', function ($rootScope, $log, $http, $timeout) {
     /** Funcion para processar las respuestas del servidor, eg: processBaseResponse(data,status,headers,config);  */
     /* quitado this. */
     this.processBaseResponse = function (data, status, headers, config) {
-        //console.log("Procesando BaseResponse....");
+        //$log.debug("Procesando BaseResponse....");
         if (data && data.messages) {
         	/**
         	 * For modificado para correcto funcionamiento en IE8
@@ -307,14 +307,14 @@ app.directive('jsonDate', function ($filter) {
 
             //format text going to user (model to view)
             ngModel.$formatters.push(function (value) {
-                //console.log("String To Date:" + value);
+                //$log.debug("String To Date:" + value);
                 var date = $filter('stringToDate')(value);
                 return date.toString();
             });
 
             //format text from the user (view to model)
             ngModel.$parsers.push(function (value) {
-                //console.log("View to Model");
+                //$log.debug("View to Model");
                 var date = new Date(value);
                 if (!isNaN(date.getTime())) {
                     return moment(date).format();
