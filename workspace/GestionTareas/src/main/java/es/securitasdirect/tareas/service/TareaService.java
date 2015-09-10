@@ -137,15 +137,10 @@ public class TareaService {
     /**
      * Finalizar la tarea de tipo Aviso, es distinta al resto de tareas porque hay que llamar a cancelar.
      *
-     *Si modifica campos y Finaliza:
-     * 1 modificar aviso
+     * Finalizar:
+     * 1 si modifica campos modificar aviso
      * 2 finalizar aviso
      * 3 finaliza tarea
-     * 3.1 si está en memoria finalizar tarea ws ccl nuevo y cerrar interacción con javascript
-     * 3.2 si no está en  memoria finalizar tarea ws ccl antiguo y volver a la ventana de buscar
-     * Si no modifica campos y Finaliza:
-     * 1 finalizar aviso
-     * 2 finalizar tarea
      * 3.1 si está en memoria finalizar tarea ws ccl nuevo y cerrar interacción con javascript
      * 3.2 si no está en  memoria finalizar tarea ws ccl antiguo y volver a la ventana de buscar
      *
@@ -267,8 +262,11 @@ public class TareaService {
      * Aplazar: muestra un diálogo en modo modal para introducir la fecha y hora de la reprogramación,
      * indicando también si es para el propio agente o para el grupo de la Campaña.
      * <p/>
-     * 1.Comenzamos consultando de nuevo la tarea
-     * 2.Si está en memoria...
+     * 1 consulta la tarea de nuevo
+     * 2.1 si no está en  memoria se aplaza la tarea con cclIntegration.updateCallingListContact
+     * 2.2 si está en memoria
+     * 2.2.1 se aplaza la tarea con cclIntegration.rescheduleRecord
+     * 2.2.2 se finaliza la tarea con cclIntegration.updateCallingListContact
      * <p/>
      * o	Record_status = 1 (ready)
      * o	Dial_sched_time = dd/mm/aaaa hh:mm:ss
@@ -300,6 +298,8 @@ public class TareaService {
         } else {
             //Aplazar tarea en memoria
             wsDelayInMemoryTask(agent, tarea, schedTime, recordType);
+            //Finalizar tarea en memoria
+            wsFilanizeTask(agent, tarea);
         }
     }
 
@@ -655,10 +655,7 @@ public class TareaService {
      * Solo cuando es tarea de tipo aviso, para los demás no se hace nada más que volver a otra pantalla
      *
      *
-     * Si no modifica campos y Descarta:
-     * 1.1 si está en memoria descartarla con el ws ccl nuevo y cerrar interacción con javascript
-     * 1.2 si no está en memoria volver a la ventana de buscar
-     * Si modifica campos y Descarta:
+     * Descartar modificando campos:
      * 1 mensaje de confirmación de las modificaciones
      * 2 modificar aviso
      * 3 si ha cambiado Tipo1/Motivo1
@@ -666,6 +663,9 @@ public class TareaService {
      * 3.2 Finalizar tarea
      * 3.2.1 si está en memoria finalizar tarea ws ccl nuevo y cerrar interacción con javascript
      * 3.2.2 si no está en  memoria finalizar tarea ws ccl antiguo y volver a la ventana de buscar
+     * Descartar sin modificar campos:
+     * 1.1 si está en memoria descartarla con el ws ccl nuevo y cerrar interacción con javascript
+     * 1.2 si no está en memoria volver a la ventana de buscar
      *
      * @param agent
      * @param tarea
