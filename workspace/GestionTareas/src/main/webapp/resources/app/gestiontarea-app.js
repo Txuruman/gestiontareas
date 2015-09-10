@@ -216,6 +216,7 @@ app.controller('DatepickerDemoCtrl', function ($scope) {
 app.service('CommonService', function ($rootScope, $log, $http, $timeout) {
     var service=this;
 
+    
     /**
      * Gestión del log de javascript
      * msg: mensaje a mostrar
@@ -232,7 +233,17 @@ app.service('CommonService', function ($rootScope, $log, $http, $timeout) {
     		}
 		}
     }
-
+    this.logDebug(msg,variable) {
+    	this.logger(msg,"debug",variable);
+    }
+    this.logInfo(msg,variable) {
+    	this.logger(msg,"info",variable);
+    }
+    this.logError(msg,variable) {
+    	this.logger(msg,"error",variable);
+    }
+    /**FIN Gestión Error*/
+    
     //Objeto global para almacenar
     $rootScope.vm = {
         //Variable global para mostrar mensajes
