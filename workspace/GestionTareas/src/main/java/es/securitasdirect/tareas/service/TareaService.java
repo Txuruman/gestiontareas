@@ -256,6 +256,15 @@ public class TareaService {
      * Aplazar: muestra un diálogo en modo modal para introducir la fecha y hora de la reprogramación,
      * indicando también si es para el propio agente o para el grupo de la Campaña.
      * <p/>
+     *
+     * 1 consulta la tarea de nuevo
+     * 2.1 si no está en  memoria
+     * 2.1.1 aplazar la tarea con cclIntegration.updateCallingListContact
+     * 2.1.2 Pendiente, cuando esté funcionando el Reporting de BI el dato Motivo de Cierre y Compensación deben de registrarse en la auditoria
+     * 2.2 si está en memoria
+     * 2.2.1 aplazar la tarea con cclIntegration.rescheduleRecord
+     * 2.2.2 finalizar la tarea con cclIntegration.updateCallingListContact
+     *
      * o	Record_status = 1 (ready)
      * o	Dial_sched_time = dd/mm/aaaa hh:mm:ss
      * o	Recort_type = 5 (personal callback) / 6 (campaing callback)
