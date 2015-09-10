@@ -237,8 +237,17 @@ app.service('CommonService', function ($rootScope, $log, $http, $timeout) {
     //this.addAlert = function() {
     //    $scope.alerts.push({msg: 'Another alert!'});
     //};
-
-
+    
+    /** Cierre de interacción
+     * 	Función externa CloseInteractionPushPreview
+     */
+    this.closeInteraction=function(){
+    	alert("entrando");
+    	alert("map" + mapParams);
+    	alert("conn" + mapParams.bp_auth_connid);
+    	e = window.external.CloseInteractionPushPreview(mapParams.bp_auth_connid);
+        alert(JSON.stringify(e));
+    }
     /** Funcion para processar las respuestas del servidor, eg: processBaseResponse(data,status,headers,config);  */
     /* quitado this. */
     this.processBaseResponse = function (data, status, headers, config) {
