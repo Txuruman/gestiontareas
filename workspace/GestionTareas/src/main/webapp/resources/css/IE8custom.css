@@ -57,3 +57,6 @@ form.form-horizontal input.radio-inline{
 html{
 	width:98.4%;
 }
+.ng-hide {
+	display: none !important;
+}
