@@ -2,13 +2,11 @@ package es.securitasdirect.tareas.service;
 
 
 import com.webservice.CCLIntegration;
-import com.webservice.IclResponse;
 import com.webservice.WsResponse;
 import es.securitasdirect.tareas.exceptions.BusinessException;
 import es.securitasdirect.tareas.exceptions.FrameworkException;
 import es.securitasdirect.tareas.model.*;
 import es.securitasdirect.tareas.web.controller.params.TaskServiceParams;
-import net.java.dev.jaxb.array.StringArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wso2.ws.dataservice.*;
@@ -34,6 +32,9 @@ import java.util.List;
 public class TareaService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TareaService.class);
+
+    //Tiempo mínimo de retraso de una tarea en milisegundos
+    private static final long MIN_DELAY_TIME = 5*60*1000;
 
     //Web Services para hacer pruebas directamente
     @Inject
@@ -64,6 +65,12 @@ public class TareaService {
      * Comprueba si la tarea que llega es de tipo Aviso
      */
     public void delayTask(Agent agent, Tarea tarea, Date schedTime, String recordType) throws Exception {
+        //Validar las horas
+        if (schedTime==null || schedTime.getTime()-System.currentTimeMillis()<MIN_DELAY_TIME) {
+            throw new BusinessException(BusinessException.ErrorCode.ERROR_DELAY_INCOMPATIBLE_DATE);
+        }
+
+        //Llamada a los Delay
         if (tarea instanceof TareaAviso) {
             this.delayNotificationTask(agent, (TareaAviso) tarea, schedTime, recordType);
         } else {
@@ -627,6 +634,7 @@ public class TareaService {
      * @return
      */
     private boolean isTareaInMemory(Tarea tarea) {
+        if (true) return true;
         return tarea.isRetrieved();
     }
 
