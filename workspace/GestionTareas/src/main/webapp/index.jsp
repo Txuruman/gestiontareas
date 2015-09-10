@@ -38,13 +38,13 @@ Enlaces
     <li>
         Estando el agente con una interacción en curso.<br/>
         <ul>
-            <li><a href="entry?bp_agent=12187&bp_agentIBS=I24311&bp_agentCountryJob=SPAIN&bp_desktopDepartment=ATC&bp_out_instalacion=1599716&bp_out_contact_info=1&bp_out_GSW_CAMPAIGN_NAME=1&bp_out_GSW_RECORD_HANDLE=6&bp_agentPlace=P17023">Entrar (Instalación con Tareas)</a></li>
-            <li><a href="entry?bp_agent=12187&bp_agentIBS=I24311&bp_agentCountryJob=SPAIN&bp_desktopDepartment=ATC&bp_out_instalacion=111111&bp_out_contact_info=1&bp_out_GSW_CAMPAIGN_NAME=1&bp_out_GSW_RECORD_HANDLE=6&bp_agentPlace=P17023">Entrar (Instalación sin Tareas)</a></li>
+            <li><a href="entry?bp_agent=12187&bp_agentIBS=I24311&bp_agentCountryJob=SPAIN&bp_desktopDepartment=ATC&bp_out_instalacion=1599716&bp_out_contact_info=1&bp_out_GSW_CAMPAIGN_NAME=1&bp_out_GSW_RECORD_HANDLE=6&bp_agentPlace=P17023&bp_auth_signature=78926738F&bp_auth_ipAddress=192.168.5.110&bp_auth_requestDate=201509021201&bp_auth_connid=Id003">Entrar (Instalación con Tareas)</a></li>
+            <li><a href="entry?bp_agent=12187&bp_agentIBS=I24311&bp_agentCountryJob=SPAIN&bp_desktopDepartment=ATC&bp_out_instalacion=111111&bp_out_contact_info=1&bp_out_GSW_CAMPAIGN_NAME=1&bp_out_GSW_RECORD_HANDLE=6&bp_agentPlace=P17023&bp_auth_signature=78926738F&bp_auth_ipAddress=192.168.5.110&bp_auth_requestDate=201509021201&bp_auth_connid=Id003">Entrar (Instalación sin Tareas)</a></li>
         </ul>
     </li>
     <li>
         Estando el agente sin interacción en curso.<br/>
-        <a href="entry?bp_agent=12187&bp_agentIBS=M0OOS&bp_agentCountryJob=SPAIN&bp_desktopDepartment=ATC&bp_out_contact_info=1&bp_out_GSW_CAMPAIGN_NAME=1&bp_out_GSW_RECORD_HANDLE=6&bp_agentPlace=P17023">Entrar</a><br/>
+        <a href="entry?bp_agent=12187&bp_agentIBS=M0OOS&bp_agentCountryJob=SPAIN&bp_desktopDepartment=ATC&bp_out_contact_info=1&bp_out_GSW_CAMPAIGN_NAME=1&bp_out_GSW_RECORD_HANDLE=6&bp_agentPlace=P17023&bp_auth_signature=78926738F&bp_auth_ipAddress=192.168.5.110&bp_auth_requestDate=201509021201&bp_auth_connid=Id003">Entrar</a><br/>
     </li>
     <li>
         Consulta del estado de la aplicaci&oacute;n.<br/>
@@ -52,7 +52,9 @@ Enlaces
     </li>
 </ul>
 
-<h2><a href="test.htm">test</a></h2>
+
+
+<h3><a href="test.htm">test</a></h3>
 
 
 </body>

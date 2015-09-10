@@ -6,6 +6,7 @@ import es.securitasdirect.tareas.exceptions.FrameworkException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Resource;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.xml.bind.DatatypeConverter;
@@ -36,10 +37,11 @@ public class SecurityService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SecurityService.class);
 
-    private String securityKey = "SECURITAS2015TAREAS";
+    @Resource(name = "securityKey")
+    private String securityKey;
 
     public void validateAuthenticationRequest(String signature, String requestDate, String ipAddress, String connid) {
-        if (signature==null || requestDate==null || ipAddress==null) {
+        if (signature == null || requestDate == null || ipAddress == null) {
             LOGGER.error("Not enough information to check security token");
             throw new BusinessException(BusinessException.ErrorCode.ERROR_NOT_AUTHENTICATED);
         }
@@ -51,29 +53,29 @@ public class SecurityService {
 
         //Estos parámetros se concatenarán en el orden indicado en la fórmula anterior, y,
         String digest = requestDate + ipAddress + connid + securityKey;
-        LOGGER.debug("toDigest:"  + digest);
+        LOGGER.debug("toDigest:" + digest);
         // a partir de los bytes de esta concatenación, utilizando la codificación UTF8, se generará un código Hash utilizando el algoritmo sha1.
 
         byte[] generatedSignature = null;
         try {
             generatedSignature = toSHA1(digest.getBytes("UTF-8"));
         } catch (UnsupportedEncodingException e) {
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage(), e);
             throw new FrameworkException(e);
         }
 
         //Por último, este código Hash se pasará a un string en base64. Este string resultante será el valor del parámetro bp_auth_signature de la llamada.
-        String generatedSignatureBase64 =toBase64(generatedSignature);
+        String generatedSignatureBase64 = toBase64(generatedSignature);
 
         //TODO Eliminar Backdoor
-        if ( signature.equalsIgnoreCase("78926738F")) {
+        if (signature.equalsIgnoreCase("78926738F")) {
             LOGGER.warn("Security backdoor executed to ommit security authetication");
             return;
         }
 
         //En las aplicaciones web se debería realizar este mismo procedimiento y comparar el string resultante con el string que envía IWS en la llamada para autenticar la petición.
         if (!generatedSignatureBase64.equals(signature)) {
-            LOGGER.error("Generated Signature {} don't match {}", generatedSignatureBase64,signature);
+            LOGGER.error("Generated Signature {} don't match {}", generatedSignatureBase64, signature);
             throw new BusinessException(BusinessException.ErrorCode.ERROR_NOT_AUTHENTICATED);
         } else {
             LOGGER.debug("Sucessfully authenticated signature");
@@ -86,7 +88,7 @@ public class SecurityService {
         try {
             md = MessageDigest.getInstance("SHA-1");
         } catch (NoSuchAlgorithmException e) {
-            LOGGER.error(e.getMessage(),e);
+            LOGGER.error(e.getMessage(), e);
             throw new FrameworkException(e);
         }
         return md.digest(convertme);
@@ -100,13 +102,14 @@ public class SecurityService {
     /**
      * Hace una prueba de codificación de una petición para validar que no hay problemas de codificación o algoritmo.
      * Si hay algún problema lanza excepción
+     *
      * @throws Exception
      */
     protected void check() throws Exception {
-        String bp_auth_requestDate="201509021201";
-        String bp_auth_ipAddress="192.168.5.110";
-        String bp_auth_signature="CGba8nhPxuM5a3+yzGOpEnZjtFE=";
-        String bp_auth_connid="Id003";
-        validateAuthenticationRequest(bp_auth_signature, bp_auth_requestDate, bp_auth_ipAddress,bp_auth_connid);
+        String bp_auth_requestDate = "201509021201";
+        String bp_auth_ipAddress = "192.168.5.110";
+        String bp_auth_signature = "CGba8nhPxuM5a3+yzGOpEnZjtFE=";
+        String bp_auth_connid = "Id003";
+        validateAuthenticationRequest(bp_auth_signature, bp_auth_requestDate, bp_auth_ipAddress, bp_auth_connid);
     }
 }

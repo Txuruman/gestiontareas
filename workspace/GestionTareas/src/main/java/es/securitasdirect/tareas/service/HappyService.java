@@ -5,6 +5,7 @@ import es.securitasdirect.tareas.model.happy.HappyData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.wso2.ws.dataservice.FSMDataServiceLightPortType;
 import org.wso2.ws.dataservice.SPAIOTAREAS2PortType;
 import org.wso2.ws.dataservice.SPInstallationMonDataPortType;
 
@@ -26,6 +27,7 @@ public class HappyService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(HappyService.class);
     private static final String INFOPOINT_SERVICE = "Infopoint";
+    private static final String FSM_LIGHT = "FSMDataServiceLight";
     private static final String AIOTAREAS2_SERVICE = "AioTareas2";
     private static final String INSTALLATIONMONDATA_SERVICE = "spInstallationMonData";
     private static final String CCL_SERVICE = "CCLIntegration";
@@ -50,7 +52,8 @@ public class HappyService {
     protected SPAIOTAREAS2PortType spAioTareas2;
     @Inject
     protected CCLIntegration cclIntegration;
-
+    @Inject
+    protected FSMDataServiceLightPortType fsmDataServiceLight;
 
     @PostConstruct
     protected void init() {
@@ -65,12 +68,20 @@ public class HappyService {
         //Security
         try {
             securityService.check();
-            happyData.addService(SECURITY,OK);
+            happyData.addService(SECURITY, OK);
         } catch (Throwable e) {
             happyData.addService(SECURITY,ERROR, e.getMessage());
         }
 
+
         //Web Services
+        try {
+            fsmDataServiceLight.getMember("1760731");
+            happyData.addService(FSM_LIGHT,OK);
+        } catch (Exception e) {
+            happyData.addService(FSM_LIGHT,ERROR, e.getMessage());
+        }
+
         try {
             infopointService.validateSession("check infopoint service");
             happyData.addService(INFOPOINT_SERVICE,OK);
