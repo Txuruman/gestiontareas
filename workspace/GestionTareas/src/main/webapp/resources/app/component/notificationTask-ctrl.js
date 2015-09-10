@@ -42,18 +42,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
 
             //Funciones para recibir el cierre ok y el cancel
             modalInstance.result.then(function () {
-                //Boton Ok del modal
-                //Le mandamos la tarea sin los atributos de finalizar
-//	        	var temp1=angular.copy($scope.tarea);
-//	        	temp1.datosAdicionalesCierre=null;
-//	        	temp1.closing=null;
                 $scope.descartaraviso($scope.tarea);
-                //Si los atributos de finalizar no están nulos y hemos cambiado el tipo y el motivo 1 de la tarea --> Finalizamos y desmarcamos aviso de tarea
-//	            if ($scope.tarea.datosAdicionalesCierre!=null && $scope.tarea.closing!=null && !angular.equals($scope.tarea.tipoAviso1, $scope.tareaOriginal.tipoAviso1) && !angular.equals($scope.tarea.motivo1, $scope.tareaOriginal.motivo1)) {
-//					$scope.finalizar();
-//					//TODO: Desmarcar aviso de tarea (otro WS)
-//				}
-                $scope.descartar();
             }, function (param) {
                 //Boton cancelar del Modal
             });
@@ -274,7 +263,14 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             })
                 .success(function (data, status, headers, config) {
                     CommonService.processBaseResponse(data, status, headers, config);
-
+                    /** Si no venimos de la pantalla de buscar cerramos la interacción,
+                     *  en caso contrario volvemos a la pantalla de buscar
+                     */  
+                    if($scope.fromSearch!==true){
+                    	$scope.closeInteraction();
+                    }else{
+                    	$scope.descartar();
+                    }
                 })
                 .error(function (data, status, headers, config) {
                     // called asynchronously if an error occurs
@@ -299,6 +295,14 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             .success(function (data, status, headers, config) {
                 //$log.debug('Modificación de la tarea realizada, response: ' + JSON.stringify(data));
                 CommonService.processBaseResponse(data, status, headers, config);
+                /** Si no venimos de la pantalla de buscar cerramos la interacción,
+                 *  en caso contrario volvemos a la pantalla de buscar
+                 */  
+                if($scope.fromSearch!==true){
+                	$scope.closeInteraction();
+                }else{
+                	$scope.descartar();
+                }
             })
             .error(function (data, status, headers, config) {
                 //$log.debug('Error en la modificación de la tarea, response: ' + JSON.stringify(data));
@@ -461,6 +465,14 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             .success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
                 //$log.debug("Finalized task");
+                /** Si no venimos de la pantalla de buscar cerramos la interacción,
+                 *  en caso contrario volvemos a la pantalla de buscar
+                 */  
+                if($scope.fromSearch!==true){
+                	$scope.closeInteraction();
+                }else{
+                	$scope.descartar();
+                }
             })
             .error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
@@ -513,6 +525,14 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             .success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
                 //$log.debug("Finalized task");
+                /** Si no venimos de la pantalla de buscar cerramos la interacción,
+                 *  en caso contrario volvemos a la pantalla de buscar
+                 */  
+                if($scope.fromSearch!==true){
+                	$scope.closeInteraction();
+                }else{
+                	$scope.descartar();
+                }
             })
             .error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
@@ -522,4 +542,11 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             });
     };
 
+    /** Cierre de interacción
+     * 	Función externa CloseInteractionPushPreview
+     */
+    $scope.closeInteraction=function(){
+    	 e = window.external.CloseInteractionPushPreview(connID);
+         alert(JSON.stringify(e));
+    }
 });

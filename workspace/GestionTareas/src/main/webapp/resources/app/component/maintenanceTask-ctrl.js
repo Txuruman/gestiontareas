@@ -132,6 +132,14 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService, $
             .success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data,status,headers,config);
                 //$log.debug("Finalized task");
+                /** Si no venimos de la pantalla de buscar cerramos la interacción,
+                 *  en caso contrario volvemos a la pantalla de buscar
+                 */  
+                if($scope.fromSearch!==true){
+                	$scope.closeInteraction();
+                }else{
+                	$scope.descartar();
+                }
             })
             .error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
@@ -149,7 +157,9 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService, $
 		} 
     	
     }
-    
+    /** Llamada a la función externa para realizar llamadas
+     * 	DoCall
+     */
     $scope.doCall=function(phone){
     	var newCallConnid = null;
     	
@@ -168,5 +178,13 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService, $
 		alert(phone);
 		e = window.external.DoCall(phone, 'myDoCallHandler', provideMockupObject());
 		alert(JSON.stringify(e));
+    }
+    
+    /** Cierre de interacción
+     * 	Función externa CloseInteractionPushPreview
+     */
+    $scope.closeInteraction=function(){
+    	 e = window.external.CloseInteractionPushPreview(connID);
+         alert(JSON.stringify(e));
     }
 });

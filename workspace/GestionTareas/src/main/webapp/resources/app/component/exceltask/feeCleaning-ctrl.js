@@ -69,6 +69,14 @@ app.controller('feecleaningtask-ctrl', function ($scope, $http, CommonService, $
             })
                 .success(function (data, status, headers, config) {
                     CommonService.processBaseResponse(data, status, headers, config);
+                    /** Si no venimos de la pantalla de buscar cerramos la interacción,
+                     *  en caso contrario volvemos a la pantalla de buscar
+                     */  
+                    if($scope.fromSearch!==true){
+                    	$scope.closeInteraction();
+                    }else{
+                    	$scope.descartar();
+                    }
                 })
                 .error(function (data, status, headers, config) {
                     // called asynchronously if an error occurs
@@ -86,31 +94,6 @@ app.controller('feecleaningtask-ctrl', function ($scope, $http, CommonService, $
     	$window.location.href= _contextPath + "/search";
     }    
     
-//Antiguo método descartar
-//    $scope.descartar = function(){
-//        //$log.debug("Discard Fee Cleaning task, task: " ,$scope.tarea);
-//        var discardFeeCleaningTaskRequest = {
-//            tarea:$scope.tarea,
-//            prueba:'Hola'
-//        };
-//        //$log.debug("Discard Fee Clenaning Task, request: ",discardFeeCleaningTaskRequest);
-//        $http({
-//            method: 'PUT',
-//            url: 'feecleaningtask/descartar',
-//            data: discardFeeCleaningTaskRequest
-//        })
-//            .success(function (data, status, headers, config) {
-//                CommonService.processBaseResponse(data,status,headers,config);
-//                //$log.debug("Discarded fee cleaning task");
-//            })
-//            .error(function (data, status, headers, config) {
-//                // called asynchronously if an error occurs
-//                // or server returns response with an error status.
-//                CommonService.processBaseResponse(data,status,headers,config);
-//                //$log.error("Error discarding fee cleaning task");
-//            });
-//    };
-
     $scope.finalizar = function(){
         //$log.debug("Finalizar List Assistant task, task: ",$scope.tarea);
         var finalizeRequest = {
@@ -125,6 +108,14 @@ app.controller('feecleaningtask-ctrl', function ($scope, $http, CommonService, $
             .success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data,status,headers,config);
                 //$log.debug("Finalized task");
+                /** Si no venimos de la pantalla de buscar cerramos la interacción,
+                 *  en caso contrario volvemos a la pantalla de buscar
+                 */  
+                if($scope.fromSearch!==true){
+                	$scope.closeInteraction();
+                }else{
+                	$scope.descartar();
+                }
             })
             .error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
@@ -160,6 +151,13 @@ app.controller('feecleaningtask-ctrl', function ($scope, $http, CommonService, $
         });
     };
     //Ventana Aplazar - End
-
+    
+    /** Cierre de interacción
+     * 	Función externa CloseInteractionPushPreview
+     */
+    $scope.closeInteraction=function(){
+    	 e = window.external.CloseInteractionPushPreview(connID);
+         alert(JSON.stringify(e));
+    }
 });
 //Fee cleaning ANGULARJS script END
