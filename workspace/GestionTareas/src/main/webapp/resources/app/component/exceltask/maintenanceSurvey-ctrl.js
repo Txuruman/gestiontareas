@@ -70,6 +70,14 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,
             })
                 .success(function (data, status, headers, config) {
                     CommonService.processBaseResponse(data, status, headers, config);
+                    /** Si no venimos de la pantalla de buscar cerramos la interacción,
+                     *  en caso contrario volvemos a la pantalla de buscar
+                     */  
+                    if($scope.fromSearch!==true){
+                    	$scope.closeInteraction();
+                    }else{
+                    	$scope.descartar();
+                    }
                 })
                 .error(function (data, status, headers, config) {
                     // called asynchronously if an error occurs
@@ -87,32 +95,6 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,
     	$window.location.href= _contextPath + "/search";
     }    
     
-//Antiguo método descartar    
-//    $scope.descartar = function(){
-//        //$log.debug("Discard Maintenance Survey task, task: ",$scope.tarea);
-//        var discardMaintenanceSurveyTaskRequest = {
-//            tarea:$scope.tarea,
-//            prueba:'Hola'
-//        };
-//        //$log.debug("Discard List Assistant Task, request: " ,discardMaintenanceSurveyTaskRequest);
-//        $http({
-//            method: 'PUT',
-//            url: 'maintenancesurveytask/descartar',
-//            data: discardMaintenanceSurveyTaskRequest
-//        })
-//            .success(function (data, status, headers, config) {
-//                CommonService.processBaseResponse(data,status,headers,config);
-//                //$log.debug("Discarded maintenance survey task");
-//            })
-//            .error(function (data, status, headers, config) {
-//                // called asynchronously if an error occurs
-//                // or server returns response with an error status.
-//                CommonService.processBaseResponse(data,status,headers,config);
-//                //$log.error("Error discarding maintenance survey task");
-//            });
-//    };
-
-
     $scope.finalizar = function(){
         //$log.debug("Finalizar task: ",$scope.tarea);
         var finalizeRequest = {
@@ -127,6 +109,14 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,
             .success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data,status,headers,config);
                 //$log.debug("Finalized task");
+                /** Si no venimos de la pantalla de buscar cerramos la interacción,
+                 *  en caso contrario volvemos a la pantalla de buscar
+                 */  
+                if($scope.fromSearch!==true){
+                	$scope.closeInteraction();
+                }else{
+                	$scope.descartar();
+                }
             })
             .error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs

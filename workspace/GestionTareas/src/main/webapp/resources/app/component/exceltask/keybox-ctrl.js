@@ -68,6 +68,14 @@ app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService, $modal
             })
                 .success(function (data, status, headers, config) {
                     CommonService.processBaseResponse(data, status, headers, config);
+                    /** Si no venimos de la pantalla de buscar cerramos la interacción,
+                     *  en caso contrario volvemos a la pantalla de buscar
+                     */  
+                    if($scope.fromSearch!==true){
+                    	$scope.closeInteraction();
+                    }else{
+                    	$scope.descartar();
+                    }
                 })
                 .error(function (data, status, headers, config) {
                     // called asynchronously if an error occurs
@@ -84,31 +92,6 @@ app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService, $modal
     $scope.descartar=function(){
     	$window.location.href= _contextPath + "/search";
     }    
-    
-//Antiguo método descartar
-//    $scope.descartar = function(){
-//        //$log.debug("Discard Keybox task, task: " ,$scope.tarea);
-//        var discardKeyboxTaskRequest = {
-//            tarea:$scope.tarea,
-//            prueba:'Hola'
-//        };
-//        //$log.debug("Discard Keybox Task, request: ",discardKeyboxTaskRequest);
-//        $http({
-//            method: 'PUT',
-//            url: 'keyboxtask/descartar',
-//            data: discardKeyboxTaskRequest
-//        })
-//            .success(function (data, status, headers, config) {
-//                CommonService.processBaseResponse(data,status,headers,config);
-//                //$log.debug("Discarded keybox task");
-//            })
-//            .error(function (data, status, headers, config) {
-//                // called asynchronously if an error occurs
-//                // or server returns response with an error status.
-//                CommonService.processBaseResponse(data,status,headers,config);
-//                //$log.error("Error discarding keybox task");
-//            });
-//    };
 
     $scope.finalizar = function(){
         //$log.debug("Finalizar List Assistant task, task: ",$scope.tarea);
@@ -124,6 +107,14 @@ app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService, $modal
             .success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data,status,headers,config);
                 //$log.debug("Finalized task");
+                /** Si no venimos de la pantalla de buscar cerramos la interacción,
+                 *  en caso contrario volvemos a la pantalla de buscar
+                 */  
+                if($scope.fromSearch!==true){
+                	$scope.closeInteraction();
+                }else{
+                	$scope.descartar();
+                }
             })
             .error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs

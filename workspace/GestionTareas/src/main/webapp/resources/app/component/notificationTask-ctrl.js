@@ -263,6 +263,9 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             })
                 .success(function (data, status, headers, config) {
                     CommonService.processBaseResponse(data, status, headers, config);
+                    /** Si no venimos de la pantalla de buscar cerramos la interacción,
+                     *  en caso contrario volvemos a la pantalla de buscar
+                     */  
                     if($scope.fromSearch!==true){
                     	$scope.closeInteraction();
                     }else{
@@ -292,6 +295,9 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             .success(function (data, status, headers, config) {
                 //$log.debug('Modificación de la tarea realizada, response: ' + JSON.stringify(data));
                 CommonService.processBaseResponse(data, status, headers, config);
+                /** Si no venimos de la pantalla de buscar cerramos la interacción,
+                 *  en caso contrario volvemos a la pantalla de buscar
+                 */  
                 if($scope.fromSearch!==true){
                 	$scope.closeInteraction();
                 }else{
@@ -458,12 +464,15 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
         })
             .success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
+                //$log.debug("Finalized task");
+                /** Si no venimos de la pantalla de buscar cerramos la interacción,
+                 *  en caso contrario volvemos a la pantalla de buscar
+                 */  
                 if($scope.fromSearch!==true){
                 	$scope.closeInteraction();
                 }else{
                 	$scope.descartar();
                 }
-                //$log.debug("Finalized task");
             })
             .error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
@@ -516,6 +525,9 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             .success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
                 //$log.debug("Finalized task");
+                /** Si no venimos de la pantalla de buscar cerramos la interacción,
+                 *  en caso contrario volvemos a la pantalla de buscar
+                 */  
                 if($scope.fromSearch!==true){
                 	$scope.closeInteraction();
                 }else{
