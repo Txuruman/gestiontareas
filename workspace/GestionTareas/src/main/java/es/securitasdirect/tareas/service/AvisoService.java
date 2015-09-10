@@ -1,6 +1,7 @@
 package es.securitasdirect.tareas.service;
 
 import com.webservice.CCLIntegration;
+import es.securitasdirect.tareas.exceptions.BusinessException;
 import es.securitasdirect.tareas.model.Agent;
 import es.securitasdirect.tareas.model.InstallationData;
 import es.securitasdirect.tareas.model.TareaAviso;
@@ -60,7 +61,7 @@ public class AvisoService {
     /**
      * creacion del XML para crear un Aviso. Se hace a través de un WS disponible para la aplicación de Tickets.
      */
-    public boolean createTicket(Agent agent, TareaAviso tareaAviso, InstallationData installationData) {
+    public void createTicket(Agent agent, TareaAviso tareaAviso, InstallationData installationData) {
 
         boolean result = false;
         String idUser = agent.getAgentIBS();
@@ -189,9 +190,12 @@ public class AvisoService {
 
         LOGGER.debug("xmlCreateTicket: {} xmlResult:{}", xmlCreateTicket, xmlResult);
 
-        if(data.getERR() == null && data.getTICKET() != null && data.getTICKET().getNumTK() > 0) result = true;
+        if(data.getERR() == null && data.getTICKET() != null && data.getTICKET().getNumTK() > 0) {
+            LOGGER.debug("Sucessfully created Ticket");
+        } else {
+            throw new BusinessException(BusinessException.ErrorCode.ERROR_FINALIZE_TASK, data.getERR().getDesc(),data.getERR().getCod());
+        }
 
-        return result;
     }
 
     /**

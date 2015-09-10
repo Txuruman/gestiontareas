@@ -2,11 +2,13 @@ package es.securitasdirect.tareas.service;
 
 
 import com.webservice.CCLIntegration;
+import com.webservice.IclResponse;
 import com.webservice.WsResponse;
 import es.securitasdirect.tareas.exceptions.BusinessException;
 import es.securitasdirect.tareas.exceptions.FrameworkException;
 import es.securitasdirect.tareas.model.*;
 import es.securitasdirect.tareas.web.controller.params.TaskServiceParams;
+import net.java.dev.jaxb.array.StringArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wso2.ws.dataservice.*;
@@ -34,7 +36,7 @@ public class TareaService {
     private static final Logger LOGGER = LoggerFactory.getLogger(TareaService.class);
 
     //Tiempo mínimo de retraso de una tarea en milisegundos
-    private static final long MIN_DELAY_TIME = 5*60*1000;
+    private static final long MIN_DELAY_TIME = 5 * 60 * 1000;
 
     //Web Services para hacer pruebas directamente
     @Inject
@@ -66,7 +68,7 @@ public class TareaService {
      */
     public void delayTask(Agent agent, Tarea tarea, Date schedTime, String recordType) throws Exception {
         //Validar las horas
-        if (schedTime==null || schedTime.getTime()-System.currentTimeMillis()<MIN_DELAY_TIME) {
+        if (schedTime == null || schedTime.getTime() - System.currentTimeMillis() < MIN_DELAY_TIME) {
             throw new BusinessException(BusinessException.ErrorCode.ERROR_DELAY_INCOMPATIBLE_DATE);
         }
 
@@ -93,7 +95,7 @@ public class TareaService {
         //Si no está en memoria se puede ejecutar
         if (!isTareaInMemory(tareaRefrescada)) {
             //1. Finalizar la Tarea
-            wsFilanizeTask(agent,tarea );
+            wsFilanizeTask(agent, tarea);
         } else {
             //1. Finalizar un registro cuando está en memoria
             wsFinalizeInMemoryTask(agent, tarea);
@@ -121,7 +123,7 @@ public class TareaService {
         //Si no está en memoria se puede ejecutar
         if (!isTareaInMemory(tareaRefrescada)) {
             //1. Finalizar la Tarea
-            wsFilanizeTask(agent, tarea );
+            wsFilanizeTask(agent, tarea);
         } else {
             //1. Finalizar un registro cuando está en memoria
             wsFinalizeInMemoryTask(agent, tarea);
@@ -143,7 +145,7 @@ public class TareaService {
 
     /**
      * Finalizar la tarea de tipo Aviso, es distinta al resto de tareas porque hay que llamar a cancelar.
-     *
+     * <p/>
      * Finalizar:
      * 1 si modifica campos modificar aviso
      * 2 finalizar aviso
@@ -180,7 +182,7 @@ public class TareaService {
 
         //3. Finalizar la Tarea
         if (!isTareaInMemory(tareaRefrescada)) {
-            wsFilanizeTask(agent , tarea );
+            wsFilanizeTask(agent, tarea);
         } else {
             wsFinalizeInMemoryTask(agent, tarea);
         }
@@ -211,7 +213,7 @@ public class TareaService {
 
     /**
      * Función Aplazar específica para tareas de tipo aviso
-     *
+     * <p/>
      * 1 consulta la tarea de nuevo
      * 2 si modifica campos modificar aviso
      * 3 aplazar tarea
@@ -248,7 +250,7 @@ public class TareaService {
             wsDelayTask(agent, tarea, schedTime, recordType);
         } else {
             //Aplazar tarea en memoria
-            wsDelayInMemoryTask(agent,tarea,schedTime,recordType);
+            wsDelayInMemoryTask(agent, tarea, schedTime, recordType);
             //Finalizar tarea en memoria
             wsFinalizeInMemoryTask(agent, tarea);
         }
@@ -269,7 +271,7 @@ public class TareaService {
      */
     public void delayOtherTask(Agent agent,
                                Tarea tarea, Date schedTime, String recordType) throws Exception {
-        LOGGER.info("Delaying Task : {} {} {}",   schedTime,recordType,tarea);
+        LOGGER.info("Delaying Task : {} {} {}", schedTime, recordType, tarea);
 
         //Consultar la tarea de nuevo
         Tarea tareaRefrescada = queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId());
@@ -288,35 +290,14 @@ public class TareaService {
     /**
      * Crear el aviso desde la pantalla de crear tarea
      */
-    public boolean createTask(Agent agent, Tarea tarea, InstallationData installationData) {
+    public void createTask(Agent agent, TareaAviso tarea, InstallationData installationData) {
         LOGGER.debug("Creating task: {}", tarea);
-        boolean creado = false;
-        if (tarea instanceof TareaAviso) {
-            creado = avisoService.createTicket(agent, (TareaAviso) tarea, installationData);
-        }
 
-        //TODO: Crear Tarea
-        return creado;
+        avisoService.createTicket(agent, (TareaAviso) tarea, installationData);
+
+        //No se crea la tarea, se crean automáticamente en el reparto
     }
 
-
-    public boolean createMaintenance(Tarea task) {
-        LOGGER.debug("Creating maintenance: {}", task);
-        boolean result;
-        try {
-            //TODO Llamada WS crear tarea
-            //TODO establecer criterio de OK y KO
-            if (true) {
-                result = true;
-            } else {
-                result = false;
-            }
-        } catch (Exception e) {
-            LOGGER.error("Error creating maintenance: {}", e);
-            result = false;
-        }
-        return result;
-    }
 
     /**
      * WS 27: Guardar commlogs en IBS.
@@ -374,15 +355,15 @@ public class TareaService {
 
     }
 
+
     /**
      * Llamada al WS de delay
      *
-
      * @param schedTime
      * @param recordType
      * @return
      */
-    private void wsDelayTask(Agent agent, Tarea tarea , Date schedTime, String recordType) {
+    private void wsDelayTask(Agent agent, Tarea tarea, Date schedTime, String recordType) {
 
         String ccUserId = agent.getIdAgent();
         String country = agent.getAgentCountryJob();
@@ -390,7 +371,7 @@ public class TareaService {
         String campaign = tarea.getCampana();
         String contactInfo = tarea.getTelefono();
         String callingList = tarea.getCallingList();
-        Integer idTarea= tarea.getId();
+        Integer idTarea = tarea.getId();
 
         String filter = "chain_id=" + idTarea;
 
@@ -440,7 +421,7 @@ public class TareaService {
         String campaign = tarea.getCampana();
         String contactInfo = tarea.getTelefono();
         String callingList = tarea.getCallingList();
-        Integer idTarea= tarea.getId();
+        Integer idTarea = tarea.getId();
 
         String filter = "chain_id=" + idTarea;
 
@@ -560,8 +541,8 @@ public class TareaService {
     /**
      * Aqui se llega cuando alguien pulsa descartar.
      * Solo cuando es tarea de tipo aviso, para los demás no se hace nada más que volver a otra pantalla
-     *
-     *
+     * <p/>
+     * <p/>
      * Descartar modificando campos:
      * 1 mensaje de confirmación de las modificaciones
      * 2 modificar aviso
@@ -598,7 +579,7 @@ public class TareaService {
         if (isChangedTipoOrMotivo(tareaOriginal, tarea)) {
             if (isTareaInMemory(tareaOriginal)) {
                 // Finalizar Tarea no en memoria
-                wsFilanizeTask(agent , tarea );
+                wsFilanizeTask(agent, tarea);
             } else {
                 //Cancelar cuando está en memoria
                 wsRejectInMemoryTask(agent, tarea);
@@ -645,10 +626,16 @@ public class TareaService {
      * @return
      */
     private boolean validateInMemoryParameters(Agent agent, Tarea tarea) {
-        return   tarea.getOutAgentPlace()!=null &&
-                        tarea.getOutCampaignName()!=null &&
-                        tarea.getOutClName()!=null &&
+        return tarea.getOutAgentPlace() != null &&
+                tarea.getOutCampaignName() != null &&
+                tarea.getOutClName() != null &&
                 tarea.getOutRecordHandle() != null;
     }
 
 }
+
+
+
+
+
+
