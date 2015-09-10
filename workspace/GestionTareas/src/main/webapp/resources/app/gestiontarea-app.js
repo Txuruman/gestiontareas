@@ -216,10 +216,22 @@ app.controller('DatepickerDemoCtrl', function ($scope) {
 app.service('CommonService', function ($rootScope, $log, $http, $timeout) {
     var service=this;
 
-
-//    this.logger=function(msg, tipo){
-//    	return eval("$log."+tipo+"("+msg+");")
-//    }
+    /**
+     * Gestión del log de javascript
+     * msg: mensaje a mostrar
+     * tipo: debug, info, error
+     * variable: variable a mostrar
+     * _IE8: inicializada al principio, si abrimos con IE8 estará con valor true
+     */
+    this.logger=function(msg, tipo, variable){
+    	if (_IE8===false) {
+    		if (variable!=undefined) {
+        		$log[tipo](msg, variable);
+    		}else{
+    			$log[tipo](msg);
+    		}
+		}
+    }
 
     //Objeto global para almacenar
     $rootScope.vm = {
