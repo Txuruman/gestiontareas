@@ -26,7 +26,7 @@
                 <div class="row">
                     <!-- Caja de busqueda -->
                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                        <label for="searchText" class=" control-label labelcent">
+                        <label for="searchText" class="control-label labelcent">
                             <spring:message code="eti.buscartarea.form.label.filtro"/>:
                         </label>
                     </div>

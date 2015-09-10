@@ -1,6 +1,6 @@
 app.controller('taskSearch', function ($scope, $http, CommonService, $modal, $log ) {
 	$scope.searchTareaFromServer = function () {
-        //console.log('search Tareas ' + $scope.searchText +  ' ' + $scope.searchOption);
+        //$log.debug('search Tareas ' + $scope.searchText +  ' ' + $scope.searchOption);
         var searchTaskRequest = {
             searchText: $scope.searchText,
             searchOption: $scope.searchOption
@@ -82,14 +82,4 @@ app.controller('taskSearch', function ($scope, $http, CommonService, $modal, $lo
         		$scope.searchTareaFromServer();
 			}
         }
-        
-        /** Cierre de interacción
-         * 	Función externa CloseInteractionPushPreview
-         */
-        $scope.closeInteraction=function(){
-        	 e = window.external.CloseInteractionPushPreview(connID);
-             alert(JSON.stringify(e));
-        }
-        
-        $scope.closeInteraction();
 });

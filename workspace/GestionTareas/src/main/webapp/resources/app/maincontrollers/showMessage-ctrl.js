@@ -2,7 +2,7 @@ app.controller('showMessage', function ($scope, $http) {
 
     /*
     $scope.searchTareaFromServer = function () {
-        console.log('search Tareas ' + $scope.searchText +  ' ' + $scope.searchOption);
+        $log.debug('search Tareas ' + $scope.searchText +  ' ' + $scope.searchOption);
         $http({
                 method: 'GET',
                 url: 'searchtarea/query',
