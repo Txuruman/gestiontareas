@@ -587,17 +587,24 @@ public class TareaService {
         // si ha cambiado Tipo1 o Motivo1
         if (isChangedTipoOrMotivo(tareaOriginal, tarea)) {
             if (isTareaInMemory(tareaOriginal)) {
-                // Finalizar Tarea no en memoria
-                wsFilanizeTask(agent, tarea);
+                // Finalizar Tarea en memoria
+                wsFinalizeInMemoryTask(agent, tarea);
             } else {
                 //Cancelar cuando está en memoria
-                wsRejectInMemoryTask(agent, tarea);
+                wsFilanizeTask(agent, tarea);
             }
 
             // desmarcar Aviso de la Tarea
             avisoService.unmarkTicket(tarea.getIdAviso());
 
         }
+        else {
+            if (isTareaInMemory(tareaOriginal)) {
+                // Finalizar Tarea en memoria
+                wsRejectInMemoryTask(agent, tarea);
+            }
+        }
+
 
     }
 
