@@ -205,17 +205,15 @@ public class TareaService {
     /**
      * Función Aplazar específica para tareas de tipo aviso
      *
-     * Si no modifica campos y Aplaza:
-     * 1 Si cambia la fecha aplazar aviso
-     * 2 aplazar tarea
-     * 2.1 si está en memoria aplazar tarea ws ccl nuevo y cerrar interacción con javascript
-     * 2.2 si no está en  memoria aplazar tarea ws ccl antiguo y volver a la ventana de buscar
-     * Si modifica campos y Aplaza:
-     * 1 modificar aviso
-     * 2 si cambia la fecha aplazar aviso
+     * 1 consulta la tarea de nuevo
+     * 2 si modifica campos modificar aviso
      * 3 aplazar tarea
-     * 3.1 si está en memoria aplazar tarea ws ccl nuevo y cerrar interacción con javascript
-     * 3.2 si no está en  memoria aplazar tarea ws ccl antiguo y volver a la ventana de buscar
+     * 3.1 si no está en memoria aplazar tarea con cclIntegration.updateCallingListContact y volver a la ventana de buscar
+     * 3.2 si está en  memoria
+     * 3.2.1 aplazar tarea con cclIntegration.rescheduleRecord
+     * 3.2.2 finalizar la tarea con con cclIntegration.updateCallingListContact
+     * 3.2.3 cerrar interacción con javascript
+     * 4 aplazar aviso
      *
      * @param agent
      * @param tarea
@@ -225,10 +223,10 @@ public class TareaService {
      * @throws Exception
      */
     public boolean delayNotificationTask(Agent agent, TareaAviso tarea, Date schedTime, String recordType) throws Exception {
-        //Buscamos los datos de la instalación de la tarea
+        //1. Buscamos los datos de la instalación de la tarea
         InstallationData installationData = installationService.getInstallationData(tarea.getNumeroInstalacion());
 
-        //1. Modificar Aviso si hace falta por haber cambiado los datos. Comprobamos si la tarea que nos pasa el front difiere con la de la BBDD, si es asi modificamos
+        //2. Modificar Aviso si hace falta por haber cambiado los datos. Comprobamos si la tarea que nos pasa el front difiere con la de la BBDD, si es asi modificamos
         TareaAviso tareaRefrescada = (TareaAviso) queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
         if (isTaskRequiresSaveModifications(tareaRefrescada, tarea)) {
             boolean modificado = avisoService.updateTicket(agent, tarea, installationData);
@@ -238,7 +236,7 @@ public class TareaService {
             }
         }
 
-        //2. Aplazar Tarea Comprobamos que la tarea no esté en memoria, para ello volvemos a buscar
+        //3. Aplazar Tarea Comprobamos que la tarea no esté en memoria, para ello volvemos a buscar
         if (!isTareaInMemory(tareaRefrescada)) {
             wsDelayTask(agent, tarea, schedTime, recordType);
         } else {
@@ -248,7 +246,7 @@ public class TareaService {
             wsFinalizeInMemoryTask(agent, tarea);
         }
 
-        //3. Aplazar el Aviso, Si es de tipo Aviso hay que retrasar el aviso también
+        //4. Aplazar el Aviso, Si es de tipo Aviso hay que retrasar el aviso también
         boolean delayed = avisoService.delayTicket(tarea.getIdAviso(), agent.getIdAgent(), "", schedTime);
         return delayed;
     }
