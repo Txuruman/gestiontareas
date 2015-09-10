@@ -233,13 +233,13 @@ app.service('CommonService', function ($rootScope, $log, $http, $timeout) {
     		}
 		}
     }
-    this.logDebug(msg,variable) {
+    this.logDebug=function(msg,variable) {
     	this.logger(msg,"debug",variable);
     }
-    this.logInfo(msg,variable) {
+    this.logInfo=function(msg,variable) {
     	this.logger(msg,"info",variable);
     }
-    this.logError(msg,variable) {
+    this.logError=function(msg,variable) {
     	this.logger(msg,"error",variable);
     }
     /**FIN Gestión Error*/
