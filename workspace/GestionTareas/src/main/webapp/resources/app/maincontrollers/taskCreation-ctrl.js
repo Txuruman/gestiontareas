@@ -62,30 +62,6 @@ app.controller('taskCreation', function ($scope, $http, CommonService, $modal, $
     };
 
 
-//    $scope.createMaintenance = function(){
-//        $scope.vm.appReady=false;
-//        //$log.debug("Creating maintenance");
-//        var createMaintenanceRequest = {
-//            tarea:$scope.task,
-//            prueba:'Hola'
-//        };
-//        //$log.debug("Creating maintenance request: ", createMaintenanceRequest );
-//        $http({
-//            method: 'PUT',
-//            url: '/createtask/createmaintenance',
-//            data: createMaintenanceRequest
-//        })
-//            .success(function (data, status, headers, config) {
-//                CommonService.processBaseResponse(data,status,headers,config);
-//                $scope.vm.appReady=true;
-//            })
-//            .error(function (data, status, headers, config) {
-//                // called asynchronously if an error occurs
-//                // or server returns response with an error status.
-//                CommonService.processBaseResponse(data,status,headers,config);
-//                $scope.vm.appReady=true;
-//            });
-//    };
 
     $scope.init = function(data, status, heathers, config) {
         $scope.vm.appReady=false;
