@@ -300,6 +300,8 @@ public class TareaService {
         } else {
             //Aplazar tarea en memoria
             wsDelayInMemoryTask(agent, tarea, schedTime, recordType);
+            //Finalizar tarea en memoria
+            wsFilanizeTask(agent, tarea);
         }
     }
 
