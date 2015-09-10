@@ -74,7 +74,7 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,
                      *  en caso contrario volvemos a la pantalla de buscar
                      */  
                     if($scope.fromSearch!==true){
-                    	$scope.closeInteraction();
+                    	CommonService.closeInteraction();
                     }else{
                     	$scope.descartar();
                     }
@@ -113,7 +113,7 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,
                  *  en caso contrario volvemos a la pantalla de buscar
                  */  
                 if($scope.fromSearch!==true){
-                	$scope.closeInteraction();
+                	CommonService.closeInteraction();
                 }else{
                 	$scope.descartar();
                 }
@@ -153,13 +153,5 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,
         });
     };
     //Ventana Aplazar - End
-    
-    /** Cierre de interacción
-     * 	Función externa CloseInteractionPushPreview
-     */
-    $scope.closeInteraction=function(){
-    	 e = window.external.CloseInteractionPushPreview(connID);
-         alert(JSON.stringify(e));
-    }
 });
 //Angular Maintenance Survey Controller end

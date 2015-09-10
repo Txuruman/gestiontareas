@@ -98,7 +98,7 @@ app.controller('anotherCampaigns', function ($scope, $http, CommonService, $moda
                      *  en caso contrario volvemos a la pantalla de buscar
                      */  
                     if($scope.fromSearch!==true){
-                    	$scope.closeInteraction();
+                    	CommonService.closeInteraction();
                     }else{
                     	$scope.descartar();
                     }
@@ -131,7 +131,7 @@ app.controller('anotherCampaigns', function ($scope, $http, CommonService, $moda
                  *  en caso contrario volvemos a la pantalla de buscar
                  */  
                 if($scope.fromSearch!==true){
-                	$scope.closeInteraction();
+                	CommonService.closeInteraction();
                 }else{
                 	$scope.descartar();
                 }
@@ -150,14 +150,6 @@ app.controller('anotherCampaigns', function ($scope, $http, CommonService, $moda
      */
     $scope.descartar=function(){
     	$window.location.href= _contextPath + "/search";
-    }
-    
-    /** Cierre de interacción
-     * 	Función externa CloseInteractionPushPreview
-     */
-    $scope.closeInteraction=function(){
-    	 e = window.external.CloseInteractionPushPreview(connID);
-         alert(JSON.stringify(e));
     }
 });
 //Another Campaigns ANGULARJS script END
