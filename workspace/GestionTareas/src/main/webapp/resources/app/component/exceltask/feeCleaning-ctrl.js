@@ -83,7 +83,7 @@ app.controller('feecleaningtask-ctrl', function ($scope, $http, CommonService, $
      * Variable _contextPath inicializada en commonImports
      */
     $scope.descartar=function(){
-    	$window.location.href= _contextPath + "/entry";
+    	$window.location.href= _contextPath + "/search";
     }    
     
 //Antiguo método descartar

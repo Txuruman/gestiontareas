@@ -131,7 +131,7 @@ app.controller('marketingsurveytask-ctrl', function ($scope, $http, CommonServic
      * Variable _contextPath inicializada en commonImports
      */
     $scope.descartar=function(){
-    	$window.location.href= _contextPath + "/entry";
+    	$window.location.href= _contextPath + "/search";
     }    
     
 });

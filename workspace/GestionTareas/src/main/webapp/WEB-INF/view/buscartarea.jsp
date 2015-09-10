@@ -69,8 +69,8 @@
                         <th><spring:message code="searchTarea.table.status"/></th>
                         <th><spring:message code="searchTarea.table.description"/></th>
                         <th><spring:message code="searchTarea.table.reprogramationDate"/></th>
-                        <th>Gestion</th>
-                        <th>Aplazar</th>
+                        <th><spring:message code="eti.buscartarea.btn.gestion" /></th>
+                        <th><spring:message code="eti.buscartarea.btn.aplazar"/></th>
                     </tr>
                     <tr ng-repeat="t in taskList | orderBy : 'codigoCliente'">
                         <td>{{ t.numeroInstalacion }}</td>
