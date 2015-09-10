@@ -149,7 +149,9 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService, $
 		} 
     	
     }
-    
+    /** Llamada a la función externa para realizar llamadas
+     * 	DoCall
+     */
     $scope.doCall=function(phone){
     	var newCallConnid = null;
     	
@@ -168,5 +170,13 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService, $
 		alert(phone);
 		e = window.external.DoCall(phone, 'myDoCallHandler', provideMockupObject());
 		alert(JSON.stringify(e));
+    }
+    
+    /** Cierre de interacción
+     * 	Función externa CloseInteractionPushPreview
+     */
+    $scope.closeInteraction=function(){
+    	 e = window.external.CloseInteractionPushPreview(connID);
+         alert(JSON.stringify(e));
     }
 });

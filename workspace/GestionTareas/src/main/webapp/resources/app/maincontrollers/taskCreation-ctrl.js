@@ -203,6 +203,14 @@ app.controller('taskCreation', function ($scope, $http, CommonService, $modal, $
             });
     };
     /** Fin datos combos***/
+    
+    /** Cierre de interacción
+     * 	Función externa CloseInteractionPushPreview
+     */
+    $scope.closeInteraction=function(){
+    	 e = window.external.CloseInteractionPushPreview(connID);
+         alert(JSON.stringify(e));
+    }
 });
 
 

@@ -134,4 +134,11 @@ app.controller('marketingsurveytask-ctrl', function ($scope, $http, CommonServic
     	$window.location.href= _contextPath + "/search";
     }    
     
+    /** Cierre de interacción
+     * 	Función externa CloseInteractionPushPreview
+     */
+    $scope.closeInteraction=function(){
+    	 e = window.external.CloseInteractionPushPreview(connID);
+         alert(JSON.stringify(e));
+    }
 });

@@ -160,6 +160,13 @@ app.controller('feecleaningtask-ctrl', function ($scope, $http, CommonService, $
         });
     };
     //Ventana Aplazar - End
-
+    
+    /** Cierre de interacción
+     * 	Función externa CloseInteractionPushPreview
+     */
+    $scope.closeInteraction=function(){
+    	 e = window.external.CloseInteractionPushPreview(connID);
+         alert(JSON.stringify(e));
+    }
 });
 //Fee cleaning ANGULARJS script END

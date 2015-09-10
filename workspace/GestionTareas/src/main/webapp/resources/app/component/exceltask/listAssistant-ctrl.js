@@ -135,6 +135,14 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
             //Boton cancelar del Modal
         });
     };
-    //Ventana Aplazar - End    
+    //Ventana Aplazar - End   
+    
+    /** Cierre de interacción
+     * 	Función externa CloseInteractionPushPreview
+     */
+    $scope.closeInteraction=function(){
+    	 e = window.external.CloseInteractionPushPreview(connID);
+         alert(JSON.stringify(e));
+    }
 });
 //Controlador List Assistant - End
