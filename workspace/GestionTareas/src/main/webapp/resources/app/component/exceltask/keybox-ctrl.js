@@ -72,7 +72,7 @@ app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService, $modal
                      *  en caso contrario volvemos a la pantalla de buscar
                      */  
                     if($scope.fromSearch!==true){
-                    	$scope.closeInteraction();
+                    	CommonService.closeInteraction();
                     }else{
                     	$scope.descartar();
                     }
@@ -111,7 +111,7 @@ app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService, $modal
                  *  en caso contrario volvemos a la pantalla de buscar
                  */  
                 if($scope.fromSearch!==true){
-                	$scope.closeInteraction();
+                	CommonService.closeInteraction();
                 }else{
                 	$scope.descartar();
                 }
@@ -150,12 +150,4 @@ app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService, $modal
         });
     };
     //Ventana Aplazar - End
-
-    /** Cierre de interacción
-     * 	Función externa CloseInteractionPushPreview
-     */
-    $scope.closeInteraction=function(){
-    	 e = window.external.CloseInteractionPushPreview(connID);
-         alert(JSON.stringify(e));
-    }
 });
