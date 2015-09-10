@@ -51,6 +51,10 @@
         <constructor-arg value="http://es1infotest01v/MMS/Operador/W11.aspx'"/>
     </bean>
 
+    <!-- El dato de "security-key",  será un parámetro de configuración de la aplicación, es la clave privada de SD para probar el SHA1 -->
+    <bean id="securityKey" class="java.lang.String">
+        <constructor-arg value="SECURITAS2015TAREAS"/>
+    </bean>
 
 
     <!-- Lista y valores del combo de Tipos de Cierre para Tareas de Tipo Mantenimiento -->
