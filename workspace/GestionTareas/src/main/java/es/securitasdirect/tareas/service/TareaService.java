@@ -641,7 +641,6 @@ public class TareaService {
      * @return
      */
     private boolean isTareaInMemory(Tarea tarea) {
-        if (true) return true;
         return tarea.isRetrieved();
     }
 
