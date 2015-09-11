@@ -97,7 +97,7 @@ app.controller('anotherCampaigns', function ($scope, $http, CommonService, $moda
                     /** Si no venimos de la pantalla de buscar cerramos la interacción,
                      *  en caso contrario volvemos a la pantalla de buscar
                      */  
-                    if($scope.fromSearch!==true){
+                    if($scope.fromSearch!="true"){
                     	CommonService.closeInteraction(data);
                     }else{
                     	$scope.descartar();
@@ -130,7 +130,7 @@ app.controller('anotherCampaigns', function ($scope, $http, CommonService, $moda
                 /** Si no venimos de la pantalla de buscar cerramos la interacción,
                  *  en caso contrario volvemos a la pantalla de buscar
                  */  
-                if($scope.fromSearch!==true){
+                if($scope.fromSearch!="true"){
                 	CommonService.closeInteraction(data);
                 }else{
                 	$scope.descartar();

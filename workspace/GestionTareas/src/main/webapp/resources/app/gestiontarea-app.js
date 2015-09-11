@@ -270,6 +270,7 @@ app.service('CommonService', function ($rootScope, $log, $http, $timeout) {
 //    	alert("entrando");
 //    	alert("map" + mapParams);
 //    	alert("conn" + mapParams.bp_auth_connid);
+    	alert(JSON.strinify(data));
     	if (data.success) {
     		e = window.external.CloseInteractionPushPreview(mapParams.bp_auth_connid);
 		}
