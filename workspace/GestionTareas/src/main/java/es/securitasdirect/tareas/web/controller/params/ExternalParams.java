@@ -50,6 +50,7 @@ public interface ExternalParams {
 
     public static String CURRENT_LANGUAGE = "bp_currentLanguage";
 
+    /** Esto es el PLACE del agente y contiene la P */
     public static String AGENT_PLACE = "bp_agentPlace";
     
     public static String AGENT_GROUP_SD = "bp_agentGroupSD";
