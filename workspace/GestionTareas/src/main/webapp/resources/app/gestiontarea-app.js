@@ -222,10 +222,10 @@ app.service('CommonService', function ($rootScope, $log, $http, $timeout) {
      * msg: mensaje a mostrar
      * tipo: debug, info, error
      * variable: variable a mostrar
-     * _IE8: inicializada al principio, si abrimos con IE8 estará con valor true
+     * _IE: inicializada al principio, si abrimos con IE estará con valor true
      */
     this.logger=function(msg, tipo, variable){
-    	if (_IE8===false) {
+    	if (_IE===false) {
     		if (variable!=undefined) {
         		$log[tipo](msg, variable);
     		}else{
@@ -266,11 +266,13 @@ app.service('CommonService', function ($rootScope, $log, $http, $timeout) {
     /** Cierre de interacción
      * 	Función externa CloseInteractionPushPreview
      */
-    this.closeInteraction=function(){
+    this.closeInteraction=function(data){
 //    	alert("entrando");
 //    	alert("map" + mapParams);
 //    	alert("conn" + mapParams.bp_auth_connid);
-    	e = window.external.CloseInteractionPushPreview(mapParams.bp_auth_connid);
+    	if (data.success) {
+    		e = window.external.CloseInteractionPushPreview(mapParams.bp_auth_connid);
+		}
 //        alert(JSON.stringify(e));
     }
     

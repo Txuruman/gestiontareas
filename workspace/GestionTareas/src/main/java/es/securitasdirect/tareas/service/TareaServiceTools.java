@@ -128,9 +128,7 @@ public class TareaServiceTools {
 
             } else {
                 LOGGER.error("Ticket not found by  id {}", idAviso);
-                //TODO Descomentar, para pruebas está comentado para poder hacer busqueda completa
-                //throw new BusinessException(BusinessException.ErrorCode.ERROR_FIND_TICKET, idAviso.toString(),responseMap.get(TaskServiceParams.TAREA_COMMONS_CALLING_LIST),responseMap.get(TaskServiceParams.TAREA_COMMONS_ID));
-                return null;
+                throw new BusinessException(BusinessException.ErrorCode.ERROR_FIND_TICKET, idAviso.toString(),responseMap.get(TaskServiceParams.TAREA_COMMONS_CALLING_LIST),responseMap.get(TaskServiceParams.TAREA_COMMONS_ID));
             }
         } else {
             LOGGER.warn("ID_AVISO (idaviso) or 0 not found in response map");
@@ -523,7 +521,7 @@ public class TareaServiceTools {
      * @return
      */
     public Tarea loadPostParametersInTask(Tarea tarea, Map<String, String> parameters) {
-        if (parameters!=null) {
+        if (tarea!=null && parameters!=null) {
             tarea.setOutAgentPlace(parameters.get(ExternalParams.AGENT_PLACE));
             tarea.setOutCampaignName(parameters.get(ExternalParams.CAMPAIGN_NAME));
             tarea.setOutClName(parameters.get(ExternalParams.CALLING_LIST));

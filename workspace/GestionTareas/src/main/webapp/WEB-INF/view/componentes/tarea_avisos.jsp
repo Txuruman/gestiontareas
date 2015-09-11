@@ -111,7 +111,7 @@
 	                </app:input>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                	<app:textAreaNG required="true" form="formVisorTarea" id="observaciones" label="eti.visortarea.tareaavisos.form.label.observaciones" value="tarea.observaciones" cell_label="4" cell_input="8"/>
+                	<app:textAreaNG form="formVisorTarea" id="observaciones" label="eti.visortarea.tareaavisos.form.label.observaciones" value="tarea.observaciones" cell_label="4" cell_input="8"/>
                 </div>
                 <!-- subrow -->
                 <div class="spacer_t1"></div>

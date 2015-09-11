@@ -72,7 +72,7 @@ app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService, $modal
                      *  en caso contrario volvemos a la pantalla de buscar
                      */  
                     if($scope.fromSearch!==true){
-                    	CommonService.closeInteraction();
+                    	CommonService.closeInteraction(data);
                     }else{
                     	$scope.descartar();
                     }
@@ -111,7 +111,7 @@ app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService, $modal
                  *  en caso contrario volvemos a la pantalla de buscar
                  */  
                 if($scope.fromSearch!==true){
-                	CommonService.closeInteraction();
+                	CommonService.closeInteraction(data);
                 }else{
                 	$scope.descartar();
                 }

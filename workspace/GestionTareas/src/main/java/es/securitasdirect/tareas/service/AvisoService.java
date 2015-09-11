@@ -63,8 +63,6 @@ public class AvisoService {
      * creacion del XML para crear un Aviso. Se hace a través de un WS disponible para la aplicación de Tickets.
      */
     public void createTicket(Agent agent, TareaAviso tareaAviso, InstallationData installationData) {
-    	
-        boolean result = false;
         String idUser = agent.getAgentIBS();
 
         String idCountry = agentCountryJob.get(agent.getAgentCountryJob());
