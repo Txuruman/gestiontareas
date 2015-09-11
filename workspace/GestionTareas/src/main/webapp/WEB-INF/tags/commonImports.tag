@@ -5,19 +5,21 @@
 
 
 <script type="text/javascript">
-	var _IE8=false;
+	var _IE=false;
 </script>
 <!--[if IE 8]>
 <script src="${pageContext.request.contextPath}/resources/js/es5-shim.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/html5.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/respond.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/pie/PIE.js"></script>
-<script type="text/javascript">
-	_IE8=true;
-</script>
+
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/IE8custom.css"/>
 <![endif]-->
-
+<!--[if IE]>
+<script type="text/javascript">
+	_IE=true;
+</script>
+<![endif]-->
 <script src="${pageContext.request.contextPath}/resources/js/jquery-1.11.3.min.js"></script>
 
 <!-- Configuracion Angular adaptada a IE8 o IWS - Start -->
