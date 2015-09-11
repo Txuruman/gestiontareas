@@ -46,8 +46,16 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 //Boton cancelar del Modal
             });
         } else {
-            $scope.descartar();
+        	/** Si no venimos de la pantalla de buscar cerramos la interacción,
+             *  en caso contrario volvemos a la pantalla de buscar
+             */  
+            if($scope.fromSearch!="true"){
+            	CommonService.closeInteraction(data);
+            }else{
+            	$scope.descartar();
+            }
         }
+        
     };
 
     $scope.init = function () {

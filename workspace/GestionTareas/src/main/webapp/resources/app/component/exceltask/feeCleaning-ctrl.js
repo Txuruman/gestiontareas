@@ -92,7 +92,10 @@ app.controller('feecleaningtask-ctrl', function ($scope, $http, CommonService, $
      */
     $scope.descartar=function(){
     	$window.location.href= _contextPath + "/search";
-    }    
+    }
+    $scope.closeInteraction=function(){
+    	CommonService.closeInteraction({success:true});
+    }
     
     $scope.finalizar = function(){
         //$log.debug("Finalizar List Assistant task, task: ",$scope.tarea);

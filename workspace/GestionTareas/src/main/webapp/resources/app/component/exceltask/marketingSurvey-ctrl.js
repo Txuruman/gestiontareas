@@ -148,5 +148,8 @@ app.controller('marketingsurveytask-ctrl', function ($scope, $http, CommonServic
      */
     $scope.descartar=function(){
     	$window.location.href= _contextPath + "/search";
-    }    
+    }
+    $scope.closeInteraction=function(){
+    	CommonService.closeInteraction({success:true});
+    }
 });

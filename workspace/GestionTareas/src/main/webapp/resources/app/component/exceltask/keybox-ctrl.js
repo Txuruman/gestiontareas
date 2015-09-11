@@ -92,7 +92,9 @@ app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService, $modal
     $scope.descartar=function(){
     	$window.location.href= _contextPath + "/search";
     }    
-
+    $scope.closeInteraction=function(){
+    	CommonService.closeInteraction({success:true});
+    }
     $scope.finalizar = function(){
         //$log.debug("Finalizar List Assistant task, task: ",$scope.tarea);
         var finalizeRequest = {

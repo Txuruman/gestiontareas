@@ -151,5 +151,8 @@ app.controller('anotherCampaigns', function ($scope, $http, CommonService, $moda
     $scope.descartar=function(){
     	$window.location.href= _contextPath + "/search";
     }
+    $scope.closeInteraction=function(){
+    	CommonService.closeInteraction({success:true});
+    }
 });
 //Another Campaigns ANGULARJS script END

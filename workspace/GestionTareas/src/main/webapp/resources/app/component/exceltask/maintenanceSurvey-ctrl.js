@@ -94,7 +94,9 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,
     $scope.descartar=function(){
     	$window.location.href= _contextPath + "/search";
     }    
-    
+    $scope.closeInteraction=function(){
+    	CommonService.closeInteraction({success:true});
+    }
     $scope.finalizar = function(){
         //$log.debug("Finalizar task: ",$scope.tarea);
         var finalizeRequest = {
