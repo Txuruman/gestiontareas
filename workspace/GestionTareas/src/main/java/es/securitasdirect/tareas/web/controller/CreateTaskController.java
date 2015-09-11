@@ -28,25 +28,22 @@ public class CreateTaskController extends BaseController {
     protected TareaService tareaService;
     @Autowired
     private AgentController agentController;
-    
 
 
     /**
-     *
      * @param request
      * @return
      */
     @RequestMapping(value = "/createtask", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody BaseResponse createTask(@RequestBody CreateTaskRequest request) {
-
-        LOGGER.debug("Creating task");
+    public
+    @ResponseBody
+    BaseResponse createTask(@RequestBody CreateTaskRequest request) {
         BaseResponse response = new BaseResponse();
-        try{
-            LOGGER.debug("Create task request: {}", request);
+        try {
             Agent agent = agentController.getAgent();
-             tareaService.createTask(agent, request.getTask(), request.getInstallationData());
+            tareaService.createTask(agent, request.getTask(), request.getInstallationData());
             response.info(messageUtil.getProperty("createtask.create.success"));
-        }catch(Exception e){
+        } catch (Exception e) {
             LOGGER.error("Error creating task.", e);
             response = processException(e);
         }

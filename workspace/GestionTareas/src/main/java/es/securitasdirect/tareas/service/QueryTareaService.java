@@ -92,12 +92,20 @@ public class QueryTareaService {
                 callingList,
                 country);
 
+        //Si no se han recivido parametros
         if (responseMap == null) {
             LOGGER.error("Can't find Task {}-{}", callingList, filter);
             throw new BusinessException(BusinessException.ErrorCode.ERROR_FIND_TASK, callingList, filter);
         }
 
         Tarea tarea = tareaServiceTools.createTareaFromParameters(responseMap);
+
+        //Aún despues de haber cargados los parametros puede que no se encuente el aviso u otros problemas
+        if (tarea == null) {
+            LOGGER.error("Can't find Task {}-{}", callingList, filter);
+            throw new BusinessException(BusinessException.ErrorCode.ERROR_FIND_TASK, callingList, filter);
+        }
+
         tarea = tareaServiceTools.loadPostParametersInTask(tarea, parameters);
         return tarea;
     }

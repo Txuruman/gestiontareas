@@ -523,7 +523,7 @@ public class TareaServiceTools {
      * @return
      */
     public Tarea loadPostParametersInTask(Tarea tarea, Map<String, String> parameters) {
-        if (parameters!=null) {
+        if (tarea!=null && parameters!=null) {
             tarea.setOutAgentPlace(parameters.get(ExternalParams.AGENT_PLACE));
             tarea.setOutCampaignName(parameters.get(ExternalParams.CAMPAIGN_NAME));
             tarea.setOutClName(parameters.get(ExternalParams.CALLING_LIST));
