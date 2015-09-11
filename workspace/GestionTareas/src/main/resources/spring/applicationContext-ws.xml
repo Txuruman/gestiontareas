@@ -70,7 +70,7 @@
 
     <jaxws:client name="cclIntegration"
                   serviceClass="com.webservice.CCLIntegration"
-                  address="http://10.2.145.137:8011/AllInOne_CCL_4_9_TeamVision/CCLIntegrationService?WSDL"
+                  address="http://10.2.145.137:8011/AllInOne_CCL/CCLIntegrationService?WSDL"
             />
         <!--URL 4.8 Original address="http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService?wsdl" -->
     <!-- TODO Parametro por JNDI, fichero configuracion????? -->
