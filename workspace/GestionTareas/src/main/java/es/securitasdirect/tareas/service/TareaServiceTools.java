@@ -119,6 +119,7 @@ public class TareaServiceTools {
             if (tarea != null) {
                 //No utilizamos loadTareaCommons para tener cuidado de no sobreescribir datos de la consulta del AVISO con lo que tenemos en la TAREA
                 tarea.setTelefono(responseMap.get(TaskServiceParams.TAREA_COMMONS_TELEFONO));
+                tarea.setEstado(toIntegerFromMap(responseMap.get(TaskServiceParams.TAREA_COMMONS_ESTADO)));
                 tarea.setCallingList(responseMap.get(TaskServiceParams.TAREA_COMMONS_CALLING_LIST));
                 tarea.setNumeroContrato(responseMap.get(TaskServiceParams.TAREA_COMMONS_N_CONTRATO));
                 tarea.setId(toIntegerFromMap(responseMap.get(TaskServiceParams.TAREA_COMMONS_ID)));
@@ -243,7 +244,9 @@ public class TareaServiceTools {
         tarea.setIdAviso(avisobyIdResult.getIdaviso().intValue());
         tarea.setIdentificativoAvisoTarea(avisobyIdResult.getIdaviso().intValue());
         tarea.setObservaciones(avisobyIdResult.getObservaciones());
-        tarea.setEstado((avisobyIdResult.getEstado()!=null?avisobyIdResult.getEstado().intValue():null));
+
+        //No cargamos el estado del Aviso en nuestra Tarea, sino que se carga del WS de Tarea
+
         tarea.setTitular(avisobyIdResult.getTitular());
         tarea.setFechaCreacion(toDateFromMap(avisobyIdResult.getFechaCreacion())); //TODO OJO PUEDE SER DISTINTO
 
