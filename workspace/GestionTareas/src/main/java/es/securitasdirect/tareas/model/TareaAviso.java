@@ -47,8 +47,6 @@ public class TareaAviso extends Tarea {
 	/*	Fecha de creación: información para trazabilidad y para la gestión de días de vencimiento  */
 	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
 	Date fechaCreacion;
-	/*	Estado  */
-	String estado;
 	/** Horario desde */
 	private String horarioDesde;
 	/** Horario hasta */
