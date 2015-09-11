@@ -98,7 +98,7 @@ app.controller('marketingsurveytask-ctrl', function ($scope, $http, CommonServic
                      *  en caso contrario volvemos a la pantalla de buscar
                      */  
                     if($scope.fromSearch!==true){
-                    	CommonService.closeInteraction();
+                    	CommonService.closeInteraction(data);
                     }else{
                     	$scope.descartar();
                     }
@@ -129,7 +129,7 @@ app.controller('marketingsurveytask-ctrl', function ($scope, $http, CommonServic
                  *  en caso contrario volvemos a la pantalla de buscar
                  */  
                 if($scope.fromSearch!==true){
-                	CommonService.closeInteraction();
+                	CommonService.closeInteraction(data);
                 }else{
                 	$scope.descartar();
                 }

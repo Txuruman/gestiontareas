@@ -74,7 +74,7 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,
                      *  en caso contrario volvemos a la pantalla de buscar
                      */  
                     if($scope.fromSearch!==true){
-                    	CommonService.closeInteraction();
+                    	CommonService.closeInteraction(data);
                     }else{
                     	$scope.descartar();
                     }
@@ -113,7 +113,7 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,
                  *  en caso contrario volvemos a la pantalla de buscar
                  */  
                 if($scope.fromSearch!==true){
-                	CommonService.closeInteraction();
+                	CommonService.closeInteraction(data);
                 }else{
                 	$scope.descartar();
                 }

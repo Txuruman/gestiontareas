@@ -12,7 +12,10 @@ import java.util.List;
 public class BaseResponse {
 
     private List<Message> messages = new ArrayList<Message>();
-
+    /**
+     * Variable para definir si el proceso ha tenido éxito
+     */
+    private boolean success=true;
     /**
      * Clase para almacenar los mensajes de respuesta a las peticiones al servidor
      */
@@ -148,8 +151,16 @@ public class BaseResponse {
     public void addMessage(Message msg){
         messages.add(msg);
     }
+    
+    public boolean isSuccess() {
+		return success;
+	}
 
-    public boolean hasError(){
+	public void setSuccess(boolean success) {
+		this.success = success;
+	}
+
+	public boolean hasError(){
         Iterator<Message> messageList = this.messages.iterator();
         boolean hasError = false;
         if(messageList.hasNext()){
@@ -164,7 +175,6 @@ public class BaseResponse {
     @Override
     public String toString() {
         return "BaseResponse{" +
-                "messages=" + messages +
-                '}';
+                "messages=" + messages + "}, success=" + success;
     }
 }
