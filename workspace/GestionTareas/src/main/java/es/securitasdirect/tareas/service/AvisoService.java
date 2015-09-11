@@ -2,6 +2,7 @@ package es.securitasdirect.tareas.service;
 
 import com.webservice.CCLIntegration;
 import es.securitasdirect.tareas.exceptions.BusinessException;
+import es.securitasdirect.tareas.exceptions.FrameworkException;
 import es.securitasdirect.tareas.model.Agent;
 import es.securitasdirect.tareas.model.InstallationData;
 import es.securitasdirect.tareas.model.TareaAviso;
@@ -201,7 +202,7 @@ public class AvisoService {
     /**
      * creacion del XML para actualizar un Aviso. Se hace a través de un WS disponible para la aplicación de Tickets.
      */
-    public boolean updateTicket(Agent agent, TareaAviso tareaAviso, InstallationData installationData) {
+    public void updateTicket(Agent agent, TareaAviso tareaAviso, InstallationData installationData) {
     	try{
 	        boolean result = false;
 	        String idUser = agent.getAgentIBS();
@@ -353,11 +354,16 @@ public class AvisoService {
 	        </DATA>
 	         */
 	
-	        if(data.getERR() != null && data.getERR().getUPDATE().getCod() == -1) result = true;
+	        if(data.getERR() != null && data.getERR().getUPDATE().getCod() == -1) {
+                LOGGER.debug("Sucessfully updated Task {}", tareaAviso);
+            } else {
+                LOGGER.error("Error updating Task {}" , tareaAviso);
+                throw new BusinessException(BusinessException.ErrorCode.ERROR_FINALIZE_TASK,data.getERR().getCod(),data.getERR().getDesc());
+            }
 	
-	        return result;
 	    }catch(Exception e){
-			return false;
+            LOGGER.error(e.getMessage(),e);
+			throw new FrameworkException(e);
 		}
 
     }
