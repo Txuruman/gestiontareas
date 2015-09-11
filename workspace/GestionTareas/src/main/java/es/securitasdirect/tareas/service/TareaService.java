@@ -522,7 +522,7 @@ public class TareaService {
                     recordTypeText = "Personal";
                 }
 
-                wsResponse = cclIntegration.rescheduleRecord(getAgentExtensionFromAgentPlace(tarea.getOutAgentPlace()), tarea.getOutCampaignName(), Integer.valueOf(tarea.getOutRecordHandle()), recordType, date2);
+                wsResponse = cclIntegration.rescheduleRecord(getAgentExtensionFromAgentPlace(tarea.getOutAgentPlace()), tarea.getOutCampaignName(), Integer.valueOf(tarea.getOutRecordHandle()), recordTypeText, date2);
             } catch (Exception e) {
                 LOGGER.error(e.getMessage(), e);
                 throw new FrameworkException(e);
