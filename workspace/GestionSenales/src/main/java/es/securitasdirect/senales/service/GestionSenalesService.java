@@ -590,6 +590,12 @@ public class GestionSenalesService {
         if (!(mixedInstallationData.installationDataResultTareas.getGetContractNumberResponse() == null || mixedInstallationData.installationDataResultTareas.getGetContractNumberResponse().getGetContractNumberResponses() == null || mixedInstallationData.installationDataResultTareas.getGetContractNumberResponse().getGetContractNumberResponses().isEmpty() || mixedInstallationData.installationDataResultTareas.getGetContractNumberResponse().getGetContractNumberResponses().get(0).getCtrNo() == null)) {
             ctrNo = mixedInstallationData.installationDataResultTareas.getGetContractNumberResponse().getGetContractNumberResponses().get(0).getCtrNo();
         }
+
+        if (ctrNo==null) {
+            LOGGER.warn("Can't find contract in installation data, will use the installation number for the contract");
+            ctrNo = mixedInstallationData.installationDataResultInstallation.getInsNo();
+        }
+
         String isEquals = "true";  // isEqual = true
 
         //Mapa con los datos a insertar de Tarea
@@ -704,7 +710,7 @@ public class GestionSenalesService {
                 campaign,
                 numbers,
                 country,
-                ctrNo,
+                ctrNo, //Requerido
                 isEquals
         );
 
