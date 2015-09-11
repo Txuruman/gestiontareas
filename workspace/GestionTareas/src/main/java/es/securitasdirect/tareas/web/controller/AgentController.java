@@ -4,6 +4,7 @@ import es.securitasdirect.tareas.model.Agent;
 import es.securitasdirect.tareas.model.InstallationData;
 import es.securitasdirect.tareas.model.Tarea;
 import es.securitasdirect.tareas.service.InfopointService;
+import es.securitasdirect.tareas.service.SecurityService;
 import es.securitasdirect.tareas.service.TareaService;
 import es.securitasdirect.tareas.web.controller.dto.AgentResponse;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
@@ -12,6 +13,7 @@ import es.securitasdirect.tareas.web.controller.params.ExternalParams;
 import es.securitasdirect.tareas.web.controller.util.MessageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.http.MediaType;
@@ -39,6 +41,8 @@ public class AgentController extends BaseController {
     protected MessageUtil messageUtil;
     @Inject
     protected InfopointService infopointService;
+    @Autowired
+    protected SecurityService securityService;
 
     private Agent agent;
 
@@ -52,7 +56,10 @@ public class AgentController extends BaseController {
     public Agent loadAgentFromIWS(Map<String, String> parametersMap) {
         //Se llama varias veces a cargar el agente, si ya está cargado no lo sobreescribimos
         if (!isLogged()) {
-            LOGGER.debug("Loading agen from params {}", parametersMap);
+            //Validate security, se hace para todas las operaciones
+            securityService.validateAuthenticationRequest(parametersMap.get(ExternalParams.AUTH_SIGNATURE),parametersMap.get(ExternalParams.AUTH_REQUEST_DATE), parametersMap.get(ExternalParams.AUTH_IPADDRESS), parametersMap.get(ExternalParams.AUTH_CONNID));
+
+            LOGGER.debug("Loading agent from params {}", parametersMap);
             agent = new Agent();
             agent.setAgentCountryJob(parametersMap.get(ExternalParams.AGENT_COUTRY_JOB));
             agent.setDesktopDepartment(parametersMap.get(ExternalParams.DESKTOP_DEPARTMENT));
