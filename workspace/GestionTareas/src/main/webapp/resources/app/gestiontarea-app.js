@@ -267,10 +267,12 @@ app.service('CommonService', function ($rootScope, $log, $http, $timeout) {
      * 	Función externa CloseInteractionPushPreview
      */
     this.closeInteraction=function(data){
-//    	alert("entrando");
+    	//alert(data.success);
 //    	alert("map" + mapParams);
 //    	alert("conn" + mapParams.bp_auth_connid);
+//    	alert(JSON.strinify(data));
     	if (data.success) {
+    		alert("A continuación se cerrará la interacción");
     		e = window.external.CloseInteractionPushPreview(mapParams.bp_auth_connid);
 		}
 //        alert(JSON.stringify(e));
