@@ -50,7 +50,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
              *  en caso contrario volvemos a la pantalla de buscar
              */  
             if($scope.fromSearch!="true"){
-            	CommonService.closeInteraction({success:true});
+            	$scope.descartaraviso($scope.tarea);
             }else{
             	$scope.descartar();
             }
