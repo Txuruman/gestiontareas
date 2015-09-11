@@ -100,7 +100,7 @@ public class TareasServiceTest {
         tarea.setDatosAdicionalesCierre("1");
 
         boolean ok = tareaService.finalizeNotificationTask(agent, tarea);
-        assertThat(ok,is(true));
+        assertThat(ok, is(true));
     }
 
     @Test
@@ -129,6 +129,12 @@ public class TareasServiceTest {
 
         //tareaService.createTask(agent, tareaMantenimiento);
 
+    }
+
+    @Test
+    public void extension() {
+        String extension = tareaService.getAgentExtensionFromAgentPlace("P123123");
+        assertThat(extension,is("123123"));
     }
 
 

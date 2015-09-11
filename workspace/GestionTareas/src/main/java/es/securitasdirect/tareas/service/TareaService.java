@@ -467,7 +467,7 @@ public class TareaService {
      */
     private void wsFinalizeInMemoryTask(Agent agent, Tarea tarea) {
         if (validateInMemoryParameters(agent, tarea)) {
-            WsResponse wsResponse = cclIntegration.finalizeRecord(tarea.getOutAgentPlace(), tarea.getOutCampaignName(), tarea.getOutClName(), Integer.valueOf(tarea.getOutRecordHandle()));
+            WsResponse wsResponse = cclIntegration.finalizeRecord(getAgentExtensionFromAgentPlace(tarea.getOutAgentPlace()), tarea.getOutCampaignName(), tarea.getOutClName(), Integer.valueOf(tarea.getOutRecordHandle()));
             if (wsResponse.getResultCode() == 200) {
                 LOGGER.debug("Finalized successfully in memory task {}", tarea);
             } else {
@@ -486,7 +486,7 @@ public class TareaService {
      */
     private void wsRejectInMemoryTask(Agent agent, Tarea tarea) {
         if (validateInMemoryParameters(agent, tarea)) {
-            WsResponse wsResponse = cclIntegration.rejectRecord(tarea.getOutAgentPlace(), tarea.getOutCampaignName(), tarea.getOutClName(), Integer.valueOf(tarea.getOutRecordHandle()));
+            WsResponse wsResponse = cclIntegration.rejectRecord(getAgentExtensionFromAgentPlace(tarea.getOutAgentPlace()), tarea.getOutCampaignName(), tarea.getOutClName(), Integer.valueOf(tarea.getOutRecordHandle()));
             if (wsResponse.getResultCode() == 200) {
                 LOGGER.debug("Canceled successfully in memory task {}", tarea);
             } else {
@@ -515,8 +515,14 @@ public class TareaService {
                 date2.setMillisecond(DatatypeConstants.FIELD_UNDEFINED);
                 date2.setTimezone(DatatypeConstants.FIELD_UNDEFINED);
 
+                String recordTypeText;
+                if (recordType==null || recordType.isEmpty() || recordType.equalsIgnoreCase("6")) {
+                    recordTypeText = "Campaign";
+                } else {
+                    recordTypeText = "Personal";
+                }
 
-                wsResponse = cclIntegration.rescheduleRecord(tarea.getOutAgentPlace(), tarea.getOutCampaignName(), Integer.valueOf(tarea.getOutRecordHandle()), recordType, date2);
+                wsResponse = cclIntegration.rescheduleRecord(getAgentExtensionFromAgentPlace(tarea.getOutAgentPlace()), tarea.getOutCampaignName(), Integer.valueOf(tarea.getOutRecordHandle()), recordType, date2);
             } catch (Exception e) {
                 LOGGER.error(e.getMessage(), e);
                 throw new FrameworkException(e);
@@ -670,6 +676,22 @@ public class TareaService {
                 tarea.getOutClName() != null &&
                 tarea.getOutRecordHandle() != null;
     }
+
+
+    /**
+     * Eliminar la P del Place y tienes la Extension
+     * Ejemplo Place: P17023
+     * @param placeID
+     * @return
+     */
+    protected static String getAgentExtensionFromAgentPlace(String placeID) {
+        if (placeID!=null && ( placeID.startsWith("P") || placeID.startsWith("p"))) {
+            return placeID.substring(1);
+        } else {
+            return placeID;
+        }
+    }
+
 
 }
 
