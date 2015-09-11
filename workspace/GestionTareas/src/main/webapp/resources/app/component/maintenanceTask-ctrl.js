@@ -175,8 +175,8 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService, $
 	   	}
 	   	
 	   	phone = "0999"+phone;
-		alert(phone);
+		//alert(phone);
 		e = window.external.DoCall(phone, 'myDoCallHandler', provideMockupObject());
-		alert(JSON.stringify(e));
+		//alert(JSON.stringify(e));
     }
 });
