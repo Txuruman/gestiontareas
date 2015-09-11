@@ -43,7 +43,8 @@ public abstract class BaseController {
      * @return
      */
     protected BaseResponse processException(BaseResponse response, Exception exception) {
-        if (exception instanceof BusinessException) {
+        response.setSuccess(false);
+    	if (exception instanceof BusinessException) {
             //Excepción de negocio
             LOGGER.error("Business error {}" , ((BusinessException) exception).getErrorCode(),exception);
             response.danger(messageUtil.getProperty(((BusinessException) exception).getErrorCode().toString(),((BusinessException) exception).getErrorParams()==null?null:((BusinessException) exception).getErrorParams().toArray()));

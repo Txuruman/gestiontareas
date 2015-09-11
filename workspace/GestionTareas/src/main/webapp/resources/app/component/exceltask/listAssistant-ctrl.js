@@ -38,7 +38,7 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
                      *  en caso contrario volvemos a la pantalla de buscar
                      */  
                     if($scope.fromSearch!==true){
-                    	CommonService.closeInteraction();
+                    	CommonService.closeInteraction(data);
                     }else{
                     	$scope.descartar();
                     }
@@ -78,7 +78,7 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
                  *  en caso contrario volvemos a la pantalla de buscar
                  */  
                 if($scope.fromSearch!==true){
-                	CommonService.closeInteraction();
+                	CommonService.closeInteraction(data);
                 }else{
                 	$scope.descartar();
                 }
