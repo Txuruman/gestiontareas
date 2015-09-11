@@ -447,7 +447,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
      * Finalizar desde el botón de finalizar
      */
     $scope.finalizar = function () {
-    	CommonService.logger("Finalizar task, task: ", $scope.tarea,"debug");
+    	CommonService.logger("Finalizar task, task: ","debug", $scope.tarea);
         //Comparamos la tarea con el originar y si ha habido cambios modificamos.
 //    	if (!angular.equals($scope.tarea, $scope.tareaOriginal)) {
 //			$scope.modificar();
@@ -456,7 +456,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             task: $scope.tarea,
             installation: $scope.installationData
         };
-        CommonService.logger("Finalizar  Task, request: ", finalizeRequest,"debug");
+        CommonService.logger("Finalizar  Task, request: ","debug", finalizeRequest);
         $http({
             method: 'PUT',
             url: 'notificationtask/finalizar',
