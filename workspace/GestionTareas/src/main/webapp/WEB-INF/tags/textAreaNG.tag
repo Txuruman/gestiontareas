@@ -13,6 +13,7 @@
 <%@ attribute name="cell_input" required="false"  description="The maximun cells label in parent space" %>
 <%@ attribute name="ng_disabled" required="false"  description="input ng-disabled" %>
 <%@ attribute name="form" required="false"  description="form of the input" %>
+<%@ attribute name="clazz" required="false"  description="class of the div" %>
 
 <c:if test="${cell_label == null}">
     <c:set var="cell_label" value="4"/>
@@ -37,7 +38,7 @@
         </label>
     </div>
 
-    <div class="col-lg-${cell_input} col-md-${cell_input} col-sm-${cell_input} col-xs-${cell_input}">
+    <div class="col-lg-${cell_input} col-md-${cell_input} col-sm-${cell_input} col-xs-${cell_input} <c:if test='${not empty clazz}'>${clazz}</c:if>">
         <textarea type="text" class="form-control custom-area" name="${id}" id="${id}"
                   maxlength="${maxlength}" rows="5"
                   ${readonly=='true'? 'disabled' : ''}

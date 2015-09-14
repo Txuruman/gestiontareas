@@ -217,3 +217,11 @@ hr{
 .contentModal h3{
     color: #16429a !important;
 }
+
+.sinPaddingRight{
+	padding-right:0 !important;
+}
+
+.paddingLeft10{
+	padding-left:10px !important;
+}
