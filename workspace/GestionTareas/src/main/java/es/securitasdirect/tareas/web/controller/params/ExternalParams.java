@@ -78,5 +78,7 @@ public interface ExternalParams {
     public static String CAMPAIGN_NAME= "bp_out_GSW_CAMPAIGN_NAME";
 
     public static String RECORD_HANDLE= "bp_out_GSW_RECORD_HANDLE";
+    
+    public static String INTERACTION_ID= "bp_interactionId";
 
 }

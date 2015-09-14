@@ -30,14 +30,10 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
          * Si no hay instalación y si hay tarea, finalizamos la tarea
          */
         if ($scope.tarea == undefined || $scope.tarea == null) {
-            if (data.success) {
-                if ($scope.fromSearch != "true") {
-                    CommonService.closeInteraction(data);
-                } else {
-                    $scope.descartar();
-                }
+            if ($scope.fromSearch != "true") {
+                CommonService.closeInteraction(data);
             } else {
-                //Por errores no volvemos atras ni cerramos
+                $scope.descartar();
             }
         } else if ($scope.installationData == null || $scope.installationData == undefined) {
             $scope.descartaraviso($scope.tarea);
