@@ -485,6 +485,7 @@ public class TareaService {
 
     /**
      * Llamada al WS de finalizar una Tarea cuando está en memoria
+     * Función comentada porque entra en conflicto con la de javascript de cerrar interaccion
      */
     private void wsFinalizeInMemoryTask(Agent agent, Tarea tarea) {
 //        if (validateInMemoryParameters(agent, tarea)) {
