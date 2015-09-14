@@ -390,6 +390,8 @@ public class TareaService {
         String contactInfo = tarea.getTelefono();
         String callingList = tarea.getCallingList();
         Integer idTarea = tarea.getId();
+        //Al aplazar cuando no está en memoria, en el ws hay que rellenar también el campo agent_id con 101@place (por ejemplo: 101@P17001)
+        String agentId = "101@" + agent.getAgentPlace();
 
         String filter = "chain_id=" + idTarea;
 
@@ -400,6 +402,7 @@ public class TareaService {
         net.java.dev.jaxb.array.StringArray saRecordStatus = new net.java.dev.jaxb.array.StringArray();// RECORD_STATUS, DIAL_SHCED_TIME, RECORDTYPE
         net.java.dev.jaxb.array.StringArray saTime = new net.java.dev.jaxb.array.StringArray();// RECORD_STATUS, DIAL_SHCED_TIME, RECORDTYPE
         net.java.dev.jaxb.array.StringArray saType = new net.java.dev.jaxb.array.StringArray();// RECORD_STATUS, DIAL_SHCED_TIME, RECORDTYPE
+        net.java.dev.jaxb.array.StringArray saAgentId = new net.java.dev.jaxb.array.StringArray();
 
         //   Record_status = 1 (ready)
         saRecordStatus.getItem().add("record_status");
@@ -410,10 +413,15 @@ public class TareaService {
         // Recort_type = 5 (personal callback) / 6 (campaing callback)
         saType.getItem().add("record_type");
         saType.getItem().add(recordType);
+        //Al aplazar cuando no está en memoria, en el ws hay que rellenar también el campo agent_id con 101@place (por ejemplo: 101@P17001)
+        saAgentId.getItem().add("agent_id");
+        saAgentId.getItem().add(agentId);
+
 
         modifyValues.add(saRecordStatus);
         modifyValues.add(saTime);
         modifyValues.add(saType);
+        modifyValues.add(saAgentId);
 
         WsResponse wsResponse = cclIntegration.updateCallingListContact(desktopDepartment, applicationUser, ccUserId, filter, modifyValues, callingLists, campaingns, contactInfo, country);
 
@@ -440,8 +448,6 @@ public class TareaService {
         String contactInfo = tarea.getTelefono();
         String callingList = tarea.getCallingList();
         Integer idTarea = tarea.getId();
-        //Al aplazar cuando no está en memoria, en el ws hay que rellenar también el campo agent_id con 101@place (por ejemplo: 101@P17001)
-        String agentId = "101@" + agent.getAgentPlace();
 
         String filter = "chain_id=" + idTarea;
 
@@ -451,10 +457,9 @@ public class TareaService {
         List<net.java.dev.jaxb.array.StringArray> modifyValues = new ArrayList<net.java.dev.jaxb.array.StringArray>();
         net.java.dev.jaxb.array.StringArray saStatus = new net.java.dev.jaxb.array.StringArray();// RECORD_STATUS, DIAL_SHCED_TIME, RECORDTYPE
         net.java.dev.jaxb.array.StringArray saResult = new net.java.dev.jaxb.array.StringArray();// RECORD_STATUS, DIAL_SHCED_TIME, RECORDTYPE
-        net.java.dev.jaxb.array.StringArray saAgentId = new net.java.dev.jaxb.array.StringArray();
+
         modifyValues.add(saStatus);
         modifyValues.add(saResult);
-        modifyValues.add(saAgentId);
         //   o	Record_status = 3 (updated)
         saStatus.getItem().add("record_status");
         saStatus.getItem().add("3");
@@ -462,9 +467,6 @@ public class TareaService {
         saResult.getItem().add("call_result");
         saResult.getItem().add("0");
 
-        //Al aplazar cuando no está en memoria, en el ws hay que rellenar también el campo agent_id con 101@place (por ejemplo: 101@P17001)
-        saAgentId.getItem().add("agent_id");
-        saAgentId.getItem().add(agentId);
 
 
         WsResponse wsResponse = cclIntegration.updateCallingListContact(desktopDepartment, applicationUser, ccUserId, filter, modifyValues, callingLists, campaingns, contactInfo, country);
@@ -643,7 +645,7 @@ public class TareaService {
                 // Finalizar Tarea en memoria
                 wsFinalizeInMemoryTask(agent, tarea);
             } else {
-                //Cancelar cuando está en memoria
+                //Cancelar cuando no está en memoria
                 wsFinalizeTask(agent, tarea);
             }
 
