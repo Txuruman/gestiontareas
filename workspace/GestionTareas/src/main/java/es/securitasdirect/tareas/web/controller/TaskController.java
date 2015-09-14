@@ -96,18 +96,23 @@ public abstract class TaskController extends BaseController {
             try {
                 //Buscar Tarea
                 Tarea task = queryTareaService.queryTarea(agentController.getAgent()  , callingList, tareaId, parameters);
-
                 response.setTarea(task);
-                //Buscamos la instalación
-                if (task.getNumeroInstalacion() != null) {
-                    InstallationData installationData = installationDataService.getInstallationData(task.getNumeroInstalacion());
-                    if (installationData != null) {
-                        response.setInstallationData(installationData);
+
+
+                //Buscamos la instalación, capturamos excepción para poder devolver Tarea cuya instalacion no se ha encontrado
+                try {
+                    if (task.getNumeroInstalacion() != null) {
+                        InstallationData installationData = installationDataService.getInstallationData(task.getNumeroInstalacion());
+                        if (installationData != null) {
+                            response.setInstallationData(installationData);
+                        } else {
+                            response.danger(messageUtil.getProperty("ERROR_FIND_INSTALLATION"));
+                        }
                     } else {
-                        response.danger(messageUtil.getProperty("getTask.noInstallation"));
+                        response.danger(messageUtil.getProperty("ERROR_FIND_INSTALLATION"));
                     }
-                } else {
-                    response.danger(messageUtil.getProperty("getTask.noInstallation"));
+                } catch (Exception e) {
+                    response.danger(messageUtil.getProperty("ERROR_FIND_INSTALLATION"));
                 }
 
             } catch (Exception e) {
