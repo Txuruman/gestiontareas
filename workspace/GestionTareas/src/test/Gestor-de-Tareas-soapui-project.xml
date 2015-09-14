@@ -9673,18 +9673,17 @@
       <http:address location="https://10.2.144.63:9443/services/SP_AVISOS_OPERACIONES.SecureHTTPEndpoint/"/>
     </wsdl:port>
   </wsdl:service>
-</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://10.2.144.63:9763/services/SP_AVISOS_OPERACIONES.SOAP11Endpoint/</con:endpoint><con:endpoint>https://10.2.144.63:9443/services/SP_AVISOS_OPERACIONES.SecureSOAP11Endpoint/</con:endpoint><con:endpoint>local:///services/SP_AVISOS_OPERACIONES.LOCALSOAP11Endpoint/</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:AplazarAviso" name="AplazarAviso" bindingOperationName="AplazarAviso" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="327eec23-28c4-4d89-a615-efa82b35a463"><con:settings/><con:call name="Request 1" id="67e541a7-e1cb-466d-857e-a136ab380832"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.2.144.63:9763/services/SP_AVISOS_OPERACIONES.SOAP11Endpoint/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dat="http://ws.wso2.org/dataservice">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <dat:AplazarAviso>
-         <dat:NAVISO>?</dat:NAVISO>
-         <dat:GBLIDUSR>?</dat:GBLIDUSR>
-         <dat:IDAPLAZA>?</dat:IDAPLAZA>
-         <dat:FHASTA>?</dat:FHASTA>
-         <dat:CNOTA>?</dat:CNOTA>
-      </dat:AplazarAviso>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:AplazarAviso"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="urn:CerrarAviso" name="CerrarAviso" bindingOperationName="CerrarAviso" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="932ce19f-6575-41f9-bf28-dad63436aeb0"><con:settings/><con:call name="Request 1" id="6fd6936f-c882-4408-ba88-f9ebc5710de0"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.2.144.63:9763/services/SP_AVISOS_OPERACIONES.SOAP11Endpoint/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dat="http://ws.wso2.org/dataservice">
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://10.2.144.63:9763/services/SP_AVISOS_OPERACIONES.SOAP11Endpoint/</con:endpoint><con:endpoint>https://10.2.144.63:9443/services/SP_AVISOS_OPERACIONES.SecureSOAP11Endpoint/</con:endpoint><con:endpoint>local:///services/SP_AVISOS_OPERACIONES.LOCALSOAP11Endpoint/</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:AplazarAviso" name="AplazarAviso" bindingOperationName="AplazarAviso" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="327eec23-28c4-4d89-a615-efa82b35a463"><con:settings/><con:call name="Request 1" id="67e541a7-e1cb-466d-857e-a136ab380832"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.2.144.63:9763/services/SP_AVISOS_OPERACIONES.SOAP11Endpoint/</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Body>
+    <AplazarAviso xmlns="http://ws.wso2.org/dataservice">
+      <NAVISO>11351431</NAVISO>
+      <GBLIDUSR>12187</GBLIDUSR>
+      <IDAPLAZA/>
+      <FHASTA>18/09/2015 10:25:00</FHASTA>
+      <CNOTA/>
+    </AplazarAviso>
+  </soap:Body>
+</soap:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:AplazarAviso"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation isOneWay="false" action="urn:CerrarAviso" name="CerrarAviso" bindingOperationName="CerrarAviso" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional" id="932ce19f-6575-41f9-bf28-dad63436aeb0"><con:settings/><con:call name="Request 1" id="6fd6936f-c882-4408-ba88-f9ebc5710de0"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.2.144.63:9763/services/SP_AVISOS_OPERACIONES.SOAP11Endpoint/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:dat="http://ws.wso2.org/dataservice">
    <soapenv:Header/>
    <soapenv:Body>
       <dat:CerrarAviso>

@@ -57,7 +57,7 @@ public class TareaService {
 
 
     //Dial_sched_time = dd/mm/aaaa hh:mm:ss
-    private SimpleDateFormat sdfSchedTime = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+    private SimpleDateFormat sdfSchedTime = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
 
     /**
@@ -109,7 +109,7 @@ public class TareaService {
      * <p/>
      * Cancelar la señal de IWS al finalizar una Tarea de tipo Mantenimiento y en la gestión de señales, cuando está fuera de horario.
      * <p/>
-     * TODO 6.	En Tarea de tipo Mantenimiento, al finalizar, ejecutar WS de grabar commlogs  de IBS con los datos de la pantalla.
+     * En Tarea de tipo Mantenimiento, al finalizar, ejecutar WS de grabar commlogs  de IBS con los datos de la pantalla.
      * <p/>
      * //TODO Pendiente, cuando esté funcionando el Reporting de BI el dato Motivo de Cierre y Compensación deben de registrarse en la auditoria
      *
