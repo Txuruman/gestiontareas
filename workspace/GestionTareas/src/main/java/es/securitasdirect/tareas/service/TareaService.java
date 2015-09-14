@@ -57,7 +57,7 @@ public class TareaService {
 
 
     //Dial_sched_time = dd/mm/aaaa hh:mm:ss
-    private SimpleDateFormat sdfSchedTime = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+    private SimpleDateFormat sdfSchedTime = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
 
     /**
