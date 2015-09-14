@@ -56,7 +56,7 @@ public class TareaService {
     private String applicationUser;
 
 
-    //Dial_sched_time = dd/mm/aaaa hh:mm:ss
+    //Dial_sched_time = dd/mm/aaaa HH:mm:ss
     private SimpleDateFormat sdfSchedTime = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
 
@@ -165,12 +165,7 @@ public class TareaService {
         //1. Modificar Aviso si hace falta por haber cambiado los datos. Comprobamos si la tarea que nos pasa el front difiere con la de la BBDD, si es asi modificamos
         TareaAviso tareaRefrescada = (TareaAviso) queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
         if (isTaskRequiresSaveModifications(tareaRefrescada, tarea)) {
-            try {
-                avisoService.updateTicket(agent, tarea, installationData);
-            } catch (Throwable e) {
-                //TODO Repasar la exceptión
-                LOGGER.error("ELIMINAR ESTA CAPTURA DE EXCEPCIÓN");
-            }
+            avisoService.updateTicket(agent, tarea, installationData);
         }
 
         //2. Finalizar el Aviso
@@ -239,7 +234,7 @@ public class TareaService {
         TareaAviso tareaRefrescada = (TareaAviso) queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
         if (isTaskRequiresSaveModifications(tareaRefrescada, tarea)) {
             try {
-                 avisoService.updateTicket(agent, tarea, installationData);
+                avisoService.updateTicket(agent, tarea, installationData);
             } catch (Throwable e) {
                 //TODO Repasar la exceptión
                 LOGGER.error("ELIMINAR ESTA CAPTURA DE EXCEPCIÓN");
@@ -432,6 +427,8 @@ public class TareaService {
         String contactInfo = tarea.getTelefono();
         String callingList = tarea.getCallingList();
         Integer idTarea = tarea.getId();
+        //Al aplazar cuando no está en memoria, en el ws hay que rellenar también el campo agent_id con 101@place (por ejemplo: 101@P17001)
+        String agentId = "101@" + agent.getAgentPlace();
 
         String filter = "chain_id=" + idTarea;
 
@@ -441,14 +438,20 @@ public class TareaService {
         List<net.java.dev.jaxb.array.StringArray> modifyValues = new ArrayList<net.java.dev.jaxb.array.StringArray>();
         net.java.dev.jaxb.array.StringArray saStatus = new net.java.dev.jaxb.array.StringArray();// RECORD_STATUS, DIAL_SHCED_TIME, RECORDTYPE
         net.java.dev.jaxb.array.StringArray saResult = new net.java.dev.jaxb.array.StringArray();// RECORD_STATUS, DIAL_SHCED_TIME, RECORDTYPE
+        net.java.dev.jaxb.array.StringArray saAgentId = new net.java.dev.jaxb.array.StringArray();
         modifyValues.add(saStatus);
         modifyValues.add(saResult);
+        modifyValues.add(saAgentId);
         //   o	Record_status = 3 (updated)
         saStatus.getItem().add("record_status");
         saStatus.getItem().add("3");
         // o	Call_result = 0 (ok)
         saResult.getItem().add("call_result");
         saResult.getItem().add("0");
+
+        //Al aplazar cuando no está en memoria, en el ws hay que rellenar también el campo agent_id con 101@place (por ejemplo: 101@P17001)
+        saAgentId.getItem().add("agent_id");
+        saAgentId.getItem().add(agentId);
 
 
         WsResponse wsResponse = cclIntegration.updateCallingListContact(desktopDepartment, applicationUser, ccUserId, filter, modifyValues, callingLists, campaingns, contactInfo, country);
@@ -516,7 +519,7 @@ public class TareaService {
                 date2.setTimezone(DatatypeConstants.FIELD_UNDEFINED);
 
                 String recordTypeText;
-                if (recordType==null || recordType.isEmpty() || recordType.equalsIgnoreCase("6")) {
+                if (recordType == null || recordType.isEmpty() || recordType.equalsIgnoreCase("6")) {
                     recordTypeText = "Campaign";
                 } else {
                     recordTypeText = "Personal";
@@ -604,15 +607,14 @@ public class TareaService {
 
         TareaAviso tareaRefrescada = (TareaAviso) queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
 
-
-        if (isTaskRequiresSaveModifications(tareaRefrescada, tarea)) {
-            try {
+        //Existe un caso en el que no viene instalacion porque no se ha encontrado, en este caso de error el descartar no actualiza la Tarea
+        if (installationData != null) {
+            if (isTaskRequiresSaveModifications(tareaRefrescada, tarea)) {
                 avisoService.updateTicket(agent, (TareaAviso) tarea, installationData);
-            } catch (Throwable e) {
-                //TODO Repasar la exceptión
-                LOGGER.error("ELIMINAR ESTA CAPTURA DE EXCEPCIÓN");
+            } else {
+                LOGGER.warn("Can't update task because there was no installation found ");
             }
-        }
+        } //Fin sin instalacion
 
         // si ha cambiado Tipo1 o Motivo1
         if (isChangedTipoOrMotivo(tareaRefrescada, tarea)) {
@@ -681,11 +683,12 @@ public class TareaService {
     /**
      * Eliminar la P del Place y tienes la Extension
      * Ejemplo Place: P17023
+     *
      * @param placeID
      * @return
      */
     protected static String getAgentExtensionFromAgentPlace(String placeID) {
-        if (placeID!=null && ( placeID.startsWith("P") || placeID.startsWith("p"))) {
+        if (placeID != null && (placeID.startsWith("P") || placeID.startsWith("p"))) {
             return placeID.substring(1);
         } else {
             return placeID;
