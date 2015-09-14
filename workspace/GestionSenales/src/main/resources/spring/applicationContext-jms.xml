@@ -19,9 +19,13 @@
         Factoria:                 sd.prd.es1prdxacfout
     -->
     <bean id="jmsReaderPozuelo" class="es.securitasdirect.senales.reader.JMSReader" lazy-init="false">
+        <!-- Nombre comprensible para el log y otra información de la aplicación -->
         <property name="aliasName" value="Pozuelo"/>
+        <!-- Endpoint de la cola -->
         <property name="qfcName" value="sd.prd.es1prdxacfout"/>
+        <!-- Nombre de la cola -->
         <property name="queueName" value="sd.prd.es1allinoneout"/>
+        <!-- Dirección ip o dns del jndi del servidor propietario de la cola -->
         <property name="jndiUrl" value="t3://es1preosbprd01v-vip:8011"/>
         <!--
         User y pass opcionales, si no se incluyen no se pasan a la conexión al JNDI,

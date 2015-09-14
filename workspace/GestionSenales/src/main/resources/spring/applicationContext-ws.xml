@@ -50,23 +50,19 @@
     </cxf:bus>
 
     <!-- Web Services Cliente -->
-
     <jaxws:client name="wsSpAioTareas2"
                   serviceClass="org.wso2.ws.dataservice.SPAIOTAREAS2PortType"
                   address="http://10.2.144.63:9763/services/SP_AIO_TAREAS2?wsdl"
             />
-    <!-- TODO Parametro por JNDI, fichero configuracion????? -->
 
     <jaxws:client name="wsSPInstallationMonData"
                   serviceClass="org.wso2.ws.dataservice.SPInstallationMonDataPortType"
                   address="http://10.2.144.63:9763/services/SP_InstallationMonData?wsdl"
             />
-    <!-- TODO Parametro por JNDI, fichero configuracion????? -->
 
     <jaxws:client name="cclIntegration"
                   serviceClass="com.webservice.CCLIntegration"
                   address="http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService?wsdl"
             />
-    <!-- TODO Parametro por JNDI, fichero configuracion????? -->
 
 </beans>
