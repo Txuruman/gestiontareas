@@ -276,7 +276,7 @@ app.service('CommonService', function ($rootScope, $log, $http, $timeout) {
     		e = window.external.CloseInteractionPushPreview(mapParams.bp_auth_connid);
     		alert("Interacción cerrada: "+JSON.strinify(e));
 		}
-    }
+    };
     
     /** Funcion para processar las respuestas del servidor, eg: processBaseResponse(data,status,headers,config);  */
     /* quitado this. */

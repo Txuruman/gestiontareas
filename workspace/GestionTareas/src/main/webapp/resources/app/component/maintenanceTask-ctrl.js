@@ -132,13 +132,18 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService, $
             .success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data,status,headers,config);
                 //$log.debug("Finalized task");
-                /** Si no venimos de la pantalla de buscar cerramos la interacción,
+                /**
+                 * Si no venimos de la pantalla de buscar cerramos la interacción,
                  *  en caso contrario volvemos a la pantalla de buscar
-                 */  
-                if($scope.fromSearch!="true"){
-                	CommonService.closeInteraction(data);
-                }else{
-                	$scope.descartar();
+                 */
+                if (data.success) {
+                    if ($scope.fromSearch != "true") {
+                        CommonService.closeInteraction(data);
+                    } else {
+                        $scope.descartar();
+                    }
+                } else {
+                    //Por errores no volvemos atras ni cerramos
                 }
             })
             .error(function (data, status, headers, config) {

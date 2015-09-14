@@ -204,7 +204,6 @@ public class AvisoService {
     public void updateTicket(Agent agent, TareaAviso tareaAviso, InstallationData installationData) {
         DATA data;
         try {
-            boolean result = false;
             String idUser = agent.getAgentIBS();
 
             String idCountry = agentCountryJob.get(agent.getAgentCountryJob());
@@ -343,14 +342,6 @@ public class AvisoService {
 
             LOGGER.debug("xmlCreateTicket: {} xmlResult:{}", xmlCreateTicket, xmlResult);
 	
-	        /*
-	        <DATA>
-	         <TICKET numTK="11504305" msg="Aviso actualizado." />
-	          <ERR>
-	           <UPDATE cod="-1" desc="Ticket Actualizado con éxito" />
-	         </ERR>
-	        </DATA>
-	         */
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
             throw new FrameworkException(e);

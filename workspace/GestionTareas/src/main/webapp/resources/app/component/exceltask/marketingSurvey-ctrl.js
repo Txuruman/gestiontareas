@@ -2,7 +2,7 @@ app.controller('marketingsurveytask-ctrl', function ($scope, $http, CommonServic
     //Angular Maintenance Survey Controller start
 
 
-    $scope.getClosingReason = function(){
+    $scope.getClosingReason = function () {
         //$log.debug("Loading Excel Task Commons: Closing reason");
         $http({method: 'GET', url: 'exceltaskcommon/getClosingReason'}).
             success(function (data, status, headers, config) {
@@ -18,8 +18,8 @@ app.controller('marketingsurveytask-ctrl', function ($scope, $http, CommonServic
             });
     };
 
-    $scope.getInstallationAndTask = function(){
-        $scope.vm.appReady=false;
+    $scope.getInstallationAndTask = function () {
+        $scope.vm.appReady = false;
 
         //$log.debug("Loading Marketing Survey Task...");
 
@@ -39,17 +39,17 @@ app.controller('marketingsurveytask-ctrl', function ($scope, $http, CommonServic
             //$log.debug("Loaded installation data:" ,data.installationData);
             $scope.tarea = data.tarea;
             $scope.installationData = data.installationData;
-            CommonService.processBaseResponse(data,status,headers,config);
+            CommonService.processBaseResponse(data, status, headers, config);
             $scope.getClosingReason();
-            $scope.vm.appReady=true;
+            $scope.vm.appReady = true;
         }).
-        error(function (data, status, headers, config) {
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
-            CommonService.processBaseResponse(data,status,headers,config);
-            $scope.vm.appReady=true;
-            //$log.error("Error loading list assistant task and/or installation data");
-        });
+            error(function (data, status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                CommonService.processBaseResponse(data, status, headers, config);
+                $scope.vm.appReady = true;
+                //$log.error("Error loading list assistant task and/or installation data");
+            });
     };
 
     //Ventana Aplazar - Start
@@ -81,7 +81,7 @@ app.controller('marketingsurveytask-ctrl', function ($scope, $http, CommonServic
         if ($scope.tarea) {
             var postponeRequest = {
                 recallType: recallType,
-                delayDate:  delayDate,
+                delayDate: delayDate,
                 task: $scope.tarea
             };
 
@@ -96,11 +96,15 @@ app.controller('marketingsurveytask-ctrl', function ($scope, $http, CommonServic
                     CommonService.processBaseResponse(data, status, headers, config);
                     /** Si no venimos de la pantalla de buscar cerramos la interacción,
                      *  en caso contrario volvemos a la pantalla de buscar
-                     */  
-                    if($scope.fromSearch!="true"){
-                    	CommonService.closeInteraction(data);
-                    }else{
-                    	$scope.descartar();
+                     */
+                    if (data.success) {
+                        if ($scope.fromSearch != "true") {
+                            CommonService.closeInteraction(data);
+                        } else {
+                            $scope.descartar();
+                        }
+                    } else {
+                        //Por errores no volvemos atras ni cerramos
                     }
                 })
                 .error(function (data, status, headers, config) {
@@ -111,10 +115,10 @@ app.controller('marketingsurveytask-ctrl', function ($scope, $http, CommonServic
         }
     };
 
-    $scope.finalizar = function(){
+    $scope.finalizar = function () {
         //$log.debug("Finalizar List Assistant task, task: ",$scope.tarea);
         var finalizeRequest = {
-            task:$scope.tarea
+            task: $scope.tarea
         };
         //$log.debug("Finalizar  Task, request: ",finalizeRequest);
         $http({
@@ -123,60 +127,62 @@ app.controller('marketingsurveytask-ctrl', function ($scope, $http, CommonServic
             data: finalizeRequest
         })
             .success(function (data, status, headers, config) {
-                CommonService.processBaseResponse(data,status,headers,config);
+                CommonService.processBaseResponse(data, status, headers, config);
                 //$log.debug("Finalized task");
                 /** Si no venimos de la pantalla de buscar cerramos la interacción,
                  *  en caso contrario volvemos a la pantalla de buscar
-                 */  
-                if($scope.fromSearch!="true"){
-                	CommonService.closeInteraction(data);
-                }else{
-                	$scope.descartar();
+                 */
+                if ($scope.fromSearch != "true") {
+                    CommonService.closeInteraction(data);
+                } else {
+                    $scope.descartar();
                 }
             })
             .error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
-                CommonService.processBaseResponse(data,status,headers,config);
+                CommonService.processBaseResponse(data, status, headers, config);
                 //$log.error("Error finalizing task");
             });
     };
-    
+
     /**
      * Si no hay instalacion finalizamos la tarea
      */
-    $scope.descartarTarea=function(){
-    	if($scope.installationData==null || $scope.installationData==undefined){
-    		var discardRequest={
-        			task:$scope.tarea,
-        			installation:$scope.installation
-        		}
-        		$http.put("marketingsurveytask/descartar",discardRequest).then(function(data, status, headers, config){
-        			CommonService.processBaseResponse(data, status, headers, config);
-        			if ($scope.fromSearch!='true'){
-        				$scope.closeInteraction();
-            		}else{
-            			$scope.descartar();
-            		}
-        		},function(data, status, headers, config){
-        			CommonService.processBaseResponse(data, status, headers, config);
-        		})
-    	}else{
-    		if ($scope.fromSearch!='true'){
-				$scope.closeInteraction();
-    		}else{
-    			$scope.descartar();
-    		}
-    	}
-    }
+    $scope.descartarTarea = function () {
+        if ($scope.installationData == null || $scope.installationData == undefined) {
+            var discardRequest = {
+                task: $scope.tarea,
+                installation: $scope.installation
+            }
+            $http.put("marketingsurveytask/descartar", discardRequest).then(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data, status, headers, config);
+                if ($scope.fromSearch != 'true') {
+                    $scope.closeInteraction();
+                } else {
+                    $scope.descartar();
+                }
+            }, function (data, status, headers, config) {
+                CommonService.processBaseResponse(data, status, headers, config);
+            })
+        } else {
+            if ($scope.fromSearch != 'true') {
+                $scope.closeInteraction();
+            } else {
+                $scope.descartar();
+            }
+        }
+    };
+
     /**
      * Método Descartar: Nos lleva a la página de buscar
      * Variable _contextPath inicializada en commonImports
      */
-    $scope.descartar=function(){
-    	$window.location.href= _contextPath + "/search";
-    }
-    $scope.closeInteraction=function(){
-    	CommonService.closeInteraction({success:true});
+    $scope.descartar = function () {
+        $window.location.href = _contextPath + "/search";
+    };
+
+    $scope.closeInteraction = function () {
+        CommonService.closeInteraction({success: true});
     }
 });
