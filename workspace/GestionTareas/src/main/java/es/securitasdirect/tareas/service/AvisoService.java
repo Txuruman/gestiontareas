@@ -90,7 +90,7 @@ public class AvisoService {
 
         /* <REQ></REQ> */
         createReq.setIdReq(idReq);
-        createReq.setReqName(""); // constante
+        createReq.setReqName(installationData.getPersonaContacto() != null ? installationData.getPersonaContacto() : ""); // constante
         createReq.setReqLname1(""); // constante
         createReq.setReqLname2(""); // constante
         createReq.setReqCif(""); // constante
@@ -103,7 +103,7 @@ public class AvisoService {
         createComm.setlName1(""); // constante
         createComm.setlName2(""); // constante
         createComm.setInChannel("TELF"); // constante
-        createComm.setValue((tareaAviso.getTelefonoAviso() != null) ? tareaAviso.getTelefonoAviso() : "");
+        createComm.setValue((installationData.getTelefono() != null) ? installationData.getTelefono() : "");
         createComm.setComent(""); // constante
         createComm.setOutChannel(""); // constante
         createComm.setFrom(tareaAviso.getHorarioDesde());
@@ -116,7 +116,7 @@ public class AvisoService {
         createClcod.setCodKey4(""); // constante
 
         /* <ITEM></ITEM> */
-        if(tareaAviso.getTipoAviso1() != null) {
+        if (tareaAviso.getTipoAviso1() != null) {
             createItem.setIdItemIBS(""); // constante
             createItem.setCount("1");    // constante
             createItem.setIdProblem(tareaAviso.getMotivo1());
@@ -125,7 +125,7 @@ public class AvisoService {
         }
 
         /* <ITEM></ITEM> */
-        if(tareaAviso.getTipoAviso2() != null) {
+        if (tareaAviso.getTipoAviso2() != null) {
             createItem.setIdItemIBS(""); // constante
             createItem.setCount("1");    // constante
             createItem.setIdProblem(tareaAviso.getMotivo2());
@@ -134,7 +134,7 @@ public class AvisoService {
         }
 
         /* <ITEM></ITEM> */
-        if(tareaAviso.getTipoAviso3() != null) {
+        if (tareaAviso.getTipoAviso3() != null) {
             createItem.setIdItemIBS(""); // constante
             createItem.setCount("1");    // constante
             createItem.setIdProblem(tareaAviso.getMotivo3());
@@ -190,10 +190,10 @@ public class AvisoService {
 
         LOGGER.debug("xmlCreateTicket: {} xmlResult:{}", xmlCreateTicket, xmlResult);
 
-        if(data.getERR() == null && data.getTICKET() != null && data.getTICKET().getNumTK() > 0) {
+        if (data.getERR() == null && data.getTICKET() != null && data.getTICKET().getNumTK() > 0) {
             LOGGER.debug("Sucessfully created Ticket");
         } else {
-            throw new BusinessException(BusinessException.ErrorCode.ERROR_FINALIZE_TASK, data.getERR().getDesc(),data.getERR().getCod());
+            throw new BusinessException(BusinessException.ErrorCode.ERROR_FINALIZE_TASK, data.getERR().getDesc(), data.getERR().getCod());
         }
 
     }
@@ -202,147 +202,145 @@ public class AvisoService {
      * creacion del XML para actualizar un Aviso. Se hace a través de un WS disponible para la aplicación de Tickets.
      */
     public void updateTicket(Agent agent, TareaAviso tareaAviso, InstallationData installationData) {
-    	try{
-	        boolean result = false;
-	        String idUser = agent.getAgentIBS();
-	
-	        String idCountry = agentCountryJob.get(agent.getAgentCountryJob());
-	        String idLanguage = (agent.getCurrentLanguage() != null) ? agent.getCurrentLanguage() : "";
-	        String idReq = agent.getDesktopDepartment();
-	
+        try {
+            boolean result = false;
+            String idUser = agent.getAgentIBS();
+
+            String idCountry = agentCountryJob.get(agent.getAgentCountryJob());
+            String idLanguage = (agent.getCurrentLanguage() != null) ? agent.getCurrentLanguage() : "";
+            String idReq = agent.getDesktopDepartment();
+
 	
 	        /*
 	         * Estructura del XML
 	         */
-	        OperateTicket operateTicket = new OperateTicket();
-	
-	        operateTicket.setUSER(new OperateTicket.USER());
-	        operateTicket.setTICKET(new OperateTicket.TICKET());
-	
-	        OperateTicket.TICKET.CODIFICATIONS codifications = new OperateTicket.TICKET.CODIFICATIONS();
-	
-	
-	        OperateTicket.TICKET.CONTACTO contacto = new OperateTicket.TICKET.CONTACTO();
-	        contacto.setCodforma("TELF"); // constante
-	        contacto.setComentario("");
-	        contacto.setDesde(tareaAviso.getHorarioDesde());
-	        contacto.setHasta(tareaAviso.getHorarioHasta());
-	        contacto.setNombre(tareaAviso.getPersonaContacto());
-	        contacto.setValor((tareaAviso.getTelefonoAviso() != null) ? tareaAviso.getTelefonoAviso() : "");
-	        operateTicket.getTICKET().setCONTACTO(contacto);
-	
-	        OperateTicket.TICKET.CLOSE close = new OperateTicket.TICKET.CLOSE();
-	        close.setCloseTicket(0); // constante
-	        close.setDataAditional(""); // constante
-	        close.setNotaCierre(tareaAviso.getObservaciones());
-	        operateTicket.getTICKET().setCLOSE(close);
+            OperateTicket operateTicket = new OperateTicket();
+
+            operateTicket.setUSER(new OperateTicket.USER());
+            operateTicket.setTICKET(new OperateTicket.TICKET());
+
+            OperateTicket.TICKET.CODIFICATIONS codifications = new OperateTicket.TICKET.CODIFICATIONS();
+
+
+            OperateTicket.TICKET.CONTACTO contacto = new OperateTicket.TICKET.CONTACTO();
+            contacto.setCodforma("TELF"); // constante
+            contacto.setComentario("");
+            contacto.setDesde(tareaAviso.getHorarioDesde());
+            contacto.setHasta(tareaAviso.getHorarioHasta());
+            contacto.setNombre(tareaAviso.getPersonaContacto());
+            contacto.setValor((tareaAviso.getTelefonoAviso() != null) ? tareaAviso.getTelefonoAviso() : "");
+            operateTicket.getTICKET().setCONTACTO(contacto);
+
+            OperateTicket.TICKET.CLOSE close = new OperateTicket.TICKET.CLOSE();
+            close.setCloseTicket(0); // constante
+            close.setDataAditional(""); // constante
+            close.setNotaCierre(tareaAviso.getObservaciones());
+            operateTicket.getTICKET().setCLOSE(close);
 	
 	        /* <REQ></REQ> */
-	        OperateTicket.TICKET.REQ req = new OperateTicket.TICKET.REQ();
-	        req.setIdReq(idReq);
-	        req.setReqName(""); // constante
-	        req.setReqLname1(""); // constante
-	        req.setReqLname2(""); // constante
-	        req.setReqCif(""); // constante
-	        req.setReqEmpl(idUser);
+            OperateTicket.TICKET.REQ req = new OperateTicket.TICKET.REQ();
+            req.setIdReq(idReq);
+            req.setReqName(""); // constante
+            req.setReqLname1(""); // constante
+            req.setReqLname2(""); // constante
+            req.setReqCif(""); // constante
+            req.setReqEmpl(idUser);
 	        /* <ASGTO></ASGTO>*/
-	        OperateTicket.TICKET.ASGTO asgto = new OperateTicket.TICKET.ASGTO();
-	        asgto.setIdAsg(""); // constante
-	        asgto.setIdUser(idUser);
+            OperateTicket.TICKET.ASGTO asgto = new OperateTicket.TICKET.ASGTO();
+            asgto.setIdAsg(""); // constante
+            asgto.setIdUser(idUser);
 	        /* <COMM></COMM>*/
-	        //OperateTicket.TICKET.COMM comm = new OperateTicket.TICKET.COMM();
-	        //comm.setName(""); // constante
-	        //comm.setLName1(""); // constante
-	        //comm.setLName2(""); // constante
-	        //comm.setInChannel("TELF"); // constante
-	        //comm.setValue((tareaAviso.getTelefonoAviso() != null) ? tareaAviso.getTelefonoAviso() : "");
-	        //comm.setComent(""); // constante
-	        //comm.setOutChannel(""); // constante
-	        //comm.setFrom(tareaAviso.getHorarioDesde());
-	        //comm.setTo(tareaAviso.getHorarioHasta());
+            //OperateTicket.TICKET.COMM comm = new OperateTicket.TICKET.COMM();
+            //comm.setName(""); // constante
+            //comm.setLName1(""); // constante
+            //comm.setLName2(""); // constante
+            //comm.setInChannel("TELF"); // constante
+            //comm.setValue((tareaAviso.getTelefonoAviso() != null) ? tareaAviso.getTelefonoAviso() : "");
+            //comm.setComent(""); // constante
+            //comm.setOutChannel(""); // constante
+            //comm.setFrom(tareaAviso.getHorarioDesde());
+            //comm.setTo(tareaAviso.getHorarioHasta());
 	        /* <OPCOD></OPCOD>*/
-	        OperateTicket.TICKET.OPCOD opcod = new OperateTicket.TICKET.OPCOD();
-	        opcod.setCodKey1(Integer.valueOf(tareaAviso.getTipoAviso1()));
-	        opcod.setCodKey2(Integer.valueOf(tareaAviso.getMotivo1()));
+            OperateTicket.TICKET.OPCOD opcod = new OperateTicket.TICKET.OPCOD();
+            opcod.setCodKey1(Integer.valueOf(tareaAviso.getTipoAviso1()));
+            opcod.setCodKey2(Integer.valueOf(tareaAviso.getMotivo1()));
 	        /* <CLCOD></CLCOD>*/
-	        OperateTicket.TICKET.CLCOD clcod = new OperateTicket.TICKET.CLCOD();
-	        clcod.setCodKey3(""); // constante
-	        clcod.setCodKey4(""); // constante
+            OperateTicket.TICKET.CLCOD clcod = new OperateTicket.TICKET.CLCOD();
+            clcod.setCodKey3(""); // constante
+            clcod.setCodKey4(""); // constante
+
+            operateTicket.getTICKET().setREQ(req);
+            operateTicket.getTICKET().setASGTO(asgto);
+            //operateTicket.getTICKET().setCOMM(comm);
+            operateTicket.getTICKET().setOPCOD(opcod);
+            operateTicket.getTICKET().setCLCOD(clcod);
 	
-	        operateTicket.getTICKET().setREQ(req);
-	        operateTicket.getTICKET().setASGTO(asgto);
-	        //operateTicket.getTICKET().setCOMM(comm);
-	        operateTicket.getTICKET().setOPCOD(opcod);
-	        operateTicket.getTICKET().setCLCOD(clcod);
-	
-	
-	        /* <CODIF></CODIF> */
-	        if(tareaAviso.getTipoAviso1() != null) {
-	            OperateTicket.TICKET.CODIFICATIONS.CODIF createCODIF = new OperateTicket.TICKET.CODIFICATIONS.CODIF();
-	            createCODIF.setCount(1);    // constante
-	            createCODIF.setIdProblem(Integer.parseInt(tareaAviso.getMotivo1()));
-	            createCODIF.setIdType(Integer.parseInt(tareaAviso.getTipoAviso1()));
-	            createCODIF.setIdItemIBS("");
-	            codifications.getCODIF().add(createCODIF);
-	        }
 	
 	        /* <CODIF></CODIF> */
-	        if(tareaAviso.getTipoAviso2() != null) {
-	            OperateTicket.TICKET.CODIFICATIONS.CODIF createCODIF = new OperateTicket.TICKET.CODIFICATIONS.CODIF();
-	            createCODIF.setCount(1);    // constante
-	            createCODIF.setIdProblem(Integer.parseInt(tareaAviso.getMotivo2()));
-	            createCODIF.setIdType(Integer.parseInt(tareaAviso.getTipoAviso2()));
-	            createCODIF.setIdItemIBS("");
-	            codifications.getCODIF().add(createCODIF);
-	        }
+            if (tareaAviso.getTipoAviso1() != null) {
+                OperateTicket.TICKET.CODIFICATIONS.CODIF createCODIF = new OperateTicket.TICKET.CODIFICATIONS.CODIF();
+                createCODIF.setCount(1);    // constante
+                createCODIF.setIdProblem(Integer.parseInt(tareaAviso.getMotivo1()));
+                createCODIF.setIdType(Integer.parseInt(tareaAviso.getTipoAviso1()));
+                createCODIF.setIdItemIBS("");
+                codifications.getCODIF().add(createCODIF);
+            }
 	
 	        /* <CODIF></CODIF> */
-	        if(tareaAviso.getTipoAviso3() != null) {
-	            OperateTicket.TICKET.CODIFICATIONS.CODIF createCODIF = new OperateTicket.TICKET.CODIFICATIONS.CODIF();
-	            createCODIF.setCount(1);    // constante
-	            createCODIF.setIdProblem(Integer.parseInt(tareaAviso.getMotivo3()));
-	            createCODIF.setIdType(Integer.parseInt(tareaAviso.getTipoAviso3()));
-	            createCODIF.setIdItemIBS("");
-	            codifications.getCODIF().add(createCODIF);
-	        }
+            if (tareaAviso.getTipoAviso2() != null) {
+                OperateTicket.TICKET.CODIFICATIONS.CODIF createCODIF = new OperateTicket.TICKET.CODIFICATIONS.CODIF();
+                createCODIF.setCount(1);    // constante
+                createCODIF.setIdProblem(Integer.parseInt(tareaAviso.getMotivo2()));
+                createCODIF.setIdType(Integer.parseInt(tareaAviso.getTipoAviso2()));
+                createCODIF.setIdItemIBS("");
+                codifications.getCODIF().add(createCODIF);
+            }
 	
-	        operateTicket.getTICKET().setCODIFICATIONS(codifications);
+	        /* <CODIF></CODIF> */
+            if (tareaAviso.getTipoAviso3() != null) {
+                OperateTicket.TICKET.CODIFICATIONS.CODIF createCODIF = new OperateTicket.TICKET.CODIFICATIONS.CODIF();
+                createCODIF.setCount(1);    // constante
+                createCODIF.setIdProblem(Integer.parseInt(tareaAviso.getMotivo3()));
+                createCODIF.setIdType(Integer.parseInt(tareaAviso.getTipoAviso3()));
+                createCODIF.setIdItemIBS("");
+                codifications.getCODIF().add(createCODIF);
+            }
+
+            operateTicket.getTICKET().setCODIFICATIONS(codifications);
 	
 	        /*
 	         * <USER></USER>
 	         */
-	        operateTicket.getUSER().setIdUser(idUser);
-	        operateTicket.getUSER().setIdCountry(Integer.parseInt(idCountry));
-	        operateTicket.getUSER().setIdLang(idLanguage);
-	        operateTicket.getUSER().setT("NOSESSION");  // constante
+            operateTicket.getUSER().setIdUser(idUser);
+            operateTicket.getUSER().setIdCountry(Integer.parseInt(idCountry));
+            operateTicket.getUSER().setIdLang(idLanguage);
+            operateTicket.getUSER().setT("NOSESSION");  // constante
 	
 	
 	        /*
 	         *
 	         * <TICKET></TICKET>
 	         */
-	        operateTicket.getTICKET().setNumTicket(tareaAviso.getIdAviso());
-	        operateTicket.getTICKET().setNumInst(Integer.parseInt(tareaAviso.getNumeroInstalacion()));
-	        operateTicket.getTICKET().setObserv(tareaAviso.getObservaciones());
-	        operateTicket.getTICKET().setCodZIP(Integer.valueOf(installationData.getCodigoPostal()));
-	        operateTicket.getTICKET().setCloseTicket(0); // constante
-	        operateTicket.getTICKET().setDataAditional(""); // constante
-	        operateTicket.getTICKET().setNoteClose(""); // constante
-	        operateTicket.getTICKET().setMorDebt(0); // constante
-	        operateTicket.getTICKET().setTypePanel(installationData.getPanel());
-	
-	
-	
-	        String xmlCreateTicket = xmlMarshaller.marshalObject(operateTicket);
-	        xmlCreateTicket = xmlCreateTicket.replaceAll("\n", "");
-	
-	        String xmlResult = wsTickets.updateTicket(xmlCreateTicket);
-	
-	        DATA data = xmlMarshaller.unmarshalData(xmlResult);
-	
-	
-	
-	        LOGGER.debug("xmlCreateTicket: {} xmlResult:{}", xmlCreateTicket, xmlResult);
+            operateTicket.getTICKET().setNumTicket(tareaAviso.getIdAviso());
+            operateTicket.getTICKET().setNumInst(Integer.parseInt(tareaAviso.getNumeroInstalacion()));
+            operateTicket.getTICKET().setObserv(tareaAviso.getObservaciones());
+            operateTicket.getTICKET().setCodZIP(Integer.valueOf(installationData.getCodigoPostal()));
+            operateTicket.getTICKET().setCloseTicket(0); // constante
+            operateTicket.getTICKET().setDataAditional(""); // constante
+            operateTicket.getTICKET().setNoteClose(""); // constante
+            operateTicket.getTICKET().setMorDebt(0); // constante
+            operateTicket.getTICKET().setTypePanel(installationData.getPanel());
+
+
+            String xmlCreateTicket = xmlMarshaller.marshalObject(operateTicket);
+            xmlCreateTicket = xmlCreateTicket.replaceAll("\n", "");
+
+            String xmlResult = wsTickets.updateTicket(xmlCreateTicket);
+
+            DATA data = xmlMarshaller.unmarshalData(xmlResult);
+
+
+            LOGGER.debug("xmlCreateTicket: {} xmlResult:{}", xmlCreateTicket, xmlResult);
 	
 	        /*
 	        <DATA>
@@ -352,18 +350,18 @@ public class AvisoService {
 	         </ERR>
 	        </DATA>
 	         */
-	
-	        if(data.getERR() != null && data.getERR().getUPDATE().getCod() == -1) {
+
+            if (data.getERR() != null && data.getERR().getUPDATE().getCod() == -1) {
                 LOGGER.debug("Sucessfully updated Task {}", tareaAviso);
             } else {
-                LOGGER.error("Error updating Task {}" , tareaAviso);
-                throw new BusinessException(BusinessException.ErrorCode.ERROR_FINALIZE_TASK,data.getERR().getCod(),data.getERR().getDesc());
+                LOGGER.error("Error updating Task {}", tareaAviso);
+                throw new BusinessException(BusinessException.ErrorCode.ERROR_FINALIZE_TASK, data.getERR().getCod(), data.getERR().getDesc());
             }
-	
-	    }catch(Exception e){
-            LOGGER.error(e.getMessage(),e);
-			throw new FrameworkException(e);
-		}
+
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+            throw new FrameworkException(e);
+        }
 
     }
 
@@ -406,8 +404,7 @@ public class AvisoService {
      * @param codTipoCierre                    código del tipo de cierre, seleccionado por pantalla. Valor de la tabla TIPOCIERRE
      * @param codTipoCierreAdicional           datos adicionales de cierre, seleccionado por pantalla. Valor de la tabla DATOADICIONAL
      * @param finalizarDesdeCrearMantenimiento valor de la tabla ESTADOS: “2” si se finaliza, “3” si se finaliza por crear un Mantenimiento
-     * @param idMantenimiento Identificador del mantenimiento creado desde la pantalla externa
-     *
+     * @param idMantenimiento                  Identificador del mantenimiento creado desde la pantalla externa
      * @return
      * @throws Exception
      */
@@ -416,7 +413,7 @@ public class AvisoService {
                                String codTipoCierre,
                                Integer codTipoCierreAdicional,
                                boolean finalizarDesdeCrearMantenimiento,
-                               Integer idMantenimiento ) throws Exception {
+                               Integer idMantenimiento) throws Exception {
 
         Integer deuda = 0; // constante
         Integer idmante = 0; // constante
@@ -450,7 +447,7 @@ public class AvisoService {
 
 
     /**
-     * @param naviso   nº de aviso
+     * @param naviso nº de aviso
      * @return
      * @throws Exception
      */
@@ -461,9 +458,9 @@ public class AvisoService {
         try {
             spAIOTAREAS2PortType.setAvisoNoCargado(naviso);
             result = true; // TODO devuelve void
-        } catch (Exception e){
-        // TODO no devuelve la excepcion DataServiceFault
-        //catch (DataServiceFault e) {
+        } catch (Exception e) {
+            // TODO no devuelve la excepcion DataServiceFault
+            //catch (DataServiceFault e) {
             LOGGER.error("Error desmarcando aviso", e);
             return false;
         }
