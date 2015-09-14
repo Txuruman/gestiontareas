@@ -484,18 +484,18 @@ public class TareaService {
      * Llamada al WS de finalizar una Tarea cuando está en memoria
      */
     private void wsFinalizeInMemoryTask(Agent agent, Tarea tarea) {
-        if (validateInMemoryParameters(agent, tarea)) {
-            WsResponse wsResponse = cclIntegration.finalizeRecord(getAgentExtensionFromAgentPlace(tarea.getOutAgentPlace()), tarea.getOutCampaignName(), tarea.getOutClName(), Integer.valueOf(tarea.getOutRecordHandle()));
-            if (wsResponse.getResultCode() == 200) {
-                LOGGER.debug("Finalized successfully in memory task {}", tarea);
-            } else {
-                LOGGER.error("Error finalizing in memory task {} with error {} {} ", tarea, wsResponse.getResultCode(), wsResponse.getResultMessage());
-                throw new BusinessException(BusinessException.ErrorCode.ERROR_FINALIZE_TASK_INMEMORY, wsResponse.getResultCode() + "", wsResponse.getResultMessage());
-            }
-        } else {
-            LOGGER.error("Can't finalize in memory task from a user that is not the owner.");
-            throw new BusinessException(BusinessException.ErrorCode.ERROR_NOT_OWNER_TASK_INMEMORY);
-        }
+//        if (validateInMemoryParameters(agent, tarea)) {
+//            WsResponse wsResponse = cclIntegration.finalizeRecord(getAgentExtensionFromAgentPlace(tarea.getOutAgentPlace()), tarea.getOutCampaignName(), tarea.getOutClName(), Integer.valueOf(tarea.getOutRecordHandle()));
+//            if (wsResponse.getResultCode() == 200) {
+//                LOGGER.debug("Finalized successfully in memory task {}", tarea);
+//            } else {
+//                LOGGER.error("Error finalizing in memory task {} with error {} {} ", tarea, wsResponse.getResultCode(), wsResponse.getResultMessage());
+//                throw new BusinessException(BusinessException.ErrorCode.ERROR_FINALIZE_TASK_INMEMORY, wsResponse.getResultCode() + "", wsResponse.getResultMessage());
+//            }
+//        } else {
+//            LOGGER.error("Can't finalize in memory task from a user that is not the owner.");
+//            throw new BusinessException(BusinessException.ErrorCode.ERROR_NOT_OWNER_TASK_INMEMORY);
+//        }
     }
 
 
