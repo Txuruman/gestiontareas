@@ -202,6 +202,7 @@ public class AvisoService {
      * creacion del XML para actualizar un Aviso. Se hace a través de un WS disponible para la aplicación de Tickets.
      */
     public void updateTicket(Agent agent, TareaAviso tareaAviso, InstallationData installationData) {
+        DATA data;
         try {
             boolean result = false;
             String idUser = agent.getAgentIBS();
@@ -212,7 +213,7 @@ public class AvisoService {
 
 	
 	        /*
-	         * Estructura del XML
+             * Estructura del XML
 	         */
             OperateTicket operateTicket = new OperateTicket();
 
@@ -337,7 +338,7 @@ public class AvisoService {
 
             String xmlResult = wsTickets.updateTicket(xmlCreateTicket);
 
-            DATA data = xmlMarshaller.unmarshalData(xmlResult);
+            data = xmlMarshaller.unmarshalData(xmlResult);
 
 
             LOGGER.debug("xmlCreateTicket: {} xmlResult:{}", xmlCreateTicket, xmlResult);
@@ -350,18 +351,18 @@ public class AvisoService {
 	         </ERR>
 	        </DATA>
 	         */
-
-            if (data.getERR() != null && data.getERR().getUPDATE().getCod() == -1) {
-                LOGGER.debug("Sucessfully updated Task {}", tareaAviso);
-            } else {
-                LOGGER.error("Error updating Task {}", tareaAviso);
-                throw new BusinessException(BusinessException.ErrorCode.ERROR_FINALIZE_TASK, data.getERR().getCod(), data.getERR().getDesc());
-            }
-
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
             throw new FrameworkException(e);
         }
+
+        if (data != null && data.getERR() != null && data.getERR().getCod().equals("0")) { //TODO  JNA REPASAR
+            LOGGER.debug("Sucessfully updated Task {}", tareaAviso);
+        } else {
+            LOGGER.error("Error updating Task {}", tareaAviso);
+            throw new BusinessException(BusinessException.ErrorCode.ERROR_FINALIZE_TASK, (data == null || data.getERR() == null) ? "" : data.getERR().getCod(), (data == null || data.getERR() == null) ? "" : data.getERR().getDesc());
+        }
+
 
     }
 
