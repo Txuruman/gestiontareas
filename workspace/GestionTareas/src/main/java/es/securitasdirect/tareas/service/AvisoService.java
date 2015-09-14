@@ -105,7 +105,7 @@ public class AvisoService {
         createComm.setInChannel("TELF"); // constante
         createComm.setValue((installationData.getTelefono() != null) ? installationData.getTelefono() : "");
         createComm.setComent(""); // constante
-        createComm.setOutChannel(""); // constante
+        createComm.setOutChannel("TELF"); // constante
         createComm.setFrom(tareaAviso.getHorarioDesde());
         createComm.setTo(tareaAviso.getHorarioHasta());
         /* <OPCOD></OPCOD>*/
