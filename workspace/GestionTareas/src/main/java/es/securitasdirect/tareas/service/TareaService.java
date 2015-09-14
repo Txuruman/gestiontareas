@@ -391,7 +391,9 @@ public class TareaService {
         String callingList = tarea.getCallingList();
         Integer idTarea = tarea.getId();
         //Al aplazar cuando no está en memoria, en el ws hay que rellenar también el campo agent_id con 101@place (por ejemplo: 101@P17001)
-        String agentId = "101@" + agent.getAgentPlace();
+        //String agentId = "101@" + agent.getAgentPlace();
+        // han cambiado de opinion
+        String agentId = agent.getIdAgent();
 
         String filter = "chain_id=" + idTarea;
 
@@ -414,6 +416,7 @@ public class TareaService {
         saType.getItem().add("record_type");
         saType.getItem().add(recordType);
         //Al aplazar cuando no está en memoria, en el ws hay que rellenar también el campo agent_id con 101@place (por ejemplo: 101@P17001)
+        // han cambiado de opnion
         saAgentId.getItem().add("agent_id");
         saAgentId.getItem().add(agentId);
 
