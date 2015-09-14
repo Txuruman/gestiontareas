@@ -68,6 +68,8 @@
                         <th><spring:message code="searchTarea.table.taskType"/></th>
                         <th><spring:message code="searchTarea.table.status"/></th>
                         <th><spring:message code="searchTarea.table.description"/></th>
+                        <th><spring:message code="searchTarea.table.tipo"/></th>
+                        <th><spring:message code="searchTarea.table.motivo"/></th>
                         <th><spring:message code="searchTarea.table.reprogramationDate"/></th>
                         <th><spring:message code="eti.buscartarea.btn.gestion" /></th>
                         <th><spring:message code="eti.buscartarea.btn.aplazar"/></th>
@@ -102,6 +104,8 @@
                         	</div>
                         </td>
                         <td>{{ t.observaciones }}</td>
+                        <td>{{ t.tipoAviso1Descripcion }}</td>
+                        <td>{{ t.motivo1Descripcion }}</td>
                         <td>{{ t.fechaReprogramacion | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                         <td><a ng-href="entry?bp_out_GSW_CHAIN_ID_CUSTOM={{t.id}}&bp_out_clname={{t.callingList}}&from_search=true"
                                class="btn btn-default" ng-disabled="t.estado===2"><spring:message code="eti.buscartarea.btn.gestion" /></a></td>
