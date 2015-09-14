@@ -42,7 +42,7 @@
 <app:contentModal/>
 
 <!-- Modal de alerta de descartar -->
-<app:alertModal/>
+<app:alertModal titulo="alertmodal.titulo" msg1="alertmodal.msg1" button="alertmodal.return"/>
 
 
 <!-- Ejemplos Ventana Modal Aplazar
