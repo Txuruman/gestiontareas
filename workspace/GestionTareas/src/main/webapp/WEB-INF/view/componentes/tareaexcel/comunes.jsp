@@ -13,7 +13,7 @@
                 {{k.value}}
             </option>
         </select>
-        <span class="error" ng-show="formVisorTarea.closingReason.$error.required"><spring:message code="closingReason.error"/></span>
+        <span class="error" ng-show="formVisorTarea.closingReason.$error.required && verErrores==true"><spring:message code="closingReason.error"/></span>
     </app:input>
     <app:inputTextNG id="compensation" label="excelcommonfields.compensation" value="tarea.compensation" cells="6"/>
 </div>

@@ -10,7 +10,7 @@
             <div class="container-fluid">
                 <app:inputButtonNG value="boton.Aplazar" button_type="default" ng_click="openDelayModal()" fluid_wrapper="true" ng_disabled="(tarea===undefined || tarea===null || installationData===null || installationData===undefined) ? true : false"/>
                 <app:inputButtonNG value="boton.Descartar" button_type="default" ng_click="descartarTarea()" fluid_wrapper="true"/>
-                <app:inputButtonNG value="boton.Finalizar" type="submit" button_type="primary" ng_click="formVisorTarea.$valid ? finalizar() : null" fluid_wrapper="true" ng_disabled="(tarea===undefined || tarea===null || installationData===null || installationData===undefined) ? true : false"/>
+                <app:inputButtonNG value="boton.Finalizar" type="submit" button_type="primary" ng_click="formVisorTarea.$valid ? finalizar() : verErrores=true" fluid_wrapper="true" ng_disabled="(tarea===undefined || tarea===null || installationData===null || installationData===undefined) ? true : false"/>
             </div>
         </div>
     </div>
