@@ -56,12 +56,12 @@
             </div>
             <div class="spacer_t1"></div>
             <div class="row">
-                <app:input id="tipoAviso1" label="eti.visortarea.form.label.tipo" cells="6">
+                <app:input id="tipoAviso1" label="eti.visortarea.form.label.tipo" cells="6" required="true">
                     <select  ng-model="tarea.tipoAviso1" convert-to-number class="form-control" ng-change="refeshDisabled=false; getTypeReasonList1(tarea.tipoAviso1)">
                         <option data-ng-repeat="itemTipoAviso1 in tipoAvisoList" value="{{itemTipoAviso1.id}}" ng-selected="itemTipoAviso1.id==tarea.tipoAviso1">{{itemTipoAviso1.id +" - "+ itemTipoAviso1.value}}</option>
                     </select>
                 </app:input>
-                <app:input id="motivo1" label="eti.visortarea.form.label.reason" cells="6">
+                <app:input id="motivo1" label="eti.visortarea.form.label.reason" cells="6" required="true">
                     <select  ng-model="tarea.motivo1" convert-to-number class="form-control" ng-change="refeshDisabled=false; getClosingList(tarea.tipoAviso1,tarea.motivo1,tarea.closing)">
                         <option data-ng-repeat="itemMotivo1 in motivoList1" value="{{itemMotivo1.id}}" ng-selected="itemMotivo1.id==tarea.motivo1" >{{itemMotivo1.id +" - "+ itemMotivo1.value}}</option>
                     </select>

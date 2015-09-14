@@ -40,7 +40,7 @@
                    name="${id}"
                    class="form-control input-custom-global"
                    ng-model="${value}"
-                   ${readonly=='true' ? 'disabled' : ''}  />
+                   ${readonly=='true' ? 'readonly' : ''}  />
         </c:if>
 
         <!-- Si no es editable imprimimos texto para evitar los problemas de fecha vacia -->
@@ -50,7 +50,7 @@
                    name="${id}"
                    class="form-control input-custom-global"
                    ng-model=" ${value} | date: 'dd/MM/yyyy - HH:mm:ss' "
-                   ${readonly=='true' ? 'disabled' : ''}  />
+                   ${readonly=='true' ? 'readonly' : ''}  />
         </c:if>
     </div>
 

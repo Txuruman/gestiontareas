@@ -53,8 +53,8 @@
                 <div class="row">
                     <app:inputTextNG id="requiredBy" value="tarea.requeridoPor" form="formCreateTask" required="true" label="createtask.requiredby" cells="6" ng_disabled="installationNotSearched"/>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        <app:inputTextNG pattern="^(?:(?:([01]?\d|2[0-3])))$" id="horarioDesde" label="tareaAviso.horarioDesde" form="formCreateTask" required="true" value="tarea.horarioDesde" cells="6"  ng_disabled="installationNotSearched" hour="true"/><!--  ng_keypress="onlyNumber($event,true,tarea.horarioDesde.length)"/> -->
-                		<app:inputTextNG pattern="^(?:(?:([01]?\d|2[0-3])))$" id="horarioHasta" label="tareaAviso.horarioHasta" form="formCreateTask" required="true" value="tarea.horarioHasta" cells="6"  ng_disabled="installationNotSearched" hour="true"/>
+                        <app:inputTextNG pattern="^(?:(?:([01]?\d|2[0-3])))$" id="horarioDesde" label="tareaAviso.horarioDesde" form="formCreateTask" required="true" value="tarea.horarioDesde" cells="6"  ng_disabled="installationNotSearched" hour="true" clazz="sinPaddingRight"/><!--  ng_keypress="onlyNumber($event,true,tarea.horarioDesde.length)"/> -->
+                		<app:inputTextNG pattern="^(?:(?:([01]?\d|2[0-3])))$" id="horarioHasta" label="tareaAviso.horarioHasta" form="formCreateTask" required="true" value="tarea.horarioHasta" cells="6"  ng_disabled="installationNotSearched" hour="true" clazz="sinPaddingRight"/>
                     </div>
                 </div>
                 <!-- row -->
@@ -101,7 +101,7 @@
                 </div>
                 <div class="spacer_t1"></div>
                 <!-- row -->
-                <app:textAreaNG id="comment" value="tarea.observaciones" label="createtask.comment" cell_label="2" cell_input="10" ng_disabled="installationNotSearched"/>
+                <app:textAreaNG id="comment" value="tarea.observaciones" label="createtask.comment" cell_label="2" cell_input="10" ng_disabled="installationNotSearched" clazz="paddingLeft10"/>
             </div>
         </div>
         <!-- row -->

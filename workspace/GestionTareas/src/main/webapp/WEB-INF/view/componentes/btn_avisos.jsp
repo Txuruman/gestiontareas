@@ -41,6 +41,9 @@
 <!-- Modal de contención de descartar -->
 <app:contentModal/>
 
+<!-- Modal de alerta de descartar -->
+<app:alertModal/>
+
 
 <!-- Ejemplos Ventana Modal Aplazar
     <button class="btn btn-default" ng-click="openDelayModal()">Open me!</button>

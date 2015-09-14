@@ -8,7 +8,7 @@
 <%@ attribute name="cells" required="false" description="Number of cells used from the 12 available" %>
 <%@ attribute name="required" required="false" description="If the field is required true/false" %>
 <%@ attribute name="readonly" required="false" description="If the field is readonly true/false" %>
-<%@ attribute name="maxlength" required="false" description="The maximum number of characters allowed in the <input> element" %>
+<%@ attribute name="maxlength" required="false" description="The maximum number of characters allowed in the input element" %>
 <%@ attribute name="cell_label" required="false"  description="The maximun cells label in parent space" type="java.lang.Integer" %>
 <%@ attribute name="cell_input" required="false"  description="The maximun cells label in parent space" %>
 <%@ attribute name="type" required="false"  description="The maximun cells label in parent space" %>
@@ -19,6 +19,8 @@
 <%@ attribute name="hour" required="false"  description="only numbers inputText" %>
 <%@ attribute name="ng_disabled" required="false"  description="input ng-disabled" %>
 <%@ attribute name="pattern" required="false"  description="pattern for the input" %>
+<%@ attribute name="clazz" required="false"  description="class for the div" %>
+
 
 <c:if test="${cell_label == null}">
     <c:set var="cell_label" value="4"/>
@@ -45,12 +47,12 @@
 
 
 <div class="col-lg-${cells} col-md-${cells} col-sm-${cells} col-xs-${cells}">
-    <label class="col-lg-${cell_label} col-md-${cell_label} col-sm-${cell_label} col-xs-${cell_label} control-label labelcent ${required=="true" ? "*" : ""}">
+    <label class="col-lg-${cell_label} col-md-${cell_label} col-sm-${cell_label} col-xs-${cell_label} control-label labelcent ${required=='true' ? '*' : ''}">
         <c:if test="${not empty label}"> <spring:message code="${label}"/> ${required=="true" ? "*" : ""}:</c:if>
     </label>
 
     
-    <div class="col-lg-${cell_input} col-md-${cell_input} col-sm-${cell_input} col-xs-${cell_input}">
+    <div class="col-lg-${cell_input} col-md-${cell_input} col-sm-${cell_input} col-xs-${cell_input} <c:if test='${not empty clazz}'>${clazz}</c:if>">
         <input type="${type}"
                id="${id}"
                name="${id}"
