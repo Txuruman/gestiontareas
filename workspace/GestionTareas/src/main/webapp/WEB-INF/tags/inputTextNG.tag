@@ -90,9 +90,9 @@
            		</c:if>		/>
            		  
            		<c:if test="${not empty required}">
-           			<span class="error" ng-show="${form}.${id}.$error.required && mostrarAvisos!=false"><spring:message code="error.notext"/>  </span>
+           			<span class="error" ng-show="${form}.${id}.$error.required && mostrarAvisos!=false && verErrores==true"><spring:message code="error.notext"/>  </span>
            		</c:if><c:if test="${not empty hour}">
-           			<span class="error" ng-show="${form}.${id}.$error.pattern && mostrarAvisos!=false"><spring:message code="error.pattern.hour"/></span>
+           			<span class="error" ng-show="${form}.${id}.$error.pattern && mostrarAvisos!=false && verErrores==true"><spring:message code="error.pattern.hour"/></span>
            		</c:if> 	 
            		  
     </div>

@@ -57,11 +57,11 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
 		            });
 		
 	//	            //Funciones para recibir el cierre ok y el cancel
-	//	            modalInstance.result.then(function () {
-	//
-	//	            }, function (param) {
-	//	                //Boton cancelar del Modal
-	//	            });
+		            modalInstance.result.then(function () {
+		            	$scope.verErrores=true;
+		            }, function (param) {
+		                //Boton cancelar del Modal
+		            });
 	        	}
 	        	else{
 		        	var modalInstance = $modal.open({
@@ -532,6 +532,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
 
     //Mostramos los mensajes para rellenar los combos de finalizar
     $scope.muestraFinalizarRequired = function () {
+    	$scope.verErrores=true;
         if ($scope.tarea.datosAdicionalesCierre == null) {
             $scope.closingADAlert = true;
         }
