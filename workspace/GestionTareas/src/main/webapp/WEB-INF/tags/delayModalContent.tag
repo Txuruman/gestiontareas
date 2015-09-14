@@ -39,7 +39,7 @@
 
             </div>
             <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
-                <timepicker ng-model="delayInfo.delayTime"  hour-step="1" minute-step="5" show-meridian="true" ng-changed="withoutChanges=false"></timepicker>
+                <timepicker ng-model="delayInfo.delayTime"  hour-step="1" minute-step="5" show-meridian="false" ng-changed="withoutChanges=false"></timepicker>
             </div>
         </div>
     </div>
