@@ -32,7 +32,7 @@
     <bean id="loggingInInterceptor" class="org.apache.cxf.interceptor.LoggingInInterceptor" parent="abstractLoggingInterceptor"/>
     <bean id="loggingOutInterceptor" class="org.apache.cxf.interceptor.LoggingOutInterceptor" parent="abstractLoggingInterceptor"/>
 
-    
+
     <cxf:bus>
         <cxf:inInterceptors>
             <ref bean="loggingInInterceptor"/>
@@ -50,48 +50,45 @@
 
     <!-- Web Services Cliente -->
     <jaxws:client name="wsSPInstallationMonData"
-        serviceClass="org.wso2.ws.dataservice.SPInstallationMonDataPortType"
-        address="http://10.2.144.63:9763/services/SP_InstallationMonData?wsdl"
-        />
-    <!-- TODO Parametro por JNDI, fichero configuracion????? -->
+                  serviceClass="org.wso2.ws.dataservice.SPInstallationMonDataPortType"
+                  address="http://10.2.144.63:9763/services/SP_InstallationMonData?wsdl"
+            />
+
 
     <jaxws:client name="wsSpAvisosOperaciones"
                   serviceClass="org.wso2.ws.dataservice.SPAVISOSOPERACIONESPortType"
                   address="http://10.2.144.63:9763/services/SP_AVISOS_OPERACIONES?wsdl"
             />
-    <!-- TODO Parametro por JNDI, fichero configuracion????? -->
 
 
     <jaxws:client name="wsSpAioTareas2"
                   serviceClass="org.wso2.ws.dataservice.SPAIOTAREAS2PortType"
                   address="http://10.2.144.63:9763/services/SP_AIO_TAREAS2?wsdl"
             />
-    <!-- TODO Parametro por JNDI, fichero configuracion????? -->
+
 
     <jaxws:client name="cclIntegration"
                   serviceClass="com.webservice.CCLIntegration"
                   address="http://10.2.145.137:8011/AllInOne_CCL/CCLIntegrationService?WSDL"
             />
-        <!--URL 4.8 Original address="http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService?wsdl" -->
-    <!-- TODO Parametro por JNDI, fichero configuracion????? -->
+
 
     <jaxws:client name="wsTickets"
                   serviceClass="wsticketsv2.WsTicketsSoap"
                   address="http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx?WSDL"
             />
-    <!-- TODO Parametro por JNDI, fichero configuracion????? -->
+
 
     <jaxws:client name="wsIBSCommlog"
                   serviceClass="org.wso2.ws.dataservice.SPIBSCommlogDataPortType"
                   address="http://10.2.144.63:9763/services/SP_IBSCommlogData?wsdl"
             />
-    <!-- TODO Parametro por JNDI, fichero configuracion????? -->
+
 
     <jaxws:client name="wsInfopoint"
                   serviceClass="org.tempuri.FunSoap"
                   address="http://es1preinfo01v/wsInfopoint/Fun.asmx?WSDL"
             />
-    <!-- TODO Parametro por JNDI, fichero configuracion????? -->
 
 
     <jaxws:client name="wsFSMSplitService"

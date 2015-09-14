@@ -9,37 +9,5 @@
 		Configuracion de la Capa Web
 	]]></description>
 
-    <!-- Uncomment and add your base-package here: <context:component-scan base-package="org.springframework.samples.service"/> -->
-
-    <!--<bean-->
-        <!--class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping" />-->
-
-
-
-	
-	
- 
-
-    <!--<bean class="es.securitasdirect.tareas.web.controller.VisorTareaController" id="VisorTareaController" />-->
-    <!--<bean class="es.securitasdirect.tareas.web.controller.BuscarTareaController" id="BuscarTareaController" />-->
-    <!--<bean class="es.securitasdirect.tareas.web.controller.CrearTareaController" id="CrearTareaController" />-->
-    <!--<bean class="es.securitasdirect.tareas.web.controller.ParamsController" id="ParamsController" />-->
-
-        <!---->
-
-
-    <!--<bean id="urlMapping"-->
-              <!--class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">-->
-        <!--<property name="mappings">-->
-            <!--<props>-->
-				<!---->
-                <!--<prop key="visortarea.htm">VisorTareaController</prop>-->
-                <!--<prop key="buscartarea.htm">BuscarTareaController</prop>-->
-                <!--<prop key="creartarea.htm">CrearTareaController</prop>-->
-                <!--<prop key="params.htm">ParamsController</prop>-->
-            <!--</props>-->
-        <!--</property>-->
-    <!--</bean>-->
-
 
 </beans>
