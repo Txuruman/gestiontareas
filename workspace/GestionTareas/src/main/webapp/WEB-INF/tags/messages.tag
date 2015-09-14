@@ -21,7 +21,7 @@
 
 
 <div ng-controller="MessagesController" class="messageAlerts" class="messageAlerts">
-    <div alert ng-repeat="msg in vm.serverMessages" type="{{msg.level}}" close="closeMessage($index)" dismiss-on-timeout="4000">{{msg.value}}</div>
+    <div alert ng-repeat="msg in vm.serverMessages" type="{{msg.level}}" close="closeMessage($index)" dismiss-on-timeout="8000">{{msg.value}}</div>
 </div>
 
 
