@@ -182,7 +182,7 @@ public class TareaService {
         }
 
         //2. Finalizar el Aviso
-        boolean finalizadoAviso = avisoService.closeTicket(tarea.getIdAviso(), agent.getAgentIBS(), tarea.getClosing(), tarea.getDatosAdicionalesCierre() == null ? null : Integer.valueOf(tarea.getDatosAdicionalesCierre()), finalizadoDesdeMantenimiento, idMantenimiento);
+        boolean finalizadoAviso = true;//avisoService.closeTicket(tarea.getIdAviso(), agent.getAgentIBS(), tarea.getClosing(), tarea.getDatosAdicionalesCierre() == null ? null : Integer.valueOf(tarea.getDatosAdicionalesCierre()), finalizadoDesdeMantenimiento, idMantenimiento);
         if (!finalizadoAviso) {
             LOGGER.error("Can't finalize NotificationTask because can't close Ticket");
             return false;
