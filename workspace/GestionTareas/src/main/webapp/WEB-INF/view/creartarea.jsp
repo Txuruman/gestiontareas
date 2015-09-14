@@ -64,13 +64,13 @@
                         <select  ng-model="tarea.tipoAviso1" name="tipoAviso1" convert-to-number class="form-control" ng-change="getTypeReasonList1(tarea.tipoAviso1)" ng_disabled="installationNotSearched" required="true">
                              <option data-ng-repeat="itemTipoAviso1 in tipoAvisoList" value="{{itemTipoAviso1.id}}" ng-selected="itemTipoAviso1.id==tarea.tipoAviso1">{{itemTipoAviso1.id +" - "+ itemTipoAviso1.value}}</option>
                         </select>
-                        <span class="error" ng-show="formCreateTask.tipoAviso1.$error.required && mostrarAvisos"><spring:message code="error.notext"/></span>
+                        <span class="error" ng-show="formCreateTask.tipoAviso1.$error.required && mostrarAvisos  && verErrores"><spring:message code="error.notext"/></span>
                     </app:input>
 					<app:input required="true" id="motivo1"  label="eti.visortarea.form.label.reason" cells="6">
 	                    <select  name="motivoAviso1" ng-model="tarea.motivo1" convert-to-number class="form-control" ng-change="refeshDisabled=false; getClosingList(tarea.tipoAviso1,tarea.tipoMotivo1,tarea.closing)" ng_disabled="installationNotSearched" required="true">
 	                        <option data-ng-repeat="itemMotivo1 in motivoList1" value="{{itemMotivo1.id}}" ng-selected="itemMotivo1.id==tarea.motivo1" >{{itemMotivo1.id +" - "+ itemMotivo1.value}}</option>
 	                    </select>
-	                    <span class="error" ng-show="formCreateTask.motivoAviso1.$error.required && mostrarAvisos"><spring:message code="error.notext"/></span>
+	                    <span class="error" ng-show="formCreateTask.motivoAviso1.$error.required && mostrarAvisos && verErrores"><spring:message code="error.notext"/></span>
                 	</app:input>
                 </div>
                 <div class="spacer_t1"></div>
@@ -110,7 +110,7 @@
             <div class="panel-body">
                 <div class="row" align="right">
                     <div class="container-fluid">
-                        <app:inputButtonNG button_type="primary" type="submit" value="boton.Crear" ng_click="formCreateTask.$valid ? createTask() : null" fluid_wrapper="true" ng_disabled="installationNotSearched"/>
+                        <app:inputButtonNG button_type="primary" type="submit" value="boton.Crear" ng_click="formCreateTask.$valid ? createTask() : verErrores=true" fluid_wrapper="true" ng_disabled="installationNotSearched"/>
                     </div>
                 </div>
             </div>
