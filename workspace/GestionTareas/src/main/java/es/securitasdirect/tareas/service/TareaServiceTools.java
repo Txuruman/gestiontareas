@@ -34,6 +34,8 @@ public class TareaServiceTools {
 
     @Inject
     protected SPAIOTAREAS2PortType spAioTareas2;
+    @Inject
+    protected ExternalDataService externalDataService;
 
     @Resource(name = "callingListToModel")
     private Map<String, List<String>> callingListToModel;
@@ -225,6 +227,14 @@ public class TareaServiceTools {
         } else {
             LOGGER.warn("Can not query for an not informed idAviso.");
         }
+
+        //Cargar las descripciones de Tipo y Motivo si se puede
+        if (tarea!=null) {
+            tarea.setTipoAviso1Descripcion(externalDataService.getNotificationTypeDescription(tarea.getTipoAviso1()));
+            tarea.setMotivo1Descripcion(externalDataService.getNotificationTypeReasonDescription(tarea.getTipoAviso1(),tarea.getMotivo1()));
+        }
+
+
         return tarea;
     }
 

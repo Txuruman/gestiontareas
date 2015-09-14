@@ -35,7 +35,9 @@ public class ExternalDataService {
     @Inject
     protected SPAIOTAREAS2PortType spAioTareas2;
 
-    /** Datos cierre tarea mantenimiento configurados en spring */
+    /**
+     * Datos cierre tarea mantenimiento configurados en spring
+     */
     @Resource(name = "datosCierreTareaMantenimiento")
     protected List<DescriptionPair> datosCierreTareaMantenimiento;
 
@@ -116,9 +118,10 @@ public class ExternalDataService {
     }
 
     /**
-     * Listado de los tipos de Aviso
+     * Combo de Tipo para las tareas de Tipo Aviso
      */
     public List<Pair> getNotificationType() throws DataServiceFault {
+        //TODO Meter cache
         LOGGER.debug("Calling for notification type list");
         List<Pair> result = new ArrayList<Pair>();
         for (Tipoaviso tipoaviso : spAioTareas2.getTipoAviso()) {
@@ -128,6 +131,29 @@ public class ExternalDataService {
     }
 
     /**
+     * Devuelve la descripción de un tipo de aviso dado el identificador
+     *
+     * @param idtipo
+     * @return
+     */
+    public String getNotificationTypeDescription(String idTipo) {
+        if (idTipo==null) return null;
+        try {
+            for (Pair pair : getNotificationType()) {
+                if (pair.getId().equals(Integer.valueOf(idTipo))) {
+                    return pair.getValue();
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+        return null;
+    }
+
+
+
+    /**
+     * Combo de Motivo para las tareas de Tipo Aviso
      */
     public List<BigIntegerPair> getTypeReasonList(Integer typeId) throws DataServiceFault {
         LOGGER.debug("Calling for notification type reason list, params: typeId: {}", typeId);
@@ -144,7 +170,23 @@ public class ExternalDataService {
         return result;
     }
 
-
+    /**
+     * Devuelve la descripción de un Motivo de aviso dado el identificador de tipo y Motivo
+     * @return
+     */
+    public String getNotificationTypeReasonDescription(String idTipo, String idMotivo) {
+        if (idTipo==null || idMotivo==null) return null;
+        try {
+            for (BigIntegerPair pair : getTypeReasonList(Integer.valueOf(idTipo))) {
+                if (pair.getId().toString().equals(idMotivo) ) {
+                    return pair.getValue();
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+        return null;
+    }
 
     /**
      * Consulta de los valores para el combo Key2 de tareas de mantenimiento
@@ -201,13 +243,14 @@ public class ExternalDataService {
 
     /**
      * Tipos de cierre para una tarea tipo mantenimiento
+     *
      * @return
      */
     public List<DescriptionPair> getCancelationTypeMaintenanceTask() {
-    	List<DescriptionPair> cancelationTypeList=new ArrayList<DescriptionPair>();
-    	for (DescriptionPair descriptionPair : datosCierreTareaMantenimiento) {
-    		cancelationTypeList.add(new DescriptionPair(descriptionPair));
-		}
+        List<DescriptionPair> cancelationTypeList = new ArrayList<DescriptionPair>();
+        for (DescriptionPair descriptionPair : datosCierreTareaMantenimiento) {
+            cancelationTypeList.add(new DescriptionPair(descriptionPair));
+        }
         return cancelationTypeList;
     }
 }

@@ -18,12 +18,14 @@ public class TareaAviso extends Tarea {
 	 * Tipos de Aviso: el primero es el utilizado, el segundo y el tercero son sólo informativos.
 	 */
 	String tipoAviso1;
+	String tipoAviso1Descripcion; //Para mostrar en la pantalla de busqueda
 	String tipoAviso2;
 	String tipoAviso3;
 	/**
 	 * Motivos: el primero es el utilizado, el segundo y el tercero son sólo informativos.
 	 */
 	String motivo1;
+	String motivo1Descripcion;
 	String motivo2;
 	String motivo3;
 	/*
@@ -255,14 +257,32 @@ public class TareaAviso extends Tarea {
         this.telefonoAviso = telefonoAviso;
     }
 
+	public String getTipoAviso1Descripcion() {
+		return tipoAviso1Descripcion;
+	}
+
+	public void setTipoAviso1Descripcion(String tipoAviso1Descripcion) {
+		this.tipoAviso1Descripcion = tipoAviso1Descripcion;
+	}
+
+	public String getMotivo1Descripcion() {
+		return motivo1Descripcion;
+	}
+
+	public void setMotivo1Descripcion(String motivo1Descripcion) {
+		this.motivo1Descripcion = motivo1Descripcion;
+	}
+
 	@Override
 	public String toString() {
 		final StringBuffer sb = new StringBuffer("TareaAviso{");
 		sb.append("idAviso=").append(idAviso);
 		sb.append(", tipoAviso1='").append(tipoAviso1).append('\'');
+		sb.append(", tipoAviso1Descripcion='").append(tipoAviso1Descripcion).append('\'');
 		sb.append(", tipoAviso2='").append(tipoAviso2).append('\'');
 		sb.append(", tipoAviso3='").append(tipoAviso3).append('\'');
 		sb.append(", motivo1='").append(motivo1).append('\'');
+		sb.append(", motivo1Descripcion='").append(motivo1Descripcion).append('\'');
 		sb.append(", motivo2='").append(motivo2).append('\'');
 		sb.append(", motivo3='").append(motivo3).append('\'');
 		sb.append(", observaciones='").append(observaciones).append('\'');
@@ -272,20 +292,19 @@ public class TareaAviso extends Tarea {
 		sb.append(", requeridoPor='").append(requeridoPor).append('\'');
 		sb.append(", datosContacto='").append(datosContacto).append('\'');
 		sb.append(", fechaCreacion=").append(fechaCreacion);
-		sb.append(", estado='").append(estado).append('\'');
 		sb.append(", horarioDesde='").append(horarioDesde).append('\'');
 		sb.append(", horarioHasta='").append(horarioHasta).append('\'');
-		sb.append(", closing=").append(closing);
-		sb.append(", datosAdicionalesCierre=").append(datosAdicionalesCierre);
+		sb.append(", closing='").append(closing).append('\'');
+		sb.append(", datosAdicionalesCierre='").append(datosAdicionalesCierre).append('\'');
 		sb.append(", fechaCierre=").append(fechaCierre);
 		sb.append(", nota='").append(nota).append('\'');
 		sb.append(", responsableCierre='").append(responsableCierre).append('\'');
-        sb.append(", telefonoAviso='").append(telefonoAviso).append('\'');
+		sb.append(", telefonoAviso='").append(telefonoAviso).append('\'');
 		sb.append('}');
 		return sb.toString();
 	}
 
-    @Override
+	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
