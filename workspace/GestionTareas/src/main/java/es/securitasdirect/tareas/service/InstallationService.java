@@ -36,7 +36,7 @@ public class InstallationService {
      */
     public InstallationData getInstallationData(String installationNumber) throws DataServiceFault {
         //Ejemplo simulacion instalacion no encontrado
-//        installationNumber="0000011111";
+        //installationNumber="0000011111";
         LOGGER.debug("Getting Installation Data by Service");
         assert installationNumber != null;
         Mainstallationdataresult installationDataWS1 = null;
