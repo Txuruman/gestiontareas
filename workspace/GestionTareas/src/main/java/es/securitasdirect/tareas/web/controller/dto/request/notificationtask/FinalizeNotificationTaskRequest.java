@@ -21,7 +21,8 @@ public class FinalizeNotificationTaskRequest extends BaseRequest {
      */
 
     /**
-     * Resultado de la ventana emergente de mantenimiento
+     * Resultado de la ventana emergente de mantenimiento.
+     * Estos datos no se rellenan cuando no se viene de mantenimiento.
      */
     private boolean finalizedByCreateMaintenance = false;
     private Integer appointmentNumber; //TODO Pedniente saber si es numerico o no, debería de serlo

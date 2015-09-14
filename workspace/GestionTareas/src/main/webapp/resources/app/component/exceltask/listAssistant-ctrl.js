@@ -50,7 +50,34 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
                 });
         }
     };
-
+    
+    /**
+     * Si no hay instalacion finalizamos la tarea
+     */
+    $scope.descartarTarea=function(){
+    	if($scope.installationData==null || $scope.installationData==undefined){
+    		var discardRequest={
+    			task:$scope.tarea,
+    			installation:$scope.installation
+    		}
+    		$http.put("listassistanttask/descartar",discardRequest).then(function(data, status, headers, config){
+    			CommonService.processBaseResponse(data, status, headers, config);
+    			if ($scope.fromSearch!='true'){
+    				$scope.closeInteraction();
+        		}else{
+        			$scope.descartar();
+        		}
+    		},function(data, status, headers, config){
+    			CommonService.processBaseResponse(data, status, headers, config);
+    		})
+    	}else{
+    		if ($scope.fromSearch!='true'){
+    			$scope.closeInteraction();
+    		}else{
+    			$scope.descartar();
+    		}
+    	}
+    }
     /**
      * Método Descartar: Nos lleva a la página de buscar
      * Variable _contextPath inicializada en commonImports

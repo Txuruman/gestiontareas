@@ -7,6 +7,7 @@ import es.securitasdirect.tareas.service.QueryTareaService;
 import es.securitasdirect.tareas.web.controller.AgentController;
 import es.securitasdirect.tareas.web.controller.TaskController;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
+import es.securitasdirect.tareas.web.controller.dto.request.DiscardExcelTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.GetInstallationAndTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.exceltask.keyboxtask.PostponeKeyboxTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.exceltask.listadoassistanttask.DiscardListAssistantTaskRequest;
@@ -52,11 +53,8 @@ public class ListAssitantTaskController extends TaskController {
     }
 
     @RequestMapping(value = "/descartar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody BaseResponse descartar(@RequestBody DiscardListAssistantTaskRequest request) {
-        LOGGER.debug("Descartar tarea de ListAssistant:\nRequest: {}", request);
-        BaseResponse response = dummyResponseGenerator.dummyCustomSuccess("commonexcel.discard.success");
-        LOGGER.debug("Descartando tarea de ListAssistant:\nResponse: {}",response);
-        return response;
+    public @ResponseBody BaseResponse descartar(@RequestBody DiscardExcelTaskRequest request) {
+    	return super.discardTask(request.getTask(), request.getInstallation());
     }
 
 

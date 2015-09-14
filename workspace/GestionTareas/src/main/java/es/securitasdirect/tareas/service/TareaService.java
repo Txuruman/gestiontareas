@@ -78,7 +78,20 @@ public class TareaService {
             this.delayOtherTask(agent, tarea, schedTime, recordType);
         }
     }
-
+    
+    /**
+     * Descartar: descartar las tareas
+     * Comprueba si la tarea que llega es de tipo Aviso
+     */
+    public void discardTask(Agent agent, Tarea tarea, InstallationData installation) throws Exception {
+        //Llamada a los discard
+        if (tarea instanceof TareaAviso) {
+            this.discardNotificationTask(agent, (TareaAviso) tarea, installation);
+        } else {
+            this.discardOtherTask(agent, tarea, installation);
+        }
+    }
+    
     /**
      * Finalizar la tarea, cualquier tipo menos TareaAviso y Tarea Mantenimiento
      *
@@ -611,8 +624,16 @@ public class TareaService {
         if (installationData != null) {
             if (isTaskRequiresSaveModifications(tareaRefrescada, tarea)) {
                 avisoService.updateTicket(agent, (TareaAviso) tarea, installationData);
+            } 
+        }else {
+        	//Si no hay instalacion por error de datos
+            LOGGER.warn("Can't update task because there was no installation found, the task will be finalized");
+            if (isTareaInMemory(tareaRefrescada)) {
+                // Finalizar Tarea en memoria
+                wsFinalizeInMemoryTask(agent, tarea);
             } else {
-                LOGGER.warn("Can't update task because there was no installation found ");
+                //Cancelar cuando está en memoria
+                wsFinalizeTask(agent, tarea);
             }
         } //Fin sin instalacion
 
@@ -639,8 +660,25 @@ public class TareaService {
 
 
     }
-
-
+    
+    /**
+     * Descartar para las tareas de tipo excell, finalizan la tarea
+     * @param agent
+     * @param tarea
+     * @param installationData
+     * @throws Exception
+     */
+    public void discardOtherTask(Agent agent, Tarea tarea, InstallationData installationData) throws Exception {
+    	Tarea tareaRefrescada = queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString()); 
+    	if (isTareaInMemory(tareaRefrescada)) {
+             // Finalizar Tarea en memoria
+             wsFinalizeInMemoryTask(agent, tarea);
+         } else {
+             //Cancelar cuando está en memoria
+             wsFinalizeTask(agent, tarea);
+         }
+    }
+    
     private boolean isTaskRequiresFinalizeModifications(TareaAviso tarea) {
 
         boolean result = false;

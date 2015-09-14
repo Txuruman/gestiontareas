@@ -15,11 +15,11 @@
 
                 <!-- Crear Mantenimiento -->
                 <app:inputButtonNG value="boton.CrearMantenimiento" type="submit" button_type="default" ng_click="(formVisorTarea.$valid && tarea.datosAdicionalesCierre!=null && tarea.closing!=null)? crearmantenimiento() : muestraFinalizarRequired()" fluid_wrapper="true"
-                                   ng_disabled="(tarea===undefined || tarea===null) ? true : false"/>
+                                   ng_disabled="(tarea===undefined || tarea===null || installationData==null || installationData===undefined) ? true : false"/>
 
                 <!-- Aplazar, abre dialogo modal si ha cambiado algo -->
                 <app:inputButtonNG value="boton.Aplazar" button_type="default" ng_click="openDelayModal()" fluid_wrapper="true"
-                                   ng_disabled="(tarea===undefined || tarea===null) ? true : false"/>
+                                   ng_disabled="(tarea===undefined || tarea===null || installationData==null || installationData===undefined) ? true : false"/>
 
                 <!-- Descargar -->
                 <app:inputButtonNG value="boton.Descartar" button_type="default" ng_click="openContentModal()" fluid_wrapper="true"/>
@@ -27,7 +27,7 @@
 
                 <!-- Finalizar -->
                 <app:inputButtonNG value="boton.Finalizar" type="submit" button_type="primary" ng_click="(formVisorTarea.$valid && tarea.datosAdicionalesCierre!=null && tarea.closing!=null)? finalizar() : muestraFinalizarRequired()" fluid_wrapper="true"
-                                   ng_disabled="(tarea===undefined || tarea===null) ? true : false"/>
+                                   ng_disabled="(tarea===undefined || tarea===null || installationData==null || installationData===undefined) ? true : false"/>
             </div>
         </div>
     </div>

@@ -10,6 +10,7 @@ import es.securitasdirect.tareas.web.controller.AgentController;
 import es.securitasdirect.tareas.web.controller.BaseController;
 import es.securitasdirect.tareas.web.controller.TaskController;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
+import es.securitasdirect.tareas.web.controller.dto.request.DiscardExcelTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.GetInstallationAndTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.exceltask.feecleaning.DiscardFeeCleaningTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.exceltask.feecleaning.FinalizeFeeCleaningTaskRequest;
@@ -79,11 +80,8 @@ public class FeeCleaningTaskController extends TaskController {
 
 
     @RequestMapping(value = "/descartar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody BaseResponse descartar(@RequestBody DiscardFeeCleaningTaskRequest request) {
-        LOGGER.debug("Descartando tarea de limpieza de cuotas:\nRequest: {}", request);
-        BaseResponse response = dummyResponseGenerator.dummyFinalizeSuccess();
-        LOGGER.debug("Descartada tarea de limpieza de cuotas:\nResponse: {}",response);
-        return response;
+    public @ResponseBody BaseResponse descartar(@RequestBody DiscardExcelTaskRequest request) {
+    	return super.discardTask(request.getTask(), request.getInstallation());
     }
 
     @RequestMapping(value = "/finalizar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})

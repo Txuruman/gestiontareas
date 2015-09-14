@@ -25,63 +25,76 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     };
     //Ventana Aplazar - End
     $scope.openContentModal = function (size) {
-        if (!angular.equals($scope.tarea, $scope.tareaOriginal)) {
-            /**Si hay cambios los siguientes campos son obligatorios: 
-             * Persona, teléfono, tipo 1 y motivo 1.
-             * */
-        	if($scope.tarea.personaContacto=="" || $scope.tarea.personaContacto==null || $scope.tarea.telefonoAviso=="" || $scope.tarea.telefonoAviso==null || $scope.tarea.tipoAviso1=="" || $scope.tarea.tipoAviso1==null || $scope.tarea.motivo1=="" || $scope.tarea.motivo1==null){
-        		var modalInstance = $modal.open({
-	                animation: false, //Indica si animamos el modal
-	                templateUrl: 'alertModal.html', //HTML del modal
-	                controller: 'ContentModalCtrl',  //Referencia al controller especifico para el modal
-	                size: size,
-	                resolve: {
-	                    //Creo que esto es para pasar parametros al controller interno
-	                    // items: function () {
-	                    //     return $scope.items;
-	                    // }
-	                }
-	            });
-	
-//	            //Funciones para recibir el cierre ok y el cancel
-//	            modalInstance.result.then(function () {
-//
-//	            }, function (param) {
-//	                //Boton cancelar del Modal
-//	            });
-        	}
-        	else{
-	        	var modalInstance = $modal.open({
-	                animation: false, //Indica si animamos el modal
-	                templateUrl: 'ContentModal.html', //HTML del modal
-	                controller: 'ContentModalCtrl',  //Referencia al controller especifico para el modal
-	                size: size,
-	                resolve: {
-	                    //Creo que esto es para pasar parametros al controller interno
-	                    // items: function () {
-	                    //     return $scope.items;
-	                    // }
-	                }
-	            });
-	
-	            //Funciones para recibir el cierre ok y el cancel
-	            modalInstance.result.then(function () {
-	                $scope.descartaraviso($scope.tarea);
-	            }, function (param) {
-	                //Boton cancelar del Modal
-	            });
-        	}
-        } else {
-        	/** Si no venimos de la pantalla de buscar cerramos la interacción,
-             *  en caso contrario volvemos a la pantalla de buscar
-             */  
-            if($scope.fromSearch!="true"){
-            	$scope.descartaraviso($scope.tarea);
+    	/** Errores
+    	 * Si no hay tarea, vuelve para atrás
+    	 * Si no hay instalación y si hay tarea, finalizamos la tarea
+    	 */
+    	if($scope.tarea==undefined || $scope.tarea==null){
+    		if($scope.fromSearch!="true"){
+            	CommonService.closeInteraction(data);
             }else{
             	$scope.descartar();
             }
-        }
-        
+    	}else if($scope.installationData==null || $scope.installationData==undefined){
+    		$scope.descartaraviso($scope.tarea);
+    	}else{
+	        if (!angular.equals($scope.tarea, $scope.tareaOriginal)) {
+	            /**Si hay cambios los siguientes campos son obligatorios: 
+	             * Persona, teléfono, tipo 1 y motivo 1.
+	             * */
+	        	if($scope.tarea.personaContacto=="" || $scope.tarea.personaContacto==null || $scope.tarea.telefonoAviso=="" || $scope.tarea.telefonoAviso==null || $scope.tarea.tipoAviso1=="" || $scope.tarea.tipoAviso1==null || $scope.tarea.motivo1=="" || $scope.tarea.motivo1==null){
+	        		var modalInstance = $modal.open({
+		                animation: false, //Indica si animamos el modal
+		                templateUrl: 'alertModal.html', //HTML del modal
+		                controller: 'ContentModalCtrl',  //Referencia al controller especifico para el modal
+		                size: size,
+		                resolve: {
+		                    //Creo que esto es para pasar parametros al controller interno
+		                    // items: function () {
+		                    //     return $scope.items;
+		                    // }
+		                }
+		            });
+		
+	//	            //Funciones para recibir el cierre ok y el cancel
+	//	            modalInstance.result.then(function () {
+	//
+	//	            }, function (param) {
+	//	                //Boton cancelar del Modal
+	//	            });
+	        	}
+	        	else{
+		        	var modalInstance = $modal.open({
+		                animation: false, //Indica si animamos el modal
+		                templateUrl: 'ContentModal.html', //HTML del modal
+		                controller: 'ContentModalCtrl',  //Referencia al controller especifico para el modal
+		                size: size,
+		                resolve: {
+		                    //Creo que esto es para pasar parametros al controller interno
+		                    // items: function () {
+		                    //     return $scope.items;
+		                    // }
+		                }
+		            });
+		
+		            //Funciones para recibir el cierre ok y el cancel
+		            modalInstance.result.then(function () {
+		                $scope.descartaraviso($scope.tarea);
+		            }, function (param) {
+		                //Boton cancelar del Modal
+		            });
+	        	}
+	        } else {
+	        	/** Si no venimos de la pantalla de buscar cerramos la interacción,
+	             *  en caso contrario volvemos a la pantalla de buscar
+	             */  
+	            if($scope.fromSearch!="true"){
+	            	$scope.descartaraviso($scope.tarea);
+	            }else{
+	            	$scope.descartar();
+	            }
+	        }
+    	}
     };
 
     $scope.init = function () {
