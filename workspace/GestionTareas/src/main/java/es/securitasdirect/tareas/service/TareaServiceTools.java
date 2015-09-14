@@ -131,7 +131,7 @@ public class TareaServiceTools {
 
             } else {
                 LOGGER.error("Ticket not found by  id {}", idAviso);
-                throw new BusinessException(BusinessException.ErrorCode.ERROR_FIND_TICKET, idAviso.toString(),responseMap.get(TaskServiceParams.TAREA_COMMONS_CALLING_LIST),responseMap.get(TaskServiceParams.TAREA_COMMONS_ID));
+                throw new BusinessException(BusinessException.ErrorCode.ERROR_FIND_TICKET, idAviso.toString(), responseMap.get(TaskServiceParams.TAREA_COMMONS_CALLING_LIST), responseMap.get(TaskServiceParams.TAREA_COMMONS_ID));
             }
         } else {
             LOGGER.warn("ID_AVISO (idaviso) or 0 not found in response map");
@@ -229,9 +229,9 @@ public class TareaServiceTools {
         }
 
         //Cargar las descripciones de Tipo y Motivo si se puede
-        if (tarea!=null) {
+        if (tarea != null) {
             tarea.setTipoAviso1Descripcion(externalDataService.getNotificationTypeDescription(tarea.getTipoAviso1()));
-            tarea.setMotivo1Descripcion(externalDataService.getNotificationTypeReasonDescription(tarea.getTipoAviso1(),tarea.getMotivo1()));
+            tarea.setMotivo1Descripcion(externalDataService.getNotificationTypeReasonDescription(tarea.getTipoAviso1(), tarea.getMotivo1()));
         }
 
 
@@ -498,7 +498,7 @@ public class TareaServiceTools {
         } else {
             try {
                 //Restamos dos horas
-                return new Date((Long.valueOf(value) - (2*60*60) ) * 1000 );
+                return new Date((Long.valueOf(value) - (2 * 60 * 60)) * 1000);
             } catch (Exception e) {
                 LOGGER.error("Can't parse EPOC date from value {}", value, e);
                 return null;
@@ -529,12 +529,13 @@ public class TareaServiceTools {
 
     /**
      * Carga parametros recibidos por POST en la tarea
+     *
      * @param tarea
      * @param parameters
      * @return
      */
     public Tarea loadPostParametersInTask(Tarea tarea, Map<String, String> parameters) {
-        if (tarea!=null && parameters!=null) {
+        if (tarea != null && parameters != null) {
             tarea.setOutAgentPlace(parameters.get(ExternalParams.AGENT_PLACE));
             tarea.setOutCampaignName(parameters.get(ExternalParams.CAMPAIGN_NAME));
             tarea.setOutClName(parameters.get(ExternalParams.CALLING_LIST));
