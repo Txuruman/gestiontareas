@@ -90,7 +90,7 @@ public class AvisoService {
 
         /* <REQ></REQ> */
         createReq.setIdReq(idReq);
-        createReq.setReqName(installationData.getPersonaContacto() != null ? installationData.getPersonaContacto() : ""); // constante
+        createReq.setReqName(""); // constante
         createReq.setReqLname1(""); // constante
         createReq.setReqLname2(""); // constante
         createReq.setReqCif(""); // constante
@@ -99,7 +99,7 @@ public class AvisoService {
         createAsgto.setIdAsg(""); // constante
         createAsgto.setIdUser(idUser);
         /* <COMM></COMM>*/
-        createComm.setName(""); // constante
+        createComm.setName(installationData.getPersonaContacto() != null ? installationData.getPersonaContacto() : "");
         createComm.setlName1(""); // constante
         createComm.setlName2(""); // constante
         createComm.setInChannel("TELF"); // constante
