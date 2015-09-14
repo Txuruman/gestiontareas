@@ -2,8 +2,8 @@
 app.controller('feecleaningtask-ctrl', function ($scope, $http, CommonService, $modal, $log, $window) {
 
 
-    $scope.getInstallationAndTask = function(){
-        $scope.vm.appReady=false;
+    $scope.getInstallationAndTask = function () {
+        $scope.vm.appReady = false;
 
         //$log.debug("Loading Fee Cleaning Task...");
 
@@ -23,20 +23,20 @@ app.controller('feecleaningtask-ctrl', function ($scope, $http, CommonService, $
             //$log.debug("Loaded isntallation data:",data.installationData);
             $scope.tarea = data.tarea;
             $scope.installationData = data.installationData;
-            CommonService.processBaseResponse(data,status,headers,config);
+            CommonService.processBaseResponse(data, status, headers, config);
             $scope.getClosingReason();
-            $scope.vm.appReady=true;
+            $scope.vm.appReady = true;
         }).
-        error(function (data, status, headers, config) {
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
-            CommonService.processBaseResponse(data,status,headers,config);
-            $scope.vm.appReady=true;
-            //$log.error("Error loading installation and task");
-        });
+            error(function (data, status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                CommonService.processBaseResponse(data, status, headers, config);
+                $scope.vm.appReady = true;
+                //$log.error("Error loading installation and task");
+            });
     };
 
-    $scope.getClosingReason = function(){
+    $scope.getClosingReason = function () {
         //$log.debug("Loading Excel Task Commons: Closing reason");
         $http({method: 'GET', url: 'exceltaskcommon/getClosingReason'}).
             success(function (data, status, headers, config) {
@@ -56,7 +56,7 @@ app.controller('feecleaningtask-ctrl', function ($scope, $http, CommonService, $
         if ($scope.tarea) {
             var postponeRequest = {
                 recallType: recallType,
-                delayDate:  delayDate,
+                delayDate: delayDate,
                 task: $scope.tarea
             };
 
@@ -71,11 +71,15 @@ app.controller('feecleaningtask-ctrl', function ($scope, $http, CommonService, $
                     CommonService.processBaseResponse(data, status, headers, config);
                     /** Si no venimos de la pantalla de buscar cerramos la interacción,
                      *  en caso contrario volvemos a la pantalla de buscar
-                     */  
-                    if($scope.fromSearch!="true"){
-                    	CommonService.closeInteraction(data);
-                    }else{
-                    	$scope.descartar();
+                     */
+                    if (data.success) {
+                        if ($scope.fromSearch != "true") {
+                            CommonService.closeInteraction(data);
+                        } else {
+                            $scope.descartar();
+                        }
+                    } else {
+                        //Por errores no volvemos atras ni cerramos
                     }
                 })
                 .error(function (data, status, headers, config) {
@@ -85,50 +89,50 @@ app.controller('feecleaningtask-ctrl', function ($scope, $http, CommonService, $
                 });
         }
     };
-    
+
     /**
      * Si no hay instalacion finalizamos la tarea
      */
-    $scope.descartarTarea=function(){
-    	if($scope.installationData==null || $scope.installationData==undefined){
-    		var discardRequest={
-        			task:$scope.tarea,
-        			installation:$scope.installation
-        		}
-        		$http.put("feecleaningtask/descartar",discardRequest).then(function(data, status, headers, config){
-        			CommonService.processBaseResponse(data, status, headers, config);
-        			if ($scope.fromSearch!='true'){
-        				$scope.closeInteraction();
-            		}else{
-            			$scope.descartar();
-            		}
-        		},function(data, status, headers, config){
-        			CommonService.processBaseResponse(data, status, headers, config);
-        		})
-    	}else{
-    		if ($scope.fromSearch!='true'){
-				$scope.closeInteraction();
-    		}else{
-    			$scope.descartar();
-    		}
-    	}
+    $scope.descartarTarea = function () {
+        if ($scope.installationData == null || $scope.installationData == undefined) {
+            var discardRequest = {
+                task: $scope.tarea,
+                installation: $scope.installation
+            }
+            $http.put("feecleaningtask/descartar", discardRequest).then(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data, status, headers, config);
+                if ($scope.fromSearch != 'true') {
+                    $scope.closeInteraction();
+                } else {
+                    $scope.descartar();
+                }
+            }, function (data, status, headers, config) {
+                CommonService.processBaseResponse(data, status, headers, config);
+            })
+        } else {
+            if ($scope.fromSearch != 'true') {
+                $scope.closeInteraction();
+            } else {
+                $scope.descartar();
+            }
+        }
     }
-    
+
     /**
      * Método Descartar: Nos lleva a la página de buscar
      * Variable _contextPath inicializada en commonImports
      */
-    $scope.descartar=function(){
-    	$window.location.href= _contextPath + "/search";
+    $scope.descartar = function () {
+        $window.location.href = _contextPath + "/search";
     }
-    $scope.closeInteraction=function(){
-    	CommonService.closeInteraction({success:true});
+    $scope.closeInteraction = function () {
+        CommonService.closeInteraction({success: true});
     }
-    
-    $scope.finalizar = function(){
+
+    $scope.finalizar = function () {
         //$log.debug("Finalizar List Assistant task, task: ",$scope.tarea);
         var finalizeRequest = {
-            task:$scope.tarea
+            task: $scope.tarea
         };
         //$log.debug("Finalizar  Task, request: ",finalizeRequest);
         $http({
@@ -137,21 +141,21 @@ app.controller('feecleaningtask-ctrl', function ($scope, $http, CommonService, $
             data: finalizeRequest
         })
             .success(function (data, status, headers, config) {
-                CommonService.processBaseResponse(data,status,headers,config);
+                CommonService.processBaseResponse(data, status, headers, config);
                 //$log.debug("Finalized task");
                 /** Si no venimos de la pantalla de buscar cerramos la interacción,
                  *  en caso contrario volvemos a la pantalla de buscar
-                 */  
-                if($scope.fromSearch!="true"){
-                	CommonService.closeInteraction(data);
-                }else{
-                	$scope.descartar();
+                 */
+                if ($scope.fromSearch != "true") {
+                    CommonService.closeInteraction(data);
+                } else {
+                    $scope.descartar();
                 }
             })
             .error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
-                CommonService.processBaseResponse(data,status,headers,config);
+                CommonService.processBaseResponse(data, status, headers, config);
                 //$log.error("Error finalizing task");
             });
     };
