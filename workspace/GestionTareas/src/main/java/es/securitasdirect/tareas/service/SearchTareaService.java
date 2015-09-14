@@ -3,6 +3,7 @@ package es.securitasdirect.tareas.service;
 
 import com.webservice.CCLIntegration;
 import com.webservice.CclResponse;
+import es.securitasdirect.tareas.exceptions.BusinessException;
 import es.securitasdirect.tareas.model.Agent;
 import es.securitasdirect.tareas.model.Tarea;
 import es.securitasdirect.tareas.model.TareaAviso;
@@ -136,7 +137,12 @@ public class SearchTareaService {
             taskList = new ArrayList<Tarea>();
             for (int i = 0; i < cclResponse.getColumnReturn().size(); i++) {
                 Map<String, String> map = tareaServiceTools.loadCclResponseMap(cclResponse, i);
-                taskList.add(tareaServiceTools.createTareaFromParameters(map));
+                try {
+                    taskList.add(tareaServiceTools.createTareaFromParameters(map));
+                } catch (BusinessException e) {
+                    //Vamos a capturar esta exception porque las tareas de tipo Aviso cuando no se encuentra el aviso dan error
+                    LOGGER.warn("Ignoring error in search " + e.getErrorCode());
+                }
             }
 
         }
