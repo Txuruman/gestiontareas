@@ -1,5 +1,5 @@
 app.controller('notificationtask', function ($scope, $http, CommonService, $modal, $log, $window) {
-    //Ventana Aplazar - Start
+	//Ventana Aplazar - Start
     //Abre la ventana, posibles tamaños '', 'sm', 'lg'
     $scope.openDelayModal = function (size) {
         var modalInstance = $modal.open({
