@@ -272,7 +272,7 @@ app.service('CommonService', function ($rootScope, $log, $http, $timeout) {
 //    	alert("conn" + mapParams.bp_auth_connid);
 //    	alert(JSON.strinify(data));
     	if (data.success) {
-    		alert("A continuación se cerrará la interacción");
+    		//alert("A continuación se cerrará la interacción");
     		e = window.external.CloseInteractionPushPreview(mapParams.bp_interactionId);
     		//alert("Interacción cerrada: "+JSON.strinify(e));
 		}

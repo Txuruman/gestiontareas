@@ -8,7 +8,7 @@
         <div class="row" align="right">
             <!-- Panel de botones - Seleccion de controlador -->
             <div class="container-fluid">
-                <app:inputButtonNG value="boton.Finalizar" type="submit" button_type="primary" ng_click="formVisorTarea.$valid ? finalizar() : null" fluid_wrapper="true" ng_disabled="(tarea===undefined || tarea===null) ? true : false"/>
+                <app:inputButtonNG value="boton.Finalizar" type="submit" button_type="primary" ng_click="formVisorTarea.$valid ? finalizar() : verErrores=true" fluid_wrapper="true" ng_disabled="(tarea===undefined || tarea===null) ? true : false"/>
             </div>
         </div>
     </div>

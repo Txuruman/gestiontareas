@@ -119,19 +119,21 @@
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                     <div class="row">
-                        <app:input id="desplegableKey1" label="tareamantenimiento.key1">
-                            <select  ng-model="tarea.key1" convert-to-number class="form-control" ng-change="getDesplegableKey2()">
+                        <app:input id="desplegableKey1" label="tareamantenimiento.key1" required="true">
+                            <select  ng-model="tarea.key1" convert-to-number class="form-control" ng-change="getDesplegableKey2()" name="key1" required="true">
                                 <option data-ng-repeat="k in key1List" value="{{k.id}}" ng-selected="k.id==tarea.key1" >{{k.value}}</option>
                             </select>
+                            <span class="error" ng-show="formVisorTarea.key1.$error.required && verErrores==true"><spring:message code="error.pattern.hour"/></span>
                         </app:input>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                     <div class="row">
-                        <app:input id="desplegableKey2" label="tareamantenimiento.key2">
-                            <select  ng-model="tarea.key2" convert-to-number class="form-control">
+                        <app:input id="desplegableKey2" label="tareamantenimiento.key2" required="true">
+                            <select  ng-model="tarea.key2" convert-to-number class="form-control" name="key2" required="true">
                                 <option data-ng-repeat="k in key2List" value="{{k.id}}" ng-selected="k.id==tarea.key2" >{{k.value}}</option>
                             </select>
+                            <span class="error" ng-show="formVisorTarea.key2.$error.required && verErrores==true"><spring:message code="error.pattern.hour"/></span>
                         </app:input>
                     </div>
                 </div>
