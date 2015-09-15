@@ -88,14 +88,10 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 /** Si no venimos de la pantalla de buscar cerramos la interacción,
                  *  en caso contrario volvemos a la pantalla de buscar
                  */
-                if  (data.success) {
-                    if ($scope.fromSearch != "true") {
-                        $scope.descartaraviso($scope.tarea);
-                    } else {
-                        $scope.descartar();
-                    }
+                if ($scope.fromSearch != "true") {
+                    $scope.descartaraviso($scope.tarea);
                 } else {
-                    //Ni volvemos ni cerramos por error
+                    $scope.descartar();
                 }
             }
         }
