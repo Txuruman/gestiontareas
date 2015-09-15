@@ -88,10 +88,14 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 /** Si no venimos de la pantalla de buscar cerramos la interacción,
                  *  en caso contrario volvemos a la pantalla de buscar
                  */
-                if ($scope.fromSearch != "true") {
-                    $scope.descartaraviso($scope.tarea);
+                if  (data.success) {
+                    if ($scope.fromSearch != "true") {
+                        $scope.descartaraviso($scope.tarea);
+                    } else {
+                        $scope.descartar();
+                    }
                 } else {
-                    $scope.descartar();
+                    //Ni volvemos ni cerramos por error
                 }
             }
         }
@@ -316,7 +320,6 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                     if ($scope.fromSearch != "true") {
                         CommonService.closeInteraction(data);
                     } else {
-                        alert("pagina de busqueda");
                         $scope.descartar();
                     }
                 })
@@ -516,10 +519,14 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 /** Si no venimos de la pantalla de buscar cerramos la interacción,
                  *  en caso contrario volvemos a la pantalla de buscar
                  */
-                if ($scope.fromSearch != "true") {
-                    CommonService.closeInteraction(data);
+                if (data.success) {
+                    if ($scope.fromSearch != "true") {
+                        CommonService.closeInteraction(data);
+                    } else {
+                        $scope.descartar();
+                    }
                 } else {
-                    $scope.descartar();
+                    //No cerramos o volvemos atras porque hay errores
                 }
             })
             .error(function (data, status, headers, config) {

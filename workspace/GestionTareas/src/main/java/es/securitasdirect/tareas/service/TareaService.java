@@ -52,6 +52,9 @@ public class TareaService {
     protected CCLIntegration cclIntegration;
     @Inject
     protected InstallationService installationService;
+    @Inject
+    protected ExternalDataService externalDataService;
+
     @Resource(name = "applicationUser")
     private String applicationUser;
 
@@ -322,13 +325,14 @@ public class TareaService {
      *
      * @return
      */
-    protected boolean registerCommlog(TareaMantenimiento tarea) {
+    protected boolean registerCommlog(TareaMantenimiento tarea) throws Exception {
         LOGGER.debug("Registering Commlog for task {}", tarea);
         String insNo = tarea.getNumeroInstalacion();
         String dealId = "0";//deal_id = 0  fijo
         String source = "CT";  //CT  fijo
-        String key1 = tarea.getKey1() == null ? "" : tarea.getKey1().toString();
-        String key2 = tarea.getKey2() == null ? "" : tarea.getKey2().toString();
+        //Nuevos valores key1 y key2, por correo de Jesus Buera
+        String key1 = externalDataService.getKey1KeyId(tarea.getKey1());
+        String key2 = externalDataService.getKey2KeyId(tarea.getKey1(),tarea.getKey2());
         String key3 = ""; //	key3 =  vacío
         String key4 = ""; //	key3 =  vacío
         String media = "TEL"; //	media = TEL  fijo
@@ -360,8 +364,13 @@ public class TareaService {
         }
 
         if (fullCommLog == null || fullCommLog.isEmpty()) {
-            LOGGER.error("Error on CreateFullComLog the response is empty");
-            return false;
+            //Entendemos que la respuesta vacia es correcta
+            //            <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+            //            <soapenv:Body>
+            //            <CreateFullCommLogResults xmlns="http://ws.wso2.org/dataservice"/>
+            //            </soapenv:Body>
+            //            </soapenv:Envelope>
+            return true;
         } else {
             if (fullCommLog.get(0).getX().equals("0")) {
                 return true;

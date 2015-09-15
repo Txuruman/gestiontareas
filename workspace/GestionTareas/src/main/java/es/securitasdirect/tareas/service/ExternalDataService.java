@@ -45,20 +45,6 @@ public class ExternalDataService {
     @Resource(name = "datosCierreTareaExcel")
     protected List<Pair> datosCierreTareaExcel;
 
-    /**
-     * Consulta de los valores para el combo Key1 de tareas de mantenimiento
-     */
-    public List<Pair> getDesplegableKey1() throws DataServiceFault {
-        LOGGER.debug("Calling for KEY1 query (for pull down combo)");
-        List<Pair> result = new ArrayList<Pair>();
-        List<GetKey1DIYResult> listaKey1 = spAioTareas2.getKey1DIY();
-        if (listaKey1 != null) {
-            for (GetKey1DIYResult getKey1DIYResult : listaKey1) {
-                result.add(new Pair(getKey1DIYResult.getSKey().intValue(), getKey1DIYResult.getText()));
-            }
-        }
-        return result;
-    }
 
     /**
      * Call for closing reason query
@@ -137,7 +123,7 @@ public class ExternalDataService {
      * @return
      */
     public String getNotificationTypeDescription(String idTipo) {
-        if (idTipo==null) return null;
+        if (idTipo == null) return null;
         try {
             for (Pair pair : getNotificationType()) {
                 if (pair.getId().equals(Integer.valueOf(idTipo))) {
@@ -149,7 +135,6 @@ public class ExternalDataService {
         }
         return null;
     }
-
 
 
     /**
@@ -172,13 +157,14 @@ public class ExternalDataService {
 
     /**
      * Devuelve la descripción de un Motivo de aviso dado el identificador de tipo y Motivo
+     *
      * @return
      */
     public String getNotificationTypeReasonDescription(String idTipo, String idMotivo) {
-        if (idTipo==null || idMotivo==null) return null;
+        if (idTipo == null || idMotivo == null) return null;
         try {
             for (BigIntegerPair pair : getTypeReasonList(Integer.valueOf(idTipo))) {
-                if (pair.getId().toString().equals(idMotivo) ) {
+                if (pair.getId().toString().equals(idMotivo)) {
                     return pair.getValue();
                 }
             }
@@ -187,6 +173,44 @@ public class ExternalDataService {
         }
         return null;
     }
+
+
+
+
+    /**
+     * Consulta de los valores para el combo Key1 de tareas de mantenimiento
+     */
+    public List<Pair> getDesplegableKey1() throws DataServiceFault {
+        LOGGER.debug("Calling for KEY1 query (for pull down combo)");
+        List<Pair> result = new ArrayList<Pair>();
+        List<GetKey1DIYResult> listaKey1 = spAioTareas2.getKey1DIY();
+        if (listaKey1 != null) {
+            for (GetKey1DIYResult getKey1DIYResult : listaKey1) {
+                result.add(new Pair(getKey1DIYResult.getSKey().intValue(), getKey1DIYResult.getText()));
+            }
+        }
+        return result;
+    }
+
+
+    /**
+     * Obtiene todos los datos de un Key1 por id para devolver el keyid
+     *
+     * @param skey
+     * @return
+     */
+    public String getKey1KeyId(Integer skey) throws DataServiceFault {
+        if (skey != null) {
+            List<GetKey1DIYResult> listaKey1 = spAioTareas2.getKey1DIY();
+            for (GetKey1DIYResult getKey1DIYResult : listaKey1) {
+                if (getKey1DIYResult.getSKey().intValue() == skey) {
+                    return getKey1DIYResult.getKeyid();
+                }
+            }
+        }
+        return null;
+    }
+
 
     /**
      * Consulta de los valores para el combo Key2 de tareas de mantenimiento
@@ -208,6 +232,22 @@ public class ExternalDataService {
             }
         }
         return result;
+    }
+
+    public String getKey2KeyId(Integer skey1,Integer skey2) throws DataServiceFault {
+        if (skey1 != null && skey2!=null) {
+            List<GetKey2DIYResult> listaKey2 = spAioTareas2.getKey2DIY(skey1);
+            if (listaKey2 != null) {
+                for (GetKey2DIYResult getKey2DIYResult : listaKey2) {
+                    //Viene un sublistado de valores, parece que siempre viene solo uno, así que cogemos el primero
+                    if (!getKey2DIYResult.getGetKeyDataResults().getGetKeyDataResult().isEmpty() &&
+                            getKey2DIYResult.getGetKeyDataResults().getGetKeyDataResult().get(0).getSKey().intValue()==skey2) {
+                        return getKey2DIYResult.getGetKeyDataResults().getGetKeyDataResult().get(0).getKeyid();
+                    }
+                }
+            }
+        }
+        return null;
     }
 
 

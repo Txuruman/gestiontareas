@@ -161,7 +161,8 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService, $
     		}
 		} 
     	
-    }
+    };
+
     /** Llamada a la función externa para realizar llamadas
      * 	DoCall
      */
