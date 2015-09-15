@@ -282,25 +282,25 @@ app.service('CommonService', function ($rootScope, $log, $http, $timeout) {
     /* quitado this. */
     this.processBaseResponse = function (data, status, headers, config) {
         //$log.debug("Procesando BaseResponse....");
-        if (data && data.messages) {
+        if ((data!=undefined && data.messages!=undefined) || (data.data!=undefined && data.data.messages!=undefined)) {
         	/**
         	 * For modificado para correcto funcionamiento en IE8
         	 * Original: for (var msg in data.messages) {
         	 */
-        	for (var msg=0;msg<data.messages.length; msg++) {
-                $rootScope.vm.serverMessages.push(data.messages[msg]);
+        	var mensajes=(data.messages) ? data.messages : data.data.messages;
+        
+        	for (var i=0;i<mensajes.length; i++) {
+                $rootScope.vm.serverMessages.push(mensajes[i]);
             }
-        	//Necesario para asignar las clases de la directiva alert (IE8)
-        	$timeout(function(){
-            	$('div[type="success"]').addClass("alert-success alert-dismissable");
-            	$('div[type="warning"]').addClass("alert-warning alert-dismissable");
-            	$('div[type="danger"]').addClass("alert-danger alert-dismissable");
-            },0);
-        }else if(status>=300){
-        	 $rootScope.vm.serverMessages.push("Error connecting with server. Please contact with your administrator.");
+        }else if(status!=200 || (data.status!=undefined && data.status!=200)){
+        	 $rootScope.vm.serverMessages.push({level: "danger", value: "Error connecting with server. Please contact with your administrator."});
         }
-        //TODO Control status ,etc si hay error meter mensajes
-        // TODO if($rootScope.serverMessages == )
+      //Necesario para asignar las clases de la directiva alert (IE8)
+        $timeout(function(){
+        	$('div[type="success"]').addClass("alert-success alert-dismissable");
+        	$('div[type="warning"]').addClass("alert-warning alert-dismissable");
+        	$('div[type="danger"]').addClass("alert-danger alert-dismissable");
+        },0);
     };
 
     // Disable weekend selection for calendar
