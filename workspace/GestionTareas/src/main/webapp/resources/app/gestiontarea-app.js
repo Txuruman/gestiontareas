@@ -296,6 +296,8 @@ app.service('CommonService', function ($rootScope, $log, $http, $timeout) {
             	$('div[type="warning"]').addClass("alert-warning alert-dismissable");
             	$('div[type="danger"]').addClass("alert-danger alert-dismissable");
             },0);
+        }else if(status>=300){
+        	 $rootScope.vm.serverMessages.push("Error connecting with server. Please contact with your administrator.");
         }
         //TODO Control status ,etc si hay error meter mensajes
         // TODO if($rootScope.serverMessages == )
