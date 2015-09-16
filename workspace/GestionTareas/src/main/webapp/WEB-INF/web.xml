@@ -19,8 +19,13 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
         <param-value>
             classpath:spring/applicationContext-bean.xml,
             classpath:spring/applicationContext-web.xml,
-            classpath:spring/applicationContext-ws.xml
+            classpath:spring/applicationContext-ws.xml,
+            classpath:spring/applicationContext-values.xml
         </param-value>
+        <!-- Ejemplo de configuracion de un fichero externo al paquete con ruta absoluta
+        file:/tmp/teamvision/applicationContext-values2.xml
+        -->
+        <!--    classpath:spring/applicationContext-values.xml   -->
     </context-param>
 
 

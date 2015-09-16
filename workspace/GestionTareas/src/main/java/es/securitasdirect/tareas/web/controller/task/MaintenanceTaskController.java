@@ -153,11 +153,6 @@ public class MaintenanceTaskController extends TaskController {
         PairListResponse response;
         try {
             List<DescriptionPair> cancelationTypeList = externalDataService.getCancelationTypeMaintenanceTask();
-            //Internacinalización de los mensajes
-            for (DescriptionPair descriptionPair : cancelationTypeList) {
-                descriptionPair.setValue(messageUtil.getProperty(descriptionPair.getValue()));
-                descriptionPair.setDescription(messageUtil.getProperty(descriptionPair.getDescription()));
-            }
             response = new PairListResponse();
             response.setPairList(cancelationTypeList);
         } catch (Exception e) {

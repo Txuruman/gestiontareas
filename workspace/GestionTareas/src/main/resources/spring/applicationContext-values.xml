@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans default-lazy-init="true" xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd d">
+    <description><![CDATA[
+		Configuración de valores estáticos de la aplicación.
+		Para poder extraer este fichero a una localización externa al empaquetado WAR modificar el fichero web.xml como se indica en los ejemplos.
+	]]></description>
+
+
+
+    <!-- Lista y valores del combo de Tipos de Cierre para Tareas de Tipo Mantenimiento -->
+    <util:list id="datosCierreTareaMantenimiento" value-type="es.securitasdirect.tareas.model.external.DescriptionPair" list-class="java.util.ArrayList">
+        <bean class="es.securitasdirect.tareas.model.external.DescriptionPair">
+            <property name="id" value="BTNDIY" />
+            <!-- El value es la clave de internacionalizacion del fichero messages.properties -->
+            <property name="value" value="Realizo cambio de pilas" />
+            <!-- El value es la clave de internacionalizacion del fichero messages.properties -->
+            <property name="description" value="Llamo a cliente por pulsación de botón. Realizamos cambio de pilas. Pruebas ok. Cierro mantenimiento GPD." />
+        </bean>
+        <bean class="es.securitasdirect.tareas.model.external.DescriptionPair">
+            <property name="id" value="BTNMTO" />
+            <property name="value" value="Abro mantenimiento" />
+            <property name="description" value="DIY - Abrir mantenimiento técnico" />
+        </bean>
+        <bean class="es.securitasdirect.tareas.model.external.DescriptionPair">
+            <property name="id" value="BTNERR" />
+            <property name="value" value="Pulsación Erronea" />
+            <property name="description" value="DIY - Llamo a cliente por pulsación de botón. Lo ha pulsado por error. Recuerdo horario para poder gestionar el cambio y lo enciendo de nuevo." />
+        </bean>
+    </util:list>
+
+
+    <!--
+        Datos cierre para tareas tipo excel, debería venir por WS pero de momento está configurado por spring
+        -->
+    <util:list id="datosCierreTareaExcel" value-type="es.securitasdirect.tareas.model.external.Pair" list-class="java.util.ArrayList">
+        <bean class="es.securitasdirect.tareas.model.external.Pair">
+            <property name="id" value="1" />
+            <property name="value" value="AVISO GESTIONADO" />
+        </bean>
+        <bean class="es.securitasdirect.tareas.model.external.Pair">
+            <property name="id" value="2" />
+            <property name="value" value="Compensacion" />
+        </bean>
+        <bean class="es.securitasdirect.tareas.model.external.Pair">
+            <property name="id" value="3" />
+            <property name="value" value="ACUERDO CON CLIENTE" />
+        </bean>
+        <bean class="es.securitasdirect.tareas.model.external.Pair">
+            <property name="id" value="4" />
+            <property name="value" value="NO PROCEDE APERTURA" />
+        </bean>
+        <bean class="es.securitasdirect.tareas.model.external.Pair">
+            <property name="id" value="5" />
+            <property name="value" value="DESMONTAJE" />
+        </bean>
+    </util:list>
+
+
+
+    <!--
+    Lista de los paises de AgentCountryJob que informa del CountryJob del Agente por ejemplo en AvisoService
+    -->
+    <util:map id="agentCountryJob" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.String" >
+        <entry key="SPAIN">
+            <value>1</value>
+        </entry>
+        <entry key="PORTUGAL">
+            <value>2</value>
+        </entry>
+        <entry key="FRANCE">
+            <value>3</value>
+        </entry>
+    </util:map>
+
+    <!--
+    Lista de los paises en formato corto
+    -->
+    <util:map id="mapCountryLongToCountryShort" map-class="java.util.HashMap" key-type="java.lang.String" value-type="java.lang.String" >
+        <entry key="SPAIN">
+            <value>es</value>
+        </entry>
+    </util:map>
+
+
+</beans>
