@@ -7,12 +7,6 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 
     <display-name>gestiontareas</display-name>
 
-    <!--
-        - Location of the XML file that defines the root application context.
-        - Applied by ContextLoaderListener.
-    -->
-
-    <!-- Cargar Librerias JSTL -->
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
@@ -22,10 +16,10 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
             classpath:spring/applicationContext-ws.xml,
             classpath:spring/applicationContext-values.xml
         </param-value>
-        <!-- Ejemplo de configuracion de un fichero externo al paquete con ruta absoluta
-        file:/tmp/teamvision/applicationContext-values2.xml
+        <!--
+        Ejemplo de configuracion de un fichero externo al paquete con ruta absoluta
+        file:/tmp/teamvision/applicationContext-values.xml
         -->
-        <!--    classpath:spring/applicationContext-values.xml   -->
     </context-param>
 
 
