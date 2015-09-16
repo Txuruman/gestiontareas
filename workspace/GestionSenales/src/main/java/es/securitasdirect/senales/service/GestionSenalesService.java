@@ -664,15 +664,15 @@ public class GestionSenalesService {
         // CLNAME	Config. CCL	Obtenido del getCallingListANDCampaing
         addStringArray(insertValues,"CLNAME",this.callingList);  //Configurado estatico en app
 
-        //Rellenar el campo "CUSTOM01" con la fecha y hora que viene en la señal
-        addStringArray(insertValues, "CUSTOM01", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(message.getEntryDate()));
+        //Rellenar el campo "CUSTOM01" con la fecha y hora que viene en la señal TODO FORMATO???
+        addStringArray(insertValues, "CUSTOM01", new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(message.getEntryDate()));
 
 
 
         // SEC_COMMENT	N/A	Vacío
         // NOTCALLID	N/A	Concatenación de instalación_DIY_telefono1
-        // F_CREACION_TAREA	Señal	Fecha / Hora del evento en formato dd/mm/aaaa hh:mm:ss
-        // Atributo “DataTime” de la etiqueta EVENTS
+        // F_CREACION_TAREA	Señal	Fecha / Hora del evento en formato dd/mm/aaaa hh:mm:ss //TODO Atributo “DataTime” de la etiqueta EVENTS que formato tiene este valor??? si queremos utilizarlo
+        addStringArray(insertValues, "F_CREACION_TAREA", new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(message.getEntryDate()));
 
 
         //Numeros de contacto
@@ -774,5 +774,27 @@ public class GestionSenalesService {
 
     public Date getUpTime() {
         return upTime;
+    }
+
+
+    /**
+     * Fecha desde String cuando es un valor EPOC.
+     * Le restamos dos horas porque lo que envian esta en UTC+2 Paris
+     *
+     * @param value
+     * @return
+     */
+    protected Date toDateEpocFromMap(String value) {
+        if (value == null || value.isEmpty()) {
+            return null;
+        } else {
+            try {
+                //Restamos dos horas
+                return new Date((Long.valueOf(value) - (2 * 60 * 60)) * 1000);
+            } catch (Exception e) {
+                LOGGER.error("Can't parse EPOC date from value {}", value, e);
+                return null;
+            }
+        }
     }
 }
