@@ -249,11 +249,8 @@ app.service('CommonService', function ($rootScope, $log, $http, $timeout) {
         //Variable global para mostrar mensajes
         serverMessages: [],
         appReady: true,
-        maxCaloriesPerDay: 2000,
         currentPage: 1,
         totalPages: 0,
-        originalMeals: [],
-        meals: [],
         isSelectionEmpty: true,
         errorMessages: [],
         infoMessages: []

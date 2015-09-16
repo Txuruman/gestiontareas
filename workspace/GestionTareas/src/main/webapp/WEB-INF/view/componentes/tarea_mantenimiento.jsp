@@ -123,7 +123,7 @@
                             <select  ng-model="tarea.key1" convert-to-number class="form-control" ng-change="getDesplegableKey2()" name="key1" required="true">
                                 <option data-ng-repeat="k in key1List" value="{{k.id}}" ng-selected="k.id==tarea.key1" >{{k.value}}</option>
                             </select>
-                            <span class="error" ng-show="formVisorTarea.key1.$error.required && verErrores==true"><spring:message code="error.pattern.hour"/></span>
+                            <span class="error" ng-show="formVisorTarea.key1.$error.required && verErrores==true"><spring:message code="error.notext"/></span>
                         </app:input>
                     </div>
                 </div>
@@ -133,7 +133,7 @@
                             <select  ng-model="tarea.key2" convert-to-number class="form-control" name="key2" required="true">
                                 <option data-ng-repeat="k in key2List" value="{{k.id}}" ng-selected="k.id==tarea.key2" >{{k.value}}</option>
                             </select>
-                            <span class="error" ng-show="formVisorTarea.key2.$error.required && verErrores==true"><spring:message code="error.pattern.hour"/></span>
+                            <span class="error" ng-show="formVisorTarea.key2.$error.required && verErrores==true"><spring:message code="error.notext"/></span>
                         </app:input>
                     </div>
                 </div>
