@@ -60,3 +60,6 @@ html{
 .ng-hide {
 	display: none !important;
 }
+.labelcent {
+	text-align:right;
+}
