@@ -329,7 +329,7 @@ public class TareaService {
         LOGGER.debug("Registering Commlog for task {}", tarea);
         String insNo = tarea.getNumeroInstalacion();
         String dealId = "0";//deal_id = 0  fijo
-        String source = "CT";  //CT  fijo
+        String source = "DIY";  // Al grabar el commlog de finalizar la Tarea, en el campo "source", en lugar de poner "CT" hay que poner "DIY".
         //Nuevos valores key1 y key2, por correo de Jesus Buera
         String key1 = externalDataService.getKey1KeyId(tarea.getKey1());
         String key2 = externalDataService.getKey2KeyId(tarea.getKey1(),tarea.getKey2());
