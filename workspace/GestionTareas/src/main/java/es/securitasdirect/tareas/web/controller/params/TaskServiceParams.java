@@ -84,15 +84,7 @@ public interface TaskServiceParams {
     public static String MAINTENANCE_SURVEY_TASK_DPTO_DESTINO = "DPTO_DESTINO";
 
 
-    public static String MAINTENANCE_SURVEY_TASK_INSTALACION = "INSTALACION";
-    public static String MAINTENANCE_SURVEY_TASK_TITULAR = ""; // WS GET INST
-    public static String MAINTENANCE_SURVEY_TASK_PERSONA_CONTACTO = "NOMBRE";
-    public static String MAINTENANCE_SURVEY_TASK_PANEL = ""; // WS GET INST
-    public static String MAINTENANCE_SURVEY_TASK_TELEFONO = "CONTACT_INFO";
-    public static String MAINTENANCE_SURVEY_TASK_VERSION = ""; //WS GET INST
-    public static String MAINTENANCE_SURVEY_TASK_MOTIVO_CIERRE = ""; //SE RELLENA EN PANTALLA
-    public static String MAINTENANCE_SURVEY_TASK_COMPENSACION = ""; //SE RELLENA EN PANTALLA
-    public static String MAINTENANCE_SURVEY_TASK = "F_CREACION_TAREA"; //CONFIRMAR
+
 
 
     /**
@@ -163,8 +155,8 @@ public interface TaskServiceParams {
     public static String TAREA_MANTENIMIENTO_TIPO_MANTENIMIENTO = "TIPO_MANTENIMIENTO";
     public static String TAREA_MANTENIMIENTO_DIRECCION = "DIRECCION";
     public static String TAREA_MANTENIMIENTO_CIUDAD = "CIUDAD";
-    public static String TAREA_MANTENIMIENTO_FECHAEVENTO_DATE_FORMAT = "yyyy-MM-dd hh:mm:ss";
-    public static String TAREA_MANTENIMIENTO_FECHAEVENTO= "F_CREACION_TAREA";
+    public static String TAREA_MANTENIMIENTO_FECHA_CREACION_TAREA_DATE_FORMAT = "yyyy-MM-dd hh:mm:ss";
+    public static String TAREA_MANTENIMIENTO_FECHA_CREACION_TAREA= "F_CREACION_TAREA";
     public static String TAREA_MANTENIMIENTO_AGENTEASIGNADO= "AGENT_ID";
     public static String TAREA_MANTENIMIENTO_TIPO_CANCELACION = "Tipo cancelacion";
     public static String TAREA_MANTENIMIENTO_TELEFONO_1 = "TELEFONO1";

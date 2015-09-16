@@ -349,7 +349,7 @@ public class TareaServiceTools {
         ;
         tarea.setCiudad(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_CIUDAD));
         tarea.setDireccion(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_DIRECCION));
-        tarea.setFechaEvento(toDateFromMap(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_FECHAEVENTO), TaskServiceParams.TAREA_MANTENIMIENTO_FECHAEVENTO_DATE_FORMAT));
+        tarea.setFechaEvento(toDateFromMap(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_FECHA_CREACION_TAREA), TaskServiceParams.TAREA_MANTENIMIENTO_FECHA_CREACION_TAREA_DATE_FORMAT));
 
         tarea.setKey1(toIntegerFromMap(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_KEY1)));
         tarea.setKey2(toIntegerFromMap(parameters.get(TaskServiceParams.TAREA_MANTENIMIENTO_KEY2)));
