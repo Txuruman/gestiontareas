@@ -132,7 +132,7 @@ public class TareaService {
      * @param agent
      * @param tarea
      */
-    public void finalizeMaintenanceTask(Agent agent, TareaMantenimiento tarea) throws Exception {
+    public void finalizeMaintenanceTask(Agent agent, TareaMantenimiento tarea, Integer lastCalledPhone) throws Exception {
         //Consultar la tarea de nuevo
         Tarea tareaRefrescada = (TareaMantenimiento) queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
         //Si no está en memoria se puede ejecutar
@@ -147,7 +147,7 @@ public class TareaService {
         closeIncidence(tarea.getNumeroInstalacion());
 
         //3. En Tarea de tipo Mantenimiento, al finalizar, ejecutar WS de grabar commlogs  de IBS con los datos de la pantalla.
-        registerCommlog(tarea);
+        registerCommlog(tarea, lastCalledPhone);
 
         //TODO Pendiente, cuando esté funcionando el Reporting de BI el dato Motivo de Cierre y Compensación deben de registrarse en la auditoria
 
@@ -325,7 +325,7 @@ public class TareaService {
      *
      * @return
      */
-    protected boolean registerCommlog(TareaMantenimiento tarea) throws Exception {
+    protected boolean registerCommlog(TareaMantenimiento tarea, Integer lastCalledPhone) throws Exception {
         LOGGER.debug("Registering Commlog for task {}", tarea);
         String insNo = tarea.getNumeroInstalacion();
         String dealId = "0";//deal_id = 0  fijo
@@ -340,7 +340,9 @@ public class TareaService {
         String resCode = "CERR"; //	res_code = CERR  fijo
         String longtext = tarea.getTextoCancelacion();  //	texto = texto de la cancelación
         String contactName = tarea.getPersonaContacto();  //	contact_name = persona de contacto
-        String contactPhone = tarea.getTelefono1();//TODO PENDIENTE	contact_phone = número de teléfono, del último llamado (entre los 3 que hay en la ventana). Si no ha pulsado ninguno, dejarlo vacío.
+        //String contactPhone = tarea.getTelefono1();
+        // contact_phone = número de teléfono, del último llamado (entre los 3 que hay en la ventana). Si no ha pulsado ninguno, dejarlo vacío.
+        String contactPhone = (lastCalledPhone != null) ? lastCalledPhone.toString() : "";
         String userid = "ATOMIC"; //	userid = “ATOMIC”  fijo
         List<CreateFullCommLogResult> fullCommLog;
         try {

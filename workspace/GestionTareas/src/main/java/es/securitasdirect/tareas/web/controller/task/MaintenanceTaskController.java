@@ -104,7 +104,7 @@ public class MaintenanceTaskController extends TaskController {
         BaseResponse response = new BaseResponse();
         //Llamada al servicio para finalizar
         try {
-            tareaService.finalizeMaintenanceTask(agentController.getAgent(), request.getTask());
+            tareaService.finalizeMaintenanceTask(agentController.getAgent(), request.getTask(), request.getLastCalledPhone());
             response.info(messageUtil.getProperty("finalize.success"));
         } catch (Exception e) {
             response = processException(e);
