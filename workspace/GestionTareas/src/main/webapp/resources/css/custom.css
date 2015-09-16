@@ -2,7 +2,12 @@ html, body{
 	max-width:1600px;
 	min-width:739px;
 }
-
+body{
+	width: 100%;
+}
+html{
+	width: 98.6%;
+}
 .spacer_t1 {
 	height: 5px;
 }
