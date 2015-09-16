@@ -21,6 +21,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.inject.Named;
 import javax.inject.Singleton;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -583,7 +584,6 @@ public class GestionSenalesService {
         String dialRule = null;  //	dial rule = vacío
         String timeFrom = null; //	timeFrom = vacío  tomará el de la campaña
         String timeUntil = null;    // 	timeUntil = vacío  tomará el de la campaña
-        String callingList = this.callingList; //Configurado estatico en app
         String campaign = this.campaign; //Configurado estatico en app
         String country = this.country; //Configurado estatico en app
         String ctrNo = null; //Numero de contrato de los datos de instalación
@@ -659,20 +659,14 @@ public class GestionSenalesService {
         }
 
         // IDIOMA	WS Tareas	GetInstallationDataResults / skill  quedándose con los tres primeros caracteres que son los del idioma (A alemán, I inglés, E español)
-        StringArray saIdioma = new StringArray();
-        insertValues.add(saIdioma);
-        saIdioma.getItem().add("IDIOMA");
-        saIdioma.getItem().add(mixedInstallationData.installationDataResultTareas.getSkill().substring(2, 3));
+        addStringArray(insertValues, "IDIOMA", mixedInstallationData.installationDataResultTareas.getSkill().substring(2, 3));
 
         // CLNAME	Config. CCL	Obtenido del getCallingListANDCampaing
-        StringArray saClName = new StringArray();
-        insertValues.add(saClName);
-        saClName.getItem().add("CLNAME");
-        saClName.getItem().add(this.callingList); //Configurado estatico en app);
+        addStringArray(insertValues,"CLNAME",this.callingList);  //Configurado estatico en app
 
-        //TODO FECHA EVENTO HORA EVENTO JNA
-//        	Fecha evento = fecha actual (recepción de la señal)
-//        	Hora evento = hora actual (recepción de la señal)
+        //Rellenar el campo "CUSTOM01" con la fecha y hora que viene en la señal
+        addStringArray(insertValues, "CUSTOM01", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(message.getEntryDate()));
+
 
 
         // SEC_COMMENT	N/A	Vacío
@@ -706,7 +700,7 @@ public class GestionSenalesService {
                 dialRule,
                 timeFrom,
                 timeUntil,
-                callingList,
+                callingList, //Configurado estatico en app
                 campaign,
                 numbers,
                 country,

@@ -139,20 +139,19 @@
 
 
     <!-- Work hours definitions, when outside the work hour the SMS will be sent -->
-
     <!-- Eight o'clok in the morning -->
     <bean id="startWorkHour" class="java.lang.Integer">
-        <constructor-arg value="8"/>
+        <constructor-arg value="9"/>
     </bean>
     <bean id="startWorkMinute" class="java.lang.Integer">
         <constructor-arg value="0"/>
     </bean>
-    <!-- Six thirty pm -->
+    <!-- 21 o'clock -->
     <bean id="endWorkHour" class="java.lang.Integer">
-        <constructor-arg value="18"/>
+        <constructor-arg value="21"/>
     </bean>
     <bean id="endWorkMinute" class="java.lang.Integer">
-        <constructor-arg value="30"/>
+        <constructor-arg value="0"/>
     </bean>
 
     <!-- Days to discard messages that had been delayed in the process. Any message older than this will not be processed -->
