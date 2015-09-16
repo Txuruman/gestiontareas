@@ -157,7 +157,7 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService, $
     $scope.asignarTextoCancelacion=function(){
     	for (var i = 0; i < $scope.cancelationTypeList.length; i++) {
     		if($scope.cancelationTypeList[i].id==$scope.tarea.cancelationTypeCombo){
-    			$scope.tarea.cancelationText=$scope.cancelationTypeList[i].description;
+    			$scope.tarea.textoCancelacion=$scope.cancelationTypeList[i].description;
     		}
 		} 
     	
@@ -185,4 +185,14 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService, $
 		e = window.external.DoCall(phone, 'myDoCallHandler', provideMockupObject());
 		//alert(JSON.stringify(e));
     }
+    $scope.compruebaTfno=function(){
+    	if($scope.otroTelefono!=undefined && $scope.otroTelefono!="" && $scope.otroTelefono!=null){
+//    		$scope.errorTel=false;
+    		$scope.lastCalledPhone=angular.copy($scope.otroTelefono);
+    		$scope.doCall($scope.otroTelefono);
+    	}else{
+//    		$scope.errorTel=true;
+    	}
+    }
+    
 });

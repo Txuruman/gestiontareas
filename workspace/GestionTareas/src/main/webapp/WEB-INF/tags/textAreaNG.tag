@@ -32,12 +32,9 @@
 
 
 <div class="col-lg-${cells} col-md-${cells} col-sm-${cells} col-xs-${cells}">
-    <div class="col-lg-${cells} col-md-${cells} col-sm-${cells} col-xs-${cells}">
-        <label class="col-lg-${cell_label} col-md-${cell_label} col-sm-${cell_label} col-xs-${cell_label} control-label labelcent ${required=='true'? 'label.required' : ''}">
-            <c:if test="${not empty label}"> <spring:message code='${label}'/> ${required=='true'? '*' : ''}:</c:if>
-        </label>
-    </div>
-
+    <label class="col-lg-${cell_label} col-md-${cell_label} col-sm-${cell_label} col-xs-${cell_label} control-label labelcent ${required=='true'? 'label.required' : ''}">
+        <c:if test="${not empty label}"> <spring:message code='${label}'/> ${required=='true'? '*' : ''}:</c:if>
+    </label>
     <div class="col-lg-${cell_input} col-md-${cell_input} col-sm-${cell_input} col-xs-${cell_input} <c:if test='${not empty clazz}'>${clazz}</c:if>">
         <textarea type="text" class="form-control custom-area" name="${id}" id="${id}"
                   maxlength="${maxlength}" rows="5"
