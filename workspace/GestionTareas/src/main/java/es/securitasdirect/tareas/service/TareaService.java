@@ -6,6 +6,7 @@ import com.webservice.WsResponse;
 import es.securitasdirect.tareas.exceptions.BusinessException;
 import es.securitasdirect.tareas.exceptions.FrameworkException;
 import es.securitasdirect.tareas.model.*;
+import es.securitasdirect.tareas.service.model.DiscardNotificationTaskResult;
 import es.securitasdirect.tareas.web.controller.params.TaskServiceParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -638,8 +639,9 @@ public class TareaService {
      * @return
      * @throws Exception
      */
-    public void discardNotificationTask(Agent agent, TareaAviso tarea, InstallationData installationData, boolean saveTicketIfRequired) throws Exception {
+    public DiscardNotificationTaskResult discardNotificationTask(Agent agent, TareaAviso tarea, InstallationData installationData, boolean saveTicketIfRequired) throws Exception {
 
+        DiscardNotificationTaskResult infoResult = new DiscardNotificationTaskResult();
 
         TareaAviso tareaRefrescada = (TareaAviso) queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
 
@@ -647,26 +649,34 @@ public class TareaService {
         if (installationData != null) {
             //Modificar aviso si es necesario
             if (saveTicketIfRequired && isTaskRequiresSaveModifications(tareaRefrescada, tarea)) {
-                avisoService.updateTicket(agent, (TareaAviso) tarea, installationData);
+                avisoService.updateTicket(agent, tarea, installationData);
+                infoResult.setTicketWasSaved(true);
             }
         } else {
             //Si no hay instalacion por error de datos
             LOGGER.warn("Can't update task because there was no installation found, the task will be finalized");
+            infoResult.setTaskWasFinalized(true);
             if (isTareaInMemory(tareaRefrescada)) {
+                infoResult.setWasInMemory(true);
                 // Finalizar Tarea en memoria
                 wsFinalizeInMemoryTask(agent, tarea);
             } else {
-                //Cancelar cuando está en memoria
+                infoResult.setWasInMemory(false);
+                //Cancelar cuando no está en memoria
                 wsFinalizeTask(agent, tarea);
             }
         } //Fin sin instalacion
 
         // si ha cambiado Tipo1 o Motivo1
         if (isChangedTipoOrMotivo(tareaRefrescada, tarea)) {
+            infoResult.setTaskWasFinalized(true);
+
             if (isTareaInMemory(tareaRefrescada)) {
+                infoResult.setWasInMemory(true);
                 // Finalizar Tarea en memoria
                 wsFinalizeInMemoryTask(agent, tarea);
             } else {
+                infoResult.setWasInMemory(false);
                 //Cancelar cuando no está en memoria
                 wsFinalizeTask(agent, tarea);
             }
@@ -681,6 +691,8 @@ public class TareaService {
                 wsRejectInMemoryTask(agent, tarea);
             }
         }
+
+        return infoResult;
     }
 
     /**

@@ -8,8 +8,10 @@ import es.securitasdirect.tareas.service.AvisoService;
 import es.securitasdirect.tareas.service.ExternalDataService;
 import es.securitasdirect.tareas.service.InstallationService;
 import es.securitasdirect.tareas.service.QueryTareaService;
+import es.securitasdirect.tareas.service.model.DiscardNotificationTaskResult;
 import es.securitasdirect.tareas.web.controller.AgentController;
 import es.securitasdirect.tareas.web.controller.TaskController;
+import es.securitasdirect.tareas.web.controller.dto.DiscardNotificationTaskResponse;
 import es.securitasdirect.tareas.web.controller.dto.request.GetInstallationAndTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.notificationtask.*;
 import es.securitasdirect.tareas.web.controller.dto.response.NotificationTaskResponse;
@@ -129,15 +131,15 @@ public class NotificationTaskController extends TaskController {
     @ResponseBody
     BaseResponse discardNotificationTask(@RequestBody DiscardNotificationTaskRequest request) {
         LOGGER.debug("Descartar tareaAviso\nRequest: {}", request);
-        BaseResponse response = new BaseResponse();
+        DiscardNotificationTaskResponse response = new DiscardNotificationTaskResponse();
         Agent agent = agentController.getAgent();
         try {
-            tareaService.discardNotificationTask(agent, request.getTask(), request.getInstallation(), true);
+            DiscardNotificationTaskResult discardNotificationTaskResult = tareaService.discardNotificationTask(agent, request.getTask(), request.getInstallation(), true);
+            response.setResult(discardNotificationTaskResult);
             response.success(messageUtil.getProperty("notificationTask.modify.success"));
         } catch (Exception e) {
-            response = processException(e);
+            return processException(e);
         }
-
 
         LOGGER.debug("Descartar tareaAviso\nResponse:{}", response);
         return response;
