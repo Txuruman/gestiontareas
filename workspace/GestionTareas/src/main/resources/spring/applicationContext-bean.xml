@@ -57,8 +57,6 @@
     </bean>
 
 
-
-
     <!--
     Lista de las calling list utilizadas por la aplicación y el mapeo a
     -->
@@ -119,10 +117,7 @@
                 <value>CL_CCT_XLS_ATC</value>
             </util:list>
         </entry>
-
-
     </util:map>
-
 
 
 
