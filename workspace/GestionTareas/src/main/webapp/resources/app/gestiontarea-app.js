@@ -216,7 +216,14 @@ app.controller('DatepickerDemoCtrl', function ($scope) {
 app.service('CommonService', function ($rootScope, $log, $http, $timeout) {
     var service=this;
 
-    
+    /**
+     * Método Descartar: Nos lleva a la página de buscar
+     * Variable _contextPath inicializada en commonImports
+     */
+    this.gotoSearch = function () {
+        $window.location.href = _contextPath + "/search";
+    };
+
     /**
      * Gestión del log de javascript
      * msg: mensaje a mostrar
@@ -232,16 +239,20 @@ app.service('CommonService', function ($rootScope, $log, $http, $timeout) {
     			$log[tipo](msg);
     		}
 		}
-    }
+    };
+
     this.logDebug=function(msg,variable) {
     	this.logger(msg,"debug",variable);
-    }
+    };
+
     this.logInfo=function(msg,variable) {
     	this.logger(msg,"info",variable);
-    }
+    };
+
     this.logError=function(msg,variable) {
     	this.logger(msg,"error",variable);
-    }
+    };
+
     /**FIN Gestión Error*/
     
     //Objeto global para almacenar

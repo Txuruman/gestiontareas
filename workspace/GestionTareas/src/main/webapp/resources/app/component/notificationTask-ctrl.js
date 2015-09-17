@@ -48,7 +48,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             if ($scope.fromSearch != "true") {
                 CommonService.closeInteraction({success:true});
             } else {
-                $scope.descartar();
+                CommonService.gotoSearch();
             }
         } else if ($scope.installationData == null || $scope.installationData == undefined) {
         	//Si no hay instalación llamamos a descartar aviso directamente porque entendemos que es un error
@@ -103,13 +103,14 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             } 
             //TODO: Si no hay cambios llamamos a la función javascript de descartar
             else {
-                /** Si no venimos de la pantalla de buscar cerramos la interacción,
+                /*
+                 *  Si no venimos de la pantalla de buscar cerramos la interacción,
                  *  en caso contrario volvemos a la pantalla de buscar
                  */
                 if ($scope.fromSearch != "true") {
                     $scope.descartaraviso($scope.tarea);
                 } else {
-                    $scope.descartar();
+                    CommonService.gotoSearch();
                 }
             }
         }
@@ -121,17 +122,6 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
 
         CommonService.logger('Delay to ' + delayDate + ' with recallType ' + recallType + ' task ' + JSON.stringify($scope.tarea), "info");
         if ($scope.tarea) {
-            //Creamos dos objetos temporales, nulleamos los atributos y comparamos
-//        	var temp1=angular.copy($scope.tarea);
-//        	var temp2=angular.copy($scope.tareaOriginal);
-//        	temp1.datosAdicionalesCierre=null;
-//        	temp2.datosAdicionalesCierre=null;
-//        	temp1.closing=null;
-//        	temp2.closing=null;
-//        	//Si son diferentes modificamos, utilizamos el objeto temporal para no sobreescribir los atributos de finalizar
-//        	if (!angular.equals(temp1, temp2)) {
-//        		$scope.modificar(temp1);
-//			}
             var postponeRequest = {
                 recallType: recallType,
                 delayDate: delayDate,
@@ -153,7 +143,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                     if ($scope.fromSearch != "true") {
                         CommonService.closeInteraction(data);
                     } else {
-                        $scope.descartar();
+                        CommonService.gotoSearch();
                     }
                 })
                 .error(function (data, status, headers, config) {
@@ -164,19 +154,38 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 });
         }
     };
-    
-    
-    /*** DESCARTAR ****/
+
+
+    /** Llamada al Servidor a la funcion descartaraviso */
     $scope.descartaraviso = function (tarea) {
+        $scope.callDescartarAvisoServer(false);
+    };
+
+    /** Llamada al Servidor a la funcion descartaraviso */
+    $scope.descartaravisosinsalvartarea = function () {
+        $scope.callDescartarAvisoServer(true);
+    };
+
+
+    /**
+     * Unica llamada REST al servidor para Descartar Aviso
+     */
+    $scope.callDescartarAvisoServer = function(sinSalvarTarea) {
         CommonService.logger('Descartar Tarea, tarea: ' + $scope.tarea, "debug");
         var modifyNotificationTaskRequest = {
             task: tarea,
             installation: $scope.installationData
         };
         CommonService.logger('Descartar Tarea, request ' + JSON.stringify(modifyNotificationTaskRequest), "debug");
+
+        var urlfinal = 'notificationtask/descartaraviso';
+        if (sinSalvarTarea) {
+            urlfinal='notificationtask/descartaravisosinsalvartarea';
+        }
+
         $http({
             method: 'PUT',
-            url: 'notificationtask/descartaraviso',
+            url: urlfinal,
             data: modifyNotificationTaskRequest
         })
             .success(function (data, status, headers, config) {
@@ -185,12 +194,12 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 /** Si no venimos de la pantalla de buscar cerramos la interacción,
                  *  en caso contrario volvemos a la pantalla de buscar
                  */
-                //variable error para poder volver atras en el descartar
+                    //variable error para poder volver atras en el descartar
                 $scope.error=!data.success;
                 if ($scope.fromSearch != "true") {
                     CommonService.closeInteraction(data);
                 } else {
-                    $scope.descartar();
+                    CommonService.gotoSearch();
                 }
             })
             .error(function (data, status, headers, config) {
@@ -201,40 +210,6 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 $scope.error=true;
             });
     };
-    
-    $scope.descartaravisosinsalvartarea = function () {
-        var modifyNotificationTaskRequest = {
-            task: $scope.tarea,
-            installation: $scope.installationData
-        };
-        $http({
-            method: 'PUT',
-            url: 'notificationtask/descartaravisosinsalvartarea',
-            data: modifyNotificationTaskRequest
-        })
-            .success(function (data, status, headers, config) {
-                CommonService.logger('Modificación de la tarea realizada, response: ' + JSON.stringify(data), "debug");
-                CommonService.processBaseResponse(data, status, headers, config);
-                /** Si no venimos de la pantalla de buscar cerramos la interacción,
-                 *  en caso contrario volvemos a la pantalla de buscar
-                 */
-                //variable error para poder volver atras en el descartar
-                $scope.error=!data.success;
-                if ($scope.fromSearch != "true") {
-                    CommonService.closeInteraction(data);
-                } else {
-                    $scope.descartar();
-                }
-            })
-            .error(function (data, status, headers, config) {
-                CommonService.logger('Error en la modificación de la tarea, response: ' + JSON.stringify(data), "debug");
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-                CommonService.processBaseResponse(data, status, headers, config);
-                $scope.error=true;
-            });
-    };
-    
     
    
 
@@ -364,7 +339,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                     if ($scope.fromSearch != "true") {
                         CommonService.closeInteraction(data);
                     } else {
-                        $scope.descartar();
+                        CommonService.gotoSearch();
                     }
                 } else {
                     //No cerramos o volvemos atras porque hay errores
@@ -419,7 +394,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 if ($scope.fromSearch != "true") {
                     CommonService.closeInteraction(data);
                 } else {
-                    $scope.descartar();
+                    CommonService.gotoSearch();
                 }
             })
             .error(function (data, status, headers, config) {
@@ -656,11 +631,5 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
         $scope.getInstallationAndTask();
     };
     
-    /**
-     * Método Descartar: Nos lleva a la página de buscar
-     * Variable _contextPath inicializada en commonImports
-     */
-    $scope.descartar = function () {
-        $window.location.href = _contextPath + "/search";
-    };
+
 });
