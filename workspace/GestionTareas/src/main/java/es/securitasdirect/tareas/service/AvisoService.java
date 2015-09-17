@@ -347,7 +347,7 @@ public class AvisoService {
             throw new FrameworkException(e);
         }
 
-        if (data != null && data.getERR() != null && data.getERR().getUPDATE()!=null && !data.getERR().getUPDATE().getCod().equals(0)) { //Repasado
+        if (data != null && data.getERR() != null && data.getERR().getUPDATE()!=null && data.getERR().getUPDATE().getCod().equals(0)) { //Repasado
             LOGGER.debug("Sucessfully updated Task {}", tareaAviso);
         } else {
             LOGGER.error("Error updating Task {}", tareaAviso);
