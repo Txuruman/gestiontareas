@@ -71,7 +71,7 @@ public class TareaService {
      * indicando también si es para el propio agente o para el grupo de la Campaña.
      * Comprueba si la tarea que llega es de tipo Aviso
      */
-    public void delayTask(Agent agent, Tarea tarea, Date schedTime, String recordType) throws Exception {
+    public void delayTask(Agent agent, Tarea tarea, Date schedTime, String recordType) {
         //Validar las horas
         if (schedTime == null || schedTime.getTime() - System.currentTimeMillis() < MIN_DELAY_TIME) {
             throw new BusinessException(BusinessException.ErrorCode.ERROR_DELAY_INCOMPATIBLE_DATE);
@@ -84,8 +84,6 @@ public class TareaService {
             this.delayOtherTask(agent, tarea, schedTime, recordType);
         }
     }
-
-
 
 
     /**
@@ -219,7 +217,7 @@ public class TareaService {
      * @return
      * @throws Exception
      */
-    public boolean delayNotificationTask(Agent agent, TareaAviso tarea, Date schedTime, String recordType) throws Exception {
+    public void delayNotificationTask(Agent agent, TareaAviso tarea, Date schedTime, String recordType) {
         //1. Buscamos los datos de la instalación de la tarea
         InstallationData installationData = installationService.getInstallationData(tarea.getNumeroInstalacion());
 
@@ -240,8 +238,8 @@ public class TareaService {
         }
 
         //4. Aplazar el Aviso, Si es de tipo Aviso hay que retrasar el aviso también
-        boolean delayed = avisoService.delayTicket(tarea.getIdAviso(), agent.getIdAgent(), schedTime);
-        return delayed;
+        avisoService.delayTicket(tarea.getIdAviso(), agent.getIdAgent(), schedTime);
+
     }
 
 
@@ -263,7 +261,7 @@ public class TareaService {
      * o	Recort_type = 5 (personal callback) / 6 (campaing callback)
      */
     public void delayOtherTask(Agent agent,
-                               Tarea tarea, Date schedTime, String recordType) throws Exception {
+                               Tarea tarea, Date schedTime, String recordType) {
         LOGGER.info("Delaying Task : {} {} {}", schedTime, recordType, tarea);
 
         //Consultar la tarea de nuevo
@@ -597,24 +595,23 @@ public class TareaService {
     }
 
 
-
     /**
      * Descarta Tareas de tipo excel.
      */
-    public void discardExcelTask(Agent agent, Tarea tarea, InstallationData installation) throws Exception{ //TODO QUITAR ESTA EXCEPCION
-        this.discardOtherTask(agent,tarea,installation);
+    public void discardExcelTask(Agent agent, Tarea tarea, InstallationData installation) throws Exception { //TODO QUITAR ESTA EXCEPCION
+        this.discardOtherTask(agent, tarea, installation);
     }
 
     /**
      * Descarta tareas de tipo mantenimiento
+     *
      * @param agent
      * @param tarea
      * @param installation
      */
     public void discardMaintenanceTask(Agent agent, Tarea tarea, InstallationData installation) throws Exception { //TODO QUITAR ESTA EXCEPCION
-        this.discardOtherTask(agent,tarea,installation);
+        this.discardOtherTask(agent, tarea, installation);
     }
-
 
 
     /**
@@ -684,8 +681,6 @@ public class TareaService {
                 wsRejectInMemoryTask(agent, tarea);
             }
         }
-
-
     }
 
     /**
@@ -696,7 +691,7 @@ public class TareaService {
      * @param installationData
      * @throws Exception
      */
-    public void discardOtherTask(Agent agent, Tarea tarea, InstallationData installationData) throws Exception {
+    public void discardOtherTask(Agent agent, Tarea tarea, InstallationData installationData) {
         Tarea tareaRefrescada = queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
         if (isTareaInMemory(tareaRefrescada)) {
             // Finalizar Tarea en memoria

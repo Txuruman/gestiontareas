@@ -1,6 +1,7 @@
 package es.securitasdirect.tareas.service;
 
 import es.securitasdirect.tareas.exceptions.BusinessException;
+import es.securitasdirect.tareas.exceptions.FrameworkException;
 import es.securitasdirect.tareas.model.InstallationData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +35,7 @@ public class InstallationService {
      * @return
      * @throws DataServiceFault
      */
-    public InstallationData getInstallationData(String installationNumber) throws DataServiceFault {
+    public InstallationData getInstallationData(String installationNumber)   {
         //Ejemplo simulacion instalacion no encontrado
         //installationNumber="0000011111";
         LOGGER.debug("Getting Installation Data by Service");
@@ -44,38 +45,43 @@ public class InstallationService {
         InstallationMember installationDataWS3 = null;
         Installationfulldataresult installationDataWS4 = null;
 
-        List<Mainstallationdataresult> installationDataWS1List = spInstallationMonData.getInstallationData(installationNumber);
-        if (installationDataWS1List != null && !installationDataWS1List.isEmpty()) {
-            installationDataWS1 = installationDataWS1List.get(0);
-            // Obtener la versión del panel
-            GetInstallationDataInput getInstallationDataInput = new GetInstallationDataInput();
-            getInstallationDataInput.setSIns(installationDataWS1.getSIns().intValue());
-            getInstallationDataInput.setSCtr(installationDataWS1.getSIns().intValue()); //Como segundo parametro metemos también el número de instalación , parece que con eso devuelve datos de número de contrato
-            installationDataWS2 = spAioTareas2.getInstallationData(getInstallationDataInput);
-        } else {
-            LOGGER.error("Can't find installation in SPAioTareas2");
-            throw new BusinessException(BusinessException.ErrorCode.ERROR_FIND_INSTALLATION);
-        }
+        try {
+            List<Mainstallationdataresult> installationDataWS1List = spInstallationMonData.getInstallationData(installationNumber);
+            if (installationDataWS1List != null && !installationDataWS1List.isEmpty()) {
+                installationDataWS1 = installationDataWS1List.get(0);
+                // Obtener la versión del panel
+                GetInstallationDataInput getInstallationDataInput = new GetInstallationDataInput();
+                getInstallationDataInput.setSIns(installationDataWS1.getSIns().intValue());
+                getInstallationDataInput.setSCtr(installationDataWS1.getSIns().intValue()); //Como segundo parametro metemos también el número de instalación , parece que con eso devuelve datos de número de contrato
+                installationDataWS2 = spAioTareas2.getInstallationData(getInstallationDataInput);
+            } else {
+                LOGGER.error("Can't find installation in SPAioTareas2");
+                throw new BusinessException(BusinessException.ErrorCode.ERROR_FIND_INSTALLATION);
+            }
 
-        List<GetMemberResult> memberList = fsmDataServiceLight.getMember(installationNumber);
-        if (memberList != null && !memberList.isEmpty() && memberList.get(0).getInstallationMemberResults() != null && memberList.get(0).getInstallationMemberResults().getInstallationMember() != null && !memberList.get(0).getInstallationMemberResults().getInstallationMember().isEmpty()) {
-            installationDataWS3 = memberList.get(0).getInstallationMemberResults().getInstallationMember().get(0);
-        } else {
-            LOGGER.error("Can't find installation in FsmDataServiceLight getMember");
-            throw new BusinessException(BusinessException.ErrorCode.ERROR_FIND_INSTALLATION);
-        }
+            List<GetMemberResult> memberList = fsmDataServiceLight.getMember(installationNumber);
+            if (memberList != null && !memberList.isEmpty() && memberList.get(0).getInstallationMemberResults() != null && memberList.get(0).getInstallationMemberResults().getInstallationMember() != null && !memberList.get(0).getInstallationMemberResults().getInstallationMember().isEmpty()) {
+                installationDataWS3 = memberList.get(0).getInstallationMemberResults().getInstallationMember().get(0);
+            } else {
+                LOGGER.error("Can't find installation in FsmDataServiceLight getMember");
+                throw new BusinessException(BusinessException.ErrorCode.ERROR_FIND_INSTALLATION);
+            }
 
-        List<GetInstallationResult> installationFSMList = fsmDataServiceLight.getInstallation(installationNumber);
-        if (installationFSMList != null && !installationFSMList.isEmpty() && !installationFSMList.get(0).getInstallationfulldataresults().getInstallationfulldataresult().isEmpty()) {
-              installationDataWS4 = installationFSMList.get(0).getInstallationfulldataresults().getInstallationfulldataresult().get(0);
-        } else {
-            LOGGER.error("Can't find installation in FsmDataServiceLight getInstallation");
-            throw new BusinessException(BusinessException.ErrorCode.ERROR_FIND_INSTALLATION);
-        }
+            List<GetInstallationResult> installationFSMList = fsmDataServiceLight.getInstallation(installationNumber);
+            if (installationFSMList != null && !installationFSMList.isEmpty() && !installationFSMList.get(0).getInstallationfulldataresults().getInstallationfulldataresult().isEmpty()) {
+                installationDataWS4 = installationFSMList.get(0).getInstallationfulldataresults().getInstallationfulldataresult().get(0);
+            } else {
+                LOGGER.error("Can't find installation in FsmDataServiceLight getInstallation");
+                throw new BusinessException(BusinessException.ErrorCode.ERROR_FIND_INSTALLATION);
+            }
 
-        InstallationData installationData = createInstallationData(installationDataWS1, installationDataWS2, installationDataWS3,  installationDataWS4);
-        LOGGER.debug("getInstallationData({}) : {}", installationNumber, installationData);
-        return installationData;
+            InstallationData installationData = createInstallationData(installationDataWS1, installationDataWS2, installationDataWS3, installationDataWS4);
+            LOGGER.debug("getInstallationData({}) : {}", installationNumber, installationData);
+            return installationData;
+        } catch (DataServiceFault e) {
+            LOGGER.error("Error searching installation data" , e);
+            throw new FrameworkException(e);
+        }
     }
 
 

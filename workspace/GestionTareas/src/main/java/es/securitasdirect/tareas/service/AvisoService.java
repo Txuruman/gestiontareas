@@ -21,6 +21,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
+import java.awt.*;
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -365,28 +366,25 @@ public class AvisoService {
      * @return
      * @throws Exception
      */
-    public boolean delayTicket(Integer naviso, String gblidusr, Date fhasta) throws Exception {
+    public void delayTicket(Integer naviso, String gblidusr, Date fhasta) {
 
         String cnota = ""; // constante
         String idaplaza = "APR"; // idaplaza tipo de aplazamiento: si lo admite, dejarlo vacío. Si no, poner “APR”
-        boolean result = false;
         try {
             List<RowErrorAA> rowErrorAAs = spAvisosOperaciones.aplazarAviso(naviso, gblidusr, idaplaza, new SimpleDateFormat("dd/MM/yyyy' 'HH:mm:ss").format(fhasta), cnota);
 
             if (rowErrorAAs != null && rowErrorAAs.size() == 1
                     && ((RowErrorAA) ((List) rowErrorAAs).get(0)).getReturnCode() != null
                     && ((RowErrorAA) ((List) rowErrorAAs).get(0)).getReturnCode().equals(new BigInteger("0"))) {
-                result = true;
             } else if (rowErrorAAs != null && !rowErrorAAs.isEmpty()) {
                 LOGGER.error("Error aplazando aviso {}", naviso);
-                result = false;
+                throw new BusinessException(BusinessException.ErrorCode.ERROR_DELAY_TICKET);
             }
 
         } catch (DataServiceFault e) {
             LOGGER.error("Error aplazando aviso", e);
-            return false;
+            throw new FrameworkException(e);
         }
-        return result;
 
     }
 
