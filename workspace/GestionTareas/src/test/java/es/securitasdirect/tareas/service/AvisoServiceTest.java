@@ -105,9 +105,8 @@ public class AvisoServiceTest {
 
         Integer naviso = tarea.getIdAviso();
         String gblidusr = agent.getIdAgent();
-        String idaplaza = "";
         Date fecha = new Date();
-        boolean ok = avisoService.delayTicket(naviso, gblidusr, idaplaza, fecha);
+        boolean ok = avisoService.delayTicket(naviso, gblidusr, fecha);
 
         assertThat(ok, is(true));
 

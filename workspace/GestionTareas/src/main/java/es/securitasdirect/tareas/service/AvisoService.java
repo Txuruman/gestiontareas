@@ -193,7 +193,7 @@ public class AvisoService {
         if (data.getERR() == null && data.getTICKET() != null && data.getTICKET().getNumTK() > 0) {
             LOGGER.debug("Sucessfully created Ticket");
         } else {
-            throw new BusinessException(BusinessException.ErrorCode.ERROR_FINALIZE_TASK, data.getERR().getDesc(), data.getERR().getCod());
+            throw new BusinessException(BusinessException.ErrorCode.ERROR_FINALIZE_TASK,  data.getERR()==null?"": data.getERR().getDesc(), data.getERR()==null?"": data.getERR().getCod());
         }
 
     }
@@ -347,7 +347,7 @@ public class AvisoService {
             throw new FrameworkException(e);
         }
 
-        if (data != null && data.getERR() != null && data.getERR().getCod().equals("0")) { //TODO  JNA REPASAR
+        if (data != null && data.getERR() != null && data.getERR().getUPDATE()!=null && !data.getERR().getUPDATE().getCod().equals(0)) { //Repasado
             LOGGER.debug("Sucessfully updated Task {}", tareaAviso);
         } else {
             LOGGER.error("Error updating Task {}", tareaAviso);
@@ -360,14 +360,15 @@ public class AvisoService {
     /**
      * @param naviso   nº de aviso
      * @param gblidusr matrícula del usuario: recibido de IWS en parámetro bp_agent
-     * @param idaplaza tipo de aplazamiento: si lo admite, dejarlo vacío. Si no, poner “APR”
+     * @param
      * @param fhasta   fecha a la que se aplaza dd/mm/aaaa
      * @return
      * @throws Exception
      */
-    public boolean delayTicket(Integer naviso, String gblidusr, String idaplaza, Date fhasta) throws Exception {
+    public boolean delayTicket(Integer naviso, String gblidusr, Date fhasta) throws Exception {
 
         String cnota = ""; // constante
+        String idaplaza = "APR"; // idaplaza tipo de aplazamiento: si lo admite, dejarlo vacío. Si no, poner “APR”
         boolean result = false;
         try {
             List<RowErrorAA> rowErrorAAs = spAvisosOperaciones.aplazarAviso(naviso, gblidusr, idaplaza, new SimpleDateFormat("dd/MM/yyyy' 'HH:mm:ss").format(fhasta), cnota);

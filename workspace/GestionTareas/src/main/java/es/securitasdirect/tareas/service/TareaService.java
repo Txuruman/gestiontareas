@@ -37,6 +37,9 @@ public class TareaService {
     //Tiempo mínimo de retraso de una tarea en milisegundos
     private static final long MIN_DELAY_TIME = 5 * 60 * 1000;
 
+    //Si se quiere simular que las tareas están en memoria cambiar a true, Atención!! No dejarlo a true nunca, solo para pruebas
+    private boolean SIMULATE_TASKS_IN_MEMORY = false;
+
     //Web Services para hacer pruebas directamente
     @Inject
     protected SPAVISOSOPERACIONESPortType spAvisosOperaciones;
@@ -268,7 +271,7 @@ public class TareaService {
         }
 
         //4. Aplazar el Aviso, Si es de tipo Aviso hay que retrasar el aviso también
-        boolean delayed = avisoService.delayTicket(tarea.getIdAviso(), agent.getIdAgent(), "", schedTime);
+        boolean delayed = avisoService.delayTicket(tarea.getIdAviso(), agent.getIdAgent(), schedTime);
         return delayed;
     }
 
@@ -716,6 +719,10 @@ public class TareaService {
      * @return
      */
     private boolean isTareaInMemory(Tarea tarea) {
+        if (SIMULATE_TASKS_IN_MEMORY) {
+            LOGGER.error("ATTENTION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\nThe Tasks are been simulated in memory\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!111");
+            return true;
+        }
         return tarea.isRetrieved();
     }
 
