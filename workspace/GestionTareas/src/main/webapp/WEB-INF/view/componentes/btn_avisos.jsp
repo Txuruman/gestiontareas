@@ -14,7 +14,7 @@
            		</button>
 
                 <!-- Crear Mantenimiento -->
-                <app:inputButtonNG value="boton.CrearMantenimiento" type="submit" button_type="default" ng_click="(formVisorTarea.$valid && tarea.datosAdicionalesCierre!=null && tarea.closing!=null)? crearmantenimiento() : muestraFinalizarRequired()" fluid_wrapper="true"
+                <app:inputButtonNG value="boton.CrearMantenimiento" type="submit" button_type="default" ng_click="(formVisorTarea.$valid && tarea.closing!=null)? crearmantenimiento() : muestraFinalizarRequired()" fluid_wrapper="true"
                                    ng_disabled="(tarea===undefined || tarea===null || installationData==null || installationData===undefined) ? true : false"/>
 
                 <!-- Aplazar, abre dialogo modal si ha cambiado algo -->
@@ -26,7 +26,7 @@
                 <!-- Añadir condición cuando haya motivos de cierre :  && tarea.closing!=null -->
 
                 <!-- Finalizar -->
-                <app:inputButtonNG value="boton.Finalizar" type="submit" button_type="primary" ng_click="(formVisorTarea.$valid && tarea.datosAdicionalesCierre!=null && tarea.closing!=null)? finalizar() : muestraFinalizarRequired()" fluid_wrapper="true"
+                <app:inputButtonNG value="boton.Finalizar" type="submit" button_type="primary" ng_click="(formVisorTarea.$valid && tarea.closing!=null)? finalizar() : muestraFinalizarRequired()" fluid_wrapper="true"
                                    ng_disabled="(tarea===undefined || tarea===null || installationData==null || installationData===undefined) ? true : false"/>
             </div>
         </div>
