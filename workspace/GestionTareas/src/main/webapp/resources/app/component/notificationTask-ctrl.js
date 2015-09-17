@@ -84,7 +84,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                     modalInstance.result.then(function () {
                         $scope.descartaraviso($scope.tarea);
                     }, function (param) {
-                        //Boton cancelar del Modal
+                        $scope.descartaravisosinsalvartarea();
                     });
                 }
             } else {
@@ -335,7 +335,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 });
         }
     };
-
+    
     $scope.descartaraviso = function (tarea) {
         CommonService.logger('Descartar Tarea, tarea: ' + $scope.tarea, "debug");
         var modifyNotificationTaskRequest = {
@@ -370,7 +370,41 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 $scope.error=true;
             });
     };
-
+    
+    $scope.descartaravisosinsalvartarea = function () {
+        var modifyNotificationTaskRequest = {
+            task: $scope.tarea,
+            installation: $scope.installationData
+        };
+        $http({
+            method: 'PUT',
+            url: 'notificationtask/descartaravisosinsalvartarea',
+            data: modifyNotificationTaskRequest
+        })
+            .success(function (data, status, headers, config) {
+                CommonService.logger('Modificación de la tarea realizada, response: ' + JSON.stringify(data), "debug");
+                CommonService.processBaseResponse(data, status, headers, config);
+                /** Si no venimos de la pantalla de buscar cerramos la interacción,
+                 *  en caso contrario volvemos a la pantalla de buscar
+                 */
+                //variable error para poder volver atras en el descartar
+                $scope.error=!data.success;
+                if ($scope.fromSearch != "true") {
+                    CommonService.closeInteraction(data);
+                } else {
+                    $scope.descartar();
+                }
+            })
+            .error(function (data, status, headers, config) {
+                CommonService.logger('Error en la modificación de la tarea, response: ' + JSON.stringify(data), "debug");
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                CommonService.processBaseResponse(data, status, headers, config);
+                $scope.error=true;
+            });
+    };
+    
+    
     $scope.refrescar = function () {
         $scope.getInstallationAndTask();
     };
