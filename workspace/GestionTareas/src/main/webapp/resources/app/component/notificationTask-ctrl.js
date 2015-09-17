@@ -34,7 +34,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
          */
         if ($scope.tarea == undefined || $scope.tarea == null || $scope.error==true) {
             if ($scope.fromSearch != "true") {
-                CommonService.closeInteraction(data);
+                CommonService.closeInteraction({success:true});
             } else {
                 $scope.descartar();
             }
@@ -142,6 +142,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
         })
             .error(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
+                $scope.error=true;
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
@@ -169,6 +170,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             .error(function (data, status, headers, config) {
                 CommonService.logger("Error loading Closing Type List", "error");
                 CommonService.processBaseResponse(data, status, headers, config);
+                $scope.error=true;
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
@@ -187,6 +189,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             })
             .error(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
+                $scope.error=true;
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
@@ -206,6 +209,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             })
             .error(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
+                $scope.error=true;
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
@@ -230,6 +234,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             })
             .error(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
+                $scope.error=true;
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
@@ -323,6 +328,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                     }
                 })
                 .error(function (data, status, headers, config) {
+                	$scope.error=true;
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
                     CommonService.processBaseResponse(data, status, headers, config);
@@ -389,6 +395,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 $scope.closeAgent();
             })
             .error(function (data, status, headers, config) {
+            	$scope.error=true;
                 CommonService.logger('Error en la creación de mantenimiento, response: ' + JSON.stringify(data), "debug");
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
@@ -460,7 +467,8 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                     }
                 }
             }, function (data, status, headers, config) {
-                CommonService.processBaseResponse(data, status, headers, config);
+            	$scope.error=true;
+            	CommonService.processBaseResponse(data, status, headers, config);
             });
 
 
@@ -501,10 +509,6 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
      */
     $scope.finalizar = function () {
         CommonService.logger("Finalizar task, task: ", "debug", $scope.tarea);
-        //Comparamos la tarea con el originar y si ha habido cambios modificamos.
-//    	if (!angular.equals($scope.tarea, $scope.tareaOriginal)) {
-//			$scope.modificar();
-//		}
         var finalizeRequest = {
             task: $scope.tarea,
             installation: $scope.installationData
@@ -597,7 +601,8 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             .error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
-                CommonService.processBaseResponse(data, status, headers, config);
+            	$scope.error=true;
+            	CommonService.processBaseResponse(data, status, headers, config);
                 CommonService.logger("Error finalizing task", "error");
             });
     };
