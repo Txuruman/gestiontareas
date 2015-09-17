@@ -4,6 +4,7 @@ import com.webservice.CCLIntegration;
 import com.webservice.CclResponse;
 import com.webservice.Item;
 import es.securitasdirect.tareas.exceptions.BusinessException;
+import es.securitasdirect.tareas.exceptions.FrameworkException;
 import es.securitasdirect.tareas.model.*;
 import es.securitasdirect.tareas.model.tareaexcel.*;
 import es.securitasdirect.tareas.web.controller.params.TaskServiceParams;
@@ -63,12 +64,12 @@ public class QueryTareaService {
      *
 
      */
-    public Tarea queryTarea(Agent agent, String callingList, String id) throws Exception {
+    public Tarea queryTarea(Agent agent, String callingList, String id)  {
         assert agent != null : "El Agente es parametro requerido";
         return queryTarea(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), callingList, id, null);
     }
 
-    public Tarea queryTarea(Agent agent, String callingList, Integer id) throws Exception {
+    public Tarea queryTarea(Agent agent, String callingList, Integer id)  {
         assert agent != null : "El Agente es parametro requerido";
         return queryTarea(agent.getIdAgent(), agent.getAgentCountryJob(), agent.getDesktopDepartment(), callingList, ""+id, null);
     }
@@ -77,7 +78,7 @@ public class QueryTareaService {
     protected Tarea queryTarea(String ccUserId, String country, String desktopDepartment,
                                String callingList,
                                String id,
-                               Map<String, String> parameters) throws Exception {
+                               Map<String, String> parameters) {
 
         assert country != null : "country es un parametro requerido";
         assert desktopDepartment != null : "desktopDepartment es un parametro requerido";
@@ -157,7 +158,7 @@ public class QueryTareaService {
                                                         String filter,
                                                         String callingList,
 
-                                                        String country) throws Exception {
+                                                        String country) {
         //WS Call
         CclResponse response = null;
         try {
@@ -171,7 +172,7 @@ public class QueryTareaService {
                     country);
         } catch (Exception e) {
             LOGGER.error("Error calling CCL checkCallingListContact.", e);
-            throw e;
+            throw new FrameworkException(e);
         }
 
         //Results Map
