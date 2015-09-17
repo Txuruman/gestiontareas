@@ -19,7 +19,6 @@ import es.securitasdirect.tareas.web.controller.dto.request.exceltask.keyboxtask
 import es.securitasdirect.tareas.web.controller.dto.request.maintenancetask.MaintenanceTaskCreateRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.maintenancetask.MaintenanceTaskFinalizeRequest;
 import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
-import es.securitasdirect.tareas.web.controller.dto.support.DummyResponseGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,38 +36,11 @@ import javax.inject.Inject;
 @RequestMapping("/keyboxtask")
 public class KeyboxTaskController extends TaskController {
 
-    @Inject
-    private QueryTareaService queryTareaService;
-    @Inject
-    private DummyResponseGenerator dummyResponseGenerator;
-    @Inject
-    private InstallationService installationDataService;
-    @Autowired
-    private AgentController agentController;
 
 
     private static final Logger LOGGER = LoggerFactory.getLogger(KeyboxTaskController.class);
 
-    /*
-    @RequestMapping(value = "/gettarea", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody TareaResponse getKeyboxTask(
-            @RequestParam(value = "ccUserId", required = true) String ccUserId,
-            @RequestParam(value = "callingList", required = true) String callingList,
-            @RequestParam(value = "tareaId", required = true) String tareaId
-    )  {
-        String SERVICE_MESSAGE = "keyboxtask.gettask";
-        TareaResponse response;
-        LOGGER.debug("Get keybox task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
-        try{
-            KeyboxTask tarea = (KeyboxTask) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-            response = processSuccessTask(tarea, SERVICE_MESSAGE);
-            LOGGER.debug("Keybox task obtained from service: \n{}", tarea);
-        }catch(Exception e){
-            response = processException(e, SERVICE_MESSAGE);
-        }
-        return response;
-    }
-    */
+
 
     @RequestMapping(value = "/aplazar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
@@ -79,7 +51,7 @@ public class KeyboxTaskController extends TaskController {
 
     @RequestMapping(value = "/descartar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody BaseResponse descartar(@RequestBody DiscardExcelTaskRequest request) {
-    	return super.discardTask(request.getTask(), request.getInstallation());
+    	return super.discardExcelTask(request.getTask(), request.getInstallation());
     }
 
 

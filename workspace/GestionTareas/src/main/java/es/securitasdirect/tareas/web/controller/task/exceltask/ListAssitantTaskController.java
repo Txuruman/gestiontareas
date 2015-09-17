@@ -9,12 +9,9 @@ import es.securitasdirect.tareas.web.controller.TaskController;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
 import es.securitasdirect.tareas.web.controller.dto.request.DiscardExcelTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.GetInstallationAndTaskRequest;
-import es.securitasdirect.tareas.web.controller.dto.request.exceltask.keyboxtask.PostponeKeyboxTaskRequest;
-import es.securitasdirect.tareas.web.controller.dto.request.exceltask.listadoassistanttask.DiscardListAssistantTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.exceltask.listadoassistanttask.FinalizeListAssistantTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.exceltask.listadoassistanttask.PostponeListAssistantTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
-import es.securitasdirect.tareas.web.controller.dto.support.DummyResponseGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +32,6 @@ public class ListAssitantTaskController extends TaskController {
     @Inject
     private QueryTareaService queryTareaService;
     @Inject
-    private DummyResponseGenerator dummyResponseGenerator;
-    @Inject
     private InstallationService installationDataService;
     @Autowired
     private AgentController agentController;
@@ -54,7 +49,7 @@ public class ListAssitantTaskController extends TaskController {
 
     @RequestMapping(value = "/descartar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody BaseResponse descartar(@RequestBody DiscardExcelTaskRequest request) {
-    	return super.discardTask(request.getTask(), request.getInstallation());
+    	return super.discardExcelTask(request.getTask(), request.getInstallation());
     }
 
 

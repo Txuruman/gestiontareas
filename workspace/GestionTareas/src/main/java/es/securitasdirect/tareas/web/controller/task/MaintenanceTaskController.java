@@ -16,7 +16,6 @@ import es.securitasdirect.tareas.web.controller.dto.request.maintenancetask.Main
 import es.securitasdirect.tareas.web.controller.dto.request.maintenancetask.MaintenanceTaskFinalizeRequest;
 import es.securitasdirect.tareas.web.controller.dto.response.PairListResponse;
 import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
-import es.securitasdirect.tareas.web.controller.dto.support.DummyResponseGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,39 +36,13 @@ import java.util.List;
 public class MaintenanceTaskController extends TaskController {
 
     @Inject
-    private QueryTareaService queryTareaService;
-    @Inject
-    private DummyResponseGenerator dummyResponseGenerator;
-    @Inject
     private ExternalDataService externalDataService;
-    @Inject
-    private InstallationService installationDataService;
     @Autowired
     private AgentController agentController;
 
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MaintenanceTaskController.class);
 
-    /*
-    @RequestMapping(value = "/gettarea", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody TareaResponse getMaintenanceTask(
-        @RequestParam(value = "ccUserId", required = true) String ccUserId,
-        @RequestParam(value = "callingList", required = true) String callingList,
-        @RequestParam(value = "tareaId", required = true) String tareaId
-    ) throws DataServiceFault {
-        LOGGER.debug("Get maintenance task for params: \nccUserId:{}\ncallingList:{}\ntareaId:{}", ccUserId, callingList, tareaId);
-        TareaResponse response;
-        String SERVICE_MESSAGE = "maintenancetask.gettarea";
-        try{
-            TareaMantenimiento tareaMantenimiento = (TareaMantenimiento) queryTareaService.queryTarea(ccUserId, callingList, tareaId);
-            response = processSuccessTask(tareaMantenimiento,SERVICE_MESSAGE);
-            LOGGER.debug("Maintenance task obtained from service: \n{}", tareaMantenimiento);
-        }catch(Exception e){
-            response = new TareaResponse(processException(e, SERVICE_MESSAGE));
-        }
-        return response;
-    }
-    */
 
     @RequestMapping(value = "/getInstallationAndTask", method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
@@ -78,21 +51,6 @@ public class MaintenanceTaskController extends TaskController {
         return super.getInstallationAndTask(request.getCallingList(),request.getTaskId(), request.getParams());
     }
 
-
-    @RequestMapping(value = "/create", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public
-    @ResponseBody
-    BaseResponse interactionCreateMaintenance(@RequestBody MaintenanceTaskCreateRequest peticion) {
-        LOGGER.debug("Creando tarea de mantenimiento:\nRequest: {}", peticion);
-        BaseResponse response = new BaseResponse();
-        if (true) {
-            response.success(messageUtil.getProperty("tareamantenimiento.create.success"));
-        } else {
-            response.danger(messageUtil.getProperty("tareamantenimiento.create.error"));
-        }
-        LOGGER.debug("Creación de tarea de mantenimiento:\nResponse {}", response);
-        return response;
-    }
 
 
     @RequestMapping(value = "/finalizar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})

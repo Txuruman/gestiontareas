@@ -57,27 +57,47 @@ public abstract class TaskController extends BaseController {
 
 
     /**
-     * Procesamiento generico para descartar una tarea
+     * Procesamiento generico para descartar una tarea excel
      *
      * @param task
      * @param installation
      * @return
      */
-    public BaseResponse discardTask(Tarea task, InstallationData installation) {
+    public BaseResponse discardExcelTask(Tarea task, InstallationData installation) {
         LOGGER.debug("Descartando tarea {} {} ", task, installation);
         BaseResponse response = new BaseResponse();
         //Llamada al servicio para aplazar
         try {
-        	Agent agent = agentController.getAgent();
-            tareaService.discardTask(agent, task, installation);
+            Agent agent = agentController.getAgent();
+            tareaService.discardExcelTask(agent, task, installation);
             response.info(messageUtil.getProperty("postpone.success"));
         } catch (Exception e) {
             response = processException(e);
         }
-        LOGGER.debug("Descartar tarea\nResponse:{}", response);
         return response;
     }
-    
+
+    /**
+     * Procesamiento generico para descartar una tarea excel
+     *
+     * @param task
+     * @param installation
+     * @return
+     */
+    public BaseResponse discardMaintenanceTask(Tarea task, InstallationData installation) {
+        LOGGER.debug("Descartando tarea {} {} ", task, installation);
+        BaseResponse response = new BaseResponse();
+        //Llamada al servicio para aplazar
+        try {
+            Agent agent = agentController.getAgent();
+            tareaService.discardMaintenanceTask(agent, task, installation);
+            response.info(messageUtil.getProperty("postpone.success"));
+        } catch (Exception e) {
+            response = processException(e);
+        }
+        return response;
+    }
+
     /**
      * Procesamiento generico para finalizar una tarea. No usar para Aviso ni mantenimiento.
      *

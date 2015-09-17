@@ -132,7 +132,28 @@ public class NotificationTaskController extends TaskController {
         BaseResponse response = new BaseResponse();
         Agent agent = agentController.getAgent();
         try {
-            tareaService.discardNotificationTask(agent, request.getTask(), request.getInstallation());
+            tareaService.discardNotificationTask(agent, request.getTask(), request.getInstallation(), true);
+            response.success(messageUtil.getProperty("notificationTask.modify.success"));
+        } catch (Exception e) {
+            response = processException(e);
+        }
+
+
+        LOGGER.debug("Descartar tareaAviso\nResponse:{}", response);
+        return response;
+    }
+
+
+
+    @RequestMapping(value = "/descartaravisosinsalvartarea", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public
+    @ResponseBody
+    BaseResponse discardNotificationWithoutSaveTask(@RequestBody DiscardNotificationTaskRequest request) {
+        LOGGER.debug("Descartar tareaAviso\nRequest: {}", request);
+        BaseResponse response = new BaseResponse();
+        Agent agent = agentController.getAgent();
+        try {
+            tareaService.discardNotificationTask(agent, request.getTask(), request.getInstallation(), false);
             response.success(messageUtil.getProperty("notificationTask.modify.success"));
         } catch (Exception e) {
             response = processException(e);

@@ -84,20 +84,10 @@ public class TareaService {
             this.delayOtherTask(agent, tarea, schedTime, recordType);
         }
     }
-    
-    /**
-     * Descartar: descartar las tareas
-     * Comprueba si la tarea que llega es de tipo Aviso
-     */
-    public void discardTask(Agent agent, Tarea tarea, InstallationData installation) throws Exception {
-        //Llamada a los discard
-        if (tarea instanceof TareaAviso) {
-            this.discardNotificationTask(agent, (TareaAviso) tarea, installation);
-        } else {
-            this.discardOtherTask(agent, tarea, installation);
-        }
-    }
-    
+
+
+
+
     /**
      * Finalizar la tarea, cualquier tipo menos TareaAviso y Tarea Mantenimiento
      *
@@ -208,22 +198,6 @@ public class TareaService {
 
     }
 
-    /**
-     * isTaskRequiresSaveModifications: Compara dos tareas
-     *
-     * @param t1
-     * @param t2
-     * @return
-     */
-
-    private boolean isTaskRequiresSaveModifications(TareaAviso t1, TareaAviso t2) {
-        return !t1.equalsSinDatosCierre(t2);
-    }
-
-
-    private boolean isChangedTipoOrMotivo(TareaAviso t1, TareaAviso t2) {
-        return !t1.equalsTipo1Motivo1(t2);
-    }
 
     /**
      * Función Aplazar específica para tareas de tipo aviso
@@ -252,12 +226,7 @@ public class TareaService {
         //2. Modificar Aviso si hace falta por haber cambiado los datos. Comprobamos si la tarea que nos pasa el front difiere con la de la BBDD, si es asi modificamos
         TareaAviso tareaRefrescada = (TareaAviso) queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
         if (isTaskRequiresSaveModifications(tareaRefrescada, tarea)) {
-            try {
-                avisoService.updateTicket(agent, tarea, installationData);
-            } catch (Throwable e) {
-                //TODO Repasar la exceptión
-                LOGGER.error("ELIMINAR ESTA CAPTURA DE EXCEPCIÓN");
-            }
+            avisoService.updateTicket(agent, tarea, installationData);
         }
 
         //3. Aplazar Tarea Comprobamos que la tarea no esté en memoria, para ello volvemos a buscar
@@ -335,7 +304,7 @@ public class TareaService {
         String source = "DIY";  // Al grabar el commlog de finalizar la Tarea, en el campo "source", en lugar de poner "CT" hay que poner "DIY".
         //Nuevos valores key1 y key2, por correo de Jesus Buera
         String key1 = externalDataService.getKey1KeyId(tarea.getKey1());
-        String key2 = externalDataService.getKey2KeyId(tarea.getKey1(),tarea.getKey2());
+        String key2 = externalDataService.getKey2KeyId(tarea.getKey1(), tarea.getKey2());
         String key3 = ""; //	key3 =  vacío
         String key4 = ""; //	key3 =  vacío
         String media = "TEL"; //	media = TEL  fijo
@@ -485,7 +454,6 @@ public class TareaService {
         saResult.getItem().add("0");
 
 
-
         WsResponse wsResponse = cclIntegration.updateCallingListContact(desktopDepartment, applicationUser, ccUserId, filter, modifyValues, callingLists, campaingns, contactInfo, country);
 
         if (wsResponse.getResultCode() == 200) {
@@ -577,6 +545,22 @@ public class TareaService {
         }
     }
 
+    /**
+     * isTaskRequiresSaveModifications: Compara dos tareas
+     *
+     * @param t1
+     * @param t2
+     * @return
+     */
+
+    private boolean isTaskRequiresSaveModifications(TareaAviso t1, TareaAviso t2) {
+        return !t1.equalsSinDatosCierre(t2);
+    }
+
+
+    private boolean isChangedTipoOrMotivo(TareaAviso t1, TareaAviso t2) {
+        return !t1.equalsTipo1Motivo1(t2);
+    }
 
     private XMLGregorianCalendar convertStringToXmlGregorian(String dateString) {
         try {
@@ -612,6 +596,27 @@ public class TareaService {
         return true;
     }
 
+
+
+    /**
+     * Descarta Tareas de tipo excel.
+     */
+    public void discardExcelTask(Agent agent, Tarea tarea, InstallationData installation) throws Exception{ //TODO QUITAR ESTA EXCEPCION
+        this.discardOtherTask(agent,tarea,installation);
+    }
+
+    /**
+     * Descarta tareas de tipo mantenimiento
+     * @param agent
+     * @param tarea
+     * @param installation
+     */
+    public void discardMaintenanceTask(Agent agent, Tarea tarea, InstallationData installation) throws Exception { //TODO QUITAR ESTA EXCEPCION
+        this.discardOtherTask(agent,tarea,installation);
+    }
+
+
+
     /**
      * Aqui se llega cuando alguien pulsa descartar.
      * Solo cuando es tarea de tipo aviso, para los demás no se hace nada más que volver a otra pantalla
@@ -625,28 +630,30 @@ public class TareaService {
      * 3.2 Finalizar tarea
      * 3.2.1 si está en memoria finalizar tarea ws ccl nuevo y cerrar interacción con javascript
      * 3.2.2 si no está en  memoria finalizar tarea ws ccl antiguo y volver a la ventana de buscar
-     * Descartar sin modificar campos:
+     * 4 Descartar sin modificar campos:
      * 1.1 si está en memoria descartarla con el ws ccl nuevo y cerrar interacción con javascript
      * 1.2 si no está en memoria volver a la ventana de buscar
      *
      * @param agent
      * @param tarea
      * @param installationData
+     * @param saveTicketIfRequired, indica si se quiere salvar el Ticket, solo cuando realmente se deba de salvar
      * @return
      * @throws Exception
      */
-    public void discardNotificationTask(Agent agent, TareaAviso tarea, InstallationData installationData) throws Exception {
+    public void discardNotificationTask(Agent agent, TareaAviso tarea, InstallationData installationData, boolean saveTicketIfRequired) throws Exception {
 
 
         TareaAviso tareaRefrescada = (TareaAviso) queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
 
         //Existe un caso en el que no viene instalacion porque no se ha encontrado, en este caso de error el descartar no actualiza la Tarea
         if (installationData != null) {
-            if (isTaskRequiresSaveModifications(tareaRefrescada, tarea)) {
+            //Modificar aviso si es necesario
+            if (saveTicketIfRequired && isTaskRequiresSaveModifications(tareaRefrescada, tarea)) {
                 avisoService.updateTicket(agent, (TareaAviso) tarea, installationData);
-            } 
-        }else {
-        	//Si no hay instalacion por error de datos
+            }
+        } else {
+            //Si no hay instalacion por error de datos
             LOGGER.warn("Can't update task because there was no installation found, the task will be finalized");
             if (isTareaInMemory(tareaRefrescada)) {
                 // Finalizar Tarea en memoria
@@ -680,25 +687,26 @@ public class TareaService {
 
 
     }
-    
+
     /**
      * Descartar para las tareas de tipo excell, finalizan la tarea
+     *
      * @param agent
      * @param tarea
      * @param installationData
      * @throws Exception
      */
     public void discardOtherTask(Agent agent, Tarea tarea, InstallationData installationData) throws Exception {
-    	Tarea tareaRefrescada = queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString()); 
-    	if (isTareaInMemory(tareaRefrescada)) {
-             // Finalizar Tarea en memoria
-             wsFinalizeInMemoryTask(agent, tarea);
-         } else {
-             //Cancelar cuando está en memoria
-             wsFinalizeTask(agent, tarea);
-         }
+        Tarea tareaRefrescada = queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
+        if (isTareaInMemory(tareaRefrescada)) {
+            // Finalizar Tarea en memoria
+            wsFinalizeInMemoryTask(agent, tarea);
+        } else {
+            //Cancelar cuando está en memoria
+            wsFinalizeTask(agent, tarea);
+        }
     }
-    
+
     private boolean isTaskRequiresFinalizeModifications(TareaAviso tarea) {
 
         boolean result = false;

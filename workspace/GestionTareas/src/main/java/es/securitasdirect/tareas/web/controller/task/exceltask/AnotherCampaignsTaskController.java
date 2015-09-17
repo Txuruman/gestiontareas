@@ -13,7 +13,6 @@ import es.securitasdirect.tareas.web.controller.dto.request.exceltask.anothercam
 import es.securitasdirect.tareas.web.controller.dto.request.exceltask.anothercampaigns.FinalizeAnotherCampaignsTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.exceltask.anothercampaigns.PostponeAnotherCampaignsTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
-import es.securitasdirect.tareas.web.controller.dto.support.DummyResponseGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,14 +30,6 @@ import javax.inject.Inject;
 @RequestMapping("/anothercampaignstask")
 public class AnotherCampaignsTaskController extends TaskController {
 
-    @Inject
-    private QueryTareaService queryTareaService;
-    @Inject
-    private DummyResponseGenerator dummyResponseGenerator;
-    @Inject
-    private InstallationService installationDataService;
-    @Autowired
-    private AgentController agentController;
 
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AnotherCampaignsTaskController.class);
@@ -54,7 +45,7 @@ public class AnotherCampaignsTaskController extends TaskController {
 
     @RequestMapping(value = "/descartar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody BaseResponse descartar(@RequestBody DiscardExcelTaskRequest request) {
-    	return super.discardTask(request.getTask(), request.getInstallation());
+    	return super.discardExcelTask(request.getTask(), request.getInstallation());
     }
 
 

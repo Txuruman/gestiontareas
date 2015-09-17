@@ -15,7 +15,6 @@ import es.securitasdirect.tareas.web.controller.dto.request.exceltask.marketings
 import es.securitasdirect.tareas.web.controller.dto.request.exceltask.marketingsurvey.FinalizeMarketingSurveyTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.exceltask.marketingsurvey.PostponeMarketingSurveyTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
-import es.securitasdirect.tareas.web.controller.dto.support.DummyResponseGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,19 +33,8 @@ import javax.inject.Inject;
 @RequestMapping("/marketingsurveytask")
 public class MarketingSurveyTaskController extends TaskController {
 
-    @Inject
-    private QueryTareaService queryTareaService;
-    @Inject
-    private InstallationService installationDataService;
-    @Inject
-    private DummyResponseGenerator dummyResponseGenerator;
-    @Autowired
-    private AgentController agentController;
-
-
     private static final Logger LOGGER = LoggerFactory.getLogger(MarketingSurveyTaskController.class);
-
-
+ 
 
     @RequestMapping(value = "/aplazar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public
@@ -58,7 +46,7 @@ public class MarketingSurveyTaskController extends TaskController {
 
     @RequestMapping(value = "/descartar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody BaseResponse descartar(@RequestBody DiscardExcelTaskRequest request) {
-    	return super.discardTask(request.getTask(), request.getInstallation());
+    	return super.discardExcelTask(request.getTask(), request.getInstallation());
     }
 
 
@@ -72,8 +60,6 @@ public class MarketingSurveyTaskController extends TaskController {
 
     /**
      * http://localhost:8080/gestiontareas/marketingsurveytask/getInstallationAndTask?installationId=111111&ccUserId=12187&callingList=CL_CCT_XLS_ENCUESTAS_MKT&tareaId=1
-     * @param callingList
-     * @param tareaId
      * @return
      */
     @RequestMapping(value = "/getInstallationAndTask", method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})

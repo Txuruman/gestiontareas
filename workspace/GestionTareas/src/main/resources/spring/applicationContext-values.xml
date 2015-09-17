@@ -4,7 +4,7 @@
        xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="
 			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
-			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd d">
+			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd">
     <description><![CDATA[
 		Configuración de valores estáticos de la aplicación.
 		Para poder extraer este fichero a una localización externa al empaquetado WAR modificar el fichero web.xml como se indica en los ejemplos.
