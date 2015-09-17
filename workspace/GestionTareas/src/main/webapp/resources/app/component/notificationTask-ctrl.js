@@ -52,7 +52,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             }
         } else if ($scope.installationData == null || $scope.installationData == undefined) {
         	//Si no hay instalación llamamos a descartar aviso directamente porque entendemos que es un error
-            $scope.descartaraviso($scope.tarea);
+            $scope.descartaraviso();
         } else {
             if (!angular.equals($scope.tarea, $scope.tareaOriginal)) {
                 /**Si hay cambios los siguientes campos son obligatorios:
@@ -95,7 +95,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
 
                     //Funciones para recibir el cierre ok y el cancel
                     modalInstance.result.then(function () {
-                        $scope.descartaraviso($scope.tarea);
+                        $scope.descartaraviso();
                     }, function (param) {
                         $scope.descartaravisosinsalvartarea();
                     });
@@ -108,7 +108,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                  *  en caso contrario volvemos a la pantalla de buscar
                  */
                 if ($scope.fromSearch != "true") {
-                    $scope.descartaraviso($scope.tarea);
+                    $scope.descartaraviso();
                 } else {
                     CommonService.gotoSearch();
                 }
@@ -157,7 +157,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
 
 
     /** Llamada al Servidor a la funcion descartaraviso */
-    $scope.descartaraviso = function (tarea) {
+    $scope.descartaraviso = function () {
         $scope.callDescartarAvisoServer(false);
     };
 
@@ -172,11 +172,11 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
      */
     $scope.callDescartarAvisoServer = function(sinSalvarTarea) {
         CommonService.logger('Descartar Tarea, tarea: ' + $scope.tarea, "debug");
-        var modifyNotificationTaskRequest = {
-            task: tarea,
+        var requestdata = {
+            task: $scope.tarea,
             installation: $scope.installationData
         };
-        CommonService.logger('Descartar Tarea, request ' + JSON.stringify(modifyNotificationTaskRequest), "debug");
+        CommonService.logger('Descartar Tarea, request ' + JSON.stringify(requestdata), "debug");
 
         var urlfinal = 'notificationtask/descartaraviso';
         if (sinSalvarTarea) {
@@ -186,7 +186,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
         $http({
             method: 'PUT',
             url: urlfinal,
-            data: modifyNotificationTaskRequest
+            data: requestdata
         })
             .success(function (data, status, headers, config) {
                 CommonService.logger('Modificación de la tarea realizada, response: ' + JSON.stringify(data), "debug");
