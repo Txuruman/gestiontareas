@@ -293,7 +293,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                     alert(resultado);
 
                     //Tras recibir el resultado de la otra ventana podemos cerrar la session de infopoint
-                    $scope.closeAgent();
+                    $scope.closeInfopointSession();
 
                     //TODO BOrrar, es para probar un resultado concreto
                     //resultado='{"AppointmentNumber":"1234","Status":0,"Message":"correcto"}';
@@ -421,7 +421,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     /**
      * Cierra la session de infopoint tras ejecutar el mantenimiento
      */
-    $scope.closeAgent = function () {
+    $scope.closeInfopointSession = function () {
         $http({
             method: 'GET',
             url: 'agent/closeInfopointSession'
