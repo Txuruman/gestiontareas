@@ -38,14 +38,37 @@ public class SplitService {
     public static final String MMS = "MMS";
 
 
-    @Inject
-    protected FSMSplitService wsFSMSplitService;
+//    @Inject
+//    protected FSMSplitService wsFSMSplitService;
     @Resource(name = "applicationUser")
     private String applicationUser;
+    @Inject
+    private AvisoService avisoService;
 
 
+    /**
+     * Hay un cambio fundamental en la creación de Mantenimientos: no se van a contemplar los Mantenimientos de tipo MMS, sólo los de tipo TOA.
+     * Es decir, ya no hay que realizar el Split, directamente se van a los de tipo SOA.
+     *
+     * @param agent
+     * @param tareaAviso
+     * @param installationData
+     * @return
+     */
     public String getMaintenanceApplication(Agent agent, TareaAviso tareaAviso, InstallationData installationData) {
-       //TODO DESCOMENTAR assert agent.getCurrentLanguage()!=null: "El campo currentLanguage del Agente es requerido";
+        String result = TOA;
+        if (result.equals(TOA)) {
+            //Si es tipo TOA hay que insertar el aviso mediante ws
+            avisoService.wsInsertDatosAvisoTOA(agent, tareaAviso,installationData);
+        }
+        return result;
+    }
+
+
+
+    /* Ejemplo llamada split service
+    public String getMaintenanceApplication(Agent agent, TareaAviso tareaAviso, InstallationData installationData) {
+        assert agent.getCurrentLanguage()!=null: "El campo currentLanguage del Agente es requerido";
         String country = "es" ; ///agent.getCurrentLanguage();//Ejemplo, debe venir 'es', no 'SPAIN'
         String app = applicationUser;
         String zipCode = installationData.getCodigoPostal();
@@ -97,6 +120,6 @@ public class SplitService {
         }
 
     }
-
+*/
 
 }

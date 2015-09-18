@@ -11,7 +11,12 @@
 </head>
 
 <frameset>
-    <frame src="${windowCreateMaintenace}?t=${params.t}&NINSTALACION=${params.NINSTALACION}&TIPOPANEL=${params.TIPOPANEL}&PAIS=${params.PAIS}&IDIOMA=${params.IDIOMA}&FINANCIACION=${params.FINANCIACION}&AVISO=${params.AVISO}&MATRICULA=${params.MATRICULA}&TIPOCIERRE=${params.TIPOCIERRE}&NOTACIERRE=${params.NOTACIERRE}&STATUSDESTINO=${params.STATUSDESTINO}&TIPODEUDA=${params.TIPODEUDA}&DATOSADIC=${params.DATOSADIC}&REPNAME=${params.REPNAME}&NOMBRE=${params.NOMBRE}&TELEFONO=${params.TELEFONO}&CALLTYPEPROBLEM=${params.CALLTYPEPROBLEM}&TEXTO=${params.TEXTO}">
+    <frame src="${windowCreateMaintenace}?InstallationNumber=${params.InstallationNumber}&dos=${params.InstallationNumber}&type=${params.type}&motive=${params.motive}&PanelTypeId=${params.PanelTypeId}&TicketNumber=${params.TicketNumber}&RequestedBy=${params.RequestedBy}&Operator=${params.Operator}&ContactPerson=${params.ContactPerson}&ContactPhone=${params.ContactPhone}&Text=${params.Text}&SessionToken=${params.SessionToken}">
+
+    <!--
+    Estos son los parametros que necesita MMS pero no se va ha desarrollar
+    &t=${params.t}&NINSTALACION=${params.NINSTALACION}&TIPOPANEL=${params.TIPOPANEL}&PAIS=${params.PAIS}&IDIOMA=${params.IDIOMA}&FINANCIACION=${params.FINANCIACION}&AVISO=${params.AVISO}&MATRICULA=${params.MATRICULA}&TIPOCIERRE=${params.TIPOCIERRE}&NOTACIERRE=${params.NOTACIERRE}&STATUSDESTINO=${params.STATUSDESTINO}&TIPODEUDA=${params.TIPODEUDA}&DATOSADIC=${params.DATOSADIC}&REPNAME=${params.REPNAME}&NOMBRE=${params.NOMBRE}&TELEFONO=${params.TELEFONO}&CALLTYPEPROBLEM=${params.CALLTYPEPROBLEM}&TEXTO=${params.TEXTO}
+    -->
 </frameset>
 
 </html>

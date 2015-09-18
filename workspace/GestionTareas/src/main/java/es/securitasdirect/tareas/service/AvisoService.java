@@ -459,4 +459,28 @@ public class AvisoService {
 
     }
 
+
+    protected void wsInsertDatosAvisoTOA(Agent agent, TareaAviso tareaAviso,InstallationData installationData) {
+        InsertDatosAvisoTOA parameters = new InsertDatosAvisoTOA();
+        parameters.setADICIONAL(tareaAviso.getDatosAdicionalesCierre());
+        parameters.setCNOTA(tareaAviso.getNota());
+        parameters.setNUMAVISO(tareaAviso.getIdAviso());
+        parameters.setDEUDA("0"); //TODO PENDIENTE; NO SE SABE QUE ES
+        parameters.setOPERADOR(agent.getAgentIBS()); //Matricula
+        parameters.setPAIS(agentCountryJob.get(agent.getAgentCountryJob())); //Es el numero del pais
+        parameters.setSTATUSDEST("3"); //TODO Pendiente de saber lo que es //Es un numero
+        parameters.setTCIERRE(tareaAviso.getClosing()); //Ejemplo MANTEN
+        try {
+            String insertDatosAvisoTOA = spAIOTAREAS2PortType.insertDatosAvisoTOA(parameters);
+            if (insertDatosAvisoTOA.equalsIgnoreCase("SUCCESSFUL")) {
+                LOGGER.debug("Insertada Tarea para llamada a TOA correctamente");
+            } else {
+                LOGGER.error("Error insertando Tarea para TOA");
+                throw new BusinessException(BusinessException.ErrorCode.ERROR_INSERT_TOA_TASK);
+            }
+        } catch (DataServiceFault e) {
+            LOGGER.error("No se han podido insertar los datos del Aviso para TOA", e);
+            throw new FrameworkException(e);
+        }
+    }
 }

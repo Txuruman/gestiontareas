@@ -237,7 +237,7 @@ public class EntryPointController extends TaskController {
 
 
     /**
-     * Redirige a la página que abre la ventana modal de Crear Mantenimiento en la aplicación externa TOA
+     * Redirige a la página que abre la ventana modal de Crear Mantenimiento en la aplicación externa MMS
      *
      * @param request
      * @param response

@@ -250,20 +250,16 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             tareaAviso: $scope.tarea
         };
         $http.put('commons/getCreateMaintenanceApp', CreateMaintenanceAppRequest)
-            .then(function (data, status, headers, config) {
+            .success(function (data, status, headers, config) {
                 //CommonService.processBaseResponse(data.data, status, headers, config);
 
-                if (data.app === undefined) {
-                    CommonService.processBaseResponse(data.data, status, headers, config);
-                }
-                //alert("Lo que devuelve createMaintenance" + JSON.stringify(data));
-                //TODO Aqui hay que controlar la excepción
-                else {
+                if (data.app === undefined) { //Si no sabemos a que aplicacion ir no abrimos nada
+                    CommonService.processBaseResponse(data, status, headers, config);
+                } else {
                     var url = "windowCreateMaintenanceFrame" + data.app;
 
-
                     //Parametros para TOA
-                    url += "?InstallationNumber=" + $scope.installationData.numeroInstalacion +
+                    url = url + "?InstallationNumber=" + $scope.installationData.numeroInstalacion +
                         "&PanelTypeId=" + $scope.installationData.panel +
                         "&TicketNumber=" + $scope.tarea.idAviso +
                         "&RequestedBy=" + $scope.tarea.requeridoPor +
@@ -275,24 +271,25 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                         "&type=" + $scope.tarea.tipoAviso1 +
                         "&motive=" + $scope.tarea.motivo1;
                     //Parametros para MMS
-                    url += "&t=" + agent.infopointSession +
-                        "&NINSTALACION=" + $scope.installationData.numeroInstalacion +
-                        "&TIPOPANEL=" + $scope.installationData.panel +
-                        "&PAIS=" + agent.agentCountryJob +
-                        "&IDIOMA=" + agent.currentLanguage +
-                        "&FINANCIACION=0" +
-                        "&AVISO=" + $scope.tarea.idAviso +
-                        "&MATRICULA=" + agent.agentIBS +
-                        "&TIPOCIERRE=" + $scope.tarea.closing +
-                        "&NOTACIERRE=" + $scope.tarea.nota +
-                        "&STATUSDESTINO=3" +
-                        "&TIPODEUDA=PENDIENTE" +
-                        "&DATOSADIC=" + $scope.tarea.datosAdicionalesCierre +
-                        "&REPNAME=" + $scope.tarea.requeridoPor +
-                        "&NOMBRE=" + $scope.installationData.personaContacto +
-                        "&TELEFONO=" + $scope.installationData.telefono +
-                        "&CALLTYPEPROBLEM=" + $scope.tarea.tipoAviso1 + "|" + $scope.tarea.motivo1 + "|1|" +
-                        "&TEXTO=" + $scope.tarea.observaciones;
+                    //url = "&t=" + agent.infopointSession +
+                    //    "&NINSTALACION=" + $scope.installationData.numeroInstalacion +
+                    //    "&TIPOPANEL=" + $scope.installationData.panel +
+                    //    "&PAIS=" + agent.agentCountryJob +
+                    //    "&IDIOMA=" + agent.currentLanguage +
+                    //    "&FINANCIACION=0" +
+                    //    "&AVISO=" + $scope.tarea.idAviso +
+                    //    "&MATRICULA=" + agent.agentIBS +
+                    //    "&TIPOCIERRE=" + $scope.tarea.closing +
+                    //    "&NOTACIERRE=" + $scope.tarea.nota +
+                    //    "&STATUSDESTINO=3" +
+                    //    "&TIPODEUDA=PENDIENTE" +
+                    //    "&DATOSADIC=" + $scope.tarea.datosAdicionalesCierre +
+                    //    "&REPNAME=" + $scope.tarea.requeridoPor +
+                    //    "&NOMBRE=" + $scope.installationData.personaContacto +
+                    //    "&TELEFONO=" + $scope.installationData.telefono +
+                    //    "&CALLTYPEPROBLEM=" + $scope.tarea.tipoAviso1 + "|" + $scope.tarea.motivo1 + "|1|" +
+                    //    "&TEXTO=" + $scope.tarea.observaciones;
+
                     var resultado = window.showModalDialog(url, null, "center:yes; resizable:yes; dialogWidth:900px; dialogHeight:700px;");
                     alert(resultado);
                     //TODO BOrrar, es para probar un resultado concreto
@@ -304,10 +301,11 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                         $scope.finalizarDesdeMantenimiento(null);
                     }
                 }
-            }, function (data, status, headers, config) {
+            })
+            .error (function (data, status, headers, config) {
             	$scope.error=true;
             	CommonService.processBaseResponse(data, status, headers, config);
-            });
+            })
 
 
     };

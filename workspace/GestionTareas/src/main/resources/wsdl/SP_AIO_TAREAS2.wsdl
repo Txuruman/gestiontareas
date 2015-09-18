@@ -239,6 +239,23 @@
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
+            <xs:element name="getTipoAplazamientos">
+                <xs:complexType>
+                    <xs:sequence/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="grpAplazamientos" type="ns0:grpAplazamientos"/>
+            <xs:complexType name="grpAplazamientos">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="grpAplazamiento" type="ns0:grpAplazamiento"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="grpAplazamiento">
+                <xs:sequence>
+                    <xs:element name="IDAPLAZA" nillable="true" type="xs:string"/>
+                    <xs:element name="DSAPLAZA" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
             <xs:element name="closeIncBTNDIY">
                 <xs:complexType>
                     <xs:sequence>
@@ -271,6 +288,20 @@
                 <xs:complexType>
                     <xs:sequence>
                         <xs:element name="naviso" nillable="true" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="insertDatosAvisoTOA">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="NUMAVISO" nillable="true" type="xs:int"/>
+                        <xs:element name="PAIS" nillable="true" type="xs:string"/>
+                        <xs:element name="OPERADOR" nillable="true" type="xs:string"/>
+                        <xs:element name="TCIERRE" nillable="true" type="xs:string"/>
+                        <xs:element name="CNOTA" nillable="true" type="xs:string"/>
+                        <xs:element name="STATUSDEST" nillable="true" type="xs:string"/>
+                        <xs:element name="DEUDA" nillable="true" type="xs:string"/>
+                        <xs:element name="ADICIONAL" nillable="true" type="xs:string"/>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
@@ -377,6 +408,12 @@
     <wsdl:message name="getClosingTypeAditionalDataResponse">
         <wsdl:part name="parameters" element="ns0:Entries"/>
     </wsdl:message>
+    <wsdl:message name="insertDatosAvisoTOARequest">
+        <wsdl:part name="parameters" element="ns0:insertDatosAvisoTOA"/>
+    </wsdl:message>
+    <wsdl:message name="insertDatosAvisoTOAResponse">
+        <wsdl:part name="parameters" element="ns0:REQUEST_STATUS"/>
+    </wsdl:message>
     <wsdl:message name="getContractNumberRequest">
         <wsdl:part name="parameters" element="ns0:getContractNumber"/>
     </wsdl:message>
@@ -428,6 +465,12 @@
     <wsdl:message name="inet_check_ctr_noResponse">
         <wsdl:part name="parameters" element="ns0:inet_check_ctr_no_results"/>
     </wsdl:message>
+    <wsdl:message name="getTipoAplazamientosRequest">
+        <wsdl:part name="parameters" element="ns0:getTipoAplazamientos"/>
+    </wsdl:message>
+    <wsdl:message name="getTipoAplazamientosResponse">
+        <wsdl:part name="parameters" element="ns0:grpAplazamientos"/>
+    </wsdl:message>
     <wsdl:portType name="SP_AIO_TAREAS2PortType">
         <wsdl:operation name="getTipoAviso">
             <wsdl:documentation>Consulta tipos de aviso de la tabla VW_TIPOS                                                                  &#xd;                                    </wsdl:documentation>
@@ -474,6 +517,12 @@
             <wsdl:input message="ns0:getClosingTypeAditionalDataRequest" wsaw:Action="urn:getClosingTypeAditionalData"/>
             <wsdl:output message="ns0:getClosingTypeAditionalDataResponse" wsaw:Action="urn:getClosingTypeAditionalDataResponse"/>
             <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:getClosingTypeAditionalDataDataServiceFault"/>
+        </wsdl:operation>
+        <wsdl:operation name="insertDatosAvisoTOA">
+            <wsdl:documentation/>
+            <wsdl:input message="ns0:insertDatosAvisoTOARequest" wsaw:Action="urn:insertDatosAvisoTOA"/>
+            <wsdl:output message="ns0:insertDatosAvisoTOAResponse" wsaw:Action="urn:insertDatosAvisoTOAResponse"/>
+            <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:insertDatosAvisoTOADataServiceFault"/>
         </wsdl:operation>
         <wsdl:operation name="getContractNumber">
             <wsdl:documentation/>
@@ -526,6 +575,12 @@
             <wsdl:input message="ns0:inet_check_ctr_noRequest" wsaw:Action="urn:inet_check_ctr_no"/>
             <wsdl:output message="ns0:inet_check_ctr_noResponse" wsaw:Action="urn:inet_check_ctr_noResponse"/>
             <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:inet_check_ctr_noDataServiceFault"/>
+        </wsdl:operation>
+        <wsdl:operation name="getTipoAplazamientos">
+            <wsdl:documentation/>
+            <wsdl:input message="ns0:getTipoAplazamientosRequest" wsaw:Action="urn:getTipoAplazamientos"/>
+            <wsdl:output message="ns0:getTipoAplazamientosResponse" wsaw:Action="urn:getTipoAplazamientosResponse"/>
+            <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:getTipoAplazamientosDataServiceFault"/>
         </wsdl:operation>
     </wsdl:portType>
     <wsdl:binding name="SP_AIO_TAREAS2SOAP11Binding" type="ns0:SP_AIO_TAREAS2PortType">
@@ -610,6 +665,18 @@
         </wsdl:operation>
         <wsdl:operation name="getClosingTypeAditionalData">
             <soap:operation soapAction="urn:getClosingTypeAditionalData" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="insertDatosAvisoTOA">
+            <soap:operation soapAction="urn:insertDatosAvisoTOA" style="document"/>
             <wsdl:input>
                 <soap:body use="literal"/>
             </wsdl:input>
@@ -722,6 +789,18 @@
                 <soap:fault use="literal" name="DataServiceFault"/>
             </wsdl:fault>
         </wsdl:operation>
+        <wsdl:operation name="getTipoAplazamientos">
+            <soap:operation soapAction="urn:getTipoAplazamientos" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
     </wsdl:binding>
     <wsdl:binding name="SP_AIO_TAREAS2SOAP12Binding" type="ns0:SP_AIO_TAREAS2PortType">
         <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
@@ -805,6 +884,18 @@
         </wsdl:operation>
         <wsdl:operation name="getClosingTypeAditionalData">
             <soap12:operation soapAction="urn:getClosingTypeAditionalData" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap12:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="insertDatosAvisoTOA">
+            <soap12:operation soapAction="urn:insertDatosAvisoTOA" style="document"/>
             <wsdl:input>
                 <soap12:body use="literal"/>
             </wsdl:input>
@@ -917,6 +1008,18 @@
                 <soap12:fault use="literal" name="DataServiceFault"/>
             </wsdl:fault>
         </wsdl:operation>
+        <wsdl:operation name="getTipoAplazamientos">
+            <soap12:operation soapAction="urn:getTipoAplazamientos" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap12:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
     </wsdl:binding>
     <wsdl:binding name="SP_AIO_TAREAS2HttpBinding" type="ns0:SP_AIO_TAREAS2PortType">
         <http:binding verb="POST"/>
@@ -982,6 +1085,15 @@
         </wsdl:operation>
         <wsdl:operation name="getClosingTypeAditionalData">
             <http:operation location="getClosingTypeAditionalData"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="insertDatosAvisoTOA">
+            <http:operation location="insertDatosAvisoTOA"/>
             <wsdl:input>
                 <mime:content type="text/xml" part="parameters"/>
             </wsdl:input>
@@ -1060,6 +1172,15 @@
         </wsdl:operation>
         <wsdl:operation name="inet_check_ctr_no">
             <http:operation location="inet_check_ctr_no"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getTipoAplazamientos">
+            <http:operation location="getTipoAplazamientos"/>
             <wsdl:input>
                 <mime:content type="text/xml" part="parameters"/>
             </wsdl:input>

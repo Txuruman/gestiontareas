@@ -166,66 +166,7 @@ public class NotificationTaskController extends TaskController {
         return response;
     }
 
-    @RequestMapping(value = "/crearmantenimiento", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public
-    @ResponseBody
-    BaseResponse modify(@RequestBody CreateMaintenanceNotificationTaskRequest request) {
-        LOGGER.debug("Crear mantenimiento\nRequest: {}", request);
-        BaseResponse response = new BaseResponse();
-        if (true) {
-            response.success(messageUtil.getProperty("notificationTask.createMaintenance.success"));
-        } else {
-            response.danger(messageUtil.getProperty("notificationTask.createMaintenance.error"));
-        }
-        LOGGER.debug("Creación de mantenimieto\nResponse:{}", response);
-        return response;
-    }
 
-    @RequestMapping(value = "/descartar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public
-    @ResponseBody
-    BaseResponse descartar(@RequestBody DiscardNotificationTaskRequest request) {
-        LOGGER.debug("Descartar\nRequest: {}", request);
-        BaseResponse response = new BaseResponse();
-        if (true) {
-            response.success(messageUtil.getProperty("notificationTask.discard.success"));
-        } else {
-            response.danger(messageUtil.getProperty("notificationTask.discard.error"));
-        }
-        LOGGER.debug("Descarte\nResponse:{}", response);
-        return response;
-    }
-
-
-    private NotificationTaskResponse toNotificationTaskResponse(TareaAviso tarea,
-                                                                InstallationData installationData,
-                                                                NotificationTaskResponse response) {
-        NotificationTaskResponse tareaResponse = new NotificationTaskResponse();
-        if (response != null) {
-            tareaResponse.addMessages(response.getMessages());
-        }
-        LOGGER.info("Process task response");
-        if (tarea != null) {
-            tareaResponse.setTarea(tarea);
-            tareaResponse.success(messageUtil.getProperty("task.success"));
-        } else {
-            tareaResponse.danger(messageUtil.getProperty("task.notFound"));
-        }
-
-        if (installationData != null) {
-            tareaResponse.setInstallationData(installationData);
-            tareaResponse.success(messageUtil.getProperty("installationData.success"));
-        } else {
-            tareaResponse.danger(messageUtil.getProperty("installationData.notFound"));
-        }
-
-        LOGGER.info("Task Response: {}", tareaResponse);
-        return tareaResponse;
-    }
-
-    private NotificationTaskResponse toNotificationTaskResponse(TareaAviso tarea, InstallationData installationData) {
-        return toNotificationTaskResponse(tarea, installationData, null);
-    }
 
 
 }
