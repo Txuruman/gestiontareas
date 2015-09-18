@@ -88,7 +88,14 @@ public class KeyboxTask extends TareaExcel {
         this.contrato = contrato;
     }
 
-
+    public String getTypeName(){
+    	return "TASK_TYPE_KEYBOX";
+    }
+    
+    public void setTypeName(String type){
+    	
+    }
+    
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("TareaKeybox{");

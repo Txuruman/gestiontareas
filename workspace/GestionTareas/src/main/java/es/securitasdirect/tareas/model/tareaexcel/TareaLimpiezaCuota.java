@@ -49,7 +49,13 @@ public class TareaLimpiezaCuota extends TareaExcel {
         this.contrato = contrato;
     }
 
-
+    public String getTypeName(){
+    	return "TASK_TYPE_LIMPIEZA_CUOTA";
+    }
+    
+    public void setTypeName(String type){
+    	
+    }
 
     @Override
     public String toString() {

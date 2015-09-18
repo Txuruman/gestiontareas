@@ -76,7 +76,35 @@
                     </tr>
                     <tr ng-repeat="t in taskList | orderBy : 'codigoCliente'">
                         <td>{{ t.numeroInstalacion }}</td>
-                        <td>{{ t.callingList }}</td>
+                        <td>
+                       		<div ng-show="t.typeName==='TASK_TYPE_GENERIC'">
+                        		<spring:message code="TASK_TYPE_GENERIC"/>
+                        	</div>
+                        	<div ng-show="t.typeName==='TASK_TYPE_AVISO'">
+                        		<spring:message code="TASK_TYPE_AVISO"/>
+                        	</div>
+                        	<div ng-show="t.typeName==='TASK_TYPE_EXCEL'">
+                        		<spring:message code="TASK_TYPE_EXCEL"/>
+                        	</div>
+                        	<div ng-show="t.typeName==='TASK_TYPE_MAINTENANCE'">
+                        		<spring:message code="TASK_TYPE_MAINTENANCE"/>
+                        	</div>
+                        	<div ng-show="t.typeName==='TASK_TYPE_KEYBOX'">
+                        		<spring:message code="TASK_TYPE_KEYBOX"/>
+                        	</div>
+                        	<div ng-show="t.typeName==='TASK_TYPE_MAINTENANCE_SURVEY'">
+                        		<spring:message code="TASK_TYPE_MAINTENANCE_SURVEY"/>
+                        	</div>
+                        	<div ng-show="t.typeName==='TASK_TYPE_LIMPIEZA_CUOTA'">
+                        		<spring:message code="TASK_TYPE_LIMPIEZA_CUOTA"/>
+                        	</div>
+                        	<div ng-show="t.typeName==='TASK_TYPE_ASSISTANT_LIST'">
+                        		<spring:message code="TASK_TYPE_ASSISTANT_LIST"/>
+                        	</div>
+                        	<div ng-show="t.typeName==='TASK_TYPE_ANOTHER_CAMPAINS'">
+                        		<spring:message code="TASK_TYPE_ANOTHER_CAMPAINS"/>
+                        	</div>
+                        </td>
                         <td>
                         	<div ng-show="t.estado===0">
                         		<spring:message code="searchTarea.table.status.status0"/>

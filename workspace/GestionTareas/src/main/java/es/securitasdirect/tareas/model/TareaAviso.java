@@ -272,7 +272,15 @@ public class TareaAviso extends Tarea {
 	public void setMotivo1Descripcion(String motivo1Descripcion) {
 		this.motivo1Descripcion = motivo1Descripcion;
 	}
-
+	
+	public String getTypeName(){
+    	return "TASK_TYPE_AVISO";
+    }
+    
+    public void setTypeName(String type){
+    	
+    }
+	
 	@Override
 	public String toString() {
 		final StringBuffer sb = new StringBuffer("TareaAviso{");

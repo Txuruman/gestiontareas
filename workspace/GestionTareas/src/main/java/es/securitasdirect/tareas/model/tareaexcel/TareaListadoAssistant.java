@@ -349,7 +349,15 @@ public class TareaListadoAssistant extends TareaExcel {
     public void setBoComentarios(String boComentarios) {
         this.boComentarios = boComentarios;
     }
-
+    
+    public String getTypeName(){
+    	return "TASK_TYPE_ASSISTANT_LIST";
+    }
+    
+    public void setTypeName(String type){
+    	
+    }
+    
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("TareaListadoAssistant{");
