@@ -73,22 +73,6 @@ public class GestionSenalesMessagesTest {
         gestionSenalesService.onMessageSynchonous(message);
     }
 
-    @Test
-    public void outofWorkinHour() throws Exception {
-        Message message = fileService.readMessage(exampleMessage.getFile());
-        message.setEntryDate(new Date());
-
-        Integer previousEndWorkHour = gestionSenalesService.endWorkHour;
-        Integer previousEndWorkMinute = gestionSenalesService.endWorkMinute;
-        //Machacamos las fechas para la prueba
-        gestionSenalesService.endWorkHour=gestionSenalesService.startWorkHour;
-        gestionSenalesService.endWorkMinute=gestionSenalesService.startWorkMinute;
-
-        gestionSenalesService.onMessageSynchonous(message);
-
-        gestionSenalesService.endWorkHour = previousEndWorkHour;
-        gestionSenalesService.endWorkMinute = previousEndWorkMinute;
-    }
 
 
     /**

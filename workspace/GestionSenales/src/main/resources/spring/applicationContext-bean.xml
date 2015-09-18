@@ -138,21 +138,6 @@
     </util:map>
 
 
-    <!-- Work hours definitions, when outside the work hour the SMS will be sent -->
-    <!-- Eight o'clok in the morning -->
-    <bean id="startWorkHour" class="java.lang.Integer">
-        <constructor-arg value="9"/>
-    </bean>
-    <bean id="startWorkMinute" class="java.lang.Integer">
-        <constructor-arg value="0"/>
-    </bean>
-    <!-- 21 o'clock -->
-    <bean id="endWorkHour" class="java.lang.Integer">
-        <constructor-arg value="21"/>
-    </bean>
-    <bean id="endWorkMinute" class="java.lang.Integer">
-        <constructor-arg value="0"/>
-    </bean>
 
     <!-- Days to discard messages that had been delayed in the process. Any message older than this will not be processed -->
     <bean id="daysToDiscardOldMessages" class="java.lang.Integer">
@@ -164,7 +149,7 @@
 
     <!-- ccIdentifier=grupo del agente (ej.”ATC_SPN”)  recibido del IWS en el parámetro bp_desktopDepartment -->
     <bean id="ccIdentifier" class="java.lang.String">
-        <constructor-arg value="ATC_SPN"/>
+        <constructor-arg value="ATC"/>
     </bean>
     <!--	applicationUser=”Tareas” -->
     <bean id="applicationUser" class="java.lang.String">

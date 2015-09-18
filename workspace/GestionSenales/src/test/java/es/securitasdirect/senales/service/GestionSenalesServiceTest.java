@@ -36,37 +36,7 @@ public class GestionSenalesServiceTest {
         assertThat(gestionSenalesService, notNullValue());
     }
 
-    @Test
-    public void workingHour() {
-        Date date = new Date();
-        date.setHours(5);
-        boolean workingHour = gestionSenalesService.isWorkingHours(date);
-        assertThat(workingHour, is(false));
 
-        date.setHours(20);
-        workingHour = gestionSenalesService.isWorkingHours(date);
-        assertThat(workingHour, is(false));
-
-        date.setHours(13);
-        workingHour = gestionSenalesService.isWorkingHours(date);
-        assertThat(workingHour, is(true));
-
-        date.setHours(7);
-        date.setMinutes(59);
-        workingHour = gestionSenalesService.isWorkingHours(date);
-        assertThat(workingHour, is(false));
-
-        date.setHours(18);
-        date.setMinutes(31);
-        workingHour = gestionSenalesService.isWorkingHours(date);
-        assertThat(workingHour, is(false));
-
-        date.setHours(18);
-        date.setMinutes(29);
-        workingHour = gestionSenalesService.isWorkingHours(date);
-        assertThat(workingHour, is(true));
-
-    }
 
     @Test
     public void testDiscarOldMessage() {

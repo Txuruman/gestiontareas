@@ -2,10 +2,7 @@ package es.securitasdirect.senales.service;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import com.webservice.CCLIntegration;
-import com.webservice.IclResponse;
-import com.webservice.ReturnData;
-import com.webservice.WsResponse;
+import com.webservice.*;
 import es.securitasdirect.senales.model.Message;
 import es.securitasdirect.senales.model.SignalMetadata;
 import es.securitasdirect.senales.model.SmsMessageLocation;
@@ -21,6 +18,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.inject.Named;
 import javax.inject.Singleton;
+import javax.jws.WebParam;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -113,16 +111,8 @@ public class GestionSenalesService {
     protected SPInstallationMonDataPortType wsSPInstallationMonData;
     @Autowired
     protected CCLIntegration cclIntegration;
-
-    //Working Hours
-    @Resource
-    protected Integer startWorkHour;
     @Autowired
-    protected Integer startWorkMinute;
-    @Autowired
-    protected Integer endWorkHour;
-    @Autowired
-    protected Integer endWorkMinute;
+    protected SPIBSCommlogDataPortType wsIBSCommlog;
 
     @Resource
     protected Integer daysToDiscardOldMessages;
@@ -224,7 +214,7 @@ public class GestionSenalesService {
         } else {
 
             try {
-                if (!isWorkingHours()) {
+                if (!isWorkingHours(message)) {
                     //Si la señal ha llegado fuera del horario de atención establecido
                     LOGGER.debug("Processing Out of working hours {}", message);
                     processMessageOutOfWorkingHours(message);
@@ -304,6 +294,8 @@ public class GestionSenalesService {
 
         //Envio del SMS al cliente
         sendSMSOutOfWorkingHours(message, installationData);
+        //Después de enviar el SMS, hay que enviar un comlog a IBS. Los datos son:
+        addComlogAfterSMS(message, installationData);
 
         //A continuación debe cancelar la incidencia en IBS, invocando un web service.
         boolean closeIncidence = closeIncidence(installationData);
@@ -394,8 +386,82 @@ public class GestionSenalesService {
             LOGGER.error("Error sending SMS {}-{}", wsResponse.getResultCode(), wsResponse.getResultMessage());
             return false;
         }
-
     }
+
+
+    /**
+     * Después de enviar el SMS, hay que enviar un comlog a IBS. Los datos son:
+     * ins_no = instalación
+     * deal_id = 0
+     * source = CT
+     * key1 = COM_PR
+     * key2, key3, key4 = vacíos
+     * media = BOT
+     * dir = O
+     * res_code = CERR
+     * texto = "Envío automático SMS DIY por pulsación del botón fuera de horario"
+     * contact_name = vacío
+     * contact_phone = teléfono de servicio
+     * userid = ATOMIC
+     */
+
+    private boolean addComlogAfterSMS(Message message, MixedInstallationData mixedInstallationData) {
+        LOGGER.debug("Registering Commlog after SMS {}", message);
+        String insNo = mixedInstallationData.installationDataResultTareas.getInsNo(); //ins_no = instalación
+        String dealId = "0";//deal_id = 0  fijo
+        String source = "CT"; //source = CT
+        String key1 = "COM_PR"; //key1 = COM_PR
+        String key2 = ""; //key2, key3, key4 = vacíos
+        String key3 = ""; //key2, key3, key4 = vacíos
+        String key4 = ""; //key2, key3, key4 = vacíos
+        String media = "BOT"; // media = BOT
+        String dir = "O"; //	dir = O  fijo
+        String resCode = "CERR"; //	res_code = CERR  fijo
+        String longtext = "Envío automático SMS DIY por pulsación del botón fuera de horario"; //texto = "Envío automático SMS DIY por pulsación del botón fuera de horario"
+        String contactName = ""; // contact_name = vacío
+        String contactPhone = mixedInstallationData.installationDataResultInstallation.getTelefonoServicio();
+        String userid = "ATOMIC";
+
+
+        List<CreateFullCommLogResult> fullCommLog;
+        try {
+            fullCommLog = wsIBSCommlog.createFullCommLog(insNo,
+                    dealId,
+                    source,
+                    key1,
+                    key2,
+                    key3,
+                    key4,
+                    media,
+                    dir,
+                    resCode,
+                    longtext,
+                    contactName,
+                    contactPhone,
+                    userid);
+        } catch (DataServiceFault e) {
+            LOGGER.error("Can't register CommLog {}", message, e);
+            return false;
+        }
+
+        if (fullCommLog == null || fullCommLog.isEmpty()) {
+            //Entendemos que la respuesta vacia es correcta
+            //            <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+            //            <soapenv:Body>
+            //            <CreateFullCommLogResults xmlns="http://ws.wso2.org/dataservice"/>
+            //            </soapenv:Body>
+            //            </soapenv:Envelope>
+            return true;
+        } else {
+            if (fullCommLog.get(0).getX().equals("0")) {
+                return true;
+            } else {
+                LOGGER.error("Error CrateFullComLog {}-{}", fullCommLog.get(0).getX(), fullCommLog.get(0).getComlogSComm());
+                return false;
+            }
+        }
+    }
+
 
     /**
      * Check if a message has been processed
@@ -455,35 +521,38 @@ public class GestionSenalesService {
     }
 
 
-    protected boolean isWorkingHours() {
-        return isWorkingHours(new Date());
-    }
-
     /**
-     * Checks if the actual time is in the working hours
+     * Para enviar el SMS, ya no se comprueba el horario. Se debe comprobar si hay agentes logados en el grupo.
+     * Hay que ejecutar el ws checkLoginAgentGroup de la CCL.
+     * Pero en el ejemplo que me han pasado da error. Cuando lo aclaren, habrá que ponerlo.
+     *
+     * @return
      */
-    protected boolean isWorkingHours(Date date) {
-        Calendar calendar = GregorianCalendar.getInstance(); // creates a new calendar instance
-        calendar.setTime(new Date());   // assigns calendar to given date
+    protected boolean isWorkingHours(Message message) {
+        //TODO REPASAR
+        String ccIdentifier = this.ccIdentifier;
+        String applicationUser = this.applicationUser;
+        String ccUserId = this.ccUserId;
+        String nameGroup = ""; //TODO DE DONDE SALE
+        String country = this.country;
 
-        calendar.set(Calendar.HOUR_OF_DAY, startWorkHour);
-        calendar.set(Calendar.MINUTE, startWorkMinute);
-        calendar.set(Calendar.SECOND, 0);
-        Date startWork = calendar.getTime();
-        if (startWork.after(date)) {
-            return false;
+        ChgResponse chgResponse = cclIntegration.checkLoginAgentGroup(ccIdentifier,
+                applicationUser,
+                ccUserId,
+                nameGroup,
+                country);
+
+        if (chgResponse.getNumLogin() > 0) {
+            return true;//Hay agentes trabajando
+        } else if (chgResponse.getOperationResult()!=null && chgResponse.getOperationResult().getResultCode()!=200) {
+            LOGGER.error("Error checking login agent {} {}", chgResponse.getOperationResult().getResultCode(),chgResponse.getOperationResult().getResultMessage());
+            throw new Exception("Error checking login agent " + chgResponse.getOperationResult().getResultCode() + " " chgResponse.getOperationResult().getResultMessage());
+        } else {
+            return false; //No hay nadie trabajando
         }
 
-        calendar.set(Calendar.HOUR_OF_DAY, endWorkHour);
-        calendar.set(Calendar.MINUTE, endWorkMinute);
-        calendar.set(Calendar.SECOND, 0);
-        Date endWork = calendar.getTime();
-        if (endWork.before(date)) {
-            return false;
-        }
-
-        return true;
     }
+
 
     /**
      * Check if the message is old enought to be discarted
@@ -591,7 +660,7 @@ public class GestionSenalesService {
             ctrNo = mixedInstallationData.installationDataResultTareas.getGetContractNumberResponse().getGetContractNumberResponses().get(0).getCtrNo();
         }
 
-        if (ctrNo==null) {
+        if (ctrNo == null) {
             LOGGER.warn("Can't find contract in installation data, will use the installation number for the contract");
             ctrNo = mixedInstallationData.installationDataResultInstallation.getInsNo();
         }
@@ -662,11 +731,10 @@ public class GestionSenalesService {
         addStringArray(insertValues, "IDIOMA", mixedInstallationData.installationDataResultTareas.getSkill().substring(2, 3));
 
         // CLNAME	Config. CCL	Obtenido del getCallingListANDCampaing
-        addStringArray(insertValues,"CLNAME",this.callingList);  //Configurado estatico en app
+        addStringArray(insertValues, "CLNAME", this.callingList);  //Configurado estatico en app
 
         //Rellenar el campo "CUSTOM01" con la fecha y hora que viene en la señal TODO FORMATO???
         addStringArray(insertValues, "CUSTOM01", new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(message.getEntryDate()));
-
 
 
         // SEC_COMMENT	N/A	Vacío

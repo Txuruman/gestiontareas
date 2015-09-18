@@ -1,0 +1,294 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:ns0="http://ws.wso2.org/dataservice" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://ws.wso2.org/dataservice">
+    <wsdl:documentation/>
+    <wsdl:types>
+        <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://ws.wso2.org/dataservice">
+            <xs:element name="DataServiceFault" type="xs:string"/>
+            <xs:element name="REQUEST_STATUS" type="xs:string"/>
+            <xs:element name="DATA_SERVICE_RESPONSE">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:any minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="new">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="s_ins" nillable="true" type="xs:int"/>
+                        <xs:element name="s_ctr" nillable="true" type="xs:int"/>
+                        <xs:element name="s_acc" nillable="true" type="xs:int"/>
+                        <xs:element name="cd" nillable="true" type="xs:string"/>
+                        <xs:element name="source" nillable="true" type="xs:string"/>
+                        <xs:element name="key1" nillable="true" type="xs:string"/>
+                        <xs:element name="key2" nillable="true" type="xs:string"/>
+                        <xs:element name="key3" nillable="true" type="xs:string"/>
+                        <xs:element name="key4" nillable="true" type="xs:string"/>
+                        <xs:element name="media" nillable="true" type="xs:string"/>
+                        <xs:element name="dir" nillable="true" type="xs:string"/>
+                        <xs:element name="fdt" nillable="true" type="xs:string"/>
+                        <xs:element name="agency" nillable="true" type="xs:string"/>
+                        <xs:element name="action" nillable="true" type="xs:string"/>
+                        <xs:element name="lien_date" nillable="true" type="xs:string"/>
+                        <xs:element name="descr" nillable="true" type="xs:string"/>
+                        <xs:element name="tp" nillable="true" type="xs:int"/>
+                        <xs:element name="s" nillable="true" type="xs:int"/>
+                        <xs:element name="res_code" nillable="true" type="xs:string"/>
+                        <xs:element name="sent_user" nillable="true" type="xs:string"/>
+                        <xs:element name="sent_dep" nillable="true" type="xs:string"/>
+                        <xs:element name="contact_name" nillable="true" type="xs:string"/>
+                        <xs:element name="contact_phone" nillable="true" type="xs:string"/>
+                        <xs:element name="userid" nillable="true" type="xs:string"/>
+                        <xs:element name="res_flg" nillable="true" type="xs:string"/>
+                        <xs:element name="key5" nillable="true" type="xs:string"/>
+                        <xs:element name="key6" nillable="true" type="xs:string"/>
+                        <xs:element name="stat" nillable="true" type="xs:string"/>
+                        <xs:element name="satis" nillable="true" type="xs:string"/>
+                        <xs:element name="prio" nillable="true" type="xs:string"/>
+                        <xs:element name="extstat" nillable="true" type="xs:string"/>
+                        <xs:element name="misc2" nillable="true" type="xs:string"/>
+                        <xs:element name="misc3" nillable="true" type="xs:string"/>
+                        <xs:element name="misc4" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="newcommlogresults" type="ns0:newcommlogresults"/>
+            <xs:complexType name="newcommlogresults">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="newcommlogresult" type="ns0:newcommlogresult"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="newcommlogresult">
+                <xs:sequence>
+                    <xs:element name="x" nillable="true" type="xs:string"/>
+                    <xs:element name="comlog_s_comm" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="CreateFullCommLog">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ins_no" nillable="true" type="xs:string"/>
+                        <xs:element name="deal_id" nillable="true" type="xs:string"/>
+                        <xs:element name="source" nillable="true" type="xs:string"/>
+                        <xs:element name="key1" nillable="true" type="xs:string"/>
+                        <xs:element name="key2" nillable="true" type="xs:string"/>
+                        <xs:element name="key3" nillable="true" type="xs:string"/>
+                        <xs:element name="key4" nillable="true" type="xs:string"/>
+                        <xs:element name="media" nillable="true" type="xs:string"/>
+                        <xs:element name="dir" nillable="true" type="xs:string"/>
+                        <xs:element name="res_code" nillable="true" type="xs:string"/>
+                        <xs:element name="longtext" nillable="true" type="xs:string"/>
+                        <xs:element name="contact_name" nillable="true" type="xs:string"/>
+                        <xs:element name="contact_phone" nillable="true" type="xs:string"/>
+                        <xs:element name="userid" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="CreateFullCommLogResults" type="ns0:CreateFullCommLogResults"/>
+            <xs:complexType name="CreateFullCommLogResults">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="CreateFullCommLogResult" type="ns0:CreateFullCommLogResult"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="CreateFullCommLogResult">
+                <xs:sequence>
+                    <xs:element name="x" nillable="true" type="xs:string"/>
+                    <xs:element name="comlog_s_comm" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="addText">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="s_comm" nillable="true" type="xs:int"/>
+                        <xs:element name="text" nillable="true" type="xs:string"/>
+                        <xs:element name="userid" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="commlogaddtextresults" type="ns0:commlogaddtextresults"/>
+            <xs:complexType name="commlogaddtextresults">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="commlogaddtextresult" type="ns0:commlogaddtextresult"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="commlogaddtextresult">
+                <xs:sequence>
+                    <xs:element name="return_code" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="CreateFullCommLogRequest">
+        <wsdl:part name="parameters" element="ns0:CreateFullCommLog"/>
+    </wsdl:message>
+    <wsdl:message name="CreateFullCommLogResponse">
+        <wsdl:part name="parameters" element="ns0:CreateFullCommLogResults"/>
+    </wsdl:message>
+    <wsdl:message name="DataServiceFault">
+        <wsdl:part name="parameters" element="ns0:DataServiceFault"/>
+    </wsdl:message>
+    <wsdl:message name="newRequest">
+        <wsdl:part name="parameters" element="ns0:new"/>
+    </wsdl:message>
+    <wsdl:message name="newResponse">
+        <wsdl:part name="parameters" element="ns0:newcommlogresults"/>
+    </wsdl:message>
+    <wsdl:message name="addTextRequest">
+        <wsdl:part name="parameters" element="ns0:addText"/>
+    </wsdl:message>
+    <wsdl:message name="addTextResponse">
+        <wsdl:part name="parameters" element="ns0:commlogaddtextresults"/>
+    </wsdl:message>
+    <wsdl:portType name="SP_IBSCommlogDataPortType">
+        <wsdl:operation name="CreateFullCommLog">
+            <wsdl:documentation/>
+            <wsdl:input message="ns0:CreateFullCommLogRequest" wsaw:Action="urn:CreateFullCommLog"/>
+            <wsdl:output message="ns0:CreateFullCommLogResponse" wsaw:Action="urn:CreateFullCommLogResponse"/>
+            <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:CreateFullCommLogDataServiceFault"/>
+        </wsdl:operation>
+        <wsdl:operation name="new">
+            <wsdl:input message="ns0:newRequest" wsaw:Action="urn:new"/>
+            <wsdl:output message="ns0:newResponse" wsaw:Action="urn:newResponse"/>
+            <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:newDataServiceFault"/>
+        </wsdl:operation>
+        <wsdl:operation name="addText">
+            <wsdl:input message="ns0:addTextRequest" wsaw:Action="urn:addText"/>
+            <wsdl:output message="ns0:addTextResponse" wsaw:Action="urn:addTextResponse"/>
+            <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:addTextDataServiceFault"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="SP_IBSCommlogDataSOAP11Binding" type="ns0:SP_IBSCommlogDataPortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="CreateFullCommLog">
+            <soap:operation soapAction="urn:CreateFullCommLog" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="new">
+            <soap:operation soapAction="urn:new" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="addText">
+            <soap:operation soapAction="urn:addText" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="SP_IBSCommlogDataSOAP12Binding" type="ns0:SP_IBSCommlogDataPortType">
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="CreateFullCommLog">
+            <soap12:operation soapAction="urn:CreateFullCommLog" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap12:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="new">
+            <soap12:operation soapAction="urn:new" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap12:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="addText">
+            <soap12:operation soapAction="urn:addText" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap12:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="SP_IBSCommlogDataHttpBinding" type="ns0:SP_IBSCommlogDataPortType">
+        <http:binding verb="POST"/>
+        <wsdl:operation name="CreateFullCommLog">
+            <http:operation location="CreateFullCommLog"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="new">
+            <http:operation location="new"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="addText">
+            <http:operation location="addText"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="SP_IBSCommlogData">
+        <wsdl:port name="SOAP11Endpoint" binding="ns0:SP_IBSCommlogDataSOAP11Binding">
+            <soap:address location="http://10.2.144.63:9763/services/SP_IBSCommlogData.SOAP11Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="LOCALSOAP11Endpoint" binding="ns0:SP_IBSCommlogDataSOAP11Binding">
+            <soap:address location="local:///services/SP_IBSCommlogData.LOCALSOAP11Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="SecureSOAP11Endpoint" binding="ns0:SP_IBSCommlogDataSOAP11Binding">
+            <soap:address location="https://10.2.144.63:9443/services/SP_IBSCommlogData.SecureSOAP11Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="LOCALSOAP12Endpoint" binding="ns0:SP_IBSCommlogDataSOAP12Binding">
+            <soap12:address location="local:///services/SP_IBSCommlogData.LOCALSOAP12Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="SecureSOAP12Endpoint" binding="ns0:SP_IBSCommlogDataSOAP12Binding">
+            <soap12:address location="https://10.2.144.63:9443/services/SP_IBSCommlogData.SecureSOAP12Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="SOAP12Endpoint" binding="ns0:SP_IBSCommlogDataSOAP12Binding">
+            <soap12:address location="http://10.2.144.63:9763/services/SP_IBSCommlogData.SOAP12Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="HTTPEndpoint" binding="ns0:SP_IBSCommlogDataHttpBinding">
+            <http:address location="http://10.2.144.63:9763/services/SP_IBSCommlogData.HTTPEndpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="SecureHTTPEndpoint" binding="ns0:SP_IBSCommlogDataHttpBinding">
+            <http:address location="https://10.2.144.63:9443/services/SP_IBSCommlogData.SecureHTTPEndpoint/"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
