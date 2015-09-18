@@ -230,7 +230,6 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 $scope.agent = data.agent;
                 CommonService.processBaseResponse(data, status, headers, config);
                 $scope.openMaintenaceWindow(data.agent);
-                $scope.closeAgent();
             })
             .error(function (data, status, headers, config) {
             	$scope.error=true;
@@ -292,6 +291,10 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
 
                     var resultado = window.showModalDialog(url, null, "center:yes; resizable:yes; dialogWidth:900px; dialogHeight:700px;");
                     alert(resultado);
+
+                    //Tras recibir el resultado de la otra ventana podemos cerrar la session de infopoint
+                    $scope.closeAgent();
+
                     //TODO BOrrar, es para probar un resultado concreto
                     //resultado='{"AppointmentNumber":"1234","Status":0,"Message":"correcto"}';
 
