@@ -140,7 +140,7 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService, $
                     if ($scope.fromSearch != "true") {
                         CommonService.closeInteraction(data);
                     } else {
-                        $scope.descartar();
+                    	CommonService.gotoSearch();
                     }
                 } else {
                     //Por errores no volvemos atras ni cerramos

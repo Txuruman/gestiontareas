@@ -127,7 +127,14 @@ public class MaintenanceSurveyTask extends TareaExcel {
     public void setDestinationDepartment(String destinationDepartment) {
         this.destinationDepartment = destinationDepartment;
     }
-
+    
+    public String getTypeName(){
+    	return "TASK_TYPE_MAINTENANCE_SURVEY";
+    }
+    
+    public void setTypeName(String type){
+    	
+    }
 
     @Override
     public String toString() {

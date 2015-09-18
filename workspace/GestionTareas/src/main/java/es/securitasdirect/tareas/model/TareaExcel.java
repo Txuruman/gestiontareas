@@ -36,5 +36,12 @@ public abstract class TareaExcel extends Tarea {
     public void setCompensation(String compensation) {
         this.compensation = compensation;
     }
-
+    
+    public String getTypeName(){
+    	return "TASK_TYPE_EXCEL";
+    }
+    
+    public void setTypeName(String type){
+    	
+    }
 }

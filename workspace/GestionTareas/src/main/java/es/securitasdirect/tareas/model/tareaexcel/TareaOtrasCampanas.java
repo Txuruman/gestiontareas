@@ -75,7 +75,14 @@ public class TareaOtrasCampanas extends TareaExcel {
         this.campo3 = campo3;
     }
 
-
+    public String getTypeName(){
+    	return "TASK_TYPE_ANOTHER_CAMPAINS";
+    }
+    
+    public void setTypeName(String type){
+    	
+    }
+    
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("TareaOtrasCampanas{");

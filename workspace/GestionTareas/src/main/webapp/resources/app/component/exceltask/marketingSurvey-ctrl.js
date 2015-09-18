@@ -101,7 +101,7 @@ app.controller('marketingsurveytask-ctrl', function ($scope, $http, CommonServic
                         if ($scope.fromSearch != "true") {
                             CommonService.closeInteraction(data);
                         } else {
-                            $scope.descartar();
+                            CommonService.gotoSearch();
                         }
                     } else {
                         //Por errores no volvemos atras ni cerramos
@@ -135,7 +135,7 @@ app.controller('marketingsurveytask-ctrl', function ($scope, $http, CommonServic
                 if ($scope.fromSearch != "true") {
                     CommonService.closeInteraction(data);
                 } else {
-                    $scope.descartar();
+                    CommonService.gotoSearch();
                 }
             })
             .error(function (data, status, headers, config) {
@@ -160,7 +160,7 @@ app.controller('marketingsurveytask-ctrl', function ($scope, $http, CommonServic
                 if ($scope.fromSearch != 'true') {
                     $scope.closeInteraction();
                 } else {
-                    $scope.descartar();
+                    CommonService.gotoSearch();
                 }
             }, function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
@@ -169,19 +169,12 @@ app.controller('marketingsurveytask-ctrl', function ($scope, $http, CommonServic
             if ($scope.fromSearch != 'true') {
                 $scope.closeInteraction();
             } else {
-                $scope.descartar();
+                CommonService.gotoSearch();
             }
         }
     };
 
-    /**
-     * Método Descartar: Nos lleva a la página de buscar
-     * Variable _contextPath inicializada en commonImports
-     */
-    $scope.descartar = function () {
-        $window.location.href = _contextPath + "/search";
-    };
-
+    
     $scope.closeInteraction = function () {
         CommonService.closeInteraction({success: true});
     }

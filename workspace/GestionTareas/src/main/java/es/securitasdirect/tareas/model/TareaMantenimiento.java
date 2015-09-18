@@ -226,7 +226,15 @@ public class TareaMantenimiento extends Tarea {
     public String getTextoCancelacion() {
         return textoCancelacion;
     }
-
+    
+    public String getTypeName(){
+    	return "TASK_TYPE_MAINTENANCE";
+    }
+    
+    public void setTypeName(String type){
+    	
+    }
+    
     @Override
     public String toString() {
         return "TareaMantenimiento{" +

@@ -21,7 +21,7 @@ public class Tarea {
         public static final int AGENT_ERROR_ = 6;
         public static final int MISSED_CALLBACK = 8;
     }
-
+    
     /**
      * Número de Instalación
      */
@@ -74,7 +74,7 @@ public class Tarea {
     private String outClName;
     private String outRecordHandle;
     private String outAgentPlace;
-
+    
     public Integer getId() {
         return id;
     }
@@ -191,7 +191,15 @@ public class Tarea {
     public void setOutAgentPlace(String outAgentPlace) {
         this.outAgentPlace = outAgentPlace;
     }
-
+    
+    public String getTypeName(){
+    	return "TASK_TYPE_GENERIC";
+    }
+    
+    public void setTypeName(String type){
+    	
+    }
+    
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("Tarea{");

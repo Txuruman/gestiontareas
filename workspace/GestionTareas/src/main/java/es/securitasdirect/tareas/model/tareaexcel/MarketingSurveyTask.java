@@ -31,6 +31,14 @@ public class MarketingSurveyTask extends TareaExcel {
     public void setMotivo(String motivo) {
         this.motivo = motivo;
     }
+    
+    public String getTypeName(){
+    	return "TASK_TYPE_MARKETING_SURVEY";
+    }
+    
+    public void setTypeName(String type){
+    	
+    }
 
     @Override
     public String toString() {
