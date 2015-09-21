@@ -176,7 +176,7 @@
     <!-- Número de telefono para el envío de SMS para pruebas, sobreescribirá el telefono del cliente.
      En producción dejarlo en blanco.-->
     <bean id="smsTestPhone" class="java.lang.String">
-        <constructor-arg value=""/>
+        <constructor-arg value="+34638042257"/>
     </bean>
 
 

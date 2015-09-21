@@ -162,8 +162,11 @@ public class TareaService {
 
 
         //5. Si hay que abrir ventana de mantenimiento en la respuesta debe de ir la session de infopoint y la URL
-        if (result.isOpenMaintenanceWindow() && agent.getInfopointSession() == null) { //Si el agente no tiene session la creamos
-            infopointService.createSession(agent);
+        if (result.isOpenMaintenanceWindow()) {
+            //Si el agente no tiene session la creamos
+            if ( agent.getInfopointSession() == null) {
+                infopointService.createSession(agent);
+            }
             result.setOpenMaintenanceWindowURL(prepareExternalCreateMaintenanceURLFinalizeMaintenanceTask(tarea, agent));
         }
 
@@ -676,6 +679,7 @@ public class TareaService {
 
         //Existe un caso en el que no viene instalacion porque no se ha encontrado, en este caso de error el descartar no actualiza la Tarea
         if (installationData != null) {
+            LOGGER.debug("There is no installation in the task {}", tarea);
             //Modificar aviso si es necesario
             if (saveTicketIfRequired && isTaskRequiresSaveModifications(tareaRefrescada, tarea)) {
                 avisoService.updateTicket(agent, tarea, installationData);
