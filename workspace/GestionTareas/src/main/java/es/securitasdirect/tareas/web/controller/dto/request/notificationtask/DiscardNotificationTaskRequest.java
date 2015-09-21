@@ -15,7 +15,7 @@ public class DiscardNotificationTaskRequest extends BaseRequest {
     private TareaAviso task;
     private InstallationData installation;
     private boolean isCallDone;
-
+    private boolean withInteaction;
 
     public DiscardNotificationTaskRequest() {
     }
@@ -47,12 +47,20 @@ public class DiscardNotificationTaskRequest extends BaseRequest {
 	public void setCallDone(boolean isCallDone) {
 		this.isCallDone = isCallDone;
 	}
+	
+	
+	public boolean isWithInteaction() {
+		return withInteaction;
+	}
+
+	public void setWithInteaction(boolean withInteaction) {
+		this.withInteaction = withInteaction;
+	}
 
 	@Override
 	public String toString() {
 		return "DiscardNotificationTaskRequest [task=" + task + ", installation=" + installation + ", isCallDone="
-				+ isCallDone + "]";
+				+ isCallDone + ", withInteaction=" + withInteaction + "]";
 	}
 
-   
 }

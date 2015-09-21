@@ -182,7 +182,8 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
         var requestdata = {
             task: $scope.tarea,
             installation: $scope.installationData,
-            isCallDone: $scope.iscalldone
+            isCallDone: $scope.iscalldone,
+            withInteaction:!$scope.fromSearch
         };
         CommonService.logger('Descartar Tarea, request ' + JSON.stringify(requestdata), "debug");
 
