@@ -213,7 +213,7 @@ app.controller('DatepickerDemoCtrl', function ($scope) {
 
 
 //Servicio con funciones de utilidad comunes
-app.service('CommonService', function ($rootScope, $log, $http, $timeout) {
+app.service('CommonService', function ($rootScope, $log, $http, $timeout, $window) {
     var service=this;
 
     /**
