@@ -136,8 +136,8 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService, $
                  * Si no venimos de la pantalla de buscar cerramos la interacción,
                  *  en caso contrario volvemos a la pantalla de buscar
                  */
-                if(data.result!=undefined && data.result==true){
-                	$scope.agent=data.agent;
+                if(data.result!=undefined && data.result.openMaintenanceWindow!=undefined && data.result.openMaintenanceWindow==true){
+                	$scope.agent=data.result.agent;
 //                	var resultado = window.showModalDialog(url, null, "center:yes; resizable:yes; dialogWidth:900px; dialogHeight:700px;");
                 	alert($scope.agent);
 

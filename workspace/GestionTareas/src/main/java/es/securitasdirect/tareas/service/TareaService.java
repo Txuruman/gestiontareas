@@ -169,8 +169,8 @@ public class TareaService {
         //5. Si hay que abrir ventana de mantenimiento en la respuesta debe de ir la session de infopoint
         if (result.isOpenMaintenanceWindow() && agent.getInfopointSession() == null) { //Si el agente no tiene session la creamos
             infopointService.createSession(agent);
-            result.setAgent(agent);
         }
+        result.setAgent(agent);
 
         //TODO Pendiente, cuando esté funcionando el Reporting de BI el dato Motivo de Cierre y Compensación deben de registrarse en la auditoria
 
