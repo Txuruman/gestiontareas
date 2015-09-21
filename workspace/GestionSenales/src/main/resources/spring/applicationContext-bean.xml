@@ -151,6 +151,10 @@
     <bean id="ccIdentifier" class="java.lang.String">
         <constructor-arg value="ATC"/>
     </bean>
+    <!-- nameGroup, constant to call the ws  checkLoginAgentGroup -->
+    <bean id="nameGroup" class="java.lang.String">
+        <constructor-arg value="TAREAS_DIY"/>
+    </bean>
     <!--	applicationUser=”Tareas” -->
     <bean id="applicationUser" class="java.lang.String">
         <constructor-arg value="Tareas"/>

@@ -8,12 +8,14 @@ import es.securitasdirect.tareas.model.external.Pair;
 import es.securitasdirect.tareas.service.ExternalDataService;
 import es.securitasdirect.tareas.service.InstallationService;
 import es.securitasdirect.tareas.service.QueryTareaService;
+import es.securitasdirect.tareas.service.model.FinalizeMaintenanceTaskResult;
 import es.securitasdirect.tareas.web.controller.AgentController;
 import es.securitasdirect.tareas.web.controller.TaskController;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
 import es.securitasdirect.tareas.web.controller.dto.request.GetInstallationAndTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.maintenancetask.MaintenanceTaskCreateRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.maintenancetask.MaintenanceTaskFinalizeRequest;
+import es.securitasdirect.tareas.web.controller.dto.response.FinalizeMaintenanceTaskResponse;
 import es.securitasdirect.tareas.web.controller.dto.response.PairListResponse;
 import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
 import org.slf4j.Logger;
@@ -59,13 +61,15 @@ public class MaintenanceTaskController extends TaskController {
     BaseResponse finalizeTask(@RequestBody MaintenanceTaskFinalizeRequest request) {
         assert request.getTask() != null : "Es necesario el parametro de la tarea";
         LOGGER.debug("Finalizando tarea {}  ", request.getTask());
-        BaseResponse response = new BaseResponse();
+        FinalizeMaintenanceTaskResponse response = new FinalizeMaintenanceTaskResponse();
         //Llamada al servicio para finalizar
         try {
-            tareaService.finalizeMaintenanceTask(agentController.getAgent(), request.getTask(), request.getLastCalledPhone());
+            FinalizeMaintenanceTaskResult result = tareaService.finalizeMaintenanceTask(agentController.getAgent(), request.getTask(), request.getLastCalledPhone());
+            response.setResult(result);
+
             response.info(messageUtil.getProperty("finalize.success"));
         } catch (Exception e) {
-            response = processException(e);
+            return  processException(e);
         }
         LOGGER.debug("Finalizado de tarea Response:{}", response);
         return response;

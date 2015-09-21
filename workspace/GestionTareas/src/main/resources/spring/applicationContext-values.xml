@@ -12,23 +12,27 @@
 
 
     <!-- Lista y valores del combo de Tipos de Cierre para Tareas de Tipo Mantenimiento -->
-    <util:list id="datosCierreTareaMantenimiento" value-type="es.securitasdirect.tareas.model.external.DescriptionPair" list-class="java.util.ArrayList">
-        <bean class="es.securitasdirect.tareas.model.external.DescriptionPair">
+    <util:list id="datosCierreTareaMantenimiento" value-type="es.securitasdirect.tareas.model.external.CloseMaintenancePair" list-class="java.util.ArrayList">
+        <bean class="es.securitasdirect.tareas.model.external.CloseMaintenancePair">
             <property name="id" value="BTNDIY"/>
             <!-- value es la es el texto que se mostrará en el combo Tipo Cancelación -->
             <property name="value" value="Realizo cambio de pilas"/>
             <!-- value es el texto que se mostrará en el Texto Cancelacion -->
             <property name="description" value="Llamo a cliente por pulsación de botón. Realizamos cambio de pilas. Pruebas ok. Cierro mantenimiento GPD."/>
+            <!-- Indica si posteriormente a finalizar se debe abrir la ventana de mantenimiento-->
+            <property name="openMaintenanceWindow" value="false" />
         </bean>
-        <bean class="es.securitasdirect.tareas.model.external.DescriptionPair">
+        <bean class="es.securitasdirect.tareas.model.external.CloseMaintenancePair">
             <property name="id" value="BTNMTO"/>
             <property name="value" value="Abro mantenimiento"/>
             <property name="description" value="DIY - Abrir mantenimiento técnico"/>
+            <property name="openMaintenanceWindow" value="true" />
         </bean>
-        <bean class="es.securitasdirect.tareas.model.external.DescriptionPair">
+        <bean class="es.securitasdirect.tareas.model.external.CloseMaintenancePair">
             <property name="id" value="BTNERR"/>
             <property name="value" value="Pulsación Erronea"/>
             <property name="description" value="DIY - Llamo a cliente por pulsación de botón. Lo ha pulsado por error. Recuerdo horario para poder gestionar el cambio y lo enciendo de nuevo."/>
+            <property name="openMaintenanceWindow" value="false" />
         </bean>
     </util:list>
 

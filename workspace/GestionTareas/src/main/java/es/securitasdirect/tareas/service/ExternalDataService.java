@@ -7,10 +7,7 @@ import es.securitasdirect.tareas.model.Tarea;
 import es.securitasdirect.tareas.model.TareaAviso;
 import es.securitasdirect.tareas.model.TareaExcel;
 import es.securitasdirect.tareas.model.TareaMantenimiento;
-import es.securitasdirect.tareas.model.external.BigIntegerPair;
-import es.securitasdirect.tareas.model.external.DescriptionPair;
-import es.securitasdirect.tareas.model.external.Pair;
-import es.securitasdirect.tareas.model.external.StringPair;
+import es.securitasdirect.tareas.model.external.*;
 import es.securitasdirect.tareas.model.tareaexcel.*;
 import es.securitasdirect.tareas.web.controller.params.ExternalParams;
 import org.slf4j.Logger;
@@ -39,7 +36,7 @@ public class ExternalDataService {
      * Datos cierre tarea mantenimiento configurados en spring
      */
     @Resource(name = "datosCierreTareaMantenimiento")
-    protected List<DescriptionPair> datosCierreTareaMantenimiento;
+    protected List<CloseMaintenancePair> datosCierreTareaMantenimiento;
 
 
     @Resource(name = "datosCierreTareaExcel")
