@@ -206,7 +206,9 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                     //variable error para poder volver atras en el descartar
                 $scope.error = !data.success;
                 if(data.result.ommitedCallToDiscard){
-                	window.external.RejectInteractionPushPreview(mapParams.bp_interactionId);
+                    alert("Descartamos por javascript")
+                	var resultado = window.external.RejectInteractionPushPreview(mapParams.bp_interactionId);
+                    alert(resultado);
                 }else{
 	                if ($scope.fromSearch != "true") {
 	                    CommonService.closeInteraction(data);
