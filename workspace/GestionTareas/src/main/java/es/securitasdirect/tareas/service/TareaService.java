@@ -158,13 +158,13 @@ public class TareaService {
         registerCommlog(tarea, lastCalledPhone);
 
         //4. Si lo que se ha seleccionado como tipo de cancelación requiere que se abra ventana de mantenimiento lo indicamos en la respuesta
-        result.setOpenMaintenanceWindow(isRequireOpenWindowOnFinalizeMaintenanceTask(tarea,agent));
+        result.setOpenMaintenanceWindow(isRequireOpenWindowOnFinalizeMaintenanceTask(tarea, agent));
 
 
         //5. Si hay que abrir ventana de mantenimiento en la respuesta debe de ir la session de infopoint y la URL
         if (result.isOpenMaintenanceWindow() && agent.getInfopointSession() == null) { //Si el agente no tiene session la creamos
             infopointService.createSession(agent);
-            result.setOpenMaintenanceWindowURL(prepareExternalCreateMaintenanceURLFinalizeMaintenanceTask(tarea,agent));
+            result.setOpenMaintenanceWindowURL(prepareExternalCreateMaintenanceURLFinalizeMaintenanceTask(tarea, agent));
         }
 
         //TODO Pendiente, cuando esté funcionando el Reporting de BI el dato Motivo de Cierre y Compensación deben de registrarse en la auditoria
@@ -663,10 +663,12 @@ public class TareaService {
      * @param tarea
      * @param installationData
      * @param saveTicketIfRequired, indica si se quiere salvar el Ticket, solo cuando realmente se deba de salvar
+     * @param isCallDone            resultado de la llamada al JavaScript isCallDone
+     * @param withInteraction       indica si hay una interacción, en caso contrario viene a decir que hemos cargado la tarea desde la búsqueda
      * @return
      * @throws Exception
      */
-    public DiscardNotificationTaskResult discardNotificationTask(Agent agent, TareaAviso tarea, InstallationData installationData, boolean saveTicketIfRequired, boolean isCallDone) throws Exception {
+    public DiscardNotificationTaskResult discardNotificationTask(Agent agent, TareaAviso tarea, InstallationData installationData, boolean saveTicketIfRequired, boolean isCallDone, boolean withInteraction) throws Exception {
 
         DiscardNotificationTaskResult infoResult = new DiscardNotificationTaskResult();
 
@@ -714,12 +716,21 @@ public class TareaService {
         } else {
             //Si no se ha cambiado ni Tipo1 o Motivo1 rechazamos la tarea si está en memoria
             if (isTareaInMemory(tareaRefrescada)) {
-            	if (saveTicketIfRequired) {
-					
-				}
-                // Rechazar Tarea en memoria
-                wsRejectInMemoryTask(agent, tarea);
-            	//TODO: hacer que llame a la funcion de javascript
+                infoResult.setWasInMemory(true);
+                //Se han añadido estas condiciones Por cambios en correo de Andres: si no se ha modificado tipo y motivo, tenemos interaccion y no se ha reaizado una llamada entonces no llamamos a Descartar
+                if (!isChangedTipoOrMotivo(tareaRefrescada, tarea) &&  withInteraction && !isCallDone) {
+                    LOGGER.debug("Ommiting calling reject task because of current condition of the interaction and task will make the javascript RejectInteractioinPushPreview to be called");
+                    infoResult.setOmmitedCallToDiscard(true);
+                } else {
+                    // Rechazar Tarea en memoria
+                    wsRejectInMemoryTask(agent, tarea);
+                    //No se rechazará mediante javascript
+                    infoResult.setOmmitedCallToDiscard(false);
+                }
+            } else { //La tarea no está en memoria y no se ha cambiado ni tipo ni motivo
+                //Parece ser que no hay que hacer nada
+                LOGGER.debug("Not doing anything with the task beacase it wasn't changed and wasn't in memory, task {}", tarea);
+                infoResult.setWasInMemory(false);
             }
         }
 
@@ -805,11 +816,12 @@ public class TareaService {
 
     /**
      * Indica si al finalizar una tarea de tipo mantenimiento se debe de abrir una ventana
+     *
      * @param tarea
      * @param agent
      * @return
      */
-    protected boolean isRequireOpenWindowOnFinalizeMaintenanceTask (TareaMantenimiento tarea, Agent agent) {
+    protected boolean isRequireOpenWindowOnFinalizeMaintenanceTask(TareaMantenimiento tarea, Agent agent) {
         if (tarea.getTipoCancelacion() != null && this.datosCierreTareaMantenimiento != null) {
             for (CloseMaintenancePair descriptionPair : datosCierreTareaMantenimiento) {
                 if (tarea.getTipoCancelacion().equalsIgnoreCase(descriptionPair.getId())) {

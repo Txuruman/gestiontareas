@@ -1,15 +1,15 @@
 app.controller('notificationtask', function ($scope, $http, CommonService, $modal, $log, $window) {
-	 
-	$scope.init = function () {
+
+    $scope.init = function () {
         $scope.vm.appReady = false;
         $scope.getInstallationAndTask();
         $scope.vm.appReady = true;
-	};
-	
-	
-	/**** MODALES **/
-	//Ventana Aplazar - Start
-    //Abre la ventana, posibles tamaños '', 'sm', 'lg'
+    };
+
+
+    /**** MODALES **/
+        //Ventana Aplazar - Start
+        //Abre la ventana, posibles tamaños '', 'sm', 'lg'
     $scope.openDelayModal = function (size) {
         var modalInstance = $modal.open({
             animation: false, //Indica si animamos el modal
@@ -33,27 +33,32 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
         });
     };
     //Ventana Aplazar - End
-    
-    
+
+
     /****
      * Modales de descartar
-     * Función que se lanza al pulsar el BOTÓN DESCARTAR 
+     * Función que se lanza al pulsar el BOTÓN DESCARTAR
      **/
     $scope.openContentModal = function (size) {
-    	$scope.iscalldone=window.external.IsCallDone(mapParams.bp_interactionId);
-    	
-        /** Errores
-         * Si no hay tarea o hay error al finalizar aviso , vuelve para atrás, 
+        alert("Vamos a llamar a isCallDone");
+        $scope.iscalldone = window.external.IsCallDone(mapParams.bp_interactionId);
+        //TODO PARA DESARROLLO, QUITAR
+        $scope.iscalldone = true;
+        alert("Tras llamar a isCallDone el resultado ha sido " + $scope.iscalldone);
+
+        /*
+         * Errores
+         * Si no hay tarea o hay error al finalizar aviso , vuelve para atrás,
          * Si no hay instalación y si hay tarea, finalizamos la tarea
          */
-        if ($scope.tarea == undefined || $scope.tarea == null || $scope.error==true) {
+        if ($scope.tarea == undefined || $scope.tarea == null || $scope.error == true) {
             if ($scope.fromSearch != "true") {
-                CommonService.closeInteraction({success:true});
+                CommonService.closeInteraction({success: true});
             } else {
                 CommonService.gotoSearch();
             }
         } else if ($scope.installationData == null || $scope.installationData == undefined) {
-        	//Si no hay instalación llamamos a descartar aviso directamente porque entendemos que es un error
+            //Si no hay instalación llamamos a descartar aviso directamente porque entendemos que es un error
             $scope.descartaraviso();
         } else {
             if (!angular.equals($scope.tarea, $scope.tareaOriginal)) {
@@ -102,7 +107,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                         $scope.descartaravisosinsalvartarea();
                     });
                 }
-            } 
+            }
             //TODO: Si no hay cambios llamamos a la función javascript de descartar
             else {
                 /*
@@ -118,7 +123,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
         }
     };
 
-   
+
     /**** APLAZAR **/
     $scope.aplazar = function (delayDate, recallType) {
 
@@ -149,7 +154,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                     }
                 })
                 .error(function (data, status, headers, config) {
-                	$scope.error=true;
+                    $scope.error = true;
                     // called asynchronously if an error occurs
                     // or server returns response with an error status.
                     CommonService.processBaseResponse(data, status, headers, config);
@@ -172,7 +177,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     /**
      * Unica llamada REST al servidor para Descartar Aviso
      */
-    $scope.callDescartarAvisoServer = function(sinSalvarTarea) {
+    $scope.callDescartarAvisoServer = function (sinSalvarTarea) {
         CommonService.logger('Descartar Tarea, tarea: ' + $scope.tarea, "debug");
         var requestdata = {
             task: $scope.tarea,
@@ -183,7 +188,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
 
         var urlfinal = 'notificationtask/descartaraviso';
         if (sinSalvarTarea) {
-            urlfinal='notificationtask/descartaravisosinsalvartarea';
+            urlfinal = 'notificationtask/descartaravisosinsalvartarea';
         }
 
         $http({
@@ -198,7 +203,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                  *  en caso contrario volvemos a la pantalla de buscar
                  */
                     //variable error para poder volver atras en el descartar
-                $scope.error=!data.success;
+                $scope.error = !data.success;
                 if ($scope.fromSearch != "true") {
                     CommonService.closeInteraction(data);
                 } else {
@@ -210,11 +215,10 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data, status, headers, config);
-                $scope.error=true;
+                $scope.error = true;
             });
     };
-    
-   
+
 
     /**
      * Crear mantenimiento:
@@ -235,7 +239,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 $scope.openMaintenaceWindow(data.agent);
             })
             .error(function (data, status, headers, config) {
-            	$scope.error=true;
+                $scope.error = true;
                 CommonService.logger('Error en la creación de mantenimiento, response: ' + JSON.stringify(data), "debug");
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
@@ -308,15 +312,15 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                     }
                 }
             })
-            .error (function (data, status, headers, config) {
-            	$scope.error=true;
-            	CommonService.processBaseResponse(data, status, headers, config);
-            })
+            .error(function (data, status, headers, config) {
+            $scope.error = true;
+            CommonService.processBaseResponse(data, status, headers, config);
+        })
 
 
     };
 
-  
+
     /**
      * Finalizar desde el botón de finalizar
      */
@@ -338,7 +342,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 /** Si no venimos de la pantalla de buscar cerramos la interacción,
                  *  en caso contrario volvemos a la pantalla de buscar
                  */
-                $scope.error=!data.success;
+                $scope.error = !data.success;
                 if (data.success) {
                     if ($scope.fromSearch != "true") {
                         CommonService.closeInteraction(data);
@@ -354,7 +358,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 // or server returns response with an error status.
                 CommonService.processBaseResponse(data, status, headers, config);
                 CommonService.logger("Error finalizing task", "error");
-                $scope.error=true;
+                $scope.error = true;
             });
     };
 
@@ -404,12 +408,12 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             .error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
-            	$scope.error=true;
-            	CommonService.processBaseResponse(data, status, headers, config);
+                $scope.error = true;
+                CommonService.processBaseResponse(data, status, headers, config);
                 CommonService.logger("Error finalizing task", "error");
             });
     };
-    
+
     //Mostramos los mensajes para rellenar los combos de finalizar
     $scope.muestraFinalizarRequired = function () {
         $scope.verErrores = true;
@@ -420,7 +424,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             $scope.closingAlert = true;
         }
     };
-    
+
     /**
      * Cierra la session de infopoint tras ejecutar el mantenimiento
      */
@@ -441,9 +445,8 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 CommonService.processBaseResponse(data, status, headers, config);
             });
     };
-    
-    
-    
+
+
     /** OBTENCION DE DATOS*/
     $scope.getInstallationAndTask = function () {
 
@@ -481,17 +484,16 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
         })
             .error(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
-                $scope.error=true;
+                $scope.error = true;
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
         CommonService.logger("NotificationTask loaded...", "debug");
     };
-    
-    
-    
+
+
     /**** COMBOS *****/
-    //Consultar Combo de Cierre
+        //Consultar Combo de Cierre
     $scope.getClosingList = function (idType, reasonId, closing) {
         CommonService.logger("Load Closing Type List for params: " + idType + ", " + reasonId, "debug");
         var closingTypeRequest = {
@@ -512,7 +514,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             .error(function (data, status, headers, config) {
                 CommonService.logger("Error loading Closing Type List", "error");
                 CommonService.processBaseResponse(data, status, headers, config);
-                $scope.error=true;
+                $scope.error = true;
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
@@ -531,7 +533,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             })
             .error(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
-                $scope.error=true;
+                $scope.error = true;
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
@@ -551,7 +553,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             })
             .error(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
-                $scope.error=true;
+                $scope.error = true;
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
@@ -576,7 +578,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             })
             .error(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
-                $scope.error=true;
+                $scope.error = true;
                 // called asynchronously if an error occurs
                 // or server returns response with an error status.
             });
@@ -629,11 +631,11 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 // or server returns response with an error status.
             });
     };
-    
+
     /****REFRESCAR****/
     $scope.refrescar = function () {
         $scope.getInstallationAndTask();
     };
-    
+
 
 });
