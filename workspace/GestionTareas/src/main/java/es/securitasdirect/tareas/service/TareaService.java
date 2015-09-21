@@ -676,6 +676,7 @@ public class TareaService {
 
         //Existe un caso en el que no viene instalacion porque no se ha encontrado, en este caso de error el descartar no actualiza la Tarea
         if (installationData != null) {
+            LOGGER.debug("There is no installation in the task {}", tarea);
             //Modificar aviso si es necesario
             if (saveTicketIfRequired && isTaskRequiresSaveModifications(tareaRefrescada, tarea)) {
                 avisoService.updateTicket(agent, tarea, installationData);
