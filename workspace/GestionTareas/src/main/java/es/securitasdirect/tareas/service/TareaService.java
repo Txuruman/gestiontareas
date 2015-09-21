@@ -666,7 +666,7 @@ public class TareaService {
      * @return
      * @throws Exception
      */
-    public DiscardNotificationTaskResult discardNotificationTask(Agent agent, TareaAviso tarea, InstallationData installationData, boolean saveTicketIfRequired) throws Exception {
+    public DiscardNotificationTaskResult discardNotificationTask(Agent agent, TareaAviso tarea, InstallationData installationData, boolean saveTicketIfRequired, boolean isCallDone) throws Exception {
 
         DiscardNotificationTaskResult infoResult = new DiscardNotificationTaskResult();
 
@@ -714,8 +714,12 @@ public class TareaService {
         } else {
             //Si no se ha cambiado ni Tipo1 o Motivo1 rechazamos la tarea si está en memoria
             if (isTareaInMemory(tareaRefrescada)) {
+            	if (saveTicketIfRequired) {
+					
+				}
                 // Rechazar Tarea en memoria
                 wsRejectInMemoryTask(agent, tarea);
+            	//TODO: hacer que llame a la funcion de javascript
             }
         }
 

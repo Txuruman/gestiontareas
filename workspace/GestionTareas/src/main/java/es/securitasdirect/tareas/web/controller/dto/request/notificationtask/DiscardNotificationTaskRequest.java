@@ -14,9 +14,7 @@ public class DiscardNotificationTaskRequest extends BaseRequest {
 
     private TareaAviso task;
     private InstallationData installation;
-
-
-    private String prueba;
+    private boolean isCallDone;
 
 
     public DiscardNotificationTaskRequest() {
@@ -42,19 +40,19 @@ public class DiscardNotificationTaskRequest extends BaseRequest {
         this.installation = installation;
     }
 
-    public String getPrueba() {
-        return prueba;
-    }
+	public boolean isCallDone() {
+		return isCallDone;
+	}
 
-    public void setPrueba(String prueba) {
-        this.prueba = prueba;
-    }
+	public void setCallDone(boolean isCallDone) {
+		this.isCallDone = isCallDone;
+	}
 
-    @Override
-    public String toString() {
-        return "ModifyNotificationTaskRequest{" +
-                "task=" + task + ", installation=" + installation +
-                ", prueba='" + prueba + '\'' +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "DiscardNotificationTaskRequest [task=" + task + ", installation=" + installation + ", isCallDone="
+				+ isCallDone + "]";
+	}
+
+   
 }

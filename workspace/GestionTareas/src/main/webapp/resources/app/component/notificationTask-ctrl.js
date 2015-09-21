@@ -40,6 +40,8 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
      * Función que se lanza al pulsar el BOTÓN DESCARTAR 
      **/
     $scope.openContentModal = function (size) {
+    	$scope.iscalldone=window.external.IsCallDone(mapParams.bp_interactionId);
+    	
         /** Errores
          * Si no hay tarea o hay error al finalizar aviso , vuelve para atrás, 
          * Si no hay instalación y si hay tarea, finalizamos la tarea
@@ -174,7 +176,8 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
         CommonService.logger('Descartar Tarea, tarea: ' + $scope.tarea, "debug");
         var requestdata = {
             task: $scope.tarea,
-            installation: $scope.installationData
+            installation: $scope.installationData,
+            isCallDone: $scope.iscalldone
         };
         CommonService.logger('Descartar Tarea, request ' + JSON.stringify(requestdata), "debug");
 

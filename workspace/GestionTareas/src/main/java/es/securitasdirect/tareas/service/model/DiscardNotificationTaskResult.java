@@ -8,6 +8,7 @@ public class DiscardNotificationTaskResult {
     private boolean wasInMemory = false;
     private boolean ticketWasSaved = false;
     private boolean taskWasFinalized = false;
+    private boolean isCallDone=false;
 
 
     public boolean isTaskWasFinalized() {
@@ -35,13 +36,19 @@ public class DiscardNotificationTaskResult {
         this.ticketWasSaved = ticketWasSaved;
     }
 
-    @Override
-    public String toString() {
-        final StringBuffer sb = new StringBuffer("DiscardNotificationTaskResult{");
-        sb.append("wasInMemory=").append(wasInMemory);
-        sb.append(", ticketWasSaved=").append(ticketWasSaved);
-        sb.append(", taskWasFinalized=").append(taskWasFinalized);
-        sb.append('}');
-        return sb.toString();
-    }
+	public boolean isCallDone() {
+		return isCallDone;
+	}
+
+	public void setCallDone(boolean isCallDone) {
+		this.isCallDone = isCallDone;
+	}
+
+	@Override
+	public String toString() {
+		return "DiscardNotificationTaskResult [wasInMemory=" + wasInMemory + ", ticketWasSaved=" + ticketWasSaved
+				+ ", taskWasFinalized=" + taskWasFinalized + ", isCallDone=" + isCallDone + "]";
+	}
+
+   
 }
