@@ -136,15 +136,23 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService, $
                  * Si no venimos de la pantalla de buscar cerramos la interacción,
                  *  en caso contrario volvemos a la pantalla de buscar
                  */
-                if (data.success) {
-                    if ($scope.fromSearch != "true") {
-                        CommonService.closeInteraction(data);
-                    } else {
-                    	CommonService.gotoSearch();
-                    }
-                } else {
-                    //Por errores no volvemos atras ni cerramos
+                if(data.result!=undefined && data.result==true){
+                	$scope.agent=data.agent;
+//                	var resultado = window.showModalDialog(url, null, "center:yes; resizable:yes; dialogWidth:900px; dialogHeight:700px;");
+                	alert($scope.agent);
+
+                    //Tras recibir el resultado de la otra ventana podemos cerrar la session de infopoint
+                    $scope.closeInfopointSession();
                 }
+                //if (data.success) {
+                if ($scope.fromSearch != "true") {
+                    CommonService.closeInteraction(data);
+                } else {
+                	CommonService.gotoSearch();
+                }
+                //} else {
+                    //Por errores no volvemos atras ni cerramos
+               // }
             })
             .error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
@@ -162,7 +170,29 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService, $
 		} 
     	
     };
-
+    
+    /**
+     * Cierra la session de infopoint tras ejecutar el mantenimiento
+     */
+    $scope.closeInfopointSession = function () {
+        $http({
+            method: 'GET',
+            url: 'agent/closeInfopointSession'
+        })
+            .success(function (data, status, headers, config) {
+                CommonService.logger('Agente obtenido: ' + data, "debug");
+                $scope.agent = data.agent;
+                CommonService.processBaseResponse(data, status, headers, config);
+            })
+            .error(function (data, status, headers, config) {
+                CommonService.logger('Error en la creación de mantenimiento, response: ' + JSON.stringify(data), "debug");
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                CommonService.processBaseResponse(data, status, headers, config);
+            });
+    };
+    
+    
     /** Llamada a la función externa para realizar llamadas
      * 	DoCall
      */
