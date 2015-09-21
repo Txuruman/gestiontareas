@@ -138,8 +138,8 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService, $
                  */
                 if(data.result!=undefined && data.result.openMaintenanceWindow!=undefined && data.result.openMaintenanceWindow==true){
                 	$scope.agent=data.result.agent;
-//                	var resultado = window.showModalDialog(url, null, "center:yes; resizable:yes; dialogWidth:900px; dialogHeight:700px;");
-                	alert($scope.agent);
+                	var resultado = window.showModalDialog(data.result.openMaintenanceWindowURL, null, "center:yes; resizable:yes; dialogWidth:900px; dialogHeight:700px;");
+                	alert($scope.agent +" - "+data.result.openMaintenanceWindowURL);
 
                     //Tras recibir el resultado de la otra ventana podemos cerrar la session de infopoint
                     $scope.closeInfopointSession();
