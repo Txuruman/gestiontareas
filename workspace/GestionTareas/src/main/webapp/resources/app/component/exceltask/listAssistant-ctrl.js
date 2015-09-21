@@ -67,6 +67,7 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
             $http.put("listassistanttask/descartar", discardRequest).then(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
                 if ($scope.fromSearch != 'true') {
+                	CommonService.excellDiscard();
                     $scope.closeInteraction();
                 } else {
                     CommonService.gotoSearch();
@@ -76,6 +77,7 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
             })
         } else {
             if ($scope.fromSearch != 'true') {
+            	CommonService.excellDiscard();
                 $scope.closeInteraction();
             } else {
                 CommonService.gotoSearch();

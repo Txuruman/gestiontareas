@@ -102,6 +102,7 @@ app.controller('feecleaningtask-ctrl', function ($scope, $http, CommonService, $
             $http.put("feecleaningtask/descartar", discardRequest).then(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
                 if ($scope.fromSearch != 'true') {
+                	CommonService.excellDiscard();
                     $scope.closeInteraction();
                 } else {
                     CommonService.gotoSearch();
@@ -111,6 +112,7 @@ app.controller('feecleaningtask-ctrl', function ($scope, $http, CommonService, $
             })
         } else {
             if ($scope.fromSearch != 'true') {
+            	CommonService.excellDiscard();
                 $scope.closeInteraction();
             } else {
                 CommonService.gotoSearch();

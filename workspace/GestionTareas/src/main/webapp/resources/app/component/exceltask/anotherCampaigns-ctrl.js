@@ -159,6 +159,7 @@ app.controller('anotherCampaigns', function ($scope, $http, CommonService, $moda
             $http.put("anothercampaignstask/descartar", discardRequest).then(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
                 if ($scope.fromSearch != 'true') {
+                	CommonService.excellDiscard();
                     $scope.closeInteraction();
                 } else {
                     CommonService.gotoSearch();
@@ -168,6 +169,7 @@ app.controller('anotherCampaigns', function ($scope, $http, CommonService, $moda
             })
         } else {
             if ($scope.fromSearch != 'true') {
+            	CommonService.excellDiscard();
                 $scope.closeInteraction();
             } else {
                 CommonService.gotoSearch();

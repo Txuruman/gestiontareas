@@ -101,6 +101,7 @@ app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService, $modal
             $http.put("keyboxtask/descartar", discardRequest).then(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
                 if ($scope.fromSearch != 'true') {
+                	CommonService.excellDiscard();
                     $scope.closeInteraction();
                 } else {
                     CommonService.gotoSearch();
@@ -110,6 +111,7 @@ app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService, $modal
             })
         } else {
             if ($scope.fromSearch != 'true') {
+            	CommonService.excellDiscard();
                 $scope.closeInteraction();
             } else {
                 CommonService.gotoSearch();

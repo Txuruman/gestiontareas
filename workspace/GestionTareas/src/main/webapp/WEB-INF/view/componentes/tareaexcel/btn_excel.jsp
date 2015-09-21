@@ -19,5 +19,8 @@
 
 <!-- Dialogo Delay Modal -->
 <app:delayModalContent/>
+<!-- Modal de alerta de descartar -->
+<app:alertModal titulo="alertmodal.titulo" msg1="alertmodal.msg3" button="alertmodal.return"/>
+
 
 <!-- Fin Botones -->

@@ -266,7 +266,38 @@ app.service('CommonService', function ($rootScope, $log, $http, $timeout, $windo
         errorMessages: [],
         infoMessages: []
     };
+    
+    /**
+     * 
+     */
+    this.excellDiscard=function(){
+    	var iscalldone = window.external.IsCallDone(mapParams.bp_interactionId);
+    	
+    	if (iscalldone) {
+    		var modalInstance = $modal.open({
+                animation: false, //Indica si animamos el modal
+                templateUrl: 'alertModal.html', //HTML del modal
+                controller: 'ContentModalCtrl',  //Referencia al controller especifico para el modal
+                size: size,
+                resolve: {
+                    //Creo que esto es para pasar parametros al controller interno
+                    // items: function () {
+                    //     return $scope.items;
+                    // }
+                }
+            });
 
+            //	            //Funciones para recibir el cierre ok y el cancel
+            modalInstance.result.then(function () {
+                
+            }, function (param) {
+                //Boton cancelar del Modal
+            });
+		}else{
+			window.external.RejectInteractionPushPreview(mapParams.bp_interactionId);
+		}
+    	
+    }
     //this.addAlert = function() {
     //    $scope.alerts.push({msg: 'Another alert!'});
     //};
