@@ -821,10 +821,11 @@ public class TareaService {
     }
 
     /**
-     * Prepara la url de abrir mantenimiento
+     * Prepara la url de abrir mantenimiento.
+     * Imagino que al abrir sesión en infopoint el token de seguridad de infopoint habrá que pasarlo como parámetro.
+     * Por eso yo le decía a Isabel que eso no podía funcionar, pero ella insistió que a ella le dijeron que sí, y que lo probáramos. Que si infopoint comprueba que tu ip está logada, se lo traga.
      */
     protected String prepareExternalCreateMaintenanceURLFinalizeMaintenanceTask(TareaMantenimiento tareaMantenimiento, Agent agent) {
-        //TODO Habrá que pasar parametros
         return externalCreateMaintenanceURLFinalizeMaintenanceTask;
     }
 

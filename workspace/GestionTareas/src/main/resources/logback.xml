@@ -1,44 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- configuration file for LogBack (slf4J implementation)
 See here for more details: http://gordondickens.com/wordpress/2013/03/27/sawing-through-the-java-loggers/ -->
-<configuration scan="true" scanPeriod="30 seconds">
-
-    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
-        <resetJUL>true</resetJUL>
-    </contextListener>
-
-    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+<configuration>
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d [%p] %c %M - %m%n</pattern>
+            <pattern>%-5level %C{3}.%M %m%n</pattern>
         </encoder>
     </appender>
 
-    <appender name="file" class="ch.qos.logback.core.FileAppender">
+    <appender name="File" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>/tmp/teamvision/gestionTareas.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- rollover daily -->
-            <fileNamePattern>gestionTareas-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>/tmp/teamvision/gestionTareas-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <!-- or whenever the file size reaches 20Mb -->
-                <maxFileSize>20MB</maxFileSize>
+                <!-- or whenever the file size reaches the limit -->
+                <maxFileSize>1MB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
         <encoder>
-            <pattern>%d [%p] %c %M - %m%n</pattern>
+            <pattern>[%d{ISO8601}] [%-5level] [%X{session_id}] [%X{login}] [%C{3}.%M] %m%n</pattern>
         </encoder>
     </appender>
 
-    <root level="INFO">
-        <appender-ref ref="file"/>
-        <appender-ref ref="console"/>
-    </root>
-
 
     <logger name="es.securitasdirect" level="debug"/>
+
     <logger name="org.apache.cxf" level="info"/>
     <logger name="javax.xml.stream" level="info"/>
     <logger name="org.springframework.web" level="info"/>
 
-    <!-- Uncomment and add your logger here:
-     <logger name="org.springframework.samples.service.service" level="debug"/> -->
+    <root level="warn">
+        <appender-ref ref="Console"/>
+        <appender-ref ref="File"/>
+    </root>
+
 </configuration>
+
