@@ -43,7 +43,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
         alert("Vamos a llamar a isCallDone");
         $scope.iscalldone = window.external.IsCallDone(mapParams.bp_interactionId);
         //TODO PARA DESARROLLO, QUITAR
-        $scope.iscalldone = true;
+//        $scope.iscalldone = true;
         alert("Tras llamar a isCallDone el resultado ha sido " + $scope.iscalldone);
 
         /*
@@ -205,10 +205,14 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                  */
                     //variable error para poder volver atras en el descartar
                 $scope.error = !data.success;
-                if ($scope.fromSearch != "true") {
-                    CommonService.closeInteraction(data);
-                } else {
-                    CommonService.gotoSearch();
+                if(data.result.ommitedCallToDiscard){
+                	window.external.RejectInteractionPushPreview(mapParams.bp_interactionId);
+                }else{
+	                if ($scope.fromSearch != "true") {
+	                    CommonService.closeInteraction(data);
+	                } else {
+	                    CommonService.gotoSearch();
+	                }
                 }
             })
             .error(function (data, status, headers, config) {
