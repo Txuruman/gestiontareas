@@ -160,7 +160,6 @@ app.controller('anotherCampaigns', function ($scope, $http, CommonService, $moda
                 CommonService.processBaseResponse(data, status, headers, config);
                 if ($scope.fromSearch != 'true') {
                 	CommonService.excellDiscard();
-                    $scope.closeInteraction();
                 } else {
                     CommonService.gotoSearch();
                 }
@@ -170,7 +169,6 @@ app.controller('anotherCampaigns', function ($scope, $http, CommonService, $moda
         } else {
             if ($scope.fromSearch != 'true') {
             	CommonService.excellDiscard();
-                $scope.closeInteraction();
             } else {
                 CommonService.gotoSearch();
             }

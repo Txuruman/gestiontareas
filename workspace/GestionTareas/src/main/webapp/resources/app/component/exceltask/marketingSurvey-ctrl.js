@@ -159,7 +159,6 @@ app.controller('marketingsurveytask-ctrl', function ($scope, $http, CommonServic
                 CommonService.processBaseResponse(data, status, headers, config);
                 if ($scope.fromSearch != 'true') {
                 	CommonService.excellDiscard();
-                    $scope.closeInteraction();
                 } else {
                     CommonService.gotoSearch();
                 }
@@ -169,7 +168,6 @@ app.controller('marketingsurveytask-ctrl', function ($scope, $http, CommonServic
         } else {
             if ($scope.fromSearch != 'true') {
             	CommonService.excellDiscard();
-                $scope.closeInteraction();
             } else {
                 CommonService.gotoSearch();
             }

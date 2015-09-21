@@ -104,7 +104,6 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,
                 CommonService.processBaseResponse(data, status, headers, config);
                 if ($scope.fromSearch != 'true') {
                 	CommonService.excellDiscard();
-                    $scope.closeInteraction();
                 } else {
                     CommonService.gotoSearch();
                 }
@@ -114,7 +113,6 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,
         } else {
             if ($scope.fromSearch != 'true') {
             	CommonService.excellDiscard();
-                $scope.closeInteraction();
             } else {
                 CommonService.gotoSearch();
             }

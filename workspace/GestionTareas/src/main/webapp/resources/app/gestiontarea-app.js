@@ -213,7 +213,7 @@ app.controller('DatepickerDemoCtrl', function ($scope) {
 
 
 //Servicio con funciones de utilidad comunes
-app.service('CommonService', function ($rootScope, $log, $http, $timeout, $window) {
+app.service('CommonService', function ($rootScope, $log, $http, $timeout, $window,$modal) {
     var service=this;
 
     /**
@@ -272,13 +272,12 @@ app.service('CommonService', function ($rootScope, $log, $http, $timeout, $windo
      */
     this.excellDiscard=function(){
     	var iscalldone = window.external.IsCallDone(mapParams.bp_interactionId);
-    	
     	if (iscalldone) {
     		var modalInstance = $modal.open({
                 animation: false, //Indica si animamos el modal
                 templateUrl: 'alertModal.html', //HTML del modal
                 controller: 'ContentModalCtrl',  //Referencia al controller especifico para el modal
-                size: size,
+                size: undefined,
                 resolve: {
                     //Creo que esto es para pasar parametros al controller interno
                     // items: function () {
@@ -295,6 +294,7 @@ app.service('CommonService', function ($rootScope, $log, $http, $timeout, $windo
             });
 		}else{
 			window.external.RejectInteractionPushPreview(mapParams.bp_interactionId);
+			this.closeInteraction({success:true});
 		}
     	
     }
