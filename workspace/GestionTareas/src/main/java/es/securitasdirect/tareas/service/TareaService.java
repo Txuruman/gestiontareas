@@ -66,6 +66,8 @@ public class TareaService {
 
     @Resource(name = "applicationUser")
     private String applicationUser;
+    @Resource(name = "externalCreateMaintenanceURLFinalizeMaintenanceTask")
+    private String externalCreateMaintenanceURLFinalizeMaintenanceTask;
 
     /**
      * Datos cierre tarea mantenimiento configurados en spring
@@ -137,9 +139,10 @@ public class TareaService {
      */
     public FinalizeMaintenanceTaskResult finalizeMaintenanceTask(Agent agent, TareaMantenimiento tarea, Integer lastCalledPhone) throws Exception {
         FinalizeMaintenanceTaskResult result = new FinalizeMaintenanceTaskResult();
+        result.setAgent(agent); //Lo asignamos siempre para que se pueda refrescar en NG sin problea
 
         //Consultar la tarea de nuevo
-        Tarea tareaRefrescada = (TareaMantenimiento) queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
+        TareaMantenimiento tareaRefrescada = (TareaMantenimiento) queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
         //Si no está en memoria se puede ejecutar
         if (!isTareaInMemory(tareaRefrescada)) {
             //1. Finalizar la Tarea
@@ -155,25 +158,16 @@ public class TareaService {
         registerCommlog(tarea, lastCalledPhone);
 
         //4. Si lo que se ha seleccionado como tipo de cancelación requiere que se abra ventana de mantenimiento lo indicamos en la respuesta
-        if(tarea.getTipoCancelacion()!=null && this.datosCierreTareaMantenimiento!=null) {
-            result.setOpenMaintenanceWindow(false);
-            for (CloseMaintenancePair descriptionPair : datosCierreTareaMantenimiento) {
-                if(tarea.getTipoCancelacion().equalsIgnoreCase(descriptionPair.getId())){
-                    result.setOpenMaintenanceWindow(descriptionPair.isOpenMaintenanceWindow());
-                }
-            }
-        } else {
-            result.setOpenMaintenanceWindow(false);
-        }
+        result.setOpenMaintenanceWindow(isRequireOpenWindowOnFinalizeMaintenanceTask(tarea,agent));
 
-        //5. Si hay que abrir ventana de mantenimiento en la respuesta debe de ir la session de infopoint
+
+        //5. Si hay que abrir ventana de mantenimiento en la respuesta debe de ir la session de infopoint y la URL
         if (result.isOpenMaintenanceWindow() && agent.getInfopointSession() == null) { //Si el agente no tiene session la creamos
             infopointService.createSession(agent);
-            result.setAgent(agent);
+            result.setOpenMaintenanceWindowURL(prepareExternalCreateMaintenanceURLFinalizeMaintenanceTask(tarea,agent));
         }
 
         //TODO Pendiente, cuando esté funcionando el Reporting de BI el dato Motivo de Cierre y Compensación deben de registrarse en la auditoria
-
 
         return result;
     }
@@ -805,6 +799,30 @@ public class TareaService {
         }
     }
 
+    /**
+     * Indica si al finalizar una tarea de tipo mantenimiento se debe de abrir una ventana
+     * @param tarea
+     * @param agent
+     * @return
+     */
+    protected boolean isRequireOpenWindowOnFinalizeMaintenanceTask (TareaMantenimiento tarea, Agent agent) {
+        if (tarea.getTipoCancelacion() != null && this.datosCierreTareaMantenimiento != null) {
+            for (CloseMaintenancePair descriptionPair : datosCierreTareaMantenimiento) {
+                if (tarea.getTipoCancelacion().equalsIgnoreCase(descriptionPair.getId())) {
+                    return (descriptionPair.isOpenMaintenanceWindow());
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Prepara la url de abrir mantenimiento
+     */
+    protected String prepareExternalCreateMaintenanceURLFinalizeMaintenanceTask(TareaMantenimiento tareaMantenimiento, Agent agent) {
+        //TODO Habrá que pasar parametros
+        return externalCreateMaintenanceURLFinalizeMaintenanceTask;
+    }
 
 }
 

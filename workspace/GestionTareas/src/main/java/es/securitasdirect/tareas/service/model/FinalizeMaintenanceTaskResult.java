@@ -10,6 +10,9 @@ public class FinalizeMaintenanceTaskResult {
     /** Indica si se debe de abrir la ventana de mantenimiento al terminar */
     private boolean openMaintenanceWindow = false;
 
+    /** Url a abrir con los parametros preparados */
+    private  String openMaintenanceWindowURL;
+
     /** Agente, por si se le ha actualizado la session de infopoint */
     private Agent agent;
 
@@ -27,5 +30,13 @@ public class FinalizeMaintenanceTaskResult {
 
     public void setAgent(Agent agent) {
         this.agent = agent;
+    }
+
+    public String getOpenMaintenanceWindowURL() {
+        return openMaintenanceWindowURL;
+    }
+
+    public void setOpenMaintenanceWindowURL(String openMaintenanceWindowURL) {
+        this.openMaintenanceWindowURL = openMaintenanceWindowURL;
     }
 }
