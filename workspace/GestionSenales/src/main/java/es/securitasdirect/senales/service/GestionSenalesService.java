@@ -119,6 +119,8 @@ public class GestionSenalesService {
     @Resource
     protected String ccIdentifier;
     @Resource
+    protected String nameGroup;
+    @Resource
     protected String applicationUser;
     @Resource
     protected String ccUserId;
@@ -528,12 +530,11 @@ public class GestionSenalesService {
      *
      * @return
      */
-    protected boolean isWorkingHours(Message message) {
-        //TODO REPASAR
+    protected boolean isWorkingHours(Message message) throws Exception {
         String ccIdentifier = this.ccIdentifier;
         String applicationUser = this.applicationUser;
         String ccUserId = this.ccUserId;
-        String nameGroup = ""; //TODO DE DONDE SALE
+        String nameGroup = this.nameGroup; // El nombre del grupo es TAREAS_DIY
         String country = this.country;
 
         ChgResponse chgResponse = cclIntegration.checkLoginAgentGroup(ccIdentifier,
@@ -546,7 +547,7 @@ public class GestionSenalesService {
             return true;//Hay agentes trabajando
         } else if (chgResponse.getOperationResult()!=null && chgResponse.getOperationResult().getResultCode()!=200) {
             LOGGER.error("Error checking login agent {} {}", chgResponse.getOperationResult().getResultCode(),chgResponse.getOperationResult().getResultMessage());
-            throw new Exception("Error checking login agent " + chgResponse.getOperationResult().getResultCode() + " " chgResponse.getOperationResult().getResultMessage());
+            throw new Exception("Error checking login agent " + chgResponse.getOperationResult().getResultCode() + " " + chgResponse.getOperationResult().getResultMessage());
         } else {
             return false; //No hay nadie trabajando
         }

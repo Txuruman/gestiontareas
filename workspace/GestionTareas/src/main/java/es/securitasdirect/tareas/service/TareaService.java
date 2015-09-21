@@ -6,7 +6,10 @@ import com.webservice.WsResponse;
 import es.securitasdirect.tareas.exceptions.BusinessException;
 import es.securitasdirect.tareas.exceptions.FrameworkException;
 import es.securitasdirect.tareas.model.*;
+import es.securitasdirect.tareas.model.external.CloseMaintenancePair;
+import es.securitasdirect.tareas.model.external.DescriptionPair;
 import es.securitasdirect.tareas.service.model.DiscardNotificationTaskResult;
+import es.securitasdirect.tareas.service.model.FinalizeMaintenanceTaskResult;
 import es.securitasdirect.tareas.web.controller.params.TaskServiceParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,9 +61,17 @@ public class TareaService {
     protected InstallationService installationService;
     @Inject
     protected ExternalDataService externalDataService;
+    @Inject
+    protected InfopointService infopointService;
 
     @Resource(name = "applicationUser")
     private String applicationUser;
+
+    /**
+     * Datos cierre tarea mantenimiento configurados en spring
+     */
+    @Resource(name = "datosCierreTareaMantenimiento")
+    protected List<CloseMaintenancePair> datosCierreTareaMantenimiento;
 
 
     //Dial_sched_time = dd/mm/aaaa HH:mm:ss
@@ -124,7 +135,9 @@ public class TareaService {
      * @param agent
      * @param tarea
      */
-    public void finalizeMaintenanceTask(Agent agent, TareaMantenimiento tarea, Integer lastCalledPhone) throws Exception {
+    public FinalizeMaintenanceTaskResult finalizeMaintenanceTask(Agent agent, TareaMantenimiento tarea, Integer lastCalledPhone) throws Exception {
+        FinalizeMaintenanceTaskResult result = new FinalizeMaintenanceTaskResult();
+
         //Consultar la tarea de nuevo
         Tarea tareaRefrescada = (TareaMantenimiento) queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
         //Si no está en memoria se puede ejecutar
@@ -141,8 +154,28 @@ public class TareaService {
         //3. En Tarea de tipo Mantenimiento, al finalizar, ejecutar WS de grabar commlogs  de IBS con los datos de la pantalla.
         registerCommlog(tarea, lastCalledPhone);
 
+        //4. Si lo que se ha seleccionado como tipo de cancelación requiere que se abra ventana de mantenimiento lo indicamos en la respuesta
+        if(tarea.getTipoCancelacion()!=null && this.datosCierreTareaMantenimiento!=null) {
+            result.setOpenMaintenanceWindow(false);
+            for (CloseMaintenancePair descriptionPair : datosCierreTareaMantenimiento) {
+                if(tarea.getTipoCancelacion().equalsIgnoreCase(descriptionPair.getId())){
+                    result.setOpenMaintenanceWindow(descriptionPair.isOpenMaintenanceWindow());
+                }
+            }
+        } else {
+            result.setOpenMaintenanceWindow(false);
+        }
+
+        //5. Si hay que abrir ventana de mantenimiento en la respuesta debe de ir la session de infopoint
+        if (result.isOpenMaintenanceWindow() && agent.getInfopointSession() == null) { //Si el agente no tiene session la creamos
+            infopointService.createSession(agent);
+            result.setAgent(agent);
+        }
+
         //TODO Pendiente, cuando esté funcionando el Reporting de BI el dato Motivo de Cierre y Compensación deben de registrarse en la auditoria
 
+
+        return result;
     }
 
     public boolean finalizeNotificationTask(Agent agent, TareaAviso tarea) throws Exception {
