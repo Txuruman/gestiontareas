@@ -14,10 +14,14 @@ public class HappyData {
     /* http://wiki.fasterxml.com/JacksonFAQDateHandling */
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss", timezone="CET")
     private Date upSince;
+    /** Mensajes procesados correctamente */
     protected  Integer successfulMessages;
+    /** Mensajes con errores */
     protected  Integer errorMessages;
-    protected  Integer inWorkingHoursMessages;
-    protected  Integer outWorkingHousMessages;
+    /** Mensajes recibidos con agentes logados */
+    protected  Integer withLoggedInAgentsMessages;
+    /** Mensajes recibidos sin agentes logados */
+    protected  Integer withoutAgentsMessages;
     protected Map<String,String> jmsReaderStatus = new HashMap<String, String>();
 
     public Date getUpSince() {
@@ -44,20 +48,20 @@ public class HappyData {
         this.errorMessages = errorMessages;
     }
 
-    public Integer getInWorkingHoursMessages() {
-        return inWorkingHoursMessages;
+    public Integer getWithLoggedInAgentsMessages() {
+        return withLoggedInAgentsMessages;
     }
 
-    public void setInWorkingHoursMessages(Integer inWorkingHoursMessages) {
-        this.inWorkingHoursMessages = inWorkingHoursMessages;
+    public void setWithLoggedInAgentsMessages(Integer withLoggedInAgentsMessages) {
+        this.withLoggedInAgentsMessages = withLoggedInAgentsMessages;
     }
 
-    public Integer getOutWorkingHousMessages() {
-        return outWorkingHousMessages;
+    public Integer getWithoutAgentsMessages() {
+        return withoutAgentsMessages;
     }
 
-    public void setOutWorkingHousMessages(Integer outWorkingHousMessages) {
-        this.outWorkingHousMessages = outWorkingHousMessages;
+    public void setWithoutAgentsMessages(Integer withoutAgentsMessages) {
+        this.withoutAgentsMessages = withoutAgentsMessages;
     }
 
     public void addJmsReaderStatus(String name, boolean ok, String description) {
@@ -78,8 +82,8 @@ public class HappyData {
         sb.append("upSince=").append(upSince);
         sb.append(", successfulMessages=").append(successfulMessages);
         sb.append(", errorMessages=").append(errorMessages);
-        sb.append(", inWorkingHoursMessages=").append(inWorkingHoursMessages);
-        sb.append(", outWorkingHousMessages=").append(outWorkingHousMessages);
+        sb.append(", withLoggedInAgentsMessages=").append(withLoggedInAgentsMessages);
+        sb.append(", withoutAgentsMessages=").append(withoutAgentsMessages);
         sb.append('}');
         return sb.toString();
     }

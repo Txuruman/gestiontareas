@@ -155,7 +155,7 @@ public class JMSReader implements MessageListener {
 
 
     public void close() {
-        LOGGER.debug("JMSReader {} closing.");
+        LOGGER.debug("JMSReader {} closing.", aliasName);
         readerDestroyed = true;
         readerStatusUp = false;
         readerStatusDescription = "Destroyed";
