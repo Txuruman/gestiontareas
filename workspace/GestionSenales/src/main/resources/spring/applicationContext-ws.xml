@@ -49,22 +49,25 @@
         </cxf:inFaultInterceptors>
     </cxf:bus>
 
-    <!-- Web Services Cliente -->
+    <!-- Web Services Cliente Tareas 2-->
     <jaxws:client name="wsSpAioTareas2"
                   serviceClass="org.wso2.ws.dataservice.SPAIOTAREAS2PortType"
                   address="http://10.2.144.63:9763/services/SP_AIO_TAREAS2?wsdl"
             />
 
+    <!-- Web Services Cliente SPInstallationMonData-->
     <jaxws:client name="wsSPInstallationMonData"
                   serviceClass="org.wso2.ws.dataservice.SPInstallationMonDataPortType"
                   address="http://10.2.144.63:9763/services/SP_InstallationMonData?wsdl"
             />
 
+    <!-- Web Services Cliente CCLIntegrationService-->
     <jaxws:client name="cclIntegration"
                   serviceClass="com.webservice.CCLIntegration"
                   address="http://es1devcclvip:8011/AllInOne_CCL/CCLIntegrationService?wsdl"
             />
 
+    <!-- Web Services Cliente IBSCommlog-->
     <jaxws:client name="wsIBSCommlog"
                   serviceClass="org.wso2.ws.dataservice.SPIBSCommlogDataPortType"
                   address="http://10.2.144.63:9763/services/SP_IBSCommlogData?wsdl"
