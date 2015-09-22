@@ -207,7 +207,7 @@ public class TareaService {
         }
 
         //2. Finalizar el Aviso
-        boolean finalizadoAviso = avisoService.closeTicket(tarea.getIdAviso(), agent.getAgentIBS(), tarea.getClosing(), tarea.getDatosAdicionalesCierre() == null ? null : Integer.valueOf(tarea.getDatosAdicionalesCierre()), finalizadoDesdeMantenimiento, idMantenimiento);
+        boolean finalizadoAviso = true;//TODO: Para pruebas - avisoService.closeTicket(tarea.getIdAviso(), agent.getAgentIBS(), tarea.getClosing(), tarea.getDatosAdicionalesCierre() == null ? null : Integer.valueOf(tarea.getDatosAdicionalesCierre()), finalizadoDesdeMantenimiento, idMantenimiento);
         if (!finalizadoAviso) {
             LOGGER.error("Can't finalize NotificationTask because can't close Ticket");
             return false;
@@ -726,8 +726,8 @@ public class TareaService {
                     LOGGER.debug("Ommiting calling reject task because of current condition of the interaction and task will make the javascript RejectInteractioinPushPreview to be called");
                     infoResult.setOmmitedCallToDiscard(true);
                 } else {
-                    // Rechazar Tarea en memoria
-                    wsRejectInMemoryTask(agent, tarea);
+                	//Desmarcar el aviso
+                	avisoService.unmarkTicket(tarea.getIdAviso());
                     //No se rechazará mediante javascript
                     infoResult.setOmmitedCallToDiscard(false);
                 }

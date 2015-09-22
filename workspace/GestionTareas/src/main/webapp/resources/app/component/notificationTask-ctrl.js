@@ -108,7 +108,6 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                     });
                 }
             }
-            //TODO: Si no hay cambios llamamos a la función javascript de descartar
             else {
                 /*
                  *  Si no venimos de la pantalla de buscar cerramos la interacción,
@@ -178,20 +177,20 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
      * Unica llamada REST al servidor para Descartar Aviso
      */
     $scope.callDescartarAvisoServer = function (sinSalvarTarea) {
-        CommonService.logger('Descartar Tarea, tarea: ' + $scope.tarea, "debug");
+//        CommonService.logger('Descartar Tarea, tarea: ' + $scope.tarea, "debug");
         var requestdata = {
             task: $scope.tarea,
             installation: $scope.installationData,
-            isCallDone: $scope.iscalldone,
+            callDone: $scope.iscalldone,
             withInteaction:!$scope.fromSearch
         };
-        CommonService.logger('Descartar Tarea, request ' + JSON.stringify(requestdata), "debug");
+        
+        //CommonService.logger('Descartar Tarea, request ' + JSON.stringify(requestdata), "debug");
 
         var urlfinal = 'notificationtask/descartaraviso';
         if (sinSalvarTarea) {
             urlfinal = 'notificationtask/descartaravisosinsalvartarea';
         }
-
         $http({
             method: 'PUT',
             url: urlfinal,
@@ -206,9 +205,9 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                     //variable error para poder volver atras en el descartar
                 $scope.error = !data.success;
                 if(data.result.ommitedCallToDiscard){
-                    alert("Descartamos por javascript")
+//                    alert("Descartamos por javascript")
                 	var resultado = window.external.RejectInteractionPushPreview(mapParams.bp_interactionId);
-                    alert(resultado);
+//                    alert(resultado);
                 }else{
 	                if ($scope.fromSearch != "true") {
 	                    CommonService.closeInteraction(data);

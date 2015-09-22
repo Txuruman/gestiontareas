@@ -155,7 +155,7 @@ public class NotificationTaskController extends TaskController {
         BaseResponse response = new BaseResponse();
         Agent agent = agentController.getAgent();
         try {
-            tareaService.discardNotificationTask(agent, request.getTask(), request.getInstallation(), false, false,false);
+            tareaService.discardNotificationTask(agent, request.getTask(), request.getInstallation(), false, request.isCallDone(),request.isWithInteaction());
             response.success(messageUtil.getProperty("notificationTask.modify.success"));
         } catch (Exception e) {
             response = processException(e);

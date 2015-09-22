@@ -271,7 +271,9 @@ app.service('CommonService', function ($rootScope, $log, $http, $timeout, $windo
      * 
      */
     this.excellDiscard=function(){
+//    	alert("Entrando funcion excelDiscard, interaccion : "+mapParams.bp_interactionId);
     	var iscalldone = window.external.IsCallDone(mapParams.bp_interactionId);
+//    	alert("La variable iscalldone: "+iscalldone);
     	if (iscalldone) {
     		var modalInstance = $modal.open({
                 animation: false, //Indica si animamos el modal
@@ -294,7 +296,7 @@ app.service('CommonService', function ($rootScope, $log, $http, $timeout, $windo
             });
 		}else{
 			window.external.RejectInteractionPushPreview(mapParams.bp_interactionId);
-			this.closeInteraction({success:true});
+			//this.closeInteraction({success:true});
 		}
     	
     }
