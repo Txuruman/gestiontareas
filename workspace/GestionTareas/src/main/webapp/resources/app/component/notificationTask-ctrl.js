@@ -40,11 +40,11 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
      * Función que se lanza al pulsar el BOTÓN DESCARTAR
      **/
     $scope.openContentModal = function (size) {
-        alert("Vamos a llamar a isCallDone");
+        //alert("Vamos a llamar a isCallDone");
         $scope.iscalldone = window.external.IsCallDone(mapParams.bp_interactionId);
         //TODO PARA DESARROLLO, QUITAR
 //        $scope.iscalldone = true;
-        alert("Tras llamar a isCallDone el resultado ha sido " + $scope.iscalldone);
+        //alert("Tras llamar a isCallDone el resultado ha sido " + $scope.iscalldone);
 
         /*
          * Errores
@@ -303,7 +303,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                     //    "&TEXTO=" + $scope.tarea.observaciones;
 
                     var resultado = window.showModalDialog(url, null, "center:yes; resizable:yes; dialogWidth:900px; dialogHeight:700px;");
-                    alert(resultado);
+                    //alert(resultado);
 
                     //Tras recibir el resultado de la otra ventana podemos cerrar la session de infopoint
                     $scope.closeInfopointSession();
