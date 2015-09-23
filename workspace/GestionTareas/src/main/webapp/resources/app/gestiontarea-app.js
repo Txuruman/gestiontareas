@@ -1,48 +1,6 @@
 var app = angular.module("myApp", ['ui.bootstrap','angular-loading-bar']);
 
 
-// Controlador de la ventana modal de aplazar
-// Please note that $modalInstance represents a modal window (instance) dependency. It is not the same as the $modal service used above.
-app.controller('DelayModalInstanceCtrl', function ($scope, $modalInstance, $log) {
-	
-    $scope.today = new Date();
-    $scope.delayInfo = {
-        delayDate: $scope.today,
-        delayTime: $scope.today,
-        recallType: '5'
-    };
-    //$scope.withoutChanges=true;
-
-    $scope.ok = function () {
-            //Llama a la función de result.then de DelayModalCtrl
-            if ($scope.delayInfo.delayDate && $scope.delayInfo.delayTime) {
-                $scope.delayInfo.delayDate.setHours($scope.delayInfo.delayTime.getHours(), $scope.delayInfo.delayTime.getMinutes(), 0, 0);
-            }
-            //$log.debug("Selected delay info :" + $scope.delayInfo );
-            $modalInstance.close($scope.delayInfo);
-        };
-
-        $scope.cancel = function () {
-            //Llama a la funcion result.then de DelayModalCtrl
-            $modalInstance.dismiss('cancel');
-    };
-});
-//Controlador de la ventana modal de descartar
-//Please note that $modalInstance represents a modal window (instance) dependency. It is not the same as the $modal service used above.
-app.controller('ContentModalCtrl', function ($scope, $modalInstance, $log) {
-	
- $scope.ok = function () {
-         //Llama a la función de result.then de DelayModalCtrl
-         //$log.debug("Selected delay info :" + $scope.delayInfo );
-         $modalInstance.close();
-     };
-
-     $scope.cancel = function () {
-         //Llama a la funcion result.then de DelayModalCtrl
-         $modalInstance.dismiss('cancel');
- };
-});
-
 // Configure the $httpProvider by adding our date transformer
 app.config(['cfpLoadingBarProvider','$httpProvider', function (cfpLoadingBarProvider,$httpProvider) {
     $httpProvider.defaults.transformResponse.push(function(responseData){
@@ -215,6 +173,8 @@ app.controller('DatepickerDemoCtrl', function ($scope) {
 //Servicio con funciones de utilidad comunes
 app.service('CommonService', function ($rootScope, $log, $http, $timeout, $window,$modal) {
     var service=this;
+    var newCallConnid = null;
+
 
     /**
      * Método Descartar: Nos lleva a la página de buscar
@@ -295,7 +255,8 @@ app.service('CommonService', function ($rootScope, $log, $http, $timeout, $windo
                 //Boton cancelar del Modal
             });
 		}else{
-			window.external.RejectInteractionPushPreview(mapParams.bp_interactionId);
+			alert("Lanzamos RejectInteractionPushPreview: "+mapParams.bp_connid);
+			window.external.RejectInteractionPushPreview(mapParams.bp_connid);
 			//this.closeInteraction({success:true});
 		}
     	
@@ -314,7 +275,8 @@ app.service('CommonService', function ($rootScope, $log, $http, $timeout, $windo
 //    	alert(JSON.strinify(data));
     	if (data.success) {
     		//alert("A continuación se cerrará la interacción");
-    		e = window.external.CloseInteractionPushPreview(mapParams.bp_interactionId);
+    		alert("Lanzamos CloseInteractionPushPreview: "+mapParams.bp_connid);
+    		e = window.external.CloseInteractionPushPreview(mapParams.bp_connid);
     		//alert("Interacción cerrada: "+JSON.strinify(e));
 		}
     };
@@ -468,3 +430,70 @@ app.directive('onlyNumber', function() {
         }
       }
     });
+
+//Controlador de la ventana modal de aplazar
+//Please note that $modalInstance represents a modal window (instance) dependency. It is not the same as the $modal service used above.
+app.controller('DelayModalInstanceCtrl', function ($scope, $modalInstance, $log, $http, items, CommonService) {
+	$scope.items=items;
+
+	$scope.today = new Date();
+
+	if($scope.items==true){
+		$http.get("notificationtask/getTipoAplaza")
+		.success(function (data, status, headers, config) {
+			CommonService.processBaseResponse(data, status, headers, config);
+			$scope.tiposAplazamiento=data.listGrpAplazamiento;
+			if($scope.tiposAplazamiento!=undefined && $scope.tiposAplazamiento!=null){
+				$scope.delayInfo = {
+						delayDate: $scope.today,
+						delayTime: $scope.today,
+						recallType: $scope.tiposAplazamiento[0].idaplaza
+				};
+			}else{
+				$scope.error = true;
+			}
+
+		})
+		.error(function (data, status, headers, config) {
+			$scope.error = true;
+			CommonService.processBaseResponse(data, status, headers, config);
+		});
+
+	}else{
+		$scope.delayInfo = {
+				delayDate: $scope.today,
+				delayTime: $scope.today,
+				recallType: '5'
+		};
+	}
+	//$scope.withoutChanges=true;
+
+	$scope.ok = function () {
+		//Llama a la función de result.then de DelayModalCtrl
+		if ($scope.delayInfo.delayDate && $scope.delayInfo.delayTime) {
+			$scope.delayInfo.delayDate.setHours($scope.delayInfo.delayTime.getHours(), $scope.delayInfo.delayTime.getMinutes(), 0, 0);
+		}
+		//$log.debug("Selected delay info :" + $scope.delayInfo );
+		$modalInstance.close($scope.delayInfo);
+	};
+
+	$scope.cancel = function () {
+		//Llama a la funcion result.then de DelayModalCtrl
+		$modalInstance.dismiss('cancel');
+	};
+});
+//Controlador de la ventana modal de descartar
+//Please note that $modalInstance represents a modal window (instance) dependency. It is not the same as the $modal service used above.
+app.controller('ContentModalCtrl', function ($scope, $modalInstance, $log) {
+	
+	$scope.ok = function () {
+		//Llama a la función de result.then de DelayModalCtrl
+		//$log.debug("Selected delay info :" + $scope.delayInfo );
+		$modalInstance.close();
+	};
+
+	$scope.cancel = function () {
+		//Llama a la funcion result.then de DelayModalCtrl
+		$modalInstance.dismiss('cancel');
+	};
+});

@@ -161,10 +161,9 @@ app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService, $modal
             controller: 'DelayModalInstanceCtrl',  //Referencia al controller especifico para el modal
             size: size,
             resolve: {
-                //Creo que esto es para pasar parametros al controller interno
-                // items: function () {
-                //     return $scope.items;
-                // }
+            	items: function () {
+                    return false;
+                }
             }
         });
 

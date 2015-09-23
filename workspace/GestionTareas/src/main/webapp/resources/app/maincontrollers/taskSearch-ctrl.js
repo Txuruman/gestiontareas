@@ -30,10 +30,13 @@ app.controller('taskSearch', function ($scope, $http, CommonService, $modal, $lo
                 controller: 'DelayModalInstanceCtrl',  //Referencia al controller especifico para el modal
                 size: size,
                 resolve: {
-                	//Creo que esto es para pasar parametros al controller interno
-                    // items: function () {
-                    //     return $scope.items;
-                    // }
+                	items: function () {
+                		if(t.typeName==='TASK_TYPE_AVISO'){
+                			return true;
+                		}else{
+                			return false;
+                		}
+                    }
                 }
             });
 

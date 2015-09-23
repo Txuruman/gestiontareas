@@ -11,16 +11,16 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
         //Ventana Aplazar - Start
         //Abre la ventana, posibles tamaños '', 'sm', 'lg'
     $scope.openDelayModal = function (size) {
-        var modalInstance = $modal.open({
+    	var modalInstance = $modal.open({
             animation: false, //Indica si animamos el modal
             templateUrl: 'deplayModalContent.html', //HTML del modal
             controller: 'DelayModalInstanceCtrl',  //Referencia al controller especifico para el modal
             size: size,
             resolve: {
                 //Creo que esto es para pasar parametros al controller interno
-                // items: function () {
-                //     return $scope.items;
-                // }
+                 items: function () {
+                     return true;
+                 }
             }
         });
 
@@ -269,12 +269,12 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                     CommonService.processBaseResponse(data, status, headers, config);
                 } else {
                     var url = "windowCreateMaintenanceFrame" + data.app;
-
+                    var req=$scope.tarea.requeridoPor.substring(0, $scope.tarea.requeridoPor.indexOf(" "));
                     //Parametros para TOA
                     url = url + "?InstallationNumber=" + $scope.installationData.numeroInstalacion +
                         "&PanelTypeId=" + $scope.installationData.panel +
                         "&TicketNumber=" + $scope.tarea.idAviso +
-                        "&RequestedBy=" + $scope.tarea.requeridoPor +
+                        "&RequestedBy=" + req +
                         "&Operator=" + agent.agentIBS +
                         "&ContactPerson=" + $scope.tarea.personaContacto +
                         "&ContactPhone=" + $scope.tarea.telefono +
