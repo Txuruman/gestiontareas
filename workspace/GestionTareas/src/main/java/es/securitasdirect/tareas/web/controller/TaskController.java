@@ -152,6 +152,8 @@ public abstract class TaskController extends BaseController {
                         }
                     } else {
                         response.danger(messageUtil.getProperty("ERROR_FIND_INSTALLATION"));
+                        response.setNoInstallation(true);
+                        response.setNoInstallationMsg(messageUtil.getProperty("ERROR_FIND_INSTALLATION"));
                     }
                 } catch (Exception e) {
                     response.danger(messageUtil.getProperty("ERROR_FIND_INSTALLATION"));

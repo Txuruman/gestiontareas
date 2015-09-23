@@ -1,5 +1,168 @@
 var app = angular.module("myApp", ['ui.bootstrap','angular-loading-bar']);
 
+//Servicio con funciones de utilidad comunes
+app.service('CommonService', function ($rootScope, $log, $http, $timeout, $window,$modal) {
+    var service=this;
+    var newCallConnid = null;
+
+
+    /**
+     * Método Descartar: Nos lleva a la página de buscar
+     * Variable _contextPath inicializada en commonImports
+     */
+    this.gotoSearch = function () {
+        $window.location.href = _contextPath + "/search";
+    };
+
+    /**
+     * Gestión del log de javascript
+     * msg: mensaje a mostrar
+     * tipo: debug, info, error
+     * variable: variable a mostrar
+     * _IE: inicializada al principio, si abrimos con IE estará con valor true
+     */
+    this.logger=function(msg, tipo, variable){
+    	if (_IE===false) {
+    		if (variable!=undefined) {
+        		$log[tipo](msg, variable);
+    		}else{
+    			$log[tipo](msg);
+    		}
+		}
+    };
+
+    this.logDebug=function(msg,variable) {
+    	this.logger(msg,"debug",variable);
+    };
+
+    this.logInfo=function(msg,variable) {
+    	this.logger(msg,"info",variable);
+    };
+
+    this.logError=function(msg,variable) {
+    	this.logger(msg,"error",variable);
+    };
+
+    /**FIN Gestión Error*/
+    
+    //Objeto global para almacenar
+    $rootScope.vm = {
+        //Variable global para mostrar mensajes
+        serverMessages: [],
+        appReady: true,
+        currentPage: 1,
+        totalPages: 0,
+        isSelectionEmpty: true,
+        errorMessages: [],
+        infoMessages: []
+    };
+    
+    /**
+     * 
+     */
+    this.excellDiscard=function(){
+//    	alert("Entrando funcion excelDiscard, interaccion : "+mapParams.bp_interactionId);
+    	var iscalldone = window.external.IsCallDone(mapParams.bp_interactionId);
+//    	alert("La variable iscalldone: "+iscalldone);
+    	if (iscalldone) {
+    		var modalInstance = $modal.open({
+                animation: false, //Indica si animamos el modal
+                templateUrl: 'alertModal.html', //HTML del modal
+                controller: 'ContentModalCtrl',  //Referencia al controller especifico para el modal
+                size: undefined,
+                resolve: {
+                    //Creo que esto es para pasar parametros al controller interno
+                    // items: function () {
+                    //     return $scope.items;
+                    // }
+                }
+            });
+
+            //	            //Funciones para recibir el cierre ok y el cancel
+            modalInstance.result.then(function () {
+                
+            }, function (param) {
+                //Boton cancelar del Modal
+            });
+		}else{
+			alert("Lanzamos RejectInteractionPushPreview: "+mapParams.bp_connid);
+			window.external.RejectInteractionPushPreview(mapParams.bp_connid);
+			//this.closeInteraction({success:true});
+		}
+    	
+    }
+    //this.addAlert = function() {
+    //    $scope.alerts.push({msg: 'Another alert!'});
+    //};
+    
+    /** Cierre de interacción
+     * 	Función externa CloseInteractionPushPreview
+     */
+    this.closeInteraction=function(data){
+    	//alert(data.success);
+//    	alert("map" + mapParams);
+//    	alert("conn" + mapParams.bp_auth_connid);
+//    	alert(JSON.strinify(data));
+    	if (data.success) {
+    		//alert("A continuación se cerrará la interacción");
+    		alert("Lanzamos CloseInteractionPushPreview: "+mapParams.bp_connid);
+    		e = window.external.CloseInteractionPushPreview(mapParams.bp_connid);
+    		//alert("Interacción cerrada: "+JSON.strinify(e));
+		}
+    };
+    
+    /** Funcion para processar las respuestas del servidor, eg: processBaseResponse(data,status,headers,config);  */
+    /* quitado this. */
+    this.processBaseResponse = function (data, status, headers, config) {
+        //$log.debug("Procesando BaseResponse....");
+        if ((data!=undefined && data.messages!=undefined) || (data.data!=undefined && data.data.messages!=undefined)) {
+        	/**
+        	 * For modificado para correcto funcionamiento en IE8
+        	 * Original: for (var msg in data.messages) {
+        	 */
+        	var mensajes=(data.messages) ? data.messages : data.data.messages;
+        
+        	for (var i=0;i<mensajes.length; i++) {
+                $rootScope.vm.serverMessages.push(mensajes[i]);
+            }
+        }else if(status!=200 || (data.status!=undefined && data.status!=200)){
+        	 $rootScope.vm.serverMessages.push({level: "danger", value: "Error connecting with server. Please contact with your administrator."});
+        }
+      //Necesario para asignar las clases de la directiva alert (IE8)
+        $timeout(function(){
+        	$('div[type="success"]').addClass("alert-success alert-dismissable");
+        	$('div[type="warning"]').addClass("alert-warning alert-dismissable");
+        	$('div[type="danger"]').addClass("alert-danger alert-dismissable");
+        },0);
+    };
+
+    // Disable weekend selection for calendar
+    this.disabledWeekendSelection = function (date, mode) {
+        return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+    };
+
+    this.loadInstallationData = function(installationId,data, status, headers, config){
+        //$log.debug("Search Installation. ID: " + installationId);
+        $http({
+            method: 'GET',
+            url: 'installation/query',
+            params: {installationId: installationId}
+        }).
+            success(function (data, status, headers, config) {
+                //$log.debug("Installation data found: " ,data.installationData);
+                $rootScope.installationData = data.installationData;
+                service.processBaseResponse(data, status, headers, config);
+            }).
+            error(function (data, status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                service.processBaseResponse(data, status, headers, config);
+                //$log.debug("Error in Installation data search");
+            });
+        //$log.debug("Installation data loaded...")
+    }
+});
+
 
 // Configure the $httpProvider by adding our date transformer
 app.config(['cfpLoadingBarProvider','$httpProvider', function (cfpLoadingBarProvider,$httpProvider) {
@@ -170,168 +333,6 @@ app.controller('DatepickerDemoCtrl', function ($scope) {
 });
 
 
-//Servicio con funciones de utilidad comunes
-app.service('CommonService', function ($rootScope, $log, $http, $timeout, $window,$modal) {
-    var service=this;
-    var newCallConnid = null;
-
-
-    /**
-     * Método Descartar: Nos lleva a la página de buscar
-     * Variable _contextPath inicializada en commonImports
-     */
-    this.gotoSearch = function () {
-        $window.location.href = _contextPath + "/search";
-    };
-
-    /**
-     * Gestión del log de javascript
-     * msg: mensaje a mostrar
-     * tipo: debug, info, error
-     * variable: variable a mostrar
-     * _IE: inicializada al principio, si abrimos con IE estará con valor true
-     */
-    this.logger=function(msg, tipo, variable){
-    	if (_IE===false) {
-    		if (variable!=undefined) {
-        		$log[tipo](msg, variable);
-    		}else{
-    			$log[tipo](msg);
-    		}
-		}
-    };
-
-    this.logDebug=function(msg,variable) {
-    	this.logger(msg,"debug",variable);
-    };
-
-    this.logInfo=function(msg,variable) {
-    	this.logger(msg,"info",variable);
-    };
-
-    this.logError=function(msg,variable) {
-    	this.logger(msg,"error",variable);
-    };
-
-    /**FIN Gestión Error*/
-    
-    //Objeto global para almacenar
-    $rootScope.vm = {
-        //Variable global para mostrar mensajes
-        serverMessages: [],
-        appReady: true,
-        currentPage: 1,
-        totalPages: 0,
-        isSelectionEmpty: true,
-        errorMessages: [],
-        infoMessages: []
-    };
-    
-    /**
-     * 
-     */
-    this.excellDiscard=function(){
-//    	alert("Entrando funcion excelDiscard, interaccion : "+mapParams.bp_interactionId);
-    	var iscalldone = window.external.IsCallDone(mapParams.bp_interactionId);
-//    	alert("La variable iscalldone: "+iscalldone);
-    	if (iscalldone) {
-    		var modalInstance = $modal.open({
-                animation: false, //Indica si animamos el modal
-                templateUrl: 'alertModal.html', //HTML del modal
-                controller: 'ContentModalCtrl',  //Referencia al controller especifico para el modal
-                size: undefined,
-                resolve: {
-                    //Creo que esto es para pasar parametros al controller interno
-                    // items: function () {
-                    //     return $scope.items;
-                    // }
-                }
-            });
-
-            //	            //Funciones para recibir el cierre ok y el cancel
-            modalInstance.result.then(function () {
-                
-            }, function (param) {
-                //Boton cancelar del Modal
-            });
-		}else{
-			alert("Lanzamos RejectInteractionPushPreview: "+mapParams.bp_connid);
-			window.external.RejectInteractionPushPreview(mapParams.bp_connid);
-			//this.closeInteraction({success:true});
-		}
-    	
-    }
-    //this.addAlert = function() {
-    //    $scope.alerts.push({msg: 'Another alert!'});
-    //};
-    
-    /** Cierre de interacción
-     * 	Función externa CloseInteractionPushPreview
-     */
-    this.closeInteraction=function(data){
-    	//alert(data.success);
-//    	alert("map" + mapParams);
-//    	alert("conn" + mapParams.bp_auth_connid);
-//    	alert(JSON.strinify(data));
-    	if (data.success) {
-    		//alert("A continuación se cerrará la interacción");
-    		alert("Lanzamos CloseInteractionPushPreview: "+mapParams.bp_connid);
-    		e = window.external.CloseInteractionPushPreview(mapParams.bp_connid);
-    		//alert("Interacción cerrada: "+JSON.strinify(e));
-		}
-    };
-    
-    /** Funcion para processar las respuestas del servidor, eg: processBaseResponse(data,status,headers,config);  */
-    /* quitado this. */
-    this.processBaseResponse = function (data, status, headers, config) {
-        //$log.debug("Procesando BaseResponse....");
-        if ((data!=undefined && data.messages!=undefined) || (data.data!=undefined && data.data.messages!=undefined)) {
-        	/**
-        	 * For modificado para correcto funcionamiento en IE8
-        	 * Original: for (var msg in data.messages) {
-        	 */
-        	var mensajes=(data.messages) ? data.messages : data.data.messages;
-        
-        	for (var i=0;i<mensajes.length; i++) {
-                $rootScope.vm.serverMessages.push(mensajes[i]);
-            }
-        }else if(status!=200 || (data.status!=undefined && data.status!=200)){
-        	 $rootScope.vm.serverMessages.push({level: "danger", value: "Error connecting with server. Please contact with your administrator."});
-        }
-      //Necesario para asignar las clases de la directiva alert (IE8)
-        $timeout(function(){
-        	$('div[type="success"]').addClass("alert-success alert-dismissable");
-        	$('div[type="warning"]').addClass("alert-warning alert-dismissable");
-        	$('div[type="danger"]').addClass("alert-danger alert-dismissable");
-        },0);
-    };
-
-    // Disable weekend selection for calendar
-    this.disabledWeekendSelection = function (date, mode) {
-        return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
-    };
-
-    this.loadInstallationData = function(installationId,data, status, headers, config){
-        //$log.debug("Search Installation. ID: " + installationId);
-        $http({
-            method: 'GET',
-            url: 'installation/query',
-            params: {installationId: installationId}
-        }).
-            success(function (data, status, headers, config) {
-                //$log.debug("Installation data found: " ,data.installationData);
-                $rootScope.installationData = data.installationData;
-                service.processBaseResponse(data, status, headers, config);
-            }).
-            error(function (data, status, headers, config) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-                service.processBaseResponse(data, status, headers, config);
-                //$log.debug("Error in Installation data search");
-            });
-        //$log.debug("Installation data loaded...")
-    }
-});
 
 app.filter('stringToDate', function () {
     return function (input) {

@@ -40,7 +40,7 @@ app.controller('taskSearch', function ($scope, $http, CommonService, $modal, $lo
                 }
             });
 
-            //Funciones para recivir el cierre ok y el cancel
+            //Funciones para recibir el cierre ok y el cancel
             modalInstance.result.then(function (delayInfo) {
                 //Boton Ok del modal
                 $scope.aplazar(delayInfo.delayDate, delayInfo.recallType);
