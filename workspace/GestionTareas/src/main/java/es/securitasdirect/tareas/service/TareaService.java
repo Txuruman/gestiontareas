@@ -884,7 +884,7 @@ public class TareaService {
     }
 
 
-    protected void wsReportingTareas(Tarea tarea, Agent agent, String accionUsuario)
+    public void wsReportingTareas(Tarea tarea, Agent agent, String accionUsuario)
     {
 
         try {
