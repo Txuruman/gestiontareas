@@ -214,6 +214,20 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService, $
 		//alert(phone);
 		e = window.external.DoCall(phone, 'myDoCallHandler', provideMockupObject());
 		//alert(JSON.stringify(e));
+
+        var maintenanceTaskCallRequest={
+            task: $scope.tarea
+        };
+        $http.put('maintenancetask/call', maintenanceTaskCallRequest)
+            .success(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data, status, headers, config);
+            })
+            .error(function (data, status, headers, config) {
+                $scope.error = true;
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                CommonService.processBaseResponse(data, status, headers, config);
+            });
     }
     $scope.compruebaTfno=function(){
     	if($scope.otroTelefono!=undefined && $scope.otroTelefono!="" && $scope.otroTelefono!=null){
