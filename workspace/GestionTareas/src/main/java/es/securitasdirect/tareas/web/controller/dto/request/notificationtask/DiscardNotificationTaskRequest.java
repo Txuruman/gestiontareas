@@ -14,17 +14,24 @@ public class DiscardNotificationTaskRequest extends BaseRequest {
 
     private TareaAviso task;
     private InstallationData installation;
-    private boolean isCallDone;
-    private boolean withInteaction;
+    private boolean callDone;
+	private boolean withInteaction;
 
     public DiscardNotificationTaskRequest() {
     }
 
-    public DiscardNotificationTaskRequest(TareaAviso task) {
-        this.task = task;
-    }
+   public DiscardNotificationTaskRequest(TareaAviso task, InstallationData installation, boolean callDone,
+			boolean withInteaction) {
+		super();
+		this.task = task;
+		this.installation = installation;
+		this.callDone = callDone;
+		this.withInteaction = withInteaction;
+	}
 
-    public TareaAviso getTask() {
+
+
+	public TareaAviso getTask() {
         return task;
     }
 
@@ -39,15 +46,6 @@ public class DiscardNotificationTaskRequest extends BaseRequest {
     public void setInstallation(InstallationData installation) {
         this.installation = installation;
     }
-
-	public boolean isCallDone() {
-		return isCallDone;
-	}
-
-	public void setCallDone(boolean isCallDone) {
-		this.isCallDone = isCallDone;
-	}
-	
 	
 	public boolean isWithInteaction() {
 		return withInteaction;
@@ -56,11 +54,20 @@ public class DiscardNotificationTaskRequest extends BaseRequest {
 	public void setWithInteaction(boolean withInteaction) {
 		this.withInteaction = withInteaction;
 	}
+	
+
+	public boolean isCallDone() {
+		return callDone;
+	}
+
+	public void setCallDone(boolean callDone) {
+		this.callDone = callDone;
+	}
 
 	@Override
 	public String toString() {
-		return "DiscardNotificationTaskRequest [task=" + task + ", installation=" + installation + ", isCallDone="
-				+ isCallDone + ", withInteaction=" + withInteaction + "]";
+		return "DiscardNotificationTaskRequest [task=" + task + ", installation=" + installation + ", callDone="
+				+ callDone + ", withInteaction=" + withInteaction + "]";
 	}
 
 }

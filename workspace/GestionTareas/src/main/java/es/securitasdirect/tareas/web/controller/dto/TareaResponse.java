@@ -17,7 +17,10 @@ public class TareaResponse extends BaseResponse {
     private InstallationData installationData;
 
     private Tarea tarea;
-
+    
+    private boolean noInstallation;
+    private String noInstallationMsg;
+    
     public TareaResponse() {
     }
 
@@ -51,11 +54,27 @@ public class TareaResponse extends BaseResponse {
         this.installationData = installationData;
     }
 
-    @Override
-    public String toString() {
-        return "TareaResponse{" +
-                "installationData=" + installationData +
-                ", tarea=" + tarea +
-                '}';
-    }
+	public boolean isNoInstallation() {
+		return noInstallation;
+	}
+
+	public void setNoInstallation(boolean noInstallation) {
+		this.noInstallation = noInstallation;
+	}
+
+	public String getNoInstallationMsg() {
+		return noInstallationMsg;
+	}
+
+	public void setNoInstallationMsg(String noInstallationMsg) {
+		this.noInstallationMsg = noInstallationMsg;
+	}
+
+	@Override
+	public String toString() {
+		return "TareaResponse [installationData=" + installationData + ", tarea=" + tarea + ", noInstallation="
+				+ noInstallation + ", noInstallationMsg=" + noInstallationMsg + "]";
+	}
+
+    
 }

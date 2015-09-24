@@ -20,6 +20,10 @@ app.controller('anotherCampaigns', function ($scope, $http, CommonService, $moda
             //$log.debug("Loaded fee cleaning task:",data.tarea);
             $scope.tarea = data.tarea;
             $scope.installationData = data.installationData;
+            if(data.noInstallation==true){
+            	$scope.noInstallation=data.noInstallation;
+            	$scope.noInstallationMsg=data.noInstallationMsg;
+            }
             CommonService.processBaseResponse(data, status, headers, config);
             $scope.getClosingReason();
             $scope.vm.appReady = true;
@@ -60,10 +64,9 @@ app.controller('anotherCampaigns', function ($scope, $http, CommonService, $moda
             controller: 'DelayModalInstanceCtrl',  //Referencia al controller especifico para el modal
             size: size,
             resolve: {
-                //Creo que esto es para pasar parametros al controller interno
-                // items: function () {
-                //     return $scope.items;
-                // }
+                 items: function () {
+                     return false;
+                 }
             }
         });
 

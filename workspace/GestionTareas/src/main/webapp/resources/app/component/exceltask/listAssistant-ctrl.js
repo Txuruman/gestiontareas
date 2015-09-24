@@ -59,6 +59,7 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
      * Si no hay instalacion finalizamos la tarea
      */
     $scope.descartarTarea = function () {
+//    	alert("entrando en descartartarea");
         if ($scope.installationData == null || $scope.installationData == undefined) {
             var discardRequest = {
                 task: $scope.tarea,
@@ -76,6 +77,7 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
             })
         } else {
             if ($scope.fromSearch != 'true') {
+//            	alert("Descartamos por javascript");
             	CommonService.excellDiscard();
             } else {
                 CommonService.gotoSearch();
@@ -163,10 +165,9 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
             controller: 'DelayModalInstanceCtrl',  //Referencia al controller especifico para el modal
             size: size,
             resolve: {
-                //Creo que esto es para pasar parametros al controller interno
-                // items: function () {
-                //     return $scope.items;
-                // }
+            	items: function () {
+                    return false;
+                }
             }
         });
 

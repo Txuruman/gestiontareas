@@ -530,18 +530,18 @@ public class TareaService {
      * Llamada al WS de Cancelar una Tarea cuando está en memoria
      */
     private void wsRejectInMemoryTask(Agent agent, Tarea tarea) {
-        if (validateInMemoryParameters(agent, tarea)) {
-            WsResponse wsResponse = cclIntegration.rejectRecord(getAgentExtensionFromAgentPlace(tarea.getOutAgentPlace()), tarea.getOutCampaignName(), tarea.getOutClName(), Integer.valueOf(tarea.getOutRecordHandle()));
-            if (wsResponse.getResultCode() == 200) {
-                LOGGER.debug("Canceled successfully in memory task {}", tarea);
-            } else {
-                LOGGER.error("Error cancelling in memory task {} with error {} {} ", tarea, wsResponse.getResultCode(), wsResponse.getResultMessage());
-                throw new BusinessException(BusinessException.ErrorCode.ERROR_FINALIZE_TASK_INMEMORY, wsResponse.getResultCode() + "", wsResponse.getResultMessage());
-            }
-        } else {
-            LOGGER.error("Can't Cancel in memory task from a user that is not the owner.");
-            throw new BusinessException(BusinessException.ErrorCode.ERROR_NOT_OWNER_TASK_INMEMORY);
-        }
+//        if (validateInMemoryParameters(agent, tarea)) {
+//            WsResponse wsResponse = cclIntegration.rejectRecord(getAgentExtensionFromAgentPlace(tarea.getOutAgentPlace()), tarea.getOutCampaignName(), tarea.getOutClName(), Integer.valueOf(tarea.getOutRecordHandle()));
+//            if (wsResponse.getResultCode() == 200) {
+//                LOGGER.debug("Canceled successfully in memory task {}", tarea);
+//            } else {
+//                LOGGER.error("Error cancelling in memory task {} with error {} {} ", tarea, wsResponse.getResultCode(), wsResponse.getResultMessage());
+//                throw new BusinessException(BusinessException.ErrorCode.ERROR_FINALIZE_TASK_INMEMORY, wsResponse.getResultCode() + "", wsResponse.getResultMessage());
+//            }
+//        } else {
+//            LOGGER.error("Can't Cancel in memory task from a user that is not the owner.");
+//            throw new BusinessException(BusinessException.ErrorCode.ERROR_NOT_OWNER_TASK_INMEMORY);
+//        }
     }
 
 
@@ -741,8 +741,8 @@ public class TareaService {
                     infoResult.setOmmitedCallToDiscard(true);
                     wsReportingTareas(tarea, agent, "DESCARTAR");
                 } else {
-                    // Rechazar Tarea en memoria
-                    wsRejectInMemoryTask(agent, tarea);
+                	//Desmarcar el aviso
+                	avisoService.unmarkTicket(tarea.getIdAviso());
                     //No se rechazará mediante javascript
                     infoResult.setOmmitedCallToDiscard(false);
                     wsReportingTareas(tarea, agent, "GESTIONAR");
@@ -778,7 +778,26 @@ public class TareaService {
             wsFinalizeTask(agent, tarea);
         }
     }
-
+    
+    /**
+     * Obtener tipo de aplazamientos
+     * @param tarea
+     * GprAplazamiento
+     * @return
+     */
+    public List<GrpAplazamiento> getTipoAplaza(){
+    	try {
+			List<GrpAplazamiento> listaGrpAplazamiento=spAioTareas2.getTipoAplazamientos();
+			return listaGrpAplazamiento;
+		} catch (DataServiceFault e) {
+			LOGGER.error("Error calling getTipoAplaza");
+            throw new BusinessException(BusinessException.ErrorCode.ERROR_GET_DELAY_TYPE);
+		}
+    }
+    
+    
+    
+    
     private boolean isTaskRequiresFinalizeModifications(TareaAviso tarea) {
 
         boolean result = false;
