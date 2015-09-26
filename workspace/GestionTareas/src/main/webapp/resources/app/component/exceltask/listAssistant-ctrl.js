@@ -141,6 +141,10 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
             //$log.debug("Loaded list assistant task:", data.tarea);
             $scope.tarea = data.tarea;
             $scope.installationData = data.installationData;
+            if(data.noInstallation==true){
+            	$scope.noInstallation=data.noInstallation;
+            	$scope.noInstallationMsg=data.noInstallationMsg;
+            }
             CommonService.processBaseResponse(data, status, headers, config);
             $scope.getClosingReason();
             $scope.vm.appReady = true;

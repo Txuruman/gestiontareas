@@ -37,7 +37,7 @@
 			      </div>
 			      <div class="spacer_t1"></div>
 			      <div class="row">
-			        	<app:inputTextNG id="telefono" label="visortarea.telefono" value="installationData.telefono" cells="6"
+			        	<app:inputTextNG id="telefono" label="visortarea.telefono" value="installationData.telefonoPlan" cells="6"
 		                             type="text"  only="true" ng_disabled="installationNotSearched" form="formCreateTask" required="true"/>
 			            <app:inputTextNG id="panel" label="visortarea.panel" value="installationData.panel" cells="6"
 			                             readonly="true" ng_disabled="installationNotSearched"/>  
@@ -45,13 +45,13 @@
 			      <div class="spacer_t1"></div>
                 <div class="row">
 		            <app:inputTextNG id="personaContacto" label="visortarea.personacontacto"
-		                             value="installationData.personaContacto" cells="6" ng_disabled="installationNotSearched" form="formCreateTask" required="true"/>
+		                             value="installationData.contactoPlan" cells="6" ng_disabled="installationNotSearched" form="formCreateTask" required="true"/>
 		            <app:inputTextNG id="version" label="visortarea.version" value="installationData.version" cells="6"
 			                             readonly="true" ng_disabled="installationNotSearched"/>		
 		        </div>
                 <div class="spacer_t1"></div>
                 <div class="row">
-                    <app:inputTextNG id="requiredBy" value="tarea.requeridoPor" form="formCreateTask" required="true" label="createtask.requiredby" cells="6" ng_disabled="installationNotSearched"/>
+                    <app:inputTextNG id="requiredBy" value="tarea.requeridoPor" form="formCreateTask" required="true" label="createtask.requiredby" cells="6" ng_disabled="installationNotSearched" readonly="true"/>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                         <app:inputTextNG pattern="^(?:(?:([01]?\d|2[0-3])))$" id="horarioDesde" label="tareaAviso.horarioDesde" form="formCreateTask" required="true" value="tarea.horarioDesde" cells="6"  ng_disabled="installationNotSearched" hour="true" clazz="sinPaddingRight"/><!--  ng_keypress="onlyNumber($event,true,tarea.horarioDesde.length)"/> -->
                 		<app:inputTextNG pattern="^(?:(?:([01]?\d|2[0-3])))$" id="horarioHasta" label="tareaAviso.horarioHasta" form="formCreateTask" required="true" value="tarea.horarioHasta" cells="6"  ng_disabled="installationNotSearched" hour="true" clazz="sinPaddingRight"/>
@@ -84,6 +84,7 @@
 	                    <select  ng-model="tarea.motivo2" convert-to-number class="form-control" ng-change="refeshDisabled=false" ng_disabled="installationNotSearched">
 	                        <option data-ng-repeat="itemMotivo2 in motivoList2" value="{{itemMotivo2.id}}" ng-selected="itemMotivo2.id==tarea.motivo2" >{{itemMotivo2.id +" - "+ itemMotivo2.value}}</option>
 	                    </select>
+	                     <span class="error" ng-show="errorMotivo2"><spring:message code="error.notext"/></span>
 	                </app:input>
                 </div>
                 <div class="spacer_t1"></div>
@@ -97,6 +98,7 @@
 	                    <select  ng-model="tarea.motivo3" convert-to-number class="form-control" ng-change="refeshDisabled=false" ng_disabled="installationNotSearched">
 	                        <option data-ng-repeat="k in motivoList3" value="{{k.id}}" ng-selected="k.id==tarea.motivo3" >{{k.id +" - "+ k.value}}</option>
 	                    </select>
+	                     <span class="error" ng-show="errorMotivo3"><spring:message code="error.notext"/></span>
 	                </app:input>
                 </div>
                 <div class="spacer_t1"></div>
@@ -110,7 +112,7 @@
             <div class="panel-body">
                 <div class="row" align="right">
                     <div class="container-fluid">
-                        <app:inputButtonNG button_type="primary" type="submit" value="boton.Crear" ng_click="formCreateTask.$valid ? createTask() : verErrores=true" fluid_wrapper="true" ng_disabled="installationNotSearched"/>
+                        <app:inputButtonNG button_type="primary" type="submit" value="boton.Crear" ng_click="(formCreateTask.$valid && !compruebaMotivos()) ? createTask() : verErrores=true" fluid_wrapper="true" ng_disabled="installationNotSearched"/>
                     </div>
                 </div>
             </div>

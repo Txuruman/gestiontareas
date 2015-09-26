@@ -7,6 +7,7 @@ import es.securitasdirect.tareas.model.external.Pair;
 import es.securitasdirect.tareas.model.external.StringPair;
 import es.securitasdirect.tareas.service.ExternalDataService;
 import es.securitasdirect.tareas.service.SplitService;
+import es.securitasdirect.tareas.service.TareaService;
 import es.securitasdirect.tareas.web.controller.dto.request.notificationtask.ClosingTypeAditionalDataRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.notificationtask.ClosingTypeRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.notificationtask.CreateMaintenanceAppRequest;
@@ -42,6 +43,8 @@ public class CommonsController extends BaseController {
     private AgentController agentController;
     @Inject
     protected SplitService splitService;
+    @Inject
+    private TareaService tareaService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CommonsController.class);
 
@@ -86,6 +89,7 @@ public class CommonsController extends BaseController {
 
     /**
      * Lista de los tipos de cierre para la tarea tipo aviso
+     * primero se comprueba si se han modificado los tipos y motivos de la tarea
      * @param closingTypeRequest
      * @return
      */
@@ -97,6 +101,8 @@ public class CommonsController extends BaseController {
         List<StringPair> closingList;
         StringPairListResponse response;
         try {
+        	
+        	
             LOGGER.debug("Getting closing type list for request: {}", closingTypeRequest);
             closingList = externalDataService.getNotificationClosing(closingTypeRequest.getIdType(), closingTypeRequest.getReasonId(), agentController.getAgent().getAgentIBS());
             LOGGER.debug("Loaded closing type list {}", closingList);

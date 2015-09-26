@@ -1,6 +1,8 @@
 package es.securitasdirect.tareas.web.controller.dto.request.notificationtask;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import es.securitasdirect.tareas.model.TareaAviso;
 import es.securitasdirect.tareas.web.controller.dto.support.BaseRequest;
 
 /**
@@ -13,7 +15,8 @@ public class ClosingTypeRequest extends BaseRequest {
     Integer idType;
 
     Integer reasonId;
-
+    
+    TareaAviso tarea;
 
     public Integer getIdType() {
         return idType;
@@ -31,11 +34,18 @@ public class ClosingTypeRequest extends BaseRequest {
         this.reasonId = reasonId;
     }
 
-    @Override
-    public String toString() {
-        return "ClosingTypeRequest{" +
-                "idType=" + idType +
-                ", reasonId=" + reasonId +
-                '}';
-    }
+	public TareaAviso getTarea() {
+		return tarea;
+	}
+
+	public void setTarea(TareaAviso tarea) {
+		this.tarea = tarea;
+	}
+
+	@Override
+	public String toString() {
+		return "ClosingTypeRequest [idType=" + idType + ", reasonId=" + reasonId + ", tarea=" + tarea + "]";
+	}
+
+   
 }

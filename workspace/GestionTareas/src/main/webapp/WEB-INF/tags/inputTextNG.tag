@@ -20,7 +20,8 @@
 <%@ attribute name="ng_disabled" required="false"  description="input ng-disabled" %>
 <%@ attribute name="pattern" required="false"  description="pattern for the input" %>
 <%@ attribute name="clazz" required="false"  description="class for the div" %>
-
+<%@ attribute name="avisoC" required="false"  description="validate contact error for tarea aviso" %>
+<%@ attribute name="avisoT" required="false"  description="validate phone error for tarea aviso" %>
 
 <c:if test="${cell_label == null}">
     <c:set var="cell_label" value="4"/>
@@ -93,7 +94,13 @@
            			<span class="error" ng-show="${form}.${id}.$error.required && mostrarAvisos!=false && verErrores==true"><spring:message code="error.notext"/>  </span>
            		</c:if><c:if test="${not empty hour}">
            			<span class="error" ng-show="${form}.${id}.$error.pattern && mostrarAvisos!=false && verErrores==true"><spring:message code="error.pattern.hour"/></span>
-           		</c:if> 	 
+           		</c:if> 
+           		<c:if test="${not empty avisoC}">
+           			<span class="error" ng-show="mostrarErrorAplazarC"><spring:message code="error.notext"/></span>
+           		</c:if>
+           		<c:if test="${not empty avisoT}">
+           			<span class="error" ng-show="mostrarErrorAplazarT"><spring:message code="error.notext"/></span>
+           		</c:if> 	 	 
            		  
     </div>
 </div>
