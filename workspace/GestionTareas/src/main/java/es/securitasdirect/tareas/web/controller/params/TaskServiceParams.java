@@ -22,6 +22,7 @@ public interface TaskServiceParams {
     public static String TAREA_COMMONS_ID = "CHAIN_ID";
     public static String TAREA_CAMPAIGN = "CAMPAIGN_ID";
     public static String TAREA_COMMONS_FECHA_REPROGRAMACION = "DIAL_SCHED_TIME";
+    public static String TAREA_COMMONS_FECHA_CREACION_TAREA = "F_CREACION_TAREA";
     /**
      * Generales
      */

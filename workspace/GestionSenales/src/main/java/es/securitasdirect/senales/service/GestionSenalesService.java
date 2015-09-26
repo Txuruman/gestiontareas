@@ -7,6 +7,8 @@ import es.securitasdirect.senales.model.Message;
 import es.securitasdirect.senales.model.SignalMetadata;
 import es.securitasdirect.senales.model.SmsMessageLocation;
 import es.securitasdirect.senales.support.FileService;
+import es.securitasdirect.ws.ReportingTareas;
+import es.securitasdirect.ws.ReportingTareasDetalle;
 import net.java.dev.jaxb.array.StringArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +21,9 @@ import javax.annotation.Resource;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import javax.jws.WebParam;
+import javax.xml.datatype.DatatypeConstants;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -113,6 +118,9 @@ public class GestionSenalesService {
     protected CCLIntegration cclIntegration;
     @Autowired
     protected SPIBSCommlogDataPortType wsIBSCommlog;
+    @Autowired
+    protected ReportingTareas reportingTareas;
+
 
     @Resource
     protected Integer daysToDiscardOldMessages;
@@ -787,6 +795,21 @@ public class GestionSenalesService {
                         throw new Exception("Error in insertCallingList " + returnData.getOperationResult().getResultCode() + "-" + returnData.getOperationResult().getResultMessage());
                     }
                 }
+                wsReportingTareas(
+                        message.getEntryDate(), // fechaCreacionTarea
+                        iclResponse.getReturnData().get(0).getChainId(), //idTarea
+                        ccUserId, //usuarioCreacion
+                        callingList, //callingList
+                        ctrNo,//numInstalacion
+                        mixedInstallationData.installationDataResultTareas.getPanel(),  // panel
+                        mixedInstallationData.installationDataResultTareas.getVersion(), // version
+                        message.getEntryDate(), // fechaEvento
+                        ccUserId, //agentAccion
+                        "0", //agentConnid
+                        "NO_INTERACTION", //agentInteractionType
+                        null //agentInteractionDirection
+
+                );
             }
         }
     }
@@ -864,6 +887,70 @@ public class GestionSenalesService {
                 LOGGER.error("Can't parse EPOC date from value {}", value, e);
                 return null;
             }
+        }
+    }
+
+    private void wsReportingTareas(Date fechaCreacionTarea, int idTarea, String usuarioCreacion,  String callingList, String numInstalacion, String panel, String version, Date fechaEvento,
+                                   String agentAccion, String agentConnid, String agentInteractionType, String agentInteractionDirection)
+    {
+
+        ReportingTareasDetalle reportingTareasDetalle = new ReportingTareasDetalle();
+
+        try {
+
+            // DATOS DE LA TAREA
+
+            // fechaCreacionTarea
+            GregorianCalendar c = new GregorianCalendar();
+            c.setTime(fechaCreacionTarea);
+            XMLGregorianCalendar fechCreacionTarea = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+            //Esto es necesario porque el formato es <dateTime>2015-09-10T19:19:19</dateTime>
+            fechCreacionTarea.setMillisecond(DatatypeConstants.FIELD_UNDEFINED);
+            fechCreacionTarea.setTimezone(DatatypeConstants.FIELD_UNDEFINED);
+            reportingTareasDetalle.setTimestampTarea(fechCreacionTarea);
+            reportingTareasDetalle.setIdTarea(idTarea);
+            reportingTareasDetalle.setUsuarioCreacion(usuarioCreacion);
+            reportingTareasDetalle.setCallingList(callingList);
+            reportingTareasDetalle.setTipoTarea("MANTENIMIENTO");
+            reportingTareasDetalle.setInsNo(numInstalacion);
+            reportingTareasDetalle.setPanel(panel);
+            reportingTareasDetalle.setVersion(version);
+            // fechaEvento
+            //GregorianCalendar c = new GregorianCalendar();
+            c.setTime(fechaEvento);
+            XMLGregorianCalendar fechEvento = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+            //Esto es necesario porque el formato es <dateTime>2015-09-10T19:19:19</dateTime>
+            fechEvento.setMillisecond(DatatypeConstants.FIELD_UNDEFINED);
+            fechEvento.setTimezone(DatatypeConstants.FIELD_UNDEFINED);
+            reportingTareasDetalle.setTimestampSobre(fechEvento);
+            reportingTareasDetalle.setSkill(""); // constante
+
+
+            // DATOS DE LA ACCION
+
+            // fechaActual
+            c.setTime(new Date(System.currentTimeMillis()));
+            XMLGregorianCalendar fechaActual = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+            //Esto es necesario porque el formato es <dateTime>2015-09-10T19:19:19</dateTime>
+            fechaActual.setMillisecond(DatatypeConstants.FIELD_UNDEFINED);
+            fechaActual.setTimezone(DatatypeConstants.FIELD_UNDEFINED);
+            reportingTareasDetalle.setTimestampAccion(fechaActual);
+            reportingTareasDetalle.setAccion("CREAR");
+            reportingTareasDetalle.setAgenteAccion(agentAccion);
+            reportingTareasDetalle.setConnid(agentConnid);
+            reportingTareasDetalle.setInteractionId("0");
+            reportingTareasDetalle.setServicio(agentAccion);
+            reportingTareasDetalle.setServicio(agentInteractionType);
+            reportingTareasDetalle.setInteractionDirection(agentInteractionDirection);
+
+            //reportingTareas.storeTareasReportingData(reportingTareasDetalle); // TODO NO INVOCAMOS DE MOMENTO
+
+            LOGGER.info("reportingTareasDetalle", reportingTareasDetalle);
+
+        }
+        catch (Exception e)
+        {
+            LOGGER.error("error en reportingTareas", reportingTareasDetalle);
         }
     }
 }

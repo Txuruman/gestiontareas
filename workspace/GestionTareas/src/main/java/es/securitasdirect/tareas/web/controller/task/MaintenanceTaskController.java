@@ -8,11 +8,13 @@ import es.securitasdirect.tareas.model.external.Pair;
 import es.securitasdirect.tareas.service.ExternalDataService;
 import es.securitasdirect.tareas.service.InstallationService;
 import es.securitasdirect.tareas.service.QueryTareaService;
+import es.securitasdirect.tareas.service.TareaService;
 import es.securitasdirect.tareas.service.model.FinalizeMaintenanceTaskResult;
 import es.securitasdirect.tareas.web.controller.AgentController;
 import es.securitasdirect.tareas.web.controller.TaskController;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
 import es.securitasdirect.tareas.web.controller.dto.request.GetInstallationAndTaskRequest;
+import es.securitasdirect.tareas.web.controller.dto.request.maintenancetask.MaintenanceTaskCallRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.maintenancetask.MaintenanceTaskCreateRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.maintenancetask.MaintenanceTaskFinalizeRequest;
 import es.securitasdirect.tareas.web.controller.dto.response.FinalizeMaintenanceTaskResponse;
@@ -39,6 +41,8 @@ public class MaintenanceTaskController extends TaskController {
 
     @Inject
     private ExternalDataService externalDataService;
+    @Inject
+    protected TareaService tareaService;
     @Autowired
     private AgentController agentController;
 
@@ -122,6 +126,31 @@ public class MaintenanceTaskController extends TaskController {
         }
         return response;
     }
+
+
+
+
+    /**
+     * ReportingTareas para Tarea Mantenimiento despues de realizar una llamada.
+     *
+     * @return
+     */
+    @RequestMapping(value = "/call", method = RequestMethod.PUT, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public
+    @ResponseBody
+    BaseResponse reportingTareas(@RequestBody MaintenanceTaskCallRequest request) {
+        BaseResponse response;
+        try {
+            tareaService.wsReportingTareas(request.getTask(), agentController.getAgent(), "LLAMAR");
+            response = new BaseResponse();
+            response.setSuccess(true);
+        } catch (Exception e) {
+            return  processException(e);
+        }
+        return response;
+    }
+
+
 
 
 }

@@ -11,6 +11,8 @@ import es.securitasdirect.tareas.model.external.DescriptionPair;
 import es.securitasdirect.tareas.service.model.DiscardNotificationTaskResult;
 import es.securitasdirect.tareas.service.model.FinalizeMaintenanceTaskResult;
 import es.securitasdirect.tareas.web.controller.params.TaskServiceParams;
+import es.securitasdirect.ws.ReportingTareas;
+import es.securitasdirect.ws.ReportingTareasDetalle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wso2.ws.dataservice.*;
@@ -63,6 +65,9 @@ public class TareaService {
     protected ExternalDataService externalDataService;
     @Inject
     protected InfopointService infopointService;
+    @Inject
+    protected ReportingTareas reportingTareas;
+
 
     @Resource(name = "applicationUser")
     private String applicationUser;
@@ -121,7 +126,8 @@ public class TareaService {
             wsFinalizeInMemoryTask(agent, tarea);
         }
 
-        //2. TODO Pendiente, cuando esté funcionando el Reporting de BI el dato Motivo de Cierre y Compensación deben de registrarse en la auditoria
+        wsReportingTareas(tarea, agent, "GESTIONAR");
+
 
     }
 
@@ -132,7 +138,6 @@ public class TareaService {
      * <p/>
      * En Tarea de tipo Mantenimiento, al finalizar, ejecutar WS de grabar commlogs  de IBS con los datos de la pantalla.
      * <p/>
-     * //TODO Pendiente, cuando esté funcionando el Reporting de BI el dato Motivo de Cierre y Compensación deben de registrarse en la auditoria
      *
      * @param agent
      * @param tarea
@@ -170,7 +175,8 @@ public class TareaService {
             result.setOpenMaintenanceWindowURL(prepareExternalCreateMaintenanceURLFinalizeMaintenanceTask(tarea, agent));
         }
 
-        //TODO Pendiente, cuando esté funcionando el Reporting de BI el dato Motivo de Cierre y Compensación deben de registrarse en la auditoria
+        wsReportingTareas(tarea, agent, "GESTIONAR");
+
 
         return result;
     }
@@ -221,7 +227,8 @@ public class TareaService {
         }
 
 
-        //TODO Pendiente, cuando esté funcionando el Reporting de BI el dato Motivo de Cierre y Compensación deben de registrarse en la auditoria
+        wsReportingTareas(tarea, agent, "GESTIONAR");
+
 
         return true;
 
@@ -271,6 +278,8 @@ public class TareaService {
         //4. Aplazar el Aviso, Si es de tipo Aviso hay que retrasar el aviso también
         avisoService.delayTicket(tarea.getIdAviso(), agent.getIdAgent(), schedTime, recordType);
 
+        wsReportingTareas(tarea, agent, "APLAZAR");
+
     }
 
 
@@ -300,13 +309,16 @@ public class TareaService {
 
         if (!isTareaInMemory(tareaRefrescada)) {
             wsDelayTask(agent, tarea, schedTime, recordType);
-            //TODO Pendiente, cuando esté funcionando el Reporting de BI el dato Motivo de Cierre y Compensación deben de registrarse en la auditoria
+
         } else {
             //Aplazar tarea en memoria
             wsDelayInMemoryTask(agent, tarea, schedTime, recordType);
             //Finalizar tarea en memoria
             wsFinalizeInMemoryTask(agent, tarea);
         }
+
+        wsReportingTareas(tarea, agent, "APLAZAR");
+
     }
 
     /**
@@ -710,10 +722,12 @@ public class TareaService {
                 infoResult.setWasInMemory(true);
                 // Finalizar Tarea en memoria
                 wsFinalizeInMemoryTask(agent, tarea);
+                wsReportingTareas(tarea, agent, "GESTIONAR");
             } else {
                 infoResult.setWasInMemory(false);
                 //Cancelar cuando no está en memoria
                 wsFinalizeTask(agent, tarea);
+                wsReportingTareas(tarea, agent, "GESTIONAR");
             }
 
             // desmarcar Aviso de la Tarea
@@ -727,11 +741,13 @@ public class TareaService {
                 if (!isChangedTipoOrMotivo(tareaRefrescada, tarea) &&  withInteraction && !isCallDone) {
                     LOGGER.debug("Ommiting calling reject task because of current condition of the interaction and task will make the javascript RejectInteractioinPushPreview to be called");
                     infoResult.setOmmitedCallToDiscard(true);
+                    wsReportingTareas(tarea, agent, "DESCARTAR");
                 } else {
                 	//Desmarcar el aviso
                 	avisoService.unmarkTicket(tarea.getIdAviso());
                     //No se rechazará mediante javascript
                     infoResult.setOmmitedCallToDiscard(false);
+                    wsReportingTareas(tarea, agent, "GESTIONAR");
                 }
             } else { //La tarea no está en memoria y no se ha cambiado ni tipo ni motivo
                 //Parece ser que no hay que hacer nada
@@ -756,8 +772,11 @@ public class TareaService {
         if (isTareaInMemory(tareaRefrescada)) {
             // Finalizar Tarea en memoria
             wsFinalizeInMemoryTask(agent, tarea);
+
+            wsReportingTareas(tarea, agent, "DESCARTAR");
+
         } else {
-            //Cancelar cuando está en memoria
+            //Cancelar cuando no está en memoria
             wsFinalizeTask(agent, tarea);
         }
     }
@@ -865,6 +884,104 @@ public class TareaService {
     protected String prepareExternalCreateMaintenanceURLFinalizeMaintenanceTask(TareaMantenimiento tareaMantenimiento, Agent agent) {
         return externalCreateMaintenanceURLFinalizeMaintenanceTask+"?t="+agent.getInfopointSession();
     }
+
+
+    public void wsReportingTareas(Tarea tarea, Agent agent, String accionUsuario)
+    {
+
+        try {
+
+            InstallationData installationData = installationService.getInstallationData(tarea.getNumeroInstalacion());
+
+            ReportingTareasDetalle reportingTareasDetalle = new ReportingTareasDetalle();
+
+            // fechaActual
+            GregorianCalendar c = new GregorianCalendar();
+            c.setTime(new Date(System.currentTimeMillis()));
+            XMLGregorianCalendar fechaActual = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+            //Esto es necesario porque el formato es <dateTime>2015-09-10T19:19:19</dateTime>
+            fechaActual.setMillisecond(DatatypeConstants.FIELD_UNDEFINED);
+            fechaActual.setTimezone(DatatypeConstants.FIELD_UNDEFINED);
+
+
+            // DATOS DE LA TAREA
+
+            reportingTareasDetalle.setTimestampTarea(fechaActual); // TODO F_CREACION_TAREA recuperarla de la callinglist
+            reportingTareasDetalle.setIdTarea(tarea.getId());
+            reportingTareasDetalle.setUsuarioCreacion(agent.getAgentIBS());
+            reportingTareasDetalle.setCallingList(tarea.getCallingList());
+            if (tarea instanceof TareaAviso) {
+                reportingTareasDetalle.setTipoTarea("AVISO");
+            } else if (tarea instanceof TareaMantenimiento) {
+                reportingTareasDetalle.setTipoTarea("MANTENIMIENTO");
+            }
+            if (tarea instanceof TareaExcel) {
+                reportingTareasDetalle.setTipoTarea("EXCEL");
+            }
+            reportingTareasDetalle.setInsNo(tarea.getNumeroInstalacion());
+            if (tarea instanceof TareaAviso) {
+                reportingTareasDetalle.setIdAviso(((TareaAviso) tarea).getIdAviso()); // AVISO
+                reportingTareasDetalle.setTipo(((TareaAviso) tarea).getTipoAviso1()); // AVISO
+                reportingTareasDetalle.setMotivo(((TareaAviso) tarea).getMotivo1());  // AVISO
+            }
+            reportingTareasDetalle.setPanel(installationData.getPanel());
+            reportingTareasDetalle.setVersion(installationData.getVersion());
+            if (tarea instanceof TareaMantenimiento) {
+
+                // fechaEvento
+                //GregorianCalendar c = new GregorianCalendar();
+                c.setTime(((TareaMantenimiento)tarea).getFechaEvento());
+                XMLGregorianCalendar fechaEvento = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+                //Esto es necesario porque el formato es <dateTime>2015-09-10T19:19:19</dateTime>
+                fechaEvento.setMillisecond(DatatypeConstants.FIELD_UNDEFINED);
+                fechaEvento.setTimezone(DatatypeConstants.FIELD_UNDEFINED);
+
+                reportingTareasDetalle.setTimestampSobre(fechaEvento);
+            }
+            reportingTareasDetalle.setSkill(""); // constante
+
+
+
+
+            // DATOS DE LA ACCION
+
+            reportingTareasDetalle.setTimestampAccion(fechaActual);
+            reportingTareasDetalle.setAccion(accionUsuario); // APLAZAR/DESCARTAR/GESTIONAR/LLAMAR
+            reportingTareasDetalle.setAgenteAccion(agent.getAgentIBS());
+            if (tarea instanceof TareaExcel) {
+                reportingTareasDetalle.setTipificacionCierre(((TareaExcel) tarea).getTypeName()); // EXCEL
+                reportingTareasDetalle.setCompensacion(((TareaExcel) tarea).getCompensation());   // EXCEL
+            }
+            reportingTareasDetalle.setConnid(agent.getConnid());
+            reportingTareasDetalle.setInteractionId(""); // TODO recuperarlo  BP PLUGIN
+            reportingTareasDetalle.setServicio(agent.getAgentIBS());
+            reportingTareasDetalle.setServicio(agent.getInteractionType());
+            reportingTareasDetalle.setInteractionDirection(agent.getInteractionDirection());
+            if ("APLAZAR".equals(accionUsuario)) {
+
+                // fechaReprogramacion
+                //GregorianCalendar c = new GregorianCalendar();
+                c.setTime(tarea.getFechaReprogramacion());
+                XMLGregorianCalendar fechaReprogramacion = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+                //Esto es necesario porque el formato es <dateTime>2015-09-10T19:19:19</dateTime>
+                fechaReprogramacion.setMillisecond(DatatypeConstants.FIELD_UNDEFINED);
+                fechaReprogramacion.setTimezone(DatatypeConstants.FIELD_UNDEFINED);
+
+                reportingTareasDetalle.setFechaReprogramacion(fechaReprogramacion);
+            }
+
+            //reportingTareas.storeTareasReportingData(reportingTareasDetalle); TODO NO INVOCAMOS DE MOMENTO
+
+
+            LOGGER.info("reportingTareasDetalle", reportingTareasDetalle);
+        }
+        catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+            throw new FrameworkException(e);
+        }
+
+    }
+
 
 }
 
