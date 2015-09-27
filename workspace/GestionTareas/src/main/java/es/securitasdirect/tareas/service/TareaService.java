@@ -783,7 +783,6 @@ public class TareaService {
     
     /**
      * Obtener tipo de aplazamientos
-     * @param tarea
      * GprAplazamiento
      * @return
      */
@@ -895,18 +894,17 @@ public class TareaService {
 
             ReportingTareasDetalle reportingTareasDetalle = new ReportingTareasDetalle();
 
-            // fechaActual
-            GregorianCalendar c = new GregorianCalendar();
-            c.setTime(new Date(System.currentTimeMillis()));
-            XMLGregorianCalendar fechaActual = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
-            //Esto es necesario porque el formato es <dateTime>2015-09-10T19:19:19</dateTime>
-            fechaActual.setMillisecond(DatatypeConstants.FIELD_UNDEFINED);
-            fechaActual.setTimezone(DatatypeConstants.FIELD_UNDEFINED);
-
 
             // DATOS DE LA TAREA
 
-            reportingTareasDetalle.setTimestampTarea(fechaActual); // TODO F_CREACION_TAREA recuperarla de la callinglist
+            // fechaCreacionTarea
+            GregorianCalendar c = new GregorianCalendar();
+            c.setTime(tarea.getFechaCreacionTarea());
+            XMLGregorianCalendar fechaCreacionTarea = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+            //Esto es necesario porque el formato es <dateTime>2015-09-10T19:19:19</dateTime>
+            fechaCreacionTarea.setMillisecond(DatatypeConstants.FIELD_UNDEFINED);
+            fechaCreacionTarea.setTimezone(DatatypeConstants.FIELD_UNDEFINED);
+            reportingTareasDetalle.setTimestampTarea(fechaCreacionTarea);
             reportingTareasDetalle.setIdTarea(tarea.getId());
             reportingTareasDetalle.setUsuarioCreacion(agent.getAgentIBS());
             reportingTareasDetalle.setCallingList(tarea.getCallingList());
@@ -945,6 +943,13 @@ public class TareaService {
 
             // DATOS DE LA ACCION
 
+            // fechaActual
+            c = new GregorianCalendar();
+            c.setTime(new Date(System.currentTimeMillis()));
+            XMLGregorianCalendar fechaActual = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+            //Esto es necesario porque el formato es <dateTime>2015-09-10T19:19:19</dateTime>
+            fechaActual.setMillisecond(DatatypeConstants.FIELD_UNDEFINED);
+            fechaActual.setTimezone(DatatypeConstants.FIELD_UNDEFINED);
             reportingTareasDetalle.setTimestampAccion(fechaActual);
             reportingTareasDetalle.setAccion(accionUsuario); // APLAZAR/DESCARTAR/GESTIONAR/LLAMAR
             reportingTareasDetalle.setAgenteAccion(agent.getAgentIBS());
@@ -952,10 +957,9 @@ public class TareaService {
                 reportingTareasDetalle.setTipificacionCierre(((TareaExcel) tarea).getTypeName()); // EXCEL
                 reportingTareasDetalle.setCompensacion(((TareaExcel) tarea).getCompensation());   // EXCEL
             }
-            reportingTareasDetalle.setConnid(agent.getConnid());
-            reportingTareasDetalle.setInteractionId(""); // TODO recuperarlo  BP PLUGIN
-            reportingTareasDetalle.setServicio(agent.getAgentIBS());
-            reportingTareasDetalle.setServicio(agent.getInteractionType());
+            reportingTareasDetalle.setConnid((agent.getConnid() != null)? agent.getConnid() : "0");
+            reportingTareasDetalle.setInteractionId((agent.getInteractionId() != null) ?  agent.getInteractionId() : "0");
+            reportingTareasDetalle.setServicio((agent.getInteractionType() != null)? agent.getInteractionType() : "NO_INTERACTION");
             reportingTareasDetalle.setInteractionDirection(agent.getInteractionDirection());
             if ("APLAZAR".equals(accionUsuario)) {
 
@@ -970,7 +974,7 @@ public class TareaService {
                 reportingTareasDetalle.setFechaReprogramacion(fechaReprogramacion);
             }
 
-            //reportingTareas.storeTareasReportingData(reportingTareasDetalle); TODO NO INVOCAMOS DE MOMENTO
+            //reportingTareas.storeTareasReportingData(reportingTareasDetalle); //TODO NO INVOCAMOS DE MOMENTO
 
 
             LOGGER.info("reportingTareasDetalle", reportingTareasDetalle);
