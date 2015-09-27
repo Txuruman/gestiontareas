@@ -939,7 +939,7 @@ public class GestionSenalesService {
             reportingTareasDetalle.setAgenteAccion(agentAccion);
             reportingTareasDetalle.setConnid(agentConnid);
             reportingTareasDetalle.setInteractionId("0");
-            reportingTareasDetalle.setServicio(agentAccion);
+            //reportingTareasDetalle.setServicio(agentAccion);
             reportingTareasDetalle.setServicio(agentInteractionType);
             reportingTareasDetalle.setInteractionDirection(agentInteractionDirection);
 

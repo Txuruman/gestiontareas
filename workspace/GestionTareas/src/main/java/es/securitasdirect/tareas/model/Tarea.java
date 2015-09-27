@@ -57,6 +57,10 @@ public class Tarea {
     protected Date fechaReprogramacion;
 
     /** */
+    @JsonFormat(pattern = "yyyy-MM-dd' 'HH:mm:ss.SSS")
+    protected Date fechaCreacionTarea;
+
+    /** */
     protected Integer codigoCliente;
 
     protected String  campana;
@@ -129,6 +133,14 @@ public class Tarea {
 
     public void setFechaReprogramacion(Date fechaReprogramacion) {
         this.fechaReprogramacion = fechaReprogramacion;
+    }
+
+    public Date getFechaCreacionTarea() {
+        return fechaCreacionTarea;
+    }
+
+    public void setFechaCreacionTarea(Date fechaCreacionTarea) {
+        this.fechaCreacionTarea = fechaCreacionTarea;
     }
 
     public Integer getCodigoCliente() {
@@ -211,6 +223,7 @@ public class Tarea {
         sb.append(", id=").append(id);
         sb.append(", telefono='").append(telefono).append('\'');
         sb.append(", fechaReprogramacion=").append(fechaReprogramacion);
+        sb.append(", fechaCreacionTarea=").append(fechaCreacionTarea);
         sb.append(", codigoCliente=").append(codigoCliente);
         sb.append('}');
         return sb.toString();
@@ -225,6 +238,7 @@ public class Tarea {
 		result = prime * result + ((codigoCliente == null) ? 0 : codigoCliente.hashCode());
 		result = prime * result + ((estado == null) ? 0 : estado.hashCode());
 		result = prime * result + ((fechaReprogramacion == null) ? 0 : fechaReprogramacion.hashCode());
+        result = prime * result + ((fechaCreacionTarea == null) ? 0 : fechaCreacionTarea.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((numeroContrato == null) ? 0 : numeroContrato.hashCode());
 		result = prime * result + ((numeroInstalacion == null) ? 0 : numeroInstalacion.hashCode());
@@ -267,6 +281,11 @@ public class Tarea {
 				return false;
 		} else if (!fechaReprogramacion.equals(other.fechaReprogramacion))
 			return false;
+        if (fechaCreacionTarea == null) {
+            if (other.fechaCreacionTarea != null)
+                return false;
+        } else if (!fechaCreacionTarea.equals(other.fechaCreacionTarea))
+            return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;

@@ -81,6 +81,7 @@ public class AgentController extends BaseController {
 
             agent.setInteractionDirection(parametersMap.get(ExternalParams.INTERACTION_DIRECTION));
             agent.setInteractionType(parametersMap.get(ExternalParams.INTERACTION_TYPE));
+            agent.setInteractionId(parametersMap.get(ExternalParams.INTERACTION_ID));
 
             LOGGER.debug("Loaded Agent info {}", agent);
         }

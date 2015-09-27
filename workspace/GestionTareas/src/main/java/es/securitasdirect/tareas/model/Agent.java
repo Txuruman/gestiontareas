@@ -22,6 +22,7 @@ public class Agent {
     private String auth_signature;
     private String interactionDirection;
     private String interactionType;
+    private String interactionId;
 	private String infopointSession;
 
     public String getIdAgent() {
@@ -159,6 +160,14 @@ public class Agent {
 	public void setInteractionType(String interactionType) {
 		this.interactionType = interactionType;
 	}
+
+    public String getInteractionId() {
+        return interactionId;
+    }
+
+    public void setInteractionId(String interactionId) {
+        this.interactionId = interactionId;
+    }
 
 	public String getInfopointSession() {
 		return infopointSession;

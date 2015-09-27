@@ -28,6 +28,7 @@ public interface TaskServiceParams {
      */
     //Ejemplo DATE_FORMAT                    = "2015-02-18T03:05:20.000+01:00";
     public static String DEFAULT_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
+    public static String TAREA_COMMONS_FECHA_CREACION_TAREA_DATE_FORMAT = "yyyy-MM-dd' 'HH:mm:ss.SSS";
 
 
 
