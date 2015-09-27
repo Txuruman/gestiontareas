@@ -5,6 +5,7 @@
 
 
 <div ng-controller="notificationtask" ng-init="tarea={};init()">
+	<app:messageNoInstallation/>
     <div class="panel panel-default">
     <div class="panel-body">
         <div class="row">
@@ -43,9 +44,9 @@
             <div class="spacer_t2"></div>
              <div class="row">
 	            <app:inputTextNG id="personaContacto" label="visortarea.personacontacto"
-	                             value="tarea.personaContacto" cells="6" required="true" form="formVisorTarea"/>
+	                             value="tarea.personaContacto" cells="6" required="true" form="formVisorTarea" avisoC="true"/>
 	            <app:inputTextNG id="telefono" label="visortarea.telefono" value="tarea.telefonoAviso" cells="6"
-	                              type="text"  only="true" required="true" form="formVisorTarea" />
+	                              type="text"  only="true" required="true" form="formVisorTarea" avisoT="true"/>
 	        </div>
             <div class="row">
             </div>
@@ -60,11 +61,13 @@
                     <select  ng-model="tarea.tipoAviso1" convert-to-number class="form-control" ng-change="refeshDisabled=false; getTypeReasonList1(tarea.tipoAviso1)">
                         <option data-ng-repeat="itemTipoAviso1 in tipoAvisoList" value="{{itemTipoAviso1.id}}" ng-selected="itemTipoAviso1.id==tarea.tipoAviso1">{{itemTipoAviso1.id +" - "+ itemTipoAviso1.value}}</option>
                     </select>
+                    <span class="error" ng-show="formVisorTarea.tipoAviso1.$error.required"><spring:message code="error.notext"/></span>
                 </app:input>
                 <app:input id="motivo1" label="eti.visortarea.form.label.reason" cells="6" required="true">
-                    <select  ng-model="tarea.motivo1" convert-to-number class="form-control" ng-change="refeshDisabled=false; getClosingList(tarea.tipoAviso1,tarea.motivo1,tarea.closing)">
+                    <select  ng-model="tarea.motivo1" convert-to-number class="form-control" ng-change="refeshDisabled=false">
                         <option data-ng-repeat="itemMotivo1 in motivoList1" value="{{itemMotivo1.id}}" ng-selected="itemMotivo1.id==tarea.motivo1" >{{itemMotivo1.id +" - "+ itemMotivo1.value}}</option>
                     </select>
+                    <span class="error" ng-show="errorMotivo1 || formVisorTarea.motivo1.$error.required"><spring:message code="error.notext"/></span>
                 </app:input>
             </div>
             <div class="spacer_t1"></div>
@@ -78,6 +81,7 @@
                     <select  ng-model="tarea.motivo2" convert-to-number class="form-control" ng-change="refeshDisabled=false">
                         <option data-ng-repeat="itemMotivo2 in motivoList2" value="{{itemMotivo2.id}}" ng-selected="itemMotivo2.id==tarea.motivo2" >{{itemMotivo2.id +" - "+ itemMotivo2.value}}</option>
                     </select>
+                    <span class="error" ng-show="errorMotivo2"><spring:message code="error.notext"/></span>
                 </app:input>
             </div>
             <div class="spacer_t1"></div>
@@ -91,6 +95,7 @@
                     <select  ng-model="tarea.motivo3" convert-to-number class="form-control" ng-change="refeshDisabled=false">
                         <option data-ng-repeat="k in motivoList3" value="{{k.id}}" ng-selected="k.id==tarea.motivo3" >{{k.id +" - "+ k.value}}</option>
                     </select>
+                    <span class="error" ng-show="errorMotivo3"><spring:message code="error.notext"/></span>
                 </app:input>
             </div>
             <!-- row -->
@@ -98,7 +103,7 @@
             <div class="row">
             	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 	                <app:input id="closing" label="notificationtask.closing" cells="0" readonly="false" required="true">
-	                    <select ng-model="tarea.closing" convert-to-number class="form-control marginBottom5" ng-change="refeshDisabled=false; closingAlert=false; ">
+	                    <select ng-model="tarea.closing" convert-to-number class="form-control marginBottom5" ng-change="refeshDisabled=false; closingAlert=false;" ng-click="getClosingList()">
 	                        <option data-ng-repeat="k in closingList" value="{{k.id}}" ng-selected="k.id==tarea.closing">{{k.id +" - "+ k.value}}</option>
 	                    </select>
 	                    <span class="error" ng-show="closingAlert"><spring:message code="error.notext"/></span>

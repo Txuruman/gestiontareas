@@ -39,6 +39,10 @@ app.controller('marketingsurveytask-ctrl', function ($scope, $http, CommonServic
             //$log.debug("Loaded installation data:" ,data.installationData);
             $scope.tarea = data.tarea;
             $scope.installationData = data.installationData;
+            if(data.noInstallation==true){
+            	$scope.noInstallation=data.noInstallation;
+            	$scope.noInstallationMsg=data.noInstallationMsg;
+            }
             CommonService.processBaseResponse(data, status, headers, config);
             $scope.getClosingReason();
             $scope.vm.appReady = true;

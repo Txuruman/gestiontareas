@@ -276,7 +276,7 @@ public class TareaService {
         }
 
         //4. Aplazar el Aviso, Si es de tipo Aviso hay que retrasar el aviso también
-        avisoService.delayTicket(tarea.getIdAviso(), agent.getIdAgent(), schedTime);
+        avisoService.delayTicket(tarea.getIdAviso(), agent.getIdAgent(), schedTime, recordType);
 
         wsReportingTareas(tarea, agent, "APLAZAR");
 
@@ -437,8 +437,10 @@ public class TareaService {
         saTime.getItem().add(TaskServiceParams.TAREA_COMMONS_FECHA_REPROGRAMACION);
         saTime.getItem().add(sdfSchedTime.format(schedTime));
         // Recort_type = 5 (personal callback) / 6 (campaing callback)
-        saType.getItem().add("record_type");
+        
         saType.getItem().add(recordType);
+        saType.getItem().add("record_type");
+        
         //Al aplazar cuando no está en memoria, en el ws hay que rellenar también el campo agent_id con 101@place (por ejemplo: 101@P17001)
         // han cambiado de opnion
         saAgentId.getItem().add("agent_id");
@@ -876,11 +878,11 @@ public class TareaService {
 
     /**
      * Prepara la url de abrir mantenimiento.
-     * Imagino que al abrir sesión en infopoint el token de seguridad de infopoint habrá que pasarlo como parámetro.
+     * Imagino que al abrir sesión en infopoint el token de seguridad de infopoint habrá que pasarlo como parámetro. (Tenías Razón...)
      * Por eso yo le decía a Isabel que eso no podía funcionar, pero ella insistió que a ella le dijeron que sí, y que lo probáramos. Que si infopoint comprueba que tu ip está logada, se lo traga.
      */
     protected String prepareExternalCreateMaintenanceURLFinalizeMaintenanceTask(TareaMantenimiento tareaMantenimiento, Agent agent) {
-        return externalCreateMaintenanceURLFinalizeMaintenanceTask;
+        return externalCreateMaintenanceURLFinalizeMaintenanceTask+"?t="+agent.getInfopointSession();
     }
 
 

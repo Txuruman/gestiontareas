@@ -22,6 +22,7 @@ app.controller('taskCreation', function ($scope, $http, CommonService, $modal, $
 				}else{
 					$scope.installationNotSearched=false;
 					$scope.mostrarAvisos=true;
+					$scope.getRequiredBy();
 				}
             })
             .error(function (data, status, headers, config) {
@@ -181,12 +182,72 @@ app.controller('taskCreation', function ($scope, $http, CommonService, $modal, $
     };
     /** Fin datos combos***/
     
+    /**
+     * Obtenemos el Requerido por de la tarea de los datos del agente
+     */
+  
+    $scope.getRequiredBy=function(){
+    	//Obtenemos el agente
+    	$http({
+            method: 'GET',
+            url: 'agent/prepareInfopointSession'
+        })
+            .success(function (data, status, headers, config) {
+                CommonService.logger('Agente obtenido: ' + JSON.stringify(data), "debug");
+                $scope.tarea.requeridoPor=data.agent.desktopDepartment;
+                CommonService.processBaseResponse(data, status, headers, config);
+                $scope.openMaintenaceWindow(data.agent);
+            })
+            .error(function (data, status, headers, config) {
+                $scope.error = true;
+                CommonService.logger('Error en obteniedo los datos del cliente', "debug");
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                CommonService.processBaseResponse(data, status, headers, config);
+            });
+    }
+    
+    
+    
     /** Cierre de interacción
      * 	Función externa CloseInteractionPushPreview
      */
     $scope.closeInteraction=function(){
     	 e = window.external.CloseInteractionPushPreview(connID);
          alert(JSON.stringify(e));
+    }
+    
+    /**
+     * Comprobar motivos
+     * Si alguno de los tres tipos está rellenado tiene que tener el motivo relleno
+     */
+    $scope.compruebaMotivos=function(){
+    	var err=false;
+    	if ($scope.tarea.tipoAviso1!=null && $scope.tarea.tipoAviso1!="" && $scope.tarea.tipoAviso1!=undefined) {
+			if($scope.tarea.motivo1==null || $scope.tarea.motivo1=="" || $scope.tarea.motivo1==undefined){
+				$scope.errorMotivo1=true;
+				err=true;
+			}else{
+				$scope.errorMotivo1=false;
+			}
+		}
+    	if ($scope.tarea.tipoAviso2!=null && $scope.tarea.tipoAviso2!="" && $scope.tarea.tipoAviso2!=undefined) {
+			if($scope.tarea.motivo2==null || $scope.tarea.motivo2=="" || $scope.tarea.motivo2==undefined){
+				$scope.errorMotivo2=true;
+				err=true;
+			}else{
+				$scope.errorMotivo2=false;
+			}
+		}
+    	if ($scope.tarea.tipoAviso3!=null && $scope.tarea.tipoAviso3!="" && $scope.tarea.tipoAviso3!=undefined) {
+			if($scope.tarea.motivo3==null || $scope.tarea.motivo3=="" || $scope.tarea.motivo3==undefined){
+				$scope.errorMotivo3=true;
+				err=true;
+			}else{
+				$scope.errorMotivo3=false;
+			}
+		}
+    	return err;
     }
 });
 

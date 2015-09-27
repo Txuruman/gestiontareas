@@ -4,6 +4,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <div ng-controller="marketingsurveytask-ctrl" ng-init="getInstallationAndTask()">
+<app:messageNoInstallation/>
 <!--     <div class="row bordel"> -->
 <!--         Tarea: {{tarea}}<br/> -->
 <!--         Instalacion: {{installationData}} -->
