@@ -15,6 +15,7 @@ public class FinalizeMaintenanceTaskResult {
 
     /** Agente, por si se le ha actualizado la session de infopoint */
     private Agent agent;
+    private boolean createdInfopointSession = false;
 
     public boolean isOpenMaintenanceWindow() {
         return openMaintenanceWindow;
@@ -38,5 +39,13 @@ public class FinalizeMaintenanceTaskResult {
 
     public void setOpenMaintenanceWindowURL(String openMaintenanceWindowURL) {
         this.openMaintenanceWindowURL = openMaintenanceWindowURL;
+    }
+
+    public void setCreatedInfopointSession(boolean createdInfopointSession) {
+        this.createdInfopointSession = createdInfopointSession;
+    }
+
+    public boolean isCreatedInfopointSession() {
+        return createdInfopointSession;
     }
 }
