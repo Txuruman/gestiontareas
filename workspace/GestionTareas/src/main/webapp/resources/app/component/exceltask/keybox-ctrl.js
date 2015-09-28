@@ -22,6 +22,10 @@ app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService, $modal
             //$log.debug("Loaded installation data:",data.installationData);
             $scope.tarea = data.tarea;
             $scope.installationData = data.installationData;
+            if(data.noInstallation==true){
+            	$scope.noInstallation=data.noInstallation;
+            	$scope.noInstallationMsg=data.noInstallationMsg;
+            }
             CommonService.processBaseResponse(data, status, headers, config);
             $scope.getClosingReason();
             $scope.vm.appReady = true;
@@ -101,7 +105,7 @@ app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService, $modal
             $http.put("keyboxtask/descartar", discardRequest).then(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
                 if ($scope.fromSearch != 'true') {
-                    $scope.closeInteraction();
+                	CommonService.excellDiscard();
                 } else {
                     CommonService.gotoSearch();
                 }
@@ -110,7 +114,7 @@ app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService, $modal
             })
         } else {
             if ($scope.fromSearch != 'true') {
-                $scope.closeInteraction();
+            	CommonService.excellDiscard();
             } else {
                 CommonService.gotoSearch();
             }
@@ -161,10 +165,9 @@ app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService, $modal
             controller: 'DelayModalInstanceCtrl',  //Referencia al controller especifico para el modal
             size: size,
             resolve: {
-                //Creo que esto es para pasar parametros al controller interno
-                // items: function () {
-                //     return $scope.items;
-                // }
+            	items: function () {
+                    return false;
+                }
             }
         });
 

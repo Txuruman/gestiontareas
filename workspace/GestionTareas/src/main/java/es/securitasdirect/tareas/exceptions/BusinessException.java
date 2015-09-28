@@ -29,7 +29,8 @@ public class BusinessException extends RuntimeException {
 		ERROR_NOT_OWNER_TASK_INMEMORY,
 		ERROR_CREATE_TICKET,
 		ERROR_DELAY_TICKET,
-		ERROR_INSERT_TOA_TASK
+		ERROR_INSERT_TOA_TASK,
+		ERROR_GET_DELAY_TYPE
     };
 	
 	private ErrorCode errorCode = null;

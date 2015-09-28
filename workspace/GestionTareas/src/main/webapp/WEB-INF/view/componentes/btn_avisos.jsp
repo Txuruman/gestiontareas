@@ -14,19 +14,19 @@
            		</button>
 
                 <!-- Crear Mantenimiento -->
-                <app:inputButtonNG value="boton.CrearMantenimiento" type="submit" button_type="default" ng_click="(formVisorTarea.$valid && tarea.closing!=null)? crearmantenimiento() : muestraFinalizarRequired()" fluid_wrapper="true"
+                <app:inputButtonNG value="boton.CrearMantenimiento" type="submit" button_type="default" ng_click="botonMantenimiento()" fluid_wrapper="true"
                                    ng_disabled="(tarea===undefined || tarea===null || installationData==null || installationData===undefined) ? true : false"/>
 
                 <!-- Aplazar, abre dialogo modal si ha cambiado algo -->
-                <app:inputButtonNG value="boton.Aplazar" button_type="default" ng_click="openDelayModal()" fluid_wrapper="true"
+                <app:inputButtonNG value="boton.Aplazar" button_type="default" ng_click="mostrarAvisosAplazar()" fluid_wrapper="true"
                                    ng_disabled="(tarea===undefined || tarea===null || installationData==null || installationData===undefined) ? true : false"/>
 
                 <!-- Descargar -->
-                <app:inputButtonNG value="boton.Descartar" button_type="default" ng_click="openContentModal()" fluid_wrapper="true"/>
+                <app:inputButtonNG value="boton.Descartar" button_type="default" ng_click="(!compruebaMotivos()) ? openContentModal() : null" fluid_wrapper="true"/>
                 <!-- Añadir condición cuando haya motivos de cierre :  && tarea.closing!=null -->
 
                 <!-- Finalizar -->
-                <app:inputButtonNG value="boton.Finalizar" type="submit" button_type="primary" ng_click="(formVisorTarea.$valid && tarea.closing!=null)? finalizar() : muestraFinalizarRequired()" fluid_wrapper="true"
+                <app:inputButtonNG value="boton.Finalizar" type="submit" button_type="primary" ng_click="botonFinalizar()" fluid_wrapper="true"
                                    ng_disabled="(tarea===undefined || tarea===null || installationData==null || installationData===undefined) ? true : false"/>
             </div>
         </div>

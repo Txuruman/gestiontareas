@@ -11,16 +11,18 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
         //Ventana Aplazar - Start
         //Abre la ventana, posibles tamaños '', 'sm', 'lg'
     $scope.openDelayModal = function (size) {
-        var modalInstance = $modal.open({
+    	$scope.mostrarErrorAplazarC=false;
+    	$scope.mostrarErrorAplazarT=false;
+    	var modalInstance = $modal.open({
             animation: false, //Indica si animamos el modal
             templateUrl: 'deplayModalContent.html', //HTML del modal
             controller: 'DelayModalInstanceCtrl',  //Referencia al controller especifico para el modal
             size: size,
             resolve: {
                 //Creo que esto es para pasar parametros al controller interno
-                // items: function () {
-                //     return $scope.items;
-                // }
+                 items: function () {
+                     return true;
+                 }
             }
         });
 
@@ -40,11 +42,11 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
      * Función que se lanza al pulsar el BOTÓN DESCARTAR
      **/
     $scope.openContentModal = function (size) {
-        alert("Vamos a llamar a isCallDone");
+        //alert("Vamos a llamar a isCallDone");
         $scope.iscalldone = window.external.IsCallDone(mapParams.bp_interactionId);
         //TODO PARA DESARROLLO, QUITAR
 //        $scope.iscalldone = true;
-        alert("Tras llamar a isCallDone el resultado ha sido " + $scope.iscalldone);
+        //alert("Tras llamar a isCallDone el resultado ha sido " + $scope.iscalldone);
 
         /*
          * Errores
@@ -108,7 +110,6 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                     });
                 }
             }
-            //TODO: Si no hay cambios llamamos a la función javascript de descartar
             else {
                 /*
                  *  Si no venimos de la pantalla de buscar cerramos la interacción,
@@ -178,20 +179,20 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
      * Unica llamada REST al servidor para Descartar Aviso
      */
     $scope.callDescartarAvisoServer = function (sinSalvarTarea) {
-        CommonService.logger('Descartar Tarea, tarea: ' + $scope.tarea, "debug");
+//        CommonService.logger('Descartar Tarea, tarea: ' + $scope.tarea, "debug");
         var requestdata = {
             task: $scope.tarea,
             installation: $scope.installationData,
-            isCallDone: $scope.iscalldone,
+            callDone: $scope.iscalldone,
             withInteaction:!$scope.fromSearch
         };
-        CommonService.logger('Descartar Tarea, request ' + JSON.stringify(requestdata), "debug");
+        
+        //CommonService.logger('Descartar Tarea, request ' + JSON.stringify(requestdata), "debug");
 
         var urlfinal = 'notificationtask/descartaraviso';
         if (sinSalvarTarea) {
             urlfinal = 'notificationtask/descartaravisosinsalvartarea';
         }
-
         $http({
             method: 'PUT',
             url: urlfinal,
@@ -206,7 +207,9 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                     //variable error para poder volver atras en el descartar
                 $scope.error = !data.success;
                 if(data.result.ommitedCallToDiscard){
-                	window.external.RejectInteractionPushPreview(mapParams.bp_interactionId);
+//                    alert("Descartamos por javascript")
+                	var resultado = window.external.RejectInteractionPushPreview(mapParams.bp_interactionId);
+//                    alert(resultado);
                 }else{
 	                if ($scope.fromSearch != "true") {
 	                    CommonService.closeInteraction(data);
@@ -268,12 +271,12 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                     CommonService.processBaseResponse(data, status, headers, config);
                 } else {
                     var url = "windowCreateMaintenanceFrame" + data.app;
-
+                    var req=$scope.tarea.requeridoPor.substring(0, $scope.tarea.requeridoPor.indexOf(" "));
                     //Parametros para TOA
                     url = url + "?InstallationNumber=" + $scope.installationData.numeroInstalacion +
                         "&PanelTypeId=" + $scope.installationData.panel +
                         "&TicketNumber=" + $scope.tarea.idAviso +
-                        "&RequestedBy=" + $scope.tarea.requeridoPor +
+                        "&RequestedBy=" + req +
                         "&Operator=" + agent.agentIBS +
                         "&ContactPerson=" + $scope.tarea.personaContacto +
                         "&ContactPhone=" + $scope.tarea.telefono +
@@ -302,7 +305,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                     //    "&TEXTO=" + $scope.tarea.observaciones;
 
                     var resultado = window.showModalDialog(url, null, "center:yes; resizable:yes; dialogWidth:900px; dialogHeight:700px;");
-                    alert(resultado);
+                    //alert(resultado);
 
                     //Tras recibir el resultado de la otra ventana podemos cerrar la session de infopoint
                     $scope.closeInfopointSession();
@@ -476,11 +479,16 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             $scope.tareaOriginal = angular.copy($scope.tarea);
 
             $scope.installationData = data.installationData;
+            //Si no llega instalación mostramos mensaje error perpetuo
+            if(data.noInstallation==true){
+            	$scope.noInstallation=data.noInstallation;
+            	$scope.noInstallationMsg=data.noInstallationMsg;
+            }
             $scope.getNotificationTypeList();
             $scope.getTypeReasonList1($scope.tarea.tipoAviso1);
             $scope.getTypeReasonList2($scope.tarea.tipoAviso2);
             $scope.getTypeReasonList3($scope.tarea.tipoAviso3);
-            $scope.getClosingList($scope.tarea.tipoAviso1, $scope.tarea.motivo1, $scope.tarea.closing);
+            //$scope.getClosingList($scope.tarea.tipoAviso1, $scope.tarea.motivo1, $scope.tarea.closing);
             $scope.getClosingAditionalDataList();
             $scope.refeshDisabled = true;
             //Mensajes para los required de finalizar
@@ -498,12 +506,19 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
 
 
     /**** COMBOS *****/
-        //Consultar Combo de Cierre
-    $scope.getClosingList = function (idType, reasonId, closing) {
-        CommonService.logger("Load Closing Type List for params: " + idType + ", " + reasonId, "debug");
+    
+        /**
+         * Consultar Combo de Cierre
+         * Al hacer click en el combo se llama a getNotificationClosingList del back que hace:
+         * si se ha modificado algún tipo y motivo se actualiza el aviso
+         * Consulta los motivos con estos nuevos datos
+         */
+    $scope.getClosingList = function(){
+        CommonService.logger("Load Closing Type List for params: " + $scope.tarea.tipoAviso1 + ", " + $scope.tarea.motivo1, "debug");
         var closingTypeRequest = {
-            idType: idType,
-            reasonId: reasonId
+            idType: $scope.tarea.tipoAviso1,
+            reasonId: $scope.tarea.motivo1,
+            tarea:$scope.tarea
         };
         CommonService.logger("Load Closing Type List Request: ", "debug", closingTypeRequest);
         $http({
@@ -642,5 +657,84 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
         $scope.getInstallationAndTask();
     };
 
-
+    /**
+     * mostrarAvisosAplazar
+     * comprueba si están rellenos los campos de persona de contacto y telefono antes de aplazar
+     */
+    $scope.mostrarAvisosAplazar=function(){
+    	var err=$scope.compruebaMotivos();
+    	if($scope.tarea.personaContacto!='' && $scope.tarea.personaContacto!=null && $scope.tarea.personaContacto!=undefined && $scope.tarea.telefonoAviso!=null && $scope.tarea.telefonoAviso!='' && $scope.tarea.telefonoAviso!=undefined && !err){
+    		$scope.openDelayModal();
+    	}else{
+    		if($scope.tarea.personaContacto=='' || $scope.tarea.personaContacto==null || $scope.tarea.personaContacto==undefined){
+    			$scope.mostrarErrorAplazarC=true;
+        	}else{
+        	    $scope.mostrarErrorAplazarC=false;
+        	}
+        	if($scope.tarea.telefonoAviso=='' || $scope.tarea.telefonoAviso==null || $scope.tarea.telefonoAviso==undefined){
+        		$scope.mostrarErrorAplazarT=true;
+        	}else{
+        	    $scope.mostrarErrorAplazarT=false;
+        	}
+    	}
+    	
+    }
+    
+    /**
+     * Comprobar motivos
+     * Si alguno de los tres tipos está rellenado tiene que tener el motivo relleno
+     */
+    $scope.compruebaMotivos=function(){
+    	var err=false;
+    	if ($scope.tarea.tipoAviso1!=null && $scope.tarea.tipoAviso1!="" && $scope.tarea.tipoAviso1!=undefined) {
+			if($scope.tarea.motivo1==null || $scope.tarea.motivo1=="" || $scope.tarea.motivo1==undefined){
+				$scope.errorMotivo1=true;
+				err=true;
+			}else{
+				$scope.errorMotivo1=false;
+			}
+		}
+    	if ($scope.tarea.tipoAviso2!=null && $scope.tarea.tipoAviso2!="" && $scope.tarea.tipoAviso2!=undefined) {
+			if($scope.tarea.motivo2==null || $scope.tarea.motivo2=="" || $scope.tarea.motivo2==undefined){
+				$scope.errorMotivo2=true;
+				err=true;
+			}else{
+				$scope.errorMotivo2=false;
+			}
+		}
+    	if ($scope.tarea.tipoAviso3!=null && $scope.tarea.tipoAviso3!="" && $scope.tarea.tipoAviso3!=undefined) {
+			if($scope.tarea.motivo3==null || $scope.tarea.motivo3=="" || $scope.tarea.motivo3==undefined){
+				$scope.errorMotivo3=true;
+				err=true;
+			}else{
+				$scope.errorMotivo3=false;
+			}
+		}
+    	return err;
+    }
+    
+    /**
+     * Comprobación boton mantenimiento
+     */
+    $scope.botonMantenimiento=function(){
+    	//Antigua funcion --> (formVisorTarea.$valid && tarea.closing!=null)? crearmantenimiento() : muestraFinalizarRequired()
+    	var err=$scope.compruebaMotivos();
+    	if($scope.formVisorTarea.$valid && $scope.tarea.closing!=null && !err){
+    		$scope.crearmantenimiento();
+    	}else{
+    		$scope.muestraFinalizarRequired();
+    	}
+    }
+    /**
+     * Comprobación boton finaizar
+     */
+    $scope.botonFinalizar=function(){
+    	//Antigua funcion --> (formVisorTarea.$valid && tarea.closing!=null)? finalizar() : muestraFinalizarRequired()
+    	var err=$scope.compruebaMotivos();
+    	if ($scope.formVisorTarea.$valid && $scope.tarea.closing!=null && !err) {
+			$scope.finalizar();
+		}else{
+			$scope.muestraFinalizarRequired();
+		}
+    }
 });

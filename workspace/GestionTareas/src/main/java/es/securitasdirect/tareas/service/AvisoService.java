@@ -331,7 +331,7 @@ public class AvisoService {
             operateTicket.getTICKET().setNoteClose(""); // constante
             operateTicket.getTICKET().setMorDebt(0); // constante
             operateTicket.getTICKET().setTypePanel(installationData.getPanel());
-
+            	
 
             String xmlCreateTicket = xmlMarshaller.marshalObject(operateTicket);
             xmlCreateTicket = xmlCreateTicket.replaceAll("\n", "");
@@ -366,10 +366,10 @@ public class AvisoService {
      * @return
      * @throws Exception
      */
-    public void delayTicket(Integer naviso, String gblidusr, Date fhasta) {
+    public void delayTicket(Integer naviso, String gblidusr, Date fhasta, String idaplaza) {
 
         String cnota = ""; // constante
-        String idaplaza = "APR"; // idaplaza tipo de aplazamiento: si lo admite, dejarlo vacío. Si no, poner “APR”
+        //String idaplaza = "APR"; // idaplaza tipo de aplazamiento: si lo admite, dejarlo vacío. Si no, poner “APR”
         try {
             List<RowErrorAA> rowErrorAAs = spAvisosOperaciones.aplazarAviso(naviso, gblidusr, idaplaza, new SimpleDateFormat("dd/MM/yyyy' 'HH:mm:ss").format(fhasta), cnota);
 

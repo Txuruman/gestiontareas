@@ -39,6 +39,10 @@ app.controller('marketingsurveytask-ctrl', function ($scope, $http, CommonServic
             //$log.debug("Loaded installation data:" ,data.installationData);
             $scope.tarea = data.tarea;
             $scope.installationData = data.installationData;
+            if(data.noInstallation==true){
+            	$scope.noInstallation=data.noInstallation;
+            	$scope.noInstallationMsg=data.noInstallationMsg;
+            }
             CommonService.processBaseResponse(data, status, headers, config);
             $scope.getClosingReason();
             $scope.vm.appReady = true;
@@ -61,10 +65,9 @@ app.controller('marketingsurveytask-ctrl', function ($scope, $http, CommonServic
             controller: 'DelayModalInstanceCtrl',  //Referencia al controller especifico para el modal
             size: size,
             resolve: {
-                //Creo que esto es para pasar parametros al controller interno
-                // items: function () {
-                //     return $scope.items;
-                // }
+            	items: function () {
+                    return false;
+                }
             }
         });
 
@@ -158,7 +161,7 @@ app.controller('marketingsurveytask-ctrl', function ($scope, $http, CommonServic
             $http.put("marketingsurveytask/descartar", discardRequest).then(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
                 if ($scope.fromSearch != 'true') {
-                    $scope.closeInteraction();
+                	CommonService.excellDiscard();
                 } else {
                     CommonService.gotoSearch();
                 }
@@ -167,7 +170,7 @@ app.controller('marketingsurveytask-ctrl', function ($scope, $http, CommonServic
             })
         } else {
             if ($scope.fromSearch != 'true') {
-                $scope.closeInteraction();
+            	CommonService.excellDiscard();
             } else {
                 CommonService.gotoSearch();
             }

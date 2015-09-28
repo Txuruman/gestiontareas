@@ -25,7 +25,16 @@ public class InstallationData {
     private String member;
 
     private String clazz;
-
+    
+    /**
+     * Nombre contacto plan
+     */
+    private String contactoPlan;
+    /**
+     * Teléfono contacto plan
+     */
+    private String telefonoPlan;
+    
     public String getNumeroInstalacion() {
         return numeroInstalacion;
     }
@@ -106,19 +115,29 @@ public class InstallationData {
         this.clazz = clazz;
     }
 
-    @Override
-    public String toString() {
-        final StringBuffer sb = new StringBuffer("InstallationData{");
-        sb.append("numeroInstalacion='").append(numeroInstalacion).append('\'');
-        sb.append(", titular='").append(titular).append('\'');
-        sb.append(", panel='").append(panel).append('\'');
-        sb.append(", version='").append(version).append('\'');
-        sb.append(", personaContacto='").append(personaContacto).append('\'');
-        sb.append(", telefono='").append(telefono).append('\'');
-        sb.append(", codigoPostal='").append(codigoPostal).append('\'');
-        sb.append(", monitoringStatus='").append(monitoringStatus).append('\'');
-        sb.append(", member='").append(member).append('\'');
-        sb.append('}');
-        return sb.toString();
-    }
+	public String getContactoPlan() {
+		return contactoPlan;
+	}
+
+	public void setContactoPlan(String contactoPlan) {
+		this.contactoPlan = contactoPlan;
+	}
+
+	public String getTelefonoPlan() {
+		return telefonoPlan;
+	}
+
+	public void setTelefonoPlan(String telefonoPlan) {
+		this.telefonoPlan = telefonoPlan;
+	}
+
+	@Override
+	public String toString() {
+		return "InstallationData [numeroInstalacion=" + numeroInstalacion + ", titular=" + titular + ", panel=" + panel
+				+ ", version=" + version + ", personaContacto=" + personaContacto + ", telefono=" + telefono
+				+ ", codigoPostal=" + codigoPostal + ", monitoringStatus=" + monitoringStatus + ", member=" + member
+				+ ", clazz=" + clazz + ", contactoPlan=" + contactoPlan + ", telefonoPlan=" + telefonoPlan + "]";
+	}
+
+    
 }

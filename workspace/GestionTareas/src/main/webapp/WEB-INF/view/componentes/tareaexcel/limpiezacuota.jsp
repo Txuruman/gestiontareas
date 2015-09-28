@@ -4,6 +4,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <div ng-controller="feecleaningtask-ctrl" ng-init="getInstallationAndTask()">
+<app:messageNoInstallation/>
     <jsp:include page="instalacion.jsp"/>
     <div class="panel panel-default">
         <div class="panel-body">

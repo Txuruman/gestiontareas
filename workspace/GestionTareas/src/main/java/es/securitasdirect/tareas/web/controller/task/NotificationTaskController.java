@@ -8,6 +8,7 @@ import es.securitasdirect.tareas.service.AvisoService;
 import es.securitasdirect.tareas.service.ExternalDataService;
 import es.securitasdirect.tareas.service.InstallationService;
 import es.securitasdirect.tareas.service.QueryTareaService;
+import es.securitasdirect.tareas.service.TareaService;
 import es.securitasdirect.tareas.service.model.DiscardNotificationTaskResult;
 import es.securitasdirect.tareas.web.controller.AgentController;
 import es.securitasdirect.tareas.web.controller.TaskController;
@@ -16,6 +17,7 @@ import es.securitasdirect.tareas.web.controller.dto.request.GetInstallationAndTa
 import es.securitasdirect.tareas.web.controller.dto.request.notificationtask.*;
 import es.securitasdirect.tareas.web.controller.dto.response.NotificationTaskResponse;
 import es.securitasdirect.tareas.web.controller.dto.response.PairListResponse;
+import es.securitasdirect.tareas.web.controller.dto.response.TipoAplazaResponse;
 import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.wso2.ws.dataservice.GrpAplazamiento;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -43,6 +46,8 @@ public class NotificationTaskController extends TaskController {
     private InstallationService installationDataService;
     @Inject
     private AvisoService avisoService;
+    @Inject
+    private TareaService tareaService;
     @Autowired
     private AgentController agentController;
 
@@ -155,7 +160,7 @@ public class NotificationTaskController extends TaskController {
         BaseResponse response = new BaseResponse();
         Agent agent = agentController.getAgent();
         try {
-            tareaService.discardNotificationTask(agent, request.getTask(), request.getInstallation(), false, false,false);
+            tareaService.discardNotificationTask(agent, request.getTask(), request.getInstallation(), false, request.isCallDone(),request.isWithInteaction());
             response.success(messageUtil.getProperty("notificationTask.modify.success"));
         } catch (Exception e) {
             response = processException(e);
@@ -165,8 +170,21 @@ public class NotificationTaskController extends TaskController {
         LOGGER.debug("Descartar tareaAviso\nResponse:{}", response);
         return response;
     }
-
-
+    
+    @RequestMapping(value = "/getTipoAplaza", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public
+    @ResponseBody
+    BaseResponse getTipoAplaza() {
+    	LOGGER.debug("Obtener tipos de aplazamiento");
+    	TipoAplazaResponse response = new TipoAplazaResponse();
+        try {
+            List<GrpAplazamiento> lista = tareaService.getTipoAplaza();
+            response.setListGrpAplazamiento(lista);
+        } catch (Exception e) {
+            response = (TipoAplazaResponse) processException(e);
+        }
+        return response;
+    }
 
 
 }

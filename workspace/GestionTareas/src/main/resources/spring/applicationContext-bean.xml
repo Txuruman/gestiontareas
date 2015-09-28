@@ -58,7 +58,7 @@
 
     <!-- URL de abrir mantenimiento utilizada para las Tareas de Tipo Mantenimiento al finalizar la tarea con Tipo de Cancelación configurado para abrir ventana -->
     <bean id="externalCreateMaintenanceURLFinalizeMaintenanceTask" class="java.lang.String">
-        <constructor-arg value="http://infopoint/Avisos_V2/bin/Operativa/Inicio.asp" />
+        <constructor-arg value="http://es1preinfo01v/Avisos_V2/bin/Operativa/Inicio.asp" />
     </bean>
 
     <!--

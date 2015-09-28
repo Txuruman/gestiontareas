@@ -77,6 +77,10 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService, $
             //$log.debug("Loaded installation data:", data.installationData);
             $scope.tarea = data.tarea;
             $scope.installationData = data.installationData;
+            if(data.noInstallation==true){
+            	$scope.noInstallation=data.noInstallation;
+            	$scope.noInstallationMsg=data.noInstallationMsg;
+            }
             CommonService.processBaseResponse(data,status,headers,config);
             $scope.getDesplegableKey1();
             $scope.getCancelationType();
@@ -164,7 +168,7 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService, $
 
     $scope.asignarTextoCancelacion=function(){
     	for (var i = 0; i < $scope.cancelationTypeList.length; i++) {
-    		if($scope.cancelationTypeList[i].id==$scope.tarea.cancelationTypeCombo){
+    		if($scope.cancelationTypeList[i].id==$scope.tarea.tipoCancelacion){
     			$scope.tarea.textoCancelacion=$scope.cancelationTypeList[i].description;
     		}
 		} 
@@ -214,6 +218,20 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService, $
 		//alert(phone);
 		e = window.external.DoCall(phone, 'myDoCallHandler', provideMockupObject());
 		//alert(JSON.stringify(e));
+
+        var maintenanceTaskCallRequest={
+            task: $scope.tarea
+        };
+        $http.put('maintenancetask/call', maintenanceTaskCallRequest)
+            .success(function (data, status, headers, config) {
+                CommonService.processBaseResponse(data, status, headers, config);
+            })
+            .error(function (data, status, headers, config) {
+                $scope.error = true;
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                CommonService.processBaseResponse(data, status, headers, config);
+            });
     }
     $scope.compruebaTfno=function(){
     	if($scope.otroTelefono!=undefined && $scope.otroTelefono!="" && $scope.otroTelefono!=null){
