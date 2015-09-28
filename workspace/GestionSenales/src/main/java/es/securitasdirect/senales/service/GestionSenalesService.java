@@ -15,6 +15,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.wso2.ws.dataservice.*;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -178,10 +179,11 @@ public class GestionSenalesService {
     @Autowired
     private FileService fileService;
 
-    @PostConstruct
-    private void init() {
-        LOGGER.info("Initializating...");
-        //TODO CHECK Y LOG DE LA CONFIGURACON
+
+
+    @PreDestroy
+    public void shutdown() {
+
     }
 
 
@@ -549,6 +551,7 @@ public class GestionSenalesService {
             LOGGER.error("Error checking login agent {} {}", chgResponse.getOperationResult().getResultCode(),chgResponse.getOperationResult().getResultMessage());
             throw new Exception("Error checking login agent " + chgResponse.getOperationResult().getResultCode() + " " + chgResponse.getOperationResult().getResultMessage());
         } else {
+            LOGGER.debug("There are no agents logged in, will send SMS");
             return false; //No hay nadie trabajando
         }
 

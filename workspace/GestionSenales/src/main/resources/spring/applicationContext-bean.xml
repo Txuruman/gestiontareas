@@ -181,11 +181,12 @@
 
 
     <!-- Servicio de estatus de la aplicación. Necesario para injectar todos los JMS Reader configurados. -->
-    <bean id="happyService" class="es.securitasdirect.senales.service.HappyService">
+    <bean id="appControllerService" class="es.securitasdirect.senales.service.AppControllerService">
         <property name="monitoredJmsReaders">
             <!-- Injectar todos los JMS Reader que se quiera que se muestren por el Happy Service -->
             <util:list value-type="es.securitasdirect.senales.reader.JMSReader">
                 <ref bean="jmsReaderPozuelo"/>
+                <!--<ref bean="jmsReaderRoberto"/>-->
                 <!--
                 <ref bean="jmsReaderYecora"/>
                 <ref bean="jmsReaderError1"/>
