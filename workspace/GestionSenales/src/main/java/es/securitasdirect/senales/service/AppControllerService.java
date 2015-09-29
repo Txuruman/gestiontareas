@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.inject.Named;
 import javax.inject.Singleton;
 import java.util.*;
@@ -14,13 +16,12 @@ import java.util.*;
  *
  */
 
-@Named(value = "happyService")
+@Named(value = "appControllerService")
 @Singleton
-public class HappyService {
+public class AppControllerService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(HappyService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AppControllerService.class);
 
-    public static final String EMPTY = "";
 
     @Autowired
     protected GestionSenalesService gestionSenalesService;
@@ -37,7 +38,9 @@ public class HappyService {
 
         if (monitoredJmsReaders!=null) {
             for (JMSReader jmsReader : monitoredJmsReaders) {
-                happyData.addJmsReaderStatus(jmsReader.getAliasName(),jmsReader.isReaderStatusUp(),jmsReader.getReaderStatusDescription());
+                happyData.addJmsReaderStatus(jmsReader.getAliasName(),jmsReader.isReaderStatusUp(),jmsReader.getReaderStatusDescription(),
+                jmsReader.getTestSentMessages(),
+                        jmsReader.getTestReceivedMesssages());
             }
         }
         return happyData;
@@ -49,5 +52,33 @@ public class HappyService {
 
     public void setMonitoredJmsReaders(List<JMSReader> monitoredJmsReaders) {
         this.monitoredJmsReaders = monitoredJmsReaders;
+    }
+
+
+    public void testMessages() {
+        LOGGER.debug("Starting test messages process for queues");
+        if (monitoredJmsReaders!=null) {
+            for (JMSReader monitoredJmsReader : monitoredJmsReaders) {
+                monitoredJmsReader.injectTestMessage();
+            }
+        }
+    }
+
+
+    public void stopJMSReaders() {
+        LOGGER.debug("Stopping all JMS Readers");
+        if (monitoredJmsReaders!=null) {
+            for (JMSReader monitoredJmsReader : monitoredJmsReaders) {
+                monitoredJmsReader.close();
+            }
+        }
+    }
+    public void startJMSReaders() {
+        LOGGER.debug("Starting all JMS Readers");
+        if (monitoredJmsReaders!=null) {
+            for (JMSReader monitoredJmsReader : monitoredJmsReaders) {
+                monitoredJmsReader.connect();
+            }
+        }
     }
 }

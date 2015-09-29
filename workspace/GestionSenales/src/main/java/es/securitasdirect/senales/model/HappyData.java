@@ -64,8 +64,13 @@ public class HappyData {
         this.withoutAgentsMessages = withoutAgentsMessages;
     }
 
-    public void addJmsReaderStatus(String name, boolean ok, String description) {
-        jmsReaderStatus.put(name, (ok?"Ok":"Error") + " " + (description==null?"":description) );
+    public void addJmsReaderStatus(String name, boolean ok, String description, int testSentMessages, int testReceivedMesssages) {
+        StringBuilder sb = new StringBuilder();
+        sb.append((ok?"Ok":"Error")).append(" ");
+        sb.append((description==null?"":description)).append(" ");
+        sb.append(",").append(testReceivedMesssages).append(" test messages readed from ").append(testSentMessages).append(" sent");
+
+        this.jmsReaderStatus.put(name,sb.toString());
     }
 
     public Map<String, String> getJmsReaderStatus() {
@@ -84,6 +89,7 @@ public class HappyData {
         sb.append(", errorMessages=").append(errorMessages);
         sb.append(", withLoggedInAgentsMessages=").append(withLoggedInAgentsMessages);
         sb.append(", withoutAgentsMessages=").append(withoutAgentsMessages);
+        sb.append(", jmsReaderStatus=").append(jmsReaderStatus);
         sb.append('}');
         return sb.toString();
     }

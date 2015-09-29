@@ -128,6 +128,7 @@ public class TareaServiceTools {
                 tarea.setCampana(responseMap.get(TaskServiceParams.TAREA_CAMPAIGN));
                 //Fecha de Reprogramación viene en numerico formato EPOC, i.e:1440588300
                 tarea.setFechaReprogramacion(toDateEpocFromMap(responseMap.get(TaskServiceParams.TAREA_COMMONS_FECHA_REPROGRAMACION)));
+                tarea.setFechaCreacionTarea(toDateFromMap(responseMap.get(TaskServiceParams.TAREA_COMMONS_FECHA_CREACION_TAREA) , TaskServiceParams.TAREA_COMMONS_FECHA_CREACION_TAREA_DATE_FORMAT));
 
             } else {
                 LOGGER.error("Ticket not found by  id {}", idAviso);
@@ -454,6 +455,8 @@ public class TareaServiceTools {
         tarea.setCampana(parameters.get(TaskServiceParams.TAREA_CAMPAIGN));
         //Fecha de Reprogramación viene en numerico formato EPOC, i.e:1440588300 http://www.epochconverter.com/
         tarea.setFechaReprogramacion(toDateEpocFromMap(parameters.get(TaskServiceParams.TAREA_COMMONS_FECHA_REPROGRAMACION)));
+        tarea.setFechaCreacionTarea(toDateFromMap(parameters.get(TaskServiceParams.TAREA_COMMONS_FECHA_CREACION_TAREA) , TaskServiceParams.TAREA_COMMONS_FECHA_CREACION_TAREA_DATE_FORMAT) );
+
         return tarea;
     }
 

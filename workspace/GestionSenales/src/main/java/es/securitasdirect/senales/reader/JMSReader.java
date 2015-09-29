@@ -6,6 +6,7 @@ import es.securitasdirect.senales.service.GestionSenalesService;
 import es.securitasdirect.senales.support.XmlMarshaller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.helpers.MarkerIgnoringBase;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
@@ -17,9 +18,12 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.xml.soap.Text;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Lector de mensajes de bus JMS.
@@ -34,11 +38,20 @@ public class JMSReader implements MessageListener {
     private static String JNDI_FACTORY_JBOSS = "org.jboss.naming.remote.client.InitialContextFactory";
     private static String JNDI_FACTORY = JNDI_FACTORY_WL;
     private static long RECONNECTION_DELAY = 5 * 60 * 1000;
+    private static String TEST_MESSAGE_CONTENT = "GESTIONSENALESTESTMESSAGE";
 
     /**
      * Indica si el Reader se ha conectado a la cola correctametne
      */
     private boolean readerStatusUp = false;
+    /**
+     * Numero de mensajes de prueba recibidos
+     */
+    private AtomicInteger testReceivedMesssages = new AtomicInteger();
+    /**
+     * Numero de mensajes de prueba enviados
+     */
+    private AtomicInteger testSentMessages = new AtomicInteger();
     /**
      * Indica si se ha solicitado la destrucción de este Reader, para controlar el hilo de reconexión.
      */
@@ -58,6 +71,7 @@ public class JMSReader implements MessageListener {
     private QueueConnection queueConnection;
     private QueueSession queueSession;
     private MessageConsumer consumer;
+    private javax.naming.Context context;
 
     @Autowired
     protected GestionSenalesService gestionSenalesService;
@@ -73,100 +87,123 @@ public class JMSReader implements MessageListener {
     }
 
     @PreDestroy
-    protected void end() {
+    public void shutdown() {
+        readerDestroyed = true;
         close();
     }
 
 
+    /**
+     * Conectar a las colas
+     */
     public void connect() {
-        assert gestionSenalesService != null;
-        if (user != null && pass != null) {
-            LOGGER.info("JMSReader {} connecting :  \n\t - JNDI Url: {}\n\t - QFC Name: {}\n\t - Queue name: {}\n\t - User: {}\n\t - Password: {}", aliasName, jndiUrl, qfcName, queueName, user, pass);
-        } else {
-            LOGGER.info("JMSReader {} connecting :  \n\t - JNDI Url: {}\n\t - QFC Name: {}\n\t - Queue name: {}\n", aliasName, jndiUrl, qfcName, queueName);
-        }
+        if (!readerStatusUp) {
 
-        try {
+            assert gestionSenalesService != null;
+            if (user != null && pass != null) {
+                LOGGER.info("JMSReader {} ({})connecting :  \n\t - JNDI Url: {}\n\t - QFC Name: {}\n\t - Queue name: {}\n\t - User: {}\n\t - Password: {}", aliasName, this.hashCode(), jndiUrl, qfcName, queueName, user, pass);
+            } else {
+                LOGGER.info("JMSReader {} ({})connecting :  \n\t - JNDI Url: {}\n\t - QFC Name: {}\n\t - Queue name: {}\n", aliasName, this.hashCode(), jndiUrl, qfcName, queueName);
+            }
 
-            LOGGER.info("JMSReader {} : Getting initial Context", aliasName);
-            javax.naming.Context context = getInitialContext();
+            try {
 
-            LOGGER.info("JMSReader {} : Looking up Queue Connection Factory in Context", aliasName);
-            QueueConnectionFactory queueConnectionFactory = (QueueConnectionFactory) context.lookup(qfcName);
+                LOGGER.info("JMSReader {} ({}): Getting initial Context", aliasName, this.hashCode());
+                context = getInitialContext();
 
-            LOGGER.info("JMSReader {} : Creating Connection from Queue Connection Factory", aliasName);
-            queueConnection = queueConnectionFactory.createQueueConnection();
-            queueConnection.start();
+                LOGGER.info("JMSReader {} ({}): Looking up Queue Connection Factory in Context", aliasName, this.hashCode());
+                QueueConnectionFactory queueConnectionFactory = (QueueConnectionFactory) context.lookup(qfcName);
 
-            LOGGER.info("JMSReader {} : Creating session from Queue Connection", aliasName);
-            queueSession = queueConnection.createQueueSession(false, Session.CLIENT_ACKNOWLEDGE);
+                LOGGER.info("JMSReader {} ({}): Creating Connection from Queue Connection Factory", aliasName, this.hashCode());
+                queueConnection = queueConnectionFactory.createQueueConnection();
+                queueConnection.start();
 
-            LOGGER.info("JMSReader {} : Looking up Queue in Context", aliasName);
-            Destination dest = (Destination) context.lookup(queueName);
+                LOGGER.info("JMSReader {} ({}): Creating session from Queue Connection", aliasName, this.hashCode());
+                queueSession = queueConnection.createQueueSession(false, Session.CLIENT_ACKNOWLEDGE);
 
-            LOGGER.info("JMSReader {} : Creating consumer from session in the queue", aliasName);
-            consumer = queueSession.createConsumer(dest);
+                LOGGER.info("JMSReader {} ({}): Looking up Queue in Context", aliasName, this.hashCode());
+                Destination dest = (Destination) context.lookup(queueName);
 
+                LOGGER.info("JMSReader {} ({}): Creating consumer from session in the queue", aliasName, this.hashCode());
+                consumer = queueSession.createConsumer(dest);
 
-//            //PRUEBA ESCRITURA
-//            try {
-//                MessageProducer producer = queueSession.createProducer(dest);
-//                for (int i = 0; i < 10; i++) {
-//                    TextMessage textMessage = queueSession.createTextMessage(paramsTypeExample1);
-//                    producer.send(textMessage);
-//                }
-//                LOGGER.info("Escritos mensajes de prueba");
-//            } catch (Exception e) {
-//                LOGGER.error("Error escribiendo mensajes de prueba", e);
-//            }
-//            //FIN PRUEBA ESCRITURA
+                consumer.setMessageListener(this);
 
+                LOGGER.info("JMSReader {} ({}): Successfully connected", aliasName, this.hashCode());
+                readerStatusUp = true;
+                readerStatusDescription = "";
 
-            consumer.setMessageListener(this);
+                //Cerramos el contexto tras obtener todo lo necesario
+                context.close();
 
-            LOGGER.info("JMSReader {} : Successfully connected", aliasName);
-            readerStatusUp = true;
-            readerStatusDescription = "";
-        } catch (Exception e) {
-            LOGGER.error("Error connecting to JMS Queue {}: {}", aliasName, e.getMessage(), e);
-            //Try to close everything that could be open
-            close();
-            //Set this status after the close function
-            readerStatusUp = false;
-            readerStatusDescription = e.toString() + ". Will try to reconnect at " + new Date(System.currentTimeMillis() + RECONNECTION_DELAY).toString();
-
-            //Try to recconnect later
-            new Thread() {
-                @Override
-                public void run() {
-                    LOGGER.debug("Preparing reconnection to queue {}", aliasName);
-                    try {
-                        Thread.sleep(RECONNECTION_DELAY);
-                    } catch (InterruptedException e1) {
-                        LOGGER.debug("Interrupted exception will try reconnection now");
-                    }
-                    LOGGER.info("Trying reconnection to queue {} because of previous fail", aliasName);
-                    //Evitamos dejar el hilo colgado cuando se ha cerrado el Reader
-                    if (!readerDestroyed) connect();
-                }
-            }.start();
+            } catch (Exception e) {
+                LOGGER.error("JMSReader {} ({}): Error connecting to JMS {}", aliasName, this.hashCode(), e.getMessage(), e);
+                //Try to close everything that could be open
+                close();
+                //Set this status after the close function
+                readerStatusUp = false;
+                readerStatusDescription = e.toString();
+            }
         }
     }
 
 
+    /**
+     * Desconectar de las colas
+     */
     public void close() {
-        LOGGER.debug("JMSReader {} closing.", aliasName);
-        readerDestroyed = true;
-        readerStatusUp = false;
-        readerStatusDescription = "Destroyed";
+        if (readerStatusUp) {
+            LOGGER.debug("JMSReader {} ({}) closing....", aliasName, this.hashCode());
+            readerDestroyed = true;
+            readerStatusUp = false;
+            readerStatusDescription = "Destroyed";
 
-        try {
-            if (queueConnection != null) queueConnection.close();
-            if (queueSession != null) queueSession.close();
-            if (consumer != null) consumer.close();
-        } catch (Exception e) {
-            LOGGER.error("JMSReader {} : Error closing JMS connections", aliasName, e);
+            //Pedimos una sesion JNDI de nuevo porque sino da errores de seguridad
+            try {
+                LOGGER.info("JMSReader {} ({}): Getting initial Context to avoid security problems", aliasName, this.hashCode());
+                context = getInitialContext();
+            } catch (NamingException e) {
+                LOGGER.error("JMSReader {} ({}): Error getting initial context to close all JMS objects");
+            }
+
+            try {
+                if (consumer != null) {
+                    consumer.close();
+                    LOGGER.debug("JMSReader {} ({}): Successfully close JMS consumer", aliasName, this.hashCode());
+                }
+            } catch (Exception e) {
+                LOGGER.error("JMSReader {} ({}): Error closing JMS consumer", aliasName, this.hashCode(), e);
+            }
+
+            try {
+                if (queueConnection != null) {
+                    queueConnection.close();
+                    LOGGER.debug("JMSReader {} ({}): Successfully close JMS connection", aliasName, this.hashCode());
+                }
+            } catch (Exception e) {
+                LOGGER.error("JMSReader {} ({}): Error closing JMS connection", aliasName, this.hashCode(), e);
+            }
+
+            try {
+                if (queueSession != null) {
+                    queueSession.close();
+                    LOGGER.debug("JMSReader {} ({}): Successfully close JMS session", aliasName, this.hashCode());
+                }
+            } catch (Exception e) {
+                LOGGER.error("JMSReader {} ({}): Error closing JMS session", aliasName, this.hashCode(), e);
+            }
+
+            try {
+                if (context != null) {
+                    context.close();
+                    LOGGER.debug("JMSReader {} ({}): Successfully close JNDI context", aliasName, this.hashCode());
+                }
+            } catch (Exception e) {
+                LOGGER.error("JMSReader {} ({}): Error closing JNDI context", aliasName, this.hashCode(), e);
+            }
+
         }
+
     }
 
 
@@ -180,33 +217,37 @@ public class JMSReader implements MessageListener {
             try {
                 jmsMessageText = ((TextMessage) jmsMessage).getText();
             } catch (JMSException e) {
-                LOGGER.error("JMSReader {} : Can't read content of Message", aliasName, e);
+                LOGGER.error("JMSReader {} ({}): Can't read content of Message", aliasName, this.hashCode(), e);
             }
             if (jmsMessageText != null) {
-                es.securitasdirect.senales.model.Message modelMessage = new es.securitasdirect.senales.model.Message();
-                try {
-                    //Extract JMS Info
-                    CIBB cibb = xmlMarshaller.unmarshallCIBB(jmsMessageText);
-                    modelMessage = new es.securitasdirect.senales.model.Message();
-                    modelMessage.setCibb(cibb);
-                    modelMessage.setEntryDate(new Date());
+                if (!jmsMessageText.startsWith(TEST_MESSAGE_CONTENT)) {
+                    es.securitasdirect.senales.model.Message modelMessage = new es.securitasdirect.senales.model.Message();
+                    try {
+                        //Extract JMS Info
+                        CIBB cibb = xmlMarshaller.unmarshallCIBB(jmsMessageText);
+                        modelMessage = new es.securitasdirect.senales.model.Message();
+                        modelMessage.setCibb(cibb);
+                        modelMessage.setEntryDate(new Date());
 
-                    //TODO BORRAR ESTE LOG; solo es para coger mensajes de ejemplo
-                    LOGGER.info("JMSReader {} : Mensaje CIBB recivido\n\n\n\n\n\n{}\n\n\n\n\n\n\n\n", aliasName, jmsMessageText);
+                        LOGGER.debug("JMSReader {} ({}): Message CIBB received {} ", aliasName, this.hashCode(), jmsMessageText);
 
-                } catch (Exception e) {
-                    LOGGER.error("JMSReader {} : Can't parse message content \n[{}]\n", aliasName, jmsMessageText, e);
-                    modelMessage = null;
-                }
+                    } catch (Exception e) {
+                        LOGGER.error("JMSReader {} ({}): Can't parse message content  [{}] ", aliasName, this.hashCode(), jmsMessageText, e);
+                        modelMessage = null;
+                    }
 
-                if (modelMessage != null) {
-                    //Call Gestion Senales Message Service
-                    gestionSenalesService.onMessage(modelMessage);
+                    if (modelMessage != null) {
+                        //Call Gestion Senales Message Service
+                        gestionSenalesService.onMessage(modelMessage);
+                    }
+                } else {
+                    LOGGER.debug("JMSReader {} ({}): Received test message '{}'", aliasName, this.hashCode(), jmsMessageText);
+                    testReceivedMesssages.incrementAndGet();
                 }
             }
 
         } else {
-            LOGGER.error("JMSReader {} : Message received not from the correct type", aliasName);
+            LOGGER.error("JMSReader {} ({}): Message received not from the correct type", aliasName, this.hashCode());
         }
 
     }
@@ -221,6 +262,27 @@ public class JMSReader implements MessageListener {
         }
 
         return new InitialContext(env);
+    }
+
+    /**
+     * Conecta a la cola y envía un mensaje de pruebas
+     */
+    public void injectTestMessage() {
+        try {
+            javax.naming.Context context = getInitialContext();
+            Destination dest = (Destination) context.lookup(queueName);
+            MessageProducer producer = queueSession.createProducer(dest);
+            for (int i = 0; i < 10; i++) {
+                String testMessageContent = TEST_MESSAGE_CONTENT + " - " + new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date());
+                LOGGER.debug("JMSReader {} ({}):Sending test message '{}'", aliasName, this.hashCode(), testMessageContent);
+                TextMessage textMessage = queueSession.createTextMessage(testMessageContent);
+                producer.send(textMessage);
+                testSentMessages.incrementAndGet();
+            }
+            producer.close();
+        } catch (Exception e) {
+            LOGGER.error("JMSReader {} ({}): Error writing test message to  queue", aliasName, this.hashCode(), e);
+        }
     }
 
 
@@ -279,4 +341,14 @@ public class JMSReader implements MessageListener {
     public String getReaderStatusDescription() {
         return readerStatusDescription;
     }
+
+    public int getTestReceivedMesssages() {
+        return testReceivedMesssages.get();
+    }
+
+    public int getTestSentMessages() {
+        return testSentMessages.get();
+    }
+
+
 }

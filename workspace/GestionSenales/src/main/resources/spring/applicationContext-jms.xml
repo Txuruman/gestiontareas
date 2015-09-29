@@ -31,7 +31,7 @@
         User y pass opcionales, si no se incluyen no se pasan a la conexión al JNDI,
         si se incluye aunque sea en blanco se utilizará user y pass para la conexión.
         -->
-        <property name="user"  value=""/>
+        <property name="user" value=""/>
         <property name="pass" value=""/>
     </bean>
     <!--
@@ -41,12 +41,12 @@
         Factoria:                 sd.prd.es1prdxacfout
     -->
     <!--<bean id="jmsReaderError1" class="es.securitasdirect.senales.reader.JMSReader" lazy-init="false">-->
-        <!--<property name="aliasName" value="jmsReaderError1"/>-->
-        <!--<property name="qfcName" value="sd.prd.es1prdxacfout"/>-->
-        <!--<property name="queueName" value="sd.prd.es2ERRORallinoneOUT"/>-->
-        <!--<property name="jndiUrl" value="t3://es1preosbprd01v-vip:8011"/>-->
-        <!--<property name="user" value=""/>-->
-        <!--<property name="pass" value=""/>-->
+    <!--<property name="aliasName" value="jmsReaderError1"/>-->
+    <!--<property name="qfcName" value="sd.prd.es1prdxacfout"/>-->
+    <!--<property name="queueName" value="sd.prd.es2ERRORallinoneOUT"/>-->
+    <!--<property name="jndiUrl" value="t3://es1preosbprd01v-vip:8011"/>-->
+    <!--<property name="user" value=""/>-->
+    <!--<property name="pass" value=""/>-->
     <!--</bean>-->
 
     <!--
@@ -56,12 +56,12 @@
         Factoria:                 sd.prd.es2prdxacfout
     -->
     <!--<bean id="jmsReaderYecora" class="es.securitasdirect.senales.reader.JMSReader" lazy-init="false">-->
-        <!--<property name="aliasName" value="jmsReaderYecora"/>-->
-        <!--<property name="qfcName" value="sd.prd.es2prdxacfout"/>-->
-        <!--<property name="queueName" value="sd.prd.es2allinoneout"/>-->
-        <!--<property name="jndiUrl" value="t3://es2preosbprd01v-vip:8011"/>-->
-        <!--<property name="user" value=""/>-->
-        <!--<property name="pass" value=""/>-->
+    <!--<property name="aliasName" value="jmsReaderYecora"/>-->
+    <!--<property name="qfcName" value="sd.prd.es2prdxacfout"/>-->
+    <!--<property name="queueName" value="sd.prd.es2allinoneout"/>-->
+    <!--<property name="jndiUrl" value="t3://es2preosbprd01v-vip:8011"/>-->
+    <!--<property name="user" value=""/>-->
+    <!--<property name="pass" value=""/>-->
     <!--</bean>-->
 
     <!--
@@ -71,12 +71,12 @@
         Factoria:                 sd.prd.es2prdxacfout
     -->
     <!--<bean id="jmsReaderError2" class="es.securitasdirect.senales.reader.JMSReader" lazy-init="false">-->
-        <!--<property name="aliasName" value="jmsReaderError2"/>-->
-        <!--<property name="qfcName" value="sd.prd.es2prdxacfout"/>-->
-        <!--<property name="queueName" value="sd.prd.es2ERRORallinoneOUT"/>-->
-        <!--<property name="jndiUrl" value="t3://es2preosbprd01v-vip:8011"/>-->
-        <!--<property name="user" value=""/>-->
-        <!--<property name="pass" value=""/>-->
+    <!--<property name="aliasName" value="jmsReaderError2"/>-->
+    <!--<property name="qfcName" value="sd.prd.es2prdxacfout"/>-->
+    <!--<property name="queueName" value="sd.prd.es2ERRORallinoneOUT"/>-->
+    <!--<property name="jndiUrl" value="t3://es2preosbprd01v-vip:8011"/>-->
+    <!--<property name="user" value=""/>-->
+    <!--<property name="pass" value=""/>-->
     <!--</bean>-->
 
     <!--
@@ -84,13 +84,13 @@
             CONNECTION FACTORY: sd.reptef.reptefxacf
             QUEUE: sd.reptef.telef_convmng_01
     -->
-    <!--<bean id="jmsReaderRoberto" class="es.securitasdirect.senales.reader.JMSReader" lazy-init="false">-->
-    <!--<property name="aliasName" value="jmsReaderRoberto" />-->
-    <!--<property name="qfcName" value="sd.reptef.reptefxacf" />-->
-    <!--<property name="queueName" value="sd.reptef.telef_convmng_01" />-->
-    <!--<property name="jndiUrl" value="t3://10.2.145.102:8011" />-->
-    <!--<property name="user" value=""/>-->
-    <!--<property name="pass" value=""/>-->
+    <!--<bean id="jmsReaderRoberto" class="es.securitasdirect.senales.reader.JMSReader" lazy-init="false" >-->
+        <!--<property name="aliasName" value="jmsReaderRoberto"/>-->
+        <!--<property name="qfcName" value="sd.reptef.reptefxacf"/>-->
+        <!--<property name="queueName" value="sd.reptef.telef_convmng_01"/>-->
+        <!--<property name="jndiUrl" value="t3://10.2.145.102:8011"/>-->
+        <!--<property name="user" value=""/>-->
+        <!--<property name="pass" value=""/>-->
     <!--</bean>-->
 
 

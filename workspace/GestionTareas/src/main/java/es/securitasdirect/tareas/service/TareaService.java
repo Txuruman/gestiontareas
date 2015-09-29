@@ -90,6 +90,7 @@ public class TareaService {
      * indicando también si es para el propio agente o para el grupo de la Campaña.
      * Comprueba si la tarea que llega es de tipo Aviso
      */
+    
     public void delayTask(Agent agent, Tarea tarea, Date schedTime, String recordType, String motive) {
         //Validar las horas
         if (schedTime == null || schedTime.getTime() - System.currentTimeMillis() < MIN_DELAY_TIME) {
@@ -98,6 +99,7 @@ public class TareaService {
 
         //Llamada a los Delay
         if (tarea instanceof TareaAviso) {
+            
             this.delayNotificationTask(agent, (TareaAviso) tarea, schedTime, recordType, motive);
         } else {
             this.delayOtherTask(agent, tarea, schedTime, recordType);
@@ -255,6 +257,7 @@ public class TareaService {
      * @return
      * @throws Exception
      */
+    
     public void delayNotificationTask(Agent agent, TareaAviso tarea, Date schedTime, String recordType, String motive) {
         //1. Buscamos los datos de la instalación de la tarea
         InstallationData installationData = installationService.getInstallationData(tarea.getNumeroInstalacion());
@@ -276,6 +279,7 @@ public class TareaService {
         }
 
         //4. Aplazar el Aviso, Si es de tipo Aviso hay que retrasar el aviso también
+        
         avisoService.delayTicket(tarea.getIdAviso(), agent.getIdAgent(), schedTime, motive);
 
         wsReportingTareas(tarea, agent, "APLAZAR");
@@ -563,6 +567,7 @@ public class TareaService {
                 date2.setTimezone(DatatypeConstants.FIELD_UNDEFINED);
 
                 String recordTypeText;
+
                 if (recordType == null || recordType.isEmpty() || recordType.equalsIgnoreCase("Campaign")) {
                     recordTypeText = "Campaign";
                 } else {
@@ -783,7 +788,6 @@ public class TareaService {
     
     /**
      * Obtener tipo de aplazamientos
-     * @param tarea
      * GprAplazamiento
      * @return
      */
