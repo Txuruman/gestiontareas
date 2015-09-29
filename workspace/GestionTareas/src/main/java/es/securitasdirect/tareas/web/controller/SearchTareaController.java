@@ -52,7 +52,7 @@ public class SearchTareaController extends TaskController {
     public
     @ResponseBody
     BaseResponse postpone(@RequestBody PostponeGenericTaskRequest request) {
-        return super.delayTask(request.getTask(), request.getRecallType(), request.getDelayDate());
+        return super.delayTask(request.getTask(), request.getRecallType(), request.getDelayDate(), request.getMotive());
     }
 
     @RequestMapping(value = "/query", method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})

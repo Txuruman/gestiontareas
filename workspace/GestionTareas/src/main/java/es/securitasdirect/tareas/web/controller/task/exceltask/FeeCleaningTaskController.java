@@ -42,7 +42,7 @@ public class FeeCleaningTaskController extends TaskController {
     public
     @ResponseBody
     BaseResponse postpone(@RequestBody PostponeFeeCleaningTaskRequest request) {
-        return super.delayTask(request.getTask(), request.getRecallType(), request.getDelayDate());
+        return super.delayTask(request.getTask(), request.getRecallType(), request.getDelayDate(), request.getMotive());
     }
 
 

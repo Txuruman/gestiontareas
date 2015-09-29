@@ -85,8 +85,8 @@ app.service('CommonService', function ($rootScope, $log, $http, $timeout, $windo
                 //Boton cancelar del Modal
             });
 		}else{
-			alert("Lanzamos RejectInteractionPushPreview: "+mapParams.bp_connid);
-			window.external.RejectInteractionPushPreview(mapParams.bp_connid);
+//			alert("Andres!! Que Lanzamos el RejectCloseInteractionPushPreview: "+mapParams.bp_connid);
+			e=window.external.RejectCloseInteractionPushPreview(mapParams.bp_connid);
 			//this.closeInteraction({success:true});
 		}
     	
@@ -105,7 +105,7 @@ app.service('CommonService', function ($rootScope, $log, $http, $timeout, $windo
 //    	alert(JSON.strinify(data));
     	if (data.success) {
     		//alert("A continuación se cerrará la interacción");
-    		alert("Lanzamos CloseInteractionPushPreview: "+mapParams.bp_connid);
+//    		alert("Lanzamos CloseInteractionPushPreview: "+mapParams.bp_connid);
     		e = window.external.CloseInteractionPushPreview(mapParams.bp_connid);
     		//alert("Interacción cerrada: "+JSON.strinify(e));
 		}
@@ -448,7 +448,8 @@ app.controller('DelayModalInstanceCtrl', function ($scope, $modalInstance, $log,
 				$scope.delayInfo = {
 						delayDate: $scope.today,
 						delayTime: $scope.today,
-						recallType: $scope.tiposAplazamiento[0].idaplaza
+						recallType: 'Personal',
+						motive: $scope.tiposAplazamiento[0].idaplaza
 				};
 			}else{
 				$scope.error = true;
@@ -464,7 +465,8 @@ app.controller('DelayModalInstanceCtrl', function ($scope, $modalInstance, $log,
 		$scope.delayInfo = {
 				delayDate: $scope.today,
 				delayTime: $scope.today,
-				recallType: '5'
+				recallType: 'Personal',
+				motive:null
 		};
 	}
 	//$scope.withoutChanges=true;

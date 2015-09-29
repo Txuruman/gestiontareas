@@ -29,7 +29,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
         //Funciones para recibir el cierre ok y el cancel
         modalInstance.result.then(function (delayInfo) {
             //Boton Ok del modal
-            $scope.aplazar(delayInfo.delayDate, delayInfo.recallType);
+            $scope.aplazar(delayInfo.delayDate, delayInfo.recallType, delayInfo.motive);
         }, function (param) {
             //Boton cancelar del Modal
         });
@@ -61,13 +61,36 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             }
         } else if ($scope.installationData == null || $scope.installationData == undefined) {
             //Si no hay instalación llamamos a descartar aviso directamente porque entendemos que es un error
-            $scope.descartaraviso();
+        	if ($scope.tarea.personaContacto == "" || $scope.tarea.personaContacto == null || $scope.tarea.telefonoAviso == "" || $scope.tarea.telefonoAviso == null || $scope.tarea.tipoAviso1 == "" || $scope.tarea.tipoAviso1 == null || $scope.tarea.motivo1 == "" || $scope.tarea.motivo1 == null || $scope.compruebaMotivos()) {
+                var modalInstance = $modal.open({
+                    animation: false, //Indica si animamos el modal
+                    templateUrl: 'alertModal.html', //HTML del modal
+                    controller: 'ContentModalCtrl',  //Referencia al controller especifico para el modal
+                    size: size,
+                    resolve: {
+                        //Creo que esto es para pasar parametros al controller interno
+                        // items: function () {
+                        //     return $scope.items;
+                        // }
+                    }
+                });
+
+                //	            //Funciones para recibir el cierre ok y el cancel
+                modalInstance.result.then(function () {
+                    $scope.verErrores = true;
+                }, function (param) {
+                    //Boton cancelar del Modal
+                });
+            }
+            else {
+        		$scope.descartaraviso();
+            }
         } else {
             if (!angular.equals($scope.tarea, $scope.tareaOriginal)) {
                 /**Si hay cambios los siguientes campos son obligatorios:
                  * Persona, teléfono, tipo 1 y motivo 1.
                  * */
-                if ($scope.tarea.personaContacto == "" || $scope.tarea.personaContacto == null || $scope.tarea.telefonoAviso == "" || $scope.tarea.telefonoAviso == null || $scope.tarea.tipoAviso1 == "" || $scope.tarea.tipoAviso1 == null || $scope.tarea.motivo1 == "" || $scope.tarea.motivo1 == null) {
+                if ($scope.tarea.personaContacto == "" || $scope.tarea.personaContacto == null || $scope.tarea.telefonoAviso == "" || $scope.tarea.telefonoAviso == null || $scope.tarea.tipoAviso1 == "" || $scope.tarea.tipoAviso1 == null || $scope.tarea.motivo1 == "" || $scope.tarea.motivo1 == null || $scope.compruebaMotivos()) {
                     var modalInstance = $modal.open({
                         animation: false, //Indica si animamos el modal
                         templateUrl: 'alertModal.html', //HTML del modal
@@ -116,7 +139,30 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                  *  en caso contrario volvemos a la pantalla de buscar
                  */
                 if ($scope.fromSearch != "true") {
-                    $scope.descartaraviso();
+                	if ($scope.tarea.personaContacto == "" || $scope.tarea.personaContacto == null || $scope.tarea.telefonoAviso == "" || $scope.tarea.telefonoAviso == null || $scope.tarea.tipoAviso1 == "" || $scope.tarea.tipoAviso1 == null || $scope.tarea.motivo1 == "" || $scope.tarea.motivo1 == null || $scope.compruebaMotivos()) {
+                        var modalInstance = $modal.open({
+                            animation: false, //Indica si animamos el modal
+                            templateUrl: 'alertModal.html', //HTML del modal
+                            controller: 'ContentModalCtrl',  //Referencia al controller especifico para el modal
+                            size: size,
+                            resolve: {
+                                //Creo que esto es para pasar parametros al controller interno
+                                // items: function () {
+                                //     return $scope.items;
+                                // }
+                            }
+                        });
+
+                        //	            //Funciones para recibir el cierre ok y el cancel
+                        modalInstance.result.then(function () {
+                            $scope.verErrores = true;
+                        }, function (param) {
+                            //Boton cancelar del Modal
+                        });
+                    }
+                    else {
+                		$scope.descartaraviso();
+                    }
                 } else {
                     CommonService.gotoSearch();
                 }
@@ -126,13 +172,14 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
 
 
     /**** APLAZAR **/
-    $scope.aplazar = function (delayDate, recallType) {
+    $scope.aplazar = function (delayDate, recallType, motive) {
 
         CommonService.logger('Delay to ' + delayDate + ' with recallType ' + recallType + ' task ' + JSON.stringify($scope.tarea), "info");
         if ($scope.tarea) {
             var postponeRequest = {
                 recallType: recallType,
                 delayDate: delayDate,
+                motive:motive,
                 task: $scope.tarea
             };
 
@@ -206,9 +253,10 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                  */
                     //variable error para poder volver atras en el descartar
                 $scope.error = !data.success;
+//                alert(data.result.ommitedCallToDiscard);
                 if(data.result.ommitedCallToDiscard){
-//                    alert("Descartamos por javascript")
-                	var resultado = window.external.RejectInteractionPushPreview(mapParams.bp_interactionId);
+//                    alert("RejectInteractionClosePushPreview ", data.result.ommitedCallToDiscard);
+                	e = window.external.RejectCloseInteractionPushPreview(mapParams.bp_interactionId);
 //                    alert(resultado);
                 }else{
 	                if ($scope.fromSearch != "true") {
@@ -484,6 +532,11 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             	$scope.noInstallation=data.noInstallation;
             	$scope.noInstallationMsg=data.noInstallationMsg;
             }
+            //Si no llega tarea también mostramos el mensaje perpetuo
+            if(data.noTicked==true){
+            	$scope.noTicked=data.noTicked;
+            	$scope.noInstallationMsg=data.noInstallationMsg;
+            }
             $scope.getNotificationTypeList();
             $scope.getTypeReasonList1($scope.tarea.tipoAviso1);
             $scope.getTypeReasonList2($scope.tarea.tipoAviso2);
@@ -660,11 +713,21 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     /**
      * mostrarAvisosAplazar
      * comprueba si están rellenos los campos de persona de contacto y telefono antes de aplazar
+     * también comprueba que los campos horario desde y hasta sean correctos
      */
     $scope.mostrarAvisosAplazar=function(){
     	var err=$scope.compruebaMotivos();
     	if($scope.tarea.personaContacto!='' && $scope.tarea.personaContacto!=null && $scope.tarea.personaContacto!=undefined && $scope.tarea.telefonoAviso!=null && $scope.tarea.telefonoAviso!='' && $scope.tarea.telefonoAviso!=undefined && !err){
-    		$scope.openDelayModal();
+    		if ($scope.tarea.horarioDesde== undefined || ($scope.tarea.horarioDesde!= undefined && $scope.tarea.horarioDesde!="" && (parseInt($scope.tarea.horarioDesde)<0 || parseInt($scope.tarea.horarioDesde)>23))) {
+				$scope.errorHorarioDesde=true;
+			}else if ($scope.tarea.horarioHasta==undefined || ($scope.tarea.horarioHasta!=undefined && $scope.tarea.horarioHasta!="" && (parseInt($scope.tarea.horarioHasta)<0 || parseInt($scope.tarea.horarioHasta)>23))) {
+				$scope.errorHorarioDesde=false;
+				$scope.errorHorarioHasta=true;
+			}else{
+				$scope.errorHorarioDesde=false;
+				$scope.errorHorarioHasta=false;
+				$scope.openDelayModal();
+			}
     	}else{
     		if($scope.tarea.personaContacto=='' || $scope.tarea.personaContacto==null || $scope.tarea.personaContacto==undefined){
     			$scope.mostrarErrorAplazarC=true;
@@ -683,6 +746,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     /**
      * Comprobar motivos
      * Si alguno de los tres tipos está rellenado tiene que tener el motivo relleno
+     * también comprueba que los horario desde y hasta sean correctos
      */
     $scope.compruebaMotivos=function(){
     	var err=false;
@@ -710,6 +774,18 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
 				$scope.errorMotivo3=false;
 			}
 		}
+    	if ($scope.tarea.horarioDesde== undefined || ($scope.tarea.horarioDesde!= undefined && $scope.tarea.horarioDesde!="" && (parseInt($scope.tarea.horarioDesde)<0 || parseInt($scope.tarea.horarioDesde)>23))) {
+			$scope.errorHorarioDesde=true;
+			err=true;
+		}else if ($scope.tarea.horarioHasta==undefined || ($scope.tarea.horarioHasta!=undefined && $scope.tarea.horarioHasta!="" && (parseInt($scope.tarea.horarioHasta)<0 || parseInt($scope.tarea.horarioHasta)>23))) {
+			$scope.errorHorarioDesde=false;
+			$scope.errorHorarioHasta=true;
+			err=true;
+		}else{
+			$scope.errorHorarioDesde=false;
+			$scope.errorHorarioHasta=false;
+			err=false;
+		}
     	return err;
     }
     
@@ -726,7 +802,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
     	}
     }
     /**
-     * Comprobación boton finaizar
+     * Comprobación boton finalizar
      */
     $scope.botonFinalizar=function(){
     	//Antigua funcion --> (formVisorTarea.$valid && tarea.closing!=null)? finalizar() : muestraFinalizarRequired()

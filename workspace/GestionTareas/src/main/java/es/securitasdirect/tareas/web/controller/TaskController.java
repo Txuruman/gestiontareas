@@ -1,5 +1,6 @@
 package es.securitasdirect.tareas.web.controller;
 
+import es.securitasdirect.tareas.exceptions.BusinessException;
 import es.securitasdirect.tareas.model.Agent;
 import es.securitasdirect.tareas.model.InstallationData;
 import es.securitasdirect.tareas.model.Tarea;
@@ -40,13 +41,13 @@ public abstract class TaskController extends BaseController {
      * @param delayDate
      * @return
      */
-    public BaseResponse delayTask(Tarea task, String recallType, Date delayDate) {
-        LOGGER.debug("Aplazando tarea {} {} {}  ", task, delayDate, recallType);
+    public BaseResponse delayTask(Tarea task, String recallType, Date delayDate, String motive) {
+        LOGGER.debug("Aplazando tarea {} {} {} {} ", task, delayDate, recallType, motive);
         BaseResponse response = new BaseResponse();
         //Llamada al servicio para aplazar
         try {
             Agent agent = agentController.getAgent();
-            tareaService.delayTask(agent, task, delayDate, recallType);
+            tareaService.delayTask(agent, task, delayDate, recallType, motive);
             response.info(messageUtil.getProperty("postpone.success"));
         } catch (Exception e) {
             response = processException(e);
@@ -163,9 +164,12 @@ public abstract class TaskController extends BaseController {
                     response.setNoInstallationMsg(messageUtil.getProperty("ERROR_FIND_INSTALLATION"));
                 }
 
-            } catch (Exception e) {
+            } catch (BusinessException e) {
                 LOGGER.error(e.getMessage(), e);
-                return processException(e);
+                return response;
+            } catch (Exception e){
+            	LOGGER.error(e.getMessage(), e);
+            	return processException(e);
             }
         } else {
             response.danger("agent.notLoggedIn");

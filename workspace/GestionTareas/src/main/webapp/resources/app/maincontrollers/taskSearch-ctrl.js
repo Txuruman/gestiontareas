@@ -43,18 +43,25 @@ app.controller('taskSearch', function ($scope, $http, CommonService, $modal, $lo
             //Funciones para recibir el cierre ok y el cancel
             modalInstance.result.then(function (delayInfo) {
                 //Boton Ok del modal
-                $scope.aplazar(delayInfo.delayDate, delayInfo.recallType);
+                $scope.aplazar(delayInfo.delayDate, delayInfo.recallType, delayInfo.motive);
             }, function (param) {
                 //Boton cancelar del Modal
             });
         };
         
-        $scope.aplazar = function (delayDate, recallType) {
+        $scope.aplazar = function (delayDate, recallType, motive) {
             //$log.info('Delay to ' + delayDate + ' with recallType ' + recallType + ' task ' + JSON.stringify($scope.tarea));
-            if ($scope.tareaActiva) {
+            var url;
+            if ($scope.tareaActiva.typeName==='TASK_TYPE_AVISO') {
+				url="notificationtask/aplazar";
+			}else{
+				url= 'searchtarea/aplazar';
+			}
+        	if ($scope.tareaActiva) {
                 var postponeRequest = {
                     recallType: recallType,
                     delayDate:  delayDate,
+                    motive:motive,
                     task: $scope.tareaActiva
                 };
 
@@ -62,7 +69,7 @@ app.controller('taskSearch', function ($scope, $http, CommonService, $modal, $lo
 
                 $http({
                     method: 'PUT',
-                    url: 'searchtarea/aplazar',
+                    url: url,
                     data: postponeRequest
                 })
                     .success(function (data, status, headers, config) {

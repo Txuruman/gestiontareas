@@ -40,7 +40,7 @@ public class MarketingSurveyTaskController extends TaskController {
     public
     @ResponseBody
     BaseResponse postpone(@RequestBody PostponeMarketingSurveyTaskRequest request) {
-        return super.delayTask(request.getTask(), request.getRecallType(), request.getDelayDate());
+        return super.delayTask(request.getTask(), request.getRecallType(), request.getDelayDate(), request.getMotive());
     }
 
 

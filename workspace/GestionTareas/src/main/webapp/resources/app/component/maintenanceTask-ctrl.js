@@ -143,7 +143,7 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService, $
                 if(data.result!=undefined && data.result.openMaintenanceWindow!=undefined && data.result.openMaintenanceWindow==true){
                 	$scope.agent=data.result.agent;
                 	var resultado = window.showModalDialog(data.result.openMaintenanceWindowURL, null, "center:yes; resizable:yes; dialogWidth:900px; dialogHeight:700px;");
-                	alert($scope.agent +" - "+data.result.openMaintenanceWindowURL);
+//                	alert($scope.agent +" - "+data.result.openMaintenanceWindowURL);
 
                     //Tras recibir el resultado de la otra ventana podemos cerrar la session de infopoint
                     $scope.closeInfopointSession();
@@ -205,7 +205,7 @@ app.controller('maintenancetask-ctrl', function ($scope, $http, CommonService, $
     	
     	function myDoCallHandler(eventName, connid) {
 	   			newCallConnid = connid;
-	   			alert("alberto!:"+eventName+": "+newCallConnid+": ");
+//	   			alert("alberto!:"+eventName+": "+newCallConnid+": ");
 	   	}
 	
 	   	function provideMockupObject() {

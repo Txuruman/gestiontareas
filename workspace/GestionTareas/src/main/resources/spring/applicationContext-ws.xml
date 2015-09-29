@@ -48,7 +48,7 @@
         </cxf:inFaultInterceptors>
     </cxf:bus>
 
-    <!-- Web Services Cliente  SP_InstallationMonData-->
+<!-- Web Services Cliente  SP_InstallationMonData-->
     <jaxws:client name="wsSPInstallationMonData"
                   serviceClass="org.wso2.ws.dataservice.SPInstallationMonDataPortType"
                   address="http://10.2.144.63:9763/services/SP_InstallationMonData?wsdl"
@@ -107,4 +107,6 @@
                   serviceClass="es.securitasdirect.ws.ReportingTareas"
                   address="http://10.2.145.137:8011/ReportingTareas/ReportingTareasService"
             />
+
+
 </beans>

@@ -100,7 +100,15 @@
            		</c:if>
            		<c:if test="${not empty avisoT}">
            			<span class="error" ng-show="mostrarErrorAplazarT"><spring:message code="error.notext"/></span>
-           		</c:if> 	 	 
+           		</c:if>
+           		<c:if test="${id=='horarioDesde'}">
+           			<span class="error" ng-show="errorHorarioDesde"><spring:message code="error.pattern.hour"/></span>
+           		</c:if>
+           		<c:if test="${id=='horarioHasta'}">
+           			<span class="error" ng-show="errorHorarioHasta"><spring:message code="error.pattern.hour"/></span>
+           		</c:if>
+           		 	 
+           			 
            		  
     </div>
 </div>

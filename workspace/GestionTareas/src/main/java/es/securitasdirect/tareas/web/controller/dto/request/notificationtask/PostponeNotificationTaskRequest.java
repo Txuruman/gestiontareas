@@ -11,9 +11,10 @@ import es.securitasdirect.tareas.web.controller.dto.support.BaseRequest;
  */
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class PostponeNotificationTaskRequest extends PostponeRequest {
-
+	
+	
     private TareaAviso task;
-
+    
 
     public PostponeNotificationTaskRequest() {
     }
@@ -30,13 +31,11 @@ public class PostponeNotificationTaskRequest extends PostponeRequest {
         this.task = task;
     }
 
-    @Override
-    public String toString() {
-        final StringBuffer sb = new StringBuffer("PostponeNotificationTaskRequest{");
-        sb.append("delayDate=").append(delayDate);
-        sb.append(", recallType=").append(recallType);
-        sb.append(", task=").append(task);
-        sb.append('}');
-        return sb.toString();
-    }
+	
+	@Override
+	public String toString() {
+		return "PostponeNotificationTaskRequest [task=" + task + "]";
+	}
+
+   
 }

@@ -14,18 +14,27 @@
                 <spring:message code='delay.recallType'/>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                <select ng-model="delayInfo.recallType" ng-change="withoutChanges=false" ng-hide="items">
-                    <option value="5" selected><spring:message code='delay.personal'/></option>
-                    <option value="6"><spring:message code='delay.campaign'/></option>
-                </select>
-                <select ng-model="delayInfo.recallType" ng-change="withoutChanges=false" ng-show="items">
-                    <option ng-repeat="t in tiposAplazamiento" value="{{ t.idaplaza }}">{{ t.dsaplaza }}</option>
+                <select ng-model="delayInfo.recallType" ng-change="withoutChanges=false">
+                    <option value="Personal" selected><spring:message code='delay.personal'/></option>
+                    <option value="Campaign"><spring:message code='delay.campaign'/></option>
                 </select>
             </div>
         </div>
 
         <div class="spacer_t1"></div>
-
+		
+		<div class="row" ng-show="items">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <spring:message code='delay.motive'/>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <select ng-model="delayInfo.motive" ng-change="withoutChanges=false">
+                    <option ng-repeat="t in tiposAplazamiento" value="{{ t.idaplaza }}">{{ t.dsaplaza }}</option>
+                </select>
+            </div>
+        </div>
+		
+		
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <spring:message code='deplay.dateTime'/>

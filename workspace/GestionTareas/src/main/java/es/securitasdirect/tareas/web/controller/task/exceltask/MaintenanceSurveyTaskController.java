@@ -47,7 +47,7 @@ public class MaintenanceSurveyTaskController extends TaskController {
     public
     @ResponseBody
     BaseResponse postpone(@RequestBody PostponeMaintenanceSurveyTaskRequest request) {
-        return super.delayTask(request.getTask(), request.getRecallType(), request.getDelayDate());
+        return super.delayTask(request.getTask(), request.getRecallType(), request.getDelayDate(), request.getMotive());
     }
 
 

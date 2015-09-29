@@ -22,7 +22,7 @@
                                    ng_disabled="(tarea===undefined || tarea===null || installationData==null || installationData===undefined) ? true : false"/>
 
                 <!-- Descargar -->
-                <app:inputButtonNG value="boton.Descartar" button_type="default" ng_click="(!compruebaMotivos()) ? openContentModal() : null" fluid_wrapper="true"/>
+                <app:inputButtonNG value="boton.Descartar" button_type="default" ng_click="openContentModal()" fluid_wrapper="true"/>
                 <!-- Añadir condición cuando haya motivos de cierre :  && tarea.closing!=null -->
 
                 <!-- Finalizar -->

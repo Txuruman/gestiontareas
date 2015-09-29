@@ -19,6 +19,9 @@ public class TareaResponse extends BaseResponse {
     private Tarea tarea;
     
     private boolean noInstallation;
+    private boolean noTicked;
+    
+    /*Usamos también cuando el ticked está gestionado*/
     private String noInstallationMsg;
     
     public TareaResponse() {
@@ -61,6 +64,14 @@ public class TareaResponse extends BaseResponse {
 	public void setNoInstallation(boolean noInstallation) {
 		this.noInstallation = noInstallation;
 	}
+	
+	public boolean isNoTicked() {
+		return noTicked;
+	}
+
+	public void setNoTicked(boolean noTicked) {
+		this.noTicked = noTicked;
+	}
 
 	public String getNoInstallationMsg() {
 		return noInstallationMsg;
@@ -73,7 +84,7 @@ public class TareaResponse extends BaseResponse {
 	@Override
 	public String toString() {
 		return "TareaResponse [installationData=" + installationData + ", tarea=" + tarea + ", noInstallation="
-				+ noInstallation + ", noInstallationMsg=" + noInstallationMsg + "]";
+				+ noInstallation + ", noTicked=" + noTicked + ", noInstallationMsg=" + noInstallationMsg + "]";
 	}
 
     

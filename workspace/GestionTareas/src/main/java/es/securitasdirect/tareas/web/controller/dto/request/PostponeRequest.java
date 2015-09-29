@@ -13,6 +13,8 @@ public class PostponeRequest {
     protected Date delayDate;
 
     protected String recallType;
+    
+    protected String motive;
 
     public Date getDelayDate() {
         return delayDate;
@@ -30,12 +32,18 @@ public class PostponeRequest {
         this.recallType = recallType;
     }
 
-    @Override
-    public String toString() {
-        final StringBuffer sb = new StringBuffer("PostponeRequest{");
-        sb.append("delayDate=").append(delayDate);
-        sb.append(", recallType='").append(recallType).append('\'');
-        sb.append('}');
-        return sb.toString();
-    }
+	public String getMotive() {
+		return motive;
+	}
+
+	public void setMotive(String motive) {
+		this.motive = motive;
+	}
+
+	@Override
+	public String toString() {
+		return "PostponeRequest [delayDate=" + delayDate + ", recallType=" + recallType + ", motive=" + motive + "]";
+	}
+
+   
 }

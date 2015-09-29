@@ -20,7 +20,7 @@
 <%--</div>--%>
 
 
-<div ng-controller="MessagesController" class="messageAlerts" class="messageAlerts" ng-show="noInstallation">
+<div ng-controller="MessagesController" class="messageAlerts" class="messageAlerts" ng-show="noInstallation || noTicked">
     <div alert type="danger">{{ noInstallationMsg }}</div>
 </div>
 

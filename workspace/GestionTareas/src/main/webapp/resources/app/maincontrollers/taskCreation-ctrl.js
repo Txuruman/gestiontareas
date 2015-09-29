@@ -214,7 +214,7 @@ app.controller('taskCreation', function ($scope, $http, CommonService, $modal, $
      */
     $scope.closeInteraction=function(){
     	 e = window.external.CloseInteractionPushPreview(connID);
-         alert(JSON.stringify(e));
+//         alert(JSON.stringify(e));
     }
     
     /**

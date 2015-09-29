@@ -13,6 +13,7 @@ import es.securitasdirect.tareas.service.model.DiscardNotificationTaskResult;
 import es.securitasdirect.tareas.web.controller.AgentController;
 import es.securitasdirect.tareas.web.controller.TaskController;
 import es.securitasdirect.tareas.web.controller.dto.DiscardNotificationTaskResponse;
+import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
 import es.securitasdirect.tareas.web.controller.dto.request.GetInstallationAndTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.notificationtask.*;
 import es.securitasdirect.tareas.web.controller.dto.response.NotificationTaskResponse;
@@ -56,7 +57,18 @@ public class NotificationTaskController extends TaskController {
     public
     @ResponseBody
     BaseResponse getInstallationAndTask(@RequestBody GetInstallationAndTaskRequest request) {
-        return super.getInstallationAndTask(request.getCallingList(),request.getTaskId(), request.getParams());
+    	TareaResponse response=new TareaResponse();
+    	try{
+	        response= (TareaResponse) super.getInstallationAndTask(request.getCallingList(),request.getTaskId(), request.getParams());
+	        if (response.getTarea()==null) {
+	        	response.danger(messageUtil.getProperty("ERROR_FIND_TICKET"));
+	            response.setNoTicked(true);
+	            response.setNoInstallationMsg(messageUtil.getProperty("ERROR_FIND_TICKET"));
+			} 
+    	}catch(Exception e){
+    		return processException(e);
+    	}
+        return response;
     }
 
 
@@ -85,7 +97,7 @@ public class NotificationTaskController extends TaskController {
     public
     @ResponseBody
     BaseResponse postpone(@RequestBody PostponeNotificationTaskRequest request) {
-        return super.delayTask(request.getTask(), request.getRecallType(), request.getDelayDate());
+        return super.delayTask(request.getTask(), request.getRecallType(), request.getDelayDate(), request.getMotive());
     }
 
     /**
@@ -157,13 +169,14 @@ public class NotificationTaskController extends TaskController {
     @ResponseBody
     BaseResponse discardNotificationWithoutSaveTask(@RequestBody DiscardNotificationTaskRequest request) {
         LOGGER.debug("Descartar tareaAviso\nRequest: {}", request);
-        BaseResponse response = new BaseResponse();
+        DiscardNotificationTaskResponse response = new DiscardNotificationTaskResponse();
         Agent agent = agentController.getAgent();
         try {
-            tareaService.discardNotificationTask(agent, request.getTask(), request.getInstallation(), false, request.isCallDone(),request.isWithInteaction());
+        	 DiscardNotificationTaskResult discardNotificationTaskResult = tareaService.discardNotificationTask(agent, request.getTask(), request.getInstallation(), false, request.isCallDone(),request.isWithInteaction());
+            response.setResult(discardNotificationTaskResult);
             response.success(messageUtil.getProperty("notificationTask.modify.success"));
         } catch (Exception e) {
-            response = processException(e);
+           return processException(e);
         }
 
 
