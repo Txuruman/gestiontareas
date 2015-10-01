@@ -946,7 +946,7 @@ public class GestionSenalesService {
             reportingTareasDetalle.setServicio(agentInteractionType);
             reportingTareasDetalle.setInteractionDirection(agentInteractionDirection);
 
-            //reportingTareas.storeTareasReportingData(reportingTareasDetalle); // TODO NO INVOCAMOS DE MOMENTO
+            reportingTareas.storeTareasReportingData(reportingTareasDetalle);
 
             LOGGER.info("reportingTareasDetalle", reportingTareasDetalle);
 
