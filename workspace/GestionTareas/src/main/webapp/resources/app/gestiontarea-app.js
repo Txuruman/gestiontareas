@@ -382,52 +382,72 @@ app.directive('onlyNumber', function() {
         },
         link:function link(scope, element){
         	element.keypress(function(event){
-        		if (scope.hour==true) {				
-	        		if (element.val().length==0) {
-	        			if(event.keyCode<48 || event.keyCode>50){
-	        				event.preventDefault();
-	        			}
-					}else if (element.val().length==1) {
-						if (element.val()=="0") {
-							if(event.keyCode<48 || event.keyCode>57){
-		        				event.preventDefault();
-		        			}
-						}else if (element.val()=="1") {
-							if(event.keyCode<48 || event.keyCode>50){
-		        				event.preventDefault();
-		        			}
-						}else if (element.val()=="2") {
-							if(event.keyCode<48 || event.keyCode>51){
-		        				event.preventDefault();
-		        			}
-						}	
-					}else if (element.val().length==2) {
-						if(event.keyCode!=58){
-	        				event.preventDefault();
-	        			}
-					}else if (element.val().length==3){
-						if(event.keyCode<48 || event.keyCode>53){
-	        				event.preventDefault();
-	        			}
-					}else if (element.val().length==4){
-						if(event.keyCode<48 || event.keyCode>57){
-	        				event.preventDefault();
-	        			}
-					}else{
-						event.preventDefault();
-					}
-        		}else{
-        			if(event.keyCode<48 || event.keyCode>57){
-                		event.preventDefault();
-                		//element.parent().append("<div class='avisoInput'>Sólo números</div>");
-                	}
-                	if (element.val().length == scope.numberSize) {
-                		event.preventDefault();
-            		}
+//        		if (scope.hour==true) {				
+//	        		if (element.val().length==0) {
+//	        			if(event.keyCode<48 || event.keyCode>50){
+//	        				event.preventDefault();
+//	        			}
+//					}else if (element.val().length==1) {
+//						if (element.val()=="0") {
+//							if(event.keyCode<48 || event.keyCode>57){
+//		        				event.preventDefault();
+//		        			}
+//						}else if (element.val()=="1") {
+//							if(event.keyCode<48 || event.keyCode>50){
+//		        				event.preventDefault();
+//		        			}
+//						}else if (element.val()=="2") {
+//							if(event.keyCode<48 || event.keyCode>51){
+//		        				event.preventDefault();
+//		        			}
+//						}	
+//					}else if (element.val().length==2) {
+//						if(event.keyCode!=58){
+//	        				event.preventDefault();
+//	        			}
+//					}else if (element.val().length==3){
+//						if(event.keyCode<48 || event.keyCode>53){
+//	        				event.preventDefault();
+//	        			}
+//					}else if (element.val().length==4){
+//						if(event.keyCode<48 || event.keyCode>57){
+//	        				event.preventDefault();
+//	        			}
+//					}else{
+//						event.preventDefault();
+//					}
+//        		}else{
+//        			if(event.keyCode<48 || event.keyCode>57){
+//                		event.preventDefault();
+//                		//element.parent().append("<div class='avisoInput'>Sólo números</div>");
+//                	}
+//                	if (element.val().length == scope.numberSize) {
+//                		event.preventDefault();
+//            		}
+//        		}
+        		//Si no es numero no se deja escribir
+        		if(event.keyCode<48 || event.keyCode>57){
+            		event.preventDefault();
+            		//element.parent().append("<div class='avisoInput'>Sólo números</div>");
+            	}
+        		//Si se llega al numero maximo no se deja escribir
+        		if (element.val().length == scope.numberSize) {
+            		event.preventDefault();
         		}
         		element.focus();
         		
-        	})
+        	});
+        	element.keyup(function(event){
+        		//Si se trata de una hora impedimos que sea mayor de 23, en ese caso limpiamos la casilla
+        		if (scope.hour==true) {		
+	        		if (element.val().length == scope.numberSize) {
+	        			if(parseInt(element.val())>23){
+	        				element.val("");
+	        			}
+	        		}
+        		}
+        		element.focus();
+        	});
         }
       }
     });

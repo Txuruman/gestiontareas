@@ -100,11 +100,11 @@ public class AvisoService {
         createAsgto.setIdAsg(""); // constante
         createAsgto.setIdUser(idUser);
         /* <COMM></COMM>*/
-        createComm.setName(installationData.getPersonaContacto() != null ? installationData.getPersonaContacto() : "");
+        createComm.setName(installationData.getContactoPlan() != null ? installationData.getContactoPlan() : "");
         createComm.setlName1(""); // constante
         createComm.setlName2(""); // constante
         createComm.setInChannel("TELF"); // constante
-        createComm.setValue((installationData.getTelefono() != null) ? installationData.getTelefono() : "");
+        createComm.setValue((installationData.getTelefonoPlan() != null) ? installationData.getTelefonoPlan() : "");
         createComm.setComent(""); // constante
         createComm.setOutChannel("TELF"); // constante
         createComm.setFrom(tareaAviso.getHorarioDesde());

@@ -92,8 +92,25 @@ public class EntryPointController extends TaskController {
 
 
         String callingList = (parametersMap.get(ExternalParams.CALLING_LIST)!=null?parametersMap.get(ExternalParams.CALLING_LIST).trim():null);
-        String installation = parametersMap.get(ExternalParams.NUMERO_INSTALACION);
-
+        String installation = (parametersMap.get(ExternalParams.NUMERO_INSTALACION2)!=null?parametersMap.get(ExternalParams.NUMERO_INSTALACION2):parametersMap.get(ExternalParams.NUMERO_INSTALACION));
+        
+        /**
+         * Si instalacion es null --> tel1 si es null por tel2 y sino por tel3
+         * 30-09-15
+         * De momento no se usa hasta nueva orden
+         * comentado abajo
+         */
+        String telefono=null;
+        if(installation==null){
+        	telefono=parametersMap.get(ExternalParams.TEL1);
+        	if (telefono==null) {
+        		telefono=parametersMap.get(ExternalParams.TEL2);
+        		if (telefono==null) {
+        			telefono=parametersMap.get(ExternalParams.TEL3);
+        		}
+			}
+        }
+        
         ModelAndView mv = null;
 
         if (callingList != null && !callingList.isEmpty()) {
@@ -121,7 +138,22 @@ public class EntryPointController extends TaskController {
                 mv = new ModelAndView("buscartarea");
                 mv.addObject("lastSearchTareaRequest", searchTaskRequest);
             }
-        } else {
+        } /*else if(telefono!=null){
+        	//Comprobar si la instalacion tiene tareas, si las tiene buscar, sino crear
+            List<Tarea> tareas = searchTareaService.findByPhone(agent, telefono);
+            if (tareas == null || tareas.isEmpty()) {
+                mv = new ModelAndView("creartarea");
+                //Enviar a la pantalla los datos de la ultima búsqueda
+                mv.addObject("lastSearchTareaRequest", searchTareaController.getLastSearchTareaRequest());
+            } else {
+                //Se prepara el lastSearchTareaRequest con los datos de la instalación para que realice la búsqueda de las tareas automáticamente
+                SearchTaskRequest searchTaskRequest = new SearchTaskRequest();
+                searchTaskRequest.setSearchText(telefono);
+                searchTaskRequest.setSearchOption(SearchTaskRequest.TELEPHONE);
+                mv = new ModelAndView("buscartarea");
+                mv.addObject("lastSearchTareaRequest", searchTaskRequest);
+            }
+        } */else {
             //Sin tarea ni instalación vamos a buscar tarea
            return searchTasks(request,response);
         }

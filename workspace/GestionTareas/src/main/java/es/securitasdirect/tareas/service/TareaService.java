@@ -441,8 +441,11 @@ public class TareaService {
         saTime.getItem().add(TaskServiceParams.TAREA_COMMONS_FECHA_REPROGRAMACION);
         saTime.getItem().add(sdfSchedTime.format(schedTime));
         // Recort_type = 5 (personal callback) / 6 (campaing callback)
-        
-        saType.getItem().add(recordType);
+        if (recordType.equals("Personal")) {
+        	saType.getItem().add("5");
+		}else{
+			saType.getItem().add("6");
+		}
         saType.getItem().add("record_type");
         
         //Al aplazar cuando no está en memoria, en el ws hay que rellenar también el campo agent_id con 101@place (por ejemplo: 101@P17001)
