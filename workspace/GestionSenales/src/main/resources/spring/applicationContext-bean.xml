@@ -77,7 +77,7 @@
         <constructor-arg value="Not specified messsage"/>
     </bean>
     <bean id="outOfWorkingHoursENG" class="java.lang.String">
-        <constructor-arg value="Received message out of working hours, it will be pending to process"/>
+        <constructor-arg value="Securitas Direct informs, to change the batteries, you must press the envelope bottom from 9 to 21, Mon thru Sat, We´ll activate the bottom again. Thank you."/>
     </bean>
 
     <!-- Definición de los ensajes SMS para cada idioma -->
@@ -86,20 +86,20 @@
         <entry key="DEF">
             <bean class="es.securitasdirect.senales.model.SmsMessageLocation">
                 <property name="another" value="Not specified message"/>
-                <property name="outOfWorkingHours" value="Received message out of working hours, it will be pending to process"/>
+                <property name="outOfWorkingHours" value="Securitas Direct informs, to change the batteries, you must press the envelope bottom from 9 to 21, Mon thru Sat, We´ll activate the bottom again. Thank you."/>
             </bean>
         </entry>
 
         <entry key="ESP">
             <bean class="es.securitasdirect.senales.model.SmsMessageLocation">
                 <property name="another" value="Mensaje no especificado"/>
-                <property name="outOfWorkingHours" value="Mensaje recibido fuera del horario de trabajo, quedará pendiente de procesar"/>
+                <property name="outOfWorkingHours" value="Securitas Direct le informa que para darles asistencia en el cambio de pilas, deberan pulsar el boton de 9 a 21 h, de L a S, lo activamos de nuevo. Gracias."/>
             </bean>
         </entry>
         <entry key="ENG">
             <bean class="es.securitasdirect.senales.model.SmsMessageLocation">
                 <property name="another" value="Not specified messsage"/>
-                <property name="outOfWorkingHours" value="Received message out of working hours, it will be pending to process"/>
+                <property name="outOfWorkingHours" value="Securitas Direct informs, to change the batteries, you must press the envelope bottom from 9 to 21, Mon thru Sat, We´ll activate the bottom again. Thank you."/>
             </bean>
         </entry>
         <!-- Example of definition of same message for different languages or countries-->

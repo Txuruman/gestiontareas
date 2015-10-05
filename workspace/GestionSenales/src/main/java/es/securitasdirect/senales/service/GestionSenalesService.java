@@ -897,6 +897,8 @@ public class GestionSenalesService {
                                    String agentAccion, String agentConnid, String agentInteractionType, String agentInteractionDirection)
     {
 
+        LOGGER.info("entrando en wsReportingTareas" );
+
         ReportingTareasDetalle reportingTareasDetalle = new ReportingTareasDetalle();
 
         try {
@@ -946,9 +948,52 @@ public class GestionSenalesService {
             reportingTareasDetalle.setServicio(agentInteractionType);
             reportingTareasDetalle.setInteractionDirection(agentInteractionDirection);
 
+
+
+            LOGGER.info(
+            "reportingTareasDetalle:" +
+                    " TimestampTarea {} " +
+                    " IdTarea {} " +
+                    " UsuarioCreacion {} " +
+                    " CallingList {} " +
+                    " TipoTarea {} " +
+                    " InsNo {} " +
+                    " Panel {} " +
+                    " Version {} " +
+                    " TimestampSobre {} " +
+                    " Skill {} " +
+                    " TimestampAccion {} " +
+                    " Accion {} " +
+                    " AgenteAccion {} " +
+                    " Connid {} " +
+                    " InteractionId {} " +
+                    " Servicio {} " +
+                    " InteractionDirection {} "
+            , reportingTareasDetalle.getTimestampTarea()
+            , reportingTareasDetalle.getIdTarea()
+            , reportingTareasDetalle.getUsuarioCreacion()
+            , reportingTareasDetalle.getCallingList()
+            , reportingTareasDetalle.getTipoTarea()
+            , reportingTareasDetalle.getInsNo()
+            , reportingTareasDetalle.getPanel()
+            , reportingTareasDetalle.getVersion()
+            , reportingTareasDetalle.getTimestampSobre()
+            , reportingTareasDetalle.getSkill()
+            , reportingTareasDetalle.getTimestampAccion()
+            , reportingTareasDetalle.getAccion()
+            , reportingTareasDetalle.getAgenteAccion()
+            , reportingTareasDetalle.getConnid()
+            , reportingTareasDetalle.getInteractionId()
+            , reportingTareasDetalle.getServicio()
+            , reportingTareasDetalle.getInteractionDirection()
+            );
+
+
+            LOGGER.info("invocando a  reportingTareas.storeTareasReportingData(reportingTareasDetalle)" );
+
             reportingTareas.storeTareasReportingData(reportingTareasDetalle);
 
-            LOGGER.info("reportingTareasDetalle", reportingTareasDetalle);
+            LOGGER.info("exito en reportingTareas.storeTareasReportingData(reportingTareasDetalle)" );
 
         }
         catch (Exception e)
