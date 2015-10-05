@@ -33,6 +33,11 @@ public interface ExternalParams {
     public static String ID_TAREA = "bp_out_GSW_CHAIN_ID_CUSTOM";
 
     public static String NUMERO_INSTALACION = "bp_out_instalacion";
+    public static String NUMERO_INSTALACION2 = "bp_in_ins_no";
+    
+    public static String TEL1="bp_in_telefonoIntroducido";
+    public static String TEL2="bp_in_ani";
+    public static String TEL3="bp_out_dnis";
 
     public static String NUMERO_CONTRATO = "bp_out_ctr_no";
 

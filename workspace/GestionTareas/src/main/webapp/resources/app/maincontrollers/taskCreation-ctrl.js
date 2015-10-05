@@ -54,6 +54,7 @@ app.controller('taskCreation', function ($scope, $http, CommonService, $modal, $
                 $scope.tarea.numeroInstalacion=inst;
                 $scope.vm.appReady=true;
                 $scope.verErrores=false;
+                $scope.getRequiredBy();
             })
             .error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
