@@ -116,7 +116,7 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,
             })
         } else {
             if ($scope.fromSearch != 'true') {
-            	CommonService.excellDiscard();
+            	CommonService.excellDiscard(tarea, installation);
             } else {
                 CommonService.gotoSearch();
             }

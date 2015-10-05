@@ -60,7 +60,7 @@ app.service('CommonService', function ($rootScope, $log, $http, $timeout, $windo
     /**
      * 
      */
-    this.excellDiscard=function(){
+    this.excellDiscard=function(tarea, installation){
 //    	alert("Entrando funcion excelDiscard, interaccion : "+mapParams.bp_interactionId);
     	var iscalldone = window.external.IsCallDone(mapParams.bp_interactionId);
 //    	alert("La variable iscalldone: "+iscalldone);
@@ -85,6 +85,13 @@ app.service('CommonService', function ($rootScope, $log, $http, $timeout, $windo
                 //Boton cancelar del Modal
             });
 		}else{
+
+            var discardRequest = {
+                task: tarea,
+                installation: installation
+            }
+            $http.put("commons/reportingTareas", discardRequest)
+
 //			alert("Andres!! Que Lanzamos el RejectCloseInteractionPushPreview: "+mapParams.bp_connid);
 			e=window.external.RejectCloseInteractionPushPreview(mapParams.bp_connid);
 			//this.closeInteraction({success:true});

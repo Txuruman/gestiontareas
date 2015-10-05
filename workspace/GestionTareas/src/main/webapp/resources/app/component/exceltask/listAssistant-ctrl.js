@@ -78,7 +78,7 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
         } else {
             if ($scope.fromSearch != 'true') {
 //            	alert("Descartamos por javascript");
-            	CommonService.excellDiscard();
+            	CommonService.excellDiscard($scope.tarea, $scope.installation);
             } else {
                 CommonService.gotoSearch();
             }

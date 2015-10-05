@@ -114,7 +114,7 @@ app.controller('keyboxtask-ctrl', function ($scope, $http, CommonService, $modal
             })
         } else {
             if ($scope.fromSearch != 'true') {
-            	CommonService.excellDiscard();
+            	CommonService.excellDiscard(tarea, installation);
             } else {
                 CommonService.gotoSearch();
             }

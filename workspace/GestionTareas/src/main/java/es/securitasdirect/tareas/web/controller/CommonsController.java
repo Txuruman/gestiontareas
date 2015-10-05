@@ -8,6 +8,7 @@ import es.securitasdirect.tareas.model.external.StringPair;
 import es.securitasdirect.tareas.service.ExternalDataService;
 import es.securitasdirect.tareas.service.SplitService;
 import es.securitasdirect.tareas.service.TareaService;
+import es.securitasdirect.tareas.web.controller.dto.request.DiscardExcelTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.notificationtask.ClosingTypeAditionalDataRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.notificationtask.ClosingTypeRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.notificationtask.CreateMaintenanceAppRequest;
@@ -166,6 +167,26 @@ public class CommonsController extends BaseController {
             response = new BigIntegerPairResponse(super.processException(exc, SERVICE_MESSAGE));
         }
         LOGGER.debug("Type reason list call response: {}", response);
+        return response;
+    }
+
+    /**
+     * ReportingTareas para Tarea Excel con interacion sin llamada.
+     *
+     * @return
+     */
+    @RequestMapping(value = "/reportingTareas", method = RequestMethod.PUT, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public
+    @ResponseBody
+    BaseResponse reportingTareas(@RequestBody DiscardExcelTaskRequest request) {
+        BaseResponse response;
+        try {
+            tareaService.wsReportingTareas(request.getTask(), agentController.getAgent(), "DESCARTAR");
+            response = new BaseResponse();
+            response.setSuccess(true);
+        } catch (Exception e) {
+            return  processException(e);
+        }
         return response;
     }
 

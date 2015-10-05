@@ -170,7 +170,7 @@ app.controller('marketingsurveytask-ctrl', function ($scope, $http, CommonServic
             })
         } else {
             if ($scope.fromSearch != 'true') {
-            	CommonService.excellDiscard();
+            	CommonService.excellDiscard(tarea, installation);
             } else {
                 CommonService.gotoSearch();
             }

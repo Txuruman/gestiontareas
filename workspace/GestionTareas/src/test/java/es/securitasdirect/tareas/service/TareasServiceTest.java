@@ -83,9 +83,9 @@ public class TareasServiceTest {
 
         Date schedTime = new Date();
         String recordType="5";
-        tareaService.delayTask(agent, tarea,
-                schedTime,
-                recordType);
+        //tareaService.delayTask(agent, tarea,
+        //        schedTime,
+        //       recordType);
 
     }
 

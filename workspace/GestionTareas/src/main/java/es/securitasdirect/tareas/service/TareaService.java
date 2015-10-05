@@ -282,6 +282,7 @@ public class TareaService {
         
         avisoService.delayTicket(tarea.getIdAviso(), agent.getIdAgent(), schedTime, motive);
 
+        tarea.setFechaReprogramacion(schedTime);
         wsReportingTareas(tarea, agent, "APLAZAR");
 
     }
@@ -321,6 +322,7 @@ public class TareaService {
             wsFinalizeInMemoryTask(agent, tarea);
         }
 
+        tarea.setFechaReprogramacion(schedTime);
         wsReportingTareas(tarea, agent, "APLAZAR");
 
     }
@@ -895,97 +897,177 @@ public class TareaService {
 
     public void wsReportingTareas(Tarea tarea, Agent agent, String accionUsuario)
     {
-//TODO: Descomentar
-//        try {
-//
-//            InstallationData installationData = installationService.getInstallationData(tarea.getNumeroInstalacion());
-//
-//            ReportingTareasDetalle reportingTareasDetalle = new ReportingTareasDetalle();
-//
-//            // fechaActual
-//            GregorianCalendar c = new GregorianCalendar();
-//            c.setTime(new Date(System.currentTimeMillis()));
-//            XMLGregorianCalendar fechaActual = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
-//            //Esto es necesario porque el formato es <dateTime>2015-09-10T19:19:19</dateTime>
-//            fechaActual.setMillisecond(DatatypeConstants.FIELD_UNDEFINED);
-//            fechaActual.setTimezone(DatatypeConstants.FIELD_UNDEFINED);
-//
-//
-//            // DATOS DE LA TAREA
-//
-//            reportingTareasDetalle.setTimestampTarea(fechaActual); // TODO F_CREACION_TAREA recuperarla de la callinglist
-//            reportingTareasDetalle.setIdTarea(tarea.getId());
-//            reportingTareasDetalle.setUsuarioCreacion(agent.getAgentIBS());
-//            reportingTareasDetalle.setCallingList(tarea.getCallingList());
-//            if (tarea instanceof TareaAviso) {
-//                reportingTareasDetalle.setTipoTarea("AVISO");
-//            } else if (tarea instanceof TareaMantenimiento) {
-//                reportingTareasDetalle.setTipoTarea("MANTENIMIENTO");
-//            }
-//            if (tarea instanceof TareaExcel) {
-//                reportingTareasDetalle.setTipoTarea("EXCEL");
-//            }
-//            reportingTareasDetalle.setInsNo(tarea.getNumeroInstalacion());
-//            if (tarea instanceof TareaAviso) {
-//                reportingTareasDetalle.setIdAviso(((TareaAviso) tarea).getIdAviso()); // AVISO
-//                reportingTareasDetalle.setTipo(((TareaAviso) tarea).getTipoAviso1()); // AVISO
-//                reportingTareasDetalle.setMotivo(((TareaAviso) tarea).getMotivo1());  // AVISO
-//            }
-//            reportingTareasDetalle.setPanel(installationData.getPanel());
-//            reportingTareasDetalle.setVersion(installationData.getVersion());
-//            if (tarea instanceof TareaMantenimiento) {
-//
-//                // fechaEvento
-//                //GregorianCalendar c = new GregorianCalendar();
-//                c.setTime(((TareaMantenimiento)tarea).getFechaEvento());
-//                XMLGregorianCalendar fechaEvento = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
-//                //Esto es necesario porque el formato es <dateTime>2015-09-10T19:19:19</dateTime>
-//                fechaEvento.setMillisecond(DatatypeConstants.FIELD_UNDEFINED);
-//                fechaEvento.setTimezone(DatatypeConstants.FIELD_UNDEFINED);
-//
-//                reportingTareasDetalle.setTimestampSobre(fechaEvento);
-//            }
-//            reportingTareasDetalle.setSkill(""); // constante
-//
-//
-//
-//
-//            // DATOS DE LA ACCION
-//
-//            reportingTareasDetalle.setTimestampAccion(fechaActual);
-//            reportingTareasDetalle.setAccion(accionUsuario); // APLAZAR/DESCARTAR/GESTIONAR/LLAMAR
-//            reportingTareasDetalle.setAgenteAccion(agent.getAgentIBS());
-//            if (tarea instanceof TareaExcel) {
-//                reportingTareasDetalle.setTipificacionCierre(((TareaExcel) tarea).getTypeName()); // EXCEL
-//                reportingTareasDetalle.setCompensacion(((TareaExcel) tarea).getCompensation());   // EXCEL
-//            }
-//            reportingTareasDetalle.setConnid(agent.getConnid());
-//            reportingTareasDetalle.setInteractionId(""); // TODO recuperarlo  BP PLUGIN
-//            reportingTareasDetalle.setServicio(agent.getAgentIBS());
-//            reportingTareasDetalle.setServicio(agent.getInteractionType());
-//            reportingTareasDetalle.setInteractionDirection(agent.getInteractionDirection());
-//            if ("APLAZAR".equals(accionUsuario)) {
-//
-//                // fechaReprogramacion
-//                //GregorianCalendar c = new GregorianCalendar();
-//                c.setTime(tarea.getFechaReprogramacion());
-//                XMLGregorianCalendar fechaReprogramacion = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
-//                //Esto es necesario porque el formato es <dateTime>2015-09-10T19:19:19</dateTime>
-//                fechaReprogramacion.setMillisecond(DatatypeConstants.FIELD_UNDEFINED);
-//                fechaReprogramacion.setTimezone(DatatypeConstants.FIELD_UNDEFINED);
-//
-//                reportingTareasDetalle.setFechaReprogramacion(fechaReprogramacion);
-//            }
-//
-//            //reportingTareas.storeTareasReportingData(reportingTareasDetalle); TODO NO INVOCAMOS DE MOMENTO
-//
-//
-//            LOGGER.info("reportingTareasDetalle", reportingTareasDetalle);
-//        }
-//        catch (Exception e) {
-//            LOGGER.error(e.getMessage(), e);
-//            throw new FrameworkException(e);
-//        }
+        LOGGER.info("entrando en wsReportingTareas" );
+
+        try {
+
+            InstallationData installationData=null;
+            try {
+                installationData = installationService.getInstallationData(tarea.getNumeroInstalacion());
+            } catch (Exception e) {
+                // si no hay instalacion seguimos
+                LOGGER.info(e.getMessage(), e);
+            }
+
+            ReportingTareasDetalle reportingTareasDetalle = new ReportingTareasDetalle();
+
+
+            // DATOS DE LA TAREA
+
+            // fechaCreacionTarea
+            GregorianCalendar c = new GregorianCalendar();
+            c.setTime(tarea.getFechaCreacionTarea());
+            XMLGregorianCalendar fechaCreacionTarea = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+            //Esto es necesario porque el formato es <dateTime>2015-09-10T19:19:19</dateTime>
+            fechaCreacionTarea.setMillisecond(DatatypeConstants.FIELD_UNDEFINED);
+            fechaCreacionTarea.setTimezone(DatatypeConstants.FIELD_UNDEFINED);
+            reportingTareasDetalle.setTimestampTarea(fechaCreacionTarea);
+            reportingTareasDetalle.setIdTarea(tarea.getId());
+            reportingTareasDetalle.setUsuarioCreacion(agent.getAgentIBS());
+            reportingTareasDetalle.setCallingList(tarea.getCallingList());
+
+            Tarea tareaRefrescada=null;
+
+            if ( !(tarea instanceof TareaAviso) && !(tarea instanceof TareaMantenimiento) && !(tarea instanceof TareaExcel) ) {
+                tareaRefrescada = queryTareaService.queryTarea(agent, tarea.getCallingList(), tarea.getId().toString());
+            }
+            if (tarea instanceof TareaAviso || tareaRefrescada instanceof TareaAviso) {
+                reportingTareasDetalle.setTipoTarea("AVISO");
+            } else if (tarea instanceof TareaMantenimiento || tareaRefrescada instanceof TareaMantenimiento) {
+                reportingTareasDetalle.setTipoTarea("MANTENIMIENTO");
+            }
+            if (tarea instanceof TareaExcel || tareaRefrescada instanceof TareaExcel) {
+                reportingTareasDetalle.setTipoTarea("EXCEL");
+            }
+            reportingTareasDetalle.setInsNo(tarea.getNumeroInstalacion());
+            if (tarea instanceof TareaAviso) {
+                reportingTareasDetalle.setIdAviso( ((TareaAviso) tarea).getIdAviso() ); // AVISO
+                reportingTareasDetalle.setTipo( ((TareaAviso) tarea).getTipoAviso1() ); // AVISO
+                reportingTareasDetalle.setMotivo( ((TareaAviso) tarea).getMotivo1() );  // AVISO
+            } else if(tareaRefrescada instanceof TareaAviso)
+            {
+                reportingTareasDetalle.setIdAviso( ((TareaAviso) tareaRefrescada).getIdAviso() ); // AVISO
+                reportingTareasDetalle.setTipo( ((TareaAviso) tareaRefrescada).getTipoAviso1() ); // AVISO
+                reportingTareasDetalle.setMotivo( ((TareaAviso) tareaRefrescada).getMotivo1() );  // AVISO
+            }
+            reportingTareasDetalle.setPanel( (installationData != null && installationData.getPanel() != null) ? installationData.getPanel() : "");
+            reportingTareasDetalle.setVersion( (installationData != null && installationData.getVersion() != null) ? installationData.getVersion() : "");
+            if (tarea instanceof TareaMantenimiento) {
+
+                // fechaEvento
+                //GregorianCalendar c = new GregorianCalendar();
+                c.setTime(((TareaMantenimiento)tarea).getFechaEvento());
+                XMLGregorianCalendar fechaEvento = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+                //Esto es necesario porque el formato es <dateTime>2015-09-10T19:19:19</dateTime>
+                fechaEvento.setMillisecond(DatatypeConstants.FIELD_UNDEFINED);
+                fechaEvento.setTimezone(DatatypeConstants.FIELD_UNDEFINED);
+
+                reportingTareasDetalle.setTimestampSobre(fechaEvento);
+            } else if (tareaRefrescada instanceof TareaMantenimiento)
+            {
+                // fechaEvento
+                //GregorianCalendar c = new GregorianCalendar();
+                c.setTime(((TareaMantenimiento)tareaRefrescada).getFechaEvento());
+                XMLGregorianCalendar fechaEvento = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+                //Esto es necesario porque el formato es <dateTime>2015-09-10T19:19:19</dateTime>
+                fechaEvento.setMillisecond(DatatypeConstants.FIELD_UNDEFINED);
+                fechaEvento.setTimezone(DatatypeConstants.FIELD_UNDEFINED);
+
+                reportingTareasDetalle.setTimestampSobre(fechaEvento);
+
+            }
+            reportingTareasDetalle.setSkill(""); // constante
+
+
+
+
+            // DATOS DE LA ACCION
+
+            // fechaActual
+            c = new GregorianCalendar();
+            c.setTime(new Date(System.currentTimeMillis()));
+            XMLGregorianCalendar fechaActual = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+            //Esto es necesario porque el formato es <dateTime>2015-09-10T19:19:19</dateTime>
+            fechaActual.setMillisecond(DatatypeConstants.FIELD_UNDEFINED);
+            fechaActual.setTimezone(DatatypeConstants.FIELD_UNDEFINED);
+            reportingTareasDetalle.setTimestampAccion(fechaActual);
+            reportingTareasDetalle.setAccion(accionUsuario); // APLAZAR/DESCARTAR/GESTIONAR/LLAMAR
+            reportingTareasDetalle.setAgenteAccion(agent.getAgentIBS());
+            if (tarea instanceof TareaExcel) {
+                reportingTareasDetalle.setTipificacionCierre( (((TareaExcel) tarea).getClosingReason() != null)  ?  ((TareaExcel) tarea).getClosingReason().toString() : "" ); // EXCEL
+                reportingTareasDetalle.setCompensacion( (((TareaExcel) tarea).getCompensation() != null) ?  ((TareaExcel) tarea).getCompensation().toString() : "" );   // EXCEL
+            }
+            reportingTareasDetalle.setConnid((agent.getConnid() != null)? agent.getConnid() : "0");
+            reportingTareasDetalle.setInteractionId((agent.getInteractionId() != null) ?  agent.getInteractionId() : "0");
+            reportingTareasDetalle.setServicio((agent.getInteractionType() != null)? agent.getInteractionType() : "NO_INTERACTION");
+            reportingTareasDetalle.setInteractionDirection(agent.getInteractionDirection());
+            if ("APLAZAR".equals(accionUsuario)) {
+
+                // fechaReprogramacion
+                //GregorianCalendar c = new GregorianCalendar();
+                c.setTime(tarea.getFechaReprogramacion());
+                XMLGregorianCalendar fechaReprogramacion = DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+                //Esto es necesario porque el formato es <dateTime>2015-09-10T19:19:19</dateTime>
+                fechaReprogramacion.setMillisecond(DatatypeConstants.FIELD_UNDEFINED);
+                fechaReprogramacion.setTimezone(DatatypeConstants.FIELD_UNDEFINED);
+
+                reportingTareasDetalle.setFechaReprogramacion(fechaReprogramacion);
+            }
+
+
+            LOGGER.info(
+                    "reportingTareasDetalle:" +
+                            " TimestampTarea {} " +
+                            " IdTarea {} " +
+                            " UsuarioCreacion {} " +
+                            " CallingList {} " +
+                            " TipoTarea {} " +
+                            " InsNo {} " +
+                            " Panel {} " +
+                            " Version {} " +
+                            " TimestampSobre {} " +
+                            " Skill {} " +
+                            " TimestampAccion {} " +
+                            " Accion {} " +
+                            " AgenteAccion {} " +
+                            " Connid {} " +
+                            " InteractionId {} " +
+                            " Servicio {} " +
+                            " InteractionDirection {} "
+                    , reportingTareasDetalle.getTimestampTarea()
+                    , reportingTareasDetalle.getIdTarea()
+                    , reportingTareasDetalle.getUsuarioCreacion()
+                    , reportingTareasDetalle.getCallingList()
+                    , reportingTareasDetalle.getTipoTarea()
+                    , reportingTareasDetalle.getInsNo()
+                    , reportingTareasDetalle.getPanel()
+                    , reportingTareasDetalle.getVersion()
+                    , reportingTareasDetalle.getTimestampSobre()
+                    , reportingTareasDetalle.getSkill()
+                    , reportingTareasDetalle.getTimestampAccion()
+                    , reportingTareasDetalle.getAccion()
+                    , reportingTareasDetalle.getAgenteAccion()
+                    , reportingTareasDetalle.getConnid()
+                    , reportingTareasDetalle.getInteractionId()
+                    , reportingTareasDetalle.getServicio()
+                    , reportingTareasDetalle.getInteractionDirection()
+            );
+
+            LOGGER.info("invocando a  reportingTareas.storeTareasReportingData(reportingTareasDetalle)" );
+
+            reportingTareas.storeTareasReportingData(reportingTareasDetalle);
+
+            LOGGER.info("exito en reportingTareas.storeTareasReportingData(reportingTareasDetalle)" );
+
+
+            LOGGER.info("reportingTareasDetalle {}", reportingTareasDetalle.toString());
+        }
+        catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+            throw new FrameworkException(e);
+        }
+
+
 
     }
 
