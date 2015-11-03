@@ -83,9 +83,9 @@ public class TareasServiceTest {
 
         Date schedTime = new Date();
         String recordType="5";
-        //tareaService.delayTask(agent, tarea,
-        //        schedTime,
-        //       recordType);
+//        tareaService.delayTask(agent, tarea,
+//                schedTime,
+//                recordType);
 
     }
 
@@ -99,8 +99,8 @@ public class TareasServiceTest {
         tarea.setClosing("ILOC");
         tarea.setDatosAdicionalesCierre("1");
 
-        boolean ok = tareaService.finalizeNotificationTask(agent, tarea);
-        assertThat(ok, is(true));
+//        boolean ok = tareaService.finalizeNotificationTask(agent, tarea);
+//        assertThat(ok, is(true));
     }
 
     @Test
@@ -111,7 +111,7 @@ public class TareasServiceTest {
         Tarea tarea = queryTareaService.queryTarea(agent, callingList, idTarea);
 
 
-         tareaService.finalizeExcelTask(agent, tarea);
+//         tareaService.finalizeExcelTask(agent, tarea);
 
 
     }

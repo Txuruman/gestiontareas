@@ -28,8 +28,8 @@
                 <spring:message code='delay.motive'/>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                <select ng-model="delayInfo.motive" ng-change="withoutChanges=false">
-                    <option ng-repeat="t in tiposAplazamiento" value="{{ t.idaplaza }}">{{ t.dsaplaza }}</option>
+                <select ng-model="delayInfo.motive" ng-change="withoutChanges=false" style="width:350px">
+                    <option name="optionAplaza" ng-repeat="t in tiposAplazamiento" value="{{ t.idaplaza }}" title="{{ t.dsaplaza }}">{{ t.dsaplaza }}</option>
                 </select>
             </div>
         </div>
@@ -52,6 +52,7 @@
             </div>
             <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
                 <timepicker ng-model="delayInfo.delayTime"  hour-step="1" minute-step="5" show-meridian="false" ng-changed="withoutChanges=false"></timepicker>
+                <span class="error" ng-show="errorFechaAplaza"><spring:message code='error.pastdate'/></span>
             </div>
         </div>
     </div>

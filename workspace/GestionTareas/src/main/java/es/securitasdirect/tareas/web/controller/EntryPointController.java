@@ -128,6 +128,7 @@ public class EntryPointController extends TaskController {
             List<Tarea> tareas = searchTareaService.findByInstallationNumber(agent, installation);
             if (tareas == null || tareas.isEmpty()) {
                 mv = new ModelAndView("creartarea");
+                mv.addObject("installationId",installation);
                 //Enviar a la pantalla los datos de la ultima búsqueda
                 mv.addObject("lastSearchTareaRequest", searchTareaController.getLastSearchTareaRequest());
             } else {
@@ -154,10 +155,13 @@ public class EntryPointController extends TaskController {
                 mv.addObject("lastSearchTareaRequest", searchTaskRequest);
             }
         } */else {
-            //Sin tarea ni instalación vamos a buscar tarea
-           return searchTasks(request,response);
+            //Sin tarea ni instalación vamos a crear tarea
+        	 mv = new ModelAndView("creartarea");
+//           return searchTasks(request,response);
         }
 
+        mv.addObject("agent", agent);
+        
         return mv;
     }
 
@@ -297,6 +301,8 @@ public class EntryPointController extends TaskController {
     @RequestMapping("/createtask")
     public ModelAndView createtask(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ModelAndView mv = new ModelAndView("creartarea");
+        Map<String, String> parametersMap = createParameterMap(request);
+        mv.addObject("deskDepartment",parametersMap.get("deskDepartment"));
         return mv;
     }
 
@@ -314,6 +320,9 @@ public class EntryPointController extends TaskController {
         ModelAndView mv = new ModelAndView("buscartarea");
         //Enviar a la pantalla los datos de la ultima búsqueda
         mv.addObject("lastSearchTareaRequest", searchTareaController.getLastSearchTareaRequest());
+        //Desckopt department
+        Map<String, String> parametersMap = createParameterMap(request);
+        mv.addObject("deskDepartment",parametersMap.get("deskDepartment"));
         return mv;
     }
 

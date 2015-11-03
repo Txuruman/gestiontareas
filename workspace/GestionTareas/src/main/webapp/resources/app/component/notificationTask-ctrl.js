@@ -57,7 +57,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             if ($scope.fromSearch != "true") {
                 CommonService.closeInteraction({success: true});
             } else {
-                CommonService.gotoSearch();
+                CommonService.gotoSearch($scope.desktopDepartment);
             }
         } else if ($scope.installationData == null || $scope.installationData == undefined) {
             //Si no hay instalación llamamos a descartar aviso directamente porque entendemos que es un error
@@ -164,7 +164,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 		$scope.descartaraviso();
                     }
                 } else {
-                    CommonService.gotoSearch();
+                    CommonService.gotoSearch($scope.desktopDepartment);
                 }
             }
         }
@@ -180,7 +180,8 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                 recallType: recallType,
                 delayDate: delayDate,
                 motive:motive,
-                task: $scope.tarea
+                task: $scope.tarea,
+                fromSearch: $scope.fromSearch
             };
 
             CommonService.logger("Json of Request " + JSON.stringify(postponeRequest), "info");
@@ -192,13 +193,45 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             })
                 .success(function (data, status, headers, config) {
                     CommonService.processBaseResponse(data, status, headers, config);
-                    /** Si no venimos de la pantalla de buscar cerramos la interacción,
-                     *  en caso contrario volvemos a la pantalla de buscar
+                    
+                    /**
+                     * Si venimos de la pantalla de buscar y la tarea está en retrieved,
+                     * no permitimos hacer nada y volvemos al buscador
                      */
-                    if ($scope.fromSearch != "true") {
-                        CommonService.closeInteraction(data);
-                    } else {
-                        CommonService.gotoSearch();
+                    if (data.tareaRetrieved){
+                    	var modalInstance = $modal.open({
+                            animation: false, //Indica si animamos el modal
+                            templateUrl: 'alertModalTareaRetrieved.html', //HTML del modal
+                            controller: 'ContentModalCtrl',  //Referencia al controller especifico para el modal
+                            size: null,
+                            resolve: {
+                                //Creo que esto es para pasar parametros al controller interno
+                                // items: function () {
+                                //     return $scope.items;
+                                // }
+                            }
+                        });
+
+                        //Funciones para recibir el cierre ok y el cancel
+                        modalInstance.result.then(function () {
+                        	CommonService.gotoSearch($scope.desktopDepartment);
+                        }, function (param) {
+                            //Boton cancelar del Modal
+                        });
+                        
+                    	
+                    }
+                    else{
+                    
+	                    /** Si no venimos de la pantalla de buscar cerramos la interacción,
+	                     *  en caso contrario volvemos a la pantalla de buscar
+	                     */
+	                    if ($scope.fromSearch != "true") {
+	                        CommonService.closeInteraction(data);
+	                    } else {
+	                        CommonService.gotoSearch($scope.desktopDepartment);
+	                    }
+	                    
                     }
                 })
                 .error(function (data, status, headers, config) {
@@ -231,7 +264,8 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             task: $scope.tarea,
             installation: $scope.installationData,
             callDone: $scope.iscalldone,
-            withInteaction:!$scope.fromSearch
+            withInteaction:!$scope.fromSearch,
+            fromSearch: $scope.fromSearch
         };
         
         //CommonService.logger('Descartar Tarea, request ' + JSON.stringify(requestdata), "debug");
@@ -248,21 +282,52 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             .success(function (data, status, headers, config) {
                 CommonService.logger('Modificación de la tarea realizada, response: ' + JSON.stringify(data), "debug");
                 CommonService.processBaseResponse(data, status, headers, config);
-                /** Si no venimos de la pantalla de buscar cerramos la interacción,
-                 *  en caso contrario volvemos a la pantalla de buscar
+                
+                /**
+                 * Si venimos de la pantalla de buscar y la tarea está en retrieved,
+                 * no permitimos hacer nada y volvemos al buscador
                  */
-                    //variable error para poder volver atras en el descartar
-                $scope.error = !data.success;
-//                alert(data.result.ommitedCallToDiscard);
-                if(data.result.ommitedCallToDiscard){
-//                    alert("RejectInteractionClosePushPreview ", data.result.ommitedCallToDiscard);
-                	e = window.external.RejectCloseInteractionPushPreview(mapParams.bp_interactionId);
-//                    alert(resultado);
-                }else{
-	                if ($scope.fromSearch != "true") {
-	                    CommonService.closeInteraction(data);
-	                } else {
-	                    CommonService.gotoSearch();
+                if (data.tareaRetrieved){
+                	var modalInstance = $modal.open({
+                        animation: false, //Indica si animamos el modal
+                        templateUrl: 'alertModalTareaRetrieved.html', //HTML del modal
+                        controller: 'ContentModalCtrl',  //Referencia al controller especifico para el modal
+                        size: null,
+                        resolve: {
+                            //Creo que esto es para pasar parametros al controller interno
+                            // items: function () {
+                            //     return $scope.items;
+                            // }
+                        }
+                    });
+
+                    //Funciones para recibir el cierre ok y el cancel
+                    modalInstance.result.then(function () {
+                    	CommonService.gotoSearch($scope.desktopDepartment);
+                    }, function (param) {
+                        //Boton cancelar del Modal
+                    });
+                    
+                	
+                }
+                else{
+                
+	                /** Si no venimos de la pantalla de buscar cerramos la interacción,
+	                 *  en caso contrario volvemos a la pantalla de buscar
+	                 */
+	                    //variable error para poder volver atras en el descartar
+	                $scope.error = !data.success;
+	//                alert(data.result.ommitedCallToDiscard);
+	                if(data.result.ommitedCallToDiscard){
+	                    //alert("RejectCloseInteractionPushPreview ", data.result.ommitedCallToDiscard);
+	                	e = window.external.RejectCloseInteractionPushPreview(mapParams.bp_connid);
+	                    //alert(resultado);
+	                }else{
+		                if ($scope.fromSearch != "true") {
+		                    CommonService.closeInteraction(data);
+		                } else {
+		                    CommonService.gotoSearch($scope.desktopDepartment);
+		                }
 	                }
                 }
             })
@@ -309,7 +374,8 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
         // prompt("aa","windowCreateMaintenanceFrame?InstallationNumber="+$scope.installationData.numeroInstalacion+"&PanelTypeId="+$scope.installationData.panel+"&TicketNumber="+$scope.tarea.idAviso+"&RequestedBy="+$scope.tarea.requeridoPor+"&Operator="+agent.agentIBS+"&ContactPerson="+$scope.tarea.personaContacto+"&ContactPhone="+$scope.tarea.telefonoAviso+"&Text="+$scope.tarea.observaciones+"&SessionToken="+agent.infopointSession+"&type="+$scope.tarea.tipoAviso1+"&motive="+$scope.tarea.motivo1);
         CreateMaintenanceAppRequest = {
             installationData: $scope.installationData,
-            tareaAviso: $scope.tarea
+            tareaAviso: $scope.tarea,
+            fromSearch: $scope.fromSearch
         };
         $http.put('commons/getCreateMaintenanceApp', CreateMaintenanceAppRequest)
             .success(function (data, status, headers, config) {
@@ -351,9 +417,9 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                     //    "&TELEFONO=" + $scope.installationData.telefono +
                     //    "&CALLTYPEPROBLEM=" + $scope.tarea.tipoAviso1 + "|" + $scope.tarea.motivo1 + "|1|" +
                     //    "&TEXTO=" + $scope.tarea.observaciones;
-
+                    
                     var resultado = window.showModalDialog(url, null, "center:yes; resizable:yes; dialogWidth:900px; dialogHeight:700px;");
-                    //alert(resultado);
+//                    alert(resultado);
 
                     //Tras recibir el resultado de la otra ventana podemos cerrar la session de infopoint
                     $scope.closeInfopointSession();
@@ -362,8 +428,10 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
                     //resultado='{"AppointmentNumber":"1234","Status":0,"Message":"correcto"}';
 
                     if (resultado) {
+//                    	alert(JSON.parse(resultado));
                         $scope.finalizarDesdeMantenimiento(JSON.parse(resultado));
                     } else {
+//                    	alert("resultado no es true");
                         $scope.finalizarDesdeMantenimiento(null);
                     }
                 }
@@ -384,7 +452,8 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
         CommonService.logger("Finalizar task, task: ", "debug", $scope.tarea);
         var finalizeRequest = {
             task: $scope.tarea,
-            installation: $scope.installationData
+            installation: $scope.installationData,
+            fromSearch: $scope.fromSearch
         };
         CommonService.logger("Finalizar  Task, request: ", "debug", finalizeRequest);
         $http({
@@ -395,18 +464,48 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             .success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
                 CommonService.logger("Finalized task", "debug");
-                /** Si no venimos de la pantalla de buscar cerramos la interacción,
-                 *  en caso contrario volvemos a la pantalla de buscar
+                
+                /**
+                 * Si venimos de la pantalla de buscar y la tarea está en retrieved,
+                 * no permitimos hacer nada y volvemos al buscador
                  */
-                $scope.error = !data.success;
-                if (data.success) {
-                    if ($scope.fromSearch != "true") {
-                        CommonService.closeInteraction(data);
-                    } else {
-                        CommonService.gotoSearch();
-                    }
-                } else {
-                    //No cerramos o volvemos atras porque hay errores
+                if (data.tareaRetrieved){
+                	var modalInstance = $modal.open({
+                        animation: false, //Indica si animamos el modal
+                        templateUrl: 'alertModalTareaRetrieved.html', //HTML del modal
+                        controller: 'ContentModalCtrl',  //Referencia al controller especifico para el modal
+                        size: null,
+                        resolve: {
+                            //Creo que esto es para pasar parametros al controller interno
+                            // items: function () {
+                            //     return $scope.items;
+                            // }
+                        }
+                    });
+
+                    //Funciones para recibir el cierre ok y el cancel
+                    modalInstance.result.then(function () {
+                    	CommonService.gotoSearch($scope.desktopDepartment);
+                    }, function (param) {
+                        //Boton cancelar del Modal
+                    });
+                    
+                	
+                }
+                else{
+	                /** Si no venimos de la pantalla de buscar cerramos la interacción,
+	                 *  en caso contrario volvemos a la pantalla de buscar
+	                 */
+	                $scope.error = !data.success;
+	                if (data.success) {
+	                    if ($scope.fromSearch != "true") {
+	                        CommonService.closeInteraction(data);
+	                    } else {
+	                        CommonService.gotoSearch($scope.desktopDepartment);
+	                    }
+	                } else {
+	                    //No cerramos o volvemos atras porque hay errores
+	                }
                 }
             })
             .error(function (data, status, headers, config) {
@@ -432,7 +531,8 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             task: $scope.tarea,
             lastCalledPhone: $scope.lastCalledPhone,
             //  finalizedByCreateMaintenance
-            finalizedByCreateMaintenance: true
+            finalizedByCreateMaintenance: true,
+            fromSearch: $scope.fromSearch
         };
 
         if (resultado) { //Si hay resultado añadimos los datos
@@ -452,13 +552,44 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             .success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
                 CommonService.logger("Finalized task", "debug");
-                /** Si no venimos de la pantalla de buscar cerramos la interacción,
-                 *  en caso contrario volvemos a la pantalla de buscar
+                
+                /**
+                 * Si venimos de la pantalla de buscar y la tarea está en retrieved,
+                 * no permitimos hacer nada y volvemos al buscador
                  */
-                if ($scope.fromSearch != "true") {
-                    CommonService.closeInteraction(data);
-                } else {
-                    CommonService.gotoSearch();
+                if (data.tareaRetrieved){
+                	var modalInstance = $modal.open({
+                        animation: false, //Indica si animamos el modal
+                        templateUrl: 'alertModalTareaRetrieved.html', //HTML del modal
+                        controller: 'ContentModalCtrl',  //Referencia al controller especifico para el modal
+                        size: null,
+                        resolve: {
+                            //Creo que esto es para pasar parametros al controller interno
+                            // items: function () {
+                            //     return $scope.items;
+                            // }
+                        }
+                    });
+
+                    //Funciones para recibir el cierre ok y el cancel
+                    modalInstance.result.then(function () {
+                    	CommonService.gotoSearch($scope.desktopDepartment);
+                    }, function (param) {
+                        //Boton cancelar del Modal
+                    });
+                    
+                	
+                }
+                else{
+                
+	                /** Si no venimos de la pantalla de buscar cerramos la interacción,
+	                 *  en caso contrario volvemos a la pantalla de buscar
+	                 */
+	                if ($scope.fromSearch != "true") {
+	                    CommonService.closeInteraction(data);
+	                } else {
+	                    CommonService.gotoSearch($scope.desktopDepartment);
+	                }
                 }
             })
             .error(function (data, status, headers, config) {
@@ -567,30 +698,48 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
          * Consulta los motivos con estos nuevos datos
          */
     $scope.getClosingList = function(){
-        CommonService.logger("Load Closing Type List for params: " + $scope.tarea.tipoAviso1 + ", " + $scope.tarea.motivo1, "debug");
-        var closingTypeRequest = {
-            idType: $scope.tarea.tipoAviso1,
-            reasonId: $scope.tarea.motivo1,
-            tarea:$scope.tarea
-        };
-        CommonService.logger("Load Closing Type List Request: ", "debug", closingTypeRequest);
-        $http({
-            method: 'PUT',
-            url: 'commons/getNotificationClosingList',
-            data: closingTypeRequest
-        })
-            .success(function (data, status, headers, config) {
-                CommonService.logger('Loaded Closing Type List Response', "debug", data);
-                $scope.closingList = data.pairList;
-                CommonService.processBaseResponse(data, status, headers, config);
-            })
-            .error(function (data, status, headers, config) {
-                CommonService.logger("Error loading Closing Type List", "error");
-                CommonService.processBaseResponse(data, status, headers, config);
-                $scope.error = true;
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
-            });
+    	
+    	if ($scope.tarea.tipoAviso1!=undefined && $scope.tarea.tipoAviso1!=null && $scope.tarea.tipoAviso1!="" && 
+    			$scope.tarea.motivo1!=undefined && $scope.tarea.motivo1!=null && $scope.tarea.motivo1!=""){
+    			var flag = true;
+    			if (($scope.tarea.tipoAviso2!=undefined && $scope.tarea.tipoAviso2!=null && $scope.tarea.tipoAviso2!="") &&
+    					($scope.tarea.motivo2==undefined || $scope.tarea.motivo2==null || $scope.tarea.motivo2=="")){
+    				flag = false;
+    			}
+    			if (($scope.tarea.tipoAviso3!=undefined && $scope.tarea.tipoAviso3!=null && $scope.tarea.tipoAviso3!="") &&
+    					($scope.tarea.motivo3==undefined || $scope.tarea.motivo3==null || $scope.tarea.motivo3=="")){
+    				flag = false;
+    			}
+    			if (flag){
+			        CommonService.logger("Load Closing Type List for params: " + $scope.tarea.tipoAviso1 + ", " + $scope.tarea.motivo1, "debug");
+			        var closingTypeRequest = {
+			            idType: $scope.tarea.tipoAviso1,
+			            reasonId: $scope.tarea.motivo1,
+			            tarea:$scope.tarea
+			        };
+			        CommonService.logger("Load Closing Type List Request: ", "debug", closingTypeRequest);
+			        $http({
+			            method: 'PUT',
+			            url: 'commons/getNotificationClosingList',
+			            data: closingTypeRequest
+			        })
+			            .success(function (data, status, headers, config) {
+			                CommonService.logger('Loaded Closing Type List Response', "debug", data);
+			                $scope.closingList = data.pairList;
+			                CommonService.processBaseResponse(data, status, headers, config);
+			            })
+			            .error(function (data, status, headers, config) {
+			                CommonService.logger("Error loading Closing Type List", "error");
+			                CommonService.processBaseResponse(data, status, headers, config);
+			                $scope.error = true;
+			                // called asynchronously if an error occurs
+			                // or server returns response with an error status.
+			            });
+    			}
+    	}
+    	else{
+    		//El tipo1 y el motivo1 no están rellenos y por lo tanto no se debe lanzar el getMotivosCierreFiltrado
+    	}
     };
 
     $scope.getClosingAditionalDataList = function () {
@@ -646,6 +795,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             .success(function (data, status, headers, config) {
                 CommonService.logger('Loaded Type Reason List', "debug", data);
                 $scope.motivoList1 = data.pairList;
+                $scope.getClosingList();
                 CommonService.processBaseResponse(data, status, headers, config);
 
             })
@@ -671,6 +821,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             .success(function (data, status, headers, config) {
                 CommonService.logger('Loaded Type Reason List', "debug", data);
                 $scope.motivoList2 = data.pairList;
+                $scope.getClosingList();
                 CommonService.processBaseResponse(data, status, headers, config);
 
             })
@@ -695,6 +846,7 @@ app.controller('notificationtask', function ($scope, $http, CommonService, $moda
             .success(function (data, status, headers, config) {
                 CommonService.logger("Loaded Type Reason List", "debug", data);
                 $scope.motivoList3 = data.pairList;
+                $scope.getClosingList();
                 CommonService.processBaseResponse(data, status, headers, config);
 
             })

@@ -47,59 +47,68 @@
             <ref bean="loggingInInterceptor"/>
         </cxf:inFaultInterceptors>
     </cxf:bus>
+    
+    <!-- Webservices WSO2 DES/PRE-->
 
-<!-- Web Services Cliente  SP_InstallationMonData-->
-    <jaxws:client name="wsSPInstallationMonData"
-                  serviceClass="org.wso2.ws.dataservice.SPInstallationMonDataPortType"
-                  address="http://10.2.144.63:9763/services/SP_InstallationMonData?wsdl"
-            />
+		<!-- Web Services Cliente  SP_InstallationMonData-->
+	    <jaxws:client name="wsSPInstallationMonData"
+	                  serviceClass="org.wso2.ws.dataservice.SPInstallationMonDataPortType"
+	                  address="http://10.2.144.63:9763/services/SP_InstallationMonData?wsdl"
+	            />
+	
+	    <!-- Web Services Cliente  SP_AVISOS_OPERACIONES -->
+	    <jaxws:client name="wsSpAvisosOperaciones"
+	                  serviceClass="org.wso2.ws.dataservice.SPAVISOSOPERACIONESPortType"
+	                  address="http://10.2.144.63:9763/services/SP_AVISOS_OPERACIONES?wsdl"
+	            />
+	
+	    <!-- Web Services Cliente  SP_AIO_TAREAS2 -->
+	    <jaxws:client name="wsSpAioTareas2"
+	                  serviceClass="org.wso2.ws.dataservice.SPAIOTAREAS2PortType"
+	                  address="http://10.2.144.63:9763/services/SP_AIO_TAREAS2?wsdl"
+	            />
 
-    <!-- Web Services Cliente  SP_AVISOS_OPERACIONES -->
-    <jaxws:client name="wsSpAvisosOperaciones"
-                  serviceClass="org.wso2.ws.dataservice.SPAVISOSOPERACIONESPortType"
-                  address="http://10.2.144.63:9763/services/SP_AVISOS_OPERACIONES?wsdl"
-            />
-
-    <!-- Web Services Cliente  SP_AIO_TAREAS2 -->
-    <jaxws:client name="wsSpAioTareas2"
-                  serviceClass="org.wso2.ws.dataservice.SPAIOTAREAS2PortType"
-                  address="http://10.2.144.63:9763/services/SP_AIO_TAREAS2?wsdl"
-            />
-
-    <!-- Web Services Cliente  CCLIntegrationService -->
+	    <!-- Web Services Cliente  SP_IBSCommlogData -->
+	    <jaxws:client name="wsIBSCommlog"
+	                  serviceClass="org.wso2.ws.dataservice.SPIBSCommlogDataPortType"
+	                  address="http://10.2.144.63:9763/services/SP_IBSCommlogData?wsdl"
+	            />
+	   	
+	   	<!-- Web Services Cliente  FSMSplitService-->
+	    <jaxws:client name="wsFSMSplitService"
+	                  serviceClass="fsm.split.FSMSplitService"
+	                  address="http://10.2.144.63:9763/services/FSMSplitService?WSDL"
+	            />
+	
+	    <!-- Web Services Cliente  FSMDataServiceLight-->
+	    <jaxws:client name="wsFSMDataServiceLight"
+	                  serviceClass="org.wso2.ws.dataservice.FSMDataServiceLightPortType"
+	                  address="http://10.2.144.63:9763/services/FSMDataServiceLight?wsdl"
+	            />
+	            
+	<!-- END Webservices WSO2 -->
+	
+	<!-- Web Services Cliente  CCLIntegrationService DES
     <jaxws:client name="cclIntegration"
                   serviceClass="com.webservice.CCLIntegration"
                   address="http://10.2.145.137:8011/AllInOne_CCL/CCLIntegrationService?WSDL"
-            />
+            />  -->
+    
+    <!-- Web Services Cliente  CCLIntegrationService PRE -->
+    <jaxws:client name="cclIntegration"
+                  serviceClass="com.webservice.CCLIntegration"
+                  address="http://es1precclvip:8011/AllInOne_CCL/CCLIntegrationService?WSDL"
+            /> 
 
-    <!-- Web Services Cliente  aaaaaaaaaa-->
+    <!-- Web Services Cliente  wsTickets DES/PRE-->
     <jaxws:client name="wsTickets"
                   serviceClass="wsticketsv2.WsTicketsSoap"
                   address="http://es1preinfo01v/TicketsWebServices/wsTicketsV2/wsTickets.asmx?WSDL"
             />
-
-    <!-- Web Services Cliente  SP_IBSCommlogData -->
-    <jaxws:client name="wsIBSCommlog"
-                  serviceClass="org.wso2.ws.dataservice.SPIBSCommlogDataPortType"
-                  address="http://10.2.144.63:9763/services/SP_IBSCommlogData?wsdl"
-            />
-
-    <!-- Web Services Cliente  Infopoint Fun-->
+    <!-- Web Services Cliente  Infopoint Fun DES/PRE-->
     <jaxws:client name="wsInfopoint"
                   serviceClass="org.tempuri.FunSoap"
                   address="http://es1preinfo01v/wsInfopoint/Fun.asmx?WSDL"
-            />
-
-    <!-- Web Services Cliente  FSMSplitService-->
-    <jaxws:client name="wsFSMSplitService"
-                  serviceClass="fsm.split.FSMSplitService"
-                  address="http://10.2.144.63:9763/services/FSMSplitService?WSDL"
-            />
-
-    <!-- Web Services Cliente  FSMDataServiceLight-->
-    <jaxws:client name="wsFSMDataServiceLight"
-                  serviceClass="org.wso2.ws.dataservice.FSMDataServiceLightPortType"
-                  address="http://10.2.144.63:9763/services/FSMDataServiceLight?wsdl"
             />
 
     <!-- Web Services Cliente  ReportingTareas-->

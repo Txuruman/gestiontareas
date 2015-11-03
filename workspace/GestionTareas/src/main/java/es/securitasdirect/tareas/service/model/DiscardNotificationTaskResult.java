@@ -9,9 +9,14 @@ public class DiscardNotificationTaskResult {
     private boolean ticketWasSaved = false;
     private boolean taskWasFinalized = false;
     private boolean ommitedCallToDiscard = false;
+    private boolean fromSearch = false;
 
+    
 
-    public boolean isTaskWasFinalized() {
+    public DiscardNotificationTaskResult() {
+	}
+
+	public boolean isTaskWasFinalized() {
         return taskWasFinalized;
     }
 
@@ -44,14 +49,20 @@ public class DiscardNotificationTaskResult {
         return ommitedCallToDiscard;
     }
 
-    @Override
-    public String toString() {
-        final StringBuffer sb = new StringBuffer("DiscardNotificationTaskResult{");
-        sb.append("wasInMemory=").append(wasInMemory);
-        sb.append(", ticketWasSaved=").append(ticketWasSaved);
-        sb.append(", taskWasFinalized=").append(taskWasFinalized);
-        sb.append(", ommitedCallToDiscard=").append(ommitedCallToDiscard);
-        sb.append('}');
-        return sb.toString();
-    }
+    public boolean isFromSearch() {
+		return fromSearch;
+	}
+
+	public void setFromSearch(boolean fromSearch) {
+		this.fromSearch = fromSearch;
+	}
+
+	@Override
+	public String toString() {
+		return "DiscardNotificationTaskResult [wasInMemory=" + wasInMemory + ", ticketWasSaved=" + ticketWasSaved
+				+ ", taskWasFinalized=" + taskWasFinalized + ", ommitedCallToDiscard=" + ommitedCallToDiscard
+				+ ", fromSearch=" + fromSearch + "]";
+	}
+
+	
 }

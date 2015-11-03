@@ -127,7 +127,7 @@ public class InfopointService {
             String errorCode = getErrorCode(((ElementNSImpl) closeSesionResult.getContent().get(0)));
             String errorDescription = getErrorDescription(((ElementNSImpl) closeSesionResult.getContent().get(0)));
             String resultDescription = getResultDescription(((ElementNSImpl) closeSesionResult.getContent().get(0)));
-            if (!"0".equals(errorCode)) {
+            if (!"code=\"0\"".equals(errorCode)) {
                 LOGGER.error("Error closing infopoint Session {}-{}-{}", errorCode, errorDescription, resultDescription);
             } else {
                 LOGGER.debug("Successfully closed session in infopoint");

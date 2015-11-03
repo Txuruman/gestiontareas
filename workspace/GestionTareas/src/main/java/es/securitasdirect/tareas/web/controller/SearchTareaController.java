@@ -1,20 +1,10 @@
 package es.securitasdirect.tareas.web.controller;
 
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 
-import es.securitasdirect.tareas.model.Agent;
-import es.securitasdirect.tareas.model.Tarea;
-import es.securitasdirect.tareas.service.QueryTareaService;
-import es.securitasdirect.tareas.service.SearchTareaService;
-import es.securitasdirect.tareas.web.controller.dto.SearchTareaResponse;
-import es.securitasdirect.tareas.web.controller.dto.request.PostponeGenericTaskRequest;
-import es.securitasdirect.tareas.web.controller.dto.request.PostponeRequest;
-import es.securitasdirect.tareas.web.controller.dto.request.notificationtask.PostponeNotificationTaskRequest;
-import es.securitasdirect.tareas.web.controller.dto.request.searchtask.SearchTaskRequest;
-import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
-import es.securitasdirect.tareas.web.controller.util.MessageUtil;
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +12,18 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import es.securitasdirect.tareas.model.Tarea;
+import es.securitasdirect.tareas.service.SearchTareaService;
+import es.securitasdirect.tareas.web.controller.dto.SearchTareaResponse;
+import es.securitasdirect.tareas.web.controller.dto.request.PostponeGenericTaskRequest;
+import es.securitasdirect.tareas.web.controller.dto.request.searchtask.SearchTaskRequest;
+import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
+import es.securitasdirect.tareas.web.controller.util.MessageUtil;
 
 @Controller
 @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
@@ -52,7 +47,7 @@ public class SearchTareaController extends TaskController {
     public
     @ResponseBody
     BaseResponse postpone(@RequestBody PostponeGenericTaskRequest request) {
-        return super.delayTask(request.getTask(), request.getRecallType(), request.getDelayDate(), request.getMotive());
+        return super.delayTask(request.getTask(), request.getRecallType(), request.getDelayDate(), request.getMotive(), request.getFromSearch());
     }
 
     @RequestMapping(value = "/query", method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})

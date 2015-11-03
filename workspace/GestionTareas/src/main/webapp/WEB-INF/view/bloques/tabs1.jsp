@@ -6,6 +6,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <ul class="nav nav-tabs nav-justified"> 
-    <li class="${fn:contains(pageContext.request.servletPath,'buscar')?'activeTab':''}"><a href="${pageContext.request.contextPath}/search"><spring:message code="tab.buscartarea.title"/></a></li>
-    <li class="${fn:contains(pageContext.request.servletPath,'crear')?'activeTab':''}"><a href="${pageContext.request.contextPath}/createtask"><spring:message code="tab.searchTarea.title"/></a></li>
+    <li class="${fn:contains(pageContext.request.servletPath,'buscar')?'activeTab':''}"><a href="${pageContext.request.contextPath}/search?deskDepartment=<c:if test="${not empty deskDepartment}"><c:out value="${deskDepartment}"/></c:if><c:if test="${empty deskDepartment}"><c:out value="${agent.desktopDepartment}"/></c:if>"><spring:message code="tab.buscartarea.title"/></a></li>
+    <li class="${fn:contains(pageContext.request.servletPath,'crear')?'activeTab':''}"><a href="${pageContext.request.contextPath}/createtask?deskDepartment=<c:if test="${not empty deskDepartment}"><c:out value="${deskDepartment}"/></c:if><c:if test="${empty deskDepartment}"><c:out value="${agent.desktopDepartment}"/></c:if>"><spring:message code="tab.searchTarea.title"/></a></li>
 </ul>

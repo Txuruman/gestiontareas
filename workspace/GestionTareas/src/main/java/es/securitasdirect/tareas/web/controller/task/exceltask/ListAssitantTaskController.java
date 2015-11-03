@@ -1,25 +1,20 @@
 package es.securitasdirect.tareas.web.controller.task.exceltask;
 
-import es.securitasdirect.tareas.model.InstallationData;
-import es.securitasdirect.tareas.model.tareaexcel.TareaListadoAssistant;
-import es.securitasdirect.tareas.service.InstallationService;
-import es.securitasdirect.tareas.service.QueryTareaService;
-import es.securitasdirect.tareas.web.controller.AgentController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import es.securitasdirect.tareas.web.controller.TaskController;
-import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
 import es.securitasdirect.tareas.web.controller.dto.request.DiscardExcelTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.GetInstallationAndTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.exceltask.listadoassistanttask.FinalizeListAssistantTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.request.exceltask.listadoassistanttask.PostponeListAssistantTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
-import javax.inject.Inject;
 
 /**
  * @author jel
@@ -29,12 +24,6 @@ import javax.inject.Inject;
 @RequestMapping("/listassistanttask")
 public class ListAssitantTaskController extends TaskController {
 
-    @Inject
-    private QueryTareaService queryTareaService;
-    @Inject
-    private InstallationService installationDataService;
-    @Autowired
-    private AgentController agentController;
 
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ListAssitantTaskController.class);
@@ -44,12 +33,12 @@ public class ListAssitantTaskController extends TaskController {
     public
     @ResponseBody
     BaseResponse postpone(@RequestBody PostponeListAssistantTaskRequest request) {
-        return super.delayTask(request.getTask(), request.getRecallType(), request.getDelayDate(), request.getMotive());
+        return super.delayTask(request.getTask(), request.getRecallType(), request.getDelayDate(), request.getMotive(), request.getFromSearch());
     }
 
     @RequestMapping(value = "/descartar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody BaseResponse descartar(@RequestBody DiscardExcelTaskRequest request) {
-    	return super.discardExcelTask(request.getTask(), request.getInstallation());
+    	return super.discardExcelTask(request.getTask(), request.getInstallation(), request.getFromSearch());
     }
 
 
@@ -57,7 +46,7 @@ public class ListAssitantTaskController extends TaskController {
     public
     @ResponseBody
     BaseResponse finalizeTask(@RequestBody FinalizeListAssistantTaskRequest request) {
-        return super.finalizeTask(request.getTask());
+        return super.finalizeTask(request.getTask(), request.getFromSearch());
     }
 
 

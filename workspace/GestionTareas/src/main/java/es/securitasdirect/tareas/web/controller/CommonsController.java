@@ -1,23 +1,9 @@
 package es.securitasdirect.tareas.web.controller;
 
-import es.securitasdirect.tareas.model.InstallationData;
-import es.securitasdirect.tareas.model.TareaAviso;
-import es.securitasdirect.tareas.model.external.BigIntegerPair;
-import es.securitasdirect.tareas.model.external.Pair;
-import es.securitasdirect.tareas.model.external.StringPair;
-import es.securitasdirect.tareas.service.ExternalDataService;
-import es.securitasdirect.tareas.service.SplitService;
-import es.securitasdirect.tareas.service.TareaService;
-import es.securitasdirect.tareas.web.controller.dto.request.DiscardExcelTaskRequest;
-import es.securitasdirect.tareas.web.controller.dto.request.notificationtask.ClosingTypeAditionalDataRequest;
-import es.securitasdirect.tareas.web.controller.dto.request.notificationtask.ClosingTypeRequest;
-import es.securitasdirect.tareas.web.controller.dto.request.notificationtask.CreateMaintenanceAppRequest;
-import es.securitasdirect.tareas.web.controller.dto.request.notificationtask.TypeReasonListRequest;
-import es.securitasdirect.tareas.web.controller.dto.response.BigIntegerPairResponse;
-import es.securitasdirect.tareas.web.controller.dto.response.CreateMaintenanceAppResponse;
-import es.securitasdirect.tareas.web.controller.dto.response.PairListResponse;
-import es.securitasdirect.tareas.web.controller.dto.response.StringPairListResponse;
-import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
+import java.util.List;
+
+import javax.inject.Inject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +14,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.inject.Inject;
-import java.util.List;
+import es.securitasdirect.tareas.model.external.BigIntegerPair;
+import es.securitasdirect.tareas.model.external.Pair;
+import es.securitasdirect.tareas.model.external.StringPair;
+import es.securitasdirect.tareas.service.ExternalDataService;
+import es.securitasdirect.tareas.service.SplitService;
+import es.securitasdirect.tareas.service.TareaService;
+import es.securitasdirect.tareas.web.controller.dto.request.DiscardExcelTaskRequest;
+import es.securitasdirect.tareas.web.controller.dto.request.notificationtask.ClosingTypeRequest;
+import es.securitasdirect.tareas.web.controller.dto.request.notificationtask.CreateMaintenanceAppRequest;
+import es.securitasdirect.tareas.web.controller.dto.request.notificationtask.TypeReasonListRequest;
+import es.securitasdirect.tareas.web.controller.dto.response.BigIntegerPairResponse;
+import es.securitasdirect.tareas.web.controller.dto.response.CreateMaintenanceAppResponse;
+import es.securitasdirect.tareas.web.controller.dto.response.PairListResponse;
+import es.securitasdirect.tareas.web.controller.dto.response.StringPairListResponse;
+import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
 
 /**
  * @author
@@ -105,7 +104,7 @@ public class CommonsController extends BaseController {
         	
         	
             LOGGER.debug("Getting closing type list for request: {}", closingTypeRequest);
-            closingList = externalDataService.getNotificationClosing(closingTypeRequest.getIdType(), closingTypeRequest.getReasonId(), agentController.getAgent().getAgentIBS());
+            closingList = externalDataService.getNotificationClosing(closingTypeRequest.getTarea(), agentController.getAgent().getAgentIBS());
             LOGGER.debug("Loaded closing type list {}", closingList);
             response = new StringPairListResponse();
             response.setPairList(closingList);
@@ -170,7 +169,7 @@ public class CommonsController extends BaseController {
         return response;
     }
 
-    /**
+	/**
      * ReportingTareas para Tarea Excel con interacion sin llamada.
      *
      * @return
@@ -189,5 +188,4 @@ public class CommonsController extends BaseController {
         }
         return response;
     }
-
 }

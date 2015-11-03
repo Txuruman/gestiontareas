@@ -7,11 +7,11 @@
 <script type="text/javascript">
 	var _IE=false;
 </script>
+<!-- <script src="${pageContext.request.contextPath}/resources/pie/PIE.js"></script>-->
 <!--[if IE 8]>
 <script src="${pageContext.request.contextPath}/resources/js/es5-shim.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/html5.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/respond.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/pie/PIE.js"></script>
 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/IE8custom.css"/>
 <![endif]-->

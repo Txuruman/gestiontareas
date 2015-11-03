@@ -47,14 +47,14 @@ public class MaintenanceSurveyTaskController extends TaskController {
     public
     @ResponseBody
     BaseResponse postpone(@RequestBody PostponeMaintenanceSurveyTaskRequest request) {
-        return super.delayTask(request.getTask(), request.getRecallType(), request.getDelayDate(), request.getMotive());
+        return super.delayTask(request.getTask(), request.getRecallType(), request.getDelayDate(), request.getMotive(), request.getFromSearch());
     }
 
 
 
     @RequestMapping(value = "/descartar", method = {RequestMethod.PUT}, consumes = {MediaType.APPLICATION_JSON_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public @ResponseBody BaseResponse descartar(@RequestBody DiscardExcelTaskRequest request) {
-    	return super.discardExcelTask(request.getTask(), request.getInstallation());
+    	return super.discardExcelTask(request.getTask(), request.getInstallation(), request.getFromSearch());
     }
 
 
@@ -62,7 +62,7 @@ public class MaintenanceSurveyTaskController extends TaskController {
     public
     @ResponseBody
     BaseResponse finalizeTask(@RequestBody FinalizeMaintenanceSurveyTaskRequest request) {
-        return super.finalizeTask(request.getTask());
+        return super.finalizeTask(request.getTask(), request.getFromSearch());
     }
 
 

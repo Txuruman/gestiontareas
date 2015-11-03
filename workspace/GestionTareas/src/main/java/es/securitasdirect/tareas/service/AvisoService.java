@@ -366,12 +366,26 @@ public class AvisoService {
      * @return
      * @throws Exception
      */
-    public void delayTicket(Integer naviso, String gblidusr, Date fhasta, String idaplaza) {
+    public void delayTicket(Integer naviso, String gblidusr, Date fhasta, String idaplaza, boolean flagDelay) {
 
+    	//Este flag viene a true si se hace un updateTicket antes de aplazar el aviso.
+    	if (flagDelay){
+	        //Es necesario este delay porque si no no le da tiempo a liberar el ticket al modificarlo.
+	        try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
+    	
         String cnota = ""; // constante
-        //String idaplaza = "APR"; // idaplaza tipo de aplazamiento: si lo admite, dejarlo vacío. Si no, poner “APR”
+        //String idaplaza = "APL36"; // idaplaza tipo de aplazamiento: si lo admite, dejarlo vacío. Si no, poner “APL36”
+        if (idaplaza==null || "".equals(idaplaza)) {
+			idaplaza="APL36";
+		}
         try {
-            List<RowErrorAA> rowErrorAAs = spAvisosOperaciones.aplazarAviso(naviso, gblidusr, idaplaza, new SimpleDateFormat("dd/MM/yyyy' 'HH:mm:ss").format(fhasta), cnota);
+            List<RowErrorAA> rowErrorAAs = spAvisosOperaciones.aplazarAviso(naviso, gblidusr, idaplaza, new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(fhasta), cnota);
 
             if (rowErrorAAs != null && rowErrorAAs.size() == 1
                     && ((RowErrorAA) ((List) rowErrorAAs).get(0)).getReturnCode() != null
@@ -384,6 +398,8 @@ public class AvisoService {
         } catch (DataServiceFault e) {
             LOGGER.error("Error aplazando aviso", e);
             throw new FrameworkException(e);
+        } catch (Exception e1){
+        	throw new FrameworkException(e1);
         }
 
     }
@@ -416,6 +432,9 @@ public class AvisoService {
 
         boolean result = false;
         try {
+        	
+        	if (codTipoCierreAdicional==null)
+        		codTipoCierreAdicional=0;
 
             List<RowErrorCA> rowErrorCAs = spAvisosOperaciones.cerrarAviso(idAviso, idAgente, codTipoCierre, nota, statusdest,
                     deuda, codTipoCierreAdicional, idmante, branch);
@@ -478,7 +497,7 @@ public class AvisoService {
                 LOGGER.error("Error insertando Tarea para TOA");
                 throw new BusinessException(BusinessException.ErrorCode.ERROR_INSERT_TOA_TASK);
             }
-        } catch (DataServiceFault e) {
+        } catch (Exception e) {
             LOGGER.error("No se han podido insertar los datos del Aviso para TOA", e);
             throw new FrameworkException(e);
         }

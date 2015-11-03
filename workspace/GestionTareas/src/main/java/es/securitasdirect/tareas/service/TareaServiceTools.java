@@ -198,7 +198,7 @@ public class TareaServiceTools {
             try {
                 //Viene una lista de 3 avisos o menos, son todos el mismo, solo cambia los tipoAviso y tipoMotivo
                 avisobyId = spAioTareas2.getAvisobyId(idAviso);
-            } catch (DataServiceFault dsf) {
+            } catch (Exception dsf) {
                 LOGGER.error("ERROR calling service for TareaAviso ID:'{}'", idAviso);
                 throw new FrameworkException(dsf);
             }

@@ -3,6 +3,8 @@ package es.securitasdirect.tareas.service;
 import com.webservice.CCLIntegration;
 import com.webservice.CclResponse;
 import com.webservice.Item;
+
+import es.securitasdirect.tareas.exceptions.BusinessException;
 import es.securitasdirect.tareas.model.Tarea;
 import es.securitasdirect.tareas.model.TareaAviso;
 import es.securitasdirect.tareas.model.TareaExcel;
@@ -12,12 +14,15 @@ import es.securitasdirect.tareas.model.tareaexcel.*;
 import es.securitasdirect.tareas.web.controller.params.ExternalParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.wso2.ws.dataservice.*;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
+import javax.xml.ws.Holder;
+
 import java.util.*;
 
 /**
@@ -84,17 +89,36 @@ public class ExternalDataService {
         	En la tabla OPER, listar los IDGRP cuyo IDMATRICULA coincida con el Usuario (normalmente sólo habrá uno, pero puede haber varios)
         	En la tabla TCIERRE_MOTIVO, listar los IDTIPOCIERRE cuyo IDTIPO sea Tipo, y (IDMOTIVO esté vacío ó IDMOTIVO sea Motivo) y (IDGRP=0 ó IDGRP sea uno de los IDGRP obtenidos de la tabla OPER)
     */
-    public List<StringPair> getNotificationClosing(Integer idTipo, Integer idMotivo, String agentIBS) throws DataServiceFault {
-        LOGGER.debug("Calling for closing type list, params: idTipo: {}, idMotivo: {}, agentIBS: {}", idTipo, idMotivo, agentIBS);
+    public List<StringPair> getNotificationClosing(TareaAviso tarea, String agentIBS) throws DataServiceFault {
+        LOGGER.debug("Calling for closing type list, params: tarea: {}, agentIBS: {}", tarea, agentIBS);
         List<StringPair> result = new ArrayList<StringPair>();
-        if (idTipo != null && idMotivo != null && agentIBS != null) {
-            List<Tipocierre> wsResult = spAioTareas2.getTipoCierre(idTipo, idMotivo, agentIBS);
-            LOGGER.debug("WS closing type list reponse: {}", wsResult);
-            for (Tipocierre tipocierre : wsResult) {
-                result.add(new StringPair(tipocierre.getTipo(), tipocierre.getDescripcion()));
-            }
+        if (tarea!=null && tarea.getTipoAviso1() != null && tarea.getMotivo1() != null && agentIBS != null) {
+        	
+        	//Si los tipos y motivos son null, los seteamos a vacío
+        	if (tarea.getTipoAviso2()==null)
+        		tarea.setTipoAviso2("");
+        	if (tarea.getTipoAviso3()==null)
+        		tarea.setTipoAviso3("");
+        	if (tarea.getMotivo2()==null)
+        		tarea.setMotivo2("");
+        	if (tarea.getMotivo3()==null)
+        		tarea.setMotivo3("");
+        	
+			List<GetMotivoCierreFiltradoResult> motivosCierre = spAioTareas2.getMotivoCierreFiltrado(agentIBS, tarea.getTipoAviso1(), tarea.getMotivo1(), tarea.getTipoAviso2(), tarea.getMotivo2(), tarea.getTipoAviso3(), tarea.getMotivo3());
+			
+			if (motivosCierre!=null && !motivosCierre.isEmpty()){
+	            LOGGER.debug("WS closing type list reponse: {}", motivosCierre);
+	            for (GetMotivoCierreFiltradoResult motivoCierre : motivosCierre) {
+	                result.add(new StringPair(motivoCierre.getIdMotivoCierre(), motivoCierre.getDsMotivoCierre()));
+	            }
+			}
+			else{
+				LOGGER.error("Error getting motivosCierre");
+                throw new BusinessException(BusinessException.ErrorCode.ERROR_NOTIFICATION_CLOSING);
+			}
         } else {
-            LOGGER.warn("Not informed parameters for closing type list query, params: idTipo: {}, idMotivo: {}, idGrp: {}", idTipo, idMotivo, agentIBS);
+            LOGGER.warn("Not informed parameters for closing type list query, params: tarea: {}, idGrp: {}", tarea, agentIBS);
+            throw new BusinessException(BusinessException.ErrorCode.ERROR_NOTIFICATION_CLOSING);
         }
 
         return result;

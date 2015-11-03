@@ -1,34 +1,34 @@
-.img-circle{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)}
-.img-rounded{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)}
-.img-thumbnail{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)}
-.table-bordered{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)}
-select,textarea,input,code,pre,kbd,pre{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)}
-.input-group-addon{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)}
-.btn{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)}
-.dropdown-menu{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)}
-.form-control{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)}
-/* .panel{behavior:url(resources/css/PIE.htc)} */
-.well{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)}
-.nav-tabs > li > a{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)}
-.nav-pills > li > a{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)}
-.navbar{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)}
-.navbar-nav > li > a{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)}
-.navbar-toggle{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)}
-.navbar-toggle .icon-bar{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)}
-.breadcrumb{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)}
-.pagination{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)}
-.pager li > a,.pager li > span{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)}
-.modal-content{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)}
-.tooltip-inner{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)}
-.popover{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)}
-.popover-title{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)}
-.alert{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)}
-.thumbnail,.img-thumbnail{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)}
-.label{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)}
-.badge{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)}
-.progress{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)}
-.carousel-indicators li{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)}
-.jumbotron{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)}
+/* .img-circle{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)} */
+/* .img-rounded{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)} */
+/* .img-thumbnail{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)} */
+/* .table-bordered{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)} */
+/* select,textarea,input,code,pre,kbd,pre{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)} */
+/* .input-group-addon{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)} */
+/* .btn{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)} */
+/* .dropdown-menu{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)} */
+/* .form-control{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)} */
+/* /* .panel{behavior:url(resources/css/PIE.htc)} */ */
+/* .well{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)} */
+/* .nav-tabs > li > a{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)} */
+/* .nav-pills > li > a{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)} */
+/* .navbar{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)} */
+/* .navbar-nav > li > a{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)} */
+/* .navbar-toggle{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)} */
+/* .navbar-toggle .icon-bar{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)} */
+/* .breadcrumb{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)} */
+/* .pagination{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)} */
+/* .pager li > a,.pager li > span{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)} */
+/* .modal-content{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)} */
+/* .tooltip-inner{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)} */
+/* .popover{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)} */
+/* .popover-title{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)} */
+/* .alert{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)} */
+/* .thumbnail,.img-thumbnail{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)} */
+/* .label{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)} */
+/* .badge{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)} */
+/* .progress{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)} */
+/* .carousel-indicators li{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)} */
+/* .jumbotron{position:relative; zoom:1; behavior:url(resources/css/PIE.htc)} */
 
 li[tab],.pagination a{
 	cursor:pointer;

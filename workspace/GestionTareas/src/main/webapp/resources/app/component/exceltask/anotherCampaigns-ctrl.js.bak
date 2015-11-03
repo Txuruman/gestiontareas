@@ -1,5 +1,42 @@
-//Controlador List Assistant - Start
-app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $modal, $log, $timeout, $window) {
+//Another Campaigns ANGULARJS script START
+app.controller('anotherCampaigns', function ($scope, $http, CommonService, $modal, $log, $window) {
+
+    $scope.getInstallationAndTask = function () {
+        $scope.vm.appReady = false;
+
+        //$log.debug("Loading Another Campaigns Task...");
+        var getInstallationAndTaskRequest = {
+            callingList: $scope.callingList,
+            taskId: $scope.tareaId,
+            params: mapParams
+        };
+        //$log.debug("LO QUE ENVIAMOS", getInstallationAndTaskRequest);
+
+        $http({
+            method: 'PUT',
+            url: 'anothercampaignstask/getInstallationAndTask',
+            data: getInstallationAndTaskRequest
+        }).success(function (data, status, headers, config) {
+            //$log.debug("Loaded fee cleaning task:",data.tarea);
+            $scope.tarea = data.tarea;
+            $scope.installationData = data.installationData;
+            if(data.noInstallation==true){
+            	$scope.noInstallation=data.noInstallation;
+            	$scope.noInstallationMsg=data.noInstallationMsg;
+            }
+            CommonService.processBaseResponse(data, status, headers, config);
+            $scope.getClosingReason();
+            $scope.vm.appReady = true;
+        }).
+            error(function (data, status, headers, config) {
+                // called asynchronously if an error occurs
+                // or server returns response with an error status.
+                CommonService.processBaseResponse(data, status, headers, config);
+                $scope.vm.appReady = true;
+                //$log.error("Error loading installation and task");
+            });
+    };
+
 
     $scope.getClosingReason = function () {
         //$log.debug("Loading Excel Task Commons: Closing reason");
@@ -18,8 +55,31 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
     };
 
 
+    //Ventana Aplazar - Start
+    //Abre la ventana, posibles tamaños '', 'sm', 'lg'
+    $scope.openDelayModal = function (size) {
+        var modalInstance = $modal.open({
+            animation: false, //Indica si animamos el modal
+            templateUrl: 'deplayModalContent.html', //HTML del modal
+            controller: 'DelayModalInstanceCtrl',  //Referencia al controller especifico para el modal
+            size: size,
+            resolve: {
+                 items: function () {
+                     return false;
+                 }
+            }
+        });
+
+        //Funciones para recivir el cierre ok y el cancel
+        modalInstance.result.then(function (delayInfo) {
+            //Boton Ok del modal
+            $scope.aplazar(delayInfo.delayDate, delayInfo.recallType);
+        }, function (param) {
+            //Boton cancelar del Modal
+        });
+    };
     $scope.aplazar = function (delayDate, recallType) {
-        //$log.info('Delay to ' + delayDate + ' with recallType ' + recallType + ' NotificationTask ' + JSON.stringify($scope.tarea));
+        //$log.info('Delay to ' + delayDate + ' with recallType ' + recallType + ' task ' + JSON.stringify($scope.tarea));
         if ($scope.tarea) {
             var postponeRequest = {
                 recallType: recallType,
@@ -28,9 +88,11 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
                 fromSearch: $scope.fromSearch
             };
 
+            //$log.info("Json of Request " + JSON.stringify(postponeRequest));
+
             $http({
                 method: 'PUT',
-                url: 'listassistanttask/aplazar',
+                url: 'anothercampaignstask/aplazar',
                 data: postponeRequest
             })
                 .success(function (data, status, headers, config) {
@@ -56,7 +118,7 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
 
                         //Funciones para recibir el cierre ok y el cancel
                         modalInstance.result.then(function () {
-                        	CommonService.gotoSearch($scope.desktopDepartment);
+                        	CommonService.gotoSearch();
                         }, function (param) {
                             //Boton cancelar del Modal
                         });
@@ -72,7 +134,7 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
 	                        if ($scope.fromSearch != "true") {
 	                            CommonService.closeInteraction(data);
 	                        } else {
-	                            CommonService.gotoSearch($scope.desktopDepartment);
+	                            CommonService.gotoSearch();
 	                        }
 	                    } else {
 	                        //Por errores no volvemos atras ni cerramos
@@ -86,73 +148,8 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
                 });
         }
     };
+    //Ventana Aplazar - End
 
-    /**
-     * Si no hay instalacion finalizamos la tarea
-     */
-    $scope.descartarTarea = function () {
-//    	alert("entrando en descartartarea");
-        if ($scope.installationData == null || $scope.installationData == undefined) {
-            var discardRequest = {
-                task: $scope.tarea,
-                installation: $scope.installation,
-                fromSearch: $scope.fromSearch
-            }
-            $http.put("listassistanttask/descartar", discardRequest).then(function (data, status, headers, config) {
-                CommonService.processBaseResponse(data, status, headers, config);
-                
-                /**
-                 * Si venimos de la pantalla de buscar y la tarea está en retrieved,
-                 * no permitimos hacer nada y volvemos al buscador
-                 */
-                if (data.data.tareaRetrieved){
-                	var modalInstance = $modal.open({
-                        animation: false, //Indica si animamos el modal
-                        templateUrl: 'alertModalTareaRetrieved.html', //HTML del modal
-                        controller: 'ContentModalCtrl',  //Referencia al controller especifico para el modal
-                        size: null,
-                        resolve: {
-                            //Creo que esto es para pasar parametros al controller interno
-                            // items: function () {
-                            //     return $scope.items;
-                            // }
-                        }
-                    });
-
-                    //Funciones para recibir el cierre ok y el cancel
-                    modalInstance.result.then(function () {
-                    	CommonService.gotoSearch($scope.desktopDepartment);
-                    }, function (param) {
-                        //Boton cancelar del Modal
-                    });
-                    
-                	
-                }
-                else{
-                
-	                if ($scope.fromSearch != 'true') {
-	                	//[AJT] Si no hay instalación, hay que cerrar el registro en genesys y cerrar interacción
-	                	CommonService.closeInteraction({success: true});
-	                } else {
-	                    CommonService.gotoSearch($scope.desktopDepartment);
-	                }
-                }
-            }, function (data, status, headers, config) {
-                CommonService.processBaseResponse(data, status, headers, config);
-            })
-        } else {
-            if ($scope.fromSearch != 'true') {
-//            	alert("Descartamos por javascript");
-            	CommonService.excellDiscard();
-            } else {
-                CommonService.gotoSearch($scope.desktopDepartment);
-            }
-        }
-    }
-    
-    $scope.closeInteraction = function () {
-        CommonService.closeInteraction({success: true});
-    }
 
     $scope.finalizar = function () {
         //$log.debug("Finalizar List Assistant task, task: ",$scope.tarea);
@@ -163,7 +160,7 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
         //$log.debug("Finalizar  Task, request: ",finalizeRequest);
         $http({
             method: 'PUT',
-            url: 'listassistanttask/finalizar',
+            url: 'anothercampaignstask/finalizar',
             data: finalizeRequest
         })
             .success(function (data, status, headers, config) {
@@ -190,7 +187,7 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
 
                     //Funciones para recibir el cierre ok y el cancel
                     modalInstance.result.then(function () {
-                    	CommonService.gotoSearch($scope.desktopDepartment);
+                    	CommonService.gotoSearch();
                     }, function (param) {
                         //Boton cancelar del Modal
                     });
@@ -205,7 +202,7 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
 	                if ($scope.fromSearch != "true") {
 	                    CommonService.closeInteraction(data);
 	                } else {
-	                    CommonService.gotoSearch($scope.desktopDepartment);
+	                    CommonService.gotoSearch();
 	                }
                 }
             })
@@ -217,69 +214,69 @@ app.controller('listAssistant-ctrl', function ($scope, $http, CommonService, $mo
             });
     };
 
-
-    $scope.getInstallationAndTask = function () {
-        $scope.vm.appReady = false;
-
-        //$log.debug("Loading List Assistant Task...");
-
-        var getInstallationAndTaskRequest = {
-            callingList: $scope.callingList,
-            taskId: $scope.tareaId,
-            params: mapParams
-        };
-        //$log.debug("LO QUE ENVIAMOS", getInstallationAndTaskRequest);
-
-        $http({
-            method: 'PUT',
-            url: 'listassistanttask/getInstallationAndTask',
-            data: getInstallationAndTaskRequest
-        }).success(function (data, status, headers, config) {
-            //$log.debug("Loaded list assistant task:", data.tarea);
-            $scope.tarea = data.tarea;
-            $scope.installationData = data.installationData;
-            if(data.noInstallation==true){
-            	$scope.noInstallation=data.noInstallation;
-            	$scope.noInstallationMsg=data.noInstallationMsg;
+    /**
+     * Si no hay instalacion finalizamos la tarea
+     */
+    $scope.descartarTarea = function () {
+        if ($scope.installationData == null || $scope.installationData == undefined) {
+            var discardRequest = {
+                task: $scope.tarea,
+                installation: $scope.installation,
+                fromSearch: $scope.fromSearch
             }
-            CommonService.processBaseResponse(data, status, headers, config);
-            $scope.getClosingReason();
-            $scope.vm.appReady = true;
-        }).
-            error(function (data, status, headers, config) {
-                // called asynchronously if an error occurs
-                // or server returns response with an error status.
+            $http.put("anothercampaignstask/descartar", discardRequest).then(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
-                //$log.debug("Error loading list assistant task:", data.tarea);
-                $scope.vm.appReady = true;
-            });
-        //$log.debug("List assistant task loaded...")
-    };
+                
+                /**
+                 * Si venimos de la pantalla de buscar y la tarea está en retrieved,
+                 * no permitimos hacer nada y volvemos al buscador
+                 */
+                if (data.data.tareaRetrieved){
+                	var modalInstance = $modal.open({
+                        animation: false, //Indica si animamos el modal
+                        templateUrl: 'alertModalTareaRetrieved.html', //HTML del modal
+                        controller: 'ContentModalCtrl',  //Referencia al controller especifico para el modal
+                        size: null,
+                        resolve: {
+                            //Creo que esto es para pasar parametros al controller interno
+                            // items: function () {
+                            //     return $scope.items;
+                            // }
+                        }
+                    });
 
-
-    //Ventana Aplazar - Start
-    //Abre la ventana, posibles tamaños '', 'sm', 'lg'
-    $scope.openDelayModal = function (size) {
-        var modalInstance = $modal.open({
-            animation: false, //Indica si animamos el modal
-            templateUrl: 'deplayModalContent.html', //HTML del modal
-            controller: 'DelayModalInstanceCtrl',  //Referencia al controller especifico para el modal
-            size: size,
-            resolve: {
-            	items: function () {
-                    return false;
+                    //Funciones para recibir el cierre ok y el cancel
+                    modalInstance.result.then(function () {
+                    	CommonService.gotoSearch();
+                    }, function (param) {
+                        //Boton cancelar del Modal
+                    });
+                    
+                	
                 }
+                else{
+                
+	                if ($scope.fromSearch != 'true') {
+	                	CommonService.excellDiscard();
+	                } else {
+	                    CommonService.gotoSearch();
+	                }
+                }
+                
+            }, function (data, status, headers, config) {
+                CommonService.processBaseResponse(data, status, headers, config);
+            })
+        } else {
+            if ($scope.fromSearch != 'true') {
+            	CommonService.excellDiscard();
+            } else {
+                CommonService.gotoSearch();
             }
-        });
-
-        //Funciones para recivir el cierre ok y el cancel
-        modalInstance.result.then(function (delayInfo) {
-            //Boton Ok del modal
-            $scope.aplazar(delayInfo.delayDate, delayInfo.recallType);
-        }, function (param) {
-            //Boton cancelar del Modal
-        });
-    };
-    //Ventana Aplazar - End   
+        }
+    }
+   
+    $scope.closeInteraction = function () {
+        CommonService.closeInteraction({success: true});
+    }
 });
-//Controlador List Assistant - End
+//Another Campaigns ANGULARJS script END

@@ -10,6 +10,12 @@ import java.util.List;
  * Created by Javier Naval on 06/07/2015.
  */
 public class BaseResponse {
+	
+	/*
+	 * Variable para controlar que una tarea se haya buscado por un agente y le haya llegado a otro agente mientras el primero está gestionandola.
+	 * No se permitirá gestionar la tarea al agente que ha buscado la tarea por el buscador.
+	 */
+	private boolean tareaRetrieved = false; 
 
     private List<Message> messages = new ArrayList<Message>();
     /**
@@ -160,6 +166,14 @@ public class BaseResponse {
 		this.success = success;
 	}
 
+	public boolean isTareaRetrieved() {
+		return tareaRetrieved;
+	}
+
+	public void setTareaRetrieved(boolean tareaRetrieved) {
+		this.tareaRetrieved = tareaRetrieved;
+	}
+
 	public boolean hasError(){
         Iterator<Message> messageList = this.messages.iterator();
         boolean hasError = false;
@@ -171,10 +185,9 @@ public class BaseResponse {
         return hasError;
     }
 
-
-    @Override
-    public String toString() {
-        return "BaseResponse{" +
-                "messages=" + messages + "}, success=" + success;
-    }
+	@Override
+	public String toString() {
+		return "BaseResponse [tareaRetrieved=" + tareaRetrieved + ", messages=" + messages + ", success=" + success
+				+ "]";
+	}
 }

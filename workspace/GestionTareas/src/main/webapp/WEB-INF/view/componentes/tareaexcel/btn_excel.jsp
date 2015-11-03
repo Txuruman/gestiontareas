@@ -22,5 +22,8 @@
 <!-- Modal de alerta de descartar -->
 <app:alertModal titulo="alertmodal.titulo" msg1="alertmodal.msg3" button="alertmodal.return"/>
 
+<!-- Modal de alerta de la tarea desde buscador y en retrieved -->
+<app:alertModalTareaRetrieved titulo="alertmodaltarearetrieved.titulo" msg1="alertmodaltarearetrieved.msg1" button="alertmodaltarearetrieved.return"/>
+
 
 <!-- Fin Botones -->

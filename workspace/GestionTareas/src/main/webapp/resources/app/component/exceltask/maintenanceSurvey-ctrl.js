@@ -62,7 +62,8 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,
             var postponeRequest = {
                 recallType: recallType,
                 delayDate: delayDate,
-                task: $scope.tarea
+                task: $scope.tarea,
+                fromSearch: $scope.fromSearch
             };
 
             //$log.info("Json of Request " + JSON.stringify(postponeRequest));
@@ -74,17 +75,48 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,
             })
                 .success(function (data, status, headers, config) {
                     CommonService.processBaseResponse(data, status, headers, config);
-                    /** Si no venimos de la pantalla de buscar cerramos la interacción,
-                     *  en caso contrario volvemos a la pantalla de buscar
+                    
+                    /**
+                     * Si venimos de la pantalla de buscar y la tarea está en retrieved,
+                     * no permitimos hacer nada y volvemos al buscador
                      */
-                    if (data.success) {
-                        if ($scope.fromSearch != "true") {
-                            CommonService.closeInteraction(data);
-                        } else {
-                            CommonService.gotoSearch();
-                        }
-                    } else {
-                        //Por errores no volvemos atras ni cerramos
+                    if (data.tareaRetrieved){
+                    	var modalInstance = $modal.open({
+                            animation: false, //Indica si animamos el modal
+                            templateUrl: 'alertModalTareaRetrieved.html', //HTML del modal
+                            controller: 'ContentModalCtrl',  //Referencia al controller especifico para el modal
+                            size: null,
+                            resolve: {
+                                //Creo que esto es para pasar parametros al controller interno
+                                // items: function () {
+                                //     return $scope.items;
+                                // }
+                            }
+                        });
+
+                        //Funciones para recibir el cierre ok y el cancel
+                        modalInstance.result.then(function () {
+                        	CommonService.gotoSearch($scope.desktopDepartment);
+                        }, function (param) {
+                            //Boton cancelar del Modal
+                        });
+                        
+                    	
+                    }
+                    else{
+                    
+	                    /** Si no venimos de la pantalla de buscar cerramos la interacción,
+	                     *  en caso contrario volvemos a la pantalla de buscar
+	                     */
+	                    if (data.success) {
+	                        if ($scope.fromSearch != "true") {
+	                            CommonService.closeInteraction(data);
+	                        } else {
+	                            CommonService.gotoSearch($scope.desktopDepartment);
+	                        }
+	                    } else {
+	                        //Por errores no volvemos atras ni cerramos
+	                    }
                     }
                 })
                 .error(function (data, status, headers, config) {
@@ -102,23 +134,55 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,
         if ($scope.installationData == null || $scope.installationData == undefined) {
             var discardRequest = {
                 task: $scope.tarea,
-                installation: $scope.installation
+                installation: $scope.installation,
+                fromSearch: $scope.fromSearch
             }
             $http.put("maintenancesurveytask/descartar", discardRequest).then(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
-                if ($scope.fromSearch != 'true') {
-                	CommonService.excellDiscard();
-                } else {
-                    CommonService.gotoSearch();
+                
+                /**
+                 * Si venimos de la pantalla de buscar y la tarea está en retrieved,
+                 * no permitimos hacer nada y volvemos al buscador
+                 */
+                if (data.data.tareaRetrieved){
+                	var modalInstance = $modal.open({
+                        animation: false, //Indica si animamos el modal
+                        templateUrl: 'alertModalTareaRetrieved.html', //HTML del modal
+                        controller: 'ContentModalCtrl',  //Referencia al controller especifico para el modal
+                        size: null,
+                        resolve: {
+                            //Creo que esto es para pasar parametros al controller interno
+                            // items: function () {
+                            //     return $scope.items;
+                            // }
+                        }
+                    });
+
+                    //Funciones para recibir el cierre ok y el cancel
+                    modalInstance.result.then(function () {
+                    	CommonService.gotoSearch($scope.desktopDepartment);
+                    }, function (param) {
+                        //Boton cancelar del Modal
+                    });
+                    
+                	
+                }
+                else{
+                
+	                if ($scope.fromSearch != 'true') {
+	                	CommonService.excellDiscard();
+	                } else {
+	                    CommonService.gotoSearch($scope.desktopDepartment);
+	                }
                 }
             }, function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
             })
         } else {
             if ($scope.fromSearch != 'true') {
-            	CommonService.excellDiscard(tarea, installation);
+            	CommonService.excellDiscard();
             } else {
-                CommonService.gotoSearch();
+                CommonService.gotoSearch($scope.desktopDepartment);
             }
         }
     }
@@ -129,7 +193,8 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,
     $scope.finalizar = function () {
         //$log.debug("Finalizar task: ",$scope.tarea);
         var finalizeRequest = {
-            task: $scope.tarea
+            task: $scope.tarea,
+            fromSearch: $scope.fromSearch
         };
         //$log.debug("Finalizar  Task, request: ",finalizeRequest);
         $http({
@@ -140,13 +205,44 @@ app.controller('maintenancesurvey-ctrl', function ($scope, $http, CommonService,
             .success(function (data, status, headers, config) {
                 CommonService.processBaseResponse(data, status, headers, config);
                 //$log.debug("Finalized task");
-                /** Si no venimos de la pantalla de buscar cerramos la interacción,
-                 *  en caso contrario volvemos a la pantalla de buscar
+                
+                /**
+                 * Si venimos de la pantalla de buscar y la tarea está en retrieved,
+                 * no permitimos hacer nada y volvemos al buscador
                  */
-                if ($scope.fromSearch != "true") {
-                    CommonService.closeInteraction(data);
-                } else {
-                    CommonService.gotoSearch();
+                if (data.tareaRetrieved){
+                	var modalInstance = $modal.open({
+                        animation: false, //Indica si animamos el modal
+                        templateUrl: 'alertModalTareaRetrieved.html', //HTML del modal
+                        controller: 'ContentModalCtrl',  //Referencia al controller especifico para el modal
+                        size: null,
+                        resolve: {
+                            //Creo que esto es para pasar parametros al controller interno
+                            // items: function () {
+                            //     return $scope.items;
+                            // }
+                        }
+                    });
+
+                    //Funciones para recibir el cierre ok y el cancel
+                    modalInstance.result.then(function () {
+                    	CommonService.gotoSearch($scope.desktopDepartment);
+                    }, function (param) {
+                        //Boton cancelar del Modal
+                    });
+                    
+                	
+                }
+                else{
+                
+	                /** Si no venimos de la pantalla de buscar cerramos la interacción,
+	                 *  en caso contrario volvemos a la pantalla de buscar
+	                 */
+	                if ($scope.fromSearch != "true") {
+	                    CommonService.closeInteraction(data);
+	                } else {
+	                    CommonService.gotoSearch($scope.desktopDepartment);
+	                }
                 }
             })
             .error(function (data, status, headers, config) {

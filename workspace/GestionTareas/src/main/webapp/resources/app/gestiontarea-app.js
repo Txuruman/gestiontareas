@@ -10,8 +10,8 @@ app.service('CommonService', function ($rootScope, $log, $http, $timeout, $windo
      * Método Descartar: Nos lleva a la página de buscar
      * Variable _contextPath inicializada en commonImports
      */
-    this.gotoSearch = function () {
-        $window.location.href = _contextPath + "/search";
+    this.gotoSearch = function (desktopDepartment) {
+        $window.location.href = _contextPath + "/search?deskDepartment="+desktopDepartment;
     };
 
     /**
@@ -60,9 +60,9 @@ app.service('CommonService', function ($rootScope, $log, $http, $timeout, $windo
     /**
      * 
      */
-    this.excellDiscard=function(tarea, installation){
-//    	alert("Entrando funcion excelDiscard, interaccion : "+mapParams.bp_interactionId);
-    	var iscalldone = window.external.IsCallDone(mapParams.bp_interactionId);
+    this.excellDiscard=function(){
+//    	alert("Entrando funcion excelDiscard, interaccion : "+mapParams.bp_connid);
+    	var iscalldone = window.external.IsCallDone(mapParams.bp_connid);
 //    	alert("La variable iscalldone: "+iscalldone);
     	if (iscalldone) {
     		var modalInstance = $modal.open({
@@ -85,14 +85,7 @@ app.service('CommonService', function ($rootScope, $log, $http, $timeout, $windo
                 //Boton cancelar del Modal
             });
 		}else{
-
-            var discardRequest = {
-                task: tarea,
-                installation: installation
-            }
-            $http.put("commons/reportingTareas", discardRequest)
-
-//			alert("Andres!! Que Lanzamos el RejectCloseInteractionPushPreview: "+mapParams.bp_connid);
+//			alert("Lanzamos el RejectCloseInteractionPushPreview: "+mapParams.bp_connid);
 			e=window.external.RejectCloseInteractionPushPreview(mapParams.bp_connid);
 			//this.closeInteraction({success:true});
 		}
@@ -113,7 +106,9 @@ app.service('CommonService', function ($rootScope, $log, $http, $timeout, $windo
     	if (data.success) {
     		//alert("A continuación se cerrará la interacción");
 //    		alert("Lanzamos CloseInteractionPushPreview: "+mapParams.bp_connid);
-    		e = window.external.CloseInteractionPushPreview(mapParams.bp_connid);
+    		$timeout(function(){
+    			e = window.external.CloseInteractionPushPreview(mapParams.bp_connid);
+            },2000);
     		//alert("Interacción cerrada: "+JSON.strinify(e));
 		}
     };
@@ -461,23 +456,37 @@ app.directive('onlyNumber', function() {
 
 //Controlador de la ventana modal de aplazar
 //Please note that $modalInstance represents a modal window (instance) dependency. It is not the same as the $modal service used above.
-app.controller('DelayModalInstanceCtrl', function ($scope, $modalInstance, $log, $http, items, CommonService) {
+app.controller('DelayModalInstanceCtrl', function ($scope, $modalInstance, $log, $http, items, CommonService, $timeout) {
 	$scope.items=items;
-
+	$scope.errorFechaAplaza=false;
 	$scope.today = new Date();
-
+	$scope.delayInfo = {
+			delayDate: $scope.today,
+			delayTime: $scope.today,
+			recallType: 'Personal',
+			motive:""
+	};
 	if($scope.items==true){
 		$http.get("notificationtask/getTipoAplaza")
 		.success(function (data, status, headers, config) {
 			CommonService.processBaseResponse(data, status, headers, config);
-			$scope.tiposAplazamiento=data.listGrpAplazamiento;
+			$scope.tiposAplazamiento=angular.copy(data.listGrpAplazamiento);
+//			listaIE8=angular.copy(data.listGrpAplazamiento);
 			if($scope.tiposAplazamiento!=undefined && $scope.tiposAplazamiento!=null){
-				$scope.delayInfo = {
-						delayDate: $scope.today,
-						delayTime: $scope.today,
-						recallType: 'Personal',
-						motive: $scope.tiposAplazamiento[0].idaplaza
-				};
+				$scope.tiposAplazamiento.push({dsaplaza:"",idaplaza:""});
+//				 setTimeout(function(){
+//				$timeout(function(){
+//					var options=$("option[name='optionAplaza']");
+//					for (var i = 0; i < 10; i++) {
+//						options[i].innerHTML=listaIE8[i].dsaplaza;
+//					}
+//				},0)
+//				$scope.delayInfo = {
+//						delayDate: $scope.today,
+//						delayTime: $scope.today,
+//						recallType: 'Personal',
+//						motive: $scope.tiposAplazamiento[0].idaplaza
+//				};
 			}else{
 				$scope.error = true;
 			}
@@ -503,8 +512,16 @@ app.controller('DelayModalInstanceCtrl', function ($scope, $modalInstance, $log,
 		if ($scope.delayInfo.delayDate && $scope.delayInfo.delayTime) {
 			$scope.delayInfo.delayDate.setHours($scope.delayInfo.delayTime.getHours(), $scope.delayInfo.delayTime.getMinutes(), 0, 0);
 		}
+		var fecha_actual = new Date();
+		if ($scope.delayInfo.delayDate>fecha_actual){
+			$modalInstance.close($scope.delayInfo);
+		}
+		else{
+			$scope.errorFechaAplaza=true;
+		}
+		
 		//$log.debug("Selected delay info :" + $scope.delayInfo );
-		$modalInstance.close($scope.delayInfo);
+		
 	};
 
 	$scope.cancel = function () {

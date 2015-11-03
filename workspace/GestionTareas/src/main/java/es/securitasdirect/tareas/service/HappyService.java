@@ -1,21 +1,24 @@
 package es.securitasdirect.tareas.service;
 
-import com.webservice.CCLIntegration;
-import es.securitasdirect.tareas.model.happy.HappyData;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.wso2.ws.dataservice.FSMDataServiceLightPortType;
-import org.wso2.ws.dataservice.SPAIOTAREAS2PortType;
-import org.wso2.ws.dataservice.SPInstallationMonDataPortType;
+import java.util.Date;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
-import java.util.Date;
-import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.wso2.ws.dataservice.FSMDataServiceLightPortType;
+import org.wso2.ws.dataservice.SPAIOTAREAS2PortType;
+import org.wso2.ws.dataservice.SPAVISOSOPERACIONESPortType;
+import org.wso2.ws.dataservice.SPInstallationMonDataPortType;
+
+import com.webservice.CCLIntegration;
+
+import es.securitasdirect.tareas.model.happy.HappyData;
 
 /**
  *
@@ -34,9 +37,11 @@ public class HappyService {
     private static final String SECURITY = "Security";
     private static final String OK = "Ok";
     private static final String ERROR = "Error";
+	private static final String APP_VERSION = "Version TAREAS";
+    private static final String APP_VERSION_VALUE = "2.13";
 
     @Resource
-    protected String applicationUser ;
+    protected String applicationUser;
     @Autowired
     protected SecurityService securityService;
 
@@ -54,6 +59,8 @@ public class HappyService {
     protected CCLIntegration cclIntegration;
     @Inject
     protected FSMDataServiceLightPortType fsmDataServiceLight;
+    @Inject
+    protected SPAVISOSOPERACIONESPortType spAvisosOperaciones;
 
     @PostConstruct
     protected void init() {
@@ -62,6 +69,8 @@ public class HappyService {
 
     public HappyData getHappyData() {
         HappyData happyData = new HappyData();
+		//verion de la aplicacion
+        happyData.addService(APP_VERSION, APP_VERSION_VALUE);
         //Up Time
         happyData.setUpSince(upTime);
 
@@ -104,6 +113,13 @@ public class HappyService {
         }
 
 
+        try {
+            cclIntegration.getCCLVersion("M0OOS",applicationUser,"","SPAIN");
+            happyData.addService(CCL_SERVICE, OK);
+        } catch (Exception e) {
+            happyData.addService(CCL_SERVICE,ERROR, e.getMessage());
+        }
+        
         try {
             cclIntegration.getCCLVersion("M0OOS",applicationUser,"","SPAIN");
             happyData.addService(CCL_SERVICE, OK);

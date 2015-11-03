@@ -30,7 +30,8 @@ public class BusinessException extends RuntimeException {
 		ERROR_CREATE_TICKET,
 		ERROR_DELAY_TICKET,
 		ERROR_INSERT_TOA_TASK,
-		ERROR_GET_DELAY_TYPE
+		ERROR_GET_DELAY_TYPE,
+		ERROR_NOTIFICATION_CLOSING
     };
 	
 	private ErrorCode errorCode = null;

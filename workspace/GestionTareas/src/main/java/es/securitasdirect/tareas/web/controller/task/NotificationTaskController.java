@@ -1,13 +1,22 @@
 package es.securitasdirect.tareas.web.controller.task;
 
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.wso2.ws.dataservice.GrpAplazamiento;
+
 import es.securitasdirect.tareas.model.Agent;
-import es.securitasdirect.tareas.model.InstallationData;
-import es.securitasdirect.tareas.model.TareaAviso;
 import es.securitasdirect.tareas.model.external.Pair;
-import es.securitasdirect.tareas.service.AvisoService;
-import es.securitasdirect.tareas.service.ExternalDataService;
-import es.securitasdirect.tareas.service.InstallationService;
-import es.securitasdirect.tareas.service.QueryTareaService;
 import es.securitasdirect.tareas.service.TareaService;
 import es.securitasdirect.tareas.service.model.DiscardNotificationTaskResult;
 import es.securitasdirect.tareas.web.controller.AgentController;
@@ -15,21 +24,12 @@ import es.securitasdirect.tareas.web.controller.TaskController;
 import es.securitasdirect.tareas.web.controller.dto.DiscardNotificationTaskResponse;
 import es.securitasdirect.tareas.web.controller.dto.TareaResponse;
 import es.securitasdirect.tareas.web.controller.dto.request.GetInstallationAndTaskRequest;
-import es.securitasdirect.tareas.web.controller.dto.request.notificationtask.*;
-import es.securitasdirect.tareas.web.controller.dto.response.NotificationTaskResponse;
+import es.securitasdirect.tareas.web.controller.dto.request.notificationtask.DiscardNotificationTaskRequest;
+import es.securitasdirect.tareas.web.controller.dto.request.notificationtask.FinalizeNotificationTaskRequest;
+import es.securitasdirect.tareas.web.controller.dto.request.notificationtask.PostponeNotificationTaskRequest;
 import es.securitasdirect.tareas.web.controller.dto.response.PairListResponse;
 import es.securitasdirect.tareas.web.controller.dto.response.TipoAplazaResponse;
 import es.securitasdirect.tareas.web.controller.dto.support.BaseResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.wso2.ws.dataservice.GrpAplazamiento;
-
-import javax.inject.Inject;
-import java.util.List;
 
 /**
  * @author jel
@@ -39,14 +39,6 @@ import java.util.List;
 @RequestMapping("/notificationtask")
 public class NotificationTaskController extends TaskController {
 
-    @Inject
-    private QueryTareaService queryTareaService;
-    @Inject
-    private ExternalDataService externalDataService;
-    @Inject
-    private InstallationService installationDataService;
-    @Inject
-    private AvisoService avisoService;
     @Inject
     private TareaService tareaService;
     @Autowired
@@ -61,7 +53,7 @@ public class NotificationTaskController extends TaskController {
     	try{
 	        response= (TareaResponse) super.getInstallationAndTask(request.getCallingList(),request.getTaskId(), request.getParams());
 	        if (response.getTarea()==null) {
-	        	response.danger(messageUtil.getProperty("ERROR_FIND_TICKET"));
+//	        	response.danger(messageUtil.getProperty("ERROR_FIND_TICKET"));
 	            response.setNoTicked(true);
 	            response.setNoInstallationMsg(messageUtil.getProperty("ERROR_FIND_TICKET"));
 			} 
@@ -97,7 +89,7 @@ public class NotificationTaskController extends TaskController {
     public
     @ResponseBody
     BaseResponse postpone(@RequestBody PostponeNotificationTaskRequest request) {
-        return super.delayTask(request.getTask(), request.getRecallType(), request.getDelayDate(), request.getMotive());
+        return super.delayTask(request.getTask(), request.getRecallType(), request.getDelayDate(), request.getMotive(),request.getFromSearch());
     }
 
     /**
@@ -121,6 +113,9 @@ public class NotificationTaskController extends TaskController {
             } else if (request.getStatus() != 0) { //Detectamos error en la respuesta , TODO Hay que ver que datos vienen en varios casos
                 response.danger(messageUtil.getProperty("createMaintenance.response.error", request.getStatus(), request.getMessage()));
                 return response;
+            } else{
+            	response.danger(messageUtil.getProperty("createMaintenance.response.success"));
+                return response;
             }
         }
 
@@ -128,9 +123,13 @@ public class NotificationTaskController extends TaskController {
         //Llamada al servicio para finalizar
         try {
             Agent agent = agentController.getAgent();
-            boolean ok = tareaService.finalizeNotificationTask(agent, request.getTask(), request.isFinalizedByCreateMaintenance(), request.getAppointmentNumber());
-
-            if (ok) {
+            int resultado = tareaService.finalizeNotificationTask(agent, request.getTask(), request.isFinalizedByCreateMaintenance(), request.getAppointmentNumber(),
+            		request.getFromSearch());
+            
+            if (resultado==1)
+            	response.setTareaRetrieved(true);
+            
+            if (resultado==0) {
                 response.info(messageUtil.getProperty("finalize.success"));
             } else {
                 response.danger(messageUtil.getProperty("finalize.error"));
@@ -151,8 +150,10 @@ public class NotificationTaskController extends TaskController {
         DiscardNotificationTaskResponse response = new DiscardNotificationTaskResponse();
         Agent agent = agentController.getAgent();
         try {
-            DiscardNotificationTaskResult discardNotificationTaskResult = tareaService.discardNotificationTask(agent, request.getTask(), request.getInstallation(), true, request.isCallDone(), request.isWithInteaction());
+            DiscardNotificationTaskResult discardNotificationTaskResult = tareaService.discardNotificationTask(agent, request.getTask(), request.getInstallation(), true, request.isCallDone(), request.isWithInteaction(),
+            		request.getFromSearch());
             response.setResult(discardNotificationTaskResult);
+            response.setTareaRetrieved(discardNotificationTaskResult.isFromSearch());
             response.success(messageUtil.getProperty("notificationTask.modify.success"));
         } catch (Exception e) {
             return processException(e);
@@ -172,8 +173,10 @@ public class NotificationTaskController extends TaskController {
         DiscardNotificationTaskResponse response = new DiscardNotificationTaskResponse();
         Agent agent = agentController.getAgent();
         try {
-        	 DiscardNotificationTaskResult discardNotificationTaskResult = tareaService.discardNotificationTask(agent, request.getTask(), request.getInstallation(), false, request.isCallDone(),request.isWithInteaction());
+        	 DiscardNotificationTaskResult discardNotificationTaskResult = tareaService.discardNotificationTask(agent, request.getTask(), request.getInstallation(), false, request.isCallDone(),request.isWithInteaction(),
+        			 request.getFromSearch());
             response.setResult(discardNotificationTaskResult);
+            response.setTareaRetrieved(discardNotificationTaskResult.isFromSearch());
             response.success(messageUtil.getProperty("notificationTask.modify.success"));
         } catch (Exception e) {
            return processException(e);

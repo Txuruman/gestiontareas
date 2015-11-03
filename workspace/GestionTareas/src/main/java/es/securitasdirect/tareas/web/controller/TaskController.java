@@ -41,13 +41,13 @@ public abstract class TaskController extends BaseController {
      * @param delayDate
      * @return
      */
-    public BaseResponse delayTask(Tarea task, String recallType, Date delayDate, String motive) {
-        LOGGER.debug("Aplazando tarea {} {} {} {} ", task, delayDate, recallType, motive);
+    public BaseResponse delayTask(Tarea task, String recallType, Date delayDate, String motive, String fromSearch) {
+        LOGGER.debug("Aplazando tarea {} {} {} {} {}", task, delayDate, recallType, motive, fromSearch);
         BaseResponse response = new BaseResponse();
         //Llamada al servicio para aplazar
         try {
             Agent agent = agentController.getAgent();
-            tareaService.delayTask(agent, task, delayDate, recallType, motive);
+            response.setTareaRetrieved(tareaService.delayTask(agent, task, delayDate, recallType, motive, fromSearch));
             response.info(messageUtil.getProperty("postpone.success"));
         } catch (Exception e) {
             response = processException(e);
@@ -64,14 +64,14 @@ public abstract class TaskController extends BaseController {
      * @param installation
      * @return
      */
-    public BaseResponse discardExcelTask(Tarea task, InstallationData installation) {
+    public BaseResponse discardExcelTask(Tarea task, InstallationData installation, String fromSearch) {
         LOGGER.debug("Descartando tarea {} {} ", task, installation);
         BaseResponse response = new BaseResponse();
         //Llamada al servicio para aplazar
         try {
             Agent agent = agentController.getAgent();
-            tareaService.discardExcelTask(agent, task, installation);
-            response.info(messageUtil.getProperty("postpone.success"));
+            response.setTareaRetrieved(tareaService.discardExcelTask(agent, task, installation, fromSearch));
+            response.info(messageUtil.getProperty("discard.success"));
         } catch (Exception e) {
             response = processException(e);
         }
@@ -85,14 +85,14 @@ public abstract class TaskController extends BaseController {
      * @param installation
      * @return
      */
-    public BaseResponse discardMaintenanceTask(Tarea task, InstallationData installation) {
+    public BaseResponse discardMaintenanceTask(Tarea task, InstallationData installation, String fromSearch) {
         LOGGER.debug("Descartando tarea {} {} ", task, installation);
         BaseResponse response = new BaseResponse();
         //Llamada al servicio para aplazar
         try {
             Agent agent = agentController.getAgent();
-            tareaService.discardMaintenanceTask(agent, task, installation);
-            response.info(messageUtil.getProperty("postpone.success"));
+            response.setTareaRetrieved(tareaService.discardMaintenanceTask(agent, task, installation,fromSearch));
+            response.info(messageUtil.getProperty("discard.success"));
         } catch (Exception e) {
             response = processException(e);
         }
@@ -105,13 +105,13 @@ public abstract class TaskController extends BaseController {
      * @param task
      * @return
      */
-    public BaseResponse finalizeTask(Tarea task) {
+    public BaseResponse finalizeTask(Tarea task, String fromSearch) {
         assert task != null : "Es necesario el parametro de la tarea";
-        LOGGER.debug("Finalizando tarea {}  ", task);
+        LOGGER.debug("Finalizando tarea {} {} ", task, fromSearch);
         BaseResponse response = new BaseResponse();
         //Llamada al servicio para finalizar
         try {
-            tareaService.finalizeExcelTask(agentController.getAgent(), task);
+            response.setTareaRetrieved(tareaService.finalizeExcelTask(agentController.getAgent(), task, fromSearch));
             response.info(messageUtil.getProperty("finalize.success"));
         } catch (Exception e) {
             response = processException(e);

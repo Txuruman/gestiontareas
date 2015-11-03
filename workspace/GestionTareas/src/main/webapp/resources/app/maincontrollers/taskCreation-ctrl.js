@@ -22,7 +22,13 @@ app.controller('taskCreation', function ($scope, $http, CommonService, $modal, $
 				}else{
 					$scope.installationNotSearched=false;
 					$scope.mostrarAvisos=true;
-					$scope.getRequiredBy();
+					//$scope.getRequiredBy();
+					if ($scope.desktopDepartment!=undefined && $scope.desktopDepartment!=null && $scope.desktopDepartment!=""){
+						$scope.tarea.requeridoPor=$scope.desktopDepartment;
+					}
+					else{
+						$scope.tarea.requeridoPor=$scope.deskDepartment;
+					}
 				}
             })
             .error(function (data, status, headers, config) {
@@ -54,7 +60,13 @@ app.controller('taskCreation', function ($scope, $http, CommonService, $modal, $
                 $scope.tarea.numeroInstalacion=inst;
                 $scope.vm.appReady=true;
                 $scope.verErrores=false;
-                $scope.getRequiredBy();
+                //$scope.getRequiredBy();
+                if ($scope.desktopDepartment!=undefined && $scope.desktopDepartment!=null && $scope.desktopDepartment!=""){
+					$scope.tarea.requeridoPor=$scope.desktopDepartment;
+				}
+				else{
+					$scope.tarea.requeridoPor=$scope.deskDepartment;
+				}
             })
             .error(function (data, status, headers, config) {
                 // called asynchronously if an error occurs
@@ -73,10 +85,15 @@ app.controller('taskCreation', function ($scope, $http, CommonService, $modal, $
         //CommonService.getNotificationTypeList(data, status, heathers, config);
         //CommonService.getTypeReasonList(data, status, heathers, config);
         CommonService.loadInstallationData($scope.installationId,data, status, heathers, config);
+        if ($scope.installationId!=null && $scope.installationId!=undefined && $scope.installationId!=""){
+        	$scope.tarea={};
+        	$scope.tarea.numeroInstalacion=$scope.installationId;
+        	$scope.getIntallation();
+        }
         //$log.debug("Charging page, combo lists");
         $scope.vm.appReady=true;
     };
-
+    
     /**
      * Hace el set del installation id en el campo del scope y lanza la búsqueda de la instalación.
      */

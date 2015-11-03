@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<div class="visoTareaContainer" ng-controller="taskCreation" ng-init="installationId='${installationId}';ccUserId='${ccUserId}';init()" >
+<div class="visoTareaContainer" ng-controller="taskCreation" ng-init="installationId='${installationId}';ccUserId='${ccUserId}';desktopDepartment='${agent.desktopDepartment}';deskDepartment='${deskDepartment}';init()" >
     <div class="row">
         <jsp:include page="bloques/tabs1.jsp"/>
     </div>

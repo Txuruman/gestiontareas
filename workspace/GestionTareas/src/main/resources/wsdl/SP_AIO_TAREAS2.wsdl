@@ -1,3 +1,4 @@
+
 <wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:ns0="http://ws.wso2.org/dataservice" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://ws.wso2.org/dataservice">
     <wsdl:documentation/>
     <wsdl:types>
@@ -11,6 +12,32 @@
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
+            <xs:element name="getMotivoCierreFiltrado">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="matricula" nillable="true" type="xs:string"/>
+                        <xs:element name="tipo1" nillable="true" type="xs:string"/>
+                        <xs:element name="motivo1" nillable="true" type="xs:string"/>
+                        <xs:element name="tipo2" nillable="true" type="xs:string"/>
+                        <xs:element name="motivo2" nillable="true" type="xs:string"/>
+                        <xs:element name="tipo3" nillable="true" type="xs:string"/>
+                        <xs:element name="motivo3" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getMotivoCierreFiltradoResults" type="ns0:getMotivoCierreFiltradoResults"/>
+            <xs:complexType name="getMotivoCierreFiltradoResults">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="getMotivoCierreFiltradoResult" type="ns0:getMotivoCierreFiltradoResult"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getMotivoCierreFiltradoResult">
+                <xs:sequence>
+                    <xs:element name="idMotivoCierre" nillable="true" type="xs:string"/>
+                    <xs:element name="dsMotivoCierre" nillable="true" type="xs:string"/>
+                    <xs:element name="getMnto" nillable="true" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
             <xs:element name="getTipoAviso">
                 <xs:complexType>
                     <xs:sequence/>
@@ -203,7 +230,7 @@
                     <xs:element ref="ns0:inet_check_ins_no_results"/>
                 </xs:sequence>
             </xs:complexType>
-            <xs:element name="getInstallationDataInput">
+            <xs:element name="getInstallationData">
                 <xs:complexType>
                     <xs:sequence>
                         <xs:element name="s_ins" nillable="true" type="xs:int"/>
@@ -214,10 +241,7 @@
             <xs:element name="getInsNoFromEmail">
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element name="email1" nillable="true" type="xs:string"/>
-                        <xs:element name="email2" nillable="true" type="xs:string"/>
-                        <xs:element name="email3" nillable="true" type="xs:string"/>
-                        <xs:element name="email4" nillable="true" type="xs:string"/>
+                        <xs:element name="email" nillable="true" type="xs:string"/>
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
@@ -387,6 +411,12 @@
     <wsdl:message name="closeIncBTNDIYResponse">
         <wsdl:part name="parameters" element="ns0:REQUEST_STATUS"/>
     </wsdl:message>
+    <wsdl:message name="getMotivoCierreFiltradoRequest">
+        <wsdl:part name="parameters" element="ns0:getMotivoCierreFiltrado"/>
+    </wsdl:message>
+    <wsdl:message name="getMotivoCierreFiltradoResponse">
+        <wsdl:part name="parameters" element="ns0:getMotivoCierreFiltradoResults"/>
+    </wsdl:message>
     <wsdl:message name="getAvisobyIdRequest">
         <wsdl:part name="parameters" element="ns0:getAvisobyId"/>
     </wsdl:message>
@@ -442,7 +472,7 @@
         <wsdl:part name="parameters" element="ns0:setAvisoNoCargado"/>
     </wsdl:message>
     <wsdl:message name="getInstallationDataRequest">
-        <wsdl:part name="parameters" element="ns0:getInstallationDataInput"/>
+        <wsdl:part name="parameters" element="ns0:getInstallationData"/>
     </wsdl:message>
     <wsdl:message name="getInstallationDataResponse">
         <wsdl:part name="parameters" element="ns0:getInstallationDataResults"/>
@@ -495,6 +525,12 @@
             <wsdl:input message="ns0:closeIncBTNDIYRequest" wsaw:Action="urn:closeIncBTNDIY"/>
             <wsdl:output message="ns0:closeIncBTNDIYResponse" wsaw:Action="urn:closeIncBTNDIYResponse"/>
             <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:closeIncBTNDIYDataServiceFault"/>
+        </wsdl:operation>
+        <wsdl:operation name="getMotivoCierreFiltrado">
+            <wsdl:documentation>Listado de Motivos de cierre filtrados por los tipos y motivos pasados por parametros                                                                                                            &#xd;                                    </wsdl:documentation>
+            <wsdl:input message="ns0:getMotivoCierreFiltradoRequest" wsaw:Action="urn:getMotivoCierreFiltrado"/>
+            <wsdl:output message="ns0:getMotivoCierreFiltradoResponse" wsaw:Action="urn:getMotivoCierreFiltradoResponse"/>
+            <wsdl:fault message="ns0:DataServiceFault" name="DataServiceFault" wsaw:Action="urn:getMotivoCierreFiltradoDataServiceFault"/>
         </wsdl:operation>
         <wsdl:operation name="getAvisobyId">
             <wsdl:documentation/>
@@ -623,6 +659,18 @@
         </wsdl:operation>
         <wsdl:operation name="closeIncBTNDIY">
             <soap:operation soapAction="urn:closeIncBTNDIY" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="getMotivoCierreFiltrado">
+            <soap:operation soapAction="urn:getMotivoCierreFiltrado" style="document"/>
             <wsdl:input>
                 <soap:body use="literal"/>
             </wsdl:input>
@@ -852,6 +900,18 @@
                 <soap12:fault use="literal" name="DataServiceFault"/>
             </wsdl:fault>
         </wsdl:operation>
+        <wsdl:operation name="getMotivoCierreFiltrado">
+            <soap12:operation soapAction="urn:getMotivoCierreFiltrado" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="DataServiceFault">
+                <soap12:fault use="literal" name="DataServiceFault"/>
+            </wsdl:fault>
+        </wsdl:operation>
         <wsdl:operation name="getAvisobyId">
             <soap12:operation soapAction="urn:getAvisobyId" style="document"/>
             <wsdl:input>
@@ -1052,6 +1112,15 @@
         </wsdl:operation>
         <wsdl:operation name="closeIncBTNDIY">
             <http:operation location="closeIncBTNDIY"/>
+            <wsdl:input>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="text/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getMotivoCierreFiltrado">
+            <http:operation location="getMotivoCierreFiltrado"/>
             <wsdl:input>
                 <mime:content type="text/xml" part="parameters"/>
             </wsdl:input>

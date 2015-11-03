@@ -14,7 +14,11 @@ public class DiscardNotificationTaskResponse extends BaseResponse {
 
    protected DiscardNotificationTaskResult result;
 
-    public DiscardNotificationTaskResult getResult() {
+    public DiscardNotificationTaskResponse() {
+    	super();
+    }
+
+	public DiscardNotificationTaskResult getResult() {
         return result;
     }
 

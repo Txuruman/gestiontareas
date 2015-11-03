@@ -238,3 +238,7 @@ hr{
 .paddingLeft10{
 	padding-left:10px !important;
 }
+
+.combowidth{
+	width:400px !important;
+}

@@ -15,7 +15,7 @@
 
                 <!-- Crear Mantenimiento -->
                 <app:inputButtonNG value="boton.CrearMantenimiento" type="submit" button_type="default" ng_click="botonMantenimiento()" fluid_wrapper="true"
-                                   ng_disabled="(tarea===undefined || tarea===null || installationData==null || installationData===undefined) ? true : false"/>
+                                   ng_disabled="(tarea===undefined || tarea===null || installationData==null || installationData===undefined || tarea.closing!='MANTEN') ? true : false"/>
 
                 <!-- Aplazar, abre dialogo modal si ha cambiado algo -->
                 <app:inputButtonNG value="boton.Aplazar" button_type="default" ng_click="mostrarAvisosAplazar()" fluid_wrapper="true"
@@ -43,6 +43,9 @@
 
 <!-- Modal de alerta de descartar -->
 <app:alertModal titulo="alertmodal.titulo" msg1="alertmodal.msg1" button="alertmodal.return"/>
+
+<!-- Modal de alerta de la tarea desde buscador y en retrieved -->
+<app:alertModalTareaRetrieved titulo="alertmodaltarearetrieved.titulo" msg1="alertmodaltarearetrieved.msg1" button="alertmodaltarearetrieved.return"/>
 
 
 <!-- Ejemplos Ventana Modal Aplazar

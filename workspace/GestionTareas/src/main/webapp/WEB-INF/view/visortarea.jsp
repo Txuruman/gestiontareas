@@ -28,9 +28,10 @@
         </c:forEach>
 			debug : "0"
         };
+        var listaIE8;
 </script>
 
-<div class="visoTareaContainer" ng-init="tareaId='${tareaId}';callingList='${callingList}';outContactInfo='${outContactInfo}';outCampaignName='${outCampaignName}';outClName='${outClName}';outRecordHandle='${outRecordHandle}';outAgentPlace='${outAgentPlace}';fromSearch='${params.from_search}';">
+<div class="visoTareaContainer" ng-init="tareaId='${tareaId}';callingList='${callingList}';outContactInfo='${outContactInfo}';outCampaignName='${outCampaignName}';outClName='${outClName}';outRecordHandle='${outRecordHandle}';outAgentPlace='${outAgentPlace}';fromSearch='${params.from_search}';desktopDepartment='${agent.desktopDepartment}';">
 
     <app:messages/>
 

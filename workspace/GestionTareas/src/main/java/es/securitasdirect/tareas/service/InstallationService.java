@@ -1,16 +1,27 @@
 package es.securitasdirect.tareas.service;
 
-import es.securitasdirect.tareas.exceptions.BusinessException;
-import es.securitasdirect.tareas.exceptions.FrameworkException;
-import es.securitasdirect.tareas.model.InstallationData;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.wso2.ws.dataservice.*;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
-import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.wso2.ws.dataservice.DataServiceFault;
+import org.wso2.ws.dataservice.FSMDataServiceLightPortType;
+import org.wso2.ws.dataservice.GetInstallationDataResults;
+import org.wso2.ws.dataservice.GetInstallationResult;
+import org.wso2.ws.dataservice.GetMemberResult;
+import org.wso2.ws.dataservice.InstallationMember;
+import org.wso2.ws.dataservice.Installationfulldataresult;
+import org.wso2.ws.dataservice.Mainstallationdataresult;
+import org.wso2.ws.dataservice.SPAIOTAREAS2PortType;
+import org.wso2.ws.dataservice.SPInstallationMonDataPortType;
+
+import es.securitasdirect.tareas.exceptions.BusinessException;
+import es.securitasdirect.tareas.exceptions.FrameworkException;
+import es.securitasdirect.tareas.model.InstallationData;
 
 /**
  *
@@ -44,16 +55,16 @@ public class InstallationService {
         GetInstallationDataResults installationDataWS2 = null;
         InstallationMember installationDataWS3 = null;
         Installationfulldataresult installationDataWS4 = null;
-
+        
         try {
             List<Mainstallationdataresult> installationDataWS1List = spInstallationMonData.getInstallationData(installationNumber);
             if (installationDataWS1List != null && !installationDataWS1List.isEmpty()) {
                 installationDataWS1 = installationDataWS1List.get(0);
                 // Obtener la versión del panel
-                GetInstallationDataInput getInstallationDataInput = new GetInstallationDataInput();
-                getInstallationDataInput.setSIns(installationDataWS1.getSIns().intValue());
-                getInstallationDataInput.setSCtr(installationDataWS1.getSIns().intValue()); //Como segundo parametro metemos también el número de instalación , parece que con eso devuelve datos de número de contrato
-                installationDataWS2 = spAioTareas2.getInstallationData(getInstallationDataInput);
+//                GetInstallationDataInput getInstallationDataInput = new GetInstallationDataInput();
+//                getInstallationDataInput.setSIns(installationDataWS1.getSIns().intValue());
+//                getInstallationDataInput.setSCtr(installationDataWS1.getSIns().intValue()); //Como segundo parametro metemos también el número de instalación , parece que con eso devuelve datos de número de contrato
+//                installationDataWS2 = spAioTareas2.getInstallationData(getInstallationDataInput);
             } else {
                 LOGGER.error("Can't find installation in SPAioTareas2");
                 throw new BusinessException(BusinessException.ErrorCode.ERROR_FIND_INSTALLATION);

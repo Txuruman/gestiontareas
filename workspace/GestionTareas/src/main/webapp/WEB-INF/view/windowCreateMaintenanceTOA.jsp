@@ -64,8 +64,8 @@
 </SCRIPT>
 
 <FORM method="POST" action="${externalCreateAppointmentUrl}" id='frmTOA' name='frmTOA' runat='server'>
-    <INPUT type='text' name='data' value='' style="width: 1600px; margin:5px; padding: 3px; font-weight: bold">
-    <input type="submit"/>
+    <INPUT type='hidden' name='data' value='' style="width: 1600px; margin:5px; padding: 3px; font-weight: bold">
+    <!-- <input type="submit"/> -->
 </FORM>
 <!--
 <br/>----------------<br/>
@@ -89,7 +89,7 @@ SessionToken: '${params.SessionToken}'<br/>
 
 <SCRIPT language='javascript'>
     //Descomentar para que se haga el envio automático del formulario
-    setTimeout(function(){document.forms[0].submit();},6000000);//Hay que hacerlo con timeout para que funciones el POST</SCRIPT>
+    setTimeout(function(){document.forms[0].submit();},0);//Hay que hacerlo con timeout para que funciones el POST</SCRIPT>
 </body>
 
 </html>

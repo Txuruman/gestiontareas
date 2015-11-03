@@ -106,7 +106,7 @@ public class AvisoServiceTest {
         Integer naviso = tarea.getIdAviso();
         String gblidusr = agent.getIdAgent();
         Date fecha = new Date();
-        //avisoService.delayTicket(naviso, gblidusr, fecha);
+//        avisoService.delayTicket(naviso, gblidusr, fecha);
 
     }
 
